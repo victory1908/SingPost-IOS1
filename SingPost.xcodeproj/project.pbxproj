@@ -19,6 +19,11 @@
 		521B173C17F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
 		521B174417F1633000FEB6FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 521B174217F1633000FEB6FD /* InfoPlist.strings */; };
 		521B174617F1633000FEB6FD /* SingPostTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B174517F1633000FEB6FD /* SingPostTests.m */; };
+		521B175217F1658300FEB6FD /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175117F1658300FEB6FD /* LandingPageViewController.m */; };
+		521B175517F1678100FEB6FD /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175417F1678100FEB6FD /* RootViewController.m */; };
+		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
+		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
+		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		521B171D17F1633000FEB6FD /* SingPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B172017F1633000FEB6FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		521B172217F1633000FEB6FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +55,14 @@
 		521B174117F1633000FEB6FD /* SingPostTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPostTests-Info.plist"; sourceTree = "<group>"; };
 		521B174317F1633000FEB6FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		521B174517F1633000FEB6FD /* SingPostTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingPostTests.m; sourceTree = "<group>"; };
+		521B175017F1658300FEB6FD /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
+		521B175117F1658300FEB6FD /* LandingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingPageViewController.m; sourceTree = "<group>"; };
+		521B175317F1678100FEB6FD /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		521B175417F1678100FEB6FD /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		521B175717F1961100FEB6FD /* SidebarMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuViewController.h; sourceTree = "<group>"; };
+		521B175817F1961100FEB6FD /* SidebarMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuViewController.m; sourceTree = "<group>"; };
+		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
+		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +73,7 @@
 				521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */,
 				521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */,
 				521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */,
+				9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +97,7 @@
 				521B173F17F1633000FEB6FD /* SingPostTests */,
 				521B171F17F1633000FEB6FD /* Frameworks */,
 				521B171E17F1633000FEB6FD /* Products */,
+				2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +117,7 @@
 				521B172217F1633000FEB6FD /* CoreGraphics.framework */,
 				521B172417F1633000FEB6FD /* UIKit.framework */,
 				521B173917F1633000FEB6FD /* XCTest.framework */,
+				24E5076D0450478DBB8D331B /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +125,8 @@
 		521B172617F1633000FEB6FD /* SingPost */ = {
 			isa = PBXGroup;
 			children = (
+				524CEA3B17F282B800E0EAC3 /* Categories */,
+				521B174F17F1653E00FEB6FD /* ViewControllers */,
 				521B172F17F1633000FEB6FD /* AppDelegate.h */,
 				521B173017F1633000FEB6FD /* AppDelegate.m */,
 				521B173217F1633000FEB6FD /* Images.xcassets */,
@@ -144,6 +164,37 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		521B174F17F1653E00FEB6FD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				521B175617F195F200FEB6FD /* SidebarMenu */,
+				521B175317F1678100FEB6FD /* RootViewController.h */,
+				521B175417F1678100FEB6FD /* RootViewController.m */,
+				521B175017F1658300FEB6FD /* LandingPageViewController.h */,
+				521B175117F1658300FEB6FD /* LandingPageViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		521B175617F195F200FEB6FD /* SidebarMenu */ = {
+			isa = PBXGroup;
+			children = (
+				521B175717F1961100FEB6FD /* SidebarMenuViewController.h */,
+				521B175817F1961100FEB6FD /* SidebarMenuViewController.m */,
+			);
+			name = SidebarMenu;
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		524CEA3B17F282B800E0EAC3 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				524CEA3C17F2830400E0EAC3 /* UIView+Position.h */,
+				524CEA3D17F2830400E0EAC3 /* UIView+Position.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,9 +202,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 521B174917F1633000FEB6FD /* Build configuration list for PBXNativeTarget "SingPost" */;
 			buildPhases = (
+				C7D99BC6A87044C7A12236AD /* Check Pods Manifest.lock */,
 				521B171917F1633000FEB6FD /* Sources */,
 				521B171A17F1633000FEB6FD /* Frameworks */,
 				521B171B17F1633000FEB6FD /* Resources */,
+				C1AFE0B1476C4E51948DC15C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,13 +287,50 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C1AFE0B1476C4E51948DC15C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7D99BC6A87044C7A12236AD /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		521B171917F1633000FEB6FD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
+				521B175217F1658300FEB6FD /* LandingPageViewController.m in Sources */,
+				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
+				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
+				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,12 +448,14 @@
 		};
 		521B174A17F1633000FEB6FD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -371,12 +463,14 @@
 		};
 		521B174B17F1633000FEB6FD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -443,6 +537,7 @@
 				521B174B17F1633000FEB6FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		521B174C17F1633000FEB6FD /* Build configuration list for PBXNativeTarget "SingPostTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +546,7 @@
 				521B174E17F1633000FEB6FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
