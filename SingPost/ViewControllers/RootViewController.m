@@ -10,6 +10,8 @@
 #import "SidebarMenuViewController.h"
 #import "UIView+Position.h"
 
+#import "LandingPageViewController.h"
+
 @interface RootViewController ()
 
 @end
@@ -20,9 +22,10 @@
 {
     SidebarMenuViewController *sideBarMenuViewController;
     BOOL isSideBarMenuOpened;
-    UIButton *clickMeButton;
-    UIView *containerView;
+    UIView *appContentView, *activeViewControllerView;
 }
+
+#pragma mark - View lifecycle
 
 - (id)initWithContainerViewControllers:(NSArray *)inContainerViewControllers
 {
@@ -37,25 +40,32 @@
 {
     [super loadView];
     
-    [self.view setBackgroundColor:[UIColor purpleColor]];
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    containerView = [[UIView alloc] initWithFrame:appFrame];
-    [containerView setWidth:containerView.bounds.size.width + SIDEBAR_WIDTH];
-    [self.view addSubview:containerView];
+    appContentView = [[UIView alloc] initWithFrame:CGRectMake(0, appFrame.origin.y, appFrame.size.width + SIDEBAR_WIDTH, appFrame.size.height)];
+    [self.view addSubview:appContentView];
+    
+    activeViewControllerView = [[UIView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH, 0, appFrame.size.width, appFrame.size.height)];
+    [activeViewControllerView setBackgroundColor:[UIColor orangeColor]];
+    [appContentView addSubview:activeViewControllerView];
+    
+    [self loadSideBar];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    clickMeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [clickMeButton setTitle:@"click for side bar" forState:UIControlStateNormal];
-    [clickMeButton addTarget:self action:@selector(toggleSideBarClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [clickMeButton setBackgroundColor:[UIColor darkGrayColor]];
-    [clickMeButton setFrame:CGRectMake(SIDEBAR_WIDTH, 40, 250, 100)];
-    [containerView addSubview:clickMeButton];
+    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:landingPageViewController];
+    [activeViewControllerView addSubview:landingPageViewController.view];
+    [landingPageViewController didMoveToParentViewController:self];
     
-    [self loadSideBar];
+//    UIButton *clickMeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [clickMeButton setTitle:@"click for side bar" forState:UIControlStateNormal];
+//    [clickMeButton addTarget:self action:@selector(toggleSideBarClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [clickMeButton setBackgroundColor:[UIColor darkGrayColor]];
+//    [clickMeButton setFrame:CGRectMake(0, 40, 250, 100)];
+//    [activeViewControllerView addSubview:clickMeButton];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -64,13 +74,14 @@
 }
 
 #pragma mark - UI
+
 - (void)loadSideBar
 {
     sideBarMenuViewController = [[SidebarMenuViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:sideBarMenuViewController];
     
-    sideBarMenuViewController.view.frame = CGRectMake(SIDEBAR_WIDTH / 2.0f, 0, SIDEBAR_WIDTH, containerView.bounds.size.height);
-    [containerView addSubview:sideBarMenuViewController.view];
+    sideBarMenuViewController.view.frame = CGRectMake(SIDEBAR_WIDTH / 2.0f, 0, SIDEBAR_WIDTH, appContentView.bounds.size.height);
+    [appContentView addSubview:sideBarMenuViewController.view];
     [sideBarMenuViewController didMoveToParentViewController:self];
     
     [self toggleSideBarVisible:NO withAnimation:NO];
@@ -80,11 +91,16 @@
 
 - (IBAction)toggleSideBarClicked:(id)sender
 {
+    [self toggleSideBarVisiblity];
+}
+
+#pragma mark - Side bar
+
+- (void)toggleSideBarVisiblity
+{
     isSideBarMenuOpened = !isSideBarMenuOpened;
     [self toggleSideBarVisible:isSideBarMenuOpened withAnimation:YES];
 }
-
-#pragma mark - Animations
 
 - (void)toggleSideBarVisible:(BOOL)shouldShowSideBar withAnimation:(BOOL)shouldAnimate
 {
@@ -113,7 +129,7 @@
         [sideBarMenuViewController.view.layer setTransform:transform];
 
     [UIView animateWithDuration:animationDuration animations:^{
-        [containerView setX:shouldShowSideBar ? 0.0f : -SIDEBAR_WIDTH];
+        [appContentView setX:shouldShowSideBar ? 0.0f : -SIDEBAR_WIDTH];
     }];
     
     [CATransaction commit];

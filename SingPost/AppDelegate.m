@@ -8,8 +8,16 @@
 
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import <Reachability.h>
 
 @implementation AppDelegate
+{
+    RootViewController *rootViewController;
+}
+
++ (AppDelegate *)sharedAppDelegate {
+	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -18,7 +26,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    RootViewController *rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:rootViewController];
     
     return YES;
@@ -49,6 +57,26 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Utilities
+
+- (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection
+{
+    BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
+    if (!hasInternetConnection && warnIfNoConnection) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No/Slow Internet Connection" message:@"Your device is not connected to the internet, or may have slow access." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+        [alertView show];
+    }
+    
+    return hasInternetConnection;
+}
+
+#pragma mark - Actions
+
+- (void)toggleSideBarVisiblity
+{
+    [rootViewController toggleSideBarVisiblity];
 }
 
 @end

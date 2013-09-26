@@ -12,4 +12,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (AppDelegate *)sharedAppDelegate;
+- (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection;
+- (void)toggleSideBarVisiblity;
+
 @end

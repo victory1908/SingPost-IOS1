@@ -14,4 +14,6 @@ typedef double (^KeyframeParametricBlock)(double);
 
 @property (nonatomic, readonly) NSArray *containerViewControllers;
 
+- (void)toggleSideBarVisiblity;
+
 @end
