@@ -17,5 +17,13 @@
     
 }
 
+- (void)loadView
+{
+    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    [contentView setBackgroundColor:[UIColor greenColor]];
+    
+    self.view = contentView;
+}
+
 
 @end

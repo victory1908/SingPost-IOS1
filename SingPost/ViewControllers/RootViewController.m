@@ -89,8 +89,7 @@
 - (void)toggleSideBarVisible:(BOOL)shouldShowSideBar withAnimation:(BOOL)shouldAnimate
 {
     double animationDuration = shouldAnimate ? 0.5f : 0.0f;
-    double angle = -M_PI_2;
-    
+
     [CATransaction begin];
     [CATransaction setValue:@(animationDuration) forKey:kCATransactionAnimationDuration];
     
@@ -98,7 +97,7 @@
     
     if (!shouldShowSideBar) {
         transform.m34 = -0.001f;
-        transform = CATransform3DRotate(transform, angle, 0, 1, 0);
+        transform = CATransform3DRotate(transform, -M_PI_2, 0, 1, 0);
     }
     
     CABasicAnimation* rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
