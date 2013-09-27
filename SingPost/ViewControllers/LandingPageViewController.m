@@ -8,12 +8,51 @@
 
 #import "LandingPageViewController.h"
 #import "AppDelegate.h"
+#import "UIFont+SingPost.h"
+#import "UIColor+SingPost.h"
+
+@interface TrackingNumberTextField : UITextField
+
+@end
+
+@implementation TrackingNumberTextField
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame])) {
+        self.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+        self.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.backgroundColor = [UIColor clearColor];
+        self.textColor = [UIColor SingPostBlueColor];
+        self.font = [UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
+    }
+    
+    return self;
+}
+
+- (void)drawPlaceholderInRect:(CGRect)rect {
+    [[UIColor SingPostBlueColor] setFill];
+    [[self placeholder] drawInRect:CGRectInset(rect, 0, 7) withFont:[UIFont SingPostLightItalicFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+}
+
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 5, 6);
+}
+
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 5, 6);
+}
+
+@end
 
 @interface LandingPageViewController ()
 
 @end
 
 @implementation LandingPageViewController
+{
+    TrackingNumberTextField *trackingNumberTextField;
+}
 
 #pragma mark - View lifecycle
 
@@ -23,12 +62,17 @@
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"test"]];
+    [envelopBackgroundImageView setUserInteractionEnabled:YES];
     [envelopBackgroundImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 768, 690) : (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248))];
     [contentView addSubview:envelopBackgroundImageView];
     
     UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox"]];
     [trackingTextBoxBackgroundImageView setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, 80, 290, 47) : CGRectMake(15, 70, 290, 30)];
     [contentView addSubview:trackingTextBoxBackgroundImageView];
+    
+    trackingNumberTextField = [[TrackingNumberTextField alloc] initWithFrame:CGRectMake(20, 80, 240, 47)];
+    [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+    [contentView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
@@ -115,8 +159,20 @@
     [backgroundMore setFrame:CGRectMake(0, contentView.bounds.size.height - 46, contentView.bounds.size.width, 26)];
     [contentView addSubview:backgroundMore];
     
+    //gesture recognizers
+    UITapGestureRecognizer *dismissTrackingNumberKeyboardTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTrackingNumberKeyboard:)];
+    [envelopBackgroundImageView addGestureRecognizer:dismissTrackingNumberKeyboardTapRecognizer];
+    
     self.view = contentView;
 }
+                                                                          
+#pragma mark - Gesture recognizers
+                                                                          
+- (IBAction)dismissTrackingNumberKeyboard:(id)sender
+{
+    [trackingNumberTextField resignFirstResponder];
+}
+
 
 #pragma mark - IBActions
 

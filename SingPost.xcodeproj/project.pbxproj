@@ -22,6 +22,10 @@
 		521B175217F1658300FEB6FD /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175117F1658300FEB6FD /* LandingPageViewController.m */; };
 		521B175517F1678100FEB6FD /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175417F1678100FEB6FD /* RootViewController.m */; };
 		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
+		52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F8817F5B20600610A86 /* UIFont+SingPost.m */; };
+		52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */; };
+		52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */; };
+		52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F9217F5B79100610A86 /* UIColor+SingPost.m */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -49,7 +53,7 @@
 		521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SingPost-Prefix.pch"; sourceTree = "<group>"; };
 		521B172F17F1633000FEB6FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		521B173017F1633000FEB6FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		521B173217F1633000FEB6FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		521B173217F1633000FEB6FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../SingPost/Images.xcassets; sourceTree = "<group>"; };
 		521B173817F1633000FEB6FD /* SingPostTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingPostTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B173917F1633000FEB6FD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		521B174117F1633000FEB6FD /* SingPostTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPostTests-Info.plist"; sourceTree = "<group>"; };
@@ -61,6 +65,12 @@
 		521B175417F1678100FEB6FD /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		521B175717F1961100FEB6FD /* SidebarMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuViewController.h; sourceTree = "<group>"; };
 		521B175817F1961100FEB6FD /* SidebarMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuViewController.m; sourceTree = "<group>"; };
+		52305F8717F5B20600610A86 /* UIFont+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SingPost.h"; sourceTree = "<group>"; };
+		52305F8817F5B20600610A86 /* UIFont+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SingPost.m"; sourceTree = "<group>"; };
+		52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		52305F9117F5B79100610A86 /* UIColor+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SingPost.h"; sourceTree = "<group>"; };
+		52305F9217F5B79100610A86 /* UIColor+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SingPost.m"; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +103,7 @@
 		521B171417F1633000FEB6FD = {
 			isa = PBXGroup;
 			children = (
+				52305F8B17F5B49F00610A86 /* Resources */,
 				521B172617F1633000FEB6FD /* SingPost */,
 				521B173F17F1633000FEB6FD /* SingPostTests */,
 				521B171F17F1633000FEB6FD /* Frameworks */,
@@ -125,11 +136,11 @@
 		521B172617F1633000FEB6FD /* SingPost */ = {
 			isa = PBXGroup;
 			children = (
+				52305F8617F5B1DC00610A86 /* Application */,
 				524CEA3B17F282B800E0EAC3 /* Categories */,
 				521B174F17F1653E00FEB6FD /* ViewControllers */,
 				521B172F17F1633000FEB6FD /* AppDelegate.h */,
 				521B173017F1633000FEB6FD /* AppDelegate.m */,
-				521B173217F1633000FEB6FD /* Images.xcassets */,
 				521B172717F1633000FEB6FD /* Supporting Files */,
 			);
 			path = SingPost;
@@ -184,6 +195,35 @@
 			);
 			name = SidebarMenu;
 			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		52305F8617F5B1DC00610A86 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				52305F9117F5B79100610A86 /* UIColor+SingPost.h */,
+				52305F9217F5B79100610A86 /* UIColor+SingPost.m */,
+				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
+				52305F8817F5B20600610A86 /* UIFont+SingPost.m */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		52305F8B17F5B49F00610A86 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				52305F8C17F5B4AF00610A86 /* Fonts */,
+				521B173217F1633000FEB6FD /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		52305F8C17F5B4AF00610A86 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */,
+				52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
@@ -274,6 +314,8 @@
 			files = (
 				521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
+				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
+				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +370,8 @@
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				521B175217F1658300FEB6FD /* LandingPageViewController.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
+				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
+				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
