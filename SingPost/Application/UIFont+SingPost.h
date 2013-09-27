@@ -23,6 +23,7 @@ extern NSString *const kFontLightKey;
 + (NSString *)fontNameForFontKey:(NSString *)key style:(NSString *)style;
 
 + (UIFont *)SingPostRegularFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;
++ (UIFont *)SingPostLightFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;
 + (UIFont *)SingPostLightItalicFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;
 
 @end

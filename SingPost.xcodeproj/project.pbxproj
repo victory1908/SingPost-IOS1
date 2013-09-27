@@ -26,6 +26,9 @@
 		52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */; };
 		52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */; };
 		52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F9217F5B79100610A86 /* UIColor+SingPost.m */; };
+		52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */; };
+		52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */; };
+		52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -71,6 +74,10 @@
 		52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		52305F9117F5B79100610A86 /* UIColor+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SingPost.h"; sourceTree = "<group>"; };
 		52305F9217F5B79100610A86 /* UIColor+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SingPost.m"; sourceTree = "<group>"; };
+		52305F9517F5C1CF00610A86 /* SidebarMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuTableViewCell.h; sourceTree = "<group>"; };
+		52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuTableViewCell.m; sourceTree = "<group>"; };
+		52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		52305F9D17F5D44800610A86 /* SidebarMenus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SidebarMenus.plist; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +197,7 @@
 		521B175617F195F200FEB6FD /* SidebarMenu */ = {
 			isa = PBXGroup;
 			children = (
+				52305F9417F5C17100610A86 /* TableViewCells */,
 				521B175717F1961100FEB6FD /* SidebarMenuViewController.h */,
 				521B175817F1961100FEB6FD /* SidebarMenuViewController.m */,
 			);
@@ -220,10 +228,21 @@
 		52305F8C17F5B4AF00610A86 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */,
 				52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */,
 				52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		52305F9417F5C17100610A86 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				52305F9D17F5D44800610A86 /* SidebarMenus.plist */,
+				52305F9517F5C1CF00610A86 /* SidebarMenuTableViewCell.h */,
+				52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
@@ -314,7 +333,9 @@
 			files = (
 				521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
+				52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */,
 				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
+				52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */,
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +395,7 @@
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
+				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,6 +524,7 @@
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -518,6 +541,7 @@
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

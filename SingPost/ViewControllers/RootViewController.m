@@ -16,7 +16,7 @@
 
 @end
 
-#define SIDEBAR_WIDTH (INTERFACE_IS_IPAD ? 300.0f : 150.0f)
+#define SIDEBAR_WIDTH (INTERFACE_IS_IPAD ? 300.0f : 200.0f)
 
 @implementation RootViewController
 {
@@ -40,12 +40,12 @@
 {
     [super loadView];
     
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    CGRect appFrame = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ?  [UIScreen mainScreen].applicationFrame : [[UIScreen mainScreen] bounds];
     appContentView = [[UIView alloc] initWithFrame:CGRectMake(0, appFrame.origin.y, appFrame.size.width + SIDEBAR_WIDTH, appFrame.size.height)];
     [self.view addSubview:appContentView];
     
     activeViewControllerView = [[UIView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH, 0, appFrame.size.width, appFrame.size.height)];
-    [activeViewControllerView setBackgroundColor:[UIColor orangeColor]];
+    [activeViewControllerView setBackgroundColor:[UIColor whiteColor]];
     [appContentView addSubview:activeViewControllerView];
     
     [self loadSideBar];
@@ -59,13 +59,6 @@
     [self addChildViewController:landingPageViewController];
     [activeViewControllerView addSubview:landingPageViewController.view];
     [landingPageViewController didMoveToParentViewController:self];
-    
-//    UIButton *clickMeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    [clickMeButton setTitle:@"click for side bar" forState:UIControlStateNormal];
-//    [clickMeButton addTarget:self action:@selector(toggleSideBarClicked:) forControlEvents:UIControlEventTouchUpInside];
-//    [clickMeButton setBackgroundColor:[UIColor darkGrayColor]];
-//    [clickMeButton setFrame:CGRectMake(0, 40, 250, 100)];
-//    [activeViewControllerView addSubview:clickMeButton];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -104,7 +97,7 @@
 
 - (void)toggleSideBarVisible:(BOOL)shouldShowSideBar withAnimation:(BOOL)shouldAnimate
 {
-    double animationDuration = shouldAnimate ? 0.5f : 0.0f;
+    double animationDuration = shouldAnimate ? 0.5f : 0.00001f;
 
     [CATransaction begin];
     [CATransaction setValue:@(animationDuration) forKey:kCATransactionAnimationDuration];
@@ -122,11 +115,7 @@
     rotationAnimation.fillMode = kCAFillModeForwards;
     
     sideBarMenuViewController.view.layer.anchorPoint = CGPointMake(1.0f, 0.5f);
-    
-    if (shouldAnimate)
-        [sideBarMenuViewController.view.layer addAnimation:rotationAnimation forKey:shouldShowSideBar ? @"rotationAnimation" : @"transform"];
-    else
-        [sideBarMenuViewController.view.layer setTransform:transform];
+    [sideBarMenuViewController.view.layer addAnimation:rotationAnimation forKey:shouldShowSideBar ? @"rotationAnimation" : @"transform"];
 
     [UIView animateWithDuration:animationDuration animations:^{
         [appContentView setX:shouldShowSideBar ? 0.0f : -SIDEBAR_WIDTH];

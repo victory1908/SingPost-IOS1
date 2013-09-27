@@ -24,7 +24,7 @@
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = [UIColor clearColor];
         self.textColor = [UIColor SingPostBlueColor];
-        self.font = [UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
+        self.font = [UIFont SingPostRegularFontOfSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f fontKey:kSingPostFontOpenSans];
     }
     
     return self;
@@ -32,20 +32,21 @@
 
 - (void)drawPlaceholderInRect:(CGRect)rect {
     [[UIColor SingPostBlueColor] setFill];
-    [[self placeholder] drawInRect:CGRectInset(rect, 0, 7) withFont:[UIFont SingPostLightItalicFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    [[self placeholder] drawInRect:INTERFACE_IS_4INCHSCREEN ? CGRectInset(rect, 0, 0) : CGRectInset(rect, 0, 0)
+                          withFont:[UIFont SingPostLightItalicFontOfSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f fontKey:kSingPostFontOpenSans]];
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 5, 6);
+    return INTERFACE_IS_4INCHSCREEN ? CGRectInset(bounds, 5, 12) : CGRectInset(bounds, 5, 6);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 5, 6);
+    return INTERFACE_IS_4INCHSCREEN ? CGRectInset(bounds, 5, 12) : CGRectInset(bounds, 5, 6);
 }
 
 @end
 
-@interface LandingPageViewController ()
+@interface LandingPageViewController () <UITextFieldDelegate>
 
 @end
 
@@ -61,7 +62,7 @@
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
-    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"test"]];
+    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"35iphone_background_envelope"]];
     [envelopBackgroundImageView setUserInteractionEnabled:YES];
     [envelopBackgroundImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 768, 690) : (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248))];
     [contentView addSubview:envelopBackgroundImageView];
@@ -70,13 +71,15 @@
     [trackingTextBoxBackgroundImageView setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, 80, 290, 47) : CGRectMake(15, 70, 290, 30)];
     [contentView addSubview:trackingTextBoxBackgroundImageView];
     
-    trackingNumberTextField = [[TrackingNumberTextField alloc] initWithFrame:CGRectMake(20, 80, 240, 47)];
+    trackingNumberTextField = [[TrackingNumberTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 240, 47) : CGRectMake(20, 70, 245, 30)];
+    [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+    [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:CGRectMake(265, 87, 35, 35)];
+    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(265, 87, 35, 35) : CGRectMake(273, 71, 29, 29)];
     [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
@@ -164,6 +167,14 @@
     [envelopBackgroundImageView addGestureRecognizer:dismissTrackingNumberKeyboardTapRecognizer];
     
     self.view = contentView;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
                                                                           
 #pragma mark - Gesture recognizers

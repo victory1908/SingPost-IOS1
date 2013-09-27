@@ -7,23 +7,156 @@
 //
 
 #import "SidebarMenuViewController.h"
+#import "UIFont+SingPost.h"
+#import "UIColor+SingPost.h"
+#import "SidebarMenuTableViewCell.h"
 
-@interface SidebarMenuViewController ()
+@interface SidebarTrackingNumberTextField : UITextField
+
+@end
+
+@implementation SidebarTrackingNumberTextField
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame])) {
+        self.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+        self.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.backgroundColor = [UIColor clearColor];
+        self.textColor = [UIColor SingPostBlueColor];
+        self.font = [UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
+    }
+    
+    return self;
+}
+
+//- (void)drawPlaceholderInRect:(CGRect)rect {
+////    [[UIColor SingPostBlueColor] setFill];
+////    [[self placeholder] drawInRect:CGRectInset(rect, 0, 7) withFont:[UIFont SingPostLightItalicFontOfSize:10.0f fontKey:kSingPostFontOpenSans]];
+//}
+
+- (CGRect)textRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 5, 6);
+}
+
+- (CGRect)editingRectForBounds:(CGRect)bounds {
+    return CGRectInset(bounds, 5, 6);
+}
+
+@end
+
+@interface SidebarMenuViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @end
 
 @implementation SidebarMenuViewController
-
-- (void)viewDidLoad
 {
-    [super viewDidLoad];
+    SidebarTrackingNumberTextField *trackingNumberTextField;
+    UITableView *menuTableView;
+}
+
+- (void)loadView
+{
+    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    [contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [contentView setBackgroundColor:[UIColor whiteColor]];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:self.view.bounds];
-    [label setText:@"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"];
-    [label setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
-    [label setNumberOfLines:0];
-    [label setBackgroundColor:[UIColor redColor]];
-    [self.view addSubview:label];
+    CGFloat offsetY = 10.0f;
+    UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost_colored"]];
+    [singPostLogoImageView setFrame:CGRectMake(10, offsetY, 120, 44)];
+    [contentView addSubview:singPostLogoImageView];
+    
+    offsetY += 55.0f;
+    
+    menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStylePlain];
+    [menuTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [menuTableView setDelegate:self];
+    [menuTableView setDataSource:self];
+    [menuTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [menuTableView setSeparatorColor:[UIColor clearColor]];
+    [menuTableView setBackgroundView:nil];
+    
+    [contentView addSubview:menuTableView];
+    
+    self.view = contentView;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - UITableView DataSource & Delegate
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    [headerView setBackgroundColor:RGB(238, 238, 238)];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerView.bounds.size.width, 1)];
+    [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [separatorView setBackgroundColor:RGB(196, 197, 200)];
+    [headerView addSubview:separatorView];
+    
+    UILabel *trackLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 14, 80, 14)];
+    [trackLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [trackLabel setText:@"Track"];
+    [trackLabel setTextColor:RGB(58, 68, 81)];
+    [trackLabel setBackgroundColor:[UIColor clearColor]];
+    [headerView addSubview:trackLabel];
+    
+    UIImageView *starImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
+    [starImageView setFrame:CGRectMake(162, 13, 20, 20)];
+    [headerView addSubview:starImageView];
+    
+    UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox"]];
+    [trackingTextBoxBackgroundImageView setFrame:CGRectMake(15, 35, 166, 30)];
+    [headerView addSubview:trackingTextBoxBackgroundImageView];
+    
+    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(20, 35, 140, 30)];
+    [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
+    [trackingNumberTextField setDelegate:self];
+    [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+    [trackingNumberTextField setFont:[UIFont SingPostLightItalicFontOfSize:10.0f fontKey:kSingPostFontOpenSans]];
+    [headerView addSubview:trackingNumberTextField];
+	
+	return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 80.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44.0f;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return SIDEBARMENU_TOTAL;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *const cellIdentifier = @"SidebarMenuTableViewCell";
+
+    SidebarMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+		cell = [[SidebarMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+	}
+    
+    [cell setSidebarMenu:(tSidebarMenus)indexPath.row];
+
+    return cell;
 }
 
 @end
