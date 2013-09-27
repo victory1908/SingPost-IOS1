@@ -22,13 +22,18 @@
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
-    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background_envelope"]];
-    [envelopBackgroundImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 768, 690) : CGRectMake(0, 0, 320, 276)];
+    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"test"]];
+    [envelopBackgroundImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 768, 690) : (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248))];
     [contentView addSubview:envelopBackgroundImageView];
     
     UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox"]];
-    [trackingTextBoxBackgroundImageView setFrame:CGRectMake(15, 80, 290, 47)];
+    [trackingTextBoxBackgroundImageView setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, 80, 290, 47) : CGRectMake(15, 70, 290, 30)];
     [contentView addSubview:trackingTextBoxBackgroundImageView];
+    
+    UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
+    [findTrackingNumberButton setFrame:CGRectMake(265, 87, 35, 35)];
+    [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
     [singPostLogoImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 0, 0) : CGRectMake(82, 8, 155, 55)];
@@ -42,10 +47,11 @@
     
     //landing page buttons
 #define NUM_ICON_HORIZONTAL 3.0f
-#define ICON_WIDTH 90.0f
-#define ICON_HEIGHT 90.0f
-#define STARTING_OFFSET_X 30.0f
-#define STARTING_OFFSET_Y 230.0f
+#define ICON_WIDTH (INTERFACE_IS_4INCHSCREEN ? 90.0f : 80.0f)
+#define ICON_HEIGHT (INTERFACE_IS_4INCHSCREEN ? 90.0f : 80.0f)
+#define ICON_SPACING_VERTICAL (INTERFACE_IS_4INCHSCREEN ? 10.0f : 5.0f)
+#define STARTING_OFFSET_X (INTERFACE_IS_4INCHSCREEN ? 30.0f : 40.0f)
+#define STARTING_OFFSET_Y (INTERFACE_IS_4INCHSCREEN ? 230.0f : 185.0f)
     CGFloat offsetX, offsetY;
     
     offsetY = STARTING_OFFSET_Y;
@@ -68,7 +74,7 @@
     [contentView addSubview:landingPageLocateUsButton];
 
     offsetX = STARTING_OFFSET_X;
-    offsetY += ICON_HEIGHT + 10.0f;
+    offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
     UIButton *landingSendReceiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [landingSendReceiveButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [landingSendReceiveButton setImage:[UIImage imageNamed:@"landing_sendReceive"] forState:UIControlStateNormal];
@@ -87,7 +93,7 @@
     [contentView addSubview:landingShopButton];
     
     offsetX = STARTING_OFFSET_X;
-    offsetY += ICON_HEIGHT + 10.0f;
+    offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
     UIButton *landingMoreServicesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [landingMoreServicesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [landingMoreServicesButton setImage:[UIImage imageNamed:@"landing_moreServices"] forState:UIControlStateNormal];
