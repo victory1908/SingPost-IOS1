@@ -11,7 +11,7 @@
 @interface RootViewController : UIViewController
 
 - (void)toggleSideBarVisiblity;
-- (void)goToAppPage:(tAppPages)targetPage;
-- (void)wipBack;
+- (void)cPushViewController:(UIViewController *)viewController;
+- (void)cPopViewController;
 
 @end

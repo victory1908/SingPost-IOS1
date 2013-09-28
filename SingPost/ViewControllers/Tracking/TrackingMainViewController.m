@@ -14,7 +14,10 @@
 #import "TrackingNumberTextField.h"
 #import "TrackingItemMainTableViewCell.h"
 #import "TrackingHeaderMainTableViewCell.h"
+#import "TrackingDetailsViewController.h"
+#import "AppDelegate.h"
 #import <SevenSwitch.h>
+#import <KGModal.h>
 
 typedef enum {
     TRACKINGITEMS_SECTION_ACTIVE,
@@ -36,7 +39,7 @@ typedef enum {
 
 - (void)loadView
 {
-    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
@@ -52,7 +55,7 @@ typedef enum {
     [infoButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [infoButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [infoButton setFrame:CGRectMake(250, 7, 50, 30)];
+    [infoButton setFrame:CGRectMake(255, 7, 50, 30)];
     [navigationBarView addSubview:infoButton];
     
     UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox_grayBg"]];
@@ -64,6 +67,12 @@ typedef enum {
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
+    
+    UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
+    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(265, 87, 35, 35) : CGRectMake(273, 71, 29, 29)];
+    [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:findTrackingNumberButton];
     
     UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 140, 220, 50)];
     [instructionsLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
@@ -110,9 +119,43 @@ typedef enum {
 
 #pragma mark - IBActions
 
+- (IBAction)findTrackingNumberButtonClicked:(id)sender
+{
+    NSLog(@"find tracking number button clicked");
+}
+
 - (IBAction)infoButtonClicked:(id)sender
 {
-    NSLog(@"info button is clicked");
+    UIView *contentView = [[UIView alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 280, 500) : CGRectMake(0, 0, 280, 400)];
+    
+    CGRect headerLabelRect = contentView.bounds;
+    headerLabelRect.origin.y = 20;
+    headerLabelRect.size.height = 20;
+    UIFont *headerLabelFont = [UIFont boldSystemFontOfSize:17];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerLabelRect];
+    headerLabel.text = @"Tracking information";
+    headerLabel.font = headerLabelFont;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.textAlignment = NSTextAlignmentCenter;
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.shadowColor = [UIColor blackColor];
+    headerLabel.shadowOffset = CGSizeMake(0, 1);
+    [contentView addSubview:headerLabel];
+    
+    CGRect infoLabelRect = CGRectInset(contentView.bounds, 5, 5);
+    infoLabelRect.origin.y = CGRectGetMaxY(headerLabelRect)+5;
+    infoLabelRect.size.height -= CGRectGetMinY(infoLabelRect);
+    UILabel *infoLabel = [[UILabel alloc] initWithFrame:infoLabelRect];
+    infoLabel.text = @"Tracking information";
+    infoLabel.numberOfLines = 6;
+    infoLabel.textColor = [UIColor whiteColor];
+    infoLabel.textAlignment = NSTextAlignmentCenter;
+    infoLabel.backgroundColor = [UIColor clearColor];
+    infoLabel.shadowColor = [UIColor blackColor];
+    infoLabel.shadowOffset = CGSizeMake(0, 1);
+    [contentView addSubview:infoLabel];
+    
+    [[KGModal sharedInstance] showWithContentView:contentView andAnimated:YES];
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -196,6 +239,8 @@ typedef enum {
         TrackingHeaderMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headerCellIdentifier];
         if (!cell) {
             cell = [[TrackingHeaderMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:headerCellIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.userInteractionEnabled = NO;
         }
         
         return cell;
@@ -212,5 +257,11 @@ typedef enum {
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 @end

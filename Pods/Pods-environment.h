@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 2
 
+// KGModal
+#define COCOAPODS_POD_AVAILABLE_KGModal
+#define COCOAPODS_VERSION_MAJOR_KGModal 0
+#define COCOAPODS_VERSION_MINOR_KGModal 0
+#define COCOAPODS_VERSION_PATCH_KGModal 1
+
 // MHNatGeoViewControllerTransition
 #define COCOAPODS_POD_AVAILABLE_MHNatGeoViewControllerTransition
 #define COCOAPODS_VERSION_MAJOR_MHNatGeoViewControllerTransition 1

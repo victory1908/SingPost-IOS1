@@ -24,23 +24,23 @@
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = [UIColor clearColor];
         self.textColor = [UIColor SingPostBlueColor];
-        self.font = [UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
+        self.font = [UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
     }
     
     return self;
 }
 
-//- (void)drawPlaceholderInRect:(CGRect)rect {
-////    [[UIColor SingPostBlueColor] setFill];
-////    [[self placeholder] drawInRect:CGRectInset(rect, 0, 7) withFont:[UIFont SingPostLightItalicFontOfSize:10.0f fontKey:kSingPostFontOpenSans]];
-//}
+- (void)drawPlaceholderInRect:(CGRect)rect {
+    [RGB(163, 163, 163) setFill];
+    [[self placeholder] drawInRect:CGRectInset(rect, 0, 5)  withFont:[UIFont SingPostLightItalicFontOfSize:9.0f fontKey:kSingPostFontOpenSans]];
+}
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 5, 6);
+    return CGRectInset(bounds, 0, 6);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 5, 6);
+    return CGRectInset(bounds, 0, 6);
 }
 
 @end
@@ -81,6 +81,13 @@
     self.view = contentView;
 }
 
+#pragma mark - IBActions
+
+- (IBAction)findTrackingNumberButtonClicked:(id)sender
+{
+    NSLog(@"find tracking number clicked");
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -115,12 +122,17 @@
     [trackingTextBoxBackgroundImageView setFrame:CGRectMake(15, 35, 166, 30)];
     [headerView addSubview:trackingTextBoxBackgroundImageView];
     
-    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(20, 35, 140, 30)];
+    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(22, 35, 130, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setDelegate:self];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
-    [trackingNumberTextField setFont:[UIFont SingPostLightItalicFontOfSize:10.0f fontKey:kSingPostFontOpenSans]];
     [headerView addSubview:trackingNumberTextField];
+    
+    UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
+    [findTrackingNumberButton setFrame:CGRectMake(155, 39, 25, 25)];
+    [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:findTrackingNumberButton];
 	
 	return headerView;
 }

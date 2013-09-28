@@ -11,6 +11,7 @@
 @interface NavigationBarView : UIView
 
 @property (nonatomic, assign) BOOL showSidebarToggleButton;
+@property (nonatomic, assign) BOOL showBackButton;
 @property (nonatomic) NSString *title;
 
 @end

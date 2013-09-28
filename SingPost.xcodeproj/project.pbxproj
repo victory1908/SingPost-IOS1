@@ -15,6 +15,7 @@
 		52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2517F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m */; };
 		52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2817F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m */; };
 		52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */; };
+		52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */; };
 		521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
 		521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
@@ -69,6 +70,8 @@
 		52024F2717F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingHeaderMainTableViewCell.h; sourceTree = "<group>"; };
 		52024F2817F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingHeaderMainTableViewCell.m; sourceTree = "<group>"; };
 		52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		52024F2D17F719C200AFD239 /* TrackingDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingDetailsViewController.h; sourceTree = "<group>"; };
+		52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingDetailsViewController.m; sourceTree = "<group>"; };
 		521B171D17F1633000FEB6FD /* SingPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B172017F1633000FEB6FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		521B172217F1633000FEB6FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -143,6 +146,8 @@
 				52024F2317F6F1A300AFD239 /* TableViewCells */,
 				52024F1217F5F67E00AFD239 /* TrackingMainViewController.h */,
 				52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */,
+				52024F2D17F719C200AFD239 /* TrackingDetailsViewController.h */,
+				52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				52024F2217F6E12800AFD239 /* TrackingNumberTextField.m in Sources */,
+				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,

@@ -12,6 +12,8 @@
 #import "UIColor+SingPost.h"
 #import "TrackingNumberTextField.h"
 
+#import "TrackingMainViewController.h"
+
 @interface LandingPageViewController () <UITextFieldDelegate>
 
 @end
@@ -132,14 +134,30 @@
     [contentView addSubview:menuOffersButton];
 
     UIImageView *backgroundMore = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"background_more"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 20, 10, 20)]];
+    [backgroundMore setUserInteractionEnabled:YES];
     [backgroundMore setFrame:CGRectMake(0, contentView.bounds.size.height - 46, contentView.bounds.size.width, 26)];
     [contentView addSubview:backgroundMore];
     
-    //gesture recognizers
-    UITapGestureRecognizer *dismissTrackingNumberKeyboardTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissTrackingNumberKeyboard:)];
-    [envelopBackgroundImageView addGestureRecognizer:dismissTrackingNumberKeyboardTapRecognizer];
-    
+    UIButton *offersMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [offersMoreButton setFrame:CGRectMake(110, 0, 110, 30)];
+    [offersMoreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [offersMoreButton setImage:[UIImage imageNamed:@"offersmore_indicator"] forState:UIControlStateNormal];
+    [offersMoreButton setTitle:@"Offers & More" forState:UIControlStateNormal];
+    [offersMoreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [offersMoreButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [offersMoreButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+    [offersMoreButton addTarget:self action:@selector(offersMoreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [offersMoreButton setBackgroundColor:[UIColor clearColor]];
+    offersMoreButton.imageEdgeInsets = UIEdgeInsetsMake(2, 90, 0, 0);
+    [backgroundMore addSubview:offersMoreButton];
+
     self.view = contentView;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [trackingNumberTextField resignFirstResponder];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -149,24 +167,25 @@
     [textField resignFirstResponder];
     return YES;
 }
-                                                                          
-#pragma mark - Gesture recognizers
-                                                                          
-- (IBAction)dismissTrackingNumberKeyboard:(id)sender
-{
-    [trackingNumberTextField resignFirstResponder];
-}
 
 #pragma mark - IBActions
 
 - (IBAction)menuButtonClicked:(UIButton *)sender
 {
-    [[AppDelegate sharedAppDelegate].rootViewController goToAppPage:(tAppPages)sender.tag];
+    //FIXME: logic to handle page navigation
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+}
+
+- (IBAction)offersMoreButtonClicked:(id)sender
+{
+    NSLog(@"offers more button clicked");
 }
 
 - (void)findTrackingNumberButtonClicked:(id)sender
 {
-    [[AppDelegate sharedAppDelegate].rootViewController goToAppPage:APP_PAGE_TRACKING];
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
 }
 
 - (IBAction)toggleSidebarButtonClicked:(id)sender

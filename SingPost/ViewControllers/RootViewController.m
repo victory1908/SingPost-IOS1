@@ -24,6 +24,7 @@
 {
     SidebarMenuViewController *sideBarMenuViewController;
     UIView *appContentView, *activeViewControllerContainerView;
+    UIButton *closeSidebarButton;
     UIViewController *activeViewController;
 }
 
@@ -41,7 +42,7 @@
     [activeViewControllerContainerView setBackgroundColor:[UIColor whiteColor]];
     [activeViewControllerContainerView setClipsToBounds:YES];
     [appContentView addSubview:activeViewControllerContainerView];
-    
+
     [self loadSideBar];
 }
 
@@ -62,55 +63,54 @@
 
 #pragma mark - App Pages
 
-- (void)goToAppPage:(tAppPages)targetPage
+#define PAGE_TRANSITION_DURATION 0.6f
+
+- (void)cPushViewController:(UIViewController *)viewController
 {
-    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    
-    __block UIView * destinationView = [trackingMainViewController view];
+    __block UIView *destinationView = viewController.view;
     [destinationView setY:20];
     [self.view addSubview:destinationView];
     destinationView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     
-    MHNatGeoViewControllerTransition *natGeoTransition = [[MHNatGeoViewControllerTransition alloc] initWithSourceView:activeViewController.view destinationView:trackingMainViewController.view duration:0.6f];
+    MHNatGeoViewControllerTransition *natGeoTransition = [[MHNatGeoViewControllerTransition alloc] initWithSourceView:activeViewController.view destinationView:destinationView duration:PAGE_TRANSITION_DURATION];
     
-    activeViewControllerContainerView.layer.zPosition = 10;
-    destinationView.layer.zPosition = 11;
+    activeViewControllerContainerView.layer.zPosition = 1;
+    destinationView.layer.zPosition = 2;
     
     [natGeoTransition perform:^(BOOL finished) {
-        [trackingMainViewController setPresentedFromViewController:activeViewController];
-        [destinationView removeFromSuperview];
-        destinationView = nil;
-
-        activeViewController = trackingMainViewController;
-        [activeViewController.view setY:0];
-        [self addChildViewController:activeViewController];
-        [activeViewControllerContainerView addSubview:activeViewController.view];
-        [activeViewController didMoveToParentViewController:self];
+        if (finished) {
+            [viewController setPresentedFromViewController:activeViewController];
+            [destinationView removeFromSuperview];
+            destinationView = nil;
+            
+            activeViewController = viewController;
+            [activeViewController.view setY:0];
+            [self addChildViewController:activeViewController];
+            [activeViewControllerContainerView addSubview:activeViewController.view];
+            [activeViewController didMoveToParentViewController:self];
+        }
     }];
 }
 
-- (void)wipBack
+- (void)cPopViewController
 {
-    UIViewController *sourceController = activeViewController.presentedFromViewController;
-    __block UIView * sourceView = [activeViewController.presentedFromViewController view];
-    NSLog(@"is kind of class: %@", NSStringFromClass(activeViewController.presentedFromViewController.class));
-//    sourceView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    UIViewController *sourceViewController = activeViewController.presentedFromViewController;
+    __block UIView *sourceView = sourceViewController.view;
+
+    sourceView.layer.zPosition = 2;
+    activeViewController.view.layer.zPosition = 1;
     [activeViewControllerContainerView addSubview:sourceView];
     
-    
-    sourceView.layer.zPosition = 11;
-    activeViewController.view.layer.zPosition = 10;
-    
-    MHNatGeoViewControllerTransition * natGeoTransition = [[MHNatGeoViewControllerTransition alloc]initWithSourceView:sourceView destinationView:[activeViewController view] duration:0.6f];
+    MHNatGeoViewControllerTransition * natGeoTransition = [[MHNatGeoViewControllerTransition alloc]initWithSourceView:sourceView destinationView:[activeViewController view] duration:PAGE_TRANSITION_DURATION];
     [natGeoTransition setDismissing:YES];
     [natGeoTransition perform:^(BOOL finished) {
-        if(finished){
+        if(finished) {
             [activeViewController setPresentedFromViewController:nil];
             
             [activeViewController willMoveToParentViewController:nil];
             [activeViewController.view removeFromSuperview];
             [activeViewController removeFromParentViewController];
-            activeViewController = sourceController;
+            activeViewController = sourceViewController;
         }
     }];
 }
@@ -127,6 +127,14 @@
     [sideBarMenuViewController didMoveToParentViewController:self];
     
     [self showSideBar:NO withAnimation:NO];
+    
+    //invisible close side bar button
+    closeSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeSidebarButton setFrame:activeViewControllerContainerView.frame];
+    [closeSidebarButton setBackgroundColor:[UIColor clearColor]];
+    [closeSidebarButton setHidden:YES];
+    [closeSidebarButton addTarget:self action:@selector(closeSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [appContentView addSubview:closeSidebarButton];
 }
 
 #pragma mark - IBActions
@@ -134,6 +142,12 @@
 - (IBAction)toggleSideBarButtonClicked:(id)sender
 {
     [self toggleSideBarVisiblity];
+}
+
+- (IBAction)closeSidebarButtonClicked:(id)sender
+{
+    sideBarMenuViewController.isVisible = NO;
+    [self showSideBar:sideBarMenuViewController.isVisible withAnimation:YES];
 }
 
 #pragma mark - Side bar
@@ -147,6 +161,8 @@
 - (void)showSideBar:(BOOL)shouldShowSideBar withAnimation:(BOOL)shouldAnimate
 {
     double animationDuration = shouldAnimate ? 0.5f : 0.00001f;
+    
+    closeSidebarButton.hidden = !shouldShowSideBar;
 
     [CATransaction begin];
     [CATransaction setValue:@(animationDuration) forKey:kCATransactionAnimationDuration];
