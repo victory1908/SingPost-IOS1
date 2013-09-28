@@ -12,5 +12,6 @@
 
 - (void)toggleSideBarVisiblity;
 - (void)goToAppPage:(tAppPages)targetPage;
+- (void)wipBack;
 
 @end

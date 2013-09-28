@@ -72,8 +72,9 @@
     destinationView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     
     MHNatGeoViewControllerTransition *natGeoTransition = [[MHNatGeoViewControllerTransition alloc] initWithSourceView:activeViewController.view destinationView:trackingMainViewController.view duration:0.6f];
-
-    destinationView.layer.zPosition = 99999;
+    
+    activeViewControllerContainerView.layer.zPosition = 10;
+    destinationView.layer.zPosition = 11;
     
     [natGeoTransition perform:^(BOOL finished) {
         [trackingMainViewController setPresentedFromViewController:activeViewController];
@@ -85,6 +86,32 @@
         [self addChildViewController:activeViewController];
         [activeViewControllerContainerView addSubview:activeViewController.view];
         [activeViewController didMoveToParentViewController:self];
+    }];
+}
+
+- (void)wipBack
+{
+    UIViewController *sourceController = activeViewController.presentedFromViewController;
+    __block UIView * sourceView = [activeViewController.presentedFromViewController view];
+    NSLog(@"is kind of class: %@", NSStringFromClass(activeViewController.presentedFromViewController.class));
+//    sourceView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    [activeViewControllerContainerView addSubview:sourceView];
+    
+    
+    sourceView.layer.zPosition = 11;
+    activeViewController.view.layer.zPosition = 10;
+    
+    MHNatGeoViewControllerTransition * natGeoTransition = [[MHNatGeoViewControllerTransition alloc]initWithSourceView:sourceView destinationView:[activeViewController view] duration:0.6f];
+    [natGeoTransition setDismissing:YES];
+    [natGeoTransition perform:^(BOOL finished) {
+        if(finished){
+            [activeViewController setPresentedFromViewController:nil];
+            
+            [activeViewController willMoveToParentViewController:nil];
+            [activeViewController.view removeFromSuperview];
+            [activeViewController removeFromParentViewController];
+            activeViewController = sourceController;
+        }
     }];
 }
 
