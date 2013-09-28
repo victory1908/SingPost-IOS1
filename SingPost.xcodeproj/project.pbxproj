@@ -11,6 +11,10 @@
 		52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */; };
 		52024F1B17F683CE00AFD239 /* NavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1A17F683CE00AFD239 /* NavigationBarView.m */; };
 		52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */; };
+		52024F2217F6E12800AFD239 /* TrackingNumberTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2117F6E12800AFD239 /* TrackingNumberTextField.m */; };
+		52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2517F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m */; };
+		52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2817F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m */; };
+		52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */; };
 		521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
 		521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
@@ -58,6 +62,13 @@
 		52024F1A17F683CE00AFD239 /* NavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarView.m; sourceTree = "<group>"; };
 		52024F1D17F6860800AFD239 /* CalculatePostageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageViewController.h; sourceTree = "<group>"; };
 		52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageViewController.m; sourceTree = "<group>"; };
+		52024F2017F6E12800AFD239 /* TrackingNumberTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingNumberTextField.h; sourceTree = "<group>"; };
+		52024F2117F6E12800AFD239 /* TrackingNumberTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingNumberTextField.m; sourceTree = "<group>"; };
+		52024F2417F6F1CF00AFD239 /* TrackingItemMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingItemMainTableViewCell.h; sourceTree = "<group>"; };
+		52024F2517F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingItemMainTableViewCell.m; sourceTree = "<group>"; };
+		52024F2717F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingHeaderMainTableViewCell.h; sourceTree = "<group>"; };
+		52024F2817F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingHeaderMainTableViewCell.m; sourceTree = "<group>"; };
+		52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		521B171D17F1633000FEB6FD /* SingPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B172017F1633000FEB6FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		521B172217F1633000FEB6FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -129,6 +140,7 @@
 		52024F1117F5EF2A00AFD239 /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
+				52024F2317F6F1A300AFD239 /* TableViewCells */,
 				52024F1217F5F67E00AFD239 /* TrackingMainViewController.h */,
 				52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */,
 			);
@@ -140,6 +152,8 @@
 			children = (
 				52024F1917F683CE00AFD239 /* NavigationBarView.h */,
 				52024F1A17F683CE00AFD239 /* NavigationBarView.m */,
+				52024F2017F6E12800AFD239 /* TrackingNumberTextField.h */,
+				52024F2117F6E12800AFD239 /* TrackingNumberTextField.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -151,6 +165,17 @@
 				52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */,
 			);
 			path = CalculatePostage;
+			sourceTree = "<group>";
+		};
+		52024F2317F6F1A300AFD239 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				52024F2717F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.h */,
+				52024F2817F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m */,
+				52024F2417F6F1CF00AFD239 /* TrackingItemMainTableViewCell.h */,
+				52024F2517F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		521B171417F1633000FEB6FD = {
@@ -278,6 +303,7 @@
 		52305F8C17F5B4AF00610A86 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */,
 				52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */,
 				52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */,
 				52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */,
@@ -381,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */,
+				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
 				52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */,
 				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
@@ -438,16 +465,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
+				52024F2217F6E12800AFD239 /* TrackingNumberTextField.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
+				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
 				52024F1B17F683CE00AFD239 /* NavigationBarView.m in Sources */,
+				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

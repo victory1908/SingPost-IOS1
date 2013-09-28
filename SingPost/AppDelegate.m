@@ -20,23 +20,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-//        [application setStatusBarStyle:UIStatusBarStyleLightContent];
-//        self.window.clipsToBounds =YES;
-//        self.window.frame =  CGRectMake(0,20,self.window.frame.size.width,self.window.frame.size.height-20);
-//        
-//        //Added on 19th Sep 2013
-//        self.window.bounds = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height);
-    }
-    
-    
     self.window.backgroundColor = [UIColor whiteColor];
    
     [self applyStylesheets];
     
     _rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:_rootViewController];
-    
     [self.window makeKeyAndVisible];
     
     return YES;
