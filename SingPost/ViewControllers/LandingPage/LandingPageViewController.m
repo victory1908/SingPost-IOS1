@@ -103,60 +103,66 @@
     
     offsetY = STARTING_OFFSET_Y;
     offsetX = STARTING_OFFSET_X;
-    UIButton *landingCalculatePostageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingCalculatePostageButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingCalculatePostageButton setImage:[UIImage imageNamed:@"landing_calculatePostage"] forState:UIControlStateNormal];
-    [contentView addSubview:landingCalculatePostageButton];
+    UIButton *menuCalculatePostageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuCalculatePostageButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuCalculatePostageButton setImage:[UIImage imageNamed:@"landing_calculatePostage"] forState:UIControlStateNormal];
+    [menuCalculatePostageButton setTag:APP_PAGE_CALCULATEPOSTAGE];
+    [menuCalculatePostageButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:menuCalculatePostageButton];
 
     offsetX += ICON_WIDTH;
-    UIButton *landingPostalCodesButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingPostalCodesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingPostalCodesButton setImage:[UIImage imageNamed:@"landing_postalCodes"] forState:UIControlStateNormal];
-    [contentView addSubview:landingPostalCodesButton];
+    UIButton *menuPostalCodesButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuPostalCodesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuPostalCodesButton setImage:[UIImage imageNamed:@"landing_postalCodes"] forState:UIControlStateNormal];
+    [menuPostalCodesButton setTag:APP_PAGE_POSTALCODES];
+    [menuPostalCodesButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:menuPostalCodesButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *landingPageLocateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingPageLocateUsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingPageLocateUsButton setImage:[UIImage imageNamed:@"landing_locateUs"] forState:UIControlStateNormal];
-    [contentView addSubview:landingPageLocateUsButton];
+    UIButton *menuPageLocateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuPageLocateUsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuPageLocateUsButton setImage:[UIImage imageNamed:@"landing_locateUs"] forState:UIControlStateNormal];
+    [menuPageLocateUsButton setTag:APP_PAGE_LOCATEUS];
+    [menuPageLocateUsButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:menuPageLocateUsButton];
 
     offsetX = STARTING_OFFSET_X;
     offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
-    UIButton *landingSendReceiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingSendReceiveButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingSendReceiveButton setImage:[UIImage imageNamed:@"landing_sendReceive"] forState:UIControlStateNormal];
-    [contentView addSubview:landingSendReceiveButton];
+    UIButton *menuSendReceiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuSendReceiveButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuSendReceiveButton setImage:[UIImage imageNamed:@"landing_sendReceive"] forState:UIControlStateNormal];
+    [contentView addSubview:menuSendReceiveButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *landingPayButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingPayButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingPayButton setImage:[UIImage imageNamed:@"landing_pay"] forState:UIControlStateNormal];
-    [contentView addSubview:landingPayButton];
+    UIButton *menuPayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuPayButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuPayButton setImage:[UIImage imageNamed:@"landing_pay"] forState:UIControlStateNormal];
+    [contentView addSubview:menuPayButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *landingShopButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingShopButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingShopButton setImage:[UIImage imageNamed:@"landing_shop"] forState:UIControlStateNormal];
-    [contentView addSubview:landingShopButton];
+    UIButton *menuShopButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuShopButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuShopButton setImage:[UIImage imageNamed:@"landing_shop"] forState:UIControlStateNormal];
+    [contentView addSubview:menuShopButton];
     
     offsetX = STARTING_OFFSET_X;
     offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
-    UIButton *landingMoreServicesButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingMoreServicesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingMoreServicesButton setImage:[UIImage imageNamed:@"landing_moreServices"] forState:UIControlStateNormal];
-    [contentView addSubview:landingMoreServicesButton];
+    UIButton *menuMoreServicesButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuMoreServicesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuMoreServicesButton setImage:[UIImage imageNamed:@"landing_moreServices"] forState:UIControlStateNormal];
+    [contentView addSubview:menuMoreServicesButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *landingStampCollectiblesButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingStampCollectiblesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingStampCollectiblesButton setImage:[UIImage imageNamed:@"landing_stampCollectibles"] forState:UIControlStateNormal];
-    [contentView addSubview:landingStampCollectiblesButton];
+    UIButton *menuStampCollectiblesButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuStampCollectiblesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuStampCollectiblesButton setImage:[UIImage imageNamed:@"landing_stampCollectibles"] forState:UIControlStateNormal];
+    [contentView addSubview:menuStampCollectiblesButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *landingOffersButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [landingOffersButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [landingOffersButton setImage:[UIImage imageNamed:@"landing_offers"] forState:UIControlStateNormal];
-    [contentView addSubview:landingOffersButton];
+    UIButton *menuOffersButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuOffersButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuOffersButton setImage:[UIImage imageNamed:@"landing_offers"] forState:UIControlStateNormal];
+    [contentView addSubview:menuOffersButton];
 
     UIImageView *backgroundMore = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"background_more"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 20, 10, 20)]];
     [backgroundMore setFrame:CGRectMake(0, contentView.bounds.size.height - 46, contentView.bounds.size.width, 26)];
@@ -184,8 +190,12 @@
     [trackingNumberTextField resignFirstResponder];
 }
 
-
 #pragma mark - IBActions
+
+- (IBAction)menuButtonClicked:(UIButton *)sender
+{
+    [[AppDelegate sharedAppDelegate] goToAppPage:(tAppPages)sender.tag];
+}
 
 - (IBAction)toggleSidebarButtonClicked:(id)sender
 {

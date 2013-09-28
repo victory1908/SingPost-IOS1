@@ -11,6 +11,7 @@
 #import "UIView+Position.h"
 
 #import "LandingPageViewController.h"
+#import "TrackingMainViewController.h"
 
 @interface RootViewController ()
 
@@ -21,20 +22,10 @@
 @implementation RootViewController
 {
     SidebarMenuViewController *sideBarMenuViewController;
-    BOOL isSideBarMenuOpened;
     UIView *appContentView, *activeViewControllerView;
 }
 
 #pragma mark - View lifecycle
-
-- (id)initWithContainerViewControllers:(NSArray *)inContainerViewControllers
-{
-    if ((self = [super initWithNibName:nil bundle:nil])) {
-        _containerViewControllers = inContainerViewControllers;
-    }
-    
-    return self;
-}
 
 - (void)loadView
 {
@@ -46,6 +37,7 @@
     
     activeViewControllerView = [[UIView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH, 0, appFrame.size.width, appFrame.size.height)];
     [activeViewControllerView setBackgroundColor:[UIColor whiteColor]];
+    [activeViewControllerView setClipsToBounds:YES];
     [appContentView addSubview:activeViewControllerView];
     
     [self loadSideBar];
@@ -66,6 +58,17 @@
     return UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
 }
 
+#pragma mark - App Pages
+
+- (void)goToAppPage:(tAppPages)targetPage
+{
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
+    [self addChildViewController:nc];
+    [activeViewControllerView addSubview:nc.view];
+    [nc didMoveToParentViewController:self];
+}
+
 #pragma mark - UI
 
 - (void)loadSideBar
@@ -77,12 +80,12 @@
     [appContentView addSubview:sideBarMenuViewController.view];
     [sideBarMenuViewController didMoveToParentViewController:self];
     
-    [self toggleSideBarVisible:NO withAnimation:NO];
+    [self showSideBar:NO withAnimation:NO];
 }
 
 #pragma mark - IBActions
 
-- (IBAction)toggleSideBarClicked:(id)sender
+- (IBAction)toggleSideBarButtonClicked:(id)sender
 {
     [self toggleSideBarVisiblity];
 }
@@ -91,11 +94,11 @@
 
 - (void)toggleSideBarVisiblity
 {
-    isSideBarMenuOpened = !isSideBarMenuOpened;
-    [self toggleSideBarVisible:isSideBarMenuOpened withAnimation:YES];
+    sideBarMenuViewController.isVisible = !sideBarMenuViewController.isVisible;
+    [self showSideBar:sideBarMenuViewController.isVisible withAnimation:YES];
 }
 
-- (void)toggleSideBarVisible:(BOOL)shouldShowSideBar withAnimation:(BOOL)shouldAnimate
+- (void)showSideBar:(BOOL)shouldShowSideBar withAnimation:(BOOL)shouldAnimate
 {
     double animationDuration = shouldAnimate ? 0.5f : 0.00001f;
 

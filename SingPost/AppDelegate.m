@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import <Reachability.h>
+#import "UIFont+SingPost.h"
 
 @implementation AppDelegate
 {
@@ -22,12 +23,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+   
+    [self applyStylesheets];
     
     rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:rootViewController];
+    
+    [self.window makeKeyAndVisible];
     
     return YES;
 }
@@ -59,6 +62,21 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Stylesheets
+
+- (void)applyStylesheets
+{
+    //navigation bar
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar_gradient_background"]
+                                       forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor whiteColor], UITextAttributeTextColor,
+      [UIFont SingPostLightFontOfSize:18.0f fontKey:kSingPostFontOpenSans], UITextAttributeFont,
+      nil]];
+}
+
 #pragma mark - Utilities
 
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection
@@ -72,7 +90,12 @@
     return hasInternetConnection;
 }
 
-#pragma mark - Actions
+#pragma mark - App navigations & Sidebar menus
+
+- (void)goToAppPage:(tAppPages)targetPage
+{
+    [rootViewController goToAppPage:targetPage];
+}
 
 - (void)toggleSideBarVisiblity
 {

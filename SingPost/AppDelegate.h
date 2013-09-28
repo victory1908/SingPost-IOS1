@@ -14,6 +14,9 @@
 
 + (AppDelegate *)sharedAppDelegate;
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection;
+
+#pragma mark - App navigations & Sidebar menus
+- (void)goToAppPage:(tAppPages)targetPage;
 - (void)toggleSideBarVisiblity;
 
 @end

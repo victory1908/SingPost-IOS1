@@ -8,12 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef double (^KeyframeParametricBlock)(double);
-
 @interface RootViewController : UIViewController
 
-@property (nonatomic, readonly) NSArray *containerViewControllers;
-
 - (void)toggleSideBarVisiblity;
+- (void)goToAppPage:(tAppPages)targetPage;
 
 @end

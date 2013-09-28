@@ -10,4 +10,6 @@
 
 @interface SidebarMenuViewController : UIViewController
 
+@property (nonatomic, assign) BOOL isVisible;
+
 @end

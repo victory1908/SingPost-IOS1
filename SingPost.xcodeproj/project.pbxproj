@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */; };
+		52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */; };
 		521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
 		521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
@@ -19,7 +21,6 @@
 		521B173C17F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
 		521B174417F1633000FEB6FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 521B174217F1633000FEB6FD /* InfoPlist.strings */; };
 		521B174617F1633000FEB6FD /* SingPostTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B174517F1633000FEB6FD /* SingPostTests.m */; };
-		521B175217F1658300FEB6FD /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175117F1658300FEB6FD /* LandingPageViewController.m */; };
 		521B175517F1678100FEB6FD /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175417F1678100FEB6FD /* RootViewController.m */; };
 		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
 		52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F8817F5B20600610A86 /* UIFont+SingPost.m */; };
@@ -46,6 +47,11 @@
 /* Begin PBXFileReference section */
 		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		52024F0D17F5EEC800AFD239 /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
+		52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingPageViewController.m; sourceTree = "<group>"; };
+		52024F1217F5F67E00AFD239 /* TrackingMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingMainViewController.h; sourceTree = "<group>"; };
+		52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingMainViewController.m; sourceTree = "<group>"; };
+		52024F1517F67B7800AFD239 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		521B171D17F1633000FEB6FD /* SingPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B172017F1633000FEB6FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		521B172217F1633000FEB6FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -62,8 +68,6 @@
 		521B174117F1633000FEB6FD /* SingPostTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPostTests-Info.plist"; sourceTree = "<group>"; };
 		521B174317F1633000FEB6FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		521B174517F1633000FEB6FD /* SingPostTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingPostTests.m; sourceTree = "<group>"; };
-		521B175017F1658300FEB6FD /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
-		521B175117F1658300FEB6FD /* LandingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingPageViewController.m; sourceTree = "<group>"; };
 		521B175317F1678100FEB6FD /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		521B175417F1678100FEB6FD /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		521B175717F1961100FEB6FD /* SidebarMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuViewController.h; sourceTree = "<group>"; };
@@ -107,6 +111,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52024F0C17F5EEA500AFD239 /* LandingPage */ = {
+			isa = PBXGroup;
+			children = (
+				52024F0D17F5EEC800AFD239 /* LandingPageViewController.h */,
+				52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */,
+			);
+			path = LandingPage;
+			sourceTree = "<group>";
+		};
+		52024F1117F5EF2A00AFD239 /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				52024F1217F5F67E00AFD239 /* TrackingMainViewController.h */,
+				52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
 		521B171417F1633000FEB6FD = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +178,7 @@
 		521B172717F1633000FEB6FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				52024F1517F67B7800AFD239 /* Constants.h */,
 				521B172817F1633000FEB6FD /* SingPost-Info.plist */,
 				521B172917F1633000FEB6FD /* InfoPlist.strings */,
 				521B172C17F1633000FEB6FD /* main.m */,
@@ -186,10 +209,10 @@
 			isa = PBXGroup;
 			children = (
 				521B175617F195F200FEB6FD /* SidebarMenu */,
+				52024F0C17F5EEA500AFD239 /* LandingPage */,
+				52024F1117F5EF2A00AFD239 /* Tracking */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
-				521B175017F1658300FEB6FD /* LandingPageViewController.h */,
-				521B175117F1658300FEB6FD /* LandingPageViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -389,13 +412,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
-				521B175217F1658300FEB6FD /* LandingPageViewController.m in Sources */,
+				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
+				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
