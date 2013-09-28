@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking 2
 
+// MHNatGeoViewControllerTransition
+#define COCOAPODS_POD_AVAILABLE_MHNatGeoViewControllerTransition
+#define COCOAPODS_VERSION_MAJOR_MHNatGeoViewControllerTransition 1
+#define COCOAPODS_VERSION_MINOR_MHNatGeoViewControllerTransition 0
+#define COCOAPODS_VERSION_PATCH_MHNatGeoViewControllerTransition 0
+
 // MagicalRecord
 #define COCOAPODS_POD_AVAILABLE_MagicalRecord
 #define COCOAPODS_VERSION_MAJOR_MagicalRecord 2

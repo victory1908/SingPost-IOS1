@@ -12,6 +12,7 @@
 
 #import "LandingPageViewController.h"
 #import "TrackingMainViewController.h"
+#import "AppDelegate.h"
 
 @interface RootViewController ()
 
@@ -22,7 +23,8 @@
 @implementation RootViewController
 {
     SidebarMenuViewController *sideBarMenuViewController;
-    UIView *appContentView, *activeViewControllerView;
+    UIView *appContentView, *activeViewControllerContainerView;
+    UIViewController *activeViewController;
 }
 
 #pragma mark - View lifecycle
@@ -31,14 +33,14 @@
 {
     [super loadView];
     
-    CGRect appFrame = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ?  [UIScreen mainScreen].applicationFrame : [[UIScreen mainScreen] bounds];
+    CGRect appFrame = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? [UIScreen mainScreen].applicationFrame : [[UIScreen mainScreen] bounds];
     appContentView = [[UIView alloc] initWithFrame:CGRectMake(0, appFrame.origin.y, appFrame.size.width + SIDEBAR_WIDTH, appFrame.size.height)];
     [self.view addSubview:appContentView];
     
-    activeViewControllerView = [[UIView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH, 0, appFrame.size.width, appFrame.size.height)];
-    [activeViewControllerView setBackgroundColor:[UIColor whiteColor]];
-    [activeViewControllerView setClipsToBounds:YES];
-    [appContentView addSubview:activeViewControllerView];
+    activeViewControllerContainerView = [[UIView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH, 0, appFrame.size.width, appFrame.size.height)];
+    [activeViewControllerContainerView setBackgroundColor:[UIColor whiteColor]];
+    [activeViewControllerContainerView setClipsToBounds:YES];
+    [appContentView addSubview:activeViewControllerContainerView];
     
     [self loadSideBar];
 }
@@ -47,10 +49,10 @@
 {
     [super viewDidLoad];
     
-    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-    [self addChildViewController:landingPageViewController];
-    [activeViewControllerView addSubview:landingPageViewController.view];
-    [landingPageViewController didMoveToParentViewController:self];
+    activeViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:activeViewController];
+    [activeViewControllerContainerView addSubview:activeViewController.view];
+    [activeViewController didMoveToParentViewController:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -63,10 +65,27 @@
 - (void)goToAppPage:(tAppPages)targetPage
 {
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
-    [self addChildViewController:nc];
-    [activeViewControllerView addSubview:nc.view];
-    [nc didMoveToParentViewController:self];
+    
+    __block UIView * destinationView = [trackingMainViewController view];
+    [destinationView setY:20];
+    [self.view addSubview:destinationView];
+    destinationView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    
+    MHNatGeoViewControllerTransition *natGeoTransition = [[MHNatGeoViewControllerTransition alloc] initWithSourceView:activeViewController.view destinationView:trackingMainViewController.view duration:0.6f];
+
+    destinationView.layer.zPosition = 99999;
+    
+    [natGeoTransition perform:^(BOOL finished) {
+        [trackingMainViewController setPresentedFromViewController:activeViewController];
+        [destinationView removeFromSuperview];
+        destinationView = nil;
+
+        activeViewController = trackingMainViewController;
+        [activeViewController.view setY:0];
+        [self addChildViewController:activeViewController];
+        [activeViewControllerContainerView addSubview:activeViewController.view];
+        [activeViewController didMoveToParentViewController:self];
+    }];
 }
 
 #pragma mark - UI

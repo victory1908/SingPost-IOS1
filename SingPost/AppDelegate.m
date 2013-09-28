@@ -12,9 +12,6 @@
 #import "UIFont+SingPost.h"
 
 @implementation AppDelegate
-{
-    RootViewController *rootViewController;
-}
 
 + (AppDelegate *)sharedAppDelegate {
 	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -23,12 +20,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+//        [application setStatusBarStyle:UIStatusBarStyleLightContent];
+//        self.window.clipsToBounds =YES;
+//        self.window.frame =  CGRectMake(0,20,self.window.frame.size.width,self.window.frame.size.height-20);
+//        
+//        //Added on 19th Sep 2013
+//        self.window.bounds = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height);
+    }
+    
+    
     self.window.backgroundColor = [UIColor whiteColor];
    
     [self applyStylesheets];
     
-    rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-    [self.window setRootViewController:rootViewController];
+    _rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    [self.window setRootViewController:_rootViewController];
     
     [self.window makeKeyAndVisible];
     
@@ -66,15 +73,7 @@
 
 - (void)applyStylesheets
 {
-    //navigation bar
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navbar_gradient_background"]
-                                       forBarMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIColor whiteColor], UITextAttributeTextColor,
-      [UIFont SingPostLightFontOfSize:18.0f fontKey:kSingPostFontOpenSans], UITextAttributeFont,
-      nil]];
+
 }
 
 #pragma mark - Utilities
@@ -88,18 +87,6 @@
     }
     
     return hasInternetConnection;
-}
-
-#pragma mark - App navigations & Sidebar menus
-
-- (void)goToAppPage:(tAppPages)targetPage
-{
-    [rootViewController goToAppPage:targetPage];
-}
-
-- (void)toggleSideBarVisiblity
-{
-    [rootViewController toggleSideBarVisiblity];
 }
 
 @end

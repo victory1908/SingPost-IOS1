@@ -17,3 +17,6 @@ typedef enum {
     APP_PAGE_STAMPCOLLECTIBLES,
     APP_PAGE_OFFERS
 } tAppPages;
+
+//Frames
+#define NAVIGATIONBAR_FRAME CGRectMake(0, 0, contentView.bounds.size.width, 44)

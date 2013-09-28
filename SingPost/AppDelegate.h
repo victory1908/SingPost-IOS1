@@ -7,16 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RootViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, readonly) RootViewController *rootViewController;
 
 + (AppDelegate *)sharedAppDelegate;
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection;
-
-#pragma mark - App navigations & Sidebar menus
-- (void)goToAppPage:(tAppPages)targetPage;
-- (void)toggleSideBarVisiblity;
 
 @end

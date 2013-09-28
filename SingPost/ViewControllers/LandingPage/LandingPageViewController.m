@@ -11,6 +11,9 @@
 #import "UIFont+SingPost.h"
 #import "UIColor+SingPost.h"
 
+//FIXME: remove
+#import "TrackingMainViewController.h"
+
 @interface TrackingNumberTextField : UITextField
 
 @end
@@ -55,6 +58,12 @@
     TrackingNumberTextField *trackingNumberTextField;
 }
 
+- (void)test
+{
+    TrackingMainViewController *track = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    [self presentNatGeoViewController:track];
+}
+
 #pragma mark - View lifecycle
 
 - (void)loadView
@@ -80,6 +89,7 @@
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
     [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(265, 87, 35, 35) : CGRectMake(273, 71, 29, 29)];
+    [findTrackingNumberButton addTarget:self action:@selector(test) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
@@ -194,12 +204,12 @@
 
 - (IBAction)menuButtonClicked:(UIButton *)sender
 {
-    [[AppDelegate sharedAppDelegate] goToAppPage:(tAppPages)sender.tag];
+    [[AppDelegate sharedAppDelegate].rootViewController goToAppPage:(tAppPages)sender.tag];
 }
 
 - (IBAction)toggleSidebarButtonClicked:(id)sender
 {
-    [[AppDelegate sharedAppDelegate] toggleSideBarVisiblity];
+    [[AppDelegate sharedAppDelegate].rootViewController toggleSideBarVisiblity];
 }
 
 @end

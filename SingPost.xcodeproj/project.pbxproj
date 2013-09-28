@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */; };
 		52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */; };
+		52024F1B17F683CE00AFD239 /* NavigationBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1A17F683CE00AFD239 /* NavigationBarView.m */; };
+		52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */; };
 		521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
 		521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
@@ -52,6 +54,10 @@
 		52024F1217F5F67E00AFD239 /* TrackingMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingMainViewController.h; sourceTree = "<group>"; };
 		52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingMainViewController.m; sourceTree = "<group>"; };
 		52024F1517F67B7800AFD239 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		52024F1917F683CE00AFD239 /* NavigationBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationBarView.h; sourceTree = "<group>"; };
+		52024F1A17F683CE00AFD239 /* NavigationBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationBarView.m; sourceTree = "<group>"; };
+		52024F1D17F6860800AFD239 /* CalculatePostageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageViewController.h; sourceTree = "<group>"; };
+		52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageViewController.m; sourceTree = "<group>"; };
 		521B171D17F1633000FEB6FD /* SingPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B172017F1633000FEB6FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		521B172217F1633000FEB6FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -81,7 +87,7 @@
 		52305F9517F5C1CF00610A86 /* SidebarMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuTableViewCell.h; sourceTree = "<group>"; };
 		52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuTableViewCell.m; sourceTree = "<group>"; };
 		52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
-		52305F9D17F5D44800610A86 /* SidebarMenus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SidebarMenus.plist; sourceTree = "<group>"; };
+		52305F9D17F5D44800610A86 /* SidebarMenus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SidebarMenus.plist; path = TableViewCells/SidebarMenus.plist; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,6 +135,24 @@
 			path = Tracking;
 			sourceTree = "<group>";
 		};
+		52024F1817F6836800AFD239 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				52024F1917F683CE00AFD239 /* NavigationBarView.h */,
+				52024F1A17F683CE00AFD239 /* NavigationBarView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		52024F1C17F685D700AFD239 /* CalculatePostage */ = {
+			isa = PBXGroup;
+			children = (
+				52024F1D17F6860800AFD239 /* CalculatePostageViewController.h */,
+				52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */,
+			);
+			path = CalculatePostage;
+			sourceTree = "<group>";
+		};
 		521B171417F1633000FEB6FD = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +191,7 @@
 			children = (
 				52305F8617F5B1DC00610A86 /* Application */,
 				524CEA3B17F282B800E0EAC3 /* Categories */,
+				52024F1817F6836800AFD239 /* Views */,
 				521B174F17F1653E00FEB6FD /* ViewControllers */,
 				521B172F17F1633000FEB6FD /* AppDelegate.h */,
 				521B173017F1633000FEB6FD /* AppDelegate.m */,
@@ -211,6 +236,7 @@
 				521B175617F195F200FEB6FD /* SidebarMenu */,
 				52024F0C17F5EEA500AFD239 /* LandingPage */,
 				52024F1117F5EF2A00AFD239 /* Tracking */,
+				52024F1C17F685D700AFD239 /* CalculatePostage */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
 			);
@@ -221,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				52305F9417F5C17100610A86 /* TableViewCells */,
+				52305F9D17F5D44800610A86 /* SidebarMenus.plist */,
 				521B175717F1961100FEB6FD /* SidebarMenuViewController.h */,
 				521B175817F1961100FEB6FD /* SidebarMenuViewController.m */,
 			);
@@ -261,7 +288,6 @@
 		52305F9417F5C17100610A86 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				52305F9D17F5D44800610A86 /* SidebarMenus.plist */,
 				52305F9517F5C1CF00610A86 /* SidebarMenuTableViewCell.h */,
 				52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */,
 			);
@@ -413,6 +439,7 @@
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
+				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
@@ -420,6 +447,7 @@
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
+				52024F1B17F683CE00AFD239 /* NavigationBarView.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

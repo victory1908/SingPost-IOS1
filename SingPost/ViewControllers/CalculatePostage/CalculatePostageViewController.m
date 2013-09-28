@@ -1,30 +1,28 @@
 //
-//  TrackingMainViewController.m
+//  CalculatePostageViewController.m
 //  SingPost
 //
 //  Created by Edward Soetiono on 28/9/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "TrackingMainViewController.h"
+#import "CalculatePostageViewController.h"
 #import "NavigationBarView.h"
 
-@interface TrackingMainViewController ()
+@interface CalculatePostageViewController ()
 
 @end
 
-@implementation TrackingMainViewController
+@implementation CalculatePostageViewController
 
 - (void)loadView
 {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [contentView setBackgroundColor:[UIColor whiteColor]];
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
-    [navigationBarView setShowSidebarToggleButton:YES];
-    [navigationBarView setTitle:@"Track"];
     [contentView addSubview:navigationBarView];
-    [contentView setBackgroundColor:[UIColor greenColor]];
+    
+//    UIButton *damnButton = 
     
     self.view = contentView;
 }
