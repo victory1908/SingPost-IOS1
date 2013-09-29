@@ -10,6 +10,10 @@
 #import "UIFont+SingPost.h"
 #import "UIColor+SingPost.h"
 #import "SidebarMenuTableViewCell.h"
+#import "AppDelegate.h"
+
+#import "CalculatePostageViewController.h"
+#import "LandingPageViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -51,6 +55,7 @@
 
 @implementation SidebarMenuViewController
 {
+    UIButton *singPostLogoButton;
     SidebarTrackingNumberTextField *trackingNumberTextField;
     UITableView *menuTableView;
 }
@@ -62,9 +67,11 @@
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     CGFloat offsetY = 10.0f;
-    UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost_colored"]];
-    [singPostLogoImageView setFrame:CGRectMake(10, offsetY, 120, 44)];
-    [contentView addSubview:singPostLogoImageView];
+    singPostLogoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [singPostLogoButton setImage:[UIImage imageNamed:@"logo_singaporepost_colored"] forState:UIControlStateNormal];
+    [singPostLogoButton addTarget:self action:@selector(singPostLogoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [singPostLogoButton setFrame:CGRectMake(10, offsetY, 120, 44)];
+    [contentView addSubview:singPostLogoButton];
     
     offsetY += 55.0f;
     
@@ -82,6 +89,12 @@
 }
 
 #pragma mark - IBActions
+
+- (IBAction)singPostLogoButtonClicked:(id)sender
+{
+    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:landingPageViewController];
+}
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
@@ -169,6 +182,15 @@
     [cell setSidebarMenu:(tSidebarMenus)indexPath.row];
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //FIXME: add more logic
+    CalculatePostageViewController *calculatePostageViewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:calculatePostageViewController];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
 }
 
 @end

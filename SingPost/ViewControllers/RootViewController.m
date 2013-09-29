@@ -63,6 +63,34 @@
 
 #pragma mark - App Pages
 
+- (void)switchToViewController:(UIViewController *)viewController
+{
+    //close side bar
+    sideBarMenuViewController.isVisible = NO;
+    [self showSideBar:sideBarMenuViewController.isVisible withAnimation:YES];
+    
+    //kill existing child viewcontrollers except the sidebar
+    for (UIViewController *childViewController in self.childViewControllers) {
+        if (childViewController != sideBarMenuViewController) {
+            [childViewController willMoveToParentViewController:nil];
+            [childViewController.view removeFromSuperview];
+            [childViewController removeFromParentViewController];
+        }
+    }
+    
+    //swap in new view controller
+    activeViewController = viewController;
+    [self addChildViewController:activeViewController];
+    [activeViewControllerContainerView addSubview:activeViewController.view];
+    [activeViewController.view setAlpha:0.5f];
+    [UIView animateWithDuration:0.6f animations:^{
+        [activeViewController.view setAlpha:1.0f];
+    } completion:^(BOOL finished) {
+        [activeViewController didMoveToParentViewController:self];
+        
+    }];
+}
+
 #define PAGE_TRANSITION_DURATION 0.6f
 
 - (void)cPushViewController:(UIViewController *)viewController
