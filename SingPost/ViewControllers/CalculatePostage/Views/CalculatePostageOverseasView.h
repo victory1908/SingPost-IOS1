@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CalculatePostageOverseasDelegate;
+
 @interface CalculatePostageOverseasView : UIView
+
+@property (nonatomic, weak) id <CalculatePostageOverseasDelegate> delegate;
+
+@end
+
+@protocol CalculatePostageOverseasDelegate <NSObject>
+
+- (void)calculatePostageOverseas:(CalculatePostageOverseasView *)sender;
 
 @end

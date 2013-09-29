@@ -11,6 +11,8 @@
 #import "UIFont+SingPost.h"
 #import "CalculatePostageSingaporeView.h"
 #import "CalculatePostageOverseasView.h"
+#import "CalculatePostageResultsViewController.h"
+#import "AppDelegate.h"
 
 @interface CalculatePostageToggleButton : UIButton
 
@@ -59,7 +61,7 @@
 
 @end
 
-@interface CalculatePostageViewController ()
+@interface CalculatePostageViewController () <CalculatePostageOverseasDelegate, CalculatePostageSingaporeDelegate>
 
 @end
 
@@ -102,11 +104,12 @@ typedef enum  {
     [contentView addSubview:sectionContentScrollView];
     
     overseasSectionView = [[CalculatePostageOverseasView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_OVERSEAS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [overseasSectionView setUserInteractionEnabled:YES];
+    [overseasSectionView setDelegate:self];
     [overseasSectionView setBackgroundColor:[UIColor clearColor]];
     [sectionContentScrollView addSubview:overseasSectionView];
     
     singaporeSectionView = [[CalculatePostageSingaporeView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_SINGAPORE, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [singaporeSectionView setDelegate:self];
     [singaporeSectionView setBackgroundColor:[UIColor clearColor]];
     [sectionContentScrollView addSubview:singaporeSectionView];
     
@@ -127,6 +130,20 @@ typedef enum  {
     self.view = contentView;
 }
 
+#pragma mark - Section Delegates
+
+- (void)calculatePostageOverseas:(CalculatePostageOverseasView *)sender
+{
+    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+}
+
+- (void)calculatePostageSingapore:(CalculatePostageSingaporeView *)sender
+{
+    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)sectionButtonClicked:(id)sender
@@ -139,6 +156,8 @@ typedef enum  {
     currentSection = ((UIButton *)sender).tag;
     [sectionContentScrollView setContentOffset:CGPointMake(currentSection * sectionContentScrollView.bounds.size.width, 0) animated:YES];
 }
+
+#pragma mark -
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

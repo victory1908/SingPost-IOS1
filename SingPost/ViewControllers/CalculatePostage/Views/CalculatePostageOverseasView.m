@@ -64,7 +64,7 @@
         
         UIButton *calculatePostageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [calculatePostageButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
-        [calculatePostageButton.titleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+        [calculatePostageButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [calculatePostageButton setFrame:CGRectMake(15, 215, self.bounds.size.width - 30, 48)];
         [calculatePostageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [calculatePostageButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
@@ -112,7 +112,7 @@
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
-    NSLog(@"beep beep");
+    [_delegate calculatePostageOverseas:self];
 }
 
 @end

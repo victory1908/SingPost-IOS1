@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CalculatePostageSingaporeDelegate;
+
 @interface CalculatePostageSingaporeView : UIView
 
+@property (nonatomic, weak) id <CalculatePostageSingaporeDelegate> delegate;
+
 @end
+
+@protocol CalculatePostageSingaporeDelegate <NSObject>
+
+- (void)calculatePostageSingapore:(CalculatePostageSingaporeView *)sender;
+
+@end
+
+

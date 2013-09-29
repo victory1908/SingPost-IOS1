@@ -11,9 +11,6 @@
 #import "UIColor+SingPost.h"
 
 @implementation TrackingItemMainTableViewCell
-{
-    UIView *separatorView;
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -40,22 +37,9 @@
         [statusLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusLabel];
         
-//        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, contentView.bounds.size.height - 1, contentView.bounds.size.width - 30, 1)];
-//        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-//        [separatorView setBackgroundColor:RGB(196, 197, 200)];
-//        [self.selectedBackgroundView addSubview:separatorView];
-        
         [self.contentView addSubview:contentView];
     }
     return self;
 }
-
-#pragma mark - Accessors
-
-- (void)setShowBottomSeparator:(BOOL)showBottomSeparator
-{
-    [separatorView setHidden:!showBottomSeparator];
-}
-
 
 @end

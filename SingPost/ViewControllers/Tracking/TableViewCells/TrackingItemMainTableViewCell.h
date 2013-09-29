@@ -10,6 +10,4 @@
 
 @interface TrackingItemMainTableViewCell : UITableViewCell
 
-@property (nonatomic, assign) BOOL showBottomSeparator;
-
 @end

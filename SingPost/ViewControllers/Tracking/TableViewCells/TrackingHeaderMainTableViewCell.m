@@ -31,10 +31,6 @@
         [statusHeaderLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusHeaderLabel];
         
-//        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, contentView.bounds.size.height - 1, contentView.bounds.size.width - 30, 1)];
-//        [separatorView setBackgroundColor:RGB(196, 197, 200)];
-//        [contentView addSubview:separatorView];
-        
         [self.contentView addSubview:contentView];
     }
     

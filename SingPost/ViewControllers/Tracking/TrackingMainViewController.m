@@ -111,8 +111,6 @@ typedef enum {
     [trackingItemsTableView setBackgroundView:nil];
     [contentView addSubview:trackingItemsTableView];
     
-    [contentView endEditing:YES];
-    
     self.view = contentView;
 }
 
@@ -184,13 +182,10 @@ typedef enum {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0)
         return 30.0f;
-    }
-    else {
-        return (indexPath.row % 2 == 0) ? 44.0f : 1.0f;
-    }
-//    return (indexPath.row == 0) ? 30.0f : 44.0f;
+    
+    return (indexPath.row % 2 == 0) ? 44.0f : 1.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

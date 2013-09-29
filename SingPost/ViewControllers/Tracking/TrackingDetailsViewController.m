@@ -18,7 +18,7 @@
 
 @implementation TrackingDetailsViewController
 {
-    UILabel *trackingNumberValueLabel, *originValueLabel, *destinationValueLabel;
+    UILabel *trackingNumberLabel, *originLabel, *destinationLabel;
     UITableView *trackingDetailTableView;
 }
 
@@ -49,47 +49,47 @@
     [trackingInfoView setBackgroundColor:RGB(240, 240, 240)];
     [contentView addSubview:trackingInfoView];
     
-    UILabel *trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 130, 20)];
-    [trackingNumberLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [trackingNumberLabel setText:@"Tracking number"];
+    UILabel *trackingNumberDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 130, 20)];
+    [trackingNumberDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    [trackingNumberDisplayLabel setText:@"Tracking number"];
+    [trackingNumberDisplayLabel setBackgroundColor:[UIColor clearColor]];
+    [trackingNumberDisplayLabel setTextColor:RGB(168, 173, 180)];
+    [trackingInfoView addSubview:trackingNumberDisplayLabel];
+    
+    UILabel *originDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 40, 130, 20)];
+    [originDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    [originDisplayLabel setText:@"Origin"];
+    [originDisplayLabel setBackgroundColor:[UIColor clearColor]];
+    [originDisplayLabel setTextColor:RGB(168, 173, 180)];
+    [trackingInfoView addSubview:originDisplayLabel];
+    
+    UILabel *destinationDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 130, 20)];
+    [destinationDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    [destinationDisplayLabel setText:@"Destination"];
+    [destinationDisplayLabel setBackgroundColor:[UIColor clearColor]];
+    [destinationDisplayLabel setTextColor:RGB(168, 173, 180)];
+    [trackingInfoView addSubview:destinationDisplayLabel];
+    
+    trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 16, 130, 20)];
+    [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    [trackingNumberLabel setText:@"RA00000000SG"];
+    [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
-    [trackingNumberLabel setTextColor:RGB(168, 173, 180)];
     [trackingInfoView addSubview:trackingNumberLabel];
     
-    UILabel *originLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 40, 130, 20)];
+    originLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40, 130, 20)];
     [originLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [originLabel setText:@"Origin"];
+    [originLabel setText:@"Singapore"];
+    [originLabel setTextColor:RGB(51, 51, 51)];
     [originLabel setBackgroundColor:[UIColor clearColor]];
-    [originLabel setTextColor:RGB(168, 173, 180)];
     [trackingInfoView addSubview:originLabel];
     
-    UILabel *destinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 130, 20)];
+    destinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 65, 130, 20)];
     [destinationLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [destinationLabel setText:@"Destination"];
+    [destinationLabel setText:@"Australia"];
+    [destinationLabel setTextColor:RGB(51, 51, 51)];
     [destinationLabel setBackgroundColor:[UIColor clearColor]];
-    [destinationLabel setTextColor:RGB(168, 173, 180)];
     [trackingInfoView addSubview:destinationLabel];
-    
-    trackingNumberValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 16, 130, 20)];
-    [trackingNumberValueLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [trackingNumberValueLabel setText:@"RA00000000SG"];
-    [trackingNumberValueLabel setTextColor:RGB(36, 84, 157)];
-    [trackingNumberValueLabel setBackgroundColor:[UIColor clearColor]];
-    [trackingInfoView addSubview:trackingNumberValueLabel];
-    
-    originValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40, 130, 20)];
-    [originValueLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [originValueLabel setText:@"Singapore"];
-    [originValueLabel setTextColor:RGB(51, 51, 51)];
-    [originValueLabel setBackgroundColor:[UIColor clearColor]];
-    [trackingInfoView addSubview:originValueLabel];
-    
-    destinationValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 65, 130, 20)];
-    [destinationValueLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [destinationValueLabel setText:@"Australia"];
-    [destinationValueLabel setTextColor:RGB(51, 51, 51)];
-    [destinationValueLabel setBackgroundColor:[UIColor clearColor]];
-    [trackingInfoView addSubview:destinationValueLabel];
     
     UIView *bottomTrackingInfoSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, trackingInfoView.bounds.size.height - 1, contentView.bounds.size.width, 1)];
     [bottomTrackingInfoSeparatorView setBackgroundColor:RGB(196, 197, 200)];
