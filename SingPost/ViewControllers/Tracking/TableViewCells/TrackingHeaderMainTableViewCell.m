@@ -14,7 +14,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, 30)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         UILabel *trackingNumbersHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 30)];
@@ -31,9 +31,9 @@
         [statusHeaderLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusHeaderLabel];
         
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 35, contentView.bounds.size.width - 30, 1)];
-        [separatorView setBackgroundColor:RGB(196, 197, 200)];
-        [contentView addSubview:separatorView];
+//        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, contentView.bounds.size.height - 1, contentView.bounds.size.width - 30, 1)];
+//        [separatorView setBackgroundColor:RGB(196, 197, 200)];
+//        [contentView addSubview:separatorView];
         
         [self.contentView addSubview:contentView];
     }

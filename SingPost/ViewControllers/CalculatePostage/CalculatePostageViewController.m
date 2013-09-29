@@ -143,7 +143,6 @@ typedef enum  {
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
-    NSLog(@"touches began");
     [self resignAllResponders];
 }
 
@@ -151,6 +150,7 @@ typedef enum  {
 {
     [sectionContentScrollView endEditing:YES];
     [overseasSectionView endEditing:YES];
+    [singaporeSectionView endEditing:YES];
 }
 
 @end

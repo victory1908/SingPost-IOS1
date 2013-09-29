@@ -69,6 +69,7 @@
         [calculatePostageButton setTitle:@"CALCULATE" forState:UIControlStateNormal];
         [contentScrollView addSubview:calculatePostageButton];
         
+        [contentScrollView setContentSize:contentScrollView.bounds.size];
         [self addSubview:contentScrollView];
     }
     return self;

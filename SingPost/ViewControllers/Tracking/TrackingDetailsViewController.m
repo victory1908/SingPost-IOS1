@@ -97,7 +97,7 @@
     
     //content
     CGFloat offsetY = CGRectGetMaxY(trackingInfoView.frame);
-    trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStyleGrouped];
+    trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStylePlain];
     [trackingDetailTableView setDelegate:self];
     [trackingDetailTableView setDataSource:self];
     [trackingDetailTableView setBackgroundColor:[UIColor whiteColor]];
@@ -180,7 +180,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-//    [sectionHeaderView setBackgroundColor:RGB(240, 240, 240)];
+    [sectionHeaderView setBackgroundColor:[UIColor whiteColor]];
     
     UILabel *dateHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 50, 16)];
     [dateHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
@@ -218,6 +218,7 @@
     TrackingItemDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
         cell = [[TrackingItemDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     return cell;

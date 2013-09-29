@@ -10,4 +10,6 @@
 
 @interface TrackingMainViewController : UIViewController
 
+@property (nonatomic) NSString *trackingNumber;
+
 @end

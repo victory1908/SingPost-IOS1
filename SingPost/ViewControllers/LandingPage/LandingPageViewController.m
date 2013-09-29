@@ -208,6 +208,7 @@ typedef enum {
 - (void)findTrackingNumberButtonClicked:(id)sender
 {
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
 }
 

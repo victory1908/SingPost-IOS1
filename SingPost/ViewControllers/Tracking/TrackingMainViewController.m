@@ -14,6 +14,7 @@
 #import "TrackingNumberTextField.h"
 #import "TrackingItemMainTableViewCell.h"
 #import "TrackingHeaderMainTableViewCell.h"
+#import "SeparatorTableViewCell.h"
 #import "TrackingDetailsViewController.h"
 #import "AppDelegate.h"
 #import <SevenSwitch.h>
@@ -25,6 +26,8 @@ typedef enum {
     
     TRACKINGITEMS_SECTION_TOTAL
 } tTrackingItemsSections;
+
+#define TEST_DATA_COUNT 5
 
 @interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -39,7 +42,7 @@ typedef enum {
 
 - (void)loadView
 {
-    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     //navigation bar
@@ -69,6 +72,7 @@ typedef enum {
     trackingNumberTextField = [[TrackingNumberTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, offsetY, 240, 47) : CGRectMake(20, offsetY, 245, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+    [trackingNumberTextField setText:_trackingNumber];
     [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
     
@@ -92,11 +96,12 @@ typedef enum {
     receiveUpdateSwitch.onTintColor = [UIColor SingPostBlueColor];
     receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
     receiveUpdateSwitch.center = INTERFACE_IS_4INCHSCREEN ? CGPointMake(278, 165) : CGPointMake(278, 140);
+    receiveUpdateSwitch.on = YES;
     [contentView addSubview:receiveUpdateSwitch];
     
     offsetY += 65.0f;
 
-    trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStyleGrouped];
+    trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [trackingItemsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingItemsTableView setSeparatorColor:[UIColor clearColor]];
     [trackingItemsTableView setDelegate:self];
@@ -117,6 +122,14 @@ typedef enum {
     [trackingNumberTextField resignFirstResponder];
 }
 
+#pragma mark - Accessors
+
+- (void)setTrackingNumber:(NSString *)inTrackingNumber
+{
+    _trackingNumber = inTrackingNumber;
+    [trackingNumberTextField setText:_trackingNumber];
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -129,6 +142,7 @@ typedef enum {
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
+    [self.view endEditing:YES];
     NSLog(@"find tracking number button clicked");
 }
 
@@ -170,7 +184,13 @@ typedef enum {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (indexPath.row == 0) ? 36.0f : 44.0f;
+    if (indexPath.row == 0) {
+        return 30.0f;
+    }
+    else {
+        return (indexPath.row % 2 == 0) ? 44.0f : 1.0f;
+    }
+//    return (indexPath.row == 0) ? 30.0f : 44.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -195,7 +215,9 @@ typedef enum {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    NSInteger numHeaders = 1;
+    NSInteger numSeparators = numHeaders + (TEST_DATA_COUNT - 1);
+    return TEST_DATA_COUNT + numHeaders + numSeparators;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -240,8 +262,9 @@ typedef enum {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const itemCellIdentifier = @"TrackingItemMainTableViewCell";
     static NSString *const headerCellIdentifier = @"TrackingHeaderMainTableViewCell";
+    static NSString *const itemCellIdentifier = @"TrackingItemMainTableViewCell";
+    static NSString *const separatorCellIdentifier = @"SeparatorTableViewCell";
 
     if (indexPath.row == 0) {
         TrackingHeaderMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headerCellIdentifier];
@@ -254,14 +277,20 @@ typedef enum {
         return cell;
     }
     else {
-        TrackingItemMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
-        if (!cell) {
-            cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+        if ((indexPath.row % 2) == 0) {
+            TrackingItemMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
+            if (!cell)
+                cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+            
+            return cell;
         }
-        
-        [cell setShowBottomSeparator:indexPath.row < 3];
-        
-        return cell;
+        else {
+            SeparatorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:separatorCellIdentifier];
+            if (!cell)
+                cell = [[SeparatorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:separatorCellIdentifier];
+            
+            return cell;
+        }
     }
 }
 

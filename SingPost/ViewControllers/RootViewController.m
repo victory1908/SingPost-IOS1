@@ -105,6 +105,8 @@
     activeViewControllerContainerView.layer.zPosition = 1;
     destinationView.layer.zPosition = 999;
     
+    [activeViewController.view endEditing:YES];
+    
     [natGeoTransition perform:^(BOOL finished) {
         if (finished) {
             [viewController setPresentedFromViewController:activeViewController];

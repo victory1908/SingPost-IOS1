@@ -48,6 +48,7 @@
 		528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268417F85B20006F7027 /* CalculatePostage_WeightUnits.plist */; };
 		528F268A17F864C6006F7027 /* CalculatePostage_Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268917F864C6006F7027 /* CalculatePostage_Countries.plist */; };
 		528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268B17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist */; };
+		528F268F17F8B3BD006F7027 /* SeparatorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F268E17F8B3BD006F7027 /* SeparatorTableViewCell.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +129,8 @@
 		528F268417F85B20006F7027 /* CalculatePostage_WeightUnits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculatePostage_WeightUnits.plist; sourceTree = "<group>"; };
 		528F268917F864C6006F7027 /* CalculatePostage_Countries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculatePostage_Countries.plist; sourceTree = "<group>"; };
 		528F268B17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculatePostage_ExpectedDeliveryTimeDays.plist; sourceTree = "<group>"; };
+		528F268D17F8B3BD006F7027 /* SeparatorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeparatorTableViewCell.h; sourceTree = "<group>"; };
+		528F268E17F8B3BD006F7027 /* SeparatorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeparatorTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 				52024F1A17F683CE00AFD239 /* NavigationBarView.m */,
 				52024F2017F6E12800AFD239 /* TrackingNumberTextField.h */,
 				52024F2117F6E12800AFD239 /* TrackingNumberTextField.m */,
+				528F268D17F8B3BD006F7027 /* SeparatorTableViewCell.h */,
+				528F268E17F8B3BD006F7027 /* SeparatorTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				52024F2217F6E12800AFD239 /* TrackingNumberTextField.m in Sources */,
 				528F267617F83494006F7027 /* CTextField.m in Sources */,
+				528F268F17F8B3BD006F7027 /* SeparatorTableViewCell.m in Sources */,
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,

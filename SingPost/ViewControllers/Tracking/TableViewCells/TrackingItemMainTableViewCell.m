@@ -18,6 +18,11 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
+        [self setBackgroundColor:[UIColor clearColor]];
+        UIView *v = [[UIView alloc] init];
+        v.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.3f];
+        self.selectedBackgroundView = v;
+        
         UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
         [contentView setBackgroundColor:[UIColor whiteColor]];
 
@@ -35,13 +40,12 @@
         [statusLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusLabel];
         
-        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, contentView.bounds.size.height - 1, contentView.bounds.size.width - 30, 1)];
-        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [separatorView setBackgroundColor:RGB(196, 197, 200)];
-        [contentView addSubview:separatorView];
+//        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, contentView.bounds.size.height - 1, contentView.bounds.size.width - 30, 1)];
+//        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+//        [separatorView setBackgroundColor:RGB(196, 197, 200)];
+//        [self.selectedBackgroundView addSubview:separatorView];
         
         [self.contentView addSubview:contentView];
-        
     }
     return self;
 }
