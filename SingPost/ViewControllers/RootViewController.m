@@ -75,7 +75,7 @@
     MHNatGeoViewControllerTransition *natGeoTransition = [[MHNatGeoViewControllerTransition alloc] initWithSourceView:activeViewController.view destinationView:destinationView duration:PAGE_TRANSITION_DURATION];
     
     activeViewControllerContainerView.layer.zPosition = 1;
-    destinationView.layer.zPosition = 2;
+    destinationView.layer.zPosition = 999;
     
     [natGeoTransition perform:^(BOOL finished) {
         if (finished) {

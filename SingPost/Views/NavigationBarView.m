@@ -23,7 +23,7 @@
         
         toggleSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [toggleSidebarButton setHidden:YES];
-        [toggleSidebarButton setFrame:CGRectMake(10, 8, 30, 30)];
+        [toggleSidebarButton setFrame:CGRectMake(12, 8, 30, 30)];
         [toggleSidebarButton setImage:[UIImage imageNamed:@"sidebar_button"] forState:UIControlStateNormal];
         [toggleSidebarButton addTarget:self action:@selector(toggleSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:toggleSidebarButton];

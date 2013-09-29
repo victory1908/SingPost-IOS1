@@ -11,6 +11,8 @@
 #import <Reachability.h>
 #import "UIFont+SingPost.h"
 
+#import "CalculatePostageViewController.h"
+
 @implementation AppDelegate
 
 + (AppDelegate *)sharedAppDelegate {
@@ -26,6 +28,7 @@
     
     _rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:_rootViewController];
+//    [self.window setRootViewController:[[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil]];
     [self.window makeKeyAndVisible];
     
     return YES;

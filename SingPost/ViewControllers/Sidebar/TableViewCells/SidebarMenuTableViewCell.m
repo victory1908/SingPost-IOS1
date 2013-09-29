@@ -25,7 +25,7 @@
 {
     static NSArray *sharedSidebarMenusData;
     if (!sharedSidebarMenusData)
-        sharedSidebarMenusData  = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SidebarMenus" ofType:@"plist"]];
+        sharedSidebarMenusData = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SidebarMenus" ofType:@"plist"]];
     
     return sharedSidebarMenusData;
 }

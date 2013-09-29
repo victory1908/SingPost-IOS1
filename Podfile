@@ -8,4 +8,4 @@ pod 'SVProgressHUD', '~> 0.9'
 pod 'UALogger', '~> 0.2.3'
 pod 'Reachability', '~> 3.1.1'
 pod 'SevenSwitch', '~> 1.3.0'
-
+pod 'TPKeyboardAvoiding', '~> 1.1'

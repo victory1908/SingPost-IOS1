@@ -13,6 +13,19 @@
 #import "TrackingNumberTextField.h"
 
 #import "TrackingMainViewController.h"
+#import "CalculatePostageViewController.h"
+
+typedef enum {
+    LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
+    LANDINGPAGEBUTTON_POSTALCODES,
+    LANDINGPAGEBUTTON_LOCATEUS,
+    LANDINGPAGEBUTTON_SENDRECEIVE,
+    LANDINGPAGEBUTTON_PAY,
+    LANDINGPAGEBUTTON_SHOP,
+    LANDINGPAGEBUTTON_MORESERVICES,
+    LANDINGPAGEBUTTON_STAMPCOLLECTIBLES,
+    LANDINGPAGEBUTTON_OFFERS
+} tLandingPageButtons;
 
 @interface LandingPageViewController () <UITextFieldDelegate>
 
@@ -75,7 +88,7 @@
     UIButton *menuCalculatePostageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuCalculatePostageButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuCalculatePostageButton setImage:[UIImage imageNamed:@"landing_calculatePostage"] forState:UIControlStateNormal];
-    [menuCalculatePostageButton setTag:APP_PAGE_CALCULATEPOSTAGE];
+    [menuCalculatePostageButton setTag:LANDINGPAGEBUTTON_CALCULATEPOSTAGE];
     [menuCalculatePostageButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuCalculatePostageButton];
 
@@ -83,7 +96,7 @@
     UIButton *menuPostalCodesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuPostalCodesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuPostalCodesButton setImage:[UIImage imageNamed:@"landing_postalCodes"] forState:UIControlStateNormal];
-    [menuPostalCodesButton setTag:APP_PAGE_POSTALCODES];
+    [menuPostalCodesButton setTag:LANDINGPAGEBUTTON_POSTALCODES];
     [menuPostalCodesButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuPostalCodesButton];
     
@@ -91,7 +104,7 @@
     UIButton *menuPageLocateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuPageLocateUsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuPageLocateUsButton setImage:[UIImage imageNamed:@"landing_locateUs"] forState:UIControlStateNormal];
-    [menuPageLocateUsButton setTag:APP_PAGE_LOCATEUS];
+    [menuPageLocateUsButton setTag:LANDINGPAGEBUTTON_LOCATEUS];
     [menuPageLocateUsButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuPageLocateUsButton];
 
@@ -172,9 +185,22 @@
 
 - (IBAction)menuButtonClicked:(UIButton *)sender
 {
+    tLandingPageButtons landingPageButton = ((UIButton *)sender).tag;
+    
+    switch (landingPageButton) {
+        case LANDINGPAGEBUTTON_CALCULATEPOSTAGE:
+        {
+            CalculatePostageViewController *viewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        default:
+            NSLog(@"not yet implemented");
+            break;
+    }
     //FIXME: logic to handle page navigation
-    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+//    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
 }
 
 - (IBAction)offersMoreButtonClicked:(id)sender
