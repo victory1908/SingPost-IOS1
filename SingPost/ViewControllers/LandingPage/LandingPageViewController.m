@@ -198,9 +198,6 @@ typedef enum {
             NSLog(@"not yet implemented");
             break;
     }
-    //FIXME: logic to handle page navigation
-//    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
 }
 
 - (IBAction)offersMoreButtonClicked:(id)sender

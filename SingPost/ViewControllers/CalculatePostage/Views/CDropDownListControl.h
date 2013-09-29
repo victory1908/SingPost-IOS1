@@ -8,9 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+#define TAG_DROPDOWN_PICKERVIEW 888
+
+@protocol CDropDownListControlDelegate;
+
 @interface CDropDownListControl : UIControl
 
 @property (nonatomic) NSString *plistValueFile;
 @property (nonatomic) NSString *placeholderText;
+@property (nonatomic, weak) id<CDropDownListControlDelegate> delegate;
+
+- (void)selectRow:(NSInteger)row animated:(BOOL)shouldAnimate;
+
+@end
+
+@protocol CDropDownListControlDelegate <NSObject>
+
+- (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight;
 
 @end

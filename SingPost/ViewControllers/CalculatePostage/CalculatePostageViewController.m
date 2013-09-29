@@ -72,6 +72,8 @@ typedef enum  {
 {
     tCalculatePostageSections currentSection;
     CalculatePostageToggleButton *overseasSectionButton, *singaporeSectionButton;
+    CalculatePostageOverseasView *overseasSectionView;
+    CalculatePostageSingaporeView *singaporeSectionView;
     UIScrollView *sectionContentScrollView;
 }
 
@@ -92,6 +94,22 @@ typedef enum  {
     [instructionsLabel setBackgroundColor:[UIColor clearColor]];
     [contentView addSubview:instructionsLabel];
     
+    sectionContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 190, contentView.bounds.size.width, contentView.bounds.size.height - 190)];
+    [sectionContentScrollView setBackgroundColor:[UIColor clearColor]];
+    [sectionContentScrollView setDelaysContentTouches:NO];
+    [sectionContentScrollView setPagingEnabled:YES];
+    [sectionContentScrollView setScrollEnabled:NO];
+    [contentView addSubview:sectionContentScrollView];
+    
+    overseasSectionView = [[CalculatePostageOverseasView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_OVERSEAS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [overseasSectionView setUserInteractionEnabled:YES];
+    [overseasSectionView setBackgroundColor:[UIColor clearColor]];
+    [sectionContentScrollView addSubview:overseasSectionView];
+    
+    singaporeSectionView = [[CalculatePostageSingaporeView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_SINGAPORE, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [singaporeSectionView setBackgroundColor:[UIColor clearColor]];
+    [sectionContentScrollView addSubview:singaporeSectionView];
+    
     overseasSectionButton = [[CalculatePostageToggleButton alloc] initWithFrame:CGRectMake(0, 140, contentView.bounds.size.width / 2.0f, 50)];
     [overseasSectionButton setTag:CALCULATEPOSTAGE_SECTION_OVERSEAS];
     [overseasSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -105,20 +123,6 @@ typedef enum  {
     [singaporeSectionButton setTitle:@"Singapore" forState:UIControlStateNormal];
     [singaporeSectionButton setSelected:NO];
     [contentView addSubview:singaporeSectionButton];
-    
-    sectionContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 185, contentView.bounds.size.width, 300)];
-    [sectionContentScrollView setBackgroundColor:[UIColor clearColor]];
-    [sectionContentScrollView setPagingEnabled:YES];
-    [sectionContentScrollView setScrollEnabled:NO];
-    [contentView addSubview:sectionContentScrollView];
-    
-    CalculatePostageOverseasView *overseasView = [[CalculatePostageOverseasView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_OVERSEAS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [overseasView setBackgroundColor:[UIColor clearColor]];
-    [sectionContentScrollView addSubview:overseasView];
-    
-    CalculatePostageSingaporeView *singaporeView = [[CalculatePostageSingaporeView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_SINGAPORE, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [singaporeView setBackgroundColor:[UIColor clearColor]];
-    [sectionContentScrollView addSubview:singaporeView];
      
     self.view = contentView;
 }
@@ -130,23 +134,23 @@ typedef enum  {
     [overseasSectionButton setSelected:(overseasSectionButton == sender)];
     [singaporeSectionButton setSelected:(singaporeSectionButton == sender)];
     
+    [self resignAllResponders];
+    
     currentSection = ((UIButton *)sender).tag;
     [sectionContentScrollView setContentOffset:CGPointMake(currentSection * sectionContentScrollView.bounds.size.width, 0) animated:YES];
-    
-    switch (currentSection) {
-        case CALCULATEPOSTAGE_SECTION_SINGAPORE:
-        {
-            
-            break;
-        }
-        case CALCULATEPOSTAGE_SECTION_OVERSEAS:
-        {
-            break;
-        }
-        default:
-            NSAssert(NO, @"unsupported section");
-            break;
-    }
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    NSLog(@"touches began");
+    [self resignAllResponders];
+}
+
+- (void)resignAllResponders
+{
+    [sectionContentScrollView endEditing:YES];
+    [overseasSectionView endEditing:YES];
 }
 
 @end
