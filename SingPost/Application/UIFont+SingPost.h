@@ -12,6 +12,7 @@ extern NSString *const kSingPostFontOpenSans;
 
 extern NSString *const kFontRegularKey;
 extern NSString *const kFontItalicKey;
+extern NSString *const kFontSemiboldKey;
 extern NSString *const kFontBoldKey;
 extern NSString *const kFontBoldItalicKey;
 extern NSString *const kFontLightItalicKey;
@@ -23,6 +24,7 @@ extern NSString *const kFontLightKey;
 + (NSString *)fontNameForFontKey:(NSString *)key style:(NSString *)style;
 
 + (UIFont *)SingPostRegularFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;
++ (UIFont *)SingPostSemiboldFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;
 + (UIFont *)SingPostBoldFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;
 + (UIFont *)SingPostLightFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;
 + (UIFont *)SingPostLightItalicFontOfSize:(CGFloat)fontSize fontKey:(NSString *)key;

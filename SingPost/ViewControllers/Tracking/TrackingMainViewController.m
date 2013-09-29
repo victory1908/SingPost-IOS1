@@ -42,6 +42,7 @@ typedef enum {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
+    //navigation bar
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setShowSidebarToggleButton:YES];
     [navigationBarView setTitle:@"Track"];
@@ -58,11 +59,14 @@ typedef enum {
     [infoButton setFrame:CGRectMake(255, 7, 50, 30)];
     [navigationBarView addSubview:infoButton];
     
+    //content
+    CGFloat offsetY = INTERFACE_IS_4INCHSCREEN ? 80.0f : 70.0f;
+    
     UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox_grayBg"]];
-    [trackingTextBoxBackgroundImageView setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, 80, 290, 47) : CGRectMake(15, 70, 290, 30)];
+    [trackingTextBoxBackgroundImageView setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, offsetY, 290, 47) : CGRectMake(15, offsetY, 290, 30)];
     [contentView addSubview:trackingTextBoxBackgroundImageView];
     
-    trackingNumberTextField = [[TrackingNumberTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 240, 47) : CGRectMake(20, 70, 245, 30)];
+    trackingNumberTextField = [[TrackingNumberTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, offsetY, 240, 47) : CGRectMake(20, offsetY, 245, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [trackingNumberTextField setDelegate:self];
@@ -70,11 +74,13 @@ typedef enum {
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(265, 87, 35, 35) : CGRectMake(273, 71, 29, 29)];
+    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(265, 87, 35, 35) : CGRectMake(273, 72, 29, 29)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:findTrackingNumberButton];
     
-    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 140, 220, 50)];
+    offsetY += INTERFACE_IS_4INCHSCREEN ? 60.0f : 45.0f;
+    
+    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 220, 50)];
     [instructionsLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setText:@"Turn on push notification to auto-receive\nlatest status updates of item(s) you are\ncurrently tracking"];
     [instructionsLabel setNumberOfLines:0];
@@ -85,10 +91,12 @@ typedef enum {
     receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
     receiveUpdateSwitch.onTintColor = [UIColor SingPostBlueColor];
     receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
-    receiveUpdateSwitch.center = CGPointMake(270, 165);
+    receiveUpdateSwitch.center = INTERFACE_IS_4INCHSCREEN ? CGPointMake(278, 165) : CGPointMake(278, 140);
     [contentView addSubview:receiveUpdateSwitch];
+    
+    offsetY += 65.0f;
 
-    trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 200, contentView.bounds.size.width, contentView.bounds.size.height - 200) style:UITableViewStyleGrouped];
+    trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStyleGrouped];
     [trackingItemsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingItemsTableView setSeparatorColor:[UIColor clearColor]];
     [trackingItemsTableView setDelegate:self];

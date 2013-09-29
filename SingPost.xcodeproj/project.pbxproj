@@ -16,6 +16,9 @@
 		52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2817F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m */; };
 		52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */; };
 		52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */; };
+		52024F3117F72D2000AFD239 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F3017F72D2000AFD239 /* OpenSans-Semibold.ttf */; };
+		52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F3317F7301B00AFD239 /* TrackingItemDetailTableViewCell.m */; };
+		52024F3517F7348C00AFD239 /* TrackingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */; };
 		521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
 		521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
@@ -72,6 +75,9 @@
 		52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		52024F2D17F719C200AFD239 /* TrackingDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingDetailsViewController.h; sourceTree = "<group>"; };
 		52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingDetailsViewController.m; sourceTree = "<group>"; };
+		52024F3017F72D2000AFD239 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		52024F3217F7301B00AFD239 /* TrackingItemDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingItemDetailTableViewCell.h; sourceTree = "<group>"; };
+		52024F3317F7301B00AFD239 /* TrackingItemDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingItemDetailTableViewCell.m; sourceTree = "<group>"; };
 		521B171D17F1633000FEB6FD /* SingPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B172017F1633000FEB6FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		521B172217F1633000FEB6FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -179,6 +185,8 @@
 				52024F2817F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m */,
 				52024F2417F6F1CF00AFD239 /* TrackingItemMainTableViewCell.h */,
 				52024F2517F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m */,
+				52024F3217F7301B00AFD239 /* TrackingItemDetailTableViewCell.h */,
+				52024F3317F7301B00AFD239 /* TrackingItemDetailTableViewCell.m */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -311,6 +319,7 @@
 				52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */,
 				52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */,
 				52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */,
+				52024F3017F72D2000AFD239 /* OpenSans-Semibold.ttf */,
 				52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */,
 			);
 			path = Fonts;
@@ -415,6 +424,7 @@
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
 				52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */,
+				52024F3117F72D2000AFD239 /* OpenSans-Semibold.ttf in Resources */,
 				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
 				52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */,
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
@@ -477,6 +487,7 @@
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
+				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
@@ -492,6 +503,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52024F3517F7348C00AFD239 /* TrackingDetailsViewController.m in Sources */,
 				521B174617F1633000FEB6FD /* SingPostTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
