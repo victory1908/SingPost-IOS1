@@ -25,7 +25,7 @@
 
 - (void)loadView
 {
-    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     //navigation bar
