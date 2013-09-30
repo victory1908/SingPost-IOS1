@@ -8,6 +8,7 @@
 
 #import "LocateUsMapView.h"
 #import "CTextField.h"
+#import "FlatBlueButton.h"
 #import "CDropDownListControl.h"
 #import "FlatBlueButton.h"
 #import <MapKit/MapKit.h>
@@ -39,11 +40,22 @@
         [findByTextField setPlaceholder:@"Find by street name,\nblk no., mrt station etc"];
         [contentScrollView addSubview:findByTextField];
         
-        typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 290, 44)];
+        UIButton *locateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [locateUsButton setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
+        [locateUsButton setFrame:CGRectMake(265, 24, 30, 30)];
+        [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [contentScrollView addSubview:locateUsButton];
+        
+        typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
         [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
         [typesDropDownList setDelegate:self];
         [typesDropDownList selectRow:0 animated:NO];
         [contentScrollView addSubview:typesDropDownList];
+        
+        FlatBlueButton *goButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(235, 70, 70, 44)];
+        [goButton addTarget:self action:@selector(goButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [goButton setTitle:@"GO" forState:UIControlStateNormal];
+        [contentScrollView addSubview:goButton];
         
         mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 120 - 65)];
         [contentScrollView addSubview:mapView];
@@ -82,6 +94,16 @@
 }
 
 #pragma mark - IBActions
+
+- (IBAction)goButtonClicked:(id)sender
+{
+    NSLog(@"go button clicked");
+}
+
+- (IBAction)locateUsButtonClicked:(id)sender
+{
+    NSLog(@"locate us clicked");
+}
 
 - (IBAction)aroundMeButtonClicked:(id)sender
 {
