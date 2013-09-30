@@ -56,6 +56,7 @@
 		528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26B817F922F5006F7027 /* FindPostalCodeStreetView.m */; };
 		528F26BC17F92584006F7027 /* FindPostalCodeLandmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26BB17F92584006F7027 /* FindPostalCodeLandmarkView.m */; };
 		528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26BE17F92595006F7027 /* FindPostalCodePOBoxView.m */; };
+		528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F26C117F92F6C006F7027 /* FindPostalCodes_Types.plist */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +153,7 @@
 		528F26BB17F92584006F7027 /* FindPostalCodeLandmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPostalCodeLandmarkView.m; sourceTree = "<group>"; };
 		528F26BD17F92595006F7027 /* FindPostalCodePOBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPostalCodePOBoxView.h; sourceTree = "<group>"; };
 		528F26BE17F92595006F7027 /* FindPostalCodePOBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPostalCodePOBoxView.m; sourceTree = "<group>"; };
+		528F26C117F92F6C006F7027 /* FindPostalCodes_Types.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FindPostalCodes_Types.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,6 +408,7 @@
 				528F268917F864C6006F7027 /* CalculatePostage_Countries.plist */,
 				528F268417F85B20006F7027 /* CalculatePostage_WeightUnits.plist */,
 				528F268B17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist */,
+				528F26C117F92F6C006F7027 /* FindPostalCodes_Types.plist */,
 			);
 			path = Plists;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
 				52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */,
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
+				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

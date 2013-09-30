@@ -23,7 +23,7 @@
     if ((self = [super initWithFrame:frame])) {
         contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.bounds];
         [contentScrollView setDelaysContentTouches:NO];
-        [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
+        [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
         buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
         [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
@@ -61,6 +61,7 @@
         [postalCodeHeaderLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [postalCodeHeaderLabel setTextAlignment:NSTextAlignmentCenter];
         [postalCodeHeaderLabel setTextColor:RGB(58, 68, 61)];
+        [postalCodeHeaderLabel setBackgroundColor:[UIColor clearColor]];
         [postalCodeHeaderLabel setText:@"Postal Code"];
         [postalCodeContainerView addSubview:postalCodeHeaderLabel];
         
@@ -68,18 +69,20 @@
         [postalCodeLabel setFont:[UIFont SingPostBoldFontOfSize:40.0f fontKey:kSingPostFontOpenSans]];
         [postalCodeLabel setTextAlignment:NSTextAlignmentCenter];
         [postalCodeLabel setTextColor:RGB(58, 68, 61)];
+        [postalCodeLabel setBackgroundColor:[UIColor clearColor]];
         [postalCodeLabel setText:@"123456"];
         [postalCodeContainerView addSubview:postalCodeLabel];
         
         [contentScrollView setContentSize:contentScrollView.bounds.size];
         [self addSubview:contentScrollView];
     }
+    
     return self;
 }
 
 - (IBAction)findButtonClicked:(id)sender
 {
-    
+    NSLog(@"find button clicked");
 }
 
 @end
