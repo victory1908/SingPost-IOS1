@@ -11,6 +11,7 @@
 #import "UIFont+SingPost.h"
 #import "CalculatePostageResultsItemTableViewCell.h"
 #import "AppDelegate.h"
+#import "FlatBlueButton.h"
 
 @interface CalculatePostageResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -118,23 +119,15 @@
     [resultsTableView setBackgroundColor:[UIColor whiteColor]];
     [resultsTableView setBackgroundView:nil];
     [contentView addSubview:resultsTableView];
-
-    UIButton *findSingpostLocationNearYouButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [findSingpostLocationNearYouButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
+    
+    FlatBlueButton *findSingpostLocationNearYouButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, contentView.bounds.size.width - 30, 48)];
     [findSingpostLocationNearYouButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [findSingpostLocationNearYouButton setFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, contentView.bounds.size.width - 30, 48)];
-    [findSingpostLocationNearYouButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [findSingpostLocationNearYouButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [findSingpostLocationNearYouButton addTarget:self action:@selector(findSingpostLocationNearYouButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [findSingpostLocationNearYouButton setTitle:@"FIND SINGPOST LOCATION NEAR YOU" forState:UIControlStateNormal];
     [contentView addSubview:findSingpostLocationNearYouButton];
 
-    UIButton *calculateAgainButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [calculateAgainButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
+    FlatBlueButton *calculateAgainButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(findSingpostLocationNearYouButton.frame) + 5, contentView.bounds.size.width - 30, 48)];
     [calculateAgainButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [calculateAgainButton setFrame:CGRectMake(15, CGRectGetMaxY(findSingpostLocationNearYouButton.frame) + 5, contentView.bounds.size.width - 30, 48)];
-    [calculateAgainButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [calculateAgainButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [calculateAgainButton addTarget:self action:@selector(calculateAgainButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [calculateAgainButton setTitle:@"CALCULATE AGAIN" forState:UIControlStateNormal];
     [contentView addSubview:calculateAgainButton];

@@ -10,6 +10,7 @@
 #import "CTextField.h"
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UIFont+SingPost.h"
+#import "FlatBlueButton.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation FindPostalCodeStreetView
@@ -42,12 +43,7 @@
         [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [contentScrollView addSubview:allFieldMandatoryLabel];
         
-        UIButton *findButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [findButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
-        [findButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-        [findButton setFrame:CGRectMake(15, 175, self.bounds.size.width - 30, 48)];
-        [findButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [findButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 175, self.bounds.size.width - 30, 48)];
         [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [findButton setTitle:@"FIND" forState:UIControlStateNormal];
         [contentScrollView addSubview:findButton];

@@ -11,6 +11,7 @@
 #import "CDropDownListControl.h"
 #import "UIFont+SingPost.h"
 #import "UIView+Position.h"
+#import "FlatBlueButton.h"
 #import <TPKeyboardAvoidingScrollView.h>
 
 @interface CalculatePostageSingaporeView () <CDropDownListControlDelegate>
@@ -59,12 +60,7 @@
         [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [contentScrollView addSubview:allFieldMandatoryLabel];
         
-        UIButton *calculatePostageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [calculatePostageButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
-        [calculatePostageButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-        [calculatePostageButton setFrame:CGRectMake(15, 210, self.bounds.size.width - 30, 48)];
-        [calculatePostageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [calculatePostageButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+        FlatBlueButton *calculatePostageButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 210, self.bounds.size.width - 30, 48)];
         [calculatePostageButton addTarget:self action:@selector(calculatePostageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [calculatePostageButton setTitle:@"CALCULATE" forState:UIControlStateNormal];
         [contentScrollView addSubview:calculatePostageButton];

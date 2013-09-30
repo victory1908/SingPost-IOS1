@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "blue_bg_button.png"
+      "filename" : "blue_bg_pressed_button.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "blue_bg_button@2x.png"
+      "filename" : "blue_bg_pressed_button@2x.png"
     }
   ],
   "info" : {

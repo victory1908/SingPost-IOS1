@@ -13,6 +13,7 @@
 #import "UIFont+SingPost.h"
 #import "UIView+Position.h"
 #import <TPKeyboardAvoidingScrollView.h>
+#import "FlatBlueButton.h"
 
 @interface CalculatePostageOverseasView () <CDropDownListControlDelegate>
 
@@ -62,12 +63,7 @@
         [expectedDeliveryTimeInDaysDropDownList setPlaceholderText:@"Expected delivery time (days)"];
         [contentScrollView addSubview:expectedDeliveryTimeInDaysDropDownList];
         
-        UIButton *calculatePostageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [calculatePostageButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
-        [calculatePostageButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-        [calculatePostageButton setFrame:CGRectMake(15, 215, self.bounds.size.width - 30, 48)];
-        [calculatePostageButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [calculatePostageButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+        FlatBlueButton *calculatePostageButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 215, self.bounds.size.width - 30, 48)];
         [calculatePostageButton addTarget:self action:@selector(calculatePostageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [calculatePostageButton setTitle:@"CALCULATE" forState:UIControlStateNormal];
         [contentScrollView addSubview:calculatePostageButton];

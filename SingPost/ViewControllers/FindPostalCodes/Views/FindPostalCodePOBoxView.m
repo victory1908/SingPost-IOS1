@@ -12,6 +12,7 @@
 #import "CDropDownListControl.h"
 #import "UIFont+SingPost.h"
 #import "UIView+Position.h"
+#import "FlatBlueButton.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface FindPostalCodePOBoxView () <CDropDownListControlDelegate>
@@ -45,12 +46,7 @@
         [postOfficeTextField setPlaceholder:@"Post Office"];
         [contentScrollView addSubview:postOfficeTextField];
         
-        UIButton *findButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [findButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
-        [findButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-        [findButton setFrame:CGRectMake(15, 175, self.bounds.size.width - 30, 48)];
-        [findButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [findButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 175, self.bounds.size.width - 30, 48)];
         [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [findButton setTitle:@"FIND" forState:UIControlStateNormal];
         [contentScrollView addSubview:findButton];
