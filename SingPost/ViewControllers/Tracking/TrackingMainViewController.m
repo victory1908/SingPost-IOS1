@@ -107,7 +107,6 @@ typedef enum {
     [trackingItemsTableView setDelegate:self];
     [trackingItemsTableView setDataSource:self];
     [trackingItemsTableView setBackgroundColor:[UIColor clearColor]];
-    [trackingItemsTableView setShowsVerticalScrollIndicator:NO];
     [trackingItemsTableView setBackgroundView:nil];
     [contentView addSubview:trackingItemsTableView];
     

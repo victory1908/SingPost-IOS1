@@ -14,6 +14,7 @@
 
 #import "CalculatePostageViewController.h"
 #import "LandingPageViewController.h"
+#import "TrackingMainViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -92,13 +93,17 @@
 
 - (IBAction)singPostLogoButtonClicked:(id)sender
 {
+    [self.view endEditing:YES];
     LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:landingPageViewController];
 }
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
-    NSLog(@"find tracking number clicked");
+    [self.view endEditing:YES];
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
 }
 
 #pragma mark - UITextFieldDelegate

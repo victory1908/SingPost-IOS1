@@ -10,6 +10,7 @@
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
 #import "CalculatePostageResultsItemTableViewCell.h"
+#import "AppDelegate.h"
 
 @interface CalculatePostageResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -150,7 +151,7 @@
 
 - (IBAction)calculateAgainButtonClicked:(id)sender
 {
-    NSLog(@"calculate again button clicked");
+    [[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
 }
 
 #pragma mark - UITableView DataSource & Delegate
