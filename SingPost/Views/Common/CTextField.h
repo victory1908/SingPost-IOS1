@@ -10,4 +10,8 @@
 
 @interface CTextField : UITextField
 
+@property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, assign) CGFloat placeholderFontSize;
+@property (nonatomic, assign) CGSize insetBoundsSize;
+
 @end

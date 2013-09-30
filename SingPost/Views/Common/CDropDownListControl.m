@@ -63,13 +63,14 @@
     return self;
 }
 
+#define BOTTOM_MARGIN 6.0f
 - (void)togglePickerVisibility
 {
     if (!isAnimating) {
         isAnimating = YES;
         
         if (pickerViewContainerView.superview) {
-            [_delegate repositionRelativeTo:self byVerticalHeight:-PICKERVIEW_HEIGHT];
+            [_delegate repositionRelativeTo:self byVerticalHeight:-(PICKERVIEW_HEIGHT + BOTTOM_MARGIN)];
             
             [UIView animateWithDuration:0.3f animations:^{
                 [pickerViewContainerView setHeight:0.0f];
@@ -80,7 +81,7 @@
             }];
         }
         else {
-            [_delegate repositionRelativeTo:self byVerticalHeight:PICKERVIEW_HEIGHT];
+            [_delegate repositionRelativeTo:self byVerticalHeight:PICKERVIEW_HEIGHT + BOTTOM_MARGIN];
             
             [closePickerButton setFrame:CGRectMake(0, 0, self.superview.bounds.size.width, self.superview.bounds.size.height + PICKERVIEW_HEIGHT)];
             [pickerViewContainerView setY:CGRectGetMaxY(self.frame) + 5 andHeight:0.0f];

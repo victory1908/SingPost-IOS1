@@ -15,6 +15,7 @@
 #import "TrackingMainViewController.h"
 #import "CalculatePostageViewController.h"
 #import "FindPostalCodesMainViewController.h"
+#import "LocateUsMainViewController.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
@@ -199,6 +200,13 @@ typedef enum {
         {
             FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case LANDINGPAGEBUTTON_LOCATEUS:
+        {
+            LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
         }
         default:
             NSLog(@"not yet implemented");

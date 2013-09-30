@@ -15,12 +15,16 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
+        _fontSize = 16.0f;
+        _placeholderFontSize = 16.0f;
+        _insetBoundsSize = CGSizeMake(5, 12);
+
         self.background = [UIImage imageNamed:@"trackingTextBox_grayBg"];
         self.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = [UIColor clearColor];
         self.textColor = [UIColor SingPostBlueColor];
-        self.font = [UIFont SingPostRegularFontOfSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f fontKey:kSingPostFontOpenSans];
+        self.font = [UIFont SingPostRegularFontOfSize:_fontSize fontKey:kSingPostFontOpenSans];
     }
     
     return self;
@@ -29,15 +33,16 @@
 - (void)drawPlaceholderInRect:(CGRect)rect {
     [[UIColor SingPostBlueColor] setFill];
     [[self placeholder] drawInRect:INTERFACE_IS_4INCHSCREEN ? CGRectInset(rect, 0, 0) : CGRectInset(rect, 0, 0)
-                          withFont:[UIFont SingPostLightItalicFontOfSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f fontKey:kSingPostFontOpenSans]];
+                          withFont:[UIFont SingPostLightItalicFontOfSize:_placeholderFontSize fontKey:kSingPostFontOpenSans]
+                     lineBreakMode:NSLineBreakByWordWrapping];
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 5, 12);
+    return CGRectInset(bounds, _insetBoundsSize.width, _insetBoundsSize.height);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 5, 12);
+    return CGRectInset(bounds, _insetBoundsSize.width, _insetBoundsSize.height);
 }
 
 

@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 
 #import <QuartzCore/QuartzCore.h>
+#import <MHNatGeoViewControllerTransition.h>
 
 @interface RootViewController ()
 
@@ -178,6 +179,7 @@
 
 - (IBAction)closeSidebarButtonClicked:(id)sender
 {
+    [sideBarMenuViewController.view endEditing:YES];
     sideBarMenuViewController.isVisible = NO;
     [self showSideBar:sideBarMenuViewController.isVisible withAnimation:YES];
 }

@@ -16,6 +16,7 @@
 #import "LandingPageViewController.h"
 #import "FindPostalCodesMainViewController.h"
 #import "TrackingMainViewController.h"
+#import "LocateUsMainViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -203,6 +204,12 @@
         case SIDEBARMENU_FINDPOSTALCODES:
         {
             FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+            break;
+        }
+        case SIDEBARMENU_LOCATEUS:
+        {
+            LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
             break;
         }
