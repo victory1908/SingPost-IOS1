@@ -10,6 +10,7 @@
 #import <TPKeyboardAvoidingScrollView.h>
 #import "CTextField.h"
 #import "UIFont+SingPost.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation FindPostalCodeLandmarkView
 {

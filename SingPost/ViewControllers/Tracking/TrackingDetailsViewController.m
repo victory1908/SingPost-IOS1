@@ -11,6 +11,7 @@
 #import "UIFont+SingPost.h"
 #import "TrackingItemDetailTableViewCell.h"
 #import <KGModal.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface TrackingDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
