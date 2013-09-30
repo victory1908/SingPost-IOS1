@@ -61,6 +61,7 @@
 		528F26CD17F945AD006F7027 /* LocateUsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26CC17F945AD006F7027 /* LocateUsMapView.m */; };
 		528F26CF17F946B0006F7027 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F26D017F9561D006F7027 /* LocateUs_Types.plist */; };
+		528F26D417F97398006F7027 /* LocateUsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26D317F97398006F7027 /* LocateUsListView.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -164,6 +165,8 @@
 		528F26CC17F945AD006F7027 /* LocateUsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapView.m; sourceTree = "<group>"; };
 		528F26CE17F946B0006F7027 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		528F26D017F9561D006F7027 /* LocateUs_Types.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LocateUs_Types.plist; sourceTree = "<group>"; };
+		528F26D217F97398006F7027 /* LocateUsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsListView.h; sourceTree = "<group>"; };
+		528F26D317F97398006F7027 /* LocateUsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsListView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -500,6 +503,8 @@
 			children = (
 				528F26CB17F945AD006F7027 /* LocateUsMapView.h */,
 				528F26CC17F945AD006F7027 /* LocateUsMapView.m */,
+				528F26D217F97398006F7027 /* LocateUsListView.h */,
+				528F26D317F97398006F7027 /* LocateUsListView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -649,6 +654,7 @@
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F269C17F8B800006F7027 /* SeparatorTableViewCell.m in Sources */,
+				528F26D417F97398006F7027 /* LocateUsListView.m in Sources */,
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
 				528F26CD17F945AD006F7027 /* LocateUsMapView.m in Sources */,
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
