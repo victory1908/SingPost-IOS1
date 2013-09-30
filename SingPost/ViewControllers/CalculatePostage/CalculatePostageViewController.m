@@ -13,53 +13,7 @@
 #import "CalculatePostageOverseasView.h"
 #import "CalculatePostageResultsViewController.h"
 #import "AppDelegate.h"
-
-@interface CalculatePostageToggleButton : UIButton
-
-@end
-
-@implementation CalculatePostageToggleButton
-{
-    UIImageView *selectedIndicatorImageView;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    if ((self = [super initWithFrame:frame])) {
-        [self.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        
-        selectedIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"selected_indicator"]];
-        [selectedIndicatorImageView setFrame:CGRectMake(70, self.bounds.size.height, 17, 8)];
-        [self addSubview:selectedIndicatorImageView];
-        
-        [self setSelected:NO];
-    }
-    
-    return self;
-}
-- (void)setHighlighted:(BOOL)highlighted
-{
-    if (highlighted)
-        [self.titleLabel setTextColor:[UIColor darkGrayColor]];
-}
-
-- (void)setSelected:(BOOL)selected
-{
-    [super setSelected:selected];
-    
-    if (selected) {
-        [self setBackgroundColor:RGB(36, 84, 157)];
-        [self.titleLabel setTextColor:[UIColor whiteColor]];
-        [selectedIndicatorImageView setHidden:NO];
-    }
-    else {
-        [self setBackgroundColor:[UIColor whiteColor]];
-        [self.titleLabel setTextColor:RGB(36, 84, 157)];
-        [selectedIndicatorImageView setHidden:YES];
-    }
-}
-
-@end
+#import "SectionToggleButton.h"
 
 @interface CalculatePostageViewController () <CalculatePostageOverseasDelegate, CalculatePostageSingaporeDelegate>
 
@@ -73,7 +27,7 @@ typedef enum  {
 @implementation CalculatePostageViewController
 {
     tCalculatePostageSections currentSection;
-    CalculatePostageToggleButton *overseasSectionButton, *singaporeSectionButton;
+    SectionToggleButton *overseasSectionButton, *singaporeSectionButton;
     CalculatePostageOverseasView *overseasSectionView;
     CalculatePostageSingaporeView *singaporeSectionView;
     UIScrollView *sectionContentScrollView;
@@ -113,14 +67,14 @@ typedef enum  {
     [singaporeSectionView setBackgroundColor:[UIColor clearColor]];
     [sectionContentScrollView addSubview:singaporeSectionView];
     
-    overseasSectionButton = [[CalculatePostageToggleButton alloc] initWithFrame:CGRectMake(0, 140, contentView.bounds.size.width / 2.0f, 50)];
+    overseasSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 140, contentView.bounds.size.width / 2.0f, 50)];
     [overseasSectionButton setTag:CALCULATEPOSTAGE_SECTION_OVERSEAS];
     [overseasSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [overseasSectionButton setTitle:@"Overseas" forState:UIControlStateNormal];
     [overseasSectionButton setSelected:YES];
     [contentView addSubview:overseasSectionButton];
     
-    singaporeSectionButton = [[CalculatePostageToggleButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width / 2.0f, 140, contentView.bounds.size.width / 2.0f, 50)];
+    singaporeSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width / 2.0f, 140, contentView.bounds.size.width / 2.0f, 50)];
     [singaporeSectionButton setTag:CALCULATEPOSTAGE_SECTION_SINGAPORE];
     [singaporeSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [singaporeSectionButton setTitle:@"Singapore" forState:UIControlStateNormal];

@@ -21,6 +21,8 @@
     UIView *pickerViewContainerView;
     UILabel *selectedValueLabel;
     NSArray *_values;
+    
+    BOOL isAnimating;
 }
 
 #define PICKERVIEW_HEIGHT 215
@@ -63,27 +65,34 @@
 
 - (void)togglePickerVisibility
 {
-    if (pickerViewContainerView.superview) {
-        [_delegate repositionRelativeTo:self byVerticalHeight:-PICKERVIEW_HEIGHT];
+    if (!isAnimating) {
+        isAnimating = YES;
         
-        [UIView animateWithDuration:0.3f animations:^{
-            [pickerViewContainerView setHeight:0.0f];
-        } completion:^(BOOL finished) {
-            [pickerViewContainerView removeFromSuperview];
-            [closePickerButton removeFromSuperview];
-        }];
-    }
-    else {
-        [_delegate repositionRelativeTo:self byVerticalHeight:PICKERVIEW_HEIGHT];
-        
-        [closePickerButton setFrame:CGRectMake(0, 0, self.superview.bounds.size.width, self.superview.bounds.size.height + PICKERVIEW_HEIGHT)];
-        [pickerViewContainerView setY:CGRectGetMaxY(self.frame) + 5 andHeight:0.0f];
-        [self.superview addSubview:closePickerButton];
-        [self.superview addSubview:pickerViewContainerView];
-        
-        [UIView animateWithDuration:0.3f animations:^{
-            [pickerViewContainerView setHeight:PICKERVIEW_HEIGHT];
-        }];
+        if (pickerViewContainerView.superview) {
+            [_delegate repositionRelativeTo:self byVerticalHeight:-PICKERVIEW_HEIGHT];
+            
+            [UIView animateWithDuration:0.3f animations:^{
+                [pickerViewContainerView setHeight:0.0f];
+            } completion:^(BOOL finished) {
+                [pickerViewContainerView removeFromSuperview];
+                [closePickerButton removeFromSuperview];
+                isAnimating = NO;
+            }];
+        }
+        else {
+            [_delegate repositionRelativeTo:self byVerticalHeight:PICKERVIEW_HEIGHT];
+            
+            [closePickerButton setFrame:CGRectMake(0, 0, self.superview.bounds.size.width, self.superview.bounds.size.height + PICKERVIEW_HEIGHT)];
+            [pickerViewContainerView setY:CGRectGetMaxY(self.frame) + 5 andHeight:0.0f];
+            [self.superview addSubview:closePickerButton];
+            [self.superview addSubview:pickerViewContainerView];
+            
+            [UIView animateWithDuration:0.3f animations:^{
+                [pickerViewContainerView setHeight:PICKERVIEW_HEIGHT];
+            } completion:^(BOOL finished) {
+                isAnimating = NO;
+            }];
+        }
     }
 }
 

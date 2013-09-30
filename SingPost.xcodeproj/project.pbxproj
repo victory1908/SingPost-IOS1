@@ -51,6 +51,11 @@
 		528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F269F17F8B822006F7027 /* CDropDownListControl.m */; };
 		528F26A317F8B822006F7027 /* CTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26A117F8B822006F7027 /* CTextField.m */; };
 		528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26AD17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m */; };
+		528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26B117F91E5A006F7027 /* FindPostalCodesMainViewController.m */; };
+		528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26B417F920A0006F7027 /* SectionToggleButton.m */; };
+		528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26B817F922F5006F7027 /* FindPostalCodeStreetView.m */; };
+		528F26BC17F92584006F7027 /* FindPostalCodeLandmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26BB17F92584006F7027 /* FindPostalCodeLandmarkView.m */; };
+		528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26BE17F92595006F7027 /* FindPostalCodePOBoxView.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -137,6 +142,16 @@
 		528F26A117F8B822006F7027 /* CTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTextField.m; sourceTree = "<group>"; };
 		528F26AC17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageResultsItemTableViewCell.h; sourceTree = "<group>"; };
 		528F26AD17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageResultsItemTableViewCell.m; sourceTree = "<group>"; };
+		528F26B017F91E5A006F7027 /* FindPostalCodesMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPostalCodesMainViewController.h; sourceTree = "<group>"; };
+		528F26B117F91E5A006F7027 /* FindPostalCodesMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPostalCodesMainViewController.m; sourceTree = "<group>"; };
+		528F26B317F920A0006F7027 /* SectionToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionToggleButton.h; sourceTree = "<group>"; };
+		528F26B417F920A0006F7027 /* SectionToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionToggleButton.m; sourceTree = "<group>"; };
+		528F26B717F922F5006F7027 /* FindPostalCodeStreetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPostalCodeStreetView.h; sourceTree = "<group>"; };
+		528F26B817F922F5006F7027 /* FindPostalCodeStreetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPostalCodeStreetView.m; sourceTree = "<group>"; };
+		528F26BA17F92584006F7027 /* FindPostalCodeLandmarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPostalCodeLandmarkView.h; sourceTree = "<group>"; };
+		528F26BB17F92584006F7027 /* FindPostalCodeLandmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPostalCodeLandmarkView.m; sourceTree = "<group>"; };
+		528F26BD17F92595006F7027 /* FindPostalCodePOBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPostalCodePOBoxView.h; sourceTree = "<group>"; };
+		528F26BE17F92595006F7027 /* FindPostalCodePOBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPostalCodePOBoxView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +319,7 @@
 				52024F0C17F5EEA500AFD239 /* LandingPage */,
 				52024F1117F5EF2A00AFD239 /* Tracking */,
 				52024F1C17F685D700AFD239 /* CalculatePostage */,
+				528F26AF17F91E2B006F7027 /* FindPostalCodes */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
 			);
@@ -414,6 +430,8 @@
 				528F269B17F8B800006F7027 /* TrackingNumberTextField.m */,
 				528F269817F8B800006F7027 /* SeparatorTableViewCell.h */,
 				528F269917F8B800006F7027 /* SeparatorTableViewCell.m */,
+				528F26B317F920A0006F7027 /* SectionToggleButton.h */,
+				528F26B417F920A0006F7027 /* SectionToggleButton.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -425,6 +443,29 @@
 				528F26AD17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		528F26AF17F91E2B006F7027 /* FindPostalCodes */ = {
+			isa = PBXGroup;
+			children = (
+				528F26B617F922CF006F7027 /* Views */,
+				528F26B017F91E5A006F7027 /* FindPostalCodesMainViewController.h */,
+				528F26B117F91E5A006F7027 /* FindPostalCodesMainViewController.m */,
+			);
+			path = FindPostalCodes;
+			sourceTree = "<group>";
+		};
+		528F26B617F922CF006F7027 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				528F26B717F922F5006F7027 /* FindPostalCodeStreetView.h */,
+				528F26B817F922F5006F7027 /* FindPostalCodeStreetView.m */,
+				528F26BA17F92584006F7027 /* FindPostalCodeLandmarkView.h */,
+				528F26BB17F92584006F7027 /* FindPostalCodeLandmarkView.m */,
+				528F26BD17F92595006F7027 /* FindPostalCodePOBoxView.h */,
+				528F26BE17F92595006F7027 /* FindPostalCodePOBoxView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -571,15 +612,18 @@
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F269C17F8B800006F7027 /* SeparatorTableViewCell.m in Sources */,
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
+				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,
 				528F269D17F8B800006F7027 /* TrackingNumberTextField.m in Sources */,
+				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
+				528F26BC17F92584006F7027 /* FindPostalCodeLandmarkView.m in Sources */,
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
@@ -587,7 +631,9 @@
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
+				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
+				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 			);

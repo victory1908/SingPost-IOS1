@@ -14,6 +14,7 @@
 
 #import "CalculatePostageViewController.h"
 #import "LandingPageViewController.h"
+#import "FindPostalCodesMainViewController.h"
 #import "TrackingMainViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
@@ -191,11 +192,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //FIXME: add more logic
-    CalculatePostageViewController *calculatePostageViewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:calculatePostageViewController];
+    switch ((tSidebarMenus)indexPath.row) {
+        case SIDEBARMENU_CALCULATEPOSTAGE:
+        {
+            CalculatePostageViewController *viewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+           
+            break;
+        }
+        case SIDEBARMENU_FINDPOSTALCODES:
+        {
+            FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+            break;
+        }
+        default:
+        {
+            NSLog(@"not yet implemented");
+            break;
+        }
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
 }
 
 @end

@@ -96,35 +96,35 @@
     [trackingInfoView addSubview:bottomTrackingInfoSeparatorView];
     
     //header view
-    UIView *sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, 30)];
-    [sectionHeaderView setBackgroundColor:[UIColor whiteColor]];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, 30)];
+    [headerView setBackgroundColor:[UIColor whiteColor]];
     
     UILabel *dateHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 50, 16)];
     [dateHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [dateHeaderLabel setText:@"Date"];
     [dateHeaderLabel setTextColor:RGB(125, 136, 149)];
     [dateHeaderLabel setBackgroundColor:[UIColor clearColor]];
-    [sectionHeaderView addSubview:dateHeaderLabel];
+    [headerView addSubview:dateHeaderLabel];
     
     UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 5, 50, 16)];
     [statusLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [statusLabel setText:@"Status"];
     [statusLabel setTextColor:RGB(125, 136, 149)];
     [statusLabel setBackgroundColor:[UIColor clearColor]];
-    [sectionHeaderView addSubview:statusLabel];
+    [headerView addSubview:statusLabel];
     
     UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 5, 100, 16)];
     [locationLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [locationLabel setText:@"Location"];
     [locationLabel setTextColor:RGB(125, 136, 149)];
     [locationLabel setBackgroundColor:[UIColor clearColor]];
-    [sectionHeaderView addSubview:locationLabel];
+    [headerView addSubview:locationLabel];
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, sectionHeaderView.bounds.size.height - 1, sectionHeaderView.bounds.size.width - 30, 1)];
-    [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    [separatorView setBackgroundColor:RGB(196, 197, 200)];
-    [sectionHeaderView addSubview:separatorView];
-    [contentView addSubview:sectionHeaderView];
+    UIView *headerSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(15, headerView.bounds.size.height - 1, headerView.bounds.size.width - 30, 1)];
+    [headerSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [headerSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+    [headerView addSubview:headerSeparatorView];
+    [contentView addSubview:headerView];
     
     //content
     trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174, contentView.bounds.size.width, contentView.bounds.size.height - 174) style:UITableViewStylePlain];
