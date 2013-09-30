@@ -31,7 +31,7 @@
         [statusLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusLabel];
         
-        UILabel *costLabel = [[UILabel alloc] initWithFrame:CGRectMake(220, 20, 100, 30)];
+        UILabel *costLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 20, 100, 30)];
         [costLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [costLabel setText:@"$15.30"];
         [costLabel setTextColor:RGB(51, 51, 51)];
