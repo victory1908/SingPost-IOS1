@@ -20,5 +20,47 @@
 		<key>image</key>
 		<string>sidebar_locateUs</string>
 	</dict>
+	<dict>
+		<key>name</key>
+		<string>Send &amp; Receive</string>
+		<key>image</key>
+		<string>sidebar_sendReceive</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Pay</string>
+		<key>image</key>
+		<string>sidebar_pay</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Shop</string>
+		<key>image</key>
+		<string>sidebar_shop</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>More services</string>
+		<key>image</key>
+		<string>sidebar_moreServices</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Stamp Collectibles</string>
+		<key>image</key>
+		<string>sidebar_stampCollectibles</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>More Apps</string>
+		<key>image</key>
+		<string>sidebar_moreApps</string>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Offers &amp; More</string>
+		<key>image</key>
+		<string>sidebar_offersMore</string>
+	</dict>
 </array>
 </plist>

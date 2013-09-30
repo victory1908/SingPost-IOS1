@@ -84,6 +84,7 @@
     [menuTableView setDataSource:self];
     [menuTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [menuTableView setSeparatorColor:[UIColor clearColor]];
+    [menuTableView setShowsVerticalScrollIndicator:NO];
     [menuTableView setBackgroundView:nil];
     
     [contentView addSubview:menuTableView];
