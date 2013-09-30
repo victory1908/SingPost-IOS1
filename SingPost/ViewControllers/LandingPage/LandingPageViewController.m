@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "UIFont+SingPost.h"
 #import "UIColor+SingPost.h"
-#import "TrackingNumberTextField.h"
+#import "CTextField.h"
 
 #import "TrackingMainViewController.h"
 #import "CalculatePostageViewController.h"
@@ -35,7 +35,7 @@ typedef enum {
 
 @implementation LandingPageViewController
 {
-    TrackingNumberTextField *trackingNumberTextField;
+    CTextField *trackingNumberTextField;
 }
 
 #pragma mark - View lifecycle
@@ -50,19 +50,17 @@ typedef enum {
     [envelopBackgroundImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 768, 690) : (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248))];
     [contentView addSubview:envelopBackgroundImageView];
     
-    UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox"]];
-    [trackingTextBoxBackgroundImageView setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, 80, 290, 47) : CGRectMake(15, 70, 290, 30)];
-    [contentView addSubview:trackingTextBoxBackgroundImageView];
-    
-    trackingNumberTextField = [[TrackingNumberTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 240, 47) : CGRectMake(20, 70, 245, 30)];
-    [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
+    trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 280, 47) : CGRectMake(20, 70, 280, 30)];
+    [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
+    [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f];
+    [trackingNumberTextField setInsetBoundsSize: INTERFACE_IS_4INCHSCREEN ? CGSizeMake(5, 12) : CGSizeMake(5, 3)];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(265, 87, 35, 35) : CGRectMake(273, 71, 29, 29)];
+    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(260, 87, 35, 35) : CGRectMake(269, 72, 29, 29)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:findTrackingNumberButton];
     
