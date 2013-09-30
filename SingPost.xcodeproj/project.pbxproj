@@ -50,7 +50,7 @@
 		528F269D17F8B800006F7027 /* TrackingNumberTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F269B17F8B800006F7027 /* TrackingNumberTextField.m */; };
 		528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F269F17F8B822006F7027 /* CDropDownListControl.m */; };
 		528F26A317F8B822006F7027 /* CTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26A117F8B822006F7027 /* CTextField.m */; };
-		528F26AA17F8C3F5006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26A917F8C3F5006F7027 /* CalculatePostageResultsItemTableViewCell.m */; };
+		528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26AD17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -135,8 +135,8 @@
 		528F269F17F8B822006F7027 /* CDropDownListControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDropDownListControl.m; sourceTree = "<group>"; };
 		528F26A017F8B822006F7027 /* CTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTextField.h; sourceTree = "<group>"; };
 		528F26A117F8B822006F7027 /* CTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTextField.m; sourceTree = "<group>"; };
-		528F26A817F8C3F5006F7027 /* CalculatePostageResultsItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculatePostageResultsItemTableViewCell.h; path = ../../../../../../Documents/CalculatePostageResultsItemTableViewCell.h; sourceTree = "<group>"; };
-		528F26A917F8C3F5006F7027 /* CalculatePostageResultsItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatePostageResultsItemTableViewCell.m; path = ../../../../../../Documents/CalculatePostageResultsItemTableViewCell.m; sourceTree = "<group>"; };
+		528F26AC17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageResultsItemTableViewCell.h; sourceTree = "<group>"; };
+		528F26AD17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageResultsItemTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +197,7 @@
 		52024F1C17F685D700AFD239 /* CalculatePostage */ = {
 			isa = PBXGroup;
 			children = (
-				528F26A417F8C39F006F7027 /* TableViewCells */,
+				528F26AB17F8C562006F7027 /* TableViewCells */,
 				528F266D17F82B36006F7027 /* Views */,
 				52024F1D17F6860800AFD239 /* CalculatePostageViewController.h */,
 				52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */,
@@ -418,11 +418,11 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		528F26A417F8C39F006F7027 /* TableViewCells */ = {
+		528F26AB17F8C562006F7027 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				528F26A817F8C3F5006F7027 /* CalculatePostageResultsItemTableViewCell.h */,
-				528F26A917F8C3F5006F7027 /* CalculatePostageResultsItemTableViewCell.m */,
+				528F26AC17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.h */,
+				528F26AD17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -568,7 +568,7 @@
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
-				528F26AA17F8C3F5006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
+				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F269C17F8B800006F7027 /* SeparatorTableViewCell.m in Sources */,
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,

@@ -9,6 +9,7 @@
 #import "CalculatePostageResultsViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
+#import "CalculatePostageResultsItemTableViewCell.h"
 
 @interface CalculatePostageResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -83,26 +84,50 @@
     [separatorView setBackgroundColor:RGB(196, 197, 200)];
     [postageResultsView addSubview:separatorView];
     
-    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 300) style:UITableViewStylePlain];
+    //header view
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, 30)];
+    [headerView setBackgroundColor:[UIColor whiteColor]];
+    
+    UILabel *serviceHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 50, 16)];
+    [serviceHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [serviceHeaderLabel setText:@"Service"];
+    [serviceHeaderLabel setTextColor:RGB(125, 136, 149)];
+    [serviceHeaderLabel setBackgroundColor:[UIColor clearColor]];
+    [headerView addSubview:serviceHeaderLabel];
+    
+    UILabel *costLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 5, 100, 16)];
+    [costLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [costLabel setText:@"Cost"];
+    [costLabel setTextColor:RGB(125, 136, 149)];
+    [costLabel setBackgroundColor:[UIColor clearColor]];
+    [headerView addSubview:costLabel];
+    
+    UIView *headerViewSeparator = [[UIView alloc] initWithFrame:CGRectMake(15, headerView.bounds.size.height - 1, headerView.bounds.size.width - 30, 1)];
+    [headerViewSeparator setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [headerViewSeparator setBackgroundColor:RGB(196, 197, 200)];
+    [headerView addSubview:headerViewSeparator];
+    
+    [contentView addSubview:headerView];
+    
+    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174, contentView.bounds.size.width, contentView.bounds.size.height - 322) style:UITableViewStylePlain];
     [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [resultsTableView setSeparatorColor:[UIColor clearColor]];
     [resultsTableView setDelegate:self];
     [resultsTableView setDataSource:self];
     [resultsTableView setBackgroundColor:[UIColor whiteColor]];
-    [resultsTableView setShowsVerticalScrollIndicator:NO];
     [resultsTableView setBackgroundView:nil];
     [contentView addSubview:resultsTableView];
-    
+
     UIButton *findSingpostLocationNearYouButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findSingpostLocationNearYouButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
     [findSingpostLocationNearYouButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [findSingpostLocationNearYouButton setFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 15, contentView.bounds.size.width - 30, 48)];
+    [findSingpostLocationNearYouButton setFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, contentView.bounds.size.width - 30, 48)];
     [findSingpostLocationNearYouButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [findSingpostLocationNearYouButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [findSingpostLocationNearYouButton addTarget:self action:@selector(findSingpostLocationNearYouButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [findSingpostLocationNearYouButton setTitle:@"FIND SINGPOST LOCATION NEAR YOU" forState:UIControlStateNormal];
     [contentView addSubview:findSingpostLocationNearYouButton];
-    
+
     UIButton *calculateAgainButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [calculateAgainButton setBackgroundImage:[[UIImage imageNamed:@"blue_bg_button"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] forState:UIControlStateNormal];
     [calculateAgainButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -132,12 +157,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50.0f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 32.0f;
+    return 70.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -157,46 +177,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger numHeaders = 1;
-    NSInteger numSeparators = numHeaders + (TEST_DATA_COUNT - 1);
-    return TEST_DATA_COUNT + numHeaders + numSeparators;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    [sectionHeaderView setBackgroundColor:[UIColor clearColor]];
-    
-    UILabel *serviceHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 50, 16)];
-    [serviceHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-    [serviceHeaderLabel setText:@"Service"];
-    [serviceHeaderLabel setTextColor:RGB(125, 136, 149)];
-    [serviceHeaderLabel setBackgroundColor:[UIColor clearColor]];
-    [sectionHeaderView addSubview:serviceHeaderLabel];
-    
-    UILabel *costLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 5, 100, 16)];
-    [costLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-    [costLabel setText:@"Cost"];
-    [costLabel setTextColor:RGB(125, 136, 149)];
-    [costLabel setBackgroundColor:[UIColor clearColor]];
-    [sectionHeaderView addSubview:costLabel];
-    
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, sectionHeaderView.bounds.size.height - 1, sectionHeaderView.bounds.size.width - 30, 1)];
-    [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    [separatorView setBackgroundColor:RGB(196, 197, 200)];
-    [sectionHeaderView addSubview:separatorView];
-    
-    return sectionHeaderView;
+    return TEST_DATA_COUNT;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const cellIdentifier = @"ResultsTableViewCell";
+    static NSString *const cellIdentifier = @"CalculatePostageResultsItemTableViewCell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    CalculatePostageResultsItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        [cell setBackgroundColor:[UIColor whiteColor]];
+        cell = [[CalculatePostageResultsItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
     return cell;
