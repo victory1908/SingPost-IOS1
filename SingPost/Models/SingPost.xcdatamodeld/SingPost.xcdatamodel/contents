@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="PostingBox" representedClassName="PostingBox" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notification" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postingbox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="services" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_opening" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="PostOffice" representedClassName="PostOffice" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notification" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postingbox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="services" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_opening" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Sam" representedClassName="Sam" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notification" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postingbox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="services" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_opening" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="PostingBox" positionX="-2637" positionY="-277" width="128" height="403"/>
+        <element name="PostOffice" positionX="-2819" positionY="-270" width="128" height="403"/>
+        <element name="Sam" positionX="-3105" positionY="-268" width="128" height="403"/>
+    </elements>
+</model>

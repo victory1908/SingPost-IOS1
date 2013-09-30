@@ -1,6 +1,7 @@
 platform :ios, '5.0'
 
 pod 'AFNetworking', '~> 1.3.2'
+pod 'CHCSVParser', '~> 2.0.7'
 pod 'MagicalRecord', '~> 2.2'
 pod 'KGModal', '~> 0.0.1'
 pod 'MHNatGeoViewControllerTransition', '~> 1.0'

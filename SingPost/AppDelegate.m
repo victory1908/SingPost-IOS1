@@ -9,9 +9,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import <Reachability.h>
-#import "UIFont+SingPost.h"
-
-#import "CalculatePostageViewController.h"
+#import "DatabaseSeeder.h"
 
 @implementation AppDelegate
 
@@ -21,6 +19,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [MagicalRecord setupCoreDataStack];
+    [DatabaseSeeder seedIfRequired];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
    
@@ -28,7 +29,6 @@
     
     _rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:_rootViewController];
-//    [self.window setRootViewController:[[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil]];
     [self.window makeKeyAndVisible];
     
     return YES;

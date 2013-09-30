@@ -62,6 +62,17 @@
 		528F26CF17F946B0006F7027 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F26D017F9561D006F7027 /* LocateUs_Types.plist */; };
 		528F26D417F97398006F7027 /* LocateUsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26D317F97398006F7027 /* LocateUsListView.m */; };
+		528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */; };
+		528F26DE17F97BB1006F7027 /* _PostingBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26DD17F97BB1006F7027 /* _PostingBox.m */; };
+		528F26E117F97BB7006F7027 /* PostingBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26E017F97BB7006F7027 /* PostingBox.m */; };
+		528F26E417F97F25006F7027 /* postingboxes.csv in Resources */ = {isa = PBXBuildFile; fileRef = 528F26E317F97F25006F7027 /* postingboxes.csv */; };
+		528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26E717F97F3F006F7027 /* DatabaseSeeder.m */; };
+		528F26ED17F991DE006F7027 /* _PostOffice.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26EA17F991DE006F7027 /* _PostOffice.m */; };
+		528F26EE17F991DE006F7027 /* _Sam.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26EC17F991DE006F7027 /* _Sam.m */; };
+		528F26F317F991ED006F7027 /* PostOffice.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26F017F991ED006F7027 /* PostOffice.m */; };
+		528F26F417F991ED006F7027 /* Sam.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26F217F991ED006F7027 /* Sam.m */; };
+		528F26F617F99456006F7027 /* postoffices.csv in Resources */ = {isa = PBXBuildFile; fileRef = 528F26F517F99456006F7027 /* postoffices.csv */; };
+		528F26F817F99490006F7027 /* sams.csv in Resources */ = {isa = PBXBuildFile; fileRef = 528F26F717F99490006F7027 /* sams.csv */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -167,6 +178,24 @@
 		528F26D017F9561D006F7027 /* LocateUs_Types.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LocateUs_Types.plist; sourceTree = "<group>"; };
 		528F26D217F97398006F7027 /* LocateUsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsListView.h; sourceTree = "<group>"; };
 		528F26D317F97398006F7027 /* LocateUsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsListView.m; sourceTree = "<group>"; };
+		528F26D817F97A35006F7027 /* SingPost.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SingPost.xcdatamodel; sourceTree = "<group>"; };
+		528F26DC17F97BB1006F7027 /* _PostingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _PostingBox.h; sourceTree = "<group>"; };
+		528F26DD17F97BB1006F7027 /* _PostingBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _PostingBox.m; sourceTree = "<group>"; };
+		528F26DF17F97BB7006F7027 /* PostingBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingBox.h; sourceTree = "<group>"; };
+		528F26E017F97BB7006F7027 /* PostingBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingBox.m; sourceTree = "<group>"; };
+		528F26E317F97F25006F7027 /* postingboxes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postingboxes.csv; sourceTree = "<group>"; };
+		528F26E617F97F3F006F7027 /* DatabaseSeeder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseSeeder.h; sourceTree = "<group>"; };
+		528F26E717F97F3F006F7027 /* DatabaseSeeder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseSeeder.m; sourceTree = "<group>"; };
+		528F26E917F991DE006F7027 /* _PostOffice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _PostOffice.h; sourceTree = "<group>"; };
+		528F26EA17F991DE006F7027 /* _PostOffice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _PostOffice.m; sourceTree = "<group>"; };
+		528F26EB17F991DE006F7027 /* _Sam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Sam.h; sourceTree = "<group>"; };
+		528F26EC17F991DE006F7027 /* _Sam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Sam.m; sourceTree = "<group>"; };
+		528F26EF17F991ED006F7027 /* PostOffice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostOffice.h; sourceTree = "<group>"; };
+		528F26F017F991ED006F7027 /* PostOffice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostOffice.m; sourceTree = "<group>"; };
+		528F26F117F991ED006F7027 /* Sam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sam.h; sourceTree = "<group>"; };
+		528F26F217F991ED006F7027 /* Sam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sam.m; sourceTree = "<group>"; };
+		528F26F517F99456006F7027 /* postoffices.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postoffices.csv; sourceTree = "<group>"; };
+		528F26F717F99490006F7027 /* sams.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sams.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +319,7 @@
 			children = (
 				52305F8617F5B1DC00610A86 /* Application */,
 				524CEA3B17F282B800E0EAC3 /* Categories */,
+				528F26D517F97991006F7027 /* Models */,
 				52024F1817F6836800AFD239 /* Views */,
 				521B174F17F1653E00FEB6FD /* ViewControllers */,
 				521B172F17F1633000FEB6FD /* AppDelegate.h */,
@@ -359,6 +389,7 @@
 		52305F8617F5B1DC00610A86 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				528F26E217F97EF1006F7027 /* CSVs */,
 				528F268317F85AD9006F7027 /* Plists */,
 				52305F9117F5B79100610A86 /* UIColor+SingPost.h */,
 				52305F9217F5B79100610A86 /* UIColor+SingPost.m */,
@@ -509,6 +540,54 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		528F26D517F97991006F7027 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				528F26DB17F97BA6006F7027 /* Machine */,
+				528F26DA17F97B98006F7027 /* Human */,
+				528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */,
+				528F26E617F97F3F006F7027 /* DatabaseSeeder.h */,
+				528F26E717F97F3F006F7027 /* DatabaseSeeder.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		528F26DA17F97B98006F7027 /* Human */ = {
+			isa = PBXGroup;
+			children = (
+				528F26DF17F97BB7006F7027 /* PostingBox.h */,
+				528F26E017F97BB7006F7027 /* PostingBox.m */,
+				528F26EF17F991ED006F7027 /* PostOffice.h */,
+				528F26F017F991ED006F7027 /* PostOffice.m */,
+				528F26F117F991ED006F7027 /* Sam.h */,
+				528F26F217F991ED006F7027 /* Sam.m */,
+			);
+			path = Human;
+			sourceTree = "<group>";
+		};
+		528F26DB17F97BA6006F7027 /* Machine */ = {
+			isa = PBXGroup;
+			children = (
+				528F26DC17F97BB1006F7027 /* _PostingBox.h */,
+				528F26DD17F97BB1006F7027 /* _PostingBox.m */,
+				528F26E917F991DE006F7027 /* _PostOffice.h */,
+				528F26EA17F991DE006F7027 /* _PostOffice.m */,
+				528F26EB17F991DE006F7027 /* _Sam.h */,
+				528F26EC17F991DE006F7027 /* _Sam.m */,
+			);
+			path = Machine;
+			sourceTree = "<group>";
+		};
+		528F26E217F97EF1006F7027 /* CSVs */ = {
+			isa = PBXGroup;
+			children = (
+				528F26F717F99490006F7027 /* sams.csv */,
+				528F26F517F99456006F7027 /* postoffices.csv */,
+				528F26E317F97F25006F7027 /* postingboxes.csv */,
+			);
+			path = CSVs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -592,13 +671,16 @@
 				528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */,
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
+				528F26F817F99490006F7027 /* sams.csv in Resources */,
 				52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */,
 				52024F3117F72D2000AFD239 /* OpenSans-Semibold.ttf in Resources */,
+				528F26F617F99456006F7027 /* postoffices.csv in Resources */,
 				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
 				52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */,
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
 				528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */,
 				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
+				528F26E417F97F25006F7027 /* postingboxes.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +734,7 @@
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
+				528F26DE17F97BB1006F7027 /* _PostingBox.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F269C17F8B800006F7027 /* SeparatorTableViewCell.m in Sources */,
 				528F26D417F97398006F7027 /* LocateUsListView.m in Sources */,
@@ -662,6 +745,7 @@
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,
 				528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */,
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
+				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
@@ -671,6 +755,9 @@
 				528F26C517F936F0006F7027 /* FlatBlueButton.m in Sources */,
 				528F26BC17F92584006F7027 /* FindPostalCodeLandmarkView.m in Sources */,
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
+				528F26E117F97BB7006F7027 /* PostingBox.m in Sources */,
+				528F26F317F991ED006F7027 /* PostOffice.m in Sources */,
+				528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
@@ -678,8 +765,11 @@
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
+				528F26F417F991ED006F7027 /* Sam.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
+				528F26ED17F991DE006F7027 /* _PostOffice.m in Sources */,
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
+				528F26EE17F991DE006F7027 /* _Sam.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 			);
@@ -905,6 +995,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				528F26D817F97A35006F7027 /* SingPost.xcdatamodel */,
+			);
+			currentVersion = 528F26D817F97A35006F7027 /* SingPost.xcdatamodel */;
+			path = SingPost.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 521B171517F1633000FEB6FD /* Project object */;
 }
