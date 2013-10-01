@@ -18,7 +18,7 @@
 + (void)seedIfRequired
 {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_DB_IS_SEEDED]) {
-        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeGradient];
+        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             

@@ -85,13 +85,7 @@
     activeViewController = viewController;
     [self addChildViewController:activeViewController];
     [activeViewControllerContainerView addSubview:activeViewController.view];
-    [activeViewController.view setAlpha:0.3f];
-    [UIView animateWithDuration:0.5f animations:^{
-        [activeViewController.view setAlpha:1.0f];
-    } completion:^(BOOL finished) {
-        [activeViewController didMoveToParentViewController:self];
-        
-    }];
+    [activeViewController didMoveToParentViewController:self];
 }
 
 #define PAGE_TRANSITION_DURATION 0.6f

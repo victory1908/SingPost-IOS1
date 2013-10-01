@@ -14,7 +14,6 @@
 
 #import "MapAnnotation.h"
 #import "UIFont+SingPost.h"
-#import "UILabel+VerticalAlign.h"
 #import "SectionToggleButton.h"
 
 @interface LocateUsDetailsViewController () <MKMapViewDelegate>

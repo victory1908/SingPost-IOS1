@@ -34,6 +34,7 @@
 		52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */; };
 		52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */; };
 		52282FE817FAA8C300B2A7B4 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */; };
+		52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */; };
 		52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F8817F5B20600610A86 /* UIFont+SingPost.m */; };
 		52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */; };
 		52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */; };
@@ -60,10 +61,8 @@
 		528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F26C117F92F6C006F7027 /* FindPostalCodes_Types.plist */; };
 		528F26C517F936F0006F7027 /* FlatBlueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26C417F936F0006F7027 /* FlatBlueButton.m */; };
 		528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26C817F9441A006F7027 /* LocateUsMainViewController.m */; };
-		528F26CD17F945AD006F7027 /* LocateUsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26CC17F945AD006F7027 /* LocateUsMapView.m */; };
 		528F26CF17F946B0006F7027 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F26D017F9561D006F7027 /* LocateUs_Types.plist */; };
-		528F26D417F97398006F7027 /* LocateUsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26D317F97398006F7027 /* LocateUsListView.m */; };
 		528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */; };
 		528F26E417F97F25006F7027 /* postingboxes.csv in Resources */ = {isa = PBXBuildFile; fileRef = 528F26E317F97F25006F7027 /* postingboxes.csv */; };
 		528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26E717F97F3F006F7027 /* DatabaseSeeder.m */; };
@@ -72,6 +71,8 @@
 		528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */; };
 		528F270617F9C181006F7027 /* _EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270517F9C181006F7027 /* _EntityLocation.m */; };
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
+		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
+		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,8 @@
 		52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsViewController.m; sourceTree = "<group>"; };
 		52282FE617FAA8C300B2A7B4 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
 		52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
+		52282FF417FACBA600B2A7B4 /* LocateUsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsListViewController.h; sourceTree = "<group>"; };
+		52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsListViewController.m; sourceTree = "<group>"; };
 		52305F8717F5B20600610A86 /* UIFont+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SingPost.h"; sourceTree = "<group>"; };
 		52305F8817F5B20600610A86 /* UIFont+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SingPost.m"; sourceTree = "<group>"; };
 		52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -175,12 +178,8 @@
 		528F26C417F936F0006F7027 /* FlatBlueButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlatBlueButton.m; sourceTree = "<group>"; };
 		528F26C717F9441A006F7027 /* LocateUsMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMainViewController.h; sourceTree = "<group>"; };
 		528F26C817F9441A006F7027 /* LocateUsMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMainViewController.m; sourceTree = "<group>"; };
-		528F26CB17F945AD006F7027 /* LocateUsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapView.h; sourceTree = "<group>"; };
-		528F26CC17F945AD006F7027 /* LocateUsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapView.m; sourceTree = "<group>"; };
 		528F26CE17F946B0006F7027 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		528F26D017F9561D006F7027 /* LocateUs_Types.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LocateUs_Types.plist; sourceTree = "<group>"; };
-		528F26D217F97398006F7027 /* LocateUsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsListView.h; sourceTree = "<group>"; };
-		528F26D317F97398006F7027 /* LocateUsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsListView.m; sourceTree = "<group>"; };
 		528F26D817F97A35006F7027 /* SingPost.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SingPost.xcdatamodel; sourceTree = "<group>"; };
 		528F26E317F97F25006F7027 /* postingboxes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postingboxes.csv; sourceTree = "<group>"; };
 		528F26E617F97F3F006F7027 /* DatabaseSeeder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseSeeder.h; sourceTree = "<group>"; };
@@ -193,6 +192,10 @@
 		528F270517F9C181006F7027 /* _EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EntityLocation.m; sourceTree = "<group>"; };
 		528F270717F9C18C006F7027 /* EntityLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityLocation.h; sourceTree = "<group>"; };
 		528F270817F9C18C006F7027 /* EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityLocation.m; sourceTree = "<group>"; };
+		52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapViewController.h; sourceTree = "<group>"; };
+		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
+		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
+		52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeTransitionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +363,7 @@
 		521B174F17F1653E00FEB6FD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				52AF5B2317FB48AF002D6798 /* Common */,
 				521B175617F195F200FEB6FD /* SidebarMenu */,
 				52024F0C17F5EEA500AFD239 /* LandingPage */,
 				52024F1117F5EF2A00AFD239 /* Tracking */,
@@ -538,24 +542,16 @@
 			isa = PBXGroup;
 			children = (
 				528F270017F9BBD3006F7027 /* TableViewCells */,
-				528F26CA17F9451B006F7027 /* Views */,
 				528F26C717F9441A006F7027 /* LocateUsMainViewController.h */,
 				528F26C817F9441A006F7027 /* LocateUsMainViewController.m */,
+				52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */,
+				52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */,
+				52282FF417FACBA600B2A7B4 /* LocateUsListViewController.h */,
+				52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */,
 				52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */,
 				52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */,
 			);
 			path = LocateUs;
-			sourceTree = "<group>";
-		};
-		528F26CA17F9451B006F7027 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				528F26CB17F945AD006F7027 /* LocateUsMapView.h */,
-				528F26CC17F945AD006F7027 /* LocateUsMapView.m */,
-				528F26D217F97398006F7027 /* LocateUsListView.h */,
-				528F26D317F97398006F7027 /* LocateUsListView.m */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		528F26D517F97991006F7027 /* Models */ = {
@@ -605,6 +601,15 @@
 				528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		52AF5B2317FB48AF002D6798 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */,
+				52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -755,10 +760,9 @@
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
+				52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */,
 				52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */,
-				528F26D417F97398006F7027 /* LocateUsListView.m in Sources */,
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
-				528F26CD17F945AD006F7027 /* LocateUsMapView.m in Sources */,
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
@@ -786,6 +790,8 @@
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
+				52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */,
+				52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */,
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
