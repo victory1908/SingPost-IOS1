@@ -55,6 +55,7 @@ typedef enum {
     [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f];
     [trackingNumberTextField setInsetBoundsSize: INTERFACE_IS_4INCHSCREEN ? CGSizeMake(5, 12) : CGSizeMake(5, 3)];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+    [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
     
@@ -141,28 +142,27 @@ typedef enum {
     [contentView addSubview:menuStampCollectiblesButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *menuOffersButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [menuOffersButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
-    [menuOffersButton setImage:[UIImage imageNamed:@"landing_offers"] forState:UIControlStateNormal];
-    [contentView addSubview:menuOffersButton];
+    UIButton *menuMoreAppsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [menuMoreAppsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuMoreAppsButton setImage:[UIImage imageNamed:@"landing_moreApps"] forState:UIControlStateNormal];
+    [contentView addSubview:menuMoreAppsButton];
 
-    UIImageView *backgroundMore = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"background_more"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 20, 10, 20)]];
-    [backgroundMore setUserInteractionEnabled:YES];
-    [backgroundMore setFrame:CGRectMake(0, contentView.bounds.size.height - 46, contentView.bounds.size.width, 26)];
-    [contentView addSubview:backgroundMore];
+    UIView *offersMoreBackroundView = [[UIView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - 46, contentView.bounds.size.width, 26)];
+    [offersMoreBackroundView setBackgroundColor:RGB(239, 242, 246)];
+    [contentView addSubview:offersMoreBackroundView];
     
     UIButton *offersMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [offersMoreButton setFrame:CGRectMake(110, 0, 110, 30)];
+    [offersMoreButton setFrame:CGRectMake(110, 2, 110, 26)];
     [offersMoreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [offersMoreButton setImage:[UIImage imageNamed:@"offersmore_indicator"] forState:UIControlStateNormal];
     [offersMoreButton setTitle:@"Offers & More" forState:UIControlStateNormal];
-    [offersMoreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [offersMoreButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [offersMoreButton setTitleColor:[UIColor SingPostBlueColor] forState:UIControlStateNormal];
+    [offersMoreButton setTitleColor:RGB(16, 64, 137) forState:UIControlStateHighlighted];
     [offersMoreButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [offersMoreButton addTarget:self action:@selector(offersMoreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [offersMoreButton setBackgroundColor:[UIColor clearColor]];
-    offersMoreButton.imageEdgeInsets = UIEdgeInsetsMake(2, 90, 0, 0);
-    [backgroundMore addSubview:offersMoreButton];
+    offersMoreButton.imageEdgeInsets = UIEdgeInsetsMake(1, 90, 0, 0);
+    [offersMoreBackroundView addSubview:offersMoreButton];
 
     self.view = contentView;
 }
@@ -178,6 +178,13 @@ typedef enum {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    
+    if (textField == trackingNumberTextField) {
+        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+        trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+    }
+    
     return YES;
 }
 
