@@ -35,8 +35,10 @@
     _delegate = inDelegate;
     [_locationsTableView setDelegate:_delegate];
     [_locationsTableView setDataSource:_delegate];
-    [_locationsTableView reloadData];
     [indexBar setDelegate:_delegate];
+    
+    //perform initial filtering
+    [_delegate searchLocateUsListView];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -117,11 +119,18 @@
     }];
 }
 
+#pragma mark - Accessors
+
+- (NSString *)selectedType
+{
+    return typesDropDownList.selectedText;
+}
+
 #pragma mark - IBActions
 
 - (IBAction)goButtonClicked:(id)sender
 {
-    NSLog(@"go button clicked");
+    [_delegate searchLocateUsListView];
 }
 
 - (IBAction)locateUsButtonClicked:(id)sender

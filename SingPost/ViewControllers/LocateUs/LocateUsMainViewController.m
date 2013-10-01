@@ -87,15 +87,27 @@ typedef enum {
 {
     [super viewDidLoad];
     
+    //setup location manager
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
     
-    //cache time digits for performance
+    //cache time digits for performance (this is used to determine opening hour indicators)
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     [timeFormatter setDateFormat:@"HHmm"];
     _cachedCurrentTimeDigits = [[timeFormatter stringFromDate:[NSDate date]] integerValue];
+}
+
+#pragma mark - LocateUsListDelegate
+
+- (void)searchLocateUsListView
+{
+    [self.fetchedResultsController.fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"type == %@", locateUsListView.selectedType]];
+    
+    NSError *error = nil;
+    if ([self.fetchedResultsController performFetch:&error])
+        [locateUsListView.locationsTableView reloadData];
 }
 
 #pragma mark - CLLocationManagerDelegates
@@ -222,7 +234,7 @@ typedef enum {
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        _fetchedResultsController = [EntityLocation MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"type == %@", @"Post Office"] sortedBy:EntityLocationAttributes.name ascending:YES delegate:self];
+        _fetchedResultsController = [EntityLocation MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:EntityLocationAttributes.name ascending:YES delegate:self];
     }
     
     return _fetchedResultsController;

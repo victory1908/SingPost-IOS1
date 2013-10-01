@@ -22,6 +22,8 @@
     UILabel *selectedValueLabel;
     NSArray *_values;
     
+    NSUInteger selectedRowIndex;
+    
     BOOL isAnimating;
 }
 
@@ -99,6 +101,7 @@
 
 - (void)selectRow:(NSInteger)row animated:(BOOL)shouldAnimate
 {
+    selectedRowIndex = row;
     [pickerView selectRow:row inComponent:0 animated:shouldAnimate];
     [self pickerView:pickerView didSelectRow:row inComponent:0];
 }
@@ -125,9 +128,20 @@
     [selectedValueLabel setText:placeholderText];
 }
 
+- (NSString *)selectedText
+{
+    return _values[selectedRowIndex][@"value"];
+}
+
+- (NSString *)selectedValue
+{
+    return _values[selectedRowIndex][@"code"];
+}
+
 #pragma mark - UIPickerViewDelegates & DataSource
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    selectedRowIndex = row;
     [selectedValueLabel setText:_values[row][@"value"]];
 }
 

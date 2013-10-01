@@ -18,6 +18,9 @@
 @property (nonatomic) NSString *placeholderText;
 @property (nonatomic, weak) id<CDropDownListControlDelegate> delegate;
 
+@property (nonatomic, readonly) NSString *selectedText;
+@property (nonatomic, readonly) NSString *selectedValue;
+
 - (void)selectRow:(NSInteger)row animated:(BOOL)shouldAnimate;
 
 @end

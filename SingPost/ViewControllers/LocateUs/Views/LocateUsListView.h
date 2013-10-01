@@ -17,8 +17,13 @@
 @property (nonatomic, assign) CLLocationCoordinate2D *cachedUserCoordinate;
 @property (nonatomic, readonly) UITableView *locationsTableView;
 
+@property (nonatomic, readonly) NSString *selectedType;
+@property (nonatomic, readonly) NSString *searchText;
+
 @end
 
 @protocol LocateUsListDelegate <NSObject>
+
+- (void)searchLocateUsListView;
 
 @end
