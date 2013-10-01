@@ -85,6 +85,7 @@
         
         indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 30, 155, 28.0, contentScrollView.bounds.size.height - 155)];
         [indexBar setTextColor:RGB(36, 84, 157)];
+        [indexBar setTextFont:[UIFont SingPostRegularFontOfSize:INTERFACE_IS_4INCHSCREEN ? 10.0f : 8.0f fontKey:kSingPostFontOpenSans]];
         [indexBar setIndexes: [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles]];
         [contentScrollView addSubview:indexBar];
         

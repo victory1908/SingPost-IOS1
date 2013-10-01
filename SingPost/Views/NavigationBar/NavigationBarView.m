@@ -31,12 +31,13 @@
         backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton setHidden:YES];
         [backButton setImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
-        [backButton setFrame:CGRectMake(10, 10, 25, 25)];
+        [backButton setFrame:CGRectMake(0, 0, 44, 44)];
         [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backButton];
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 44)];
         [titleLabel setCenter:self.center];
+        [titleLabel setAdjustsFontSizeToFitWidth:YES];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
         [titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];

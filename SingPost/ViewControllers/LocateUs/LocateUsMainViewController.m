@@ -12,8 +12,11 @@
 #import "LocateUsListView.h"
 #import "LocateUsLocationTableViewCell.h"
 #import "CMIndexBar.h"
+#import "AppDelegate.h"
 
 #import "EntityLocation.h"
+
+#import "LocateUsDetailsViewController.h"
 
 typedef enum {
     LOCATEUS_VIEWMODE_MAP,
@@ -53,12 +56,12 @@ typedef enum {
     toggleModesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [toggleModesButton setImage:[UIImage imageNamed:@"list_toggle_button"] forState:UIControlStateNormal];
     [toggleModesButton addTarget:self action:@selector(toggleButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [toggleModesButton setFrame:CGRectMake(278, 10, 25, 25)];
+    [toggleModesButton setFrame:CGRectMake(270, 0, 44, 44)];
     [navigationBarView addSubview:toggleModesButton];
     
     UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [reloadButton setImage:[UIImage imageNamed:@"reload_button"] forState:UIControlStateNormal];
-    [reloadButton setFrame:CGRectMake(235, 10, 25, 25)];
+    [reloadButton setFrame:CGRectMake(230, 0, 44, 44)];
     [navigationBarView addSubview:reloadButton];
     
     sectionContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height)];
@@ -198,6 +201,10 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:floorf((float)indexPath.row / 2.0f) inSection:indexPath.section];
+    EntityLocation *entityLocation = [self.fetchedResultsController objectAtIndexPath:dataIndexPath];
+    LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:entityLocation];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

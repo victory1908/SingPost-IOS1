@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "reload_button.png"
+      "filename" : "search_map_button.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "reload_button@2x.png"
+      "filename" : "search_map_button@2x.png"
     }
   ],
   "info" : {

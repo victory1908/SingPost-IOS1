@@ -10,9 +10,29 @@
 #import "UIFont+SingPost.h"
 #import "EntityLocation.h"
 
+//to workaround issue whereby uilabel background is automatically set to clear when table view cell is higlighted
+@interface PersistentBackgroundLabel : UILabel
+
+- (void)setPersistentBackgroundColor:(UIColor*)color;
+
+@end
+
+@implementation PersistentBackgroundLabel
+
+- (void)setPersistentBackgroundColor:(UIColor*)color {
+    super.backgroundColor = color;
+}
+
+- (void)setBackgroundColor:(UIColor *)color {
+    // do nothing - background color never changes
+}
+
+@end
+
+
 @implementation LocateUsLocationTableViewCell
 {
-    UILabel *nameLabel, *addressLabel, *distanceLabel;
+    PersistentBackgroundLabel *nameLabel, *addressLabel, *distanceLabel;
     UIButton *openedIndicatorButton, *closedIndicatorButton;
 }
 
@@ -32,33 +52,35 @@
         [contentView addSubview:openingHoursIndicatorContainerView];
         
         openedIndicatorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [openedIndicatorButton setUserInteractionEnabled:NO];
         [openedIndicatorButton setImage:[UIImage imageNamed:@"gray_circle"] forState:UIControlStateNormal];
         [openedIndicatorButton setImage:[UIImage imageNamed:@"green_circle"] forState:UIControlStateSelected];
         [openedIndicatorButton setFrame:CGRectMake(7, 16, 10, 10)];
         [openingHoursIndicatorContainerView addSubview:openedIndicatorButton];
         
         closedIndicatorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closedIndicatorButton setUserInteractionEnabled:NO];
         [closedIndicatorButton setImage:[UIImage imageNamed:@"gray_circle"] forState:UIControlStateNormal];
         [closedIndicatorButton setImage:[UIImage imageNamed:@"red_circle"] forState:UIControlStateSelected];
         [closedIndicatorButton setFrame:CGRectMake(7, 36, 10, 10)];
         [openingHoursIndicatorContainerView addSubview:closedIndicatorButton];
         
-        nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 10, 170, 20)];
+        nameLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 10, 170, 20)];
         [nameLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [nameLabel setAdjustsFontSizeToFitWidth:YES];
         [nameLabel setTextColor:RGB(51, 51, 51)];
-        [nameLabel setBackgroundColor:[UIColor clearColor]];
+        [nameLabel setPersistentBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:nameLabel];
         
-        addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(38, 30, 260, 20)];
+        addressLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 30, 260, 20)];
         [addressLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [addressLabel setAdjustsFontSizeToFitWidth:YES];
         [addressLabel setTextColor:RGB(125, 136, 149)];
-        [addressLabel setBackgroundColor:[UIColor clearColor]];
+        [addressLabel setPersistentBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:addressLabel];
         
-        distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 9, 70, 24)];
-        [distanceLabel setBackgroundColor:RGB(36, 84, 157)];
+        distanceLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(210, 9, 70, 24)];
+        [distanceLabel setPersistentBackgroundColor:RGB(36, 84, 157)];
         [distanceLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [distanceLabel setTextColor:[UIColor whiteColor]];
         [distanceLabel setTextAlignment:NSTextAlignmentCenter];

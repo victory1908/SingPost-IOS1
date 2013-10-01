@@ -35,6 +35,14 @@
     self.postingbox = csv[23];
 }
 
+- (BOOL)isOpened
+{
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    [timeFormatter setDateFormat:@"HHmm"];
+    NSInteger currentTimeDigits = [[timeFormatter stringFromDate:[NSDate date]] integerValue];
+    return [self isOpenedRelativeToTimeDigits:currentTimeDigits];
+}
+
 - (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits
 {
     int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];

@@ -32,6 +32,10 @@
 		521B175517F1678100FEB6FD /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175417F1678100FEB6FD /* RootViewController.m */; };
 		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
 		52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */; };
+		52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */; };
+		52282FDB17FAA22E00B2A7B4 /* PostOfficeOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FDA17FAA22E00B2A7B4 /* PostOfficeOverlayView.m */; };
+		52282FE817FAA8C300B2A7B4 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */; };
+		52282FEB17FAB37D00B2A7B4 /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FEA17FAB37D00B2A7B4 /* UILabel+VerticalAlign.m */; };
 		52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F8817F5B20600610A86 /* UIFont+SingPost.m */; };
 		52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */; };
 		52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */; };
@@ -125,6 +129,14 @@
 		521B175817F1961100FEB6FD /* SidebarMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuViewController.m; sourceTree = "<group>"; };
 		52282FCE17FA8FA300B2A7B4 /* CMIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIndexBar.h; sourceTree = "<group>"; };
 		52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIndexBar.m; sourceTree = "<group>"; };
+		52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsViewController.h; sourceTree = "<group>"; };
+		52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsViewController.m; sourceTree = "<group>"; };
+		52282FD917FAA22E00B2A7B4 /* PostOfficeOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostOfficeOverlayView.h; sourceTree = "<group>"; };
+		52282FDA17FAA22E00B2A7B4 /* PostOfficeOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostOfficeOverlayView.m; sourceTree = "<group>"; };
+		52282FE617FAA8C300B2A7B4 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
+		52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
+		52282FE917FAB37D00B2A7B4 /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
+		52282FEA17FAB37D00B2A7B4 /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
 		52305F8717F5B20600610A86 /* UIFont+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SingPost.h"; sourceTree = "<group>"; };
 		52305F8817F5B20600610A86 /* UIFont+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SingPost.m"; sourceTree = "<group>"; };
 		52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
@@ -239,6 +251,7 @@
 		52024F1817F6836800AFD239 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				52282FD417FA9E8700B2A7B4 /* MapOverlays */,
 				528F269717F8B7E0006F7027 /* Common */,
 				528F269317F8B7B7006F7027 /* NavigationBar */,
 			);
@@ -395,6 +408,23 @@
 			path = CMIndexBar;
 			sourceTree = "<group>";
 		};
+		52282FD417FA9E8700B2A7B4 /* MapOverlays */ = {
+			isa = PBXGroup;
+			children = (
+				52282FD817FAA20900B2A7B4 /* OverlayViews */,
+			);
+			path = MapOverlays;
+			sourceTree = "<group>";
+		};
+		52282FD817FAA20900B2A7B4 /* OverlayViews */ = {
+			isa = PBXGroup;
+			children = (
+				52282FD917FAA22E00B2A7B4 /* PostOfficeOverlayView.h */,
+				52282FDA17FAA22E00B2A7B4 /* PostOfficeOverlayView.m */,
+			);
+			path = OverlayViews;
+			sourceTree = "<group>";
+		};
 		52305F8617F5B1DC00610A86 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +434,8 @@
 				52305F9217F5B79100610A86 /* UIColor+SingPost.m */,
 				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
 				52305F8817F5B20600610A86 /* UIFont+SingPost.m */,
+				52282FE617FAA8C300B2A7B4 /* MapAnnotation.h */,
+				52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -441,6 +473,8 @@
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				52282FE917FAB37D00B2A7B4 /* UILabel+VerticalAlign.h */,
+				52282FEA17FAB37D00B2A7B4 /* UILabel+VerticalAlign.m */,
 				524CEA3C17F2830400E0EAC3 /* UIView+Position.h */,
 				524CEA3D17F2830400E0EAC3 /* UIView+Position.m */,
 			);
@@ -533,6 +567,8 @@
 				528F26CA17F9451B006F7027 /* Views */,
 				528F26C717F9441A006F7027 /* LocateUsMainViewController.h */,
 				528F26C817F9441A006F7027 /* LocateUsMainViewController.m */,
+				52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */,
+				52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */,
 			);
 			path = LocateUs;
 			sourceTree = "<group>";
@@ -742,6 +778,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
+				52282FDB17FAA22E00B2A7B4 /* PostOfficeOverlayView.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
@@ -751,6 +788,7 @@
 				528F26CD17F945AD006F7027 /* LocateUsMapView.m in Sources */,
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
+				52282FEB17FAB37D00B2A7B4 /* UILabel+VerticalAlign.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,
 				528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */,
@@ -759,6 +797,7 @@
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
+				52282FE817FAA8C300B2A7B4 /* MapAnnotation.m in Sources */,
 				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
@@ -778,6 +817,7 @@
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
+				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
