@@ -15,7 +15,7 @@
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UIView+Position.h"
 
-@interface LocateUsMapView () <CDropDownListControlDelegate>
+@interface LocateUsMapView () <CDropDownListControlDelegate, MKMapViewDelegate>
 
 @end
 
@@ -23,7 +23,7 @@
 {
     CTextField *findByTextField;
     CDropDownListControl *typesDropDownList;
-    MKMapView *mapView;
+    MKMapView *locateUsMapView;
     TPKeyboardAvoidingScrollView *contentScrollView;
 }
 
@@ -57,8 +57,10 @@
         [goButton setTitle:@"GO" forState:UIControlStateNormal];
         [contentScrollView addSubview:goButton];
         
-        mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 120 - 65)];
-        [contentScrollView addSubview:mapView];
+        locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 120 - 65)];
+        [locateUsMapView setDelegate:self];
+        [locateUsMapView setShowsUserLocation:YES];
+        [contentScrollView addSubview:locateUsMapView];
         
         FlatBlueButton *aroundMeButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, contentScrollView.bounds.size.height - 56, contentScrollView.bounds.size.width - 30, 48)];
         [aroundMeButton addTarget:self action:@selector(aroundMeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -69,6 +71,14 @@
         [self addSubview:contentScrollView];
     }
     return self;
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = mapView.userLocation.coordinate;
+    mapRegion.span = MKCoordinateSpanMake(0.015, 0.015);
+    [mapView setRegion:mapRegion animated:YES];
 }
 
 #pragma mark - CDropDownListControlDelegate

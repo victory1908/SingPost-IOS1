@@ -7,9 +7,7 @@
 //
 
 #import "DatabaseSeeder.h"
-#import "PostingBox.h"
-#import "PostOffice.h"
-#import "Sam.h"
+#import "EntityLocation.h"
 #import <CHCSVParser.h>
 #import <SVProgressHUD.h>
 
@@ -24,33 +22,32 @@
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             
+            [EntityLocation MR_truncateAllInContext:localContext];
+            
             //seed posting boxes
-            [PostingBox MR_truncateAllInContext:localContext];
             NSString *csvFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"postingboxes" ofType:@"csv"];
-            NSArray *parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsRecognizesBackslashesAsEscapes];
+            NSArray *parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsSanitizesFields];
             
             for (id data in parsedData) {
-                PostingBox *postingBox = [PostingBox MR_createInContext:localContext];
+                EntityLocation *postingBox = [EntityLocation MR_createInContext:localContext];
                 [postingBox updateWithCsvRepresentation:data];
             }
             
             //seed post offices
-            [PostOffice MR_truncateAllInContext:localContext];
             csvFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"postoffices" ofType:@"csv"];
-            parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsRecognizesBackslashesAsEscapes];
+            parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsSanitizesFields];
             
             for (id data in parsedData) {
-                PostOffice *postOffice = [PostingBox MR_createInContext:localContext];
+                EntityLocation *postOffice = [EntityLocation MR_createInContext:localContext];
                 [postOffice updateWithCsvRepresentation:data];
             }
             
             //seed sams
-            [Sam MR_truncateAllInContext:localContext];
             csvFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"sams" ofType:@"csv"];
-            parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsRecognizesBackslashesAsEscapes];
+            parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsSanitizesFields];
             
             for (id data in parsedData) {
-                Sam *sam = [Sam MR_createInContext:localContext];
+                EntityLocation *sam = [EntityLocation MR_createInContext:localContext];
                 [sam updateWithCsvRepresentation:data];
             }
             

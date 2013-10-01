@@ -14,7 +14,6 @@
 #import "CTextField.h"
 #import "TrackingItemMainTableViewCell.h"
 #import "TrackingHeaderMainTableViewCell.h"
-#import "SeparatorTableViewCell.h"
 #import "TrackingDetailsViewController.h"
 #import "AppDelegate.h"
 #import <SevenSwitch.h>
@@ -277,10 +276,13 @@ typedef enum {
             return cell;
         }
         else {
-            SeparatorTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:separatorCellIdentifier];
-            if (!cell)
-                cell = [[SeparatorTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:separatorCellIdentifier];
-            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:separatorCellIdentifier];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:separatorCellIdentifier];
+                UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, cell.contentView.bounds.size.width - 30, 1)];
+                [separatorView setBackgroundColor:RGB(196, 197, 200)];
+                [cell.contentView addSubview:separatorView];
+            }
             return cell;
         }
     }

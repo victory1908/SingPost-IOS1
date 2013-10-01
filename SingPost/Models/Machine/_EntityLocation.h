@@ -1,10 +1,10 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to Sam.h instead.
+// Make changes to EntityLocation.h instead.
 
 #import <CoreData/CoreData.h>
 
 
-extern const struct SamAttributes {
+extern const struct EntityLocationAttributes {
 	__unsafe_unretained NSString *address;
 	__unsafe_unretained NSString *fri_closing;
 	__unsafe_unretained NSString *fri_opening;
@@ -29,15 +29,13 @@ extern const struct SamAttributes {
 	__unsafe_unretained NSString *type;
 	__unsafe_unretained NSString *wed_closing;
 	__unsafe_unretained NSString *wed_opening;
-} SamAttributes;
+} EntityLocationAttributes;
 
-extern const struct SamRelationships {
-} SamRelationships;
+extern const struct EntityLocationRelationships {
+} EntityLocationRelationships;
 
-extern const struct SamFetchedProperties {
-} SamFetchedProperties;
-
-
+extern const struct EntityLocationFetchedProperties {
+} EntityLocationFetchedProperties;
 
 
 
@@ -63,14 +61,16 @@ extern const struct SamFetchedProperties {
 
 
 
-@interface SamID : NSManagedObjectID {}
+
+
+@interface EntityLocationID : NSManagedObjectID {}
 @end
 
-@interface _Sam : NSManagedObject {}
+@interface _EntityLocation : NSManagedObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SamID*)objectID;
+- (EntityLocationID*)objectID;
 
 
 
@@ -319,11 +319,11 @@ extern const struct SamFetchedProperties {
 
 @end
 
-@interface _Sam (CoreDataGeneratedAccessors)
+@interface _EntityLocation (CoreDataGeneratedAccessors)
 
 @end
 
-@interface _Sam (CoreDataGeneratedPrimitiveAccessors)
+@interface _EntityLocation (CoreDataGeneratedPrimitiveAccessors)
 
 
 - (NSString*)primitiveAddress;

@@ -1,12 +1,11 @@
-#import "Sam.h"
+#import "EntityLocation.h"
 
 
-@interface Sam ()
+@interface EntityLocation ()
 
 @end
 
-
-@implementation Sam
+@implementation EntityLocation
 
 - (void)updateWithCsvRepresentation:(NSArray *)csv
 {
@@ -36,5 +35,23 @@
     self.postingbox = csv[23];
 }
 
+- (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits
+{
+    int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
+    
+    // Sunday = 1, Saturday = 7
+    if (weekDay == 1)
+        return (timeDigits < [self.sun_closing integerValue]);
+    else if (weekDay == 7)
+        return (timeDigits < [self.sat_closing integerValue]);
+  
+    return (timeDigits < [self.mon_closing integerValue]);
+}
+
+- (CGFloat)distanceInKmToLocation:(CLLocation *)toLocation
+{
+    CLLocation *fromLocation = [[CLLocation alloc] initWithLatitude:self.latitude.floatValue longitude:self.longitude.floatValue];
+    return [toLocation distanceFromLocation:fromLocation] / 1000;
+}
 
 @end

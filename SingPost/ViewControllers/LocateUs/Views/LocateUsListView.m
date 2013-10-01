@@ -15,8 +15,9 @@
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UIView+Position.h"
 #import "UIFont+SingPost.h"
+#import "CMIndexBar.h"
 
-@interface LocateUsListView () <CDropDownListControlDelegate>
+@interface LocateUsListView () <CDropDownListControlDelegate, CMIndexBarDelegate>
 
 @end
 
@@ -26,6 +27,16 @@
     CTextField *findByTextField;
     CDropDownListControl *typesDropDownList;
     TPKeyboardAvoidingScrollView *contentScrollView;
+    CMIndexBar *indexBar;
+}
+
+- (void)setDelegate:(id)inDelegate
+{
+    _delegate = inDelegate;
+    [_locationsTableView setDelegate:_delegate];
+    [_locationsTableView setDataSource:_delegate];
+    [_locationsTableView reloadData];
+    [indexBar setDelegate:_delegate];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -64,9 +75,22 @@
         [searchLocationsCountLabel setTextColor:[UIColor whiteColor]];
         [searchLocationsCountLabel setText:@"     5 locations found"];
         [contentScrollView addSubview:searchLocationsCountLabel];
-
+        
+        _locationsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 155, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 155)];
+        [_locationsTableView setBackgroundColor:[UIColor clearColor]];
+        [_locationsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [_locationsTableView setSeparatorColor:[UIColor clearColor]];
+        [_locationsTableView setBackgroundView:nil];
+        [contentScrollView addSubview:_locationsTableView];
+        
+        indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 30, 155, 28.0, contentScrollView.bounds.size.height - 155)];
+        [indexBar setTextColor:RGB(36, 84, 157)];
+        [indexBar setIndexes: [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles]];
+        [contentScrollView addSubview:indexBar];
+        
         [self addSubview:contentScrollView];
     }
+    
     return self;
 }
 

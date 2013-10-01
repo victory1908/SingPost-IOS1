@@ -1,9 +1,9 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to Sam.m instead.
+// Make changes to EntityLocation.m instead.
 
-#import "_Sam.h"
+#import "_EntityLocation.h"
 
-const struct SamAttributes SamAttributes = {
+const struct EntityLocationAttributes EntityLocationAttributes = {
 	.address = @"address",
 	.fri_closing = @"fri_closing",
 	.fri_opening = @"fri_opening",
@@ -30,33 +30,33 @@ const struct SamAttributes SamAttributes = {
 	.wed_opening = @"wed_opening",
 };
 
-const struct SamRelationships SamRelationships = {
+const struct EntityLocationRelationships EntityLocationRelationships = {
 };
 
-const struct SamFetchedProperties SamFetchedProperties = {
+const struct EntityLocationFetchedProperties EntityLocationFetchedProperties = {
 };
 
-@implementation SamID
+@implementation EntityLocationID
 @end
 
-@implementation _Sam
+@implementation _EntityLocation
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"Sam" inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"EntityLocation" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return @"Sam";
+	return @"EntityLocation";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"Sam" inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"EntityLocation" inManagedObjectContext:moc_];
 }
 
-- (SamID*)objectID {
-	return (SamID*)[super objectID];
+- (EntityLocationID*)objectID {
+	return (EntityLocationID*)[super objectID];
 }
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {

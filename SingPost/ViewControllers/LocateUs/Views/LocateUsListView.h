@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+
+@protocol LocateUsListDelegate;
 
 @interface LocateUsListView : UIView
+
+@property (nonatomic, weak) id delegate;
+@property (nonatomic, assign) CLLocationCoordinate2D *cachedUserCoordinate;
+@property (nonatomic, readonly) UITableView *locationsTableView;
+
+@end
+
+@protocol LocateUsListDelegate <NSObject>
 
 @end
