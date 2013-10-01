@@ -62,27 +62,26 @@ typedef enum {
     [navigationBarView addSubview:infoButton];
     
     //content
-    CGFloat offsetY = INTERFACE_IS_4INCHSCREEN ? 80.0f : 70.0f;
+    CGFloat offsetY = 60.0f;
     
-    trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, offsetY, 290, 47) : CGRectMake(15, offsetY, 290, 30)];
+    trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, 290, 47)];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
-    [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f];
-    [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
-    [trackingNumberTextField setInsetBoundsSize: INTERFACE_IS_4INCHSCREEN ? CGSizeMake(5, 12) : CGSizeMake(5, 3)];
+    [trackingNumberTextField setFontSize:16.0f];
+    [trackingNumberTextField setInsetBoundsSize:CGSizeMake(5, 12)];
     [trackingNumberTextField setText:_trackingNumber];
     [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(265, 87, 35, 35) : CGRectMake(274, 72, 29, 29)];
+    [findTrackingNumberButton setFrame:CGRectMake(265, 68, 35, 35)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:findTrackingNumberButton];
     
-    offsetY += INTERFACE_IS_4INCHSCREEN ? 60.0f : 45.0f;
+    offsetY += 60.0f;
     
     UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 220, 50)];
-    [instructionsLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setText:@"Turn on push notification to auto-receive\nlatest status updates of item(s) you are\ncurrently tracking"];
     [instructionsLabel setNumberOfLines:0];
     [instructionsLabel setTextColor:RGB(51, 51, 51)];
@@ -92,7 +91,7 @@ typedef enum {
     receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
     receiveUpdateSwitch.onTintColor = [UIColor SingPostBlueColor];
     receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
-    receiveUpdateSwitch.center = INTERFACE_IS_4INCHSCREEN ? CGPointMake(278, 165) : CGPointMake(278, 140);
+    receiveUpdateSwitch.center = CGPointMake(278, 145);
     receiveUpdateSwitch.on = YES;
     [contentView addSubview:receiveUpdateSwitch];
     
@@ -233,6 +232,20 @@ typedef enum {
             [activeItemsLabel setBackgroundColor:[UIColor clearColor]];
             [activeItemsLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [sectionHeaderView addSubview:activeItemsLabel];
+            
+            UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
+            [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
+            [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
+            [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
+            [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
+            [sectionHeaderView addSubview:numActiveItemsButton];
+            
+            UIButton *reloadOrangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [reloadOrangeButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
+            [reloadOrangeButton setFrame:CGRectMake(260, 3, 44, 44)];
+            [sectionHeaderView addSubview:reloadOrangeButton];
             break;
         }
         case TRACKINGITEMS_SECTION_COMPLETED: {

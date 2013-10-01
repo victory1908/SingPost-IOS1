@@ -114,7 +114,7 @@
     [statusLabel setBackgroundColor:[UIColor clearColor]];
     [headerView addSubview:statusLabel];
     
-    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 5, 100, 16)];
+    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(220, 5, 100, 16)];
     [locationLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [locationLabel setText:@"Location"];
     [locationLabel setTextColor:RGB(125, 136, 149)];

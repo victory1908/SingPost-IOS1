@@ -32,7 +32,7 @@
         [statusLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusLabel];
         
-        UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 8, 100, 30)];
+        UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(220, 8, 100, 30)];
         [locationLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [locationLabel setText:@"Location"];
         [locationLabel setTextColor:RGB(58, 68, 61)];
