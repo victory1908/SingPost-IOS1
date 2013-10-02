@@ -114,6 +114,11 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    if (textField == trackingNumberTextField) {
+        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+        trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    }
     return YES;
 }
 
@@ -145,6 +150,7 @@
     
     trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(22, 35, 130, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
+    [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [headerView addSubview:trackingNumberTextField];
