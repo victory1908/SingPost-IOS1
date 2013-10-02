@@ -11,9 +11,11 @@
 #import "EntityLocation.h"
 
 #import <MapKit/MapKit.h>
+#import <RegexKitLite.h>
 
-#import "MapAnnotation.h"
+#import "EntityLocationMapAnnotation.h"
 #import "UIFont+SingPost.h"
+#import "UIColor+SingPost.h"
 #import "SectionToggleButton.h"
 #import "UIView+Position.h"
 
@@ -75,7 +77,7 @@ typedef enum  {
     [contentView addSubview:contentScrollView];
     
     locationMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, contentView.bounds.size.width, 200)];
-//    locationMapView.showsUserLocation = YES;
+    locationMapView.showsUserLocation = YES;
     locationMapView.delegate = self;
     [contentScrollView addSubview:locationMapView];
     
@@ -94,10 +96,11 @@ typedef enum  {
     isOpenedIndicatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(255, 230, 10, 10)];
     [contentScrollView addSubview:isOpenedIndicatorImageView];
     
-    UIButton *searchMapButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [searchMapButton setImage:[UIImage imageNamed:@"search_map_button"] forState:UIControlStateNormal];
-    [searchMapButton setFrame:CGRectMake(270, 212, 44, 44)];
-    [contentScrollView addSubview:searchMapButton];
+    UIButton *showMapRouteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [showMapRouteButton setImage:[UIImage imageNamed:@"search_map_button"] forState:UIControlStateNormal];
+    [showMapRouteButton setFrame:CGRectMake(270, 212, 44, 44)];
+    [showMapRouteButton addTarget:self action:@selector(showMapRouteButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [contentScrollView addSubview:showMapRouteButton];
     
     UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 266, contentView.bounds.size.width, 1)];
     [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
@@ -165,7 +168,7 @@ typedef enum  {
     mapRegion.span = MKCoordinateSpanMake(0.016, 0.016);
     [locationMapView setRegion:mapRegion animated:YES];
     
-    MapAnnotation *locationAnnotation = [[MapAnnotation alloc] initWithLatitude:_entityLocation.latitude.floatValue andLongitude:_entityLocation.longitude.floatValue];
+    EntityLocationMapAnnotation *locationAnnotation = [[EntityLocationMapAnnotation alloc] initWithEntityLocation:_entityLocation];
     [locationMapView addAnnotation:locationAnnotation];
     
     //fields
@@ -243,19 +246,104 @@ typedef enum  {
         [self goToSection:LOCATEUSDETAILS_SECTION_POSTINGBOX];
 }
 
+- (IBAction)showMapRouteButtonClicked:(id)sender
+{
+    [self showMapRouteDirections];
+}
+
 #pragma mark - MKMapViewDelegates
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    NSLog(@"annotation class: %@", NSStringFromClass([annotation class]));
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil; //use default
+    
     static NSString *const annotationIdentifier = @"EntityLocationAnnotation";
     
     MKAnnotationView *annotationView = [locationMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
     if (!annotationView) {
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        annotationView.canShowCallout = NO;
+        annotationView.canShowCallout = YES;
         annotationView.image = [UIImage imageNamed:@"map_overlay"];
     }
     
     return annotationView;
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay {
+    MKPolylineView *plv = [[MKPolylineView alloc] initWithOverlay:overlay];
+    plv.strokeColor = [UIColor SingPostBlueColor];
+    plv.lineWidth = 3.0;
+    return plv;
+}
+
+#pragma mark - Routing
+
+- (NSMutableArray *)decodePolyLine:(NSMutableString *)encoded {
+	[encoded replaceOccurrencesOfString:@"\\\\" withString:@"\\"
+								options:NSLiteralSearch
+								  range:NSMakeRange(0, [encoded length])];
+	NSInteger len = [encoded length];
+	NSInteger index = 0;
+	NSMutableArray *array = [NSMutableArray array];
+	NSInteger lat=0;
+	NSInteger lng=0;
+	while (index < len) {
+		NSInteger b;
+		NSInteger shift = 0;
+		NSInteger result = 0;
+		do {
+			b = [encoded characterAtIndex:index++] - 63;
+			result |= (b & 0x1f) << shift;
+			shift += 5;
+		} while (b >= 0x20);
+		NSInteger dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
+		lat += dlat;
+		shift = 0;
+		result = 0;
+		do {
+			b = [encoded characterAtIndex:index++] - 63;
+			result |= (b & 0x1f) << shift;
+			shift += 5;
+		} while (b >= 0x20);
+		NSInteger dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
+		lng += dlng;
+		NSNumber *latitude = [[NSNumber alloc] initWithFloat:lat * 1e-5];
+		NSNumber *longitude = [[NSNumber alloc] initWithFloat:lng * 1e-5];
+		CLLocation *loc = [[CLLocation alloc] initWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];
+		[array addObject:loc];
+	}
+	
+	return array;
+}
+
+- (NSArray *)calculateRoutesFrom:(CLLocationCoordinate2D)f to:(CLLocationCoordinate2D)t {
+	NSString* saddr = [NSString stringWithFormat:@"%f,%f", f.latitude, f.longitude];
+	NSString* daddr = [NSString stringWithFormat:@"%f,%f", t.latitude, t.longitude];
+	
+	NSString* apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@", saddr, daddr];
+	NSURL* apiUrl = [NSURL URLWithString:apiUrlStr];
+	NSString *apiResponse = [NSString stringWithContentsOfURL:apiUrl encoding:NSUTF8StringEncoding error:nil];
+	NSString* encodedPoints = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
+	
+	return [self decodePolyLine:[encodedPoints mutableCopy]];
+}
+
+- (void)showMapRouteDirections
+{
+	NSArray *routes = [self calculateRoutesFrom:locationMapView.userLocation.coordinate to:_entityLocation.coordinate];
+    
+    int pointCount = [routes count];
+    CLLocationCoordinate2D polypoints[pointCount];
+    for (int i=0; i<pointCount; i++) {
+        CLLocation *loc = [routes objectAtIndex:i];
+        polypoints[i].latitude = loc.coordinate.latitude;
+        polypoints[i].longitude = loc.coordinate.longitude;
+    }
+    
+    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:polypoints count:pointCount];
+    [locationMapView addOverlay:polyline];
+    [locationMapView setVisibleMapRect:[polyline boundingMapRect] animated:YES];
 }
 
 @end

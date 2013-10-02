@@ -33,7 +33,7 @@
 		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
 		52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */; };
 		52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */; };
-		52282FE817FAA8C300B2A7B4 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */; };
+		52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */; };
 		52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */; };
 		52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F8817F5B20600610A86 /* UIFont+SingPost.m */; };
 		52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */; };
@@ -132,8 +132,8 @@
 		52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIndexBar.m; sourceTree = "<group>"; };
 		52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsViewController.h; sourceTree = "<group>"; };
 		52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsViewController.m; sourceTree = "<group>"; };
-		52282FE617FAA8C300B2A7B4 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
-		52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
+		52282FE617FAA8C300B2A7B4 /* EntityLocationMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityLocationMapAnnotation.h; sourceTree = "<group>"; };
+		52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityLocationMapAnnotation.m; sourceTree = "<group>"; };
 		52282FF417FACBA600B2A7B4 /* LocateUsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsListViewController.h; sourceTree = "<group>"; };
 		52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsListViewController.m; sourceTree = "<group>"; };
 		52305F8717F5B20600610A86 /* UIFont+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SingPost.h"; sourceTree = "<group>"; };
@@ -420,8 +420,8 @@
 				52305F9217F5B79100610A86 /* UIColor+SingPost.m */,
 				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
 				52305F8817F5B20600610A86 /* UIFont+SingPost.m */,
-				52282FE617FAA8C300B2A7B4 /* MapAnnotation.h */,
-				52282FE717FAA8C300B2A7B4 /* MapAnnotation.m */,
+				52282FE617FAA8C300B2A7B4 /* EntityLocationMapAnnotation.h */,
+				52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -792,7 +792,7 @@
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
-				52282FE817FAA8C300B2A7B4 /* MapAnnotation.m in Sources */,
+				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
 				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,

@@ -99,7 +99,7 @@
     nameLabel.text = _location.name;
     addressLabel.text = _location.address;
     
-    openedIndicatorButton.selected = [_location isOpenedRelativeToTimeDigits:_cachedTimeDigits];
+    openedIndicatorButton.selected = [_location isOpenedAtCurrentTimeDigits:_cachedTimeDigits];
     closedIndicatorButton.selected = !openedIndicatorButton.selected;
     
     CGFloat distanceKm = [_location distanceInKmToLocation:_cachedUserLocation];

@@ -7,6 +7,7 @@
 
 @interface EntityLocation : _EntityLocation {}
 
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly) BOOL isOpened;
 @property (nonatomic, readonly) NSString *monFriOpeningHours;
 @property (nonatomic, readonly) NSString *monThuOpeningHours;
@@ -16,7 +17,7 @@
 @property (nonatomic, readonly) NSString *publicHolidayOpeningHours;
 
 - (CGFloat)distanceInKmToLocation:(CLLocation *)toLocation;
-- (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits;
+- (BOOL)isOpenedAtCurrentTimeDigits:(NSInteger)timeDigits;
 - (void)updateWithCsvRepresentation:(NSArray *)csv;
 
 @end

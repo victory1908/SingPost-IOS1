@@ -35,6 +35,11 @@
     self.postingbox = csv[23];
 }
 
+- (CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake(self.latitude.floatValue, self.longitude.floatValue);
+}
+
 - (NSString *)openingHoursForOpenTime:(NSString *)openTime andCloseTime:(NSString *)closeTime
 {
     if ([self.type isEqualToString:LOCATION_TYPE_SAM]) {
@@ -82,37 +87,32 @@
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
     [timeFormatter setDateFormat:@"HHmm"];
     NSInteger currentTimeDigits = [[timeFormatter stringFromDate:[NSDate date]] integerValue];
-    return [self isOpenedRelativeToTimeDigits:currentTimeDigits];
+    return [self isOpenedAtCurrentTimeDigits:currentTimeDigits];
 }
 
-- (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits
+- (BOOL)isOpenedAtCurrentTimeDigits:(NSInteger)timeDigits
 {
     int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
     
     // Sunday = 1, Saturday = 7
     if (weekDay == 1) {
-        if ([self.type isEqualToString:LOCATION_TYPE_SAM])
-            return ([self isNullOpeningHours:self.sun_opening]);
-        else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
-            return (timeDigits < [self.sun_opening integerValue]);
- 
-        return (timeDigits < [self.sun_closing integerValue]);
+        return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sun_opening andClosingHours:self.sun_closing];
     }
     else if (weekDay == 7) {
-        if ([self.type isEqualToString:LOCATION_TYPE_SAM])
-            return [self isNullOpeningHours:self.sat_opening];
-        else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
-            return (timeDigits < [self.sat_opening integerValue]);
-      
-        return (timeDigits < [self.sat_closing integerValue]);
+        return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sat_opening andClosingHours:self.sat_closing];
     }
     
-    if ([self.type isEqualToString:LOCATION_TYPE_SAM])
-        return ([self isNullOpeningHours:self.mon_opening]);
-    else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
-        return (timeDigits < [self.mon_opening integerValue]);
+    return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.mon_opening andClosingHours:self.mon_closing];
+}
 
-    return (timeDigits < [self.mon_closing integerValue]);
+- (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits andOpeningHours:(NSString *)openingHours andClosingHours:(NSString *)closingHours
+{
+    if ([self.type isEqualToString:LOCATION_TYPE_SAM])
+        return ([self isNullOpeningHours:openingHours]);
+    else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
+        return (timeDigits < [openingHours integerValue]);
+    
+    return (timeDigits < [closingHours integerValue] && timeDigits > [openingHours integerValue]);
 }
 
 - (CGFloat)distanceInKmToLocation:(CLLocation *)toLocation
