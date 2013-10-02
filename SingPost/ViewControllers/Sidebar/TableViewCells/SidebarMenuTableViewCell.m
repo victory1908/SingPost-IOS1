@@ -18,7 +18,7 @@
 @implementation SidebarMenuTableViewCell
 {
     UILabel *menuNameLabel;
-    UIImageView *menuImageView;
+    UIImageView *menuImageView, *subrowIndicatorImageView, *starIndicatorImageView;
 }
 
 - (NSArray *)sidebarMenusData
@@ -54,10 +54,27 @@
         [separatorView setBackgroundColor:RGB(225, 225, 225)];
         [contentView addSubview:separatorView];
         
-        [self.contentView addSubview:contentView];
+        subrowIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"showSubRow_indicator"]];
+        [subrowIndicatorImageView setFrame:CGRectMake(170, 20, 8, 5)];
+        [subrowIndicatorImageView setHidden:YES];
+        subrowIndicatorImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+        [contentView addSubview:subrowIndicatorImageView];
         
+        starIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
+        [starIndicatorImageView setFrame:CGRectMake(170, 12, 20, 20)];
+        [starIndicatorImageView setHidden:YES];
+        [contentView addSubview:starIndicatorImageView];
+        
+        [self.contentView addSubview:contentView];
     }
     return self;
+}
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    [subrowIndicatorImageView setHidden:YES];
+    [starIndicatorImageView setHidden:YES];
 }
 
 - (void)setSidebarMenu:(tSidebarMenus)inSidebarMenu
@@ -67,6 +84,20 @@
     NSDictionary *sidebarMenuData = self.sidebarMenusData[_sidebarMenu];
     [menuNameLabel setText:sidebarMenuData[@"name"]];
     [menuImageView setImage:[UIImage imageNamed:sidebarMenuData[@"image"]]];
+    
+    if (_sidebarMenu == SIDEBARMENU_OFFERSMORE)
+        [subrowIndicatorImageView setHidden:NO];
+    
+    if (_sidebarMenu == SIDEBARMENU_STAMPCOLLECTIBLES)
+        [starIndicatorImageView setHidden:NO];
+}
+
+- (void)animateShowSubRows:(BOOL)isSubRowsVisible
+{
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         subrowIndicatorImageView.transform = isSubRowsVisible ? CGAffineTransformIdentity : CGAffineTransformMakeRotation(-M_PI_2);
+                     }];
 }
 
 @end

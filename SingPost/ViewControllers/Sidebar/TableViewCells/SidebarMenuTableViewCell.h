@@ -27,4 +27,6 @@ typedef enum {
 
 @property (nonatomic, assign) tSidebarMenus sidebarMenu;
 
+- (void)animateShowSubRows:(BOOL)isSubRowsVisible;
+
 @end

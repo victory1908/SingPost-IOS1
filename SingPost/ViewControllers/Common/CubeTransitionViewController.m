@@ -32,17 +32,17 @@
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     CGContextFillRect (UIGraphicsGetCurrentContext(), self.view.frame);
     UIGraphicsEndImageContext();
-
+    
     return image;
 }
 
-- (CALayer *)createLayerFromView: (UIView *) aView transform:(CATransform3D) transform
+- (CALayer *)createLayerFromView:(UIView *)view transform:(CATransform3D) transform
 {
     CALayer *imageLayer = [CALayer layer];
     imageLayer.anchorPoint = CGPointMake(1.0f, 1.0f);
-    imageLayer.frame = (CGRect){.size = self.view.frame.size};
+    imageLayer.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     imageLayer.transform = transform;
-    UIImage *shot = [self screenShot:aView];
+    UIImage *shot = [self screenShot:view];
     imageLayer.contents = (__bridge id) shot.CGImage;
     
     return imageLayer;

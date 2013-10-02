@@ -73,6 +73,8 @@
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
+		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
+		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +198,10 @@
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
 		52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeTransitionViewController.m; sourceTree = "<group>"; };
+		52F8134117FBE69F00516210 /* SidebarMenuSubRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuSubRowTableViewCell.h; sourceTree = "<group>"; };
+		52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuSubRowTableViewCell.m; sourceTree = "<group>"; };
+		52F8134517FBFE5400516210 /* LocateUsDetailsOpeningHoursView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsOpeningHoursView.h; sourceTree = "<group>"; };
+		52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsOpeningHoursView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,6 +452,8 @@
 			children = (
 				52305F9517F5C1CF00610A86 /* SidebarMenuTableViewCell.h */,
 				52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */,
+				52F8134117FBE69F00516210 /* SidebarMenuSubRowTableViewCell.h */,
+				52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -541,6 +549,7 @@
 		528F26C617F93D1F006F7027 /* LocateUs */ = {
 			isa = PBXGroup;
 			children = (
+				52F8134417FBFE3B00516210 /* Views */,
 				528F270017F9BBD3006F7027 /* TableViewCells */,
 				528F26C717F9441A006F7027 /* LocateUsMainViewController.h */,
 				528F26C817F9441A006F7027 /* LocateUsMainViewController.m */,
@@ -610,6 +619,15 @@
 				52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		52F8134417FBFE3B00516210 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				52F8134517FBFE5400516210 /* LocateUsDetailsOpeningHoursView.h */,
+				52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -767,6 +785,7 @@
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,
+				52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */,
 				528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */,
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
 				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
@@ -783,6 +802,7 @@
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
 				528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
+				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,

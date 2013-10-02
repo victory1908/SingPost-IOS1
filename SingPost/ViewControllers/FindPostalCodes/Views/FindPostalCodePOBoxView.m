@@ -36,7 +36,8 @@
         idTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 44)];
         [contentScrollView addSubview:idTextField];
         
-        typeDropDownList= [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 150, 44)];
+        typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 44)];
+        [typeDropDownList setFontSize:14.0f];
         [typeDropDownList setPlistValueFile:@"FindPostalCodes_Types"];
         [typeDropDownList setDelegate:self];
         [typeDropDownList selectRow:0 animated:NO];

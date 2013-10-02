@@ -152,7 +152,7 @@ typedef enum {
     [contentView addSubview:offersMoreBackroundView];
     
     UIButton *offersMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [offersMoreButton setFrame:CGRectMake(110, 2, 110, 26)];
+    [offersMoreButton setFrame:CGRectMake(110, 1, 110, 26)];
     [offersMoreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [offersMoreButton setImage:[UIImage imageNamed:@"offersmore_indicator"] forState:UIControlStateNormal];
     [offersMoreButton setTitle:@"Offers & More" forState:UIControlStateNormal];

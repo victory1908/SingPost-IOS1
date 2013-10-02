@@ -138,6 +138,11 @@
     return _values[selectedRowIndex][@"code"];
 }
 
+- (void)setFontSize:(CGFloat)fontSize
+{
+    [selectedValueLabel setFont:[UIFont SingPostLightFontOfSize:fontSize fontKey:kSingPostFontOpenSans]];
+}
+
 #pragma mark - UIPickerViewDelegates & DataSource
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

@@ -14,6 +14,7 @@
 #import "CalculatePostageResultsViewController.h"
 #import "AppDelegate.h"
 #import "SectionToggleButton.h"
+#import "UIView+Position.h"
 
 @interface CalculatePostageViewController () <CalculatePostageOverseasDelegate, CalculatePostageSingaporeDelegate>
 
@@ -31,6 +32,7 @@ typedef enum  {
     CalculatePostageOverseasView *overseasSectionView;
     CalculatePostageSingaporeView *singaporeSectionView;
     UIScrollView *sectionContentScrollView;
+    UIButton *selectedSectionIndicatorButton;
 }
 
 - (void)loadView
@@ -67,11 +69,19 @@ typedef enum  {
     [singaporeSectionView setBackgroundColor:[UIColor clearColor]];
     [sectionContentScrollView addSubview:singaporeSectionView];
     
+    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 139, contentView.bounds.size.width, 1)];
+    [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+    [contentView addSubview:topSeparatorView];
+    
+    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, contentView.bounds.size.width, 1)];
+    [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+    [contentView addSubview:bottomSeparatorView];
+    
     overseasSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 140, contentView.bounds.size.width / 2.0f, 50)];
     [overseasSectionButton setTag:CALCULATEPOSTAGE_SECTION_OVERSEAS];
     [overseasSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [overseasSectionButton setTitle:@"Overseas" forState:UIControlStateNormal];
-    [overseasSectionButton setSelected:YES];
+    [overseasSectionButton setSelected:NO];
     [contentView addSubview:overseasSectionButton];
     
     singaporeSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width / 2.0f, 140, contentView.bounds.size.width / 2.0f, 50)];
@@ -80,9 +90,73 @@ typedef enum  {
     [singaporeSectionButton setTitle:@"Singapore" forState:UIControlStateNormal];
     [singaporeSectionButton setSelected:NO];
     [contentView addSubview:singaporeSectionButton];
-     
+    
+    selectedSectionIndicatorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [selectedSectionIndicatorButton setBackgroundColor:RGB(36, 84, 157)];
+    [selectedSectionIndicatorButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [selectedSectionIndicatorButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [selectedSectionIndicatorButton setFrame:overseasSectionButton.frame];
+    [contentView addSubview:selectedSectionIndicatorButton];
+    
+    UIImageView *selectedIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"selected_indicator"]];
+    [selectedIndicatorImageView setFrame:CGRectMake((int)(selectedSectionIndicatorButton.bounds.size.width / 2) - 8, selectedSectionIndicatorButton.bounds.size.height, 17, 8)];
+    [selectedSectionIndicatorButton addSubview:selectedIndicatorImageView];
+    
+    UIPanGestureRecognizer *sectionSelectionPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSectionSelectionPanGesture:)];
+    [selectedSectionIndicatorButton addGestureRecognizer:sectionSelectionPanGestureRecognizer];
+    
     self.view = contentView;
 }
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self goToSection:CALCULATEPOSTAGE_SECTION_OVERSEAS];
+}
+
+- (void)handleSectionSelectionPanGesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    CGPoint translation = [gestureRecognizer translationInView:self.view];
+    gestureRecognizer.view.center = CGPointMake(gestureRecognizer.view.center.x + translation.x, gestureRecognizer.view.center.y);
+    [gestureRecognizer.view setX:MIN(MAX(0, gestureRecognizer.view.frame.origin.x), self.view.bounds.size.width - gestureRecognizer.view.bounds.size.width)];
+    [gestureRecognizer setTranslation:CGPointZero inView:self.view];
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        [self resignAllResponders];;
+    }
+    else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        if (CGRectContainsPoint(overseasSectionButton.frame, gestureRecognizer.view.center))
+            [self goToSection:CALCULATEPOSTAGE_SECTION_OVERSEAS];
+        else if (CGRectContainsPoint(singaporeSectionButton.frame, gestureRecognizer.view.center))
+            [self goToSection:CALCULATEPOSTAGE_SECTION_SINGAPORE];
+    }
+    else {
+        if (CGRectContainsPoint(overseasSectionButton.frame, gestureRecognizer.view.center))
+            [selectedSectionIndicatorButton setTitle:@"Overseas" forState:UIControlStateNormal];
+        else if (CGRectContainsPoint(singaporeSectionButton.frame, gestureRecognizer.view.center))
+            [selectedSectionIndicatorButton setTitle:@"Singapore" forState:UIControlStateNormal];
+    }
+}
+
+- (void)goToSection:(tCalculatePostageSections)section
+{
+    currentSection = section;
+    
+    if (currentSection == CALCULATEPOSTAGE_SECTION_OVERSEAS)
+        [selectedSectionIndicatorButton setTitle:@"Overseas" forState:UIControlStateNormal];
+    else if (currentSection == CALCULATEPOSTAGE_SECTION_SINGAPORE)
+        [selectedSectionIndicatorButton setTitle:@"Singapore" forState:UIControlStateNormal];
+    
+    [sectionContentScrollView setContentOffset:CGPointMake(currentSection * sectionContentScrollView.bounds.size.width, 0) animated:YES];
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        if (currentSection == CALCULATEPOSTAGE_SECTION_OVERSEAS)
+            [selectedSectionIndicatorButton setFrame:overseasSectionButton.frame];
+        else if (currentSection == CALCULATEPOSTAGE_SECTION_SINGAPORE)
+            [selectedSectionIndicatorButton setFrame:singaporeSectionButton.frame];
+    }];
+}
+
 
 #pragma mark - Section Delegates
 
@@ -102,13 +176,10 @@ typedef enum  {
 
 - (IBAction)sectionButtonClicked:(id)sender
 {
-    [overseasSectionButton setSelected:(overseasSectionButton == sender)];
-    [singaporeSectionButton setSelected:(singaporeSectionButton == sender)];
-    
-    [self resignAllResponders];
-    
-    currentSection = ((UIButton *)sender).tag;
-    [sectionContentScrollView setContentOffset:CGPointMake(currentSection * sectionContentScrollView.bounds.size.width, 0) animated:YES];
+    if (sender == overseasSectionButton)
+        [self goToSection:CALCULATEPOSTAGE_SECTION_OVERSEAS];
+    else if (sender == singaporeSectionButton)
+        [self goToSection:CALCULATEPOSTAGE_SECTION_SINGAPORE];
 }
 
 #pragma mark -

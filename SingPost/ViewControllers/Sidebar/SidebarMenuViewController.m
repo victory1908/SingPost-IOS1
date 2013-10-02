@@ -10,6 +10,7 @@
 #import "UIFont+SingPost.h"
 #import "UIColor+SingPost.h"
 #import "SidebarMenuTableViewCell.h"
+#import "SidebarMenuSubRowTableViewCell.h"
 #import "AppDelegate.h"
 
 #import "CalculatePostageViewController.h"
@@ -61,6 +62,8 @@
     UIButton *singPostLogoButton;
     SidebarTrackingNumberTextField *trackingNumberTextField;
     UITableView *menuTableView;
+    
+    BOOL showOffersMoreSubrows;
 }
 
 - (void)loadView
@@ -133,7 +136,7 @@
     [separatorView setBackgroundColor:RGB(196, 197, 200)];
     [headerView addSubview:separatorView];
     
-    UILabel *trackLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 14, 80, 14)];
+    UILabel *trackLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 80, 14)];
     [trackLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [trackLabel setText:@"Track"];
     [trackLabel setTextColor:RGB(58, 68, 81)];
@@ -141,7 +144,7 @@
     [headerView addSubview:trackLabel];
     
     UIImageView *starImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-    [starImageView setFrame:CGRectMake(162, 13, 20, 20)];
+    [starImageView setFrame:CGRectMake(162, 8, 20, 20)];
     [headerView addSubview:starImageView];
     
     UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox"]];
@@ -181,21 +184,39 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return SIDEBARMENU_TOTAL;
+    return SIDEBARMENU_TOTAL + (showOffersMoreSubrows ? SUBROWS_OFFERSMORE_TOTAL : 0);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const cellIdentifier = @"SidebarMenuTableViewCell";
-
-    SidebarMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-		cell = [[SidebarMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-	}
+    if (indexPath.row < SIDEBARMENU_TOTAL) {
+        static NSString *const cellIdentifier = @"SidebarMenuTableViewCell";
+        
+        SidebarMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!cell) {
+            cell = [[SidebarMenuTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+        
+        [cell setSidebarMenu:(tSidebarMenus)indexPath.row];
+        
+        return cell;
+    }
+    else if (showOffersMoreSubrows) {
+        static NSString *const subRowCellIdentifier = @"SidebarMenuSubRowTableViewCell";
+        
+        SidebarMenuSubRowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:subRowCellIdentifier];
+        if (!cell) {
+            cell = [[SidebarMenuSubRowTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:subRowCellIdentifier];
+        }
+        
+        tSubRowsOffersMore subRow = (tSubRowsOffersMore)indexPath.row - SIDEBARMENU_OFFERSMORE - 1;
+        [cell setShowBottomSeparator:((subRow + 1) < SUBROWS_OFFERSMORE_TOTAL)];
+        [cell setSubrowMenuOffersMore:subRow];
+        
+        return cell;
+    }
     
-    [cell setSidebarMenu:(tSidebarMenus)indexPath.row];
-
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +226,6 @@
         {
             CalculatePostageViewController *viewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
-           
             break;
         }
         case SIDEBARMENU_FINDPOSTALCODES:
@@ -220,6 +240,11 @@
             [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
             break;
         }
+        case SIDEBARMENU_OFFERSMORE:
+        {
+            [self toggleOffersMoreSubRows];
+            break;
+        }
         default:
         {
             NSLog(@"not yet implemented");
@@ -228,6 +253,32 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Offers & More subrows
+
+- (void)toggleOffersMoreSubRows
+{
+    showOffersMoreSubrows = !showOffersMoreSubrows;
+    SidebarMenuTableViewCell *cell = (SidebarMenuTableViewCell *)[menuTableView cellForRowAtIndexPath:menuTableView.indexPathForSelectedRow];
+    [cell animateShowSubRows:showOffersMoreSubrows];
+    
+    NSMutableArray *subRowsIndexPaths = [NSMutableArray array];
+    for (int i = 1; i <= SUBROWS_OFFERSMORE_TOTAL; i++)
+        [subRowsIndexPaths addObject:[NSIndexPath indexPathForRow:SIDEBARMENU_OFFERSMORE + i inSection:0]];
+
+    [menuTableView beginUpdates];
+    if (showOffersMoreSubrows) {
+        [menuTableView insertRowsAtIndexPaths:subRowsIndexPaths
+                             withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else {
+        [menuTableView deleteRowsAtIndexPaths:subRowsIndexPaths
+                             withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+    [menuTableView endUpdates];
+    [menuTableView scrollToRowAtIndexPath:(showOffersMoreSubrows ? subRowsIndexPaths[0] : [NSIndexPath indexPathForRow:SIDEBARMENU_OFFERSMORE inSection:0]) atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 @end

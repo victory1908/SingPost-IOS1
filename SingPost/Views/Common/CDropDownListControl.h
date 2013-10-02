@@ -16,6 +16,7 @@
 
 @property (nonatomic) NSString *plistValueFile;
 @property (nonatomic) NSString *placeholderText;
+@property (nonatomic) CGFloat fontSize;
 @property (nonatomic, weak) id<CDropDownListControlDelegate> delegate;
 
 @property (nonatomic, readonly) NSString *selectedText;

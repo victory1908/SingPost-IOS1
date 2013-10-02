@@ -23,7 +23,7 @@
         
         toggleSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [toggleSidebarButton setHidden:YES];
-        [toggleSidebarButton setFrame:CGRectMake(12, 8, 30, 30)];
+        [toggleSidebarButton setFrame:CGRectMake(5, 1, 44, 43)];
         [toggleSidebarButton setImage:[UIImage imageNamed:@"sidebar_button"] forState:UIControlStateNormal];
         [toggleSidebarButton addTarget:self action:@selector(toggleSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:toggleSidebarButton];
@@ -35,7 +35,7 @@
         [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backButton];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, 44)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 44)];
         [titleLabel setCenter:self.center];
         [titleLabel setAdjustsFontSizeToFitWidth:YES];
         [titleLabel setBackgroundColor:[UIColor clearColor]];

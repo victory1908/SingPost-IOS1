@@ -80,6 +80,7 @@ typedef enum {
             {
                 currentMode = LOCATEUS_VIEWMODE_MAP;
                 [toggleModesButton setImage:[UIImage imageNamed:@"list_toggle_button"] forState:UIControlStateNormal];
+                [(UIScrollView *)locateUsListViewController.view setContentOffset:CGPointZero];
                 [cubeContainerViewController animateFromCurrent:locateUsListViewController toNext:locateUsMapViewController forward:NO onCompletion:^{
                     isAnimating = NO;
                 }];
@@ -89,6 +90,7 @@ typedef enum {
             {
                 currentMode = LOCATEUS_VIEWMODE_LIST;
                 [toggleModesButton setImage:[UIImage imageNamed:@"map_toggle_button"] forState:UIControlStateNormal];
+                [(UIScrollView *)locateUsMapViewController.view setContentOffset:CGPointZero];
                 [cubeContainerViewController animateFromCurrent:locateUsMapViewController toNext:locateUsListViewController forward:YES onCompletion:^{
                     isAnimating = NO;
                 }];
