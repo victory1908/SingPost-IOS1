@@ -95,22 +95,20 @@
     int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
     
     // Sunday = 1, Saturday = 7
-    if (weekDay == 1) {
+    if (weekDay == 1)
         return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sun_opening andClosingHours:self.sun_closing];
-    }
-    else if (weekDay == 7) {
+    else if (weekDay == 7)
         return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sat_opening andClosingHours:self.sat_closing];
-    }
     
     return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.mon_opening andClosingHours:self.mon_closing];
 }
 
 - (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits andOpeningHours:(NSString *)openingHours andClosingHours:(NSString *)closingHours
 {
-    if ([self.type isEqualToString:LOCATION_TYPE_SAM])
+    if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
+        return ![self isNullOpeningHours:openingHours];
+    else if ([self.type isEqualToString:LOCATION_TYPE_SAM])
         return ([self isNullOpeningHours:openingHours]);
-    else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
-        return (timeDigits < [openingHours integerValue]);
     
     return (timeDigits < [closingHours integerValue] && timeDigits > [openingHours integerValue]);
 }

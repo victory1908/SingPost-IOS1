@@ -38,7 +38,7 @@ typedef enum  {
     MKMapView *locationMapView;
     UILabel *addressLabel;
     UIButton *selectedSectionIndicatorButton;
-    UIImageView *isOpenedIndicatorImageView;
+    UIImageView *isOpenedIndicatorImageView, *addressImageView;
     UIScrollView *sectionContentScrollView;
     SectionToggleButton *openingHoursSectionButton, *servicesSectionButton, *postingBoxSectionButton;
     
@@ -81,8 +81,8 @@ typedef enum  {
     locationMapView.delegate = self;
     [contentScrollView addSubview:locationMapView];
     
-    UIImageView *addressImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"address_icon"]];
-    [addressImageView setFrame:CGRectMake(15, 215, 35, 34)];
+    addressImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 217, 35, 35)];
+    [addressImageView setContentMode:UIViewContentModeCenter];
     [contentScrollView addSubview:addressImageView];
     
     addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 211, 190, 44)];
@@ -174,6 +174,13 @@ typedef enum  {
     //fields
     [addressLabel setText:_entityLocation.address];
     [isOpenedIndicatorImageView setImage:[UIImage imageNamed:_entityLocation.isOpened ? @"green_circle" : @"red_circle"]];
+    
+    if ([_entityLocation.type isEqualToString:LOCATION_TYPE_POST_OFFICE])
+        [addressImageView setImage:[UIImage imageNamed:@"postoffice_icon"]];
+    else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
+        [addressImageView setImage:[UIImage imageNamed:@"postingbox_icon"]];
+    else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SAM])
+        [addressImageView setImage:[UIImage imageNamed:@"SAM"]];
     
     [self goToSection:LOCATEUSDETAILS_SECTION_OPENINGHOURS];
 }
@@ -333,17 +340,18 @@ typedef enum  {
 {
 	NSArray *routes = [self calculateRoutesFrom:locationMapView.userLocation.coordinate to:_entityLocation.coordinate];
     
-    int pointCount = [routes count];
-    CLLocationCoordinate2D polypoints[pointCount];
-    for (int i=0; i<pointCount; i++) {
-        CLLocation *loc = [routes objectAtIndex:i];
-        polypoints[i].latitude = loc.coordinate.latitude;
-        polypoints[i].longitude = loc.coordinate.longitude;
+    if (routes.count > 0) {
+        CLLocationCoordinate2D polypoints[routes.count];
+        for (int i = 0; i < routes.count; i++) {
+            CLLocation *loc = routes[i];
+            polypoints[i].latitude = loc.coordinate.latitude;
+            polypoints[i].longitude = loc.coordinate.longitude;
+        }
+        
+        MKPolyline *polyline = [MKPolyline polylineWithCoordinates:polypoints count:routes.count];
+        [locationMapView addOverlay:polyline];
+        [locationMapView setVisibleMapRect:polyline.boundingMapRect animated:YES];
     }
-    
-    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:polypoints count:pointCount];
-    [locationMapView addOverlay:polyline];
-    [locationMapView setVisibleMapRect:[polyline boundingMapRect] animated:YES];
 }
 
 @end
