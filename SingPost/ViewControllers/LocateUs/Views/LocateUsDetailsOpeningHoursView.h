@@ -12,6 +12,8 @@
 
 @interface LocateUsDetailsOpeningHoursView : UIView
 
-@property (nonatomic) EntityLocation *location;
+@property (nonatomic, readonly) EntityLocation *location;
+
+- (id)initWithLocation:(EntityLocation *)inLocation andFrame:(CGRect)frame;
 
 @end

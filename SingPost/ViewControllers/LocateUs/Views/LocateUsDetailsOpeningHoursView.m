@@ -13,76 +13,118 @@
 
 @implementation LocateUsDetailsOpeningHoursView
 {
-    UILabel *monFriOpeningHoursLabel, *saturdayOpeningHoursLabel, *sundayOpeningHoursLabel, *publicHolidayOpeningHoursLabel;
+    UILabel *monFriOpeningHoursLabel, *monThuOpeningHoursLabel, *friOpeningHoursLabel, *saturdayOpeningHoursLabel, *sundayOpeningHoursLabel, *publicHolidayOpeningHoursLabel;
 }
 
-- (id)initWithFrame:(CGRect)frame
+//designated initializer
+- (id)initWithLocation:(EntityLocation *)inLocation andFrame:(CGRect)frame
 {
+    NSParameterAssert(inLocation);
+    _location = inLocation;
     if ((self = [super initWithFrame:frame])) {
-        UILabel *monFriOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 180, 20)];
-        [monFriOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        [monFriOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
-        [monFriOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
-        [monFriOpeningHoursDisplayLabel setText:@"Mon - Fri"];
-        [self addSubview:monFriOpeningHoursDisplayLabel];
+        CGFloat offsetY = 20.0f;
+        if ([_location.type isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
+            UILabel *monThuOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 180, 20)];
+            [monThuOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+            [monThuOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
+            [monThuOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
+            [monThuOpeningHoursDisplayLabel setText:@"Mon - Thu"];
+            [self addSubview:monThuOpeningHoursDisplayLabel];
+            
+            monThuOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            [monThuOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
+            [monThuOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+            [monThuOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
+            [self addSubview:monThuOpeningHoursLabel];
+            offsetY += 30.0f;
+            
+            UILabel *friOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 180, 20)];
+            [friOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+            [friOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
+            [friOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
+            [friOpeningHoursDisplayLabel setText:@"Fri"];
+            [self addSubview:friOpeningHoursDisplayLabel];
+            
+            friOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            [friOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
+            [friOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+            [friOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
+            [self addSubview:friOpeningHoursLabel];
+            offsetY += 30.0f;
+        }
+        else {
+            UILabel *monFriOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 180, 20)];
+            [monFriOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+            [monFriOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
+            [monFriOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
+            [monFriOpeningHoursDisplayLabel setText:@"Mon - Fri"];
+            [self addSubview:monFriOpeningHoursDisplayLabel];
+            
+            monFriOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            [monFriOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
+            [monFriOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+            [monFriOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
+            [self addSubview:monFriOpeningHoursLabel];
+            offsetY += 30.0f;
+        }
         
-        UILabel *saturdayOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, 180, 20)];
+        UILabel *saturdayOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 180, 20)];
         [saturdayOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [saturdayOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
         [saturdayOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
         [saturdayOpeningHoursDisplayLabel setText:@"Saturday"];
         [self addSubview:saturdayOpeningHoursDisplayLabel];
         
-        UILabel *sundayOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 80, 180, 20)];
+        saturdayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+        [saturdayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
+        [saturdayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+        [saturdayOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:saturdayOpeningHoursLabel];
+        offsetY += 30.0f;
+        
+        UILabel *sundayOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 180, 20)];
         [sundayOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [sundayOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
         [sundayOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
         [sundayOpeningHoursDisplayLabel setText:@"Sunday"];
         [self addSubview:sundayOpeningHoursDisplayLabel];
         
-        UILabel *publicHolidayOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 110, 180, 20)];
+        sundayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+        [sundayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
+        [sundayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+        [sundayOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:sundayOpeningHoursLabel];
+        offsetY += 30.0f;
+        
+        UILabel *publicHolidayOpeningHoursDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, 180, 20)];
         [publicHolidayOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
         [publicHolidayOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [publicHolidayOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
         [publicHolidayOpeningHoursDisplayLabel setText:@"Public Holiday"];
         [self addSubview:publicHolidayOpeningHoursDisplayLabel];
         
-        monFriOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 20, 110, 20)];
-        [monFriOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
-        [monFriOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        [monFriOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:monFriOpeningHoursLabel];
-        
-        saturdayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 50, 110, 20)];
-        [saturdayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
-        [saturdayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        [saturdayOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:saturdayOpeningHoursLabel];
-        
-        sundayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 80, 110, 20)];
-        [sundayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
-        [sundayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        [sundayOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:sundayOpeningHoursLabel];
-        
-        publicHolidayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 110, 110, 20)];
+        publicHolidayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
         [publicHolidayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
         [publicHolidayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [publicHolidayOpeningHoursLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:publicHolidayOpeningHoursLabel];
+        
+        //populate fields
+        [monFriOpeningHoursLabel setText:_location.monFriOpeningHours];
+        [monThuOpeningHoursLabel setText:_location.monThuOpeningHours];
+        [friOpeningHoursLabel setText:_location.friOpeningHours];
+        [saturdayOpeningHoursLabel setText:_location.satOpeningHours];
+        [sundayOpeningHoursLabel setText:_location.sunOpeningHours];
+        [publicHolidayOpeningHoursLabel setText:_location.publicHolidayOpeningHours];
     }
     
     return self;
 }
 
-- (void)setLocation:(EntityLocation *)inLocation
+- (id)initWithFrame:(CGRect)frame
 {
-    _location = inLocation;
-    
-    [monFriOpeningHoursLabel setText:[_location.mon_opening isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", _location.mon_opening, _location.mon_closing]];
-    [saturdayOpeningHoursLabel setText:[_location.sat_opening isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", _location.sat_opening, _location.sat_closing]];
-    [sundayOpeningHoursLabel setText:[_location.sun_opening isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", _location.sun_opening, _location.sun_closing]];
-    [publicHolidayOpeningHoursLabel setText:[_location.ph_opening isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", _location.ph_opening, _location.ph_closing]];
+    return [self initWithLocation:nil andFrame:frame];
 }
+
 
 @end

@@ -68,9 +68,14 @@
     [aroundMeButton addTarget:self action:@selector(aroundMeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [aroundMeButton setTitle:@"AROUND ME" forState:UIControlStateNormal];
     [contentScrollView addSubview:aroundMeButton];
-    
-    [contentScrollView setContentSize:contentScrollView.bounds.size];
+
     self.view = contentScrollView;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    [contentScrollView setContentSize:contentScrollView.bounds.size];
 }
 
 #pragma mark - MKMapViewDelegate

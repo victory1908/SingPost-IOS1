@@ -87,6 +87,7 @@ typedef enum  {
     [addressLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [addressLabel setTextColor:RGB(51, 51, 51)];
     [addressLabel setNumberOfLines:2];
+    [addressLabel setAdjustsFontSizeToFitWidth:YES];
     [addressLabel setBackgroundColor:[UIColor clearColor]];
     [contentScrollView addSubview:addressLabel];
     
@@ -145,8 +146,7 @@ typedef enum  {
     [sectionContentScrollView setScrollEnabled:NO];
     [contentScrollView addSubview:sectionContentScrollView];
     
-    openingHoursSectionView = [[LocateUsDetailsOpeningHoursView alloc] initWithFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_OPENINGHOURS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [openingHoursSectionView setLocation:_entityLocation];
+    openingHoursSectionView = [[LocateUsDetailsOpeningHoursView alloc] initWithLocation:_entityLocation andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_OPENINGHOURS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
     [sectionContentScrollView addSubview:openingHoursSectionView];
     
     UIPanGestureRecognizer *sectionSelectionPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSectionSelectionPanGesture:)];

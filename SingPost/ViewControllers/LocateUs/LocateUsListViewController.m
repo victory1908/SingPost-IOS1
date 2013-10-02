@@ -101,6 +101,12 @@
     self.view = contentScrollView;
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    [contentScrollView setContentSize:contentScrollView.bounds.size];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

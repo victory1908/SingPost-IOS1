@@ -35,6 +35,48 @@
     self.postingbox = csv[23];
 }
 
+- (NSString *)openingHoursForOpenTime:(NSString *)openTime andCloseTime:(NSString *)closeTime
+{
+    if ([self.type isEqualToString:LOCATION_TYPE_SAM]) {
+        if ([self isNullOpeningHours:openTime])
+            return @"24 hours";
+    }
+    else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
+        return openTime;
+    }
+    return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%04d - %04d", openTime.integerValue, closeTime.integerValue];
+}
+
+- (NSString *)monFriOpeningHours
+{
+    return [self openingHoursForOpenTime:self.mon_opening andCloseTime:self.mon_closing];
+}
+
+- (NSString *)monThuOpeningHours
+{
+    return [self monFriOpeningHours];
+}
+
+- (NSString *)friOpeningHours
+{
+    return [self openingHoursForOpenTime:self.fri_opening andCloseTime:self.fri_closing];
+}
+
+- (NSString *)satOpeningHours
+{
+    return [self openingHoursForOpenTime:self.sat_opening andCloseTime:self.sat_closing];
+}
+
+- (NSString *)sunOpeningHours
+{
+    return [self openingHoursForOpenTime:self.sun_opening andCloseTime:self.sun_closing];
+}
+
+- (NSString *)publicHolidayOpeningHours
+{
+    return [self openingHoursForOpenTime:self.ph_opening andCloseTime:self.ph_closing];
+}
+
 - (BOOL)isOpened
 {
     NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
@@ -48,11 +90,28 @@
     int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
     
     // Sunday = 1, Saturday = 7
-    if (weekDay == 1)
+    if (weekDay == 1) {
+        if ([self.type isEqualToString:LOCATION_TYPE_SAM])
+            return ([self isNullOpeningHours:self.sun_opening]);
+        else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
+            return (timeDigits < [self.sun_opening integerValue]);
+ 
         return (timeDigits < [self.sun_closing integerValue]);
-    else if (weekDay == 7)
+    }
+    else if (weekDay == 7) {
+        if ([self.type isEqualToString:LOCATION_TYPE_SAM])
+            return [self isNullOpeningHours:self.sat_opening];
+        else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
+            return (timeDigits < [self.sat_opening integerValue]);
+      
         return (timeDigits < [self.sat_closing integerValue]);
-  
+    }
+    
+    if ([self.type isEqualToString:LOCATION_TYPE_SAM])
+        return ([self isNullOpeningHours:self.mon_opening]);
+    else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
+        return (timeDigits < [self.mon_opening integerValue]);
+
     return (timeDigits < [self.mon_closing integerValue]);
 }
 
@@ -60,6 +119,13 @@
 {
     CLLocation *fromLocation = [[CLLocation alloc] initWithLatitude:self.latitude.floatValue longitude:self.longitude.floatValue];
     return [toLocation distanceFromLocation:fromLocation] / 1000;
+}
+
+#pragma mark - Utilities
+
+- (BOOL)isNullOpeningHours:(NSString *)openingHour
+{
+    return ([openingHour isEqualToString:@"-"] || [openingHour isEqualToString:@""]);
 }
 
 @end
