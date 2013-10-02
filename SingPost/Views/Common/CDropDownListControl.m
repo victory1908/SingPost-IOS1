@@ -34,8 +34,8 @@
     if ((self = [super initWithFrame:frame])) {
         [self setBackgroundColor:RGB(211, 210, 210)];
         
-        selectedValueLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 5, 5)];
-        [selectedValueLabel setWidth:selectedValueLabel.bounds.size.width - 16];
+        selectedValueLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 10, 5)];
+        [selectedValueLabel setWidth:selectedValueLabel.bounds.size.width - 12];
         [selectedValueLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [selectedValueLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:selectedValueLabel];

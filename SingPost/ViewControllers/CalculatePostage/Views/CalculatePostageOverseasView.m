@@ -44,7 +44,7 @@
         [weightTextField setPlaceholder:@"Weight"];
         [contentScrollView addSubview:weightTextField];
 
-        weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(205, 75, 100, 44)];
+        weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(202, 75, 103, 44)];
         [weightUnitsDropDownList setPlistValueFile:@"CalculatePostage_WeightUnits"];
         [weightUnitsDropDownList setDelegate:self];
         [weightUnitsDropDownList selectRow:0 animated:NO];
