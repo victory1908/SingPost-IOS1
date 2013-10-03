@@ -262,16 +262,27 @@ typedef enum  {
 #pragma mark - MKMapViewDelegates
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    if ([annotation isKindOfClass:[MKUserLocation class]])
-        return nil; //use default
     
-    static NSString *const annotationIdentifier = @"EntityLocationAnnotation";
-    
-    MKAnnotationView *annotationView = [locationMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-    if (!annotationView) {
-        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        annotationView.canShowCallout = YES;
-        annotationView.image = [UIImage imageNamed:@"map_overlay"];
+    MKAnnotationView *annotationView;
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        static NSString *const selfAnnotationIdentifier = @"SelfLocationAnnotation";
+        
+        annotationView = [locationMapView dequeueReusableAnnotationViewWithIdentifier:selfAnnotationIdentifier];
+        if (!annotationView) {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:selfAnnotationIdentifier];
+            annotationView.canShowCallout = YES;
+            annotationView.image = [UIImage imageNamed:@"self_map_overlay"];
+        }
+    }
+    else {
+        static NSString *const annotationIdentifier = @"EntityLocationAnnotation";
+        
+        annotationView = [locationMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+        if (!annotationView) {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationView.canShowCallout = YES;
+            annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
+        }
     }
     
     return annotationView;

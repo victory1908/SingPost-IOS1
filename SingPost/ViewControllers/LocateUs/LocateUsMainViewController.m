@@ -43,7 +43,10 @@ typedef enum {
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:@"Locate Us"];
-    [navigationBarView setShowSidebarToggleButton:YES];
+    if (_showNavBarBackButton)
+        [navigationBarView setShowBackButton:YES];
+    else
+        [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
     toggleModesButton = [UIButton buttonWithType:UIButtonTypeCustom];

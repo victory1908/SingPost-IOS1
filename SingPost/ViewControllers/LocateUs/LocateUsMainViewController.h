@@ -10,4 +10,6 @@
 
 @interface LocateUsMainViewController : UIViewController
 
+@property (nonatomic, assign) BOOL showNavBarBackButton;
+
 @end

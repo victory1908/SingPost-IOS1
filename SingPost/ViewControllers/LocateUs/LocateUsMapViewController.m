@@ -63,17 +63,11 @@
     [contentScrollView addSubview:goButton];
     
     initialShouldCenterUserLocation = YES;
-    locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 120 - 65)];
+    locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 120)];
     [locateUsMapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [locateUsMapView setDelegate:self];
     [locateUsMapView setShowsUserLocation:YES];
     [contentScrollView addSubview:locateUsMapView];
-    
-    FlatBlueButton *aroundMeButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, contentScrollView.bounds.size.height - 56, contentScrollView.bounds.size.width - 30, 48)];
-    [aroundMeButton setAutoresizingMask:UIViewAutoresizingFlexibleTopMargin];
-    [aroundMeButton addTarget:self action:@selector(aroundMeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [aroundMeButton setTitle:@"AROUND ME" forState:UIControlStateNormal];
-    [contentScrollView addSubview:aroundMeButton];
 
     self.view = contentScrollView;
 }
@@ -123,16 +117,27 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    if ([annotation isKindOfClass:[MKUserLocation class]])
-        return nil; //use default
     
-    static NSString *const annotationIdentifier = @"EntityLocationAnnotation";
-    
-    MKAnnotationView *annotationView = [locateUsMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-    if (!annotationView) {
-        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
-        annotationView.canShowCallout = YES;
-        annotationView.image = [UIImage imageNamed:@"map_overlay"];
+    MKAnnotationView *annotationView;
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        static NSString *const selfAnnotationIdentifier = @"SelfLocationAnnotation";
+        
+        annotationView = [locateUsMapView dequeueReusableAnnotationViewWithIdentifier:selfAnnotationIdentifier];
+        if (!annotationView) {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:selfAnnotationIdentifier];
+            annotationView.canShowCallout = YES;
+            annotationView.image = [UIImage imageNamed:@"self_map_overlay"];
+        }
+    }
+    else {
+        static NSString *const annotationIdentifier = @"EntityLocationAnnotation";
+        
+        annotationView = [locateUsMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+        if (!annotationView) {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+            annotationView.canShowCallout = YES;
+            annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
+        }
     }
     
     return annotationView;

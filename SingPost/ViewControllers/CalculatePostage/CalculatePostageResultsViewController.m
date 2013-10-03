@@ -12,6 +12,7 @@
 #import "CalculatePostageResultsItemTableViewCell.h"
 #import "AppDelegate.h"
 #import "FlatBlueButton.h"
+#import "LocateUsMainViewController.h"
 
 @interface CalculatePostageResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -111,7 +112,7 @@
     
     [contentView addSubview:headerView];
     
-    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174, contentView.bounds.size.width, contentView.bounds.size.height - 322) style:UITableViewStylePlain];
+    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174, contentView.bounds.size.width, contentView.bounds.size.height - 260) style:UITableViewStylePlain];
     [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [resultsTableView setSeparatorColor:[UIColor clearColor]];
     [resultsTableView setDelegate:self];
@@ -120,13 +121,13 @@
     [resultsTableView setBackgroundView:nil];
     [contentView addSubview:resultsTableView];
     
-    FlatBlueButton *findSingpostLocationNearYouButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, contentView.bounds.size.width - 30, 48)];
-    [findSingpostLocationNearYouButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [findSingpostLocationNearYouButton addTarget:self action:@selector(findSingpostLocationNearYouButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [findSingpostLocationNearYouButton setTitle:@"FIND SINGPOST LOCATION NEAR YOU" forState:UIControlStateNormal];
-    [contentView addSubview:findSingpostLocationNearYouButton];
+    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, 125, 48)];
+    [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
+    [contentView addSubview:locateUsButton];
 
-    FlatBlueButton *calculateAgainButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(findSingpostLocationNearYouButton.frame) + 5, contentView.bounds.size.width - 30, 48)];
+    FlatBlueButton *calculateAgainButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(145, locateUsButton.frame.origin.y, 160, 48)];
     [calculateAgainButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [calculateAgainButton addTarget:self action:@selector(calculateAgainButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [calculateAgainButton setTitle:@"CALCULATE AGAIN" forState:UIControlStateNormal];
@@ -137,9 +138,11 @@
 
 #pragma mark - IBActions
 
-- (IBAction)findSingpostLocationNearYouButtonClicked:(id)sender
+- (IBAction)locateUsButtonClicked:(id)sender
 {
-    NSLog(@"find sing post near you clicked");
+    LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+    viewController.showNavBarBackButton = YES;
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
 }
 
 - (IBAction)calculateAgainButtonClicked:(id)sender
