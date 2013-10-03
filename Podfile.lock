@@ -1,5 +1,5 @@
 PODS:
-  - AFNetworking (1.3.2)
+  - AFNetworking (1.3.3)
   - CHCSVParser (2.0.7)
   - KGModal (0.0.1)
   - MagicalRecord (2.2)
@@ -8,7 +8,7 @@ PODS:
   - RegexKitLite (4.0)
   - SevenSwitch (1.3.0)
   - SVProgressHUD (0.9)
-  - TPKeyboardAvoiding (1.1)
+  - TPKeyboardAvoiding (1.2.1)
   - UALogger (0.2.3)
 
 DEPENDENCIES:
@@ -25,7 +25,7 @@ DEPENDENCIES:
   - UALogger (~> 0.2.3)
 
 SPEC CHECKSUMS:
-  AFNetworking: 7f9bcd7c287a75476cd5c61e82fd3380e93e4c54
+  AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
   CHCSVParser: 30ac034cc0d37d9c783e7af96926270524836d70
   KGModal: d52efa48b6bb232ea5ed002b511cef115c81e4a0
   MagicalRecord: b1fc46c99a9749fe7fe7e6f43a89b62ef5201933
@@ -34,7 +34,7 @@ SPEC CHECKSUMS:
   RegexKitLite: f7af7b4d2b675cd2ec9a4abab6aad6ae1f6499c0
   SevenSwitch: f1ae106a4fcb459829ba5a6a3265e7e9f873f80c
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
-  TPKeyboardAvoiding: e1f92115fba393b45682fd48148d672b72a95c50
+  TPKeyboardAvoiding: 0536c563e6c8b8e95a7c4bf87fca9c0991f5e826
   UALogger: abe2af53cf3a72fd8ed3625ee331c546c4c7bde9
 
-COCOAPODS: 0.24.0
+COCOAPODS: 0.25.0
