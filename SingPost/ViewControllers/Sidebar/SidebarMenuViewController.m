@@ -28,6 +28,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
+        self.background = [UIImage imageNamed:@"trackingTextBox"];
         self.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = [UIColor clearColor];
@@ -40,15 +41,15 @@
 
 - (void)drawPlaceholderInRect:(CGRect)rect {
     [RGB(163, 163, 163) setFill];
-    [[self placeholder] drawInRect:CGRectInset(rect, 0, 5)  withFont:[UIFont SingPostLightItalicFontOfSize:9.0f fontKey:kSingPostFontOpenSans]];
+    [[self placeholder] drawInRect:CGRectInset(rect, 0, 2)  withFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 0, 6);
+    return CGRectInset(bounds, 10, 6);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 0, 6);
+    return CGRectInset(bounds, 10, 6);
 }
 
 @end
@@ -59,7 +60,7 @@
 
 @implementation SidebarMenuViewController
 {
-    UIButton *singPostLogoButton;
+    UIButton *landingPageButton;
     SidebarTrackingNumberTextField *trackingNumberTextField;
     UITableView *menuTableView;
     
@@ -73,11 +74,15 @@
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     CGFloat offsetY = 10.0f;
-    singPostLogoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [singPostLogoButton setImage:[UIImage imageNamed:@"logo_singaporepost_colored"] forState:UIControlStateNormal];
-    [singPostLogoButton addTarget:self action:@selector(singPostLogoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [singPostLogoButton setFrame:CGRectMake(10, offsetY, 120, 44)];
-    [contentView addSubview:singPostLogoButton];
+    UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost_colored"]];
+    [singPostLogoImageView setFrame:CGRectMake(10, offsetY, 120, 44)];
+    [contentView addSubview:singPostLogoImageView];
+    
+    landingPageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [landingPageButton setImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
+    [landingPageButton addTarget:self action:@selector(landingPageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [landingPageButton setFrame:CGRectMake(197, offsetY + 2, 44, 44)];
+    [contentView addSubview:landingPageButton];
     
     offsetY += 55.0f;
     
@@ -95,9 +100,15 @@
     self.view = contentView;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [trackingNumberTextField resignFirstResponder];
+}
+
 #pragma mark - IBActions
 
-- (IBAction)singPostLogoButtonClicked:(id)sender
+- (IBAction)landingPageButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
     LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
@@ -125,6 +136,13 @@
     return YES;
 }
 
+#pragma mark - UIGestures
+
+- (void)handleResignRespondersTap:(UITapGestureRecognizer *)tapGesture
+{
+    [trackingNumberTextField resignFirstResponder];
+}
+
 #pragma mark - UITableView DataSource & Delegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -144,14 +162,10 @@
     [headerView addSubview:trackLabel];
     
     UIImageView *starImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-    [starImageView setFrame:CGRectMake(162, 8, 20, 20)];
+    [starImageView setFrame:CGRectMake(209, 9, 20, 20)];
     [headerView addSubview:starImageView];
     
-    UIImageView *trackingTextBoxBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trackingTextBox"]];
-    [trackingTextBoxBackgroundImageView setFrame:CGRectMake(15, 35, 166, 30)];
-    [headerView addSubview:trackingTextBoxBackgroundImageView];
-    
-    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(22, 35, 130, 30)];
+    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, 212, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
@@ -160,9 +174,12 @@
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:CGRectMake(155, 39, 25, 25)];
+    [findTrackingNumberButton setFrame:CGRectMake(200, 39, 25, 25)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
+    
+    UITapGestureRecognizer *resignRespondersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleResignRespondersTap:)];
+    [headerView addGestureRecognizer:resignRespondersTap];
 	
 	return headerView;
 }
@@ -252,6 +269,7 @@
         }
     }
     
+    [trackingNumberTextField resignFirstResponder];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

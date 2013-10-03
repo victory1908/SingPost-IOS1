@@ -47,13 +47,13 @@ typedef enum {
     
     UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"35iphone_background_envelope"]];
     [envelopBackgroundImageView setUserInteractionEnabled:YES];
-    [envelopBackgroundImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 768, 690) : (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248))];
+    [envelopBackgroundImageView setFrame:(INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248))];
     [contentView addSubview:envelopBackgroundImageView];
     
     trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 280, 47) : CGRectMake(20, 70, 280, 30)];
     [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
     [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f];
-    [trackingNumberTextField setInsetBoundsSize: INTERFACE_IS_4INCHSCREEN ? CGSizeMake(5, 12) : CGSizeMake(5, 3)];
+    [trackingNumberTextField setInsetBoundsSize: INTERFACE_IS_4INCHSCREEN ? CGSizeMake(14, 12) : CGSizeMake(14, 3)];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
@@ -66,7 +66,7 @@ typedef enum {
     [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
-    [singPostLogoImageView setFrame:INTERFACE_IS_IPAD ? CGRectMake(0, 0, 0, 0) : CGRectMake(82, 8, 155, 55)];
+    [singPostLogoImageView setFrame:CGRectMake(82, 8, 155, 55)];
     [contentView addSubview:singPostLogoImageView];
     
     UIButton *toggleSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -148,7 +148,7 @@ typedef enum {
     [contentView addSubview:menuMoreAppsButton];
 
     UIView *offersMoreBackroundView = [[UIView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - 46, contentView.bounds.size.width, 26)];
-    [offersMoreBackroundView setBackgroundColor:RGB(239, 242, 246)];
+    [offersMoreBackroundView setBackgroundColor:RGB(35, 81, 151)];
     [contentView addSubview:offersMoreBackroundView];
     
     UIButton *offersMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -156,12 +156,12 @@ typedef enum {
     [offersMoreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [offersMoreButton setImage:[UIImage imageNamed:@"offersmore_indicator"] forState:UIControlStateNormal];
     [offersMoreButton setTitle:@"Offers & More" forState:UIControlStateNormal];
-    [offersMoreButton setTitleColor:[UIColor SingPostBlueColor] forState:UIControlStateNormal];
-    [offersMoreButton setTitleColor:RGB(16, 64, 137) forState:UIControlStateHighlighted];
+    [offersMoreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [offersMoreButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [offersMoreButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [offersMoreButton addTarget:self action:@selector(offersMoreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [offersMoreButton setBackgroundColor:[UIColor clearColor]];
-    offersMoreButton.imageEdgeInsets = UIEdgeInsetsMake(1, 90, 0, 0);
+    offersMoreButton.imageEdgeInsets = UIEdgeInsetsMake(1, 89, 0, 0);
     [offersMoreBackroundView addSubview:offersMoreButton];
 
     self.view = contentView;

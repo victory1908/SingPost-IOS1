@@ -54,16 +54,17 @@
         [separatorView setBackgroundColor:RGB(225, 225, 225)];
         [contentView addSubview:separatorView];
         
+        starIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
+        [starIndicatorImageView setFrame:CGRectMake(210, 12, 20, 20)];
+        [starIndicatorImageView setHidden:YES];
+        [contentView addSubview:starIndicatorImageView];
+        
         subrowIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"showSubRow_indicator"]];
-        [subrowIndicatorImageView setFrame:CGRectMake(170, 20, 8, 5)];
+        [subrowIndicatorImageView setFrame:CGRectMake(214, 20, 8, 5)];
         [subrowIndicatorImageView setHidden:YES];
         subrowIndicatorImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
         [contentView addSubview:subrowIndicatorImageView];
-        
-        starIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-        [starIndicatorImageView setFrame:CGRectMake(170, 12, 20, 20)];
-        [starIndicatorImageView setHidden:YES];
-        [contentView addSubview:starIndicatorImageView];
+
         
         [self.contentView addSubview:contentView];
     }

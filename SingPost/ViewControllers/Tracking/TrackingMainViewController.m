@@ -67,6 +67,7 @@ typedef enum {
     trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, 290, 47)];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [trackingNumberTextField setFontSize:16.0f];
+    [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setInsetBoundsSize:CGSizeMake(5, 12)];
     [trackingNumberTextField setText:_trackingNumber];
     [trackingNumberTextField setDelegate:self];

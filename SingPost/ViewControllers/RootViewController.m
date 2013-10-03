@@ -21,7 +21,7 @@
 
 @end
 
-#define SIDEBAR_WIDTH (INTERFACE_IS_IPAD ? 300.0f : 200.0f)
+#define SIDEBAR_WIDTH 245.0f
 
 @implementation RootViewController
 {
