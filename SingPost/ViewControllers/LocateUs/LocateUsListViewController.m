@@ -23,7 +23,7 @@
 
 #import "EntityLocation.h"
 
-@interface LocateUsListViewController () <CDropDownListControlDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CMIndexBarDelegate, CLLocationManagerDelegate>
+@interface LocateUsListViewController () <CDropDownListControlDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CMIndexBarDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -42,6 +42,8 @@
     
     CLLocation *_cachedUserLocation;
     NSInteger _cachedCurrentTimeDigits;
+    
+    NSArray *filteredSearchResults;
 }
 
 - (void)loadView
@@ -52,6 +54,8 @@
     [contentScrollView setBackgroundColor:RGB(250, 250, 250)];
     
     findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
+    findByTextField.delegate = self;
+    [findByTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
     findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 6) : CGSizeMake(10, 10);
     [findByTextField setPlaceholder:@"Find by street name,\nblk no., mrt station etc"];
@@ -125,7 +129,45 @@
 
 - (void)updateNumLocations
 {
-    [searchLocationsCountLabel setText:[NSString stringWithFormat:@"     %d locations found", self.fetchedResultsController.fetchedObjects.count]];
+    [searchLocationsCountLabel setText:[NSString stringWithFormat:@"     %d locations found", [self isSearching] ? filteredSearchResults.count : self.fetchedResultsController.fetchedObjects.count]];
+}
+
+#pragma mark - Search
+
+- (BOOL)isSearching
+{
+    return ([findByTextField.text length] > 0);
+}
+
+- (void)filterContentForSearchText:(NSString *)searchText
+{
+    if ([self isSearching]) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[cd] %@) OR (address CONTAINS[cd] %@)", searchText, searchText];
+        filteredSearchResults = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate];
+    }
+    else
+        filteredSearchResults = nil;
+    
+    [locationsTableView reloadData];
+    [self updateNumLocations];
+}
+
+- (void)resetSearch
+{
+    [findByTextField setText:@""];
+    [self filterContentForSearchText:@""];
+}
+
+#pragma mark - UITextField Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    [self filterContentForSearchText:textField.text];
 }
 
 #pragma mark - CDropDownListControlDelegate
@@ -181,7 +223,8 @@
 
 - (void)indexSelectionDidChange:(CMIndexBar *)indexBar index:(NSInteger)index title:(NSString *)title
 {
-    NSInteger scrollToRowIndex = [self.fetchedResultsController.fetchedObjects indexOfObjectPassingTest:
+    NSArray *items = [self isSearching] ? filteredSearchResults : self.fetchedResultsController.fetchedObjects;
+    NSInteger scrollToRowIndex = [items indexOfObjectPassingTest:
                                   ^BOOL(EntityLocation *location, NSUInteger idx, BOOL *stop) {
                                       return [location.name hasPrefix:title];
                                   }];
@@ -210,13 +253,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.fetchedResultsController.sections count];
+    return [self isSearching] ? 1 : [self.fetchedResultsController.sections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    return [sectionInfo numberOfObjects] * 2;
+    if ([self isSearching]) {
+        return filteredSearchResults.count * 2;
+    }
+    else {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+        return [sectionInfo numberOfObjects] * 2;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -247,18 +295,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:floorf((float)indexPath.row / 2.0f) inSection:indexPath.section];
-    EntityLocation *entityLocation = [self.fetchedResultsController objectAtIndexPath:dataIndexPath];
-    LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:entityLocation];
+    EntityLocation *location;
+    
+    if ([self isSearching]) {
+        int dataIndex = floorf(indexPath.row / 2.0f);
+        location = filteredSearchResults[dataIndex];
+    }
+    else {
+        NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:floorf((float)indexPath.row / 2.0f) inSection:indexPath.section];
+        location = [self.fetchedResultsController objectAtIndexPath:dataIndexPath];
+    }
+
+    LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:location];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:floorf((float)indexPath.row / 2.0f) inSection:indexPath.section];
+    EntityLocation *location;
+    
+    if ([self isSearching]) {
+        int dataIndex = floorf(indexPath.row / 2.0f);
+        location = filteredSearchResults[dataIndex];
+    }
+    else {
+        NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:floorf((float)indexPath.row / 2.0f) inSection:indexPath.section];
+        location = [self.fetchedResultsController objectAtIndexPath:dataIndexPath];
+    }
+    
     LocateUsLocationTableViewCell *locationCell = (LocateUsLocationTableViewCell *)cell;
-    [locationCell setLocation:[self.fetchedResultsController objectAtIndexPath:dataIndexPath]];
+    [locationCell setLocation:location];
     [locationCell setCachedTimeDigits:_cachedCurrentTimeDigits];
     [locationCell setCachedUserLocation:_cachedUserLocation];
 }
@@ -282,6 +349,7 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
+    [self resetSearch];
     [locationsTableView beginUpdates];
 }
 
