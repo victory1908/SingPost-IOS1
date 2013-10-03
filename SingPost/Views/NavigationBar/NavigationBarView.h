@@ -13,5 +13,6 @@
 @property (nonatomic, assign) BOOL showSidebarToggleButton;
 @property (nonatomic, assign) BOOL showBackButton;
 @property (nonatomic) NSString *title;
+@property (nonatomic, assign) CGFloat titleFontSize;
 
 @end

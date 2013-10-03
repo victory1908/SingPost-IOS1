@@ -68,6 +68,7 @@ typedef enum  {
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:_entityLocation.name];
+    [navigationBarView setTitleFontSize:14.0f];
     [navigationBarView setShowBackButton:YES];
     [contentView addSubview:navigationBarView];
     
@@ -261,7 +262,6 @@ typedef enum  {
 #pragma mark - MKMapViewDelegates
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    NSLog(@"annotation class: %@", NSStringFromClass([annotation class]));
     if ([annotation isKindOfClass:[MKUserLocation class]])
         return nil; //use default
     
@@ -325,13 +325,13 @@ typedef enum  {
 }
 
 - (NSArray *)calculateRoutesFrom:(CLLocationCoordinate2D)f to:(CLLocationCoordinate2D)t {
-	NSString* saddr = [NSString stringWithFormat:@"%f,%f", f.latitude, f.longitude];
-	NSString* daddr = [NSString stringWithFormat:@"%f,%f", t.latitude, t.longitude];
+	NSString *saddr = [NSString stringWithFormat:@"%f,%f", f.latitude, f.longitude];
+	NSString *daddr = [NSString stringWithFormat:@"%f,%f", t.latitude, t.longitude];
 	
-	NSString* apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@", saddr, daddr];
-	NSURL* apiUrl = [NSURL URLWithString:apiUrlStr];
+	NSString *apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@", saddr, daddr];
+	NSURL *apiUrl = [NSURL URLWithString:apiUrlStr];
 	NSString *apiResponse = [NSString stringWithContentsOfURL:apiUrl encoding:NSUTF8StringEncoding error:nil];
-	NSString* encodedPoints = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
+	NSString *encodedPoints = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];
 	
 	return [self decodePolyLine:[encodedPoints mutableCopy]];
 }
@@ -347,6 +347,8 @@ typedef enum  {
             polypoints[i].latitude = loc.coordinate.latitude;
             polypoints[i].longitude = loc.coordinate.longitude;
         }
+        
+        [locationMapView removeOverlays:locationMapView.overlays];
         
         MKPolyline *polyline = [MKPolyline polylineWithCoordinates:polypoints count:routes.count];
         [locationMapView addOverlay:polyline];

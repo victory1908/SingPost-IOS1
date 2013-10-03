@@ -37,7 +37,7 @@
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 44)];
         [titleLabel setCenter:self.center];
-        [titleLabel setAdjustsFontSizeToFitWidth:YES];
+        [titleLabel setNumberOfLines:2];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
         [titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
@@ -62,6 +62,11 @@
 - (void)setTitle:(NSString *)title
 {
     [titleLabel setText:title];
+}
+
+- (void)setTitleFontSize:(CGFloat)titleFontSize
+{
+    [titleLabel setFont:[UIFont SingPostLightFontOfSize:titleFontSize fontKey:kSingPostFontOpenSans]];
 }
 
 #pragma mark - IBAction

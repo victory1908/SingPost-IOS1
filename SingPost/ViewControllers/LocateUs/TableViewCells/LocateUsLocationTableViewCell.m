@@ -67,14 +67,14 @@
         
         nameLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 10, 170, 20)];
         [nameLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-        [nameLabel setAdjustsFontSizeToFitWidth:YES];
+        [nameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [nameLabel setTextColor:RGB(51, 51, 51)];
         [nameLabel setPersistentBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:nameLabel];
         
-        addressLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 30, 260, 20)];
+        addressLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 30, 242, 20)];
         [addressLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-        [addressLabel setAdjustsFontSizeToFitWidth:YES];
+        [addressLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [addressLabel setTextColor:RGB(125, 136, 149)];
         [addressLabel setPersistentBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:addressLabel];

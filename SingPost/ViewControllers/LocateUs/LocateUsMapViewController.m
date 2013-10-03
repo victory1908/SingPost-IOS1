@@ -14,6 +14,8 @@
 #import <MapKit/MapKit.h>
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UIView+Position.h"
+#import "EntityLocation.h"
+#import "EntityLocationMapAnnotation.h"
 
 @interface LocateUsMapViewController () <CDropDownListControlDelegate, MKMapViewDelegate>
 
@@ -25,6 +27,9 @@
     CDropDownListControl *typesDropDownList;
     MKMapView *locateUsMapView;
     TPKeyboardAvoidingScrollView *contentScrollView;
+    
+    CLLocationCoordinate2D lastKnownUserLocation;
+    BOOL initialShouldCenterUserLocation;
 }
 
 - (void)loadView
@@ -57,6 +62,7 @@
     [goButton setTitle:@"GO" forState:UIControlStateNormal];
     [contentScrollView addSubview:goButton];
     
+    initialShouldCenterUserLocation = YES;
     locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 120 - 65)];
     [locateUsMapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [locateUsMapView setDelegate:self];
@@ -78,14 +84,58 @@
     [contentScrollView setContentSize:contentScrollView.bounds.size];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self showPlacesForType:typesDropDownList.selectedText];
+}
+
+#pragma mark - Map
+
+- (void)showPlacesForType:(NSString *)type
+{
+    [locateUsMapView removeAnnotations:locateUsMapView.annotations];
+    for (EntityLocation *location in [EntityLocation MR_findByAttribute:EntityLocationAttributes.type withValue:typesDropDownList.selectedText]) {
+        EntityLocationMapAnnotation *locationAnnotation = [[EntityLocationMapAnnotation alloc] initWithEntityLocation:location];
+        [locateUsMapView addAnnotation:locationAnnotation];
+    }
+}
+
+- (void)centerMapToLastKnownUserLocation
+{
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = locateUsMapView.userLocation.coordinate;
+    mapRegion.span = MKCoordinateSpanMake(0.015, 0.015);
+    [locateUsMapView setRegion:mapRegion animated:YES];
+}
+
 #pragma mark - MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    MKCoordinateRegion mapRegion;
-    mapRegion.center = mapView.userLocation.coordinate;
-    mapRegion.span = MKCoordinateSpanMake(0.015, 0.015);
-    [mapView setRegion:mapRegion animated:YES];
+    lastKnownUserLocation = mapView.userLocation.coordinate;
+    
+    //center user location on initial load if required
+    if (initialShouldCenterUserLocation) {
+        [self centerMapToLastKnownUserLocation];
+        initialShouldCenterUserLocation = NO;
+    }
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil; //use default
+    
+    static NSString *const annotationIdentifier = @"EntityLocationAnnotation";
+    
+    MKAnnotationView *annotationView = [locateUsMapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+    if (!annotationView) {
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
+        annotationView.canShowCallout = YES;
+        annotationView.image = [UIImage imageNamed:@"map_overlay"];
+    }
+    
+    return annotationView;
 }
 
 #pragma mark - CDropDownListControlDelegate
@@ -114,7 +164,7 @@
 
 - (IBAction)goButtonClicked:(id)sender
 {
-    NSLog(@"go button clicked");
+    [self showPlacesForType:typesDropDownList.selectedText];
 }
 
 - (IBAction)locateUsButtonClicked:(id)sender
@@ -124,7 +174,7 @@
 
 - (IBAction)aroundMeButtonClicked:(id)sender
 {
-    NSLog(@"around me clicked");
+    [self centerMapToLastKnownUserLocation];
 }
 
 @end
