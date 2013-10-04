@@ -153,15 +153,12 @@
     [appContentView addSubview:sideBarMenuViewController.view];
     [sideBarMenuViewController didMoveToParentViewController:self];
     
-    [self showSideBar:NO withAnimation:NO];
-    
     //invisible close side bar button
     closeSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeSidebarButton setFrame:activeViewControllerContainerView.frame];
     [closeSidebarButton setBackgroundColor:[UIColor colorWithWhite:0.0f alpha:0.2f]];
-    [closeSidebarButton setHidden:YES];
     [closeSidebarButton addTarget:self action:@selector(closeSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [appContentView addSubview:closeSidebarButton];
+    
+    [self showSideBar:NO withAnimation:NO];
 }
 
 #pragma mark - IBActions
@@ -190,8 +187,11 @@
 {
     double animationDuration = shouldAnimate ? 0.5f : 0.00001f;
     
-    [appContentView bringSubviewToFront:closeSidebarButton];
-    closeSidebarButton.hidden = NO;
+    if (shouldShowSideBar) {
+        [closeSidebarButton setFrame:activeViewController.view.frame];
+        [activeViewController.view addSubview:closeSidebarButton];
+    }
+    
     closeSidebarButton.alpha = shouldShowSideBar ? 0.0f : 1.0f;
 
     [CATransaction begin];
@@ -215,6 +215,9 @@
     [UIView animateWithDuration:animationDuration animations:^{
         [appContentView setX:shouldShowSideBar ? 0.0f : -SIDEBAR_WIDTH];
         closeSidebarButton.alpha = shouldShowSideBar ? 1.0f : 0.0f;
+    } completion:^(BOOL finished) {
+        if (!shouldShowSideBar)
+            [closeSidebarButton removeFromSuperview];
     }];
     
     [CATransaction commit];
