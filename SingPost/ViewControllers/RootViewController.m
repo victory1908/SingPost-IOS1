@@ -190,6 +190,7 @@
 {
     double animationDuration = shouldAnimate ? 0.5f : 0.00001f;
     
+    [appContentView bringSubviewToFront:closeSidebarButton];
     closeSidebarButton.hidden = NO;
     closeSidebarButton.alpha = shouldShowSideBar ? 0.0f : 1.0f;
 
@@ -214,8 +215,6 @@
     [UIView animateWithDuration:animationDuration animations:^{
         [appContentView setX:shouldShowSideBar ? 0.0f : -SIDEBAR_WIDTH];
         closeSidebarButton.alpha = shouldShowSideBar ? 1.0f : 0.0f;
-    } completion:^(BOOL finished) {
-        closeSidebarButton.hidden = !shouldShowSideBar;
     }];
     
     [CATransaction commit];
