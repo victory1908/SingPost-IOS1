@@ -75,6 +75,7 @@
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */; };
 		52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */; };
+		52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */; };
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
@@ -204,6 +205,8 @@
 		52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origami.m"; sourceTree = "<group>"; };
 		52DDA47F17FEA6F000C8BF1C /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
 		52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
+		52DDA48217FEB2BA00C8BF1C /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
+		52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
 		52F8134117FBE69F00516210 /* SidebarMenuSubRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuSubRowTableViewCell.h; sourceTree = "<group>"; };
 		52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuSubRowTableViewCell.m; sourceTree = "<group>"; };
 		52F8134517FBFE5400516210 /* LocateUsDetailsOpeningHoursView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsOpeningHoursView.h; sourceTree = "<group>"; };
@@ -472,6 +475,8 @@
 				52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */,
 				524CEA3C17F2830400E0EAC3 /* UIView+Position.h */,
 				524CEA3D17F2830400E0EAC3 /* UIView+Position.m */,
+				52DDA48217FEB2BA00C8BF1C /* UIView+Shadow.h */,
+				52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -824,6 +829,7 @@
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
+				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,

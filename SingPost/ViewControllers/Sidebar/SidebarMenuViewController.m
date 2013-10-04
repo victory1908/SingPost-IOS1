@@ -9,6 +9,7 @@
 #import "SidebarMenuViewController.h"
 #import "UIFont+SingPost.h"
 #import "UIColor+SingPost.h"
+#import "UIView+Shadow.h"
 #import "SidebarMenuTableViewCell.h"
 #import "SidebarMenuSubRowTableViewCell.h"
 #import "AppDelegate.h"
@@ -94,10 +95,15 @@
     [menuTableView setSeparatorColor:[UIColor clearColor]];
     [menuTableView setShowsVerticalScrollIndicator:NO];
     [menuTableView setBackgroundView:nil];
-    
     [contentView addSubview:menuTableView];
     
     self.view = contentView;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    [self.view makeInsetShadowWithRadius:10.0f Color:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1] Directions:@[@"right"]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
