@@ -9,6 +9,7 @@
 #import "TrackingDetailsViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
+#import "UIImage+Extensions.h"
 #import "TrackingItemDetailTableViewCell.h"
 #import <KGModal.h>
 #import <QuartzCore/QuartzCore.h>
@@ -37,9 +38,10 @@
     UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [infoButton.layer setBorderWidth:1.0f];
     [infoButton.layer setBorderColor:[UIColor whiteColor].CGColor];
+    [infoButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [infoButton setBackgroundImage:[UIImage imageWithColor:RGB(76, 109, 166)] forState:UIControlStateHighlighted];
     [infoButton setTitle:@"Info" forState:UIControlStateNormal];
     [infoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [infoButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [infoButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [infoButton setFrame:CGRectMake(255, 7, 50, 30)];

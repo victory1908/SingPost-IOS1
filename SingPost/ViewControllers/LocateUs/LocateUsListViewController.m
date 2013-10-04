@@ -14,7 +14,6 @@
 #import <MapKit/MapKit.h>
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UIView+Position.h"
-#import "UIView+Origami.h"
 #import "UIFont+SingPost.h"
 #import "CMIndexBar.h"
 #import "LocateUsLocationTableViewCell.h"
@@ -45,8 +44,18 @@
     NSInteger _cachedCurrentTimeDigits;
     
     NSArray *filteredSearchResults;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        //cache time digits for performance (this is used to determine opening hour indicators)
+        NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setDateFormat:@"HHmm"];
+        _cachedCurrentTimeDigits = [[timeFormatter stringFromDate:[NSDate date]] integerValue];
+    }
     
-    UIView *animateThisView;
+    return self;
 }
 
 - (void)loadView
@@ -56,88 +65,56 @@
     [contentScrollView setDelaysContentTouches:NO];
     [contentScrollView setBackgroundColor:RGB(250, 250, 250)];
     
-    animateThisView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 130)];
-    [animateThisView setBackgroundColor:RGB(250, 250, 250)];
-    
     findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
     findByTextField.delegate = self;
     [findByTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
     findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 6) : CGSizeMake(10, 10);
     [findByTextField setPlaceholder:@"Find by street name,\nblk no., mrt station etc"];
-    [animateThisView addSubview:findByTextField];
+    [contentScrollView addSubview:findByTextField];
     
     UIButton *locateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [locateUsButton setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
     [locateUsButton setFrame:CGRectMake(265, 24, 30, 30)];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [animateThisView addSubview:locateUsButton];
-
+    [contentScrollView addSubview:locateUsButton];
+    
     typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
     [typesDropDownList setDelegate:self];
     [typesDropDownList selectRow:0 animated:NO];
-    [animateThisView addSubview:typesDropDownList];
-
+    [contentScrollView addSubview:typesDropDownList];
+    
     FlatBlueButton *goButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(235, 70, 70, 44)];
     [goButton addTarget:self action:@selector(searchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [goButton setTitle:@"GO" forState:UIControlStateNormal];
-    [animateThisView addSubview:goButton];
+    [goButton setTitle:@"OK" forState:UIControlStateNormal];
+    [contentScrollView addSubview:goButton];
     
-//    searchLocationsCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 125, contentScrollView.bounds.size.width, 30)];
-//    [searchLocationsCountLabel setBackgroundColor:RGB(125, 136, 149)];
-//    [searchLocationsCountLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-//    [searchLocationsCountLabel setTextColor:[UIColor whiteColor]];
-//    [contentScrollView addSubview:searchLocationsCountLabel];
+    searchLocationsCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 125, contentScrollView.bounds.size.width, 30)];
+    [searchLocationsCountLabel setBackgroundColor:RGB(125, 136, 149)];
+    [searchLocationsCountLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [searchLocationsCountLabel setTextColor:[UIColor whiteColor]];
+    [contentScrollView addSubview:searchLocationsCountLabel];
     
-    
-    
-    locationsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 155)];
-//    [locationsTableView setClipsToBounds:NO];
+    locationsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 155, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 155)];
     [locationsTableView setDelegate:self];
     [locationsTableView setDataSource:self];
     [locationsTableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
-    [locationsTableView setBackgroundColor:contentScrollView.backgroundColor];
+    [locationsTableView setBackgroundColor:[UIColor clearColor]];
     [locationsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [locationsTableView setSeparatorColor:[UIColor clearColor]];
     [locationsTableView setBackgroundView:nil];
     [contentScrollView addSubview:locationsTableView];
     
-    
-//    [locationsTableView addSubview:animateThisView];
-    
-
-    indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 30, 100, 28.0, contentScrollView.bounds.size.height - 155)];
+    indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 30, 155, 28.0, contentScrollView.bounds.size.height - 155)];
     [indexBar setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [indexBar setDelegate:self];
     [indexBar setTextColor:RGB(36, 84, 157)];
     [indexBar setTextFont:[UIFont SingPostRegularFontOfSize:INTERFACE_IS_4INCHSCREEN ? 10.0f : 8.0f fontKey:kSingPostFontOpenSans]];
     [indexBar setIndexes: [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles]];
     [contentScrollView addSubview:indexBar];
-
+    
     self.view = contentScrollView;
-}
-
-#define ANIMATION_DURATION 0.3f
-
-- (void)showTopBar:(NSInteger)shouldShowTopBar
-{
-    [indexBar setHidden:YES];
-    if (shouldShowTopBar) {
-        NSLog(@"showing top bar");
-        [locationsTableView showOrigamiTransitionWith:animateThisView NumberOfFolds:1 Duration:0.5f Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
-            [indexBar setHidden:NO];
-            [indexBar setY:animateThisView.bounds.size.height andHeight:locationsTableView.bounds.size.height];
-            NSLog(@"index bar frame: %@", NSStringFromCGRect(indexBar.frame));
-        }];
-    }
-    else {
-        NSLog(@"hiding top bar");
-        [locationsTableView hideOrigamiTransitionWith:animateThisView NumberOfFolds:1 Duration:0.5f Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
-            [indexBar setHidden:NO];
-            [indexBar setY:0 andHeight:locationsTableView.bounds.size.height];
-        }];
-    }
 }
 
 - (void)viewDidLayoutSubviews
@@ -155,11 +132,6 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     [locationManager startUpdatingLocation];
-    
-    //cache time digits for performance (this is used to determine opening hour indicators)
-    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-    [timeFormatter setDateFormat:@"HHmm"];
-    _cachedCurrentTimeDigits = [[timeFormatter stringFromDate:[NSDate date]] integerValue];
 }
 
 - (void)updateNumLocations
@@ -269,16 +241,6 @@
     }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.y <= -20) {
-        [self showTopBar:YES];
-    }
-    else if (scrollView.contentOffset.y >= 20) {
-        [self showTopBar:NO];
-    }
-}
-
 #pragma mark - UITableView DataSource & Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -350,7 +312,7 @@
         NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:floorf((float)indexPath.row / 2.0f) inSection:indexPath.section];
         location = [self.fetchedResultsController objectAtIndexPath:dataIndexPath];
     }
-
+    
     LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:location];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -107,8 +107,10 @@
 {
     if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
         return ![self isNullOpeningHours:openingHours];
-    else if ([self.type isEqualToString:LOCATION_TYPE_SAM])
-        return ([self isNullOpeningHours:openingHours]);
+    else if ([self.type isEqualToString:LOCATION_TYPE_SAM]) {
+        if ([self isNullOpeningHours:openingHours])
+            return YES;
+    }
     
     return (timeDigits < [closingHours integerValue] && timeDigits > [openingHours integerValue]);
 }

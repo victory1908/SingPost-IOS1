@@ -65,7 +65,7 @@ typedef enum {
     
     cubeContainerViewController = [[CubeTransitionViewController alloc] initWithViewControllers:@[locateUsMapViewController, locateUsListViewController]];
     [self addChildViewController:cubeContainerViewController];
-    [cubeContainerViewController.view setFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height)];
+    [cubeContainerViewController.view setFrame:CGRectMake(0, navigationBarView.bounds.size.height, contentView.bounds.size.width, contentView.bounds.size.height - navigationBarView.bounds.size.height + (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (-[UIApplication sharedApplication].statusBarFrame.size.height) : 0))];
     [contentView addSubview:cubeContainerViewController.view];
     [cubeContainerViewController didMoveToParentViewController:self];
 

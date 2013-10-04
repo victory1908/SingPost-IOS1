@@ -59,7 +59,7 @@
     
     FlatBlueButton *goButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(235, 70, 70, 44)];
     [goButton addTarget:self action:@selector(goButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [goButton setTitle:@"GO" forState:UIControlStateNormal];
+    [goButton setTitle:@"OK" forState:UIControlStateNormal];
     [contentScrollView addSubview:goButton];
     
     initialShouldCenterUserLocation = YES;

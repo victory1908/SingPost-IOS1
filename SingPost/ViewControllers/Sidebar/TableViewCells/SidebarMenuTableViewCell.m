@@ -60,7 +60,7 @@
         [contentView addSubview:starIndicatorImageView];
         
         subrowIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"showSubRow_indicator"]];
-        [subrowIndicatorImageView setFrame:CGRectMake(214, 20, 8, 5)];
+        [subrowIndicatorImageView setFrame:CGRectMake(215, 20, 8, 5)];
         [subrowIndicatorImageView setHidden:YES];
         subrowIndicatorImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
         [contentView addSubview:subrowIndicatorImageView];

@@ -20,7 +20,6 @@
         _insetBoundsSize = CGSizeMake(10, 12);
 
         self.background = [UIImage imageNamed:@"trackingTextBox_grayBg"];
-        self.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = RGB(240, 240, 240);
         self.textColor = [UIColor SingPostBlueColor];
