@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import <Reachability.h>
 #import "DatabaseSeeder.h"
+#import "LocateUsListViewController.h"
 
 @implementation AppDelegate
 

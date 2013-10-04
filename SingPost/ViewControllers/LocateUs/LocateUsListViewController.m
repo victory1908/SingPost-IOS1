@@ -14,6 +14,7 @@
 #import <MapKit/MapKit.h>
 #import "TPKeyboardAvoidingScrollView.h"
 #import "UIView+Position.h"
+#import "UIView+Origami.h"
 #import "UIFont+SingPost.h"
 #import "CMIndexBar.h"
 #import "LocateUsLocationTableViewCell.h"
@@ -44,6 +45,8 @@
     NSInteger _cachedCurrentTimeDigits;
     
     NSArray *filteredSearchResults;
+    
+    UIView *animateThisView;
 }
 
 - (void)loadView
@@ -53,48 +56,58 @@
     [contentScrollView setDelaysContentTouches:NO];
     [contentScrollView setBackgroundColor:RGB(250, 250, 250)];
     
+    animateThisView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 130)];
+    [animateThisView setBackgroundColor:RGB(250, 250, 250)];
+    
     findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
     findByTextField.delegate = self;
     [findByTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
     findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 6) : CGSizeMake(10, 10);
     [findByTextField setPlaceholder:@"Find by street name,\nblk no., mrt station etc"];
-    [contentScrollView addSubview:findByTextField];
+    [animateThisView addSubview:findByTextField];
     
     UIButton *locateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [locateUsButton setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
     [locateUsButton setFrame:CGRectMake(265, 24, 30, 30)];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [contentScrollView addSubview:locateUsButton];
-    
+    [animateThisView addSubview:locateUsButton];
+
     typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
     [typesDropDownList setDelegate:self];
     [typesDropDownList selectRow:0 animated:NO];
-    [contentScrollView addSubview:typesDropDownList];
-    
+    [animateThisView addSubview:typesDropDownList];
+
     FlatBlueButton *goButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(235, 70, 70, 44)];
     [goButton addTarget:self action:@selector(searchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [goButton setTitle:@"GO" forState:UIControlStateNormal];
-    [contentScrollView addSubview:goButton];
+    [animateThisView addSubview:goButton];
     
-    searchLocationsCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 125, contentScrollView.bounds.size.width, 30)];
-    [searchLocationsCountLabel setBackgroundColor:RGB(125, 136, 149)];
-    [searchLocationsCountLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-    [searchLocationsCountLabel setTextColor:[UIColor whiteColor]];
-    [contentScrollView addSubview:searchLocationsCountLabel];
+//    searchLocationsCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 125, contentScrollView.bounds.size.width, 30)];
+//    [searchLocationsCountLabel setBackgroundColor:RGB(125, 136, 149)];
+//    [searchLocationsCountLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+//    [searchLocationsCountLabel setTextColor:[UIColor whiteColor]];
+//    [contentScrollView addSubview:searchLocationsCountLabel];
     
-    locationsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 155, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 155)];
+    
+    
+    locationsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 155)];
+//    [locationsTableView setClipsToBounds:NO];
     [locationsTableView setDelegate:self];
     [locationsTableView setDataSource:self];
     [locationsTableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
-    [locationsTableView setBackgroundColor:[UIColor clearColor]];
+    [locationsTableView setBackgroundColor:contentScrollView.backgroundColor];
     [locationsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [locationsTableView setSeparatorColor:[UIColor clearColor]];
     [locationsTableView setBackgroundView:nil];
     [contentScrollView addSubview:locationsTableView];
     
-    indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 30, 155, 28.0, contentScrollView.bounds.size.height - 155)];
+    
+//    [locationsTableView addSubview:animateThisView];
+    
+
+    indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 30, 100, 28.0, contentScrollView.bounds.size.height - 155)];
     [indexBar setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [indexBar setDelegate:self];
     [indexBar setTextColor:RGB(36, 84, 157)];
@@ -103,6 +116,28 @@
     [contentScrollView addSubview:indexBar];
 
     self.view = contentScrollView;
+}
+
+#define ANIMATION_DURATION 0.3f
+
+- (void)showTopBar:(NSInteger)shouldShowTopBar
+{
+    [indexBar setHidden:YES];
+    if (shouldShowTopBar) {
+        NSLog(@"showing top bar");
+        [locationsTableView showOrigamiTransitionWith:animateThisView NumberOfFolds:1 Duration:0.5f Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+            [indexBar setHidden:NO];
+            [indexBar setY:animateThisView.bounds.size.height andHeight:locationsTableView.bounds.size.height];
+            NSLog(@"index bar frame: %@", NSStringFromCGRect(indexBar.frame));
+        }];
+    }
+    else {
+        NSLog(@"hiding top bar");
+        [locationsTableView hideOrigamiTransitionWith:animateThisView NumberOfFolds:1 Duration:0.5f Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+            [indexBar setHidden:NO];
+            [indexBar setY:0 andHeight:locationsTableView.bounds.size.height];
+        }];
+    }
 }
 
 - (void)viewDidLayoutSubviews
@@ -231,6 +266,16 @@
     
     if (scrollToRowIndex != NSNotFound) {
         [locationsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(scrollToRowIndex * 2) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y <= -20) {
+        [self showTopBar:YES];
+    }
+    else if (scrollView.contentOffset.y >= 20) {
+        [self showTopBar:NO];
     }
 }
 
