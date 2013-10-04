@@ -153,7 +153,6 @@
     [appContentView addSubview:sideBarMenuViewController.view];
     [sideBarMenuViewController didMoveToParentViewController:self];
     
-    //invisible close side bar button
     closeSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeSidebarButton setBackgroundColor:[UIColor colorWithWhite:0.0f alpha:0.2f]];
     [closeSidebarButton addTarget:self action:@selector(closeSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];

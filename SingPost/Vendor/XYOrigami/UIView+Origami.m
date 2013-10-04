@@ -67,12 +67,8 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
 - (CATransformLayer *)transformLayerFromImage:(UIImage *)image Frame:(CGRect)frame Duration:(CGFloat)duration AnchorPiont:(CGPoint)anchorPoint StartAngle:(double)start EndAngle:(double)end;
 {
     CATransformLayer *jointLayer = [CATransformLayer layer];
-    jointLayer.shouldRasterize = YES;
-    jointLayer.rasterizationScale = [[UIScreen mainScreen] scale];
     jointLayer.anchorPoint = anchorPoint;
     CALayer *imageLayer = [CALayer layer];
-    imageLayer.shouldRasterize = YES;
-    imageLayer.rasterizationScale = [[UIScreen mainScreen] scale];
     CAGradientLayer *shadowLayer = [CAGradientLayer layer];
     double shadowAniOpacity;
     
@@ -100,7 +96,13 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
         imageLayer.anchorPoint = anchorPoint;
         imageLayer.position = CGPointMake(layerWidth*anchorPoint.x, frame.size.height/2);
         [jointLayer addSublayer:imageLayer];
-        CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, frame);
+        CGFloat imageScale = image.scale;
+        CGRect scaledFrame = CGRectMake(CGRectGetMinX(frame)*imageScale,
+                                        CGRectGetMinY(frame)*imageScale,
+                                        CGRectGetWidth(frame)*imageScale,
+                                        CGRectGetHeight(frame)*imageScale);
+        
+        CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, scaledFrame);
         imageLayer.contents = (__bridge id)imageCrop;
         imageLayer.backgroundColor = [UIColor clearColor].CGColor;
         
@@ -145,7 +147,12 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
         imageLayer.anchorPoint = anchorPoint;
         imageLayer.position = CGPointMake(frame.size.width/2, layerHeight*anchorPoint.y);
         [jointLayer addSublayer:imageLayer];
-        CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, frame);
+        CGFloat imageScale = image.scale;
+        CGRect scaledFrame = CGRectMake(CGRectGetMinX(frame)*imageScale,
+                                        CGRectGetMinY(frame)*imageScale,
+                                        CGRectGetWidth(frame)*imageScale,
+                                        CGRectGetHeight(frame)*imageScale);
+        CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, scaledFrame);
         imageLayer.contents = (__bridge id)imageCrop;
         imageLayer.backgroundColor = [UIColor clearColor].CGColor;
         
@@ -206,9 +213,6 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
         [[self superview] insertSubview:view belowSubview:self];
     }
     
-    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
-    self.layer.shouldRasterize = YES;
-    
     view.layer.rasterizationScale = [UIScreen mainScreen].scale;
     view.layer.shouldRasterize = YES;
     
@@ -240,24 +244,16 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
         anchorPoint = CGPointMake(0.5, 1);
     }
     
-    UIGraphicsBeginImageContext(view.frame.size);
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, 0.0f);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewSnapShot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-//
-//    UIGraphicsBeginImageContextWithOptions(view.frame.size, view.opaque, 0.0);
-//	[view.layer renderInContext:UIGraphicsGetCurrentContext()];
-//	UIImage *viewSnapShot = UIGraphicsGetImageFromCurrentImageContext();
-//    CGContextFillRect (UIGraphicsGetCurrentContext(), view.frame);
-//    UIGraphicsEndImageContext();
     
     //set 3D depth
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = -1.0/800.0;
     CALayer *origamiLayer = [CALayer layer];
     origamiLayer.frame = view.bounds;
-    origamiLayer.shouldRasterize = YES;
-    origamiLayer.rasterizationScale = [[UIScreen mainScreen] scale];
     origamiLayer.backgroundColor = [UIColor whiteColor].CGColor;
     origamiLayer.sublayerTransform = transform;
     [view.layer addSublayer:origamiLayer];
@@ -315,8 +311,6 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
             imageFrame = CGRectMake(0, frameHeight-(b+1)*foldWidth, frameWidth, foldWidth);
         }
         CATransformLayer *transLayer = [self transformLayerFromImage:viewSnapShot Frame:imageFrame Duration:duration AnchorPiont:anchorPoint StartAngle:startAngle EndAngle:0];
-        transLayer.shouldRasterize = YES;
-        transLayer.rasterizationScale = [[UIScreen mainScreen] scale];
         [prevLayer addSublayer:transLayer];
         prevLayer = transLayer;
     }
@@ -333,8 +327,6 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
     
 
     [CATransaction setValue:[NSNumber numberWithFloat:duration] forKey:kCATransactionAnimationDuration];
-    NSLog(@"x from: %.4f", self.frame.origin.x+self.frame.size.width/2);
-    NSLog(@"x to: %.4f", selfFrame.origin.x+self.frame.size.width/2);
     CAAnimation *openAnimation = (direction < 2)?[CAKeyframeAnimation animationWithKeyPath:@"position.x" function:openFunction fromValue:self.frame.origin.x+self.frame.size.width/2 toValue:selfFrame.origin.x+self.frame.size.width/2]:[CAKeyframeAnimation animationWithKeyPath:@"position.y" function:openFunction fromValue:self.frame.origin.y+self.frame.size.height/2 toValue:selfFrame.origin.y+self.frame.size.height/2];
     openAnimation.fillMode = kCAFillModeForwards;
     [openAnimation setRemovedOnCompletion:NO];
@@ -376,7 +368,7 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
         anchorPoint = CGPointMake(0.5, 1);
     }
     
-    UIGraphicsBeginImageContext(view.frame.size);
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, 0.0f);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewSnapShot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -385,8 +377,6 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = -1.0/800.0;
     CALayer *origamiLayer = [CALayer layer];
-    origamiLayer.shouldRasterize = YES;
-    origamiLayer.rasterizationScale = [[UIScreen mainScreen] scale];
     origamiLayer.frame = view.bounds;
     origamiLayer.backgroundColor = [UIColor whiteColor].CGColor;
     origamiLayer.sublayerTransform = transform;
@@ -445,8 +435,6 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
             imageFrame = CGRectMake(0, frameHeight-(b+1)*foldWidth, frameWidth, foldWidth);
         }
         CATransformLayer *transLayer = [self transformLayerFromImage:viewSnapShot Frame:imageFrame Duration:duration AnchorPiont:anchorPoint StartAngle:0 EndAngle:endAngle];
-        transLayer.shouldRasterize = YES;
-        transLayer.rasterizationScale = [[UIScreen mainScreen] scale];
         [prevLayer addSublayer:transLayer];
         prevLayer = transLayer;
     }
