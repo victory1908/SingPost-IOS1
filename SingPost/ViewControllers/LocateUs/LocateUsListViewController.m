@@ -131,6 +131,7 @@
 {
     [super viewDidLayoutSubviews];
     [contentScrollView setContentSize:contentScrollView.bounds.size];
+    
 }
 
 - (void)viewDidLoad
@@ -142,7 +143,7 @@
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
     [locationManager startUpdatingLocation];
-
+    
     [self showSearchTermsView:YES];
 }
 
@@ -158,7 +159,7 @@
     if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
         return;
     }
-    
+
     if (!isAnimating) {
         isAnimating = YES;
         [locationsTableView setBounces:NO];

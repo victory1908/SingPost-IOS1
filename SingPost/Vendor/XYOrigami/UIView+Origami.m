@@ -27,6 +27,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 
 #import "UIView+Origami.h"
+#import <objc/runtime.h>
 
 KeyframeParametricBlock openFunction = ^double(double time) {
     return sin(time*M_PI_2);
@@ -34,8 +35,6 @@ KeyframeParametricBlock openFunction = ^double(double time) {
 KeyframeParametricBlock closeFunction = ^double(double time) {
     return -cos(time*M_PI_2)+1;
 };
-
-static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionStateIdle;
 
 @implementation CAKeyframeAnimation (Parametric)
 
@@ -63,6 +62,17 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
 @end
 
 @implementation UIView (Origami)
+
+static char const *const ObjectTagKey = "XY_Origami_Current_State";
+
+- (XYOrigamiTransitionState)XY_Origami_Current_State {
+    NSNumber *state = objc_getAssociatedObject(self, ObjectTagKey);
+    return (XYOrigamiTransitionState)[state intValue];
+}
+
+- (void)setXY_Origami_Current_State:(id)newObjectTag {
+    objc_setAssociatedObject(self, ObjectTagKey, newObjectTag, OBJC_ASSOCIATION_ASSIGN);
+}
 
 - (CATransformLayer *)transformLayerFromImage:(UIImage *)image Frame:(CGRect)frame Duration:(CGFloat)duration AnchorPiont:(CGPoint)anchorPoint StartAngle:(double)start EndAngle:(double)end;
 {
@@ -201,13 +211,14 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
                         Direction:(XYOrigamiDirection)direction
                        completion:(void (^)(BOOL finished))completion
 {
-    if (XY_Origami_Current_State != XYOrigamiTransitionStateIdle) {
+    if ([self XY_Origami_Current_State] != XYOrigamiTransitionStateIdle) {
         if (completion)
 			completion(YES);
         return;
     }
-    XY_Origami_Current_State = XYOrigamiTransitionStateUpdate;
     
+    self.XY_Origami_Current_State = @(XYOrigamiTransitionStateUpdate);
+
     //add view as parent subview
     if (![view superview]) {
         [[self superview] insertSubview:view belowSubview:self];
@@ -319,7 +330,7 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
     [CATransaction setCompletionBlock:^{
         self.frame = selfFrame;
         [origamiLayer removeFromSuperlayer];
-        XY_Origami_Current_State = XYOrigamiTransitionStateShow;
+        self.XY_Origami_Current_State = @(XYOrigamiTransitionStateShow);
         
 		if (completion)
 			completion(YES);
@@ -340,13 +351,13 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
                         Direction:(XYOrigamiDirection)direction
                        completion:(void (^)(BOOL finished))completion
 {
-    if (XY_Origami_Current_State != XYOrigamiTransitionStateShow) {
+    if ([self XY_Origami_Current_State] != XYOrigamiTransitionStateShow) {
         if (completion)
 			completion(YES);
         return;
     }
     
-    XY_Origami_Current_State = XYOrigamiTransitionStateUpdate;
+    self.XY_Origami_Current_State = @(XYOrigamiTransitionStateUpdate);
     
     //set frame
     CGRect selfFrame = self.frame;
@@ -443,7 +454,7 @@ static XYOrigamiTransitionState XY_Origami_Current_State = XYOrigamiTransitionSt
     [CATransaction setCompletionBlock:^{
         self.frame = selfFrame;
         [origamiLayer removeFromSuperlayer];
-        XY_Origami_Current_State = XYOrigamiTransitionStateIdle;
+        self.XY_Origami_Current_State = @(XYOrigamiTransitionStateIdle);
         
 		if (completion)
 			completion(YES);
