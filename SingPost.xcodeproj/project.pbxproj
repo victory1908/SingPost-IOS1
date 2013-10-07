@@ -36,6 +36,7 @@
 		521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F785518026E0A00B513FA /* FeedbackViewController.m */; };
 		521F7859180270E100B513FA /* AMMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F7858180270E100B513FA /* AMMailViewController.m */; };
 		521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F785B180285DE00B513FA /* ColoredPageControl.m */; };
+		521F785F1802944100B513FA /* CTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F785E1802944100B513FA /* CTextView.m */; };
 		52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */; };
 		52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */; };
 		52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */; };
@@ -146,6 +147,8 @@
 		521F7858180270E100B513FA /* AMMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMMailViewController.m; sourceTree = "<group>"; };
 		521F785A180285DE00B513FA /* ColoredPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColoredPageControl.h; sourceTree = "<group>"; };
 		521F785B180285DE00B513FA /* ColoredPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColoredPageControl.m; sourceTree = "<group>"; };
+		521F785D1802944100B513FA /* CTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTextView.h; sourceTree = "<group>"; };
+		521F785E1802944100B513FA /* CTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTextView.m; sourceTree = "<group>"; };
 		52282FCE17FA8FA300B2A7B4 /* CMIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIndexBar.h; sourceTree = "<group>"; };
 		52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIndexBar.m; sourceTree = "<group>"; };
 		52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsViewController.h; sourceTree = "<group>"; };
@@ -567,6 +570,8 @@
 				528F269F17F8B822006F7027 /* CDropDownListControl.m */,
 				528F26A017F8B822006F7027 /* CTextField.h */,
 				528F26A117F8B822006F7027 /* CTextField.m */,
+				521F785D1802944100B513FA /* CTextView.h */,
+				521F785E1802944100B513FA /* CTextView.m */,
 				521F785A180285DE00B513FA /* ColoredPageControl.h */,
 				521F785B180285DE00B513FA /* ColoredPageControl.m */,
 				528F26B317F920A0006F7027 /* SectionToggleButton.h */,
@@ -869,6 +874,7 @@
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
+				521F785F1802944100B513FA /* CTextView.m in Sources */,
 				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
 				521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */,

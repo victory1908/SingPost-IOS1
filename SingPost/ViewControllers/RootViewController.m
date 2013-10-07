@@ -189,6 +189,7 @@
     
     if (shouldShowSideBar) {
         [closeSidebarButton setFrame:activeViewController.view.frame];
+        [activeViewController.view endEditing:YES];
         [activeViewController.view addSubview:closeSidebarButton];
     }
     
