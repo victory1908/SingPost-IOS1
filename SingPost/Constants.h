@@ -7,4 +7,4 @@
 //
 
 //Frames
-#define NAVIGATIONBAR_FRAME CGRectMake(0, 0, contentView.bounds.size.width, 44)
+#define NAVIGATIONBAR_FRAME CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44)

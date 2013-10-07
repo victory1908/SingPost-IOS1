@@ -21,6 +21,8 @@
 #import "LocateUsMainViewController.h"
 #import "SendReceiveMainViewController.h"
 
+#import "FeedbackViewController.h"
+
 @interface SidebarTrackingNumberTextField : UITextField
 
 @end
@@ -245,43 +247,59 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch ((tSidebarMenus)indexPath.row) {
-        case SIDEBARMENU_CALCULATEPOSTAGE:
-        {
-            CalculatePostageViewController *viewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
-            break;
-        }
-        case SIDEBARMENU_FINDPOSTALCODES:
-        {
-            FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
-            break;
-        }
-        case SIDEBARMENU_LOCATEUS:
-        {
-            LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
-            break;
-        }
-        case SIDEBARMENU_SENDRECEIVE:
-        {
-            SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
-            break;
-        }
-        case SIDEBARMENU_OFFERSMORE:
-        {
-            [self toggleOffersMoreSubRows];
-            break;
-        }
-        default:
-        {
-            NSLog(@"not yet implemented");
-            break;
+    if (indexPath.row > SIDEBARMENU_OFFERSMORE) {
+        switch ((tSubRowsOffersMore)(indexPath.row - SIDEBARMENU_OFFERSMORE - 1)) {
+            case SUBROWS_OFFERSMORE_FEEDBACK:
+            {
+                FeedbackViewController *viewController = [[FeedbackViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            default:
+            {
+                NSLog(@"not yet implemented");
+                break;
+            }
         }
     }
-    
+    else {
+        switch ((tSidebarMenus)indexPath.row) {
+            case SIDEBARMENU_CALCULATEPOSTAGE:
+            {
+                CalculatePostageViewController *viewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_FINDPOSTALCODES:
+            {
+                FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_LOCATEUS:
+            {
+                LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_SENDRECEIVE:
+            {
+                SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_OFFERSMORE:
+            {
+                [self toggleOffersMoreSubRows];
+                break;
+            }
+            default:
+            {
+                NSLog(@"not yet implemented");
+                break;
+            }
+        }
+    }
     [trackingNumberTextField resignFirstResponder];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
