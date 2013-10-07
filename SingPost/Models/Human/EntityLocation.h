@@ -15,6 +15,8 @@
 @property (nonatomic, readonly) NSString *satOpeningHours;
 @property (nonatomic, readonly) NSString *sunOpeningHours;
 @property (nonatomic, readonly) NSString *publicHolidayOpeningHours;
+@property (nonatomic, readonly) NSArray *servicesArray;
+@property (nonatomic, readonly) EntityLocation *relatedPostingBox;
 
 - (CGFloat)distanceInKmToLocation:(CLLocation *)toLocation;
 - (BOOL)isOpenedAtCurrentTimeDigits:(NSInteger)timeDigits;

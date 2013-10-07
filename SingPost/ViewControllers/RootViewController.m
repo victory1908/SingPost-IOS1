@@ -100,8 +100,7 @@
     
     MHNatGeoViewControllerTransition *natGeoTransition = [[MHNatGeoViewControllerTransition alloc] initWithSourceView:activeViewController.view destinationView:destinationView duration:PAGE_TRANSITION_DURATION];
     
-    activeViewControllerContainerView.layer.zPosition = 1;
-    destinationView.layer.zPosition = 999;
+    destinationView.layer.zPosition = activeViewControllerContainerView.layer.zPosition + 10;
     
     [activeViewController.view endEditing:YES];
     
@@ -125,8 +124,7 @@
     UIViewController *sourceViewController = activeViewController.presentedFromViewController;
     __block UIView *sourceView = sourceViewController.view;
 
-    sourceView.layer.zPosition = 2;
-    activeViewController.view.layer.zPosition = 1;
+    activeViewController.view.layer.zPosition = sourceView.layer.zPosition - 1;
     [activeViewControllerContainerView addSubview:sourceView];
     
     MHNatGeoViewControllerTransition * natGeoTransition = [[MHNatGeoViewControllerTransition alloc]initWithSourceView:sourceView destinationView:[activeViewController view] duration:PAGE_TRANSITION_DURATION];

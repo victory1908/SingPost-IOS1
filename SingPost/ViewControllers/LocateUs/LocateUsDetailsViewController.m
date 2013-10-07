@@ -18,10 +18,13 @@
 #import "UIColor+SingPost.h"
 #import "SectionToggleButton.h"
 #import "UIView+Position.h"
+#import "AppDelegate.h"
 
 #import "LocateUsDetailsOpeningHoursView.h"
+#import "LocateUsDetailsServicesView.h"
+#import "LocateUsDetailsPostingBoxView.h"
 
-@interface LocateUsDetailsViewController () <MKMapViewDelegate>
+@interface LocateUsDetailsViewController () <MKMapViewDelegate, LocateUsDetailsPostingBoxDelegate>
 
 @end
 
@@ -41,8 +44,6 @@ typedef enum  {
     UIImageView *isOpenedIndicatorImageView, *addressImageView;
     UIScrollView *sectionContentScrollView;
     SectionToggleButton *openingHoursSectionButton, *servicesSectionButton, *postingBoxSectionButton;
-    
-    LocateUsDetailsOpeningHoursView *openingHoursSectionView;
 }
 
 //designated initializer
@@ -100,7 +101,7 @@ typedef enum  {
     UIButton *showMapRouteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [showMapRouteButton setImage:[UIImage imageNamed:@"search_map_button"] forState:UIControlStateNormal];
     [showMapRouteButton setFrame:CGRectMake(270, 212, 44, 44)];
-    [showMapRouteButton addTarget:self action:@selector(showMapRouteButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [showMapRouteButton addTarget:self action:@selector(showMapRouteDirectionsClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentScrollView addSubview:showMapRouteButton];
     
     UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 266, contentView.bounds.size.width, 1)];
@@ -150,8 +151,15 @@ typedef enum  {
     [sectionContentScrollView setScrollEnabled:NO];
     [contentScrollView addSubview:sectionContentScrollView];
     
-    openingHoursSectionView = [[LocateUsDetailsOpeningHoursView alloc] initWithLocation:_entityLocation andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_OPENINGHOURS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    LocateUsDetailsOpeningHoursView *openingHoursSectionView = [[LocateUsDetailsOpeningHoursView alloc] initWithLocation:_entityLocation andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_OPENINGHOURS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
     [sectionContentScrollView addSubview:openingHoursSectionView];
+    
+    LocateUsDetailsServicesView *servicesSectionView = [[LocateUsDetailsServicesView alloc] initWithServices:_entityLocation.servicesArray andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_SERVICES, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [sectionContentScrollView addSubview:servicesSectionView];
+    
+    LocateUsDetailsPostingBoxView *postingBoxSectionView = [[LocateUsDetailsPostingBoxView alloc] initWithPostingBox:_entityLocation.relatedPostingBox andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_POSTINGBOX, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [postingBoxSectionView setDelegate:self];
+    [sectionContentScrollView addSubview:postingBoxSectionView];
     
     UIPanGestureRecognizer *sectionSelectionPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSectionSelectionPanGesture:)];
     [selectedSectionIndicatorButton addGestureRecognizer:sectionSelectionPanGestureRecognizer];
@@ -254,9 +262,12 @@ typedef enum  {
         [self goToSection:LOCATEUSDETAILS_SECTION_POSTINGBOX];
 }
 
-- (IBAction)showMapRouteButtonClicked:(id)sender
+#pragma mark - LocateUsDetailsPostingBoxDelegate
+
+- (void)goToPostingBox:(EntityLocation *)postingBox
 {
-    [self showMapRouteDirections];
+    LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:postingBox];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
 }
 
 #pragma mark - MKMapViewDelegates
@@ -347,7 +358,7 @@ typedef enum  {
 	return [self decodePolyLine:[encodedPoints mutableCopy]];
 }
 
-- (void)showMapRouteDirections
+- (void)showMapRouteDirectionsClicked:(id)sender
 {
 	NSArray *routes = [self calculateRoutesFrom:locationMapView.userLocation.coordinate to:_entityLocation.coordinate];
     

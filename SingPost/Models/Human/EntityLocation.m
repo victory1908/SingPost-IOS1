@@ -121,6 +121,22 @@
     return [toLocation distanceFromLocation:fromLocation] / 1000;
 }
 
+- (NSArray *)servicesArray
+{
+    NSData *data = [self.services dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+}
+
+- (EntityLocation *)relatedPostingBox
+{
+    if ([self.type isEqualToString:LOCATION_TYPE_POST_OFFICE] &&  self.postingbox.length > 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type == %@ AND name == %@", LOCATION_TYPE_POSTING_BOX, self.postingbox];
+        return [EntityLocation MR_findFirstWithPredicate:predicate];
+    }
+
+    return nil;
+}
+
 #pragma mark - Utilities
 
 - (BOOL)isNullOpeningHours:(NSString *)openingHour
