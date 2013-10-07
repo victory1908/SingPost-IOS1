@@ -34,6 +34,8 @@
 		521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F784D1802641100B513FA /* SendReceiveMainViewController.m */; };
 		521F78521802670500B513FA /* SendReceiveMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F78511802670500B513FA /* SendReceiveMainTableViewCell.m */; };
 		521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F785518026E0A00B513FA /* FeedbackViewController.m */; };
+		521F7859180270E100B513FA /* AMMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F7858180270E100B513FA /* AMMailViewController.m */; };
+		521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F785B180285DE00B513FA /* ColoredPageControl.m */; };
 		52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */; };
 		52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */; };
 		52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */; };
@@ -140,6 +142,10 @@
 		521F78511802670500B513FA /* SendReceiveMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendReceiveMainTableViewCell.m; sourceTree = "<group>"; };
 		521F785418026E0A00B513FA /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		521F785518026E0A00B513FA /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		521F7857180270E100B513FA /* AMMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMMailViewController.h; sourceTree = "<group>"; };
+		521F7858180270E100B513FA /* AMMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMMailViewController.m; sourceTree = "<group>"; };
+		521F785A180285DE00B513FA /* ColoredPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColoredPageControl.h; sourceTree = "<group>"; };
+		521F785B180285DE00B513FA /* ColoredPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColoredPageControl.m; sourceTree = "<group>"; };
 		52282FCE17FA8FA300B2A7B4 /* CMIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIndexBar.h; sourceTree = "<group>"; };
 		52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIndexBar.m; sourceTree = "<group>"; };
 		52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsViewController.h; sourceTree = "<group>"; };
@@ -420,6 +426,8 @@
 				521F784F180266E800B513FA /* TableViewCells */,
 				521F784C1802641100B513FA /* SendReceiveMainViewController.h */,
 				521F784D1802641100B513FA /* SendReceiveMainViewController.m */,
+				521F7857180270E100B513FA /* AMMailViewController.h */,
+				521F7858180270E100B513FA /* AMMailViewController.m */,
 			);
 			path = SendReceive;
 			sourceTree = "<group>";
@@ -559,6 +567,8 @@
 				528F269F17F8B822006F7027 /* CDropDownListControl.m */,
 				528F26A017F8B822006F7027 /* CTextField.h */,
 				528F26A117F8B822006F7027 /* CTextField.m */,
+				521F785A180285DE00B513FA /* ColoredPageControl.h */,
+				521F785B180285DE00B513FA /* ColoredPageControl.m */,
 				528F26B317F920A0006F7027 /* SectionToggleButton.h */,
 				528F26B417F920A0006F7027 /* SectionToggleButton.m */,
 				528F26C317F936F0006F7027 /* FlatBlueButton.h */,
@@ -839,6 +849,7 @@
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
+				521F7859180270E100B513FA /* AMMailViewController.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
 				52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */,
 				52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */,
@@ -846,6 +857,7 @@
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
+				521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */,
 				52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */,
 				52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */,
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,

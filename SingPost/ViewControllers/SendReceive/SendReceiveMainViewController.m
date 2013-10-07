@@ -9,7 +9,9 @@
 #import "SendReceiveMainViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
+#import "AppDelegate.h"
 #import "SendReceiveMainTableViewCell.h"
+#import "AMMailViewController.h"
 
 @interface SendReceiveMainViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -134,7 +136,32 @@ typedef enum  {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    int dataRow = floorf(indexPath.row / 2.0f);
+    switch ((tSendReceiveMenus)dataRow) {
+        case SENDRECEIVE_MENU_AMMAIL:
+        {
+            AMMailViewController *viewController = [[AMMailViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case SENDRECEIVE_MENU_LOCALORDINARYMAIL:
+        {
+//            cell.title = @"Local Ordinary Mail";
+            break;
+        }
+        case SENDRECEIVE_MENU_LOCALREGISTEREDARTICLES:
+        {
+//            cell.title = @"Local Registered Articles";
+            break;
+        }
+        default:
+        {
+            NSAssert(NO, @"unsupported tSendReceiveMenus");
+            break;
+        }
+    }
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
