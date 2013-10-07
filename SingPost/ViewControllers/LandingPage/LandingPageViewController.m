@@ -16,6 +16,7 @@
 #import "CalculatePostageViewController.h"
 #import "FindPostalCodesMainViewController.h"
 #import "LocateUsMainViewController.h"
+#import "SendReceiveMainViewController.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
@@ -113,7 +114,9 @@ typedef enum {
     offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
     UIButton *menuSendReceiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuSendReceiveButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuSendReceiveButton setTag:LANDINGPAGEBUTTON_SENDRECEIVE];
     [menuSendReceiveButton setImage:[UIImage imageNamed:@"landing_sendReceive"] forState:UIControlStateNormal];
+    [menuSendReceiveButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuSendReceiveButton];
     
     offsetX += ICON_WIDTH;
@@ -210,6 +213,12 @@ typedef enum {
         case LANDINGPAGEBUTTON_LOCATEUS:
         {
             LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case LANDINGPAGEBUTTON_SENDRECEIVE:
+        {
+            SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             break;
         }

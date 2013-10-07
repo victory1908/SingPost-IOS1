@@ -31,6 +31,8 @@
 		521B174617F1633000FEB6FD /* SingPostTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B174517F1633000FEB6FD /* SingPostTests.m */; };
 		521B175517F1678100FEB6FD /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175417F1678100FEB6FD /* RootViewController.m */; };
 		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
+		521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F784D1802641100B513FA /* SendReceiveMainViewController.m */; };
+		521F78521802670500B513FA /* SendReceiveMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F78511802670500B513FA /* SendReceiveMainTableViewCell.m */; };
 		52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */; };
 		52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */; };
 		52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */; };
@@ -131,6 +133,10 @@
 		521B175417F1678100FEB6FD /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		521B175717F1961100FEB6FD /* SidebarMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuViewController.h; sourceTree = "<group>"; };
 		521B175817F1961100FEB6FD /* SidebarMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuViewController.m; sourceTree = "<group>"; };
+		521F784C1802641100B513FA /* SendReceiveMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendReceiveMainViewController.h; sourceTree = "<group>"; };
+		521F784D1802641100B513FA /* SendReceiveMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendReceiveMainViewController.m; sourceTree = "<group>"; };
+		521F78501802670500B513FA /* SendReceiveMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendReceiveMainTableViewCell.h; sourceTree = "<group>"; };
+		521F78511802670500B513FA /* SendReceiveMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendReceiveMainTableViewCell.m; sourceTree = "<group>"; };
 		52282FCE17FA8FA300B2A7B4 /* CMIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIndexBar.h; sourceTree = "<group>"; };
 		52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIndexBar.m; sourceTree = "<group>"; };
 		52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsViewController.h; sourceTree = "<group>"; };
@@ -385,6 +391,7 @@
 				52024F1C17F685D700AFD239 /* CalculatePostage */,
 				528F26AF17F91E2B006F7027 /* FindPostalCodes */,
 				528F26C617F93D1F006F7027 /* LocateUs */,
+				521F784B1802634E00B513FA /* SendReceive */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
 			);
@@ -401,6 +408,25 @@
 			);
 			name = SidebarMenu;
 			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		521F784B1802634E00B513FA /* SendReceive */ = {
+			isa = PBXGroup;
+			children = (
+				521F784F180266E800B513FA /* TableViewCells */,
+				521F784C1802641100B513FA /* SendReceiveMainViewController.h */,
+				521F784D1802641100B513FA /* SendReceiveMainViewController.m */,
+			);
+			path = SendReceive;
+			sourceTree = "<group>";
+		};
+		521F784F180266E800B513FA /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				521F78501802670500B513FA /* SendReceiveMainTableViewCell.h */,
+				521F78511802670500B513FA /* SendReceiveMainTableViewCell.m */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		52282FCC17FA8F7C00B2A7B4 /* Vendor */ = {
@@ -834,12 +860,14 @@
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
+				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
 				52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */,
 				52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */,
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
+				521F78521802670500B513FA /* SendReceiveMainTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
 			);

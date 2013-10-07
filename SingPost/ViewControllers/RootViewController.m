@@ -12,6 +12,7 @@
 
 #import "LandingPageViewController.h"
 #import "TrackingMainViewController.h"
+#import "SendReceiveMainViewController.h"
 #import "AppDelegate.h"
 
 #import <QuartzCore/QuartzCore.h>
