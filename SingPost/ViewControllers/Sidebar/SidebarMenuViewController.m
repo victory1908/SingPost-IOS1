@@ -22,6 +22,8 @@
 #import "SendReceiveMainViewController.h"
 
 #import "FeedbackViewController.h"
+#import "AboutThisAppViewController.h"
+#import "TermsOfUseViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -252,6 +254,18 @@
             case SUBROWS_OFFERSMORE_FEEDBACK:
             {
                 FeedbackViewController *viewController = [[FeedbackViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SUBROWS_OFFERSMORE_ABOUTTHISAPP:
+            {
+                AboutThisAppViewController *viewController = [[AboutThisAppViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SUBROWS_OFFERSMORE_TERMSOFUSE:
+            {
+                TermsOfUseViewController *viewController = [[TermsOfUseViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }

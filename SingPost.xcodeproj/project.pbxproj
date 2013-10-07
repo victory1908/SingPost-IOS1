@@ -37,6 +37,8 @@
 		521F7859180270E100B513FA /* AMMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F7858180270E100B513FA /* AMMailViewController.m */; };
 		521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F785B180285DE00B513FA /* ColoredPageControl.m */; };
 		521F785F1802944100B513FA /* CTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F785E1802944100B513FA /* CTextView.m */; };
+		521F786218029D7100B513FA /* AboutThisAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F786118029D7100B513FA /* AboutThisAppViewController.m */; };
+		521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F786418029F5100B513FA /* TermsOfUseViewController.m */; };
 		52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */; };
 		52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */; };
 		52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */; };
@@ -149,6 +151,10 @@
 		521F785B180285DE00B513FA /* ColoredPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColoredPageControl.m; sourceTree = "<group>"; };
 		521F785D1802944100B513FA /* CTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTextView.h; sourceTree = "<group>"; };
 		521F785E1802944100B513FA /* CTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTextView.m; sourceTree = "<group>"; };
+		521F786018029D7100B513FA /* AboutThisAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutThisAppViewController.h; sourceTree = "<group>"; };
+		521F786118029D7100B513FA /* AboutThisAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutThisAppViewController.m; sourceTree = "<group>"; };
+		521F786318029F5100B513FA /* TermsOfUseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsOfUseViewController.h; sourceTree = "<group>"; };
+		521F786418029F5100B513FA /* TermsOfUseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsOfUseViewController.m; sourceTree = "<group>"; };
 		52282FCE17FA8FA300B2A7B4 /* CMIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMIndexBar.h; sourceTree = "<group>"; };
 		52282FCF17FA8FA300B2A7B4 /* CMIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMIndexBar.m; sourceTree = "<group>"; };
 		52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsViewController.h; sourceTree = "<group>"; };
@@ -449,6 +455,10 @@
 			children = (
 				521F785418026E0A00B513FA /* FeedbackViewController.h */,
 				521F785518026E0A00B513FA /* FeedbackViewController.m */,
+				521F786018029D7100B513FA /* AboutThisAppViewController.h */,
+				521F786118029D7100B513FA /* AboutThisAppViewController.m */,
+				521F786318029F5100B513FA /* TermsOfUseViewController.h */,
+				521F786418029F5100B513FA /* TermsOfUseViewController.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -861,6 +871,7 @@
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
+				521F786218029D7100B513FA /* AboutThisAppViewController.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
 				521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */,
 				52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */,
@@ -892,6 +903,7 @@
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
+				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
