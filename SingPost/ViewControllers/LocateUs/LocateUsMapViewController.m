@@ -16,6 +16,8 @@
 #import "UIView+Position.h"
 #import "EntityLocation.h"
 #import "EntityLocationMapAnnotation.h"
+#import "AppDelegate.h"
+#import "LocateUsDetailsViewController.h"
 
 @interface LocateUsMapViewController () <CDropDownListControlDelegate, MKMapViewDelegate>
 
@@ -81,15 +83,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self showPlacesForType:typesDropDownList.selectedText];
+    [self showFilteredLocationsOnMap];
 }
 
 #pragma mark - Map
 
-- (void)showPlacesForType:(NSString *)type
+- (void)showFilteredLocationsOnMap
 {
+    NSString *locationType = typesDropDownList.selectedText;
+    NSString *searchText = findByTextField.text;
+    
     [locateUsMapView removeAnnotations:locateUsMapView.annotations];
-    for (EntityLocation *location in [EntityLocation MR_findByAttribute:EntityLocationAttributes.type withValue:typesDropDownList.selectedText]) {
+    NSArray *locations;
+    if (searchText.length == 0) {
+        locations = [EntityLocation MR_findByAttribute:EntityLocationAttributes.type withValue:locationType];
+    }
+    else {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type == %@ AND ((name CONTAINS[cd] %@) OR (address CONTAINS[cd] %@))", locationType, searchText, searchText];
+        locations = [EntityLocation MR_findAllWithPredicate:predicate];
+    }
+    
+    for (EntityLocation *location in locations) {
         EntityLocationMapAnnotation *locationAnnotation = [[EntityLocationMapAnnotation alloc] initWithEntityLocation:location];
         [locateUsMapView addAnnotation:locationAnnotation];
     }
@@ -137,10 +151,20 @@
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.canShowCallout = YES;
             annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+
         }
     }
     
     return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    EntityLocationMapAnnotation *mapAnnotation = view.annotation;
+    
+    LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:mapAnnotation.location];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
 }
 
 #pragma mark - CDropDownListControlDelegate
@@ -169,17 +193,12 @@
 
 - (IBAction)goButtonClicked:(id)sender
 {
-    [self showPlacesForType:typesDropDownList.selectedText];
+    [self showFilteredLocationsOnMap];
 }
 
 - (IBAction)locateUsButtonClicked:(id)sender
 {
-    NSLog(@"locate us clicked");
-}
-
-- (IBAction)aroundMeButtonClicked:(id)sender
-{
-    [self centerMapToLastKnownUserLocation];
+    [self showFilteredLocationsOnMap];
 }
 
 @end
