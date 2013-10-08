@@ -123,9 +123,14 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:headerCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width, 100)];
+            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, cell.contentView.bounds.size.width, 100)];
             [cellContentView setBackgroundColor:RGB(240, 240, 240)];
             [cell.contentView addSubview:cellContentView];
+            
+            UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, cellContentView.bounds.size.width, 1)];
+            [topSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+            [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+            [cellContentView addSubview:topSeparatorView];
             
             UILabel *toDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 130, 20)];
             [toDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
@@ -169,9 +174,9 @@
             [expectedDeliveryTimeLabel setBackgroundColor:[UIColor clearColor]];
             [cellContentView addSubview:expectedDeliveryTimeLabel];
             
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, cellContentView.bounds.size.height - 1, cellContentView.bounds.size.width, 1)];
-            [separatorView setBackgroundColor:RGB(196, 197, 200)];
-            [cellContentView addSubview:separatorView];
+            UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, cellContentView.bounds.size.height - 1, cellContentView.bounds.size.width, 1)];
+            [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+            [cellContentView addSubview:bottomSeparatorView];
         }
         
         return cell;
