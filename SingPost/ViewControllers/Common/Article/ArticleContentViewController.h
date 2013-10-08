@@ -1,5 +1,5 @@
 //
-//  ArticleViewController.h
+//  ArticleContentViewController.h
 //  SingPost
 //
 //  Created by Edward Soetiono on 9/10/13.
@@ -10,7 +10,7 @@
 
 @class Article;
 
-@interface ArticleViewController : UIViewController
+@interface ArticleContentViewController : UIViewController
 
 - (id)initWithArticle:(Article *)article;
 

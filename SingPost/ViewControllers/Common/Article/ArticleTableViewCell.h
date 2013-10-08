@@ -1,5 +1,5 @@
 //
-//  SendReceiveMainTableViewCell.h
+//  ArticleTableViewCell.h
 //  SingPost
 //
 //  Created by Edward Soetiono on 7/10/13.
@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SendReceiveMainTableViewCell : UITableViewCell
+@interface ArticleTableViewCell : UITableViewCell
 
 @property (nonatomic) NSString *title;
 
 @end
+

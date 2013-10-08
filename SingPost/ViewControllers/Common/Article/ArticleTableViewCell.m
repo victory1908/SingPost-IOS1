@@ -1,16 +1,15 @@
-
 //
-//  SendReceiveMainTableViewCell.m
+//  ArticleTableViewCell.m
 //  SingPost
 //
 //  Created by Edward Soetiono on 7/10/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "SendReceiveMainTableViewCell.h"
+#import "ArticleTableViewCell.h"
 #import "UIFont+SingPost.h"
 
-@implementation SendReceiveMainTableViewCell
+@implementation ArticleTableViewCell
 {
     UILabel *titleLabel;
 }

@@ -1,20 +1,20 @@
 //
-//  ArticleViewController.m
+//  ArticleContentViewController.m
 //  SingPost
 //
 //  Created by Edward Soetiono on 9/10/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "ArticleViewController.h"
+#import "ArticleContentViewController.h"
 #import "Article.h"
 #import "NavigationBarView.h"
 
-@interface ArticleViewController ()
+@interface ArticleContentViewController ()
 
 @end
 
-@implementation ArticleViewController
+@implementation ArticleContentViewController
 {
     UIWebView *contentWebView;
 }

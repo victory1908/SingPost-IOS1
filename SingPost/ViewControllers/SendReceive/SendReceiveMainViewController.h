@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ArticleViewController.h"
 
-@interface SendReceiveMainViewController : UIViewController
+@interface SendReceiveMainViewController : ArticleViewController
 
 @end
