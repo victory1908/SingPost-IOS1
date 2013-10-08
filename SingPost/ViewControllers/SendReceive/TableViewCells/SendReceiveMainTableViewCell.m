@@ -26,9 +26,10 @@
         UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
         [contentView setBackgroundColor:[UIColor clearColor]];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 25, 250, 20)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 250, 50)];
         [titleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [titleLabel setTextColor:RGB(51, 51, 51)];
+        [titleLabel setNumberOfLines:2];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:titleLabel];
         

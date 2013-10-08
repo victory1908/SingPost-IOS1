@@ -11,19 +11,15 @@
 #import "UIFont+SingPost.h"
 #import "AppDelegate.h"
 #import "SendReceiveMainTableViewCell.h"
-#import "AMMailViewController.h"
+#import "ArticleViewController.h"
+#import "Article.h"
+#import <SVProgressHUD.h>
 
-@interface SendReceiveMainViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SendReceiveMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+
+@property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 @end
-
-typedef enum  {
-    SENDRECEIVE_MENU_AMMAIL,
-    SENDRECEIVE_MENU_LOCALORDINARYMAIL,
-    SENDRECEIVE_MENU_LOCALREGISTEREDARTICLES,
-    
-    SENDRECEIVE_MENU_TOTAL
-} tSendReceiveMenus;
 
 @implementation SendReceiveMainViewController
 {
@@ -64,32 +60,31 @@ typedef enum  {
     self.view = contentView;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //fetch data
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+        [Article API_getSendReceiveItemsOnCompletion:^(BOOL success, NSError *error) {
+            if (success)
+                [SVProgressHUD dismiss];
+            else
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+        }];
+    }
+}
+
 #pragma mark - UITableView DataSource & Delegate
 
 - (void)configureCell:(SendReceiveMainTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    int dataRow = floorf(indexPath.row / 2.0f);
-    switch ((tSendReceiveMenus)dataRow) {
-        case SENDRECEIVE_MENU_AMMAIL:
-        {
-            cell.title = @"AM Mail";
-            break;
-        }
-        case SENDRECEIVE_MENU_LOCALORDINARYMAIL:
-        {
-            cell.title = @"Local Ordinary Mail";
-            break;
-        }
-        case SENDRECEIVE_MENU_LOCALREGISTEREDARTICLES:
-        {
-            cell.title = @"Local Registered Articles";
-            break;
-        }
-        default:
-        {
-            NSAssert(NO, @"unsupported tSendReceiveMenus");
-            break;
-        }
+    //only process if an item cell (not a separator cell!)
+    if (indexPath.row % 2 == 0) {
+        int dataRow = floorf(indexPath.row / 2.0f);
+        Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
+        cell.title = article.name;
     }
 }
 
@@ -100,12 +95,13 @@ typedef enum  {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [self.fetchedResultsController.sections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return SENDRECEIVE_MENU_TOTAL * 2;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
+    return [sectionInfo numberOfObjects] * 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,31 +133,28 @@ typedef enum  {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int dataRow = floorf(indexPath.row / 2.0f);
-    switch ((tSendReceiveMenus)dataRow) {
-        case SENDRECEIVE_MENU_AMMAIL:
-        {
-            AMMailViewController *viewController = [[AMMailViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-            break;
-        }
-        case SENDRECEIVE_MENU_LOCALORDINARYMAIL:
-        {
-//            cell.title = @"Local Ordinary Mail";
-            break;
-        }
-        case SENDRECEIVE_MENU_LOCALREGISTEREDARTICLES:
-        {
-//            cell.title = @"Local Registered Articles";
-            break;
-        }
-        default:
-        {
-            NSAssert(NO, @"unsupported tSendReceiveMenus");
-            break;
-        }
+    Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
+    
+    ArticleViewController *viewController = [[ArticleViewController alloc] initWithArticle:article];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (!_fetchedResultsController) {
+        _fetchedResultsController = [Article frcSendReceiveArticlesWithDelegate:self];
     }
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    return _fetchedResultsController;
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [menusTableView reloadData];
 }
 
 @end
