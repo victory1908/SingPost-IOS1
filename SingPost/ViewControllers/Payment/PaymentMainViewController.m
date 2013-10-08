@@ -1,24 +1,24 @@
 //
-//  SendReceiveMainViewController.m
+//  PaymentMainViewController.m
 //  SingPost
 //
-//  Created by Edward Soetiono on 7/10/13.
+//  Created by Edward Soetiono on 9/10/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "SendReceiveMainViewController.h"
+#import "PaymentMainViewController.h"
 #import "AppDelegate.h"
 #import "Article.h"
 #import <SVProgressHUD.h>
 
-@implementation SendReceiveMainViewController
+@implementation PaymentMainViewController
 
 @synthesize fetchedResultsController = _fetchedResultsController;
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        _fetchedResultsController = [Article frcSendReceiveArticlesWithDelegate:self];
+        _fetchedResultsController = [Article frcPaymentArticlesWithDelegate:self];
     }
     
     return _fetchedResultsController;
@@ -27,7 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setPageTitle:@"Send & Receive"];
+    [self setPageTitle:@"Pay"];
     
     //fetch data
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {

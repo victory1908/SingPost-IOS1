@@ -24,6 +24,11 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     return [Article MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"category == %@", @"Send Document / Parcel"] sortedBy:ArticleAttributes.ordering ascending:YES delegate:delegate];
 }
 
++ (NSFetchedResultsController *)frcPaymentArticlesWithDelegate:(id)delegate
+{
+    return [Article MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"category == %@", @"Payment & Other Services"] sortedBy:ArticleAttributes.ordering ascending:YES delegate:delegate];
+}
+
 #pragma mark - APIs
 
 + (void)API_getSendReceiveItemsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock

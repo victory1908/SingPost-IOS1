@@ -20,6 +20,7 @@
 #import "TrackingMainViewController.h"
 #import "LocateUsMainViewController.h"
 #import "SendReceiveMainViewController.h"
+#import "PaymentMainViewController.h"
 
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
@@ -299,6 +300,12 @@
             case SIDEBARMENU_SENDRECEIVE:
             {
                 SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_PAY:
+            {
+                PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }

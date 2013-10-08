@@ -84,10 +84,10 @@
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
 		52C908ED18046BCA0063A026 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908EC18046BCA0063A026 /* Article.m */; };
 		52C908F918047F1E0063A026 /* _Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908F818047F1E0063A026 /* _Article.m */; };
-		52C90905180487200063A026 /* PayMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90904180487200063A026 /* PayMainViewController.m */; };
 		52C9090D1804880E0063A026 /* ArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9090A1804880E0063A026 /* ArticleContentViewController.m */; };
 		52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9090C1804880E0063A026 /* ArticleTableViewCell.m */; };
 		52C909111804881A0063A026 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C909101804881A0063A026 /* ArticleViewController.m */; };
+		52C90915180490330063A026 /* PaymentMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90914180490330063A026 /* PaymentMainViewController.m */; };
 		52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */; };
 		52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */; };
 		52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */; };
@@ -238,14 +238,14 @@
 		52C908EC18046BCA0063A026 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		52C908F718047F1E0063A026 /* _Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Article.h; sourceTree = "<group>"; };
 		52C908F818047F1E0063A026 /* _Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Article.m; sourceTree = "<group>"; };
-		52C90903180487200063A026 /* PayMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayMainViewController.h; sourceTree = "<group>"; };
-		52C90904180487200063A026 /* PayMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayMainViewController.m; sourceTree = "<group>"; };
 		52C909091804880E0063A026 /* ArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleContentViewController.h; sourceTree = "<group>"; };
 		52C9090A1804880E0063A026 /* ArticleContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleContentViewController.m; sourceTree = "<group>"; };
 		52C9090B1804880E0063A026 /* ArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTableViewCell.h; sourceTree = "<group>"; };
 		52C9090C1804880E0063A026 /* ArticleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTableViewCell.m; sourceTree = "<group>"; };
 		52C9090F1804881A0063A026 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		52C909101804881A0063A026 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
+		52C90913180490330063A026 /* PaymentMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentMainViewController.h; sourceTree = "<group>"; };
+		52C90914180490330063A026 /* PaymentMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMainViewController.m; sourceTree = "<group>"; };
 		52DDA47917FE7F4700C8BF1C /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Origami.h"; sourceTree = "<group>"; };
 		52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origami.m"; sourceTree = "<group>"; };
 		52DDA47F17FEA6F000C8BF1C /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
@@ -432,7 +432,7 @@
 				528F26AF17F91E2B006F7027 /* FindPostalCodes */,
 				528F26C617F93D1F006F7027 /* LocateUs */,
 				521F784B1802634E00B513FA /* SendReceive */,
-				52C90902180487020063A026 /* Pay */,
+				52C909121804901B0063A026 /* Payment */,
 				521F785318026DDD00B513FA /* Misc */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
@@ -724,15 +724,6 @@
 			path = Api;
 			sourceTree = "<group>";
 		};
-		52C90902180487020063A026 /* Pay */ = {
-			isa = PBXGroup;
-			children = (
-				52C90903180487200063A026 /* PayMainViewController.h */,
-				52C90904180487200063A026 /* PayMainViewController.m */,
-			);
-			path = Pay;
-			sourceTree = "<group>";
-		};
 		52C90908180487C60063A026 /* Article */ = {
 			isa = PBXGroup;
 			children = (
@@ -744,6 +735,15 @@
 				52C9090A1804880E0063A026 /* ArticleContentViewController.m */,
 			);
 			path = Article;
+			sourceTree = "<group>";
+		};
+		52C909121804901B0063A026 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				52C90913180490330063A026 /* PaymentMainViewController.h */,
+				52C90914180490330063A026 /* PaymentMainViewController.m */,
+			);
+			path = Payment;
 			sourceTree = "<group>";
 		};
 		52DDA47817FE7F2E00C8BF1C /* XYOrigami */ = {
@@ -940,6 +940,7 @@
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
+				52C90915180490330063A026 /* PaymentMainViewController.m in Sources */,
 				521F785F1802944100B513FA /* CTextView.m in Sources */,
 				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
@@ -950,7 +951,6 @@
 				528F26BC17F92584006F7027 /* FindPostalCodeLandmarkView.m in Sources */,
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
 				528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */,
-				52C90905180487200063A026 /* PayMainViewController.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
