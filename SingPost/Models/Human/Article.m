@@ -29,6 +29,16 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     return [Article MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"category == %@", @"Payment & Other Services"] sortedBy:ArticleAttributes.ordering ascending:YES delegate:delegate];
 }
 
++ (NSFetchedResultsController *)frcShopArticlesWithDelegate:(id)delegate
+{
+    return [Article MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"category == %@", @"Online Shopping"] sortedBy:ArticleAttributes.ordering ascending:YES delegate:delegate];
+}
+
++ (NSFetchedResultsController *)frcMoreServicesArticlesWithDelegate:(id)delegate
+{
+    return [Article MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"category == %@", @"Government Services - Applications & Payments"] sortedBy:ArticleAttributes.ordering ascending:YES delegate:delegate];
+}
+
 #pragma mark - APIs
 
 + (void)API_getSendReceiveItemsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock

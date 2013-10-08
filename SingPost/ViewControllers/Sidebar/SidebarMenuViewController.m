@@ -21,6 +21,8 @@
 #import "LocateUsMainViewController.h"
 #import "SendReceiveMainViewController.h"
 #import "PaymentMainViewController.h"
+#import "ShopMainViewController.h"
+#import "MoreServicesMainViewController.h"
 
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
@@ -306,6 +308,18 @@
             case SIDEBARMENU_PAY:
             {
                 PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_SHOP:
+            {
+                ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_MORESERVICES:
+            {
+                MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }

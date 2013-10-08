@@ -17,6 +17,9 @@
 #import "FindPostalCodesMainViewController.h"
 #import "LocateUsMainViewController.h"
 #import "SendReceiveMainViewController.h"
+#import "PaymentMainViewController.h"
+#import "ShopMainViewController.h"
+#import "MoreServicesMainViewController.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
@@ -122,20 +125,26 @@ typedef enum {
     offsetX += ICON_WIDTH;
     UIButton *menuPayButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuPayButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuPayButton setTag:LANDINGPAGEBUTTON_PAY];
     [menuPayButton setImage:[UIImage imageNamed:@"landing_pay"] forState:UIControlStateNormal];
+    [menuPayButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuPayButton];
     
     offsetX += ICON_WIDTH;
     UIButton *menuShopButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuShopButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuShopButton setTag:LANDINGPAGEBUTTON_SHOP];
     [menuShopButton setImage:[UIImage imageNamed:@"landing_shop"] forState:UIControlStateNormal];
+    [menuShopButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuShopButton];
     
     offsetX = STARTING_OFFSET_X;
     offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
     UIButton *menuMoreServicesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuMoreServicesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuMoreServicesButton setTag:LANDINGPAGEBUTTON_MORESERVICES];
     [menuMoreServicesButton setImage:[UIImage imageNamed:@"landing_moreServices"] forState:UIControlStateNormal];
+    [menuMoreServicesButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuMoreServicesButton];
     
     offsetX += ICON_WIDTH;
@@ -219,6 +228,24 @@ typedef enum {
         case LANDINGPAGEBUTTON_SENDRECEIVE:
         {
             SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case LANDINGPAGEBUTTON_PAY:
+        {
+            PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case LANDINGPAGEBUTTON_SHOP:
+        {
+            ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case LANDINGPAGEBUTTON_MORESERVICES:
+        {
+            MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             break;
         }

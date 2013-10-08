@@ -88,6 +88,8 @@
 		52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9090C1804880E0063A026 /* ArticleTableViewCell.m */; };
 		52C909111804881A0063A026 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C909101804881A0063A026 /* ArticleViewController.m */; };
 		52C90915180490330063A026 /* PaymentMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90914180490330063A026 /* PaymentMainViewController.m */; };
+		52C90919180491110063A026 /* ShopMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90918180491110063A026 /* ShopMainViewController.m */; };
+		52C9091E180491DC0063A026 /* MoreServicesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9091D180491DC0063A026 /* MoreServicesMainViewController.m */; };
 		52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */; };
 		52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */; };
 		52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */; };
@@ -246,6 +248,10 @@
 		52C909101804881A0063A026 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		52C90913180490330063A026 /* PaymentMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentMainViewController.h; sourceTree = "<group>"; };
 		52C90914180490330063A026 /* PaymentMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMainViewController.m; sourceTree = "<group>"; };
+		52C90917180491110063A026 /* ShopMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMainViewController.h; sourceTree = "<group>"; };
+		52C90918180491110063A026 /* ShopMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopMainViewController.m; sourceTree = "<group>"; };
+		52C9091C180491DC0063A026 /* MoreServicesMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreServicesMainViewController.h; sourceTree = "<group>"; };
+		52C9091D180491DC0063A026 /* MoreServicesMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreServicesMainViewController.m; sourceTree = "<group>"; };
 		52DDA47917FE7F4700C8BF1C /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Origami.h"; sourceTree = "<group>"; };
 		52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Origami.m"; sourceTree = "<group>"; };
 		52DDA47F17FEA6F000C8BF1C /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
@@ -433,6 +439,8 @@
 				528F26C617F93D1F006F7027 /* LocateUs */,
 				521F784B1802634E00B513FA /* SendReceive */,
 				52C909121804901B0063A026 /* Payment */,
+				52C90916180491010063A026 /* Shop */,
+				52C9091A180491B60063A026 /* MoreServices */,
 				521F785318026DDD00B513FA /* Misc */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
@@ -746,6 +754,24 @@
 			path = Payment;
 			sourceTree = "<group>";
 		};
+		52C90916180491010063A026 /* Shop */ = {
+			isa = PBXGroup;
+			children = (
+				52C90917180491110063A026 /* ShopMainViewController.h */,
+				52C90918180491110063A026 /* ShopMainViewController.m */,
+			);
+			path = Shop;
+			sourceTree = "<group>";
+		};
+		52C9091A180491B60063A026 /* MoreServices */ = {
+			isa = PBXGroup;
+			children = (
+				52C9091C180491DC0063A026 /* MoreServicesMainViewController.h */,
+				52C9091D180491DC0063A026 /* MoreServicesMainViewController.m */,
+			);
+			path = MoreServices;
+			sourceTree = "<group>";
+		};
 		52DDA47817FE7F2E00C8BF1C /* XYOrigami */ = {
 			isa = PBXGroup;
 			children = (
@@ -920,7 +946,9 @@
 				52C909111804881A0063A026 /* ArticleViewController.m in Sources */,
 				52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */,
 				52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */,
+				52C9091E180491DC0063A026 /* MoreServicesMainViewController.m in Sources */,
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
+				52C90919180491110063A026 /* ShopMainViewController.m in Sources */,
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
 				521F78681802A5B300B513FA /* LocateUsDetailsServicesView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
