@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "ArticleTableViewCell.h"
 #import "ArticleContentViewController.h"
+#import "SampleArticleContentViewController.h"
 #import "Article.h"
 #import <SVProgressHUD.h>
 
@@ -122,10 +123,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    int dataRow = floorf(indexPath.row / 2.0f);
+//    Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
+//    
+//    ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithArticle:article];
+
     int dataRow = floorf(indexPath.row / 2.0f);
     Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
-    
-    ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithArticle:article];
+
+    SampleArticleContentViewController *viewController = [[SampleArticleContentViewController alloc] initWithNibName:nil bundle:nil];
+    [viewController setPageTitle:article.name];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
