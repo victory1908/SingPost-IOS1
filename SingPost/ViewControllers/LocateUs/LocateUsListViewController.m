@@ -405,9 +405,9 @@
     }
     
     LocateUsLocationTableViewCell *locationCell = (LocateUsLocationTableViewCell *)cell;
-    [locationCell setLocation:location];
     [locationCell setCachedTimeDigits:_cachedCurrentTimeDigits];
     [locationCell setCachedUserLocation:_cachedUserLocation];
+    [locationCell setLocation:location];
 }
 
 #pragma mark - Fetched results controller
