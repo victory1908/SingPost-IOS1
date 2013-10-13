@@ -19,7 +19,7 @@
         [self setTitleColor:[UIColor SingPostBlueColor] forState:UIControlStateNormal];
         [self setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
         
-        UIView *rightSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width - 1, 0, 1, self.bounds.size.height)];
+        UIView *rightSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width - 1, 0, 0.5f, self.bounds.size.height)];
         [rightSeparatorView setBackgroundColor:RGB(196, 197, 200)];
         [self addSubview:rightSeparatorView];
     }

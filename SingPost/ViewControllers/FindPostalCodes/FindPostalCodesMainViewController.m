@@ -47,11 +47,11 @@ typedef enum  {
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
-    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 1)];
+    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 0.5f)];
     [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:topSeparatorView];
     
-    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 95, contentView.bounds.size.width, 1)];
+    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 93.5, contentView.bounds.size.width, 0.5f)];
     [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:bottomSeparatorView];
     
@@ -71,19 +71,19 @@ typedef enum  {
     poBoxSectionView = [[FindPostalCodePOBoxView alloc] initWithFrame:CGRectMake(FINDPOSTALCODES_SECTION_POBOX * contentView.bounds.size.width, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
     [sectionContentScrollView addSubview:poBoxSectionView];
     
-    streetSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 45, 107, 50)];
+    streetSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 44.5, 107, 49.5)];
     [streetSectionButton setTag:FINDPOSTALCODES_SECTION_STREET];
     [streetSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [streetSectionButton setTitle:@"Street" forState:UIControlStateNormal];
     [contentView addSubview:streetSectionButton];
     
-    landmarkSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(107, 45, 107, 50)];
+    landmarkSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(106.5, 44.5, 108, 49.5)];
     [landmarkSectionButton setTag:FINDPOSTALCODES_SECTION_LANDMARK];
     [landmarkSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [landmarkSectionButton setTitle:@"Landmark" forState:UIControlStateNormal];
     [contentView addSubview:landmarkSectionButton];
     
-    poBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(214, 45, 108, 50)];
+    poBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(214, 44.5, 106.5, 49.5)];
     [poBoxSectionButton setTag:FINDPOSTALCODES_SECTION_POBOX];
     [poBoxSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [poBoxSectionButton setTitle:@"PO Box" forState:UIControlStateNormal];

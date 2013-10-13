@@ -22,6 +22,7 @@
         
         UILabel *naLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, contentScrollView.bounds.size.width - 20, 15)];
         [naLabel setTextColor:RGB(58, 68, 81)];
+        [naLabel setBackgroundColor:[UIColor clearColor]];
         [naLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [naLabel setText:@"N/A"];
         [contentScrollView addSubview:naLabel];

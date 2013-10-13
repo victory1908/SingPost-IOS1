@@ -32,6 +32,7 @@
             [naLabel setTextColor:RGB(58, 68, 81)];
             [naLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
             [naLabel setText:@"N/A"];
+            [naLabel setBackgroundColor:[UIColor clearColor]];
             [self addSubview:naLabel];
         }
     }

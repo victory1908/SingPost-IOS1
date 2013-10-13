@@ -69,22 +69,22 @@ typedef enum  {
     [singaporeSectionView setBackgroundColor:[UIColor clearColor]];
     [sectionContentScrollView addSubview:singaporeSectionView];
     
-    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 139, contentView.bounds.size.width, 1)];
+    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 139, contentView.bounds.size.width, 0.5f)];
     [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:topSeparatorView];
     
-    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 190, contentView.bounds.size.width, 1)];
+    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 189.5, contentView.bounds.size.width, 0.5f)];
     [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:bottomSeparatorView];
     
-    overseasSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 140, contentView.bounds.size.width / 2.0f, 50)];
+    overseasSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 139.5, contentView.bounds.size.width / 2.0f + 0.5f, 50)];
     [overseasSectionButton setTag:CALCULATEPOSTAGE_SECTION_OVERSEAS];
     [overseasSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [overseasSectionButton setTitle:@"Overseas" forState:UIControlStateNormal];
     [overseasSectionButton setSelected:NO];
     [contentView addSubview:overseasSectionButton];
     
-    singaporeSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width / 2.0f, 140, contentView.bounds.size.width / 2.0f, 50)];
+    singaporeSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width / 2.0f, 139.5, contentView.bounds.size.width / 2.0f, 50)];
     [singaporeSectionButton setTag:CALCULATEPOSTAGE_SECTION_SINGAPORE];
     [singaporeSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [singaporeSectionButton setTitle:@"Singapore" forState:UIControlStateNormal];
