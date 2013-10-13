@@ -5,7 +5,7 @@
 
 
 extern const struct StampAttributes {
-	__unsafe_unretained NSString *image;
+	__unsafe_unretained NSString *details;
 	__unsafe_unretained NSString *issueDate;
 	__unsafe_unretained NSString *ordering;
 	__unsafe_unretained NSString *title;
@@ -13,11 +13,13 @@ extern const struct StampAttributes {
 } StampAttributes;
 
 extern const struct StampRelationships {
+	__unsafe_unretained NSString *images;
 } StampRelationships;
 
 extern const struct StampFetchedProperties {
 } StampFetchedProperties;
 
+@class StampImage;
 
 
 
@@ -38,11 +40,11 @@ extern const struct StampFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString* image;
+@property (nonatomic, strong) NSString* details;
 
 
 
-//- (BOOL)validateImage:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateDetails:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -92,18 +94,30 @@ extern const struct StampFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSOrderedSet *images;
+
+- (NSMutableOrderedSet*)imagesSet;
+
+
+
+
 
 @end
 
 @interface _Stamp (CoreDataGeneratedAccessors)
+
+- (void)addImages:(NSOrderedSet*)value_;
+- (void)removeImages:(NSOrderedSet*)value_;
+- (void)addImagesObject:(StampImage*)value_;
+- (void)removeImagesObject:(StampImage*)value_;
 
 @end
 
 @interface _Stamp (CoreDataGeneratedPrimitiveAccessors)
 
 
-- (NSString*)primitiveImage;
-- (void)setPrimitiveImage:(NSString*)value;
+- (NSString*)primitiveDetails;
+- (void)setPrimitiveDetails:(NSString*)value;
 
 
 
@@ -133,6 +147,11 @@ extern const struct StampFetchedProperties {
 - (void)setPrimitiveYear:(NSString*)value;
 
 
+
+
+
+- (NSMutableOrderedSet*)primitiveImages;
+- (void)setPrimitiveImages:(NSMutableOrderedSet*)value;
 
 
 @end

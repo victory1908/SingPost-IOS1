@@ -4,7 +4,7 @@
 #import "_Stamp.h"
 
 const struct StampAttributes StampAttributes = {
-	.image = @"image",
+	.details = @"details",
 	.issueDate = @"issueDate",
 	.ordering = @"ordering",
 	.title = @"title",
@@ -12,6 +12,7 @@ const struct StampAttributes StampAttributes = {
 };
 
 const struct StampRelationships StampRelationships = {
+	.images = @"images",
 };
 
 const struct StampFetchedProperties StampFetchedProperties = {
@@ -55,7 +56,7 @@ const struct StampFetchedProperties StampFetchedProperties = {
 
 
 
-@dynamic image;
+@dynamic details;
 
 
 
@@ -108,6 +109,19 @@ const struct StampFetchedProperties StampFetchedProperties = {
 
 
 
+
+@dynamic images;
+
+	
+- (NSMutableOrderedSet*)imagesSet {
+	[self willAccessValueForKey:@"images"];
+  
+	NSMutableOrderedSet *result = (NSMutableOrderedSet*)[self mutableOrderedSetValueForKey:@"images"];
+  
+	[self didAccessValueForKey:@"images"];
+	return result;
+}
+	
 
 
 

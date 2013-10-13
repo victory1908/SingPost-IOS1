@@ -35,15 +35,21 @@
         <attribute name="wed_opening" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Stamp" representedClassName="Stamp" syncable="YES">
-        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="issueDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="ordering" attributeType="Integer 32" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="year" attributeType="String" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="StampImage" inverseName="stamp" inverseEntity="StampImage" syncable="YES"/>
+    </entity>
+    <entity name="StampImage" representedClassName="StampImage" syncable="YES">
+        <attribute name="image" attributeType="String" syncable="YES"/>
+        <relationship name="stamp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stamp" inverseName="images" inverseEntity="Stamp" syncable="YES"/>
     </entity>
     <elements>
         <element name="Article" positionX="-3051" positionY="-88" width="128" height="133"/>
         <element name="EntityLocation" positionX="-2864" positionY="-252" width="128" height="403"/>
-        <element name="Stamp" positionX="-3062" positionY="86" width="128" height="118"/>
+        <element name="Stamp" positionX="-3204" positionY="89" width="128" height="133"/>
+        <element name="StampImage" positionX="-3024" positionY="110" width="128" height="73"/>
     </elements>
 </model>

@@ -14,6 +14,8 @@
 #import "DatabaseSeeder.h"
 #import "Stamp.h"
 #import "StampCollectiblesTableViewCell.h"
+#import "StampCollectiblesDetailsViewController.h"
+#import "AppDelegate.h"
 
 @interface StampCollectiblesMainViewController () <CDropDownListControlDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
@@ -65,7 +67,12 @@
     [yearDropDownList selectRow:0 animated:NO];
     [contentScrollView addSubview:yearDropDownList];
     
-    stampsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 290.5, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 290.5 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 290.5, contentScrollView.bounds.size.width, 0.5f)];
+    [bottomSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+    [contentScrollView addSubview:bottomSeparatorView];
+    
+    stampsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 291, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 291 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [stampsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [stampsTableView setSeparatorColor:[UIColor clearColor]];
     [stampsTableView setBackgroundView:nil];
@@ -143,6 +150,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    StampCollectiblesDetailsViewController *detailsViewController = [[StampCollectiblesDetailsViewController alloc] initWithStamp:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:detailsViewController];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

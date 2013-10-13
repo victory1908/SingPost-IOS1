@@ -51,7 +51,6 @@
 		52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */; };
 		52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
-		527FD7571805ECBC00E27652 /* SampleArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527FD7561805ECBC00E27652 /* SampleArticleContentViewController.m */; };
 		528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F267217F8318D006F7027 /* CalculatePostageSingaporeView.m */; };
 		528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F267817F84A4A006F7027 /* CalculatePostageOverseasView.m */; };
 		528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268417F85B20006F7027 /* CalculatePostage_WeightUnits.plist */; };
@@ -84,11 +83,15 @@
 		5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */; };
 		52936481180B0FEE00B83F6B /* Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936480180B0FEE00B83F6B /* Stamp.m */; };
 		52936485180B124300B83F6B /* StampCollectiblesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */; };
-		52936488180B13B900B83F6B /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936487180B13B900B83F6B /* _Stamp.m */; };
 		5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293648A180B1B1500B83F6B /* UILabel+VerticalAlign.m */; };
 		5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293648D180B1C9900B83F6B /* NSDate+Extensions.m */; };
 		52936493180B20B700B83F6B /* PersistentBackgroundLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936492180B20B700B83F6B /* PersistentBackgroundLabel.m */; };
 		52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936495180B20EF00B83F6B /* PersistentBackgroundView.m */; };
+		52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */; };
+		5293649E180B28D800B83F6B /* SampleArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293649C180B28D800B83F6B /* SampleArticleContentViewController.m */; };
+		529364A3180B2FF100B83F6B /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 529364A0180B2FF100B83F6B /* _Stamp.m */; };
+		529364A4180B2FF100B83F6B /* _StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529364A2180B2FF100B83F6B /* _StampImage.m */; };
+		529364A7180B2FFE00B83F6B /* StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529364A6180B2FFE00B83F6B /* StampImage.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
@@ -194,8 +197,6 @@
 		52305F9D17F5D44800610A86 /* SidebarMenus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SidebarMenus.plist; path = TableViewCells/SidebarMenus.plist; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
-		527FD7551805ECBC00E27652 /* SampleArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleArticleContentViewController.h; sourceTree = "<group>"; };
-		527FD7561805ECBC00E27652 /* SampleArticleContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleArticleContentViewController.m; sourceTree = "<group>"; };
 		528F267117F8318D006F7027 /* CalculatePostageSingaporeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageSingaporeView.h; sourceTree = "<group>"; };
 		528F267217F8318D006F7027 /* CalculatePostageSingaporeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageSingaporeView.m; sourceTree = "<group>"; };
 		528F267717F84A4A006F7027 /* CalculatePostageOverseasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageOverseasView.h; sourceTree = "<group>"; };
@@ -250,8 +251,6 @@
 		52936480180B0FEE00B83F6B /* Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stamp.m; sourceTree = "<group>"; };
 		52936483180B124300B83F6B /* StampCollectiblesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesTableViewCell.h; sourceTree = "<group>"; };
 		52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectiblesTableViewCell.m; sourceTree = "<group>"; };
-		52936486180B13B900B83F6B /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
-		52936487180B13B900B83F6B /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
 		52936489180B1B1500B83F6B /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
 		5293648A180B1B1500B83F6B /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
 		5293648C180B1C9900B83F6B /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
@@ -260,6 +259,16 @@
 		52936492180B20B700B83F6B /* PersistentBackgroundLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentBackgroundLabel.m; sourceTree = "<group>"; };
 		52936494180B20EF00B83F6B /* PersistentBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistentBackgroundView.h; sourceTree = "<group>"; };
 		52936495180B20EF00B83F6B /* PersistentBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentBackgroundView.m; sourceTree = "<group>"; };
+		52936497180B254400B83F6B /* StampCollectiblesDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesDetailsViewController.h; sourceTree = "<group>"; };
+		52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectiblesDetailsViewController.m; sourceTree = "<group>"; };
+		5293649B180B28D800B83F6B /* SampleArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleArticleContentViewController.h; sourceTree = "<group>"; };
+		5293649C180B28D800B83F6B /* SampleArticleContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleArticleContentViewController.m; sourceTree = "<group>"; };
+		5293649F180B2FF100B83F6B /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
+		529364A0180B2FF100B83F6B /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
+		529364A1180B2FF100B83F6B /* _StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StampImage.h; sourceTree = "<group>"; };
+		529364A2180B2FF100B83F6B /* _StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _StampImage.m; sourceTree = "<group>"; };
+		529364A5180B2FFE00B83F6B /* StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampImage.h; sourceTree = "<group>"; };
+		529364A6180B2FFE00B83F6B /* StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImage.m; sourceTree = "<group>"; };
 		52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapViewController.h; sourceTree = "<group>"; };
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
@@ -719,6 +728,8 @@
 				528F270817F9C18C006F7027 /* EntityLocation.m */,
 				5293647F180B0FEE00B83F6B /* Stamp.h */,
 				52936480180B0FEE00B83F6B /* Stamp.m */,
+				529364A5180B2FFE00B83F6B /* StampImage.h */,
+				529364A6180B2FFE00B83F6B /* StampImage.m */,
 			);
 			path = Human;
 			sourceTree = "<group>";
@@ -730,8 +741,10 @@
 				52C908F818047F1E0063A026 /* _Article.m */,
 				528F270417F9C181006F7027 /* _EntityLocation.h */,
 				528F270517F9C181006F7027 /* _EntityLocation.m */,
-				52936486180B13B900B83F6B /* _Stamp.h */,
-				52936487180B13B900B83F6B /* _Stamp.m */,
+				5293649F180B2FF100B83F6B /* _Stamp.h */,
+				529364A0180B2FF100B83F6B /* _Stamp.m */,
+				529364A1180B2FF100B83F6B /* _StampImage.h */,
+				529364A2180B2FF100B83F6B /* _StampImage.m */,
 			);
 			path = Machine;
 			sourceTree = "<group>";
@@ -761,6 +774,8 @@
 				52936482180B121400B83F6B /* TableViewCells */,
 				52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */,
 				5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */,
+				52936497180B254400B83F6B /* StampCollectiblesDetailsViewController.h */,
+				52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */,
 			);
 			name = StampCollectibles;
 			path = StampCollectibles/StampCollectibles;
@@ -792,8 +807,6 @@
 				52C90908180487C60063A026 /* Article */,
 				52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */,
 				52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */,
-				527FD7551805ECBC00E27652 /* SampleArticleContentViewController.h */,
-				527FD7561805ECBC00E27652 /* SampleArticleContentViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -816,6 +829,8 @@
 				52C909101804881A0063A026 /* ArticleViewController.m */,
 				52C909091804880E0063A026 /* ArticleContentViewController.h */,
 				52C9090A1804880E0063A026 /* ArticleContentViewController.m */,
+				5293649B180B28D800B83F6B /* SampleArticleContentViewController.h */,
+				5293649C180B28D800B83F6B /* SampleArticleContentViewController.m */,
 			);
 			path = Article;
 			sourceTree = "<group>";
@@ -1017,7 +1032,6 @@
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
-				527FD7571805ECBC00E27652 /* SampleArticleContentViewController.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
 				52C908ED18046BCA0063A026 /* Article.m in Sources */,
 				52C909111804881A0063A026 /* ArticleViewController.m in Sources */,
@@ -1027,6 +1041,7 @@
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
 				52C90919180491110063A026 /* ShopMainViewController.m in Sources */,
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
+				529364A4180B2FF100B83F6B /* _StampImage.m in Sources */,
 				521F78681802A5B300B513FA /* LocateUsDetailsServicesView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				521F786218029D7100B513FA /* AboutThisAppViewController.m in Sources */,
@@ -1041,14 +1056,17 @@
 				52C9090D1804880E0063A026 /* ArticleContentViewController.m in Sources */,
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
 				5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */,
+				52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */,
 				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
+				5293649E180B28D800B83F6B /* SampleArticleContentViewController.m in Sources */,
 				52936481180B0FEE00B83F6B /* Stamp.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
+				529364A7180B2FFE00B83F6B /* StampImage.m in Sources */,
 				52C90915180490330063A026 /* PaymentMainViewController.m in Sources */,
 				521F785F1802944100B513FA /* CTextView.m in Sources */,
 				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,
@@ -1056,6 +1074,7 @@
 				521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
+				529364A3180B2FF100B83F6B /* _Stamp.m in Sources */,
 				528F26C517F936F0006F7027 /* FlatBlueButton.m in Sources */,
 				528F26BC17F92584006F7027 /* FindPostalCodeLandmarkView.m in Sources */,
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
@@ -1071,7 +1090,6 @@
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */,
-				52936488180B13B900B83F6B /* _Stamp.m in Sources */,
 				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,
 				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,

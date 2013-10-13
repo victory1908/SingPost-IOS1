@@ -9,6 +9,7 @@
 #import "DatabaseSeeder.h"
 #import "EntityLocation.h"
 #import "Stamp.h"
+#import "StampImage.h"
 #import "NSDate+Extensions.h"
 #import <CHCSVParser.h>
 #import <SVProgressHUD.h>
@@ -78,30 +79,43 @@
             Stamp *stamp1 = [Stamp MR_createInContext:localContext];
             stamp1.title = @"Marina Bay Skyline";
             stamp1.year = @"2013";
+            stamp1.details = @"Marina Bay has become the center piece of Singapore as a global city-state of the 21st century. It is hsaping up nicely as a seamelss extension of the downtown district to further support Singapore's continuining growth as a major business and financial hub in Asia";
             stamp1.issueDate = [NSDate dateWithDaysBeforeNow:20];
-            stamp1.image = @"sample_stamp01";
             stamp1.orderingValue = 1;
+            
+            StampImage *stamp1Image1 = [StampImage MR_createInContext:localContext];
+            [stamp1Image1 setImage:@"sample_stamp01"];
+            [stamp1 setImages:[NSOrderedSet orderedSetWithArray:@[stamp1Image1]]];
             
             Stamp *stamp2 = [Stamp MR_createInContext:localContext];
             stamp2.title = @"Definitives - Pond Life 2013";
             stamp2.year = @"2013";
             stamp2.issueDate = [NSDate dateWithDaysBeforeNow:30];
-            stamp2.image = @"sample_stamp02";
             stamp2.orderingValue = 2;
+            
+            StampImage *stamp2Image1 = [StampImage MR_createInContext:localContext];
+            [stamp2Image1 setImage:@"sample_stamp02"];
+            [stamp2 setImages:[NSOrderedSet orderedSetWithArray:@[stamp2Image1]]];
             
             Stamp *stamp3 = [Stamp MR_createInContext:localContext];
             stamp3.title = @"Marina Bay Skyline B";
             stamp3.year = @"2013";
-            stamp3.image = @"sample_stamp01";
             stamp3.issueDate = [NSDate dateWithDaysBeforeNow:40];
             stamp3.orderingValue = 3;
+            
+            StampImage *stamp3Image1 = [StampImage MR_createInContext:localContext];
+            [stamp3Image1 setImage:@"sample_stamp01"];
+            [stamp3 setImages:[NSOrderedSet orderedSetWithArray:@[stamp3Image1]]];
             
             Stamp *stamp4 = [Stamp MR_createInContext:localContext];
             stamp4.title = @"Definitives - Pond Life 2013 B";
             stamp4.year = @"2013";
-            stamp4.image = @"sample_stamp02";
             stamp4.issueDate = [NSDate dateWithDaysBeforeNow:40];
             stamp4.orderingValue = 4;
+            
+            StampImage *stamp4Image1 = [StampImage MR_createInContext:localContext];
+            [stamp4Image1 setImage:@"sample_stamp02"];
+            [stamp4 setImages:[NSOrderedSet orderedSetWithArray:@[stamp4Image1]]];
             
             [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 if (!error) {

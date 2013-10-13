@@ -95,7 +95,7 @@ static NSDateFormatter *sDateFormatter;
     [issueDateLabel setText:[sDateFormatter stringFromDate:_stamp.issueDate]];
     [issueDateLabel sizeToFit];
     
-    [stampImageView setImage:[UIImage imageNamed:_stamp.image]];
+    [stampImageView setImage:_stamp.displayImage];
 }
 
 @end
