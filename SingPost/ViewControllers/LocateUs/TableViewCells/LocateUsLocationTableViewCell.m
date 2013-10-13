@@ -9,26 +9,7 @@
 #import "LocateUsLocationTableViewCell.h"
 #import "UIFont+SingPost.h"
 #import "EntityLocation.h"
-
-//to workaround issue whereby uilabel background is automatically set to clear when table view cell is higlighted
-@interface PersistentBackgroundLabel : UILabel
-
-- (void)setPersistentBackgroundColor:(UIColor*)color;
-
-@end
-
-@implementation PersistentBackgroundLabel
-
-- (void)setPersistentBackgroundColor:(UIColor*)color {
-    super.backgroundColor = color;
-}
-
-- (void)setBackgroundColor:(UIColor *)color {
-    // do nothing - background color never changes
-}
-
-@end
-
+#import "PersistentBackgroundLabel.h"
 
 @implementation LocateUsLocationTableViewCell
 {

@@ -12,6 +12,7 @@
 
 @interface DatabaseSeeder : NSObject
 
-+ (void)seedIfRequired;
++ (void)seedLocationsDataIfRequired;
++ (void)seedStampsDataIfRequired;
 
 @end

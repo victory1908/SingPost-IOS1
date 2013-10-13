@@ -82,6 +82,13 @@
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
 		52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */; };
 		5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */; };
+		52936481180B0FEE00B83F6B /* Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936480180B0FEE00B83F6B /* Stamp.m */; };
+		52936485180B124300B83F6B /* StampCollectiblesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */; };
+		52936488180B13B900B83F6B /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936487180B13B900B83F6B /* _Stamp.m */; };
+		5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293648A180B1B1500B83F6B /* UILabel+VerticalAlign.m */; };
+		5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293648D180B1C9900B83F6B /* NSDate+Extensions.m */; };
+		52936493180B20B700B83F6B /* PersistentBackgroundLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936492180B20B700B83F6B /* PersistentBackgroundLabel.m */; };
+		52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936495180B20EF00B83F6B /* PersistentBackgroundView.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
@@ -239,6 +246,20 @@
 		5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMoreMenuView.m; sourceTree = "<group>"; };
 		52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesMainViewController.h; sourceTree = "<group>"; };
 		5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectiblesMainViewController.m; sourceTree = "<group>"; };
+		5293647F180B0FEE00B83F6B /* Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stamp.h; sourceTree = "<group>"; };
+		52936480180B0FEE00B83F6B /* Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stamp.m; sourceTree = "<group>"; };
+		52936483180B124300B83F6B /* StampCollectiblesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesTableViewCell.h; sourceTree = "<group>"; };
+		52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectiblesTableViewCell.m; sourceTree = "<group>"; };
+		52936486180B13B900B83F6B /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
+		52936487180B13B900B83F6B /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
+		52936489180B1B1500B83F6B /* UILabel+VerticalAlign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+VerticalAlign.h"; sourceTree = "<group>"; };
+		5293648A180B1B1500B83F6B /* UILabel+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+VerticalAlign.m"; sourceTree = "<group>"; };
+		5293648C180B1C9900B83F6B /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
+		5293648D180B1C9900B83F6B /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
+		52936491180B20B700B83F6B /* PersistentBackgroundLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistentBackgroundLabel.h; sourceTree = "<group>"; };
+		52936492180B20B700B83F6B /* PersistentBackgroundLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentBackgroundLabel.m; sourceTree = "<group>"; };
+		52936494180B20EF00B83F6B /* PersistentBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistentBackgroundView.h; sourceTree = "<group>"; };
+		52936495180B20EF00B83F6B /* PersistentBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentBackgroundView.m; sourceTree = "<group>"; };
 		52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapViewController.h; sourceTree = "<group>"; };
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
@@ -323,6 +344,7 @@
 		52024F1817F6836800AFD239 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				52936490180B209F00B83F6B /* Utilities */,
 				528F269717F8B7E0006F7027 /* Common */,
 				528F269317F8B7B7006F7027 /* NavigationBar */,
 				5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */,
@@ -562,12 +584,16 @@
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				52936489180B1B1500B83F6B /* UILabel+VerticalAlign.h */,
+				5293648A180B1B1500B83F6B /* UILabel+VerticalAlign.m */,
 				52DDA47F17FEA6F000C8BF1C /* UIImage+Extensions.h */,
 				52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */,
 				524CEA3C17F2830400E0EAC3 /* UIView+Position.h */,
 				524CEA3D17F2830400E0EAC3 /* UIView+Position.m */,
 				52DDA48217FEB2BA00C8BF1C /* UIView+Shadow.h */,
 				52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */,
+				5293648C180B1C9900B83F6B /* NSDate+Extensions.h */,
+				5293648D180B1C9900B83F6B /* NSDate+Extensions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -691,6 +717,8 @@
 				52C908EC18046BCA0063A026 /* Article.m */,
 				528F270717F9C18C006F7027 /* EntityLocation.h */,
 				528F270817F9C18C006F7027 /* EntityLocation.m */,
+				5293647F180B0FEE00B83F6B /* Stamp.h */,
+				52936480180B0FEE00B83F6B /* Stamp.m */,
 			);
 			path = Human;
 			sourceTree = "<group>";
@@ -702,6 +730,8 @@
 				52C908F818047F1E0063A026 /* _Article.m */,
 				528F270417F9C181006F7027 /* _EntityLocation.h */,
 				528F270517F9C181006F7027 /* _EntityLocation.m */,
+				52936486180B13B900B83F6B /* _Stamp.h */,
+				52936487180B13B900B83F6B /* _Stamp.m */,
 			);
 			path = Machine;
 			sourceTree = "<group>";
@@ -728,11 +758,32 @@
 		52936478180B017C00B83F6B /* StampCollectibles */ = {
 			isa = PBXGroup;
 			children = (
+				52936482180B121400B83F6B /* TableViewCells */,
 				52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */,
 				5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */,
 			);
 			name = StampCollectibles;
 			path = StampCollectibles/StampCollectibles;
+			sourceTree = "<group>";
+		};
+		52936482180B121400B83F6B /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				52936483180B124300B83F6B /* StampCollectiblesTableViewCell.h */,
+				52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		52936490180B209F00B83F6B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				52936491180B20B700B83F6B /* PersistentBackgroundLabel.h */,
+				52936492180B20B700B83F6B /* PersistentBackgroundLabel.m */,
+				52936494180B20EF00B83F6B /* PersistentBackgroundView.h */,
+				52936495180B20EF00B83F6B /* PersistentBackgroundView.m */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		52AF5B2317FB48AF002D6798 /* Common */ = {
@@ -962,6 +1013,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52936485180B124300B83F6B /* StampCollectiblesTableViewCell.m in Sources */,
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
@@ -988,11 +1040,14 @@
 				52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */,
 				52C9090D1804880E0063A026 /* ArticleContentViewController.m in Sources */,
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
+				5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */,
 				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
+				52936481180B0FEE00B83F6B /* Stamp.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
+				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
 				52C90915180490330063A026 /* PaymentMainViewController.m in Sources */,
 				521F785F1802944100B513FA /* CTextView.m in Sources */,
@@ -1007,6 +1062,7 @@
 				528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
+				52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
 				521F786B1802AB5100B513FA /* LocateUsDetailsPostingBoxView.m in Sources */,
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
@@ -1015,12 +1071,14 @@
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */,
+				52936488180B13B900B83F6B /* _Stamp.m in Sources */,
 				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,
 				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
 				52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */,
+				52936493180B20B700B83F6B /* PersistentBackgroundLabel.m in Sources */,
 				52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */,
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,

@@ -21,7 +21,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [MagicalRecord setupCoreDataStack];
-    [DatabaseSeeder seedIfRequired];
+    [DatabaseSeeder seedLocationsDataIfRequired];
+    [DatabaseSeeder seedStampsDataIfRequired];  //FIXME: for development only
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

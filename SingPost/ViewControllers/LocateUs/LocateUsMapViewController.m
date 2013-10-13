@@ -65,8 +65,7 @@
     [contentScrollView addSubview:goButton];
     
     initialShouldCenterUserLocation = YES;
-    locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 120)];
-    [locateUsMapView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
+    locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 180)];
     [locateUsMapView setDelegate:self];
     [locateUsMapView setShowsUserLocation:YES];
     [contentScrollView addSubview:locateUsMapView];
