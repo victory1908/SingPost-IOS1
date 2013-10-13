@@ -20,7 +20,6 @@
     UIButton *closePickerButton;
     UIView *pickerViewContainerView;
     UILabel *selectedValueLabel;
-    NSArray *_values;
     
     NSUInteger selectedRowIndex;
     
@@ -77,6 +76,9 @@
             [UIView animateWithDuration:0.3f animations:^{
                 [pickerViewContainerView setHeight:0.0f];
             } completion:^(BOOL finished) {
+                if ([self.delegate respondsToSelector:@selector(dropDownListIsDismissed:)])
+                    [self.delegate dropDownListIsDismissed:self];
+                
                 [pickerViewContainerView removeFromSuperview];
                 [closePickerButton removeFromSuperview];
                 isAnimating = NO;
@@ -116,11 +118,16 @@
 
 #pragma mark - Accessors
 
+- (void)setValues:(NSArray *)inValues
+{
+    _values = inValues;
+    [pickerView reloadAllComponents];
+}
+
 - (void)setPlistValueFile:(NSString *)inPlistValueFile
 {
     _plistValueFile = inPlistValueFile;
-    _values = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_plistValueFile ofType:@"plist"]];
-    [pickerView reloadAllComponents];
+    [self setValues:[NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:_plistValueFile ofType:@"plist"]]];
 }
 
 - (void)setPlaceholderText:(NSString *)placeholderText

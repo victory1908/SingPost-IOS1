@@ -81,6 +81,7 @@
 		528F270617F9C181006F7027 /* _EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270517F9C181006F7027 /* _EntityLocation.m */; };
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
 		52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */; };
+		5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
@@ -236,6 +237,8 @@
 		528F270817F9C18C006F7027 /* EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityLocation.m; sourceTree = "<group>"; };
 		5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMoreMenuView.h; sourceTree = "<group>"; };
 		5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMoreMenuView.m; sourceTree = "<group>"; };
+		52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesMainViewController.h; sourceTree = "<group>"; };
+		5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectiblesMainViewController.m; sourceTree = "<group>"; };
 		52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapViewController.h; sourceTree = "<group>"; };
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
@@ -449,6 +452,7 @@
 				52C909121804901B0063A026 /* Payment */,
 				52C90916180491010063A026 /* Shop */,
 				52C9091A180491B60063A026 /* MoreServices */,
+				52936478180B017C00B83F6B /* StampCollectibles */,
 				521F785318026DDD00B513FA /* Misc */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
@@ -719,6 +723,16 @@
 				528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		52936478180B017C00B83F6B /* StampCollectibles */ = {
+			isa = PBXGroup;
+			children = (
+				52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */,
+				5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */,
+			);
+			name = StampCollectibles;
+			path = StampCollectibles/StampCollectibles;
 			sourceTree = "<group>";
 		};
 		52AF5B2317FB48AF002D6798 /* Common */ = {
@@ -1001,6 +1015,7 @@
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */,
+				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,
 				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,

@@ -14,6 +14,7 @@
 
 @interface CDropDownListControl : UIControl
 
+@property (nonatomic) NSArray *values;
 @property (nonatomic) NSString *plistValueFile;
 @property (nonatomic) NSString *placeholderText;
 @property (nonatomic) CGFloat fontSize;
@@ -29,5 +30,8 @@
 @protocol CDropDownListControlDelegate <NSObject>
 
 - (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight;
+
+@optional
+- (void)dropDownListIsDismissed:(CDropDownListControl *)control;
 
 @end

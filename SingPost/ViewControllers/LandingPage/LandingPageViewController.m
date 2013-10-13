@@ -24,6 +24,7 @@
 #import "MoreServicesMainViewController.h"
 #import "FeedbackViewController.h"
 #import "TermsOfUseViewController.h"
+#import "StampCollectiblesMainViewController.h"
 #import "AboutThisAppViewController.h"
 
 typedef enum {
@@ -156,6 +157,8 @@ typedef enum {
     offsetX += ICON_WIDTH;
     UIButton *menuStampCollectiblesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuStampCollectiblesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
+    [menuStampCollectiblesButton setTag:LANDINGPAGEBUTTON_STAMPCOLLECTIBLES];
+    [menuStampCollectiblesButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [menuStampCollectiblesButton setImage:[UIImage imageNamed:@"landing_stampCollectibles"] forState:UIControlStateNormal];
     [contentView addSubview:menuStampCollectiblesButton];
     
@@ -271,6 +274,12 @@ typedef enum {
         case LANDINGPAGEBUTTON_MORESERVICES:
         {
             MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case LANDINGPAGEBUTTON_STAMPCOLLECTIBLES:
+        {
+            StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             break;
         }

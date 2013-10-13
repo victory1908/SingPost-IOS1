@@ -23,6 +23,7 @@
 #import "PaymentMainViewController.h"
 #import "ShopMainViewController.h"
 #import "MoreServicesMainViewController.h"
+#import "StampCollectiblesMainViewController.h"
 
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
@@ -320,6 +321,12 @@
             case SIDEBARMENU_MORESERVICES:
             {
                 MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SIDEBARMENU_STAMPCOLLECTIBLES:
+            {
+                StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }
