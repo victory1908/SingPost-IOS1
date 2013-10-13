@@ -10,7 +10,9 @@
 #import "AppDelegate.h"
 #import "UIFont+SingPost.h"
 #import "UIColor+SingPost.h"
+#import "UIView+Position.h"
 #import "CTextField.h"
+#import "OffersMoreMenuView.h"
 
 #import "TrackingMainViewController.h"
 #import "CalculatePostageViewController.h"
@@ -20,6 +22,9 @@
 #import "PaymentMainViewController.h"
 #import "ShopMainViewController.h"
 #import "MoreServicesMainViewController.h"
+#import "FeedbackViewController.h"
+#import "TermsOfUseViewController.h"
+#import "AboutThisAppViewController.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
@@ -33,13 +38,14 @@ typedef enum {
     LANDINGPAGEBUTTON_OFFERS
 } tLandingPageButtons;
 
-@interface LandingPageViewController () <UITextFieldDelegate>
+@interface LandingPageViewController () <UITextFieldDelegate, OffersMenuDelegate>
 
 @end
 
 @implementation LandingPageViewController
 {
     CTextField *trackingNumberTextField;
+    OffersMoreMenuView *offersMoreMenuView;
 }
 
 #pragma mark - View lifecycle
@@ -158,24 +164,11 @@ typedef enum {
     [menuMoreAppsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuMoreAppsButton setImage:[UIImage imageNamed:@"landing_moreApps"] forState:UIControlStateNormal];
     [contentView addSubview:menuMoreAppsButton];
-
-    UIView *offersMoreBackroundView = [[UIView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - 46, contentView.bounds.size.width, 26)];
-    [offersMoreBackroundView setBackgroundColor:RGB(35, 81, 151)];
-    [contentView addSubview:offersMoreBackroundView];
     
-    UIButton *offersMoreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [offersMoreButton setFrame:CGRectMake(110, 1, 110, 26)];
-    [offersMoreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-    [offersMoreButton setImage:[UIImage imageNamed:@"offersmore_indicator"] forState:UIControlStateNormal];
-    [offersMoreButton setTitle:@"Offers & More" forState:UIControlStateNormal];
-    [offersMoreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [offersMoreButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [offersMoreButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    [offersMoreButton addTarget:self action:@selector(offersMoreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [offersMoreButton setBackgroundColor:[UIColor clearColor]];
-    offersMoreButton.imageEdgeInsets = UIEdgeInsetsMake(1, 89, 0, 0);
-    [offersMoreBackroundView addSubview:offersMoreButton];
-
+    offersMoreMenuView = [[OffersMoreMenuView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - 52, contentView.bounds.size.width, 500)];
+    [offersMoreMenuView setDelegate:self];
+    [contentView addSubview:offersMoreMenuView];
+    
     self.view = contentView;
 }
 
@@ -198,6 +191,38 @@ typedef enum {
     }
     
     return YES;
+}
+
+#pragma mark - OffersMenuDelegate
+
+- (void)toggleShowOffersMoreMenu
+{
+    offersMoreMenuView.isShown = !offersMoreMenuView.isShown;
+    
+    if (offersMoreMenuView.isShown) {
+#define TAG_CLOSEOFFERSMENUBUTTON 333
+        UIButton *closeOffersMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [closeOffersMenuButton setTag:TAG_CLOSEOFFERSMENUBUTTON];
+        [closeOffersMenuButton setBackgroundColor:[UIColor colorWithWhite:0.3f alpha:0.5f]];
+        [closeOffersMenuButton setFrame:self.view.bounds];
+        [closeOffersMenuButton setAlpha:0.0f];
+        [closeOffersMenuButton addTarget:self action:@selector(toggleShowOffersMoreMenu) forControlEvents:UIControlEventTouchUpInside];
+        [self.view insertSubview:closeOffersMenuButton belowSubview:offersMoreMenuView];
+    }
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        if (offersMoreMenuView.isShown) {
+            [offersMoreMenuView setY:self.view.bounds.size.height - 236];
+            [[self.view viewWithTag:TAG_CLOSEOFFERSMENUBUTTON] setAlpha:1.0f];
+        }
+        else {
+            [offersMoreMenuView setY:self.view.bounds.size.height - 52];
+            [[self.view viewWithTag:TAG_CLOSEOFFERSMENUBUTTON] removeFromSuperview];
+        }
+        
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - IBActions
@@ -251,6 +276,34 @@ typedef enum {
         }
         default:
             NSLog(@"not yet implemented");
+            break;
+    }
+}
+
+- (void)offersMenuButtonClicked:(tOffersMenuButtons)button
+{
+    [self toggleShowOffersMoreMenu];
+    switch (button) {
+        case OFFERSMENUBUTTON_FEEDBACK:
+        {
+            FeedbackViewController *viewController = [[FeedbackViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case OFFERSMENUBUTTON_TERMSOFUSE:
+        {
+            TermsOfUseViewController *viewController = [[TermsOfUseViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case OFFERSMENUBUTTON_ABOUTTHISAPP:
+        {
+            AboutThisAppViewController *viewController = [[AboutThisAppViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        default:
+            NSLog(@"offers menu button not implemented yet");
             break;
     }
 }

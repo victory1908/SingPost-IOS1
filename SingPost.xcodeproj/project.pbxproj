@@ -80,6 +80,7 @@
 		528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */; };
 		528F270617F9C181006F7027 /* _EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270517F9C181006F7027 /* _EntityLocation.m */; };
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
+		52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
@@ -233,6 +234,8 @@
 		528F270517F9C181006F7027 /* _EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EntityLocation.m; sourceTree = "<group>"; };
 		528F270717F9C18C006F7027 /* EntityLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityLocation.h; sourceTree = "<group>"; };
 		528F270817F9C18C006F7027 /* EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityLocation.m; sourceTree = "<group>"; };
+		5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMoreMenuView.h; sourceTree = "<group>"; };
+		5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMoreMenuView.m; sourceTree = "<group>"; };
 		52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapViewController.h; sourceTree = "<group>"; };
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
@@ -319,6 +322,8 @@
 			children = (
 				528F269717F8B7E0006F7027 /* Common */,
 				528F269317F8B7B7006F7027 /* NavigationBar */,
+				5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */,
+				5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -966,6 +971,7 @@
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,
 				52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */,
 				528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */,
+				52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */,
 				52C9090D1804880E0063A026 /* ArticleContentViewController.m in Sources */,
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
 				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
