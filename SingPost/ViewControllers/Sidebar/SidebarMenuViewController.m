@@ -111,7 +111,7 @@
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    [self.view makeInsetShadowWithRadius:10.0f Color:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1] Directions:@[@"right"]];
+    [self.view makeInsetShadowWithRadius:6.0f Color:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1] Directions:@[@"right"]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
