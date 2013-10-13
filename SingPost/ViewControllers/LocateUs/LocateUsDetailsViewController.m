@@ -104,29 +104,29 @@ typedef enum  {
     [showMapRouteButton addTarget:self action:@selector(showMapRouteDirectionsClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentScrollView addSubview:showMapRouteButton];
     
-    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 266, contentView.bounds.size.width, 1)];
+    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 266, contentView.bounds.size.width, 0.5f)];
     [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
     [contentScrollView addSubview:topSeparatorView];
     
-    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 317, contentView.bounds.size.width, 1)];
+    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 316.5, contentView.bounds.size.width, 0.5f)];
     [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
     [contentScrollView addSubview:bottomSeparatorView];
     
-    openingHoursSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 267, 107, 50)];
+    openingHoursSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 266.5f, 107, 50)];
     [openingHoursSectionButton setTag:LOCATEUSDETAILS_SECTION_OPENINGHOURS];
     [openingHoursSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [openingHoursSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [openingHoursSectionButton setTitle:@"Opening hours" forState:UIControlStateNormal];
     [contentScrollView addSubview:openingHoursSectionButton];
     
-    servicesSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(107, 267, 107, 50)];
+    servicesSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(106.5, 266.5f, 108, 50)];
     [servicesSectionButton setTag:LOCATEUSDETAILS_SECTION_SERVICES];
     [servicesSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [servicesSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [servicesSectionButton setTitle:@"Services" forState:UIControlStateNormal];
     [contentScrollView addSubview:servicesSectionButton];
     
-    postingBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(214, 267, 108, 50)];
+    postingBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(214, 266.5f, 108, 50)];
     [postingBoxSectionButton setTag:LOCATEUSDETAILS_SECTION_POSTINGBOX];
     [postingBoxSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [postingBoxSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
