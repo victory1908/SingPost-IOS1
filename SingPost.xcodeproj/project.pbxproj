@@ -51,6 +51,7 @@
 		52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */; };
 		52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
+		526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */; };
 		528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F267217F8318D006F7027 /* CalculatePostageSingaporeView.m */; };
 		528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F267817F84A4A006F7027 /* CalculatePostageOverseasView.m */; };
 		528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268417F85B20006F7027 /* CalculatePostage_WeightUnits.plist */; };
@@ -197,6 +198,8 @@
 		52305F9D17F5D44800610A86 /* SidebarMenus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SidebarMenus.plist; path = TableViewCells/SidebarMenus.plist; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
+		526FA1A0180BB7BD00E562E7 /* StampImagesBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampImagesBrowserViewController.h; sourceTree = "<group>"; };
+		526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImagesBrowserViewController.m; sourceTree = "<group>"; };
 		528F267117F8318D006F7027 /* CalculatePostageSingaporeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageSingaporeView.h; sourceTree = "<group>"; };
 		528F267217F8318D006F7027 /* CalculatePostageSingaporeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageSingaporeView.m; sourceTree = "<group>"; };
 		528F267717F84A4A006F7027 /* CalculatePostageOverseasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageOverseasView.h; sourceTree = "<group>"; };
@@ -776,6 +779,8 @@
 				5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */,
 				52936497180B254400B83F6B /* StampCollectiblesDetailsViewController.h */,
 				52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */,
+				526FA1A0180BB7BD00E562E7 /* StampImagesBrowserViewController.h */,
+				526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */,
 			);
 			name = StampCollectibles;
 			path = StampCollectibles/StampCollectibles;
@@ -1067,6 +1072,7 @@
 				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
 				529364A7180B2FFE00B83F6B /* StampImage.m in Sources */,
+				526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */,
 				52C90915180490330063A026 /* PaymentMainViewController.m in Sources */,
 				521F785F1802944100B513FA /* CTextView.m in Sources */,
 				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,

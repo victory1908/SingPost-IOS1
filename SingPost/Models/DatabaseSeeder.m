@@ -85,11 +85,14 @@
             
             StampImage *stamp1Image1 = [StampImage MR_createInContext:localContext];
             [stamp1Image1 setImage:@"sample_stamp01"];
-            [stamp1 setImages:[NSOrderedSet orderedSetWithArray:@[stamp1Image1]]];
+            StampImage *stamp1Image2 = [StampImage MR_createInContext:localContext];
+            [stamp1Image2 setImage:@"sample_stamp02"];
+            [stamp1 setImages:[NSOrderedSet orderedSetWithArray:@[stamp1Image1, stamp1Image2]]];
             
             Stamp *stamp2 = [Stamp MR_createInContext:localContext];
             stamp2.title = @"Definitives - Pond Life 2013";
             stamp2.year = @"2013";
+            stamp2.details = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
             stamp2.issueDate = [NSDate dateWithDaysBeforeNow:30];
             stamp2.orderingValue = 2;
             
@@ -99,6 +102,7 @@
             
             Stamp *stamp3 = [Stamp MR_createInContext:localContext];
             stamp3.title = @"Marina Bay Skyline B";
+            stamp3.details = @"Marina Bay has become the center piece of Singapore as a global city-state of the 21st century. It is hsaping up nicely as a seamelss extension of the downtown district to further support Singapore's continuining growth as a major business and financial hub in Asia";
             stamp3.year = @"2013";
             stamp3.issueDate = [NSDate dateWithDaysBeforeNow:40];
             stamp3.orderingValue = 3;
@@ -110,6 +114,7 @@
             Stamp *stamp4 = [Stamp MR_createInContext:localContext];
             stamp4.title = @"Definitives - Pond Life 2013 B";
             stamp4.year = @"2013";
+            stamp4.details = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
             stamp4.issueDate = [NSDate dateWithDaysBeforeNow:40];
             stamp4.orderingValue = 4;
             

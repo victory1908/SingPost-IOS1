@@ -38,7 +38,7 @@
     [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, 1015)];
     [contentView addSubview:contentScrollView];
     
-    UIImageView *imagesScrollerBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, 320, 185)];
+    UIImageView *imagesScrollerBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 185)];
     [imagesScrollerBackgroundImageView setImage:[UIImage imageNamed:@"image_scrolller_background"]];
     [contentScrollView addSubview:imagesScrollerBackgroundImageView];
     
