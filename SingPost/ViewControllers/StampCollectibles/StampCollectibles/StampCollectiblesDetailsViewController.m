@@ -11,9 +11,13 @@
 #import "Stamp.h"
 #import "StampImage.h"
 #import "UIFont+SingPost.h"
+#import "UIView+Position.h"
 #import "UIImage+Extensions.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ColoredPageControl.h"
+#import "FlatBlueButton.h"
+#import "AppDelegate.h"
+#import "LocateUsMainViewController.h"
 #import "StampImagesBrowserViewController.h"
 
 @interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate>
@@ -26,6 +30,8 @@
     UIImageView *imagesScrollerBackgroundImageView;
     UIScrollView *contentScrollView, *imagesScrollView;
     ColoredPageControl *pageControl;
+    
+    BOOL isAnimating;
 }
 
 //designated initializer
@@ -58,7 +64,7 @@
     contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44)];
     [contentView addSubview:contentScrollView];
     
-    CGFloat offsetY = 0;
+    __block CGFloat offsetY = 0;
     
     imagesScrollerBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, offsetY, 320, 185)];
     [imagesScrollerBackgroundImageView setImage:[UIImage imageNamed:@"image_scrolller_background"]];
@@ -136,7 +142,143 @@
     [moreButton setFrame:CGRectMake(15, offsetY, 50, 30)];
     [contentScrollView addSubview:moreButton];
     
-    [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, 800)];
+    offsetY += 50.0f;
+    
+    UIView *topTableSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 0.5f)];
+    [topTableSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+    [contentScrollView addSubview:topTableSeparatorView];
+    
+    offsetY += 0.5f;
+    
+    UIView *stampsBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 0)];
+    [stampsBackgroundView setBackgroundColor:RGB(240, 240, 240)];
+    [contentScrollView addSubview:stampsBackgroundView];
+    
+    offsetY += 0.0f;
+    
+    UILabel *typesHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 100, 30)];
+    [typesHeaderLabel setText:@"Types"];
+    [typesHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [typesHeaderLabel setTextColor:RGB(125, 136, 149)];
+    [contentScrollView addSubview:typesHeaderLabel];
+    
+    UILabel *localAmountHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(140, offsetY, 100, 30)];
+    [localAmountHeaderLabel setText:@"Local (S$)"];
+    [localAmountHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [localAmountHeaderLabel setTextColor:RGB(125, 136, 149)];
+    [contentScrollView addSubview:localAmountHeaderLabel];
+    
+    UILabel *overseasAmountLabel = [[UILabel alloc] initWithFrame:CGRectMake(229, offsetY, 100, 30)];
+    [overseasAmountLabel setText:@"Overseas ($)"];
+    [overseasAmountLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [overseasAmountLabel setTextColor:RGB(125, 136, 149)];
+    [contentScrollView addSubview:overseasAmountLabel];
+    
+    offsetY += 35.0f;
+    
+    UIView *separatorView1 = [[UIView alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.bounds.size.width - 30, 0.5f)];
+    [separatorView1 setBackgroundColor:RGB(196, 197, 200)];
+    [contentScrollView addSubview:separatorView1];
+    
+    NSArray *types = @[@"Stamps", @"First Day Cover with Stamps", @"Presentation Pack", @"Collector's Sheet", @"Singapore's Skyline Collection"];
+    NSArray *locals = @[@"$3.23*", @"$4.10*", @"$5.05*", @"$8.00*", @"$18.80*"];
+    NSArray *overseas = @[@"$3.23", @"$3.83", @"$4.73", @"$7.48", @"$17.57"];
+    
+    for (int i = 0; i < 5; i++) {
+        offsetY += 5.0f;
+        UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 100, 40)];
+        [typeLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+        [typeLabel setNumberOfLines:2];
+        [typeLabel setTextColor:RGB(58, 68, 81)];
+        [typeLabel setBackgroundColor:[UIColor clearColor]];
+        [typeLabel setText:types[i]];
+        [contentScrollView addSubview:typeLabel];
+        
+        UILabel *localAmountLabel = [[UILabel alloc] initWithFrame:CGRectMake(140, offsetY, 60, 40)];
+        [localAmountLabel setBackgroundColor:[UIColor clearColor]];
+        [localAmountLabel setText:locals[i]];
+        [localAmountLabel setTextColor:RGB(58, 68, 81)];
+        [localAmountLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+        [contentScrollView addSubview:localAmountLabel];
+        
+        UILabel *overseasAmountLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, offsetY, 60, 40)];
+        [overseasAmountLabel setBackgroundColor:[UIColor clearColor]];
+        [overseasAmountLabel setText:overseas[i]];
+        [overseasAmountLabel setTextColor:RGB(58, 68, 81)];
+        [overseasAmountLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+        [contentScrollView addSubview:overseasAmountLabel];
+        
+        offsetY += 50.0f;
+        
+        UIView *itemSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.bounds.size.width - 30, 0.5f)];
+        [itemSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+        [contentScrollView addSubview:itemSeparatorView];
+    }
+    
+    offsetY += 0.0f;
+    
+    UILabel *priceIncludesGSTDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 280, 44)];
+    [priceIncludesGSTDisplayLabel setFont:[UIFont SingPostLightItalicFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
+    [priceIncludesGSTDisplayLabel setTextColor:RGB(125, 136, 149)];
+    [priceIncludesGSTDisplayLabel setText:@"*Prices inclusive of GST for purchases within Singapore."];
+    [contentScrollView addSubview:priceIncludesGSTDisplayLabel];
+    
+    offsetY += 45.0f;
+    
+    [stampsBackgroundView setHeight:(offsetY - stampsBackgroundView.frame.origin.y)];
+
+    UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 0.5f)];
+    [separatorView2 setBackgroundColor:RGB(196, 197, 200)];
+    [contentScrollView addSubview:separatorView2];
+    
+    offsetY += 20.0f;
+    
+    UILabel *availableWhileStocksLastDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 200, 20)];
+    [availableWhileStocksLastDisplayLabel setTextColor:RGB(125, 136, 149)];
+    [availableWhileStocksLastDisplayLabel setBackgroundColor:[UIColor clearColor]];
+    [availableWhileStocksLastDisplayLabel setText:@"Available at (while stocks last):"];
+    [availableWhileStocksLastDisplayLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [contentScrollView addSubview:availableWhileStocksLastDisplayLabel];
+    
+    offsetY += 40.0f;
+    
+    UIView *separatorView3 = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 0.5f)];
+    [separatorView3 setBackgroundColor:RGB(196, 197, 200)];
+    [contentScrollView addSubview:separatorView3];
+    
+    offsetY += 25.0f;
+    
+    NSArray *availablePlaces = @[@"All Post Offices", @"Singapore Philatelic Museum", @"vPost"];
+    
+    [availablePlaces enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        UILabel *numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 32, 20)];
+        [numberLabel setTextColor:RGB(36, 84, 157)];
+        [numberLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+        [numberLabel setBackgroundColor:[UIColor clearColor]];
+        [numberLabel setText:[NSString stringWithFormat:@"%d.", idx + 1]];
+        [contentScrollView addSubview:numberLabel];
+        
+        UILabel *placesLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, offsetY, 240, 20)];
+        [placesLabel setText:availablePlaces[idx]];
+        [placesLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+        [placesLabel setTextColor:RGB(51, 51, 51)];
+        [placesLabel setBackgroundColor:[UIColor clearColor]];
+        [contentScrollView addSubview:placesLabel];
+        
+        offsetY += 40.0f;
+    }];
+    
+    offsetY += 10.0f;
+    
+    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, offsetY, contentView.bounds.size.width - 30, 48)];
+    [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [locateUsButton setTitle:@"FIND OUR LOCATIONS NEAR YOU" forState:UIControlStateNormal];
+    [contentScrollView addSubview:locateUsButton];
+    
+    offsetY += 90.0f;
+    
+    [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, offsetY)];
 
     self.view = contentView;
 }
@@ -174,6 +316,11 @@
 
 - (IBAction)enlargeButtonClicked:(id)sender
 {
+    if (isAnimating)
+        return;
+    
+    isAnimating = YES;
+    
     StampImagesBrowserViewController *imageBrowserViewController = [[StampImagesBrowserViewController alloc] initWithStampImages:[_stamp.images array]];
     imageBrowserViewController.currentIndex = pageControl.currentPage;
     [imageBrowserViewController setDelegate:self];
@@ -187,13 +334,26 @@
         [imageBrowserViewController.view.layer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
     } completion:^(BOOL finished) {
         [imageBrowserViewController didMoveToParentViewController:self];
+        isAnimating = NO;
     }];
+}
+
+- (IBAction)locateUsButtonClicked:(id)sender
+{
+    LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+    viewController.showNavBarBackButton = YES;
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
 }
 
 #pragma mark - StampImageBrowserDelegate
 
 - (void)stampImageBrowserDismissed:(StampImagesBrowserViewController *)browserViewController
 {
+    if (isAnimating)
+        return;
+    
+    isAnimating = YES;
+    
     [imagesScrollView setContentOffset:CGPointMake(imagesScrollView.bounds.size.width * browserViewController.currentIndex, 0)];
     [browserViewController willMoveToParentViewController:nil];
     [UIView animateWithDuration:0.3f animations:^{
@@ -203,6 +363,7 @@
     } completion:^(BOOL finished) {
         [browserViewController.view removeFromSuperview];
         [browserViewController removeFromParentViewController];
+        isAnimating = NO;
     }];
 }
 

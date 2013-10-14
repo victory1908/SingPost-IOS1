@@ -79,7 +79,7 @@
             Stamp *stamp1 = [Stamp MR_createInContext:localContext];
             stamp1.title = @"Marina Bay Skyline";
             stamp1.year = @"2013";
-            stamp1.details = @"Marina Bay has become the center piece of Singapore as a global city-state of the 21st century. It is hsaping up nicely as a seamelss extension of the downtown district to further support Singapore's continuining growth as a major business and financial hub in Asia";
+            stamp1.details = @"Marina Bay has become the center piece of Singapore as a global city-state of the 21st century. It is shaping up nicely as a seamelss extension of the downtown district to further support Singapore's continuining growth as a major business and financial hub in Asia";
             stamp1.issueDate = [NSDate dateWithDaysBeforeNow:20];
             stamp1.orderingValue = 1;
             
@@ -102,7 +102,7 @@
             
             Stamp *stamp3 = [Stamp MR_createInContext:localContext];
             stamp3.title = @"Marina Bay Skyline B";
-            stamp3.details = @"Marina Bay has become the center piece of Singapore as a global city-state of the 21st century. It is hsaping up nicely as a seamelss extension of the downtown district to further support Singapore's continuining growth as a major business and financial hub in Asia";
+            stamp3.details = @"Marina Bay has become the center piece of Singapore as a global city-state of the 21st century. It is shaping up nicely as a seamelss extension of the downtown district to further support Singapore's continuining growth as a major business and financial hub in Asia";
             stamp3.year = @"2013";
             stamp3.issueDate = [NSDate dateWithDaysBeforeNow:40];
             stamp3.orderingValue = 3;
