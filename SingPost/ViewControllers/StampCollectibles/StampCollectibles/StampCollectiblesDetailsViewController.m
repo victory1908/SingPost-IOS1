@@ -121,6 +121,7 @@
     
     UILabel *detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.bounds.size.width - 30, 30)];
     [detailsLabel setNumberOfLines:0];
+    [detailsLabel setBackgroundColor:[UIColor clearColor]];
     [detailsLabel setTextColor:RGB(51, 51, 51)];
     [detailsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [detailsLabel setText:_stamp.details];
@@ -158,18 +159,21 @@
     
     UILabel *typesHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 100, 30)];
     [typesHeaderLabel setText:@"Types"];
+    [typesHeaderLabel setBackgroundColor:[UIColor clearColor]];
     [typesHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [typesHeaderLabel setTextColor:RGB(125, 136, 149)];
     [contentScrollView addSubview:typesHeaderLabel];
     
     UILabel *localAmountHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(140, offsetY, 100, 30)];
     [localAmountHeaderLabel setText:@"Local (S$)"];
+    [localAmountHeaderLabel setBackgroundColor:[UIColor clearColor]];
     [localAmountHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [localAmountHeaderLabel setTextColor:RGB(125, 136, 149)];
     [contentScrollView addSubview:localAmountHeaderLabel];
     
     UILabel *overseasAmountLabel = [[UILabel alloc] initWithFrame:CGRectMake(229, offsetY, 100, 30)];
     [overseasAmountLabel setText:@"Overseas ($)"];
+    [overseasAmountLabel setBackgroundColor:[UIColor clearColor]];
     [overseasAmountLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [overseasAmountLabel setTextColor:RGB(125, 136, 149)];
     [contentScrollView addSubview:overseasAmountLabel];
@@ -220,6 +224,7 @@
     UILabel *priceIncludesGSTDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 280, 44)];
     [priceIncludesGSTDisplayLabel setFont:[UIFont SingPostLightItalicFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
     [priceIncludesGSTDisplayLabel setTextColor:RGB(125, 136, 149)];
+    [priceIncludesGSTDisplayLabel setBackgroundColor:[UIColor clearColor]];
     [priceIncludesGSTDisplayLabel setText:@"*Prices inclusive of GST for purchases within Singapore."];
     [contentScrollView addSubview:priceIncludesGSTDisplayLabel];
     
