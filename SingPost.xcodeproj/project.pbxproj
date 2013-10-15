@@ -80,6 +80,7 @@
 		528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */; };
 		528F270617F9C181006F7027 /* _EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270517F9C181006F7027 /* _EntityLocation.m */; };
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
+		529090EB180CFCD200D84030 /* OffersMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090EA180CFCD200D84030 /* OffersMainViewController.m */; };
 		52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */; };
 		5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */; };
 		52936481180B0FEE00B83F6B /* Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936480180B0FEE00B83F6B /* Stamp.m */; };
@@ -246,6 +247,8 @@
 		528F270517F9C181006F7027 /* _EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EntityLocation.m; sourceTree = "<group>"; };
 		528F270717F9C18C006F7027 /* EntityLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityLocation.h; sourceTree = "<group>"; };
 		528F270817F9C18C006F7027 /* EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityLocation.m; sourceTree = "<group>"; };
+		529090E9180CFCD200D84030 /* OffersMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMainViewController.h; sourceTree = "<group>"; };
+		529090EA180CFCD200D84030 /* OffersMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMainViewController.m; sourceTree = "<group>"; };
 		5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMoreMenuView.h; sourceTree = "<group>"; };
 		5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMoreMenuView.m; sourceTree = "<group>"; };
 		52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesMainViewController.h; sourceTree = "<group>"; };
@@ -487,6 +490,7 @@
 				52C90916180491010063A026 /* Shop */,
 				52C9091A180491B60063A026 /* MoreServices */,
 				52936478180B017C00B83F6B /* StampCollectibles */,
+				529090E8180C91B100D84030 /* Offers */,
 				521F785318026DDD00B513FA /* Misc */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
@@ -769,6 +773,15 @@
 				528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		529090E8180C91B100D84030 /* Offers */ = {
+			isa = PBXGroup;
+			children = (
+				529090E9180CFCD200D84030 /* OffersMainViewController.h */,
+				529090EA180CFCD200D84030 /* OffersMainViewController.m */,
+			);
+			path = Offers;
 			sourceTree = "<group>";
 		};
 		52936478180B017C00B83F6B /* StampCollectibles */ = {
@@ -1105,6 +1118,7 @@
 				52936493180B20B700B83F6B /* PersistentBackgroundLabel.m in Sources */,
 				52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */,
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
+				529090EB180CFCD200D84030 /* OffersMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,

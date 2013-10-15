@@ -153,7 +153,7 @@
 
 #pragma mark - UIGestures
 
-- (void)handleResignRespondersTap:(UITapGestureRecognizer *)tapGesture
+- (void)handleResignRespondersTapped:(UITapGestureRecognizer *)tapGesture
 {
     [trackingNumberTextField resignFirstResponder];
 }
@@ -193,8 +193,8 @@
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
     
-    UITapGestureRecognizer *resignRespondersTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleResignRespondersTap:)];
-    [headerView addGestureRecognizer:resignRespondersTap];
+    UITapGestureRecognizer *resignRespondersTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleResignRespondersTapped:)];
+    [headerView addGestureRecognizer:resignRespondersTapRecognizer];
 	
 	return headerView;
 }

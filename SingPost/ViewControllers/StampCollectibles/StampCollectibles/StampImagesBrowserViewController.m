@@ -17,7 +17,10 @@
 @implementation StampImagesBrowserViewController
 {
     UIScrollView *imagesScrollView;
+    UIButton *closeButton;
     ColoredPageControl *pageControl;
+    
+    BOOL isZooming;
 }
 
 //designated initializer
@@ -62,13 +65,38 @@
     [contentView addSubview:pageControl];
     [pageControl setNeedsDisplay];
     
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeButton setImage:[UIImage imageNamed:@"button_close"] forState:UIControlStateNormal];
     [closeButton setFrame:CGRectMake(270, 20, 38, 38)];
     [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:closeButton];
+    
+    UITapGestureRecognizer *imageScrollViewDoubleTappedRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageScrollViewDoubleTapped:)];
+    [imageScrollViewDoubleTappedRecognizer setNumberOfTapsRequired:2];
+    [imagesScrollView addGestureRecognizer:imageScrollViewDoubleTappedRecognizer];
 
     self.view = contentView;
+}
+
+#define TAG_IMAGE_OFFSET 100
+
+- (void)populateImagesScrollView
+{
+    for (UIView *childView in imagesScrollView.subviews) {
+        if ([childView isKindOfClass:[UIImageView class]])
+            [childView removeFromSuperview];
+    }
+    
+    imagesScrollView.contentSize = CGSizeMake(imagesScrollView.bounds.size.width * _stampImages.count, imagesScrollView.bounds.size.height);
+    imagesScrollView.contentOffset = CGPointMake(imagesScrollView.bounds.size.width * _currentIndex, 0);
+    
+    [_stampImages enumerateObjectsUsingBlock:^(StampImage *stampImage, NSUInteger idx, BOOL *stop) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:stampImage.image]];
+        [imageView setContentMode:UIViewContentModeCenter];
+        [imageView setTag:TAG_IMAGE_OFFSET + idx];
+        [imageView setFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
+        [imagesScrollView addSubview:imageView];
+    }];
 }
 
 - (void)viewDidLoad
@@ -76,15 +104,8 @@
     [super viewDidLoad];
     [pageControl setNumberOfPages:_stampImages.count];
     [pageControl setCurrentPage:_currentIndex];
-    imagesScrollView.contentSize = CGSizeMake(imagesScrollView.bounds.size.width * _stampImages.count, imagesScrollView.bounds.size.height);
-    imagesScrollView.contentOffset = CGPointMake(imagesScrollView.bounds.size.width * _currentIndex, 0);
     
-    [_stampImages enumerateObjectsUsingBlock:^(StampImage *stampImage, NSUInteger idx, BOOL *stop) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:stampImage.image]];
-        [imageView setContentMode:UIViewContentModeCenter];
-        [imageView setFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
-        [imagesScrollView addSubview:imageView];
-    }];
+    [self populateImagesScrollView];
 }
 
 #pragma mark - IBActions
@@ -94,14 +115,91 @@
     [self.delegate stampImageBrowserDismissed:self];
 }
 
+#pragma mark - Zooming functions
+
+- (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center {
+    CGRect zoomRect;
+
+    zoomRect.size.height = imagesScrollView.frame.size.height / scale;
+    zoomRect.size.width  = imagesScrollView.frame.size.width  / scale;
+    zoomRect.origin.x  = center.x - (zoomRect.size.width  / 2.0);
+    zoomRect.origin.y  = center.y - (zoomRect.size.height / 2.0);
+    
+    return zoomRect;
+}
+
+- (IBAction)handleImageScrollViewDoubleTapped:(UITapGestureRecognizer *)tapGesture
+{
+    CGPoint tapLocation = [tapGesture locationInView:self.view];
+    CGRect zoomRect;
+    
+    if (imagesScrollView.zoomScale > 1.0f)
+        zoomRect = [self zoomRectForScale:1.0f withCenter:tapLocation];
+    else
+        zoomRect = [self zoomRectForScale:2.0f withCenter:tapLocation];
+    
+    [imagesScrollView zoomToRect:zoomRect animated:YES];
+}
+
+- (UIImageView *)currentDisplayedImageView
+{
+    return (UIImageView *)[imagesScrollView viewWithTag:TAG_IMAGE_OFFSET + _currentIndex];
+}
+
+- (void)startZoomForView:(UIView *)viewToZoom {
+    if (viewToZoom && !isZooming) {
+        isZooming = YES;
+        [closeButton setHidden:YES];
+        [pageControl setHidden:YES];
+        for (UIView *childView in imagesScrollView.subviews) {
+            if ([childView isKindOfClass:[UIImageView class]] && childView != viewToZoom)
+                [childView removeFromSuperview];
+        }
+        viewToZoom.frame = CGRectMake(0, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height);
+        [imagesScrollView setContentOffset:CGPointZero];
+        imagesScrollView.frame = self.view.frame;
+        imagesScrollView.contentSize = imagesScrollView.bounds.size;
+        imagesScrollView.pagingEnabled = NO;
+    }
+}
+
+- (void)stopZoom {
+    
+    if (isZooming) {
+        isZooming = NO;
+        [closeButton setHidden:NO];
+        [pageControl setHidden:NO];
+        imagesScrollView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 50);
+        [self populateImagesScrollView];
+    }
+}
+
+
 #pragma mark - UIScrollView Delegates
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView == imagesScrollView) {
+    if (scrollView == imagesScrollView && !isZooming) {
         [pageControl setCurrentPage:floorf((imagesScrollView.contentOffset.x + 100) / imagesScrollView.bounds.size.width)];
         _currentIndex = pageControl.currentPage;
     }
 }
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView {
+	return [self currentDisplayedImageView];
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    [self startZoomForView:view];
+//    [(GalleryImageView *)[self getCurrentDisplayedImage] toggleHideDescriptionView:YES];
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+{
+	if (1.0f == scale) {
+		[self stopZoom];
+	}
+}
+
 
 @end
