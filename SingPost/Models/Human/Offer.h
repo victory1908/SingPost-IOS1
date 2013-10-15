@@ -1,6 +1,6 @@
-#import "_Stamp.h"
+#import "_Offer.h"
 
-@interface Stamp : _Stamp
+@interface Offer : _Offer
 
 @property (nonatomic, readonly) UIImage *displayImage;
 

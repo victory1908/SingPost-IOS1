@@ -26,6 +26,7 @@
 #import "TermsOfUseViewController.h"
 #import "StampCollectiblesMainViewController.h"
 #import "AboutThisAppViewController.h"
+#import "OffersMainViewController.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
@@ -293,6 +294,12 @@ typedef enum {
 {
     [self toggleShowOffersMoreMenu];
     switch (button) {
+        case OFFERSMENUBUTTON_OFFERS:
+        {
+            OffersMainViewController *viewController = [[OffersMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
         case OFFERSMENUBUTTON_FEEDBACK:
         {
             FeedbackViewController *viewController = [[FeedbackViewController alloc] initWithNibName:nil bundle:nil];

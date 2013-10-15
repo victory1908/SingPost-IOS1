@@ -12,9 +12,9 @@
 #import "UIFont+SingPost.h"
 #import "UIView+Position.h"
 #import "DatabaseSeeder.h"
-#import "Stamp.h"
-#import "StampCollectiblesTableViewCell.h"
-#import "StampCollectiblesDetailsViewController.h"
+#import "Offer.h"
+#import "OfferTableViewCell.h"
+#import "OfferDetailsViewController.h"
 #import "AppDelegate.h"
 
 @interface OffersMainViewController () <CDropDownListControlDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
@@ -37,7 +37,7 @@
     [contentScrollView setBackgroundColor:RGB(250, 250, 250)];
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
-    [navigationBarView setTitle:@"Stamp Collectibles"];
+    [navigationBarView setTitle:@"Offers"];
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentScrollView addSubview:navigationBarView];
     
@@ -57,12 +57,11 @@
     chosenYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 240, 200, 44)];
     [chosenYearLabel setBackgroundColor:[UIColor clearColor]];
     [chosenYearLabel setTextColor:RGB(195, 17, 38)];
-    [chosenYearLabel setText:@"2013 Collections"];
     [chosenYearLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [contentScrollView addSubview:chosenYearLabel];
     
     yearDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 95, 240, 80, 44)];
-    [yearDropDownList setValues:@[@{@"code": @"2013 Collections", @"value": @"2013"}, @{@"code": @"2012 Collections", @"value": @"2012"}]];
+    [yearDropDownList setValues:@[@{@"code": @"2013 Offers", @"value": @"2013"}, @{@"code": @"2012 Offers", @"value": @"2012"}]];
     [yearDropDownList setDelegate:self];
     [yearDropDownList selectRow:0 animated:NO];
     [contentScrollView addSubview:yearDropDownList];
@@ -114,9 +113,9 @@
 
 #pragma mark - UITableView DataSource & Delegate
 
-- (void)configureCell:(StampCollectiblesTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(OfferTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.stamp = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.offer = [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,11 +136,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const itemCellIdentifier = @"StampsCollectiblesItemTableViewCell";
+    static NSString *const itemCellIdentifier = @"OfferTableViewCell";
     
-    StampCollectiblesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
+    OfferTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
     if (!cell) {
-        cell = [[StampCollectiblesTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+        cell = [[OfferTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
     }
     
     [self configureCell:cell atIndexPath:indexPath];
@@ -150,7 +149,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    StampCollectiblesDetailsViewController *detailsViewController = [[StampCollectiblesDetailsViewController alloc] initWithStamp:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    OfferDetailsViewController *detailsViewController = [[OfferDetailsViewController alloc] initWithOffer:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:detailsViewController];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -161,7 +160,7 @@
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        _fetchedResultsController = [Stamp MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:StampAttributes.ordering ascending:YES delegate:self];
+        _fetchedResultsController = [Offer MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:OfferAttributes.ordering ascending:YES delegate:self];
     }
     
     return _fetchedResultsController;
@@ -202,7 +201,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:(StampCollectiblesTableViewCell *)[offersTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(OfferTableViewCell *)[offersTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:

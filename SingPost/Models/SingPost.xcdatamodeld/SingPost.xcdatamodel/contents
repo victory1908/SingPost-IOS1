@@ -34,13 +34,25 @@
         <attribute name="wed_closing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="wed_opening" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Offer" representedClassName="Offer" syncable="YES">
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="offerDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="ordering" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="OfferImage" inverseName="offer" inverseEntity="OfferImage" syncable="YES"/>
+    </entity>
+    <entity name="OfferImage" representedClassName="OfferImage" syncable="YES">
+        <attribute name="image" attributeType="String" syncable="YES"/>
+        <relationship name="offer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Offer" inverseName="images" inverseEntity="Offer" syncable="YES"/>
+    </entity>
     <entity name="Stamp" representedClassName="Stamp" syncable="YES">
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="issueDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="ordering" attributeType="Integer 32" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="year" attributeType="String" syncable="YES"/>
-        <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="StampImage" inverseName="stamp" inverseEntity="StampImage" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StampImage" inverseName="stamp" inverseEntity="StampImage" syncable="YES"/>
     </entity>
     <entity name="StampImage" representedClassName="StampImage" syncable="YES">
         <attribute name="image" attributeType="String" syncable="YES"/>
@@ -51,5 +63,7 @@
         <element name="EntityLocation" positionX="-2864" positionY="-252" width="128" height="403"/>
         <element name="Stamp" positionX="-3204" positionY="89" width="128" height="133"/>
         <element name="StampImage" positionX="-3024" positionY="110" width="128" height="73"/>
+        <element name="Offer" positionX="-3206" positionY="270" width="128" height="133"/>
+        <element name="OfferImage" positionX="-2997" positionY="278" width="128" height="73"/>
     </elements>
 </model>

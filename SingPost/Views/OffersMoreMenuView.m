@@ -63,7 +63,7 @@
         
         OffersMoreMenuButton *offersButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(10, offsetY, 140, 42)];
         [offersButton setTag:OFFERSMENUBUTTON_OFFERS];
-//        [offersButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [offersButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [offersButton setTitle:@"Offers" forState:UIControlStateNormal];
         [self addSubview:offersButton];
         

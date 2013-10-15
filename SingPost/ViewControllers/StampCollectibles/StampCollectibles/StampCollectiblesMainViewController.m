@@ -57,7 +57,6 @@
     chosenYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 240, 200, 44)];
     [chosenYearLabel setBackgroundColor:[UIColor clearColor]];
     [chosenYearLabel setTextColor:RGB(195, 17, 38)];
-    [chosenYearLabel setText:@"2013 Collections"];
     [chosenYearLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [contentScrollView addSubview:chosenYearLabel];
     

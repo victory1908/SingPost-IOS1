@@ -14,5 +14,6 @@
 
 + (void)seedLocationsDataIfRequired;
 + (void)seedStampsDataIfRequired;
++ (void)seedOffersDataIfRequired;
 
 @end

@@ -106,6 +106,8 @@
     selectedRowIndex = row;
     [pickerView selectRow:row inComponent:0 animated:shouldAnimate];
     [self pickerView:pickerView didSelectRow:row inComponent:0];
+    if ([self.delegate respondsToSelector:@selector(dropDownListIsDismissed:)])
+        [self.delegate dropDownListIsDismissed:self];
 }
 
 - (BOOL)resignFirstResponder

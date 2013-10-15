@@ -24,6 +24,7 @@
 #import "ShopMainViewController.h"
 #import "MoreServicesMainViewController.h"
 #import "StampCollectiblesMainViewController.h"
+#import "OffersMainViewController.h"
 
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
@@ -255,6 +256,12 @@
 {
     if (indexPath.row > SIDEBARMENU_OFFERSMORE) {
         switch ((tSubRowsOffersMore)(indexPath.row - SIDEBARMENU_OFFERSMORE - 1)) {
+            case SUBROWS_OFFERSMORE_OFFERS:
+            {
+                OffersMainViewController *viewController = [[OffersMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
             case SUBROWS_OFFERSMORE_FEEDBACK:
             {
                 FeedbackViewController *viewController = [[FeedbackViewController alloc] initWithNibName:nil bundle:nil];

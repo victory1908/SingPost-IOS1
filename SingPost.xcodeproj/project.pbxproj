@@ -80,7 +80,14 @@
 		528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */; };
 		528F270617F9C181006F7027 /* _EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270517F9C181006F7027 /* _EntityLocation.m */; };
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
-		529090EB180CFCD200D84030 /* OffersMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090EA180CFCD200D84030 /* OffersMainViewController.m */; };
+		529090F0180D2A1F00D84030 /* _Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090ED180D2A1F00D84030 /* _Offer.m */; };
+		529090F1180D2A1F00D84030 /* _OfferImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090EF180D2A1F00D84030 /* _OfferImage.m */; };
+		529090F6180D2A2900D84030 /* Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090F3180D2A2900D84030 /* Offer.m */; };
+		529090F7180D2A2900D84030 /* OfferImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090F5180D2A2900D84030 /* OfferImage.m */; };
+		529090FC180D2AA000D84030 /* OffersMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090FB180D2AA000D84030 /* OffersMainViewController.m */; };
+		52909100180D2ADA00D84030 /* OfferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090FF180D2ADA00D84030 /* OfferTableViewCell.m */; };
+		52909103180D2D2700D84030 /* OfferDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909102180D2D2700D84030 /* OfferDetailsViewController.m */; };
+		52909106180D2D7700D84030 /* OfferImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */; };
 		52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */; };
 		5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */; };
 		52936481180B0FEE00B83F6B /* Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936480180B0FEE00B83F6B /* Stamp.m */; };
@@ -247,8 +254,22 @@
 		528F270517F9C181006F7027 /* _EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EntityLocation.m; sourceTree = "<group>"; };
 		528F270717F9C18C006F7027 /* EntityLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityLocation.h; sourceTree = "<group>"; };
 		528F270817F9C18C006F7027 /* EntityLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityLocation.m; sourceTree = "<group>"; };
-		529090E9180CFCD200D84030 /* OffersMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMainViewController.h; sourceTree = "<group>"; };
-		529090EA180CFCD200D84030 /* OffersMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMainViewController.m; sourceTree = "<group>"; };
+		529090EC180D2A1F00D84030 /* _Offer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Offer.h; sourceTree = "<group>"; };
+		529090ED180D2A1F00D84030 /* _Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Offer.m; sourceTree = "<group>"; };
+		529090EE180D2A1F00D84030 /* _OfferImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _OfferImage.h; sourceTree = "<group>"; };
+		529090EF180D2A1F00D84030 /* _OfferImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _OfferImage.m; sourceTree = "<group>"; };
+		529090F2180D2A2900D84030 /* Offer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offer.h; sourceTree = "<group>"; };
+		529090F3180D2A2900D84030 /* Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Offer.m; sourceTree = "<group>"; };
+		529090F4180D2A2900D84030 /* OfferImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferImage.h; sourceTree = "<group>"; };
+		529090F5180D2A2900D84030 /* OfferImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferImage.m; sourceTree = "<group>"; };
+		529090FA180D2AA000D84030 /* OffersMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMainViewController.h; sourceTree = "<group>"; };
+		529090FB180D2AA000D84030 /* OffersMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMainViewController.m; sourceTree = "<group>"; };
+		529090FE180D2ADA00D84030 /* OfferTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferTableViewCell.h; sourceTree = "<group>"; };
+		529090FF180D2ADA00D84030 /* OfferTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferTableViewCell.m; sourceTree = "<group>"; };
+		52909101180D2D2700D84030 /* OfferDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferDetailsViewController.h; sourceTree = "<group>"; };
+		52909102180D2D2700D84030 /* OfferDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferDetailsViewController.m; sourceTree = "<group>"; };
+		52909104180D2D7700D84030 /* OfferImagesBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferImagesBrowserViewController.h; sourceTree = "<group>"; };
+		52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferImagesBrowserViewController.m; sourceTree = "<group>"; };
 		5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMoreMenuView.h; sourceTree = "<group>"; };
 		5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMoreMenuView.m; sourceTree = "<group>"; };
 		52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesMainViewController.h; sourceTree = "<group>"; };
@@ -490,7 +511,7 @@
 				52C90916180491010063A026 /* Shop */,
 				52C9091A180491B60063A026 /* MoreServices */,
 				52936478180B017C00B83F6B /* StampCollectibles */,
-				529090E8180C91B100D84030 /* Offers */,
+				529090F9180D2A7B00D84030 /* Offers */,
 				521F785318026DDD00B513FA /* Misc */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
@@ -733,6 +754,10 @@
 				52C908EC18046BCA0063A026 /* Article.m */,
 				528F270717F9C18C006F7027 /* EntityLocation.h */,
 				528F270817F9C18C006F7027 /* EntityLocation.m */,
+				529090F2180D2A2900D84030 /* Offer.h */,
+				529090F3180D2A2900D84030 /* Offer.m */,
+				529090F4180D2A2900D84030 /* OfferImage.h */,
+				529090F5180D2A2900D84030 /* OfferImage.m */,
 				5293647F180B0FEE00B83F6B /* Stamp.h */,
 				52936480180B0FEE00B83F6B /* Stamp.m */,
 				529364A5180B2FFE00B83F6B /* StampImage.h */,
@@ -748,6 +773,10 @@
 				52C908F818047F1E0063A026 /* _Article.m */,
 				528F270417F9C181006F7027 /* _EntityLocation.h */,
 				528F270517F9C181006F7027 /* _EntityLocation.m */,
+				529090EC180D2A1F00D84030 /* _Offer.h */,
+				529090ED180D2A1F00D84030 /* _Offer.m */,
+				529090EE180D2A1F00D84030 /* _OfferImage.h */,
+				529090EF180D2A1F00D84030 /* _OfferImage.m */,
 				5293649F180B2FF100B83F6B /* _Stamp.h */,
 				529364A0180B2FF100B83F6B /* _Stamp.m */,
 				529364A1180B2FF100B83F6B /* _StampImage.h */,
@@ -775,13 +804,27 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
-		529090E8180C91B100D84030 /* Offers */ = {
+		529090F9180D2A7B00D84030 /* Offers */ = {
 			isa = PBXGroup;
 			children = (
-				529090E9180CFCD200D84030 /* OffersMainViewController.h */,
-				529090EA180CFCD200D84030 /* OffersMainViewController.m */,
+				529090FD180D2AA900D84030 /* TableViewCells */,
+				529090FA180D2AA000D84030 /* OffersMainViewController.h */,
+				529090FB180D2AA000D84030 /* OffersMainViewController.m */,
+				52909101180D2D2700D84030 /* OfferDetailsViewController.h */,
+				52909102180D2D2700D84030 /* OfferDetailsViewController.m */,
+				52909104180D2D7700D84030 /* OfferImagesBrowserViewController.h */,
+				52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */,
 			);
 			path = Offers;
+			sourceTree = "<group>";
+		};
+		529090FD180D2AA900D84030 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				529090FE180D2ADA00D84030 /* OfferTableViewCell.h */,
+				529090FF180D2ADA00D84030 /* OfferTableViewCell.m */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		52936478180B017C00B83F6B /* StampCollectibles */ = {
@@ -1075,6 +1118,7 @@
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
 				5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */,
 				52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */,
+				529090F7180D2A2900D84030 /* OfferImage.m in Sources */,
 				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
 				5293649E180B28D800B83F6B /* SampleArticleContentViewController.m in Sources */,
@@ -1082,8 +1126,10 @@
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
+				529090F0180D2A1F00D84030 /* _Offer.m in Sources */,
 				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
+				52909103180D2D2700D84030 /* OfferDetailsViewController.m in Sources */,
 				529364A7180B2FFE00B83F6B /* StampImage.m in Sources */,
 				526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */,
 				52C90915180490330063A026 /* PaymentMainViewController.m in Sources */,
@@ -1099,10 +1145,13 @@
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
 				528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
+				529090F1180D2A1F00D84030 /* _OfferImage.m in Sources */,
 				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
 				52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
+				52909106180D2D7700D84030 /* OfferImagesBrowserViewController.m in Sources */,
 				521F786B1802AB5100B513FA /* LocateUsDetailsPostingBoxView.m in Sources */,
+				52909100180D2ADA00D84030 /* OfferTableViewCell.m in Sources */,
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
@@ -1112,14 +1161,15 @@
 				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,
 				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
+				529090F6180D2A2900D84030 /* Offer.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
 				52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */,
 				52936493180B20B700B83F6B /* PersistentBackgroundLabel.m in Sources */,
 				52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */,
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
-				529090EB180CFCD200D84030 /* OffersMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
+				529090FC180D2AA000D84030 /* OffersMainViewController.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
 				52C908EA18045F3F0063A026 /* ApiClient.m in Sources */,

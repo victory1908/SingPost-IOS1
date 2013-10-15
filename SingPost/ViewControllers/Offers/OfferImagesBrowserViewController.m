@@ -1,20 +1,20 @@
 //
-//  StampImagesBrowserViewController.m
+//  OfferImagesBrowserViewController.m
 //  SingPost
 //
-//  Created by Edward Soetiono on 14/10/13.
+//  Created by Edward Soetiono on 15/10/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "StampImagesBrowserViewController.h"
+#import "OfferImagesBrowserViewController.h"
 #import "ColoredPageControl.h"
-#import "StampImage.h"
+#import "OfferImage.h"
 
-@interface StampImagesBrowserViewController () <UIScrollViewDelegate>
+@interface OfferImagesBrowserViewController () <UIScrollViewDelegate>
 
 @end
 
-@implementation StampImagesBrowserViewController
+@implementation OfferImagesBrowserViewController
 {
     UIScrollView *imagesScrollView;
     UIButton *closeButton;
@@ -24,11 +24,11 @@
 }
 
 //designated initializer
-- (id)initWithStampImages:(NSArray *)inStampImages
+- (id)initWithOfferImages:(NSArray *)inOfferImages
 {
-    NSParameterAssert(inStampImages);
+    NSParameterAssert(inOfferImages);
     if ((self = [super initWithNibName:nil bundle:nil])) {
-        _stampImages = inStampImages;
+        _offerImages = inOfferImages;
     }
     
     return self;
@@ -36,7 +36,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    return [self initWithStampImages:nil];
+    return [self initWithOfferImages:nil];
 }
 
 - (void)loadView
@@ -74,7 +74,7 @@
     UITapGestureRecognizer *imageScrollViewDoubleTappedRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleImageScrollViewDoubleTapped:)];
     [imageScrollViewDoubleTappedRecognizer setNumberOfTapsRequired:2];
     [imagesScrollView addGestureRecognizer:imageScrollViewDoubleTappedRecognizer];
-
+    
     self.view = contentView;
 }
 
@@ -87,11 +87,11 @@
             [childView removeFromSuperview];
     }
     
-    imagesScrollView.contentSize = CGSizeMake(imagesScrollView.bounds.size.width * _stampImages.count, imagesScrollView.bounds.size.height);
+    imagesScrollView.contentSize = CGSizeMake(imagesScrollView.bounds.size.width * _offerImages.count, imagesScrollView.bounds.size.height);
     imagesScrollView.contentOffset = CGPointMake(imagesScrollView.bounds.size.width * _currentIndex, 0);
     
-    [_stampImages enumerateObjectsUsingBlock:^(StampImage *stampImage, NSUInteger idx, BOOL *stop) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:stampImage.image]];
+    [_offerImages enumerateObjectsUsingBlock:^(OfferImage *offerImage, NSUInteger idx, BOOL *stop) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:offerImage.image]];
         [imageView setContentMode:UIViewContentModeCenter];
         [imageView setTag:TAG_IMAGE_OFFSET + idx];
         [imageView setFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
@@ -102,7 +102,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [pageControl setNumberOfPages:_stampImages.count];
+    [pageControl setNumberOfPages:_offerImages.count];
     [pageControl setCurrentPage:_currentIndex];
     
     [self populateImagesScrollView];
@@ -112,14 +112,14 @@
 
 - (IBAction)closeButtonClicked:(id)sender
 {
-    [self.delegate stampImageBrowserDismissed:self];
+    [self.delegate offerImageBrowserDismissed:self];
 }
 
 #pragma mark - Zooming functions
 
 - (CGRect)zoomRectForScale:(float)scale withCenter:(CGPoint)center {
     CGRect zoomRect;
-
+    
     zoomRect.size.height = imagesScrollView.frame.size.height / scale;
     zoomRect.size.width  = imagesScrollView.frame.size.width  / scale;
     zoomRect.origin.x  = center.x - (zoomRect.size.width  / 2.0);
