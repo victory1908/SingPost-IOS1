@@ -29,6 +29,8 @@
     UIButton *closeSidebarButton;
     UIViewController *activeViewController;
     
+    UIPanGestureRecognizer *sideBarPanGesture;
+    
     CATransform3D originalTransformation;
 }
 
@@ -59,9 +61,9 @@
     [activeViewControllerContainerView addSubview:activeViewController.view];
     [activeViewController didMoveToParentViewController:self];
     
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-    [panGesture setCancelsTouchesInView:NO];
-    [activeViewControllerContainerView addGestureRecognizer:panGesture];
+    sideBarPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    [sideBarPanGesture setEnabled:NO];
+    [activeViewControllerContainerView addGestureRecognizer:sideBarPanGesture];
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture
@@ -252,11 +254,12 @@
         [appContentView setX:shouldShowSideBar ? 0.0f : -SIDEBAR_WIDTH];
         closeSidebarButton.alpha = shouldShowSideBar ? 1.0f : 0.0f;
     } completion:^(BOOL finished) {
-        
         sideBarMenuViewController.view.layer.transform = transform;
         [sideBarMenuViewController.view.layer removeAllAnimations];
         if (!shouldShowSideBar)
             [closeSidebarButton removeFromSuperview];
+        
+        [sideBarPanGesture setEnabled:shouldShowSideBar];
     }];
     
     [CATransaction commit];
