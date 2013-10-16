@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <array>
+    <dict>
+        <key>category</key>
+            <string>Bills</string>
+		<key>items</key>
+		<array>
+			<string>Utilities</string>
+			<string>Conservancy</string>
+			<string>Healthcare</string>
+            <string>Security</string>
+            <string>Telecom</string>
+            <string>Credit Card</string>
+		</array>
+	</dict>
+
+    <dict>
+        <key>category</key>
+            <string>Gov Agencies</string>
+        <key>items</key>
+        <array>
+            <string>AVA</string>
+            <string>CPF</string>
+            <string>HSA</string>
+            <string>HDB</string>
+            <string>ICA</string>
+            <string>IDA</string>
+            <string>IRAS</string>
+            <string>LTA</string>
+            <string>MOE</string>
+            <string>Ministry of Law</string>
+            <string>MOM</string>
+            <string>Singapore Customs</string>
+            <string>Traffic Police</string>
+            <string>URA</string>
+            <string>Singapore Power</string>
+        </array>
+    </dict>
+    
+    
+    <dict>
+        <key>category</key>
+        <string>Fees</string>
+        <key>items</key>
+        <array>
+            <string>MOE</string>
+            <string>Educational</string>
+        </array>
+    </dict>
+
+    <dict>
+        <key>category</key>
+        <string>Fines</string>
+        <key>items</key>
+        <array>
+            <string>HAS</string>
+            <string>HDB</string>
+            <string>Singapore Customs</string>
+            <string>Traffic Police</string>
+            <string>URA</string>
+        </array>
+    </dict>
+
+    <dict>
+        <key>category</key>
+        <string>Loans</string>
+        <key>items</key>
+        <array>
+            <string>Personal Loans</string>
+            <string>Credit Lines</string>
+        </array>
+    </dict>
+
+    <dict>
+        <key>category</key>
+        <string>Premiums</string>
+        <key>items</key>
+        <array>
+            <string>Insurance</string>
+        </array>
+    </dict>
+
+
+    <dict>
+        <key>category</key>
+        <string>Misc</string>
+        <key>items</key>
+        <array>
+            <string>Donations</string>
+        </array>
+    </dict>
+
+    
+</array>
+</plist>

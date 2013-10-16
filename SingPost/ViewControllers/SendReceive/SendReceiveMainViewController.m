@@ -8,37 +8,32 @@
 
 #import "SendReceiveMainViewController.h"
 #import "AppDelegate.h"
-#import "Article.h"
-#import <SVProgressHUD.h>
+#import "SendReceiveSubLevelViewController.h"
 
 @implementation SendReceiveMainViewController
-
-@synthesize fetchedResultsController = _fetchedResultsController;
-
-- (NSFetchedResultsController *)fetchedResultsController
 {
-    if (!_fetchedResultsController) {
-        _fetchedResultsController = [Article frcSendReceiveArticlesWithDelegate:self];
-    }
-    
-    return _fetchedResultsController;
+    NSArray *data;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setPageTitle:@"Send & Receive"];
+    [self setIsRootLevel:YES];
     
-    //fetch data
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
-        [SVProgressHUD show];
-        [Article API_getSendReceiveItemsOnCompletion:^(BOOL success, NSError *error) {
-            if (success)
-                [SVProgressHUD dismiss];
-            else
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
-        }];
-    }
+    data = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SendReceive" ofType:@"plist"]];
+    [self setItems:[data valueForKey:@"category"]];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    int dataRow = floorf(indexPath.row / 2.0f);
+    SendReceiveSubLevelViewController *subLevelViewController = [[SendReceiveSubLevelViewController alloc] initWithNibName:nil bundle:nil];
+    [subLevelViewController setItems:data[dataRow][@"items"]];
+    [subLevelViewController setPageTitle:self.items[dataRow]];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subLevelViewController];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

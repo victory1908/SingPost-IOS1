@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <array>
+        <dict>
+            <key>category</key>
+            <string>vPost</string>
+        </dict>
+        <dict>
+            <key>category</key>
+            <string>Cloutshoppe</string>
+        </dict>
+        <dict>
+            <key>category</key>
+            <string>shop@post</string>
+        </dict>
+        <dict>
+            <key>category</key>
+            <string>shop.adidas.com.sg</string>
+        </dict>
+    </array>
+</plist>

@@ -98,18 +98,25 @@
 		52936493180B20B700B83F6B /* PersistentBackgroundLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936492180B20B700B83F6B /* PersistentBackgroundLabel.m */; };
 		52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936495180B20EF00B83F6B /* PersistentBackgroundView.m */; };
 		52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */; };
-		5293649E180B28D800B83F6B /* SampleArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293649C180B28D800B83F6B /* SampleArticleContentViewController.m */; };
 		529364A3180B2FF100B83F6B /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 529364A0180B2FF100B83F6B /* _Stamp.m */; };
 		529364A4180B2FF100B83F6B /* _StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529364A2180B2FF100B83F6B /* _StampImage.m */; };
 		529364A7180B2FFE00B83F6B /* StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529364A6180B2FFE00B83F6B /* StampImage.m */; };
+		52A8B686180F007E002BC431 /* ArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B685180F007E002BC431 /* ArticleTableViewCell.m */; };
+		52A8B68B180F0098002BC431 /* ArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B688180F0098002BC431 /* ArticleContentViewController.m */; };
+		52A8B68C180F0098002BC431 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B68A180F0098002BC431 /* ArticleViewController.m */; };
+		52A8B690180F00DD002BC431 /* SampleArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B68F180F00DD002BC431 /* SampleArticleContentViewController.m */; };
+		52A8B699180F0519002BC431 /* SendReceive.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52A8B698180F0519002BC431 /* SendReceive.plist */; };
+		52A8B69C180F099F002BC431 /* SendReceiveSubLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B69B180F099F002BC431 /* SendReceiveSubLevelViewController.m */; };
+		52A8B69E180F0DED002BC431 /* Pay.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52A8B69D180F0DED002BC431 /* Pay.plist */; };
+		52A8B6A4180F0F99002BC431 /* PaymentSubLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B6A3180F0F99002BC431 /* PaymentSubLevelViewController.m */; };
+		52A8B6A6180F106C002BC431 /* MoreServices.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52A8B6A5180F106C002BC431 /* MoreServices.plist */; };
+		52A8B6A9180F118B002BC431 /* MoreServicesSubLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B6A8180F118B002BC431 /* MoreServicesSubLevelViewController.m */; };
+		52A8B6AB180F11F4002BC431 /* Shop.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52A8B6AA180F11F4002BC431 /* Shop.plist */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
 		52C908ED18046BCA0063A026 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908EC18046BCA0063A026 /* Article.m */; };
 		52C908F918047F1E0063A026 /* _Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908F818047F1E0063A026 /* _Article.m */; };
-		52C9090D1804880E0063A026 /* ArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9090A1804880E0063A026 /* ArticleContentViewController.m */; };
-		52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9090C1804880E0063A026 /* ArticleTableViewCell.m */; };
-		52C909111804881A0063A026 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C909101804881A0063A026 /* ArticleViewController.m */; };
 		52C90915180490330063A026 /* PaymentMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90914180490330063A026 /* PaymentMainViewController.m */; };
 		52C90919180491110063A026 /* ShopMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90918180491110063A026 /* ShopMainViewController.m */; };
 		52C9091E180491DC0063A026 /* MoreServicesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9091D180491DC0063A026 /* MoreServicesMainViewController.m */; };
@@ -291,14 +298,30 @@
 		52936495180B20EF00B83F6B /* PersistentBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentBackgroundView.m; sourceTree = "<group>"; };
 		52936497180B254400B83F6B /* StampCollectiblesDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesDetailsViewController.h; sourceTree = "<group>"; };
 		52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectiblesDetailsViewController.m; sourceTree = "<group>"; };
-		5293649B180B28D800B83F6B /* SampleArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleArticleContentViewController.h; sourceTree = "<group>"; };
-		5293649C180B28D800B83F6B /* SampleArticleContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleArticleContentViewController.m; sourceTree = "<group>"; };
 		5293649F180B2FF100B83F6B /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
 		529364A0180B2FF100B83F6B /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
 		529364A1180B2FF100B83F6B /* _StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StampImage.h; sourceTree = "<group>"; };
 		529364A2180B2FF100B83F6B /* _StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _StampImage.m; sourceTree = "<group>"; };
 		529364A5180B2FFE00B83F6B /* StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampImage.h; sourceTree = "<group>"; };
 		529364A6180B2FFE00B83F6B /* StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImage.m; sourceTree = "<group>"; };
+		52A8B684180F007E002BC431 /* ArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTableViewCell.h; sourceTree = "<group>"; };
+		52A8B685180F007E002BC431 /* ArticleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTableViewCell.m; sourceTree = "<group>"; };
+		52A8B687180F0098002BC431 /* ArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleContentViewController.h; sourceTree = "<group>"; };
+		52A8B688180F0098002BC431 /* ArticleContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleContentViewController.m; sourceTree = "<group>"; };
+		52A8B689180F0098002BC431 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
+		52A8B68A180F0098002BC431 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
+		52A8B68E180F00DD002BC431 /* SampleArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleArticleContentViewController.h; sourceTree = "<group>"; };
+		52A8B68F180F00DD002BC431 /* SampleArticleContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleArticleContentViewController.m; sourceTree = "<group>"; };
+		52A8B698180F0519002BC431 /* SendReceive.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SendReceive.plist; sourceTree = "<group>"; };
+		52A8B69A180F099F002BC431 /* SendReceiveSubLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendReceiveSubLevelViewController.h; sourceTree = "<group>"; };
+		52A8B69B180F099F002BC431 /* SendReceiveSubLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendReceiveSubLevelViewController.m; sourceTree = "<group>"; };
+		52A8B69D180F0DED002BC431 /* Pay.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Pay.plist; sourceTree = "<group>"; };
+		52A8B6A2180F0F99002BC431 /* PaymentSubLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentSubLevelViewController.h; sourceTree = "<group>"; };
+		52A8B6A3180F0F99002BC431 /* PaymentSubLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentSubLevelViewController.m; sourceTree = "<group>"; };
+		52A8B6A5180F106C002BC431 /* MoreServices.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MoreServices.plist; sourceTree = "<group>"; };
+		52A8B6A7180F118B002BC431 /* MoreServicesSubLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreServicesSubLevelViewController.h; sourceTree = "<group>"; };
+		52A8B6A8180F118B002BC431 /* MoreServicesSubLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreServicesSubLevelViewController.m; sourceTree = "<group>"; };
+		52A8B6AA180F11F4002BC431 /* Shop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Shop.plist; sourceTree = "<group>"; };
 		52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapViewController.h; sourceTree = "<group>"; };
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
@@ -309,12 +332,6 @@
 		52C908EC18046BCA0063A026 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		52C908F718047F1E0063A026 /* _Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Article.h; sourceTree = "<group>"; };
 		52C908F818047F1E0063A026 /* _Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Article.m; sourceTree = "<group>"; };
-		52C909091804880E0063A026 /* ArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleContentViewController.h; sourceTree = "<group>"; };
-		52C9090A1804880E0063A026 /* ArticleContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleContentViewController.m; sourceTree = "<group>"; };
-		52C9090B1804880E0063A026 /* ArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTableViewCell.h; sourceTree = "<group>"; };
-		52C9090C1804880E0063A026 /* ArticleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTableViewCell.m; sourceTree = "<group>"; };
-		52C9090F1804881A0063A026 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
-		52C909101804881A0063A026 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		52C90913180490330063A026 /* PaymentMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentMainViewController.h; sourceTree = "<group>"; };
 		52C90914180490330063A026 /* PaymentMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMainViewController.m; sourceTree = "<group>"; };
 		52C90917180491110063A026 /* ShopMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMainViewController.h; sourceTree = "<group>"; };
@@ -502,6 +519,7 @@
 		521B174F17F1653E00FEB6FD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				52A8B682180F004B002BC431 /* Article */,
 				52AF5B2317FB48AF002D6798 /* Common */,
 				521B175617F195F200FEB6FD /* SidebarMenu */,
 				52024F0C17F5EEA500AFD239 /* LandingPage */,
@@ -539,6 +557,8 @@
 			children = (
 				521F784C1802641100B513FA /* SendReceiveMainViewController.h */,
 				521F784D1802641100B513FA /* SendReceiveMainViewController.m */,
+				52A8B69A180F099F002BC431 /* SendReceiveSubLevelViewController.h */,
+				52A8B69B180F099F002BC431 /* SendReceiveSubLevelViewController.m */,
 			);
 			path = SendReceive;
 			sourceTree = "<group>";
@@ -867,10 +887,52 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		52A8B682180F004B002BC431 /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				52A8B68D180F00C9002BC431 /* Dummy */,
+				52A8B683180F0069002BC431 /* TableViewCells */,
+				52A8B689180F0098002BC431 /* ArticleViewController.h */,
+				52A8B68A180F0098002BC431 /* ArticleViewController.m */,
+				52A8B687180F0098002BC431 /* ArticleContentViewController.h */,
+				52A8B688180F0098002BC431 /* ArticleContentViewController.m */,
+			);
+			path = Article;
+			sourceTree = "<group>";
+		};
+		52A8B683180F0069002BC431 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				52A8B684180F007E002BC431 /* ArticleTableViewCell.h */,
+				52A8B685180F007E002BC431 /* ArticleTableViewCell.m */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		52A8B68D180F00C9002BC431 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				52A8B697180F0503002BC431 /* Data */,
+				52A8B68E180F00DD002BC431 /* SampleArticleContentViewController.h */,
+				52A8B68F180F00DD002BC431 /* SampleArticleContentViewController.m */,
+			);
+			path = Dummy;
+			sourceTree = "<group>";
+		};
+		52A8B697180F0503002BC431 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				52A8B698180F0519002BC431 /* SendReceive.plist */,
+				52A8B69D180F0DED002BC431 /* Pay.plist */,
+				52A8B6A5180F106C002BC431 /* MoreServices.plist */,
+				52A8B6AA180F11F4002BC431 /* Shop.plist */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		52AF5B2317FB48AF002D6798 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				52C90908180487C60063A026 /* Article */,
 				52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */,
 				52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */,
 			);
@@ -886,26 +948,13 @@
 			path = Api;
 			sourceTree = "<group>";
 		};
-		52C90908180487C60063A026 /* Article */ = {
-			isa = PBXGroup;
-			children = (
-				52C9090B1804880E0063A026 /* ArticleTableViewCell.h */,
-				52C9090C1804880E0063A026 /* ArticleTableViewCell.m */,
-				52C9090F1804881A0063A026 /* ArticleViewController.h */,
-				52C909101804881A0063A026 /* ArticleViewController.m */,
-				52C909091804880E0063A026 /* ArticleContentViewController.h */,
-				52C9090A1804880E0063A026 /* ArticleContentViewController.m */,
-				5293649B180B28D800B83F6B /* SampleArticleContentViewController.h */,
-				5293649C180B28D800B83F6B /* SampleArticleContentViewController.m */,
-			);
-			path = Article;
-			sourceTree = "<group>";
-		};
 		52C909121804901B0063A026 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
 				52C90913180490330063A026 /* PaymentMainViewController.h */,
 				52C90914180490330063A026 /* PaymentMainViewController.m */,
+				52A8B6A2180F0F99002BC431 /* PaymentSubLevelViewController.h */,
+				52A8B6A3180F0F99002BC431 /* PaymentSubLevelViewController.m */,
 			);
 			path = Payment;
 			sourceTree = "<group>";
@@ -924,6 +973,8 @@
 			children = (
 				52C9091C180491DC0063A026 /* MoreServicesMainViewController.h */,
 				52C9091D180491DC0063A026 /* MoreServicesMainViewController.m */,
+				52A8B6A7180F118B002BC431 /* MoreServicesSubLevelViewController.h */,
+				52A8B6A8180F118B002BC431 /* MoreServicesSubLevelViewController.m */,
 			);
 			path = MoreServices;
 			sourceTree = "<group>";
@@ -1029,6 +1080,9 @@
 			files = (
 				521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */,
 				528F268A17F864C6006F7027 /* CalculatePostage_Countries.plist in Resources */,
+				52A8B6A6180F106C002BC431 /* MoreServices.plist in Resources */,
+				52A8B699180F0519002BC431 /* SendReceive.plist in Resources */,
+				52A8B69E180F0DED002BC431 /* Pay.plist in Resources */,
 				528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */,
 				528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */,
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
@@ -1042,6 +1096,7 @@
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
 				528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */,
 				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
+				52A8B6AB180F11F4002BC431 /* Shop.plist in Resources */,
 				528F26E417F97F25006F7027 /* postingboxes.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1100,7 +1155,6 @@
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
 				52C908ED18046BCA0063A026 /* Article.m in Sources */,
-				52C909111804881A0063A026 /* ArticleViewController.m in Sources */,
 				52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */,
 				52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */,
 				52C9091E180491DC0063A026 /* MoreServicesMainViewController.m in Sources */,
@@ -1109,6 +1163,7 @@
 				528F26BF17F92595006F7027 /* FindPostalCodePOBoxView.m in Sources */,
 				529364A4180B2FF100B83F6B /* _StampImage.m in Sources */,
 				521F78681802A5B300B513FA /* LocateUsDetailsServicesView.m in Sources */,
+				52A8B690180F00DD002BC431 /* SampleArticleContentViewController.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
 				521F786218029D7100B513FA /* AboutThisAppViewController.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
@@ -1118,16 +1173,16 @@
 				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,
 				52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */,
 				528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */,
+				52A8B6A4180F0F99002BC431 /* PaymentSubLevelViewController.m in Sources */,
 				52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */,
-				52C9090D1804880E0063A026 /* ArticleContentViewController.m in Sources */,
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
 				5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */,
 				52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */,
 				529090F7180D2A2900D84030 /* OfferImage.m in Sources */,
 				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageViewController.m in Sources */,
-				5293649E180B28D800B83F6B /* SampleArticleContentViewController.m in Sources */,
 				52936481180B0FEE00B83F6B /* Stamp.m in Sources */,
+				52A8B69C180F099F002BC431 /* SendReceiveSubLevelViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
@@ -1144,9 +1199,12 @@
 				521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
+				52A8B68C180F0098002BC431 /* ArticleViewController.m in Sources */,
+				52A8B686180F007E002BC431 /* ArticleTableViewCell.m in Sources */,
 				529364A3180B2FF100B83F6B /* _Stamp.m in Sources */,
 				528F26C517F936F0006F7027 /* FlatBlueButton.m in Sources */,
 				528F26BC17F92584006F7027 /* FindPostalCodeLandmarkView.m in Sources */,
+				52A8B6A9180F118B002BC431 /* MoreServicesSubLevelViewController.m in Sources */,
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
 				528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
@@ -1162,8 +1220,8 @@
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */,
+				52A8B68B180F0098002BC431 /* ArticleContentViewController.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
-				52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */,
 				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,
 				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,

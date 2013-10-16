@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>category</key>
+		<string>Send Letter within Singapore</string>
+		<key>items</key>
+		<array>
+			<string>AM Mail</string>
+			<string>Local Ordinary Mail</string>
+			<string>Local Registered Article</string>
+		</array>
+	</dict>
+
+<dict>
+    <key>category</key>
+    <string>Send Letter Overseas</string>
+<key>items</key>
+<array>
+    <string>Send 123123</string>
+    <string>Local Ordinary Mail</string>
+    <string>Local Registered Article</string>
+</array>
+</dict>
+
+<dict>
+    <key>category</key>
+    <string>Send Parcel Within Singapore</string>
+    <key>items</key>
+    <array>
+        <string>SmartPac</string>
+        <string>Speedpost - Next Day</string>
+        <string>Saver</string>
+        <string>Speedpost - Same Day</string>
+        <string>Priority</string>
+    </array>
+</dict>
+
+
+<dict>
+    <key>category</key>
+    <string>Send Parcel Overseas</string>
+    <key>items</key>
+    <array>
+        <string>Speedpost Express</string>
+        <string>Speedpost EMS</string>
+        <string>Speedpost SavePac</string>
+        <string>Prepaid</string>
+        <string>Air Parcel</string>
+        <string>Surface Parcel</string>
+        <string>Speedpost Express Import</string>
+    </array>
+</dict>
+
+
+<dict>
+    <key>category</key>
+    <string>Receive Letter/Parcel</string>
+    <key>items</key>
+    <array>
+        <string>My Mail Box</string>
+        <string>PO Mailbox</string>
+        <string>Redirect Mail</string>
+        <string>Retain Mail</string>
+        <string>vPost</string>
+        <string>POPStation</string>
+    </array>
+</dict>
+
+</array>
+</plist>

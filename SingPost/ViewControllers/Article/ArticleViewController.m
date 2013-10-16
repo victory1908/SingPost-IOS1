@@ -12,11 +12,10 @@
 #import "AppDelegate.h"
 #import "ArticleTableViewCell.h"
 #import "ArticleContentViewController.h"
-#import "SampleArticleContentViewController.h"
 #import "Article.h"
 #import <SVProgressHUD.h>
 
-@interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+@interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate>
 
 
 @end
@@ -33,7 +32,7 @@
     [contentView setBackgroundColor:RGB(250, 250, 250)];
     
     navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
-    [navigationBarView setShowSidebarToggleButton:YES];
+    [navigationBarView setTitle:_pageTitle];
     [contentView addSubview:navigationBarView];
     
     UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 100)];
@@ -62,9 +61,17 @@
 
 #pragma mark - Accessors
 
-- (void)setPageTitle:(NSString *)pageTitle
+- (void)setIsRootLevel:(BOOL)inIsRootLevel
 {
-    [navigationBarView setTitle:pageTitle];
+    _isRootLevel = inIsRootLevel;
+    [navigationBarView setShowSidebarToggleButton:_isRootLevel];
+    [navigationBarView setShowBackButton:!_isRootLevel];
+}
+
+- (void)setPageTitle:(NSString *)inPageTitle
+{
+    _pageTitle = inPageTitle;
+    [navigationBarView setTitle:_pageTitle];
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -74,8 +81,7 @@
     //only process if an item cell (not a separator cell!)
     if (indexPath.row % 2 == 0) {
         int dataRow = floorf(indexPath.row / 2.0f);
-        Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
-        cell.title = article.name;
+        cell.title = _items[dataRow];
     }
 }
 
@@ -86,13 +92,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.fetchedResultsController.sections count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    return [sectionInfo numberOfObjects] * 2;
+    return _items.count * 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,32 +128,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    int dataRow = floorf(indexPath.row / 2.0f);
-//    Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
-//    
-//    ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithArticle:article];
-
-    int dataRow = floorf(indexPath.row / 2.0f);
-    Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
-
-    SampleArticleContentViewController *viewController = [[SampleArticleContentViewController alloc] initWithNibName:nil bundle:nil];
-    [viewController setPageTitle:article.name];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    NSAssert(NO, @"subclass should override this");
-    return nil;
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [menusTableView reloadData];
+    //to be overriden by subclasses
 }
 
 @end

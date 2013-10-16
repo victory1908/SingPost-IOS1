@@ -1,29 +1,25 @@
 //
-//  ShopMainViewController.m
+//  PaymentSubLevelViewController.m
 //  SingPost
 //
-//  Created by Edward Soetiono on 9/10/13.
+//  Created by Edward Soetiono on 17/10/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "ShopMainViewController.h"
+#import "PaymentSubLevelViewController.h"
 #import "AppDelegate.h"
 #import "SampleArticleContentViewController.h"
 
-@interface ShopMainViewController ()
+@interface PaymentSubLevelViewController ()
 
 @end
 
-@implementation ShopMainViewController
+@implementation PaymentSubLevelViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setPageTitle:@"Shop"];
-    [self setIsRootLevel:YES];
-    
-    NSArray *data = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Shop" ofType:@"plist"]];
-    [self setItems:[data valueForKey:@"category"]];
+    [self setIsRootLevel:NO];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

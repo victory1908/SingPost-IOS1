@@ -10,7 +10,8 @@
 
 @interface ArticleViewController : UIViewController
 
-@property (nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic) NSArray *items;
 @property (nonatomic) NSString *pageTitle;
+@property (nonatomic, assign) BOOL isRootLevel;
 
 @end
