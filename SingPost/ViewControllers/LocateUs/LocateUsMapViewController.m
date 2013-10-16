@@ -85,6 +85,12 @@
     [self showFilteredLocationsOnMap];
 }
 
+- (void)dealloc
+{
+    [locateUsMapView setDelegate:nil];
+    locateUsMapView = nil;
+}
+
 #pragma mark - Map
 
 - (void)showFilteredLocationsOnMap
