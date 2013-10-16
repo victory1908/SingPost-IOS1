@@ -115,7 +115,7 @@
     [locationsTableView setSeparatorColor:[UIColor clearColor]];
     [locationsTableView setBackgroundView:nil];
     [searchResultsContainerView addSubview:locationsTableView];
-
+    
     indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(searchResultsContainerView.bounds.size.width - 30, 30, 28.0, searchResultsContainerView.bounds.size.height - searchLocationsCountLabel.bounds.size.height)];
     [indexBar setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [indexBar setDelegate:self];
@@ -147,6 +147,11 @@
     [self showSearchTermsView:YES];
 }
 
+- (void)dealloc
+{
+    [self discardLocationManager];
+}
+
 - (void)updateNumLocations
 {
     [searchLocationsCountLabel setText:[NSString stringWithFormat:@"     %d locations found", [self isSearching] ? filteredSearchResults.count : self.fetchedResultsController.fetchedObjects.count]];
@@ -159,7 +164,7 @@
     if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
         return;
     }
-
+    
     if (!isAnimating) {
         isAnimating = YES;
         [locationsTableView setBounces:NO];
@@ -283,8 +288,16 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
+    [self discardLocationManager];
     _cachedUserLocation = newLocation;
     [locationsTableView reloadData];
+}
+
+- (void)discardLocationManager
+{
+    [locationManager stopUpdatingLocation];
+    [locationManager setDelegate:nil];
+    locationManager = nil;
 }
 
 #pragma mark - CMIndexBarDelegate
