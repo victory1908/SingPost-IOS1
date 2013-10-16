@@ -6,5 +6,4 @@
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-//Frames
-#define NAVIGATIONBAR_FRAME CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44)
+#define SIDEBAR_WIDTH 275.0f

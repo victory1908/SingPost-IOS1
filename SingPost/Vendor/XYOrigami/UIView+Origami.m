@@ -114,6 +114,7 @@ static char const *const ObjectTagKey = "XY_Origami_Current_State";
         
         CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, scaledFrame);
         imageLayer.contents = (__bridge id)imageCrop;
+        CGImageRelease(imageCrop);
         imageLayer.backgroundColor = [UIColor clearColor].CGColor;
         
         //add shadow
@@ -164,6 +165,7 @@ static char const *const ObjectTagKey = "XY_Origami_Current_State";
                                         CGRectGetHeight(frame)*imageScale);
         CGImageRef imageCrop = CGImageCreateWithImageInRect(image.CGImage, scaledFrame);
         imageLayer.contents = (__bridge id)imageCrop;
+        CGImageRelease(imageCrop);
         imageLayer.backgroundColor = [UIColor clearColor].CGColor;
         
         //add shadow

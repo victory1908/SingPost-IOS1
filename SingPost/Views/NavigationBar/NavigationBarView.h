@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define NAVIGATIONBAR_FRAME CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44)
+
 @interface NavigationBarView : UIView
 
 @property (nonatomic, assign) BOOL showSidebarToggleButton;

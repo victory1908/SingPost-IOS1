@@ -22,8 +22,6 @@
 
 @end
 
-#define SIDEBAR_WIDTH 245.0f
-
 @implementation RootViewController
 {
     SidebarMenuViewController *sideBarMenuViewController;
@@ -48,18 +46,49 @@
     [activeViewControllerContainerView setBackgroundColor:[UIColor whiteColor]];
     [activeViewControllerContainerView setClipsToBounds:YES];
     [appContentView addSubview:activeViewControllerContainerView];
-    
-    [self loadSideBar];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    [self loadSideBar];
+    
     activeViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
     [self addChildViewController:activeViewController];
     [activeViewControllerContainerView addSubview:activeViewController.view];
     [activeViewController didMoveToParentViewController:self];
+    
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    [activeViewControllerContainerView addGestureRecognizer:panGesture];
+}
+
+- (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture
+{
+    if (sideBarMenuViewController.isVisible) {
+        CGPoint translation = [panGesture translationInView:panGesture.view];
+        double percentageOfWidth = MAX(-1.0f, MIN(0.0f, translation.x) / sideBarMenuViewController.view.bounds.size.width);
+        
+        if (panGesture.state == UIGestureRecognizerStateBegan) {
+            originalTransformation = sideBarMenuViewController.view.layer.transform;
+            originalTransformation.m34 = -0.001f;
+        }
+        else if (panGesture.state == UIGestureRecognizerStateEnded) {
+            if (sideBarMenuViewController.view.frame.origin.x > 0.0f) {
+                sideBarMenuViewController.isVisible = !sideBarMenuViewController.isVisible;
+                [self showSideBar:sideBarMenuViewController.isVisible step:(1.0f - fabsf(percentageOfWidth)) animate:YES preserveTransform:YES];
+            }
+            
+        }
+        else {
+            [appContentView setX:(percentageOfWidth * SIDEBAR_WIDTH)];
+            
+            CATransform3D transform = originalTransformation;
+            transform = CATransform3DRotate(originalTransformation, fabsf(percentageOfWidth) * -M_PI_2, 0, 1, 0);
+            sideBarMenuViewController.view.layer.anchorPoint = CGPointMake(1.0f, 0.5f);
+            sideBarMenuViewController.view.layer.transform = transform;
+        }
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -73,7 +102,7 @@
 {
     //close side bar
     sideBarMenuViewController.isVisible = NO;
-    [self showSideBar:sideBarMenuViewController.isVisible step:1.0f animate:YES];
+    [self showSideBar:sideBarMenuViewController.isVisible step:1.0f animate:YES preserveTransform:NO];
     
     //kill existing child viewcontrollers except the sidebar
     for (UIViewController *childViewController in self.childViewControllers) {
@@ -158,7 +187,7 @@
     [closeSidebarButton setBackgroundColor:[UIColor colorWithWhite:0.0f alpha:0.2f]];
     [closeSidebarButton addTarget:self action:@selector(closeSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self showSideBar:NO step:1.0f animate:NO];
+    [self showSideBar:NO step:1.0f animate:NO preserveTransform:NO];
 }
 
 #pragma mark - IBActions
@@ -172,7 +201,7 @@
 {
     [sideBarMenuViewController.view endEditing:YES];
     sideBarMenuViewController.isVisible = NO;
-    [self showSideBar:sideBarMenuViewController.isVisible step:1.0f animate:YES];
+    [self showSideBar:sideBarMenuViewController.isVisible step:1.0f animate:YES preserveTransform:NO];
 }
 
 #pragma mark - Side bar
@@ -180,12 +209,12 @@
 - (void)toggleSideBarVisiblity
 {
     sideBarMenuViewController.isVisible = !sideBarMenuViewController.isVisible;
-    [self showSideBar:sideBarMenuViewController.isVisible step:1.0f animate:YES];
+    [self showSideBar:sideBarMenuViewController.isVisible step:1.0f animate:YES preserveTransform:NO];
 }
 
-- (void)showSideBar:(BOOL)shouldShowSideBar step:(CGFloat)stepRatio animate:(BOOL)shouldAnimate
+- (void)showSideBar:(BOOL)shouldShowSideBar step:(CGFloat)stepRatio animate:(BOOL)shouldAnimate preserveTransform:(BOOL)shouldPreserveTransform
 {
-    double animationDuration = shouldAnimate ? (stepRatio * 0.5f) : 0.00001f;
+    double animationDuration = shouldAnimate ? 0.5f : 0.00001f;
     
     if (shouldShowSideBar) {
         [closeSidebarButton setFrame:activeViewController.view.frame];
@@ -198,10 +227,15 @@
     [CATransaction begin];
     [CATransaction setValue:@(animationDuration) forKey:kCATransactionAnimationDuration];
     
-    CATransform3D transform = CATransform3DIdentity;
-    
-    if (!shouldShowSideBar)
-        transform.m34 = -0.001f;
+    CATransform3D transform;
+    if (shouldPreserveTransform) {
+        transform = sideBarMenuViewController.view.layer.transform;
+    }
+    else {
+        transform = CATransform3DIdentity;
+        if (!shouldShowSideBar)
+            transform.m34 = -0.001f;
+    }
     
     transform = CATransform3DRotate(transform, stepRatio * (shouldShowSideBar ? 0 : -M_PI_2), 0, 1, 0);
     

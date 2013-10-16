@@ -224,8 +224,6 @@ typedef enum {
             [[self.view viewWithTag:TAG_CLOSEOFFERSMENUBUTTON] removeFromSuperview];
         }
         
-    } completion:^(BOOL finished) {
-        
     }];
 }
 

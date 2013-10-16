@@ -92,7 +92,7 @@
     landingPageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [landingPageButton setImage:[UIImage imageNamed:@"home_button"] forState:UIControlStateNormal];
     [landingPageButton addTarget:self action:@selector(landingPageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [landingPageButton setFrame:CGRectMake(197, offsetY + 2, 44, 44)];
+    [landingPageButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, offsetY + 2, 44, 44)];
     [contentView addSubview:landingPageButton];
     
     offsetY += 55.0f;
@@ -178,10 +178,10 @@
     [headerView addSubview:trackLabel];
     
     UIImageView *starImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-    [starImageView setFrame:CGRectMake(209, 9, 20, 20)];
+    [starImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 38, 9, 20, 20)];
     [headerView addSubview:starImageView];
     
-    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, 212, 30)];
+    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, SIDEBAR_WIDTH - 35, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
@@ -190,7 +190,7 @@
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:CGRectMake(200, 39, 25, 25)];
+    [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, 39, 25, 25)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
     
