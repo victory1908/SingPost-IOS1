@@ -88,6 +88,7 @@
 		52909100180D2ADA00D84030 /* OfferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090FF180D2ADA00D84030 /* OfferTableViewCell.m */; };
 		52909103180D2D2700D84030 /* OfferDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909102180D2D2700D84030 /* OfferDetailsViewController.m */; };
 		52909106180D2D7700D84030 /* OfferImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */; };
+		5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909109180EA94F00D84030 /* MoreAppsViewController.m */; };
 		52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */; };
 		5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */; };
 		52936481180B0FEE00B83F6B /* Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936480180B0FEE00B83F6B /* Stamp.m */; };
@@ -270,6 +271,8 @@
 		52909102180D2D2700D84030 /* OfferDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferDetailsViewController.m; sourceTree = "<group>"; };
 		52909104180D2D7700D84030 /* OfferImagesBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferImagesBrowserViewController.h; sourceTree = "<group>"; };
 		52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferImagesBrowserViewController.m; sourceTree = "<group>"; };
+		52909108180EA94F00D84030 /* MoreAppsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAppsViewController.h; sourceTree = "<group>"; };
+		52909109180EA94F00D84030 /* MoreAppsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreAppsViewController.m; sourceTree = "<group>"; };
 		5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMoreMenuView.h; sourceTree = "<group>"; };
 		5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMoreMenuView.m; sourceTree = "<group>"; };
 		52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectiblesMainViewController.h; sourceTree = "<group>"; };
@@ -549,6 +552,8 @@
 				521F786118029D7100B513FA /* AboutThisAppViewController.m */,
 				521F786318029F5100B513FA /* TermsOfUseViewController.h */,
 				521F786418029F5100B513FA /* TermsOfUseViewController.m */,
+				52909108180EA94F00D84030 /* MoreAppsViewController.h */,
+				52909109180EA94F00D84030 /* MoreAppsViewController.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1156,6 +1161,7 @@
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
+				5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */,
 				52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */,
 				52C9090E1804880E0063A026 /* ArticleTableViewCell.m in Sources */,
 				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,

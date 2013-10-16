@@ -1,30 +1,37 @@
+
 //
-//  ArticleViewController.m
+//  MoreAppsViewController.m
 //  SingPost
 //
-//  Created by Edward Soetiono on 9/10/13.
+//  Created by Edward Soetiono on 16/10/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "ArticleViewController.h"
+#import "MoreAppsViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
-#import "AppDelegate.h"
 #import "ArticleTableViewCell.h"
-#import "ArticleContentViewController.h"
-#import "SampleArticleContentViewController.h"
-#import "Article.h"
-#import <SVProgressHUD.h>
 
-@interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+@interface MoreAppsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 
 @end
 
-@implementation ArticleViewController
+@implementation MoreAppsViewController
 {
     NavigationBarView *navigationBarView;
-    UITableView *menusTableView;
+    UITableView *moreAppsTableView;
+    NSArray *moreAppsDisplayTexts, *moreAppsURLs;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        moreAppsDisplayTexts = @[@"SingPost vBOX", @"Post-a-Card"];
+        moreAppsURLs = @[@"https://itunes.apple.com/sg/app/singpost-vbox/id494837008", @"https://itunes.apple.com/sg/app/post-a-card/id530061954?mt=8"];
+    }
+    
+    return self;
 }
 
 - (void)loadView
@@ -34,6 +41,7 @@
     
     navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setShowSidebarToggleButton:YES];
+    [navigationBarView setTitle:@"More Apps"];
     [contentView addSubview:navigationBarView];
     
     UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 100)];
@@ -48,14 +56,14 @@
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
     [instructionsLabelBackgroundView addSubview:instructionsLabel];
     
-    menusTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
-    [menusTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [menusTableView setSeparatorColor:[UIColor clearColor]];
-    [menusTableView setBackgroundView:nil];
-    [menusTableView setDelegate:self];
-    [menusTableView setDataSource:self];
-    [menusTableView setBackgroundColor:[UIColor whiteColor]];
-    [contentView addSubview:menusTableView];
+    moreAppsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    [moreAppsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [moreAppsTableView setSeparatorColor:[UIColor clearColor]];
+    [moreAppsTableView setBackgroundView:nil];
+    [moreAppsTableView setDelegate:self];
+    [moreAppsTableView setDataSource:self];
+    [moreAppsTableView setBackgroundColor:[UIColor whiteColor]];
+    [contentView addSubview:moreAppsTableView];
     
     self.view = contentView;
 }
@@ -74,8 +82,7 @@
     //only process if an item cell (not a separator cell!)
     if (indexPath.row % 2 == 0) {
         int dataRow = floorf(indexPath.row / 2.0f);
-        Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
-        cell.title = article.name;
+        cell.title = moreAppsDisplayTexts[dataRow];
     }
 }
 
@@ -86,18 +93,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.fetchedResultsController.sections count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    return [sectionInfo numberOfObjects] * 2;
+    return moreAppsDisplayTexts.count * 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const itemCellIdentifier = @"ArticleItemTableViewCell";
+    static NSString *const itemCellIdentifier = @"MoreAppsItemTableViewCell";
     static NSString *const separatorCellIdentifier = @"SeparatorTableViewCell";
     
     if ((indexPath.row % 2) == 0) {
@@ -123,32 +129,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    int dataRow = floorf(indexPath.row / 2.0f);
-//    Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
-//    
-//    ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithArticle:article];
-
     int dataRow = floorf(indexPath.row / 2.0f);
-    Article *article = [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:dataRow inSection:indexPath.section]];
-
-    SampleArticleContentViewController *viewController = [[SampleArticleContentViewController alloc] initWithNibName:nil bundle:nil];
-    [viewController setPageTitle:article.name];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:moreAppsURLs[dataRow]]];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    NSAssert(NO, @"subclass should override this");
-    return nil;
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [menusTableView reloadData];
 }
 
 @end

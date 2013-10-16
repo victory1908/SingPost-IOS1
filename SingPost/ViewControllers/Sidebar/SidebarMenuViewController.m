@@ -25,6 +25,7 @@
 #import "MoreServicesMainViewController.h"
 #import "StampCollectiblesMainViewController.h"
 #import "OffersMainViewController.h"
+#import "MoreAppsViewController.h"
 
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
@@ -340,6 +341,12 @@
             case SIDEBARMENU_OFFERSMORE:
             {
                 [self toggleOffersMoreSubRows];
+                break;
+            }
+            case SIDEBARMENU_MOREAPPS:
+            {
+                MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }
             default:

@@ -27,6 +27,7 @@
 #import "StampCollectiblesMainViewController.h"
 #import "AboutThisAppViewController.h"
 #import "OffersMainViewController.h"
+#import "MoreAppsViewController.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
@@ -37,7 +38,7 @@ typedef enum {
     LANDINGPAGEBUTTON_SHOP,
     LANDINGPAGEBUTTON_MORESERVICES,
     LANDINGPAGEBUTTON_STAMPCOLLECTIBLES,
-    LANDINGPAGEBUTTON_OFFERS
+    LANDINGPAGEBUTTON_MOREAPPS
 } tLandingPageButtons;
 
 @interface LandingPageViewController () <UITextFieldDelegate, OffersMenuDelegate>
@@ -167,6 +168,8 @@ typedef enum {
     UIButton *menuMoreAppsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [menuMoreAppsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuMoreAppsButton setImage:[UIImage imageNamed:@"landing_moreApps"] forState:UIControlStateNormal];
+    [menuMoreAppsButton setTag:LANDINGPAGEBUTTON_MOREAPPS];
+    [menuMoreAppsButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuMoreAppsButton];
     
     offersMoreMenuView = [[OffersMoreMenuView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - 52, contentView.bounds.size.width, 500)];
@@ -279,6 +282,12 @@ typedef enum {
         case LANDINGPAGEBUTTON_STAMPCOLLECTIBLES:
         {
             StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case LANDINGPAGEBUTTON_MOREAPPS:
+        {
+            MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             break;
         }
