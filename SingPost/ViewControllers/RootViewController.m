@@ -60,6 +60,7 @@
     [activeViewController didMoveToParentViewController:self];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    [panGesture setCancelsTouchesInView:NO];
     [activeViewControllerContainerView addGestureRecognizer:panGesture];
 }
 
