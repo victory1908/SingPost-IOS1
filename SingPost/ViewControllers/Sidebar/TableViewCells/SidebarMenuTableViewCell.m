@@ -62,9 +62,7 @@
         subrowIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"showSubRow_indicator"]];
         [subrowIndicatorImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 32, 20, 8, 5)];
         [subrowIndicatorImageView setHidden:YES];
-        subrowIndicatorImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
         [contentView addSubview:subrowIndicatorImageView];
-
         
         [self.contentView addSubview:contentView];
     }
@@ -97,7 +95,7 @@
 {
     [UIView animateWithDuration:0.3f
                      animations:^{
-                         subrowIndicatorImageView.transform = isSubRowsVisible ? CGAffineTransformIdentity : CGAffineTransformMakeRotation(-M_PI_2);
+                         subrowIndicatorImageView.transform = isSubRowsVisible ? CGAffineTransformMakeRotation(-M_PI) : CGAffineTransformIdentity;
                      }];
 }
 

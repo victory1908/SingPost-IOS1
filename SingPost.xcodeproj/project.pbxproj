@@ -112,6 +112,7 @@
 		52A8B6A6180F106C002BC431 /* MoreServices.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52A8B6A5180F106C002BC431 /* MoreServices.plist */; };
 		52A8B6A9180F118B002BC431 /* MoreServicesSubLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B6A8180F118B002BC431 /* MoreServicesSubLevelViewController.m */; };
 		52A8B6AB180F11F4002BC431 /* Shop.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52A8B6AA180F11F4002BC431 /* Shop.plist */; };
+		52A8B6AE180F9F31002BC431 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B6AD180F9F31002BC431 /* FAQViewController.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
@@ -322,6 +323,8 @@
 		52A8B6A7180F118B002BC431 /* MoreServicesSubLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreServicesSubLevelViewController.h; sourceTree = "<group>"; };
 		52A8B6A8180F118B002BC431 /* MoreServicesSubLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreServicesSubLevelViewController.m; sourceTree = "<group>"; };
 		52A8B6AA180F11F4002BC431 /* Shop.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Shop.plist; sourceTree = "<group>"; };
+		52A8B6AC180F9F31002BC431 /* FAQViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAQViewController.h; sourceTree = "<group>"; };
+		52A8B6AD180F9F31002BC431 /* FAQViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAQViewController.m; sourceTree = "<group>"; };
 		52AF5B1817FB212C002D6798 /* LocateUsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsMapViewController.h; sourceTree = "<group>"; };
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
@@ -574,6 +577,8 @@
 				521F786418029F5100B513FA /* TermsOfUseViewController.m */,
 				52909108180EA94F00D84030 /* MoreAppsViewController.h */,
 				52909109180EA94F00D84030 /* MoreAppsViewController.m */,
+				52A8B6AC180F9F31002BC431 /* FAQViewController.h */,
+				52A8B6AD180F9F31002BC431 /* FAQViewController.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1200,6 +1205,7 @@
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
 				52A8B68C180F0098002BC431 /* ArticleViewController.m in Sources */,
+				52A8B6AE180F9F31002BC431 /* FAQViewController.m in Sources */,
 				52A8B686180F007E002BC431 /* ArticleTableViewCell.m in Sources */,
 				529364A3180B2FF100B83F6B /* _Stamp.m in Sources */,
 				528F26C517F936F0006F7027 /* FlatBlueButton.m in Sources */,

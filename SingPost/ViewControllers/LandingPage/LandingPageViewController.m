@@ -28,6 +28,7 @@
 #import "AboutThisAppViewController.h"
 #import "OffersMainViewController.h"
 #import "MoreAppsViewController.h"
+#import "FAQViewController.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
@@ -323,6 +324,17 @@ typedef enum {
         {
             AboutThisAppViewController *viewController = [[AboutThisAppViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case OFFERSMENUBUTTON_FAQS:
+        {
+            FAQViewController *viewController = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            break;
+        }
+        case OFFERSMENUBUTTON_RATEOURAPP:
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/sg/app/singpost-mobile/id647986630"]];
             break;
         }
         default:

@@ -9,7 +9,6 @@
 #import "SidebarMenuViewController.h"
 #import "UIFont+SingPost.h"
 #import "UIColor+SingPost.h"
-#import "UIView+Shadow.h"
 #import "SidebarMenuTableViewCell.h"
 #import "SidebarMenuSubRowTableViewCell.h"
 #import "AppDelegate.h"
@@ -30,6 +29,7 @@
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
 #import "TermsOfUseViewController.h"
+#import "FAQViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -108,13 +108,11 @@
     [menuTableView setBackgroundView:nil];
     [contentView addSubview:menuTableView];
     
+    UIImageView *dropShadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drop-shadow"]];
+    [dropShadowImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 25, 0, 25, 640)];
+    [contentView addSubview:dropShadowImageView];
+    
     self.view = contentView;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    [self.view makeInsetShadowWithRadius:10.0f Color:[UIColor colorWithWhite:0.6f alpha:0.1f] Directions:@[@"right"]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -279,6 +277,17 @@
             {
                 TermsOfUseViewController *viewController = [[TermsOfUseViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SUBROWS_OFFERSMORE_FAQ:
+            {
+                FAQViewController *viewController = [[FAQViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
+            case SUBROWS_OFFERSMORE_RATEOURAPP:
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/sg/app/singpost-mobile/id647986630"]];
                 break;
             }
             default:
