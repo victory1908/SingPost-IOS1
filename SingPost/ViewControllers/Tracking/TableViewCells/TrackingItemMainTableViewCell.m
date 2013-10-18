@@ -24,14 +24,14 @@
         [contentView setBackgroundColor:[UIColor whiteColor]];
 
         UILabel *trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 8, 180, 30)];
-        [trackingNumberLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+        [trackingNumberLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [trackingNumberLabel setText:@"RA0000000000SG"];
         [trackingNumberLabel setTextColor:RGB(58, 68, 61)];
         [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:trackingNumberLabel];
         
         UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(198, 8, 100, 30)];
-        [statusLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+        [statusLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [statusLabel setText:@"<status>"];
         [statusLabel setTextColor:RGB(58, 68, 61)];
         [statusLabel setBackgroundColor:[UIColor clearColor]];
