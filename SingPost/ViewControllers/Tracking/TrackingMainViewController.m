@@ -21,6 +21,7 @@
 #import "UIImage+Extensions.h"
 
 typedef enum {
+    TRACKINGITEMS_SECTION_HEADER,
     TRACKINGITEMS_SECTION_ACTIVE,
     TRACKINGITEMS_SECTION_COMPLETED,
     
@@ -62,45 +63,8 @@ typedef enum {
     [infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [infoButton setFrame:CGRectMake(255, 7, 50, 30)];
     [navigationBarView addSubview:infoButton];
-    
-    //content
-    CGFloat offsetY = 60.0f;
-    
-    trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, 290, 47)];
-    [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
-    [trackingNumberTextField setFontSize:16.0f];
-    [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
-    [trackingNumberTextField setInsetBoundsSize:CGSizeMake(14, 12)];
-    [trackingNumberTextField setText:_trackingNumber];
-    [trackingNumberTextField setDelegate:self];
-    [contentView addSubview:trackingNumberTextField];
-    
-    UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:CGRectMake(265, 68, 35, 35)];
-    [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [contentView addSubview:findTrackingNumberButton];
-    
-    offsetY += 60.0f;
-    
-    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 220, 50)];
-    [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
-    [instructionsLabel setText:@"Turn on push notification to auto-receive\nlatest status updates of item(s) you are\ncurrently tracking"];
-    [instructionsLabel setNumberOfLines:0];
-    [instructionsLabel setTextColor:RGB(51, 51, 51)];
-    [instructionsLabel setBackgroundColor:[UIColor clearColor]];
-    [contentView addSubview:instructionsLabel];
-    
-    receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
-    receiveUpdateSwitch.onTintColor = [UIColor SingPostBlueColor];
-    receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
-    receiveUpdateSwitch.center = CGPointMake(278, 145);
-    receiveUpdateSwitch.on = YES;
-    [contentView addSubview:receiveUpdateSwitch];
-    
-    offsetY += 65.0f;
 
-    trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [trackingItemsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingItemsTableView setSeparatorColor:[UIColor clearColor]];
     [trackingItemsTableView setDelegate:self];
@@ -181,14 +145,14 @@ typedef enum {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
-        return 30.0f;
+        return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 140.0f : 30.0f;
     
     return (indexPath.row % 2 == 0) ? 44.0f : 1.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 50.0f;
+    return section == TRACKINGITEMS_SECTION_HEADER ? 0.0f : 50.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -196,7 +160,7 @@ typedef enum {
     return 0.1f;
 }
 
--(UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     return [[UIView alloc] initWithFrame:CGRectZero];
 }
@@ -208,6 +172,9 @@ typedef enum {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == TRACKINGITEMS_SECTION_HEADER)
+        return 1;
+    
     NSInteger numHeaders = 1;
     NSInteger numSeparators = numHeaders + (TEST_DATA_COUNT - 1);
     return TEST_DATA_COUNT + numHeaders + numSeparators;
@@ -215,6 +182,9 @@ typedef enum {
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    if (section == TRACKINGITEMS_SECTION_HEADER)
+        return nil;
+    
     UIView *sectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 60)];
     [sectionHeaderView setBackgroundColor:RGB(240, 240, 240)];
     
@@ -272,6 +242,47 @@ typedef enum {
     static NSString *const headerCellIdentifier = @"TrackingHeaderMainTableViewCell";
     static NSString *const itemCellIdentifier = @"TrackingItemMainTableViewCell";
     static NSString *const separatorCellIdentifier = @"SeparatorTableViewCell";
+    static NSString *const trackingCellIdentifier = @"TrackingCell";
+    
+    if (indexPath.section == TRACKINGITEMS_SECTION_HEADER) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:trackingCellIdentifier];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:trackingCellIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, 290, 47)];
+            [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+            [trackingNumberTextField setFontSize:16.0f];
+            [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
+            [trackingNumberTextField setInsetBoundsSize:CGSizeMake(14, 12)];
+            [trackingNumberTextField setText:_trackingNumber];
+            [trackingNumberTextField setDelegate:self];
+            [cell.contentView addSubview:trackingNumberTextField];
+            
+            UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
+            [findTrackingNumberButton setFrame:CGRectMake(265, 29, 35, 35)];
+            [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.contentView addSubview:findTrackingNumberButton];
+            
+            UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, 220, 50)];
+            [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
+            [instructionsLabel setText:@"Turn on push notification to auto-receive\nlatest status updates of item(s) you are\ncurrently tracking"];
+            [instructionsLabel setNumberOfLines:0];
+            [instructionsLabel setTextColor:RGB(51, 51, 51)];
+            [instructionsLabel setBackgroundColor:[UIColor clearColor]];
+            [cell.contentView addSubview:instructionsLabel];
+            
+            receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
+            receiveUpdateSwitch.onTintColor = [UIColor SingPostBlueColor];
+            receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
+            receiveUpdateSwitch.center = CGPointMake(278, 104);
+            receiveUpdateSwitch.on = YES;
+            [cell.contentView addSubview:receiveUpdateSwitch];
+        }
+        
+        return cell;
+    }
 
     if (indexPath.row == 0) {
         TrackingHeaderMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headerCellIdentifier];
@@ -306,9 +317,21 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == TRACKINGITEMS_SECTION_HEADER) {
+        [self.view endEditing:YES];
+    }
+    else {
+        TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithNibName:nil bundle:nil];
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 
 @end
