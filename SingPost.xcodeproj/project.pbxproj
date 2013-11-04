@@ -409,7 +409,8 @@
 				5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */,
 				5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */,
 			);
-			path = Views;
+			name = Views;
+			path = ../Views;
 			sourceTree = "<group>";
 		};
 		52024F1C17F685D700AFD239 /* CalculatePostage */ = {
@@ -480,7 +481,6 @@
 				52305F8617F5B1DC00610A86 /* Application */,
 				524CEA3B17F282B800E0EAC3 /* Categories */,
 				528F26D517F97991006F7027 /* Models */,
-				52024F1817F6836800AFD239 /* Views */,
 				521B174F17F1653E00FEB6FD /* ViewControllers */,
 				521B172F17F1633000FEB6FD /* AppDelegate.h */,
 				521B173017F1633000FEB6FD /* AppDelegate.m */,
@@ -768,6 +768,7 @@
 		528F26D517F97991006F7027 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52024F1817F6836800AFD239 /* Views */,
 				528F26DB17F97BA6006F7027 /* Machine */,
 				528F26DA17F97B98006F7027 /* Human */,
 				528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */,

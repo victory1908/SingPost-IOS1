@@ -14,10 +14,6 @@
 #import "FlatBlueButton.h"
 #import <TPKeyboardAvoidingScrollView.h>
 
-@interface CalculatePostageSingaporeView () <CDropDownListControlDelegate>
-
-@end
-
 @implementation CalculatePostageSingaporeView
 {
     TPKeyboardAvoidingScrollView *contentScrollView;
@@ -49,7 +45,6 @@
         
         weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(202, 130, 103, 44)];
         [weightUnitsDropDownList setPlistValueFile:@"CalculatePostage_WeightUnits"];
-        [weightUnitsDropDownList setDelegate:self];
         [weightUnitsDropDownList selectRow:0 animated:NO];
         [contentScrollView addSubview:weightUnitsDropDownList];
         
@@ -75,28 +70,6 @@
 {
     [weightUnitsDropDownList resignFirstResponder];
     return [super endEditing:force];
-}
-
-#pragma mark - CDropDownListControlDelegate
-
-- (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight
-{
-    [super endEditing:YES];
-    
-    CGFloat repositionFromY = CGRectGetMaxY(control.frame);
-    [UIView animateWithDuration:0.3f animations:^{
-        for (UIView *subview in contentScrollView.subviews) {
-            if (subview.frame.origin.y >= repositionFromY) {
-                if (subview.tag != TAG_DROPDOWN_PICKERVIEW)
-                    [subview setY:subview.frame.origin.y + offsetHeight];
-            }
-        }
-    } completion:^(BOOL finished) {
-        if (offsetHeight > 0)
-            [contentScrollView setContentOffset:CGPointMake(0, control.frame.origin.y - 10) animated:YES];
-        else
-            [contentScrollView setContentOffset:CGPointZero animated:YES];
-    }];
 }
 
 #pragma mark - IBActions

@@ -17,7 +17,7 @@
 #import "StampCollectiblesDetailsViewController.h"
 #import "AppDelegate.h"
 
-@interface StampCollectiblesMainViewController () <CDropDownListControlDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+@interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -62,7 +62,6 @@
     
     yearDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 95, 240, 80, 44)];
     [yearDropDownList setValues:@[@{@"code": @"2013 Collections", @"value": @"2013"}, @{@"code": @"2012 Collections", @"value": @"2012"}]];
-    [yearDropDownList setDelegate:self];
     [yearDropDownList selectRow:0 animated:NO];
     [contentScrollView addSubview:yearDropDownList];
     
@@ -81,34 +80,6 @@
     [contentScrollView addSubview:stampsTableView];
 
     self.view = contentScrollView;
-}
-
-#pragma mark - CDropDownListControlDelegate
-
-- (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight
-{
-    [self.view endEditing:YES];
-    
-    CGFloat repositionFromY = CGRectGetMaxY(control.frame);
-    [UIView animateWithDuration:0.3f animations:^{
-        for (UIView *subview in contentScrollView.subviews) {
-            if (subview.frame.origin.y >= repositionFromY) {
-                if (subview.tag != TAG_DROPDOWN_PICKERVIEW)
-                    [subview setY:subview.frame.origin.y + offsetHeight];
-            }
-        }
-    } completion:^(BOOL finished) {
-        if (offsetHeight > 0)
-            [contentScrollView setContentOffset:CGPointMake(0, control.frame.origin.y - 50) animated:YES];
-        else
-            [contentScrollView setContentOffset:CGPointZero animated:YES];
-    }];
-}
-
-- (void)dropDownListIsDismissed:(CDropDownListControl *)control
-{
-    if (control == yearDropDownList)
-        [chosenYearLabel setText:yearDropDownList.selectedValue];
 }
 
 #pragma mark - UITableView DataSource & Delegate

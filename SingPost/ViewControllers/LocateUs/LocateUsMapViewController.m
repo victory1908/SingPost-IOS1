@@ -19,7 +19,7 @@
 #import "AppDelegate.h"
 #import "LocateUsDetailsViewController.h"
 
-@interface LocateUsMapViewController () <CDropDownListControlDelegate, MKMapViewDelegate>
+@interface LocateUsMapViewController () <MKMapViewDelegate>
 
 @end
 
@@ -55,7 +55,6 @@
     
     typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
-    [typesDropDownList setDelegate:self];
     [typesDropDownList selectRow:0 animated:NO];
     [contentScrollView addSubview:typesDropDownList];
     
@@ -170,28 +169,6 @@
     
     LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:mapAnnotation.location];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-}
-
-#pragma mark - CDropDownListControlDelegate
-
-- (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight
-{
-    [self.view endEditing:YES];
-    
-    CGFloat repositionFromY = CGRectGetMaxY(control.frame);
-    [UIView animateWithDuration:0.3f animations:^{
-        for (UIView *subview in contentScrollView.subviews) {
-            if (subview.frame.origin.y >= repositionFromY) {
-                if (subview.tag != TAG_DROPDOWN_PICKERVIEW)
-                    [subview setY:subview.frame.origin.y + offsetHeight];
-            }
-        }
-    } completion:^(BOOL finished) {
-        if (offsetHeight > 0)
-            [contentScrollView setContentOffset:CGPointMake(0, control.frame.origin.y - 10) animated:YES];
-        else
-            [contentScrollView setContentOffset:CGPointZero animated:YES];
-    }];
 }
 
 #pragma mark - IBActions

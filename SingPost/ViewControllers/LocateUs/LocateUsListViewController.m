@@ -24,7 +24,7 @@
 
 #import "EntityLocation.h"
 
-@interface LocateUsListViewController () <CDropDownListControlDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CMIndexBarDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
+@interface LocateUsListViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CMIndexBarDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -86,7 +86,6 @@
     
     typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
-    [typesDropDownList setDelegate:self];
     [typesDropDownList selectRow:0 animated:NO];
     [searchTermsView addSubview:typesDropDownList];
     
@@ -235,34 +234,6 @@
 - (void)textFieldDidChange:(UITextField *)textField
 {
     [self filterContentForSearchText:textField.text];
-}
-
-#pragma mark - CDropDownListControlDelegate
-
-- (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight
-{
-    [self.view endEditing:YES];
-    
-    CGFloat repositionFromY = CGRectGetMaxY(control.frame);
-    [UIView animateWithDuration:0.3f animations:^{
-        for (UIView *subview in contentScrollView.subviews) {
-            if (subview.frame.origin.y >= repositionFromY) {
-                if (subview.tag != TAG_DROPDOWN_PICKERVIEW)
-                    [subview setY:subview.frame.origin.y + offsetHeight];
-            }
-        }
-    } completion:^(BOOL finished) {
-        if (offsetHeight > 0) {
-            [contentScrollView setContentOffset:CGPointMake(0, control.frame.origin.y - 10) animated:YES];
-            isAnimating = YES;
-        }
-        else {
-            [contentScrollView setContentOffset:CGPointZero animated:YES];
-            isAnimating = NO;
-        }
-        
-        [searchTermsView setHeight:searchTermsView.bounds.size.height + offsetHeight];
-    }];
 }
 
 #pragma mark - IBActions

@@ -15,10 +15,6 @@
 #import "FlatBlueButton.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface FindPostalCodePOBoxView () <CDropDownListControlDelegate>
-
-@end
-
 @implementation FindPostalCodePOBoxView
 {
     TPKeyboardAvoidingScrollView *contentScrollView;
@@ -39,7 +35,6 @@
         typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 44)];
         [typeDropDownList setFontSize:14.0f];
         [typeDropDownList setPlistValueFile:@"FindPostalCodes_Types"];
-        [typeDropDownList setDelegate:self];
         [typeDropDownList selectRow:0 animated:NO];
         [contentScrollView addSubview:typeDropDownList];
         
@@ -78,28 +73,6 @@
     }
     
     return self;
-}
-
-#pragma mark - CDropDownListControlDelegate
-
-- (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight
-{
-    [super endEditing:YES];
-    
-    CGFloat repositionFromY = CGRectGetMaxY(control.frame);
-    [UIView animateWithDuration:0.3f animations:^{
-        for (UIView *subview in contentScrollView.subviews) {
-            if (subview.frame.origin.y >= repositionFromY) {
-                if (subview.tag != TAG_DROPDOWN_PICKERVIEW)
-                    [subview setY:subview.frame.origin.y + offsetHeight];
-            }
-        }
-    } completion:^(BOOL finished) {
-        if (offsetHeight > 0)
-            [contentScrollView setContentOffset:CGPointMake(0, control.frame.origin.y - 10) animated:YES];
-        else
-            [contentScrollView setContentOffset:CGPointZero animated:YES];
-    }];
 }
 
 #pragma mark - IBActions

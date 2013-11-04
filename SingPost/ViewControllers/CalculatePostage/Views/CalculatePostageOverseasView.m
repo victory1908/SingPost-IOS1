@@ -15,7 +15,7 @@
 #import <TPKeyboardAvoidingScrollView.h>
 #import "FlatBlueButton.h"
 
-@interface CalculatePostageOverseasView () <CDropDownListControlDelegate>
+@interface CalculatePostageOverseasView ()
 
 @end
 
@@ -36,7 +36,6 @@
         toWhichCountryDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
         [toWhichCountryDropDownList setPlistValueFile:@"CalculatePostage_Countries"];
         [toWhichCountryDropDownList setPlaceholderText:@"To which country"];
-        [toWhichCountryDropDownList setDelegate:self];
         [contentScrollView addSubview:toWhichCountryDropDownList];
         
         weightTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 175, 44)];
@@ -46,7 +45,6 @@
 
         weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(202, 75, 103, 44)];
         [weightUnitsDropDownList setPlistValueFile:@"CalculatePostage_WeightUnits"];
-        [weightUnitsDropDownList setDelegate:self];
         [weightUnitsDropDownList selectRow:0 animated:NO];
         [contentScrollView addSubview:weightUnitsDropDownList];
         
@@ -58,7 +56,6 @@
         [contentScrollView addSubview:allFieldMandatoryLabel];
         
         expectedDeliveryTimeInDaysDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 160, 290, 44)];
-        [expectedDeliveryTimeInDaysDropDownList setDelegate:self];
         [expectedDeliveryTimeInDaysDropDownList setPlistValueFile:@"CalculatePostage_ExpectedDeliveryTimeDays"];
         [expectedDeliveryTimeInDaysDropDownList setPlaceholderText:@"Expected delivery time (days)"];
         [contentScrollView addSubview:expectedDeliveryTimeInDaysDropDownList];
@@ -80,28 +77,6 @@
     [weightUnitsDropDownList resignFirstResponder];
     [expectedDeliveryTimeInDaysDropDownList resignFirstResponder];
     return [super endEditing:force];
-}
-
-#pragma mark - CDropDownListControlDelegate
-
-- (void)repositionRelativeTo:(CDropDownListControl *)control byVerticalHeight:(CGFloat)offsetHeight
-{
-    [super endEditing:YES];
-    
-    CGFloat repositionFromY = CGRectGetMaxY(control.frame);
-    [UIView animateWithDuration:0.3f animations:^{
-        for (UIView *subview in contentScrollView.subviews) {
-            if (subview.frame.origin.y >= repositionFromY) {
-                if (subview.tag != TAG_DROPDOWN_PICKERVIEW)
-                    [subview setY:subview.frame.origin.y + offsetHeight];
-            }
-        }
-    } completion:^(BOOL finished) {
-        if (offsetHeight > 0)
-            [contentScrollView setContentOffset:CGPointMake(0, control.frame.origin.y - 10) animated:YES];
-        else
-            [contentScrollView setContentOffset:CGPointZero animated:YES];
-    }];
 }
 
 #pragma mark - IBActions
