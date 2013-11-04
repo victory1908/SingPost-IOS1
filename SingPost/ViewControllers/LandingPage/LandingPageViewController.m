@@ -334,7 +334,7 @@ typedef enum {
         }
         case OFFERSMENUBUTTON_RATEOURAPP:
         {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/sg/app/singpost-mobile/id647986630"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SINGPOST_ITUNES_STORE_URL]];
             break;
         }
         default:

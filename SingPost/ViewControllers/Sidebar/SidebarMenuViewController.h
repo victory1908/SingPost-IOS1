@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define SIDEBAR_WIDTH 275.0f
+
 @interface SidebarMenuViewController : UIViewController
 
 @property (nonatomic, assign) BOOL isVisible;

@@ -409,8 +409,7 @@
 				5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */,
 				5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */,
 			);
-			name = Views;
-			path = ../Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		52024F1C17F685D700AFD239 /* CalculatePostage */ = {
@@ -476,6 +475,7 @@
 		521B172617F1633000FEB6FD /* SingPost */ = {
 			isa = PBXGroup;
 			children = (
+				52024F1817F6836800AFD239 /* Views */,
 				52C908E718045F210063A026 /* Api */,
 				52282FCC17FA8F7C00B2A7B4 /* Vendor */,
 				52305F8617F5B1DC00610A86 /* Application */,
@@ -768,7 +768,6 @@
 		528F26D517F97991006F7027 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				52024F1817F6836800AFD239 /* Views */,
 				528F26DB17F97BA6006F7027 /* Machine */,
 				528F26DA17F97B98006F7027 /* Human */,
 				528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */,
