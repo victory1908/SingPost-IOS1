@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "FlatBlueButton.h"
 #import "LocateUsMainViewController.h"
+#import "CalculatePostageResultItem.h"
 
 @interface CalculatePostageResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -24,7 +25,21 @@
     UITableView *resultsTableView;
 }
 
-#define TEST_DATA_COUNT 8
+//designated initializer
+- (id)initWithResultItems:(NSArray *)inResultItems
+{
+    NSParameterAssert(inResultItems);
+    if ((self = [super initWithNibName:nil bundle:nil])) {
+        _resultItems = inResultItems;
+    }
+    
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    return [self initWithResultItems:nil];
+}
 
 - (void)loadView
 {
@@ -87,7 +102,9 @@
     if (indexPath.row == TITLE_ROW)
         return 30.0f;
 
-    return 70.0f;
+    CalculatePostageResultItem *item = _resultItems[indexPath.row - 2];
+    CGSize variableTextSize = [item.deliveryServiceName sizeWithFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans] constrainedToSize:CGSizeMake(190, 9999)];
+    return variableTextSize.height + 55.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -107,7 +124,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return TEST_DATA_COUNT + 2; //2 = header + title row
+    return _resultItems.count + 2; //2 = header + title row
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -155,21 +172,21 @@
             
             toLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 16, 100, 20)];
             [toLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [toLabel setText:@"Australia"];
+            [toLabel setText:_toCountry];
             [toLabel setTextColor:RGB(51, 51, 51)];
             [toLabel setBackgroundColor:[UIColor clearColor]];
             [cellContentView addSubview:toLabel];
             
             weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 40, 100, 20)];
             [weightLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [weightLabel setText:@"10 kg"];
+            [weightLabel setText:_itemWeight];
             [weightLabel setTextColor:RGB(51, 51, 51)];
             [weightLabel setBackgroundColor:[UIColor clearColor]];
             [cellContentView addSubview:weightLabel];
             
             expectedDeliveryTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 65, 100, 20)];
             [expectedDeliveryTimeLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [expectedDeliveryTimeLabel setText:@"2 days"];
+            [expectedDeliveryTimeLabel setText:_expectedDeliveryTime];
             [expectedDeliveryTimeLabel setTextColor:RGB(51, 51, 51)];
             [expectedDeliveryTimeLabel setBackgroundColor:[UIColor clearColor]];
             [cellContentView addSubview:expectedDeliveryTimeLabel];
@@ -221,8 +238,15 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
+        [self configureCell:cell atIndexPath:indexPath];
+        
         return cell;
     }
+}
+
+- (void)configureCell:(CalculatePostageResultsItemTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setItem:_resultItems[indexPath.row - 2]];
 }
 
 @end

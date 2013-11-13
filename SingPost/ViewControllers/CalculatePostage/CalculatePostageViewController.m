@@ -9,14 +9,13 @@
 #import "CalculatePostageViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
-#import "CalculatePostageSingaporeView.h"
-#import "CalculatePostageOverseasView.h"
-#import "CalculatePostageResultsViewController.h"
-#import "AppDelegate.h"
+#import "CalculatePostageOverseasViewController.h"
+#import "CalculatePostageSingaporeViewController.h"
 #import "SectionToggleButton.h"
 #import "UIView+Position.h"
+#import "ApiClient.h"
 
-@interface CalculatePostageViewController () <CalculatePostageOverseasDelegate, CalculatePostageSingaporeDelegate>
+@interface CalculatePostageViewController ()
 
 @end
 
@@ -29,10 +28,11 @@ typedef enum  {
 {
     tCalculatePostageSections currentSection;
     SectionToggleButton *overseasSectionButton, *singaporeSectionButton;
-    CalculatePostageOverseasView *overseasSectionView;
-    CalculatePostageSingaporeView *singaporeSectionView;
     UIScrollView *sectionContentScrollView;
     UIButton *selectedSectionIndicatorButton;
+    
+    CalculatePostageOverseasViewController *overseasViewController;
+    CalculatePostageSingaporeViewController *singaporeViewController;
 }
 
 - (void)loadView
@@ -59,15 +59,17 @@ typedef enum  {
     [sectionContentScrollView setScrollEnabled:NO];
     [contentView addSubview:sectionContentScrollView];
     
-    overseasSectionView = [[CalculatePostageOverseasView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_OVERSEAS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [overseasSectionView setDelegate:self];
-    [overseasSectionView setBackgroundColor:[UIColor clearColor]];
-    [sectionContentScrollView addSubview:overseasSectionView];
+    overseasViewController = [[CalculatePostageOverseasViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:overseasViewController];
+    [overseasViewController.view setFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_OVERSEAS, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [sectionContentScrollView addSubview:overseasViewController.view];
+    [overseasViewController didMoveToParentViewController:self];
     
-    singaporeSectionView = [[CalculatePostageSingaporeView alloc] initWithFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_SINGAPORE, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [singaporeSectionView setDelegate:self];
-    [singaporeSectionView setBackgroundColor:[UIColor clearColor]];
-    [sectionContentScrollView addSubview:singaporeSectionView];
+    singaporeViewController = [[CalculatePostageSingaporeViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:singaporeViewController];
+    [singaporeViewController.view setFrame:CGRectMake(contentView.bounds.size.width * CALCULATEPOSTAGE_SECTION_SINGAPORE, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [sectionContentScrollView addSubview:singaporeViewController.view];
+    [singaporeViewController didMoveToParentViewController:self];
     
     UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 139, contentView.bounds.size.width, 0.5f)];
     [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
@@ -122,7 +124,7 @@ typedef enum  {
     [gestureRecognizer setTranslation:CGPointZero inView:self.view];
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        [self resignAllResponders];;
+        [self resignAllResponders];
     }
     else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         if (CGRectContainsPoint(overseasSectionButton.frame, gestureRecognizer.view.center))
@@ -158,24 +160,26 @@ typedef enum  {
 }
 
 
-#pragma mark - Section Delegates
-
-- (void)calculatePostageOverseas:(CalculatePostageOverseasView *)sender
-{
-    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-}
-
-- (void)calculatePostageSingapore:(CalculatePostageSingaporeView *)sender
-{
-    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-}
+//#pragma mark - Section Delegates
+//
+//- (void)calculatePostageOverseas:(CalculatePostageOverseasView *)sender
+//{
+////    [[ApiClient sharedInstance] calculateOverseasPostageForCountryCode:@"GBUKI" andWeight:@"150" andItemTypeCode:@" andDeliveryCode:<#(NSString *)#>]
+//    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+//}
+//
+//- (void)calculatePostageSingapore:(CalculatePostageSingaporeView *)sender
+//{
+//    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+//}
 
 #pragma mark - IBActions
 
 - (IBAction)sectionButtonClicked:(id)sender
 {
+    [self resignAllResponders];
     if (sender == overseasSectionButton)
         [self goToSection:CALCULATEPOSTAGE_SECTION_OVERSEAS];
     else if (sender == singaporeSectionButton)
@@ -193,8 +197,8 @@ typedef enum  {
 - (void)resignAllResponders
 {
     [sectionContentScrollView endEditing:YES];
-    [overseasSectionView endEditing:YES];
-    [singaporeSectionView endEditing:YES];
+    [overseasViewController.view endEditing:YES];
+    [singaporeViewController.view endEditing:YES];
 }
 
 @end

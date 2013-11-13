@@ -20,8 +20,6 @@
     UIPickerView *pickerView;
     UIActionSheet *pickerViewActionSheet;
     UILabel *selectedValueLabel;
-    
-    NSUInteger selectedRowIndex;
 }
 
 #define PICKERVIEW_HEIGHT 215
@@ -83,6 +81,7 @@
     [pickerViewActionSheet addSubview:toolbar];
     [pickerViewActionSheet showInView:self];
     [pickerViewActionSheet setBounds:CGRectMake(0, 0, 320, 445)];
+    [self selectRow:_selectedRowIndex animated:YES];
 }
 
 - (void)dismissActionSheet
@@ -92,7 +91,7 @@
 
 - (void)selectRow:(NSInteger)row animated:(BOOL)shouldAnimate
 {
-    selectedRowIndex = row;
+    _selectedRowIndex = row;
     [pickerView selectRow:row inComponent:0 animated:shouldAnimate];
     [self pickerView:pickerView didSelectRow:row inComponent:0];
 }
@@ -118,12 +117,12 @@
 
 - (NSString *)selectedText
 {
-    return _values[selectedRowIndex][@"value"];
+    return _values[_selectedRowIndex][@"value"];
 }
 
 - (NSString *)selectedValue
 {
-    return _values[selectedRowIndex][@"code"];
+    return _values[_selectedRowIndex][@"code"];
 }
 
 - (void)setFontSize:(CGFloat)fontSize
@@ -134,7 +133,7 @@
 #pragma mark - UIPickerViewDelegates & DataSource
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    selectedRowIndex = row;
+    _selectedRowIndex = row;
     [selectedValueLabel setText:_values[row][@"value"]];
 }
 

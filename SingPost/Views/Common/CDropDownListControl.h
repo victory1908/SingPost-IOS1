@@ -18,6 +18,8 @@
 @property (nonatomic, readonly) NSString *selectedText;
 @property (nonatomic, readonly) NSString *selectedValue;
 
+@property (nonatomic, readonly) NSUInteger selectedRowIndex;
+
 - (void)selectRow:(NSInteger)row animated:(BOOL)shouldAnimate;
 
 @end

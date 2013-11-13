@@ -10,7 +10,7 @@
 
 @implementation ApiClient
 
-static NSString *const BASE_URL = @"http://mobile.singpost.com//";
+static NSString *const BASE_URL = @"https://uatesb1.singpost.com";
 
 #pragma mark - Shared singleton instance
 
@@ -32,11 +32,40 @@ static NSString *const BASE_URL = @"http://mobile.singpost.com//";
        parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               if (success)
-                  success(operation, responseObject);
+                  success(responseObject);
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               if (failure)
-                  failure(operation, error);
+                  failure(error);
           }];
+}
+
+- (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSString *xml = [NSString stringWithFormat:@"<OverseasPostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+         "<Country>%@</Country>"
+         "<Weight>%@</Weight>"
+         "<DeliveryServiceName></DeliveryServiceName>"
+         "<ItemType>%@</ItemType>"
+         "<PriceRange>999</PriceRange>"
+         "<DeliveryTimeRange>%@</DeliveryTimeRange>"
+         "</OverseasPostalInfoDetailsRequest>", countryCode, weightInGrams, itemTypeCode, deliveryCode];
+    
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/FilterOverseasPostalInfo" parameters:nil];
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+        NSLog(@"%@", XMLElement);
+        if (success)
+            success(XMLElement);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+        NSLog(@"%@", error);
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
 }
 
 @end

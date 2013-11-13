@@ -7,14 +7,17 @@
 //
 
 #import <AFNetworking.h>
+#import <AFRaptureXMLRequestOperation.h>
+#import <RXMLElement.h>
 
 @interface ApiClient : AFHTTPClient
 
-typedef void (^ApiClientSuccess)(AFHTTPRequestOperation *operation, id responseObject);
-typedef void (^ApiClientFailure)(AFHTTPRequestOperation *operation, NSError *error);
+typedef void (^ApiClientSuccess)(id responseObject);
+typedef void (^ApiClientFailure)(NSError *error);
 
 + (ApiClient *)sharedInstance;
 
 - (void)getSingpostServicesArticlesOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
 @end

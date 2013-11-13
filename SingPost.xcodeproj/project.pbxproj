@@ -50,10 +50,11 @@
 		52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */; };
 		52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */; };
 		52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
+		5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0B81833DE5B00E9358A /* CalculatePostageOverseasViewController.m */; };
+		5237B0BC1833DF3300E9358A /* CalculatePostageSingaporeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BB1833DF3300E9358A /* CalculatePostageSingaporeViewController.m */; };
+		5237B0BF1833E71B00E9358A /* CalculatePostageResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */; };
-		528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F267217F8318D006F7027 /* CalculatePostageSingaporeView.m */; };
-		528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F267817F84A4A006F7027 /* CalculatePostageOverseasView.m */; };
 		528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268417F85B20006F7027 /* CalculatePostage_WeightUnits.plist */; };
 		528F268A17F864C6006F7027 /* CalculatePostage_Countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268917F864C6006F7027 /* CalculatePostage_Countries.plist */; };
 		528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F268B17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist */; };
@@ -213,14 +214,16 @@
 		52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuTableViewCell.m; sourceTree = "<group>"; };
 		52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		52305F9D17F5D44800610A86 /* SidebarMenus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SidebarMenus.plist; path = TableViewCells/SidebarMenus.plist; sourceTree = "<group>"; };
+		5237B0B71833DE5B00E9358A /* CalculatePostageOverseasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageOverseasViewController.h; sourceTree = "<group>"; };
+		5237B0B81833DE5B00E9358A /* CalculatePostageOverseasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageOverseasViewController.m; sourceTree = "<group>"; };
+		5237B0BA1833DF3300E9358A /* CalculatePostageSingaporeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageSingaporeViewController.h; sourceTree = "<group>"; };
+		5237B0BB1833DF3300E9358A /* CalculatePostageSingaporeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageSingaporeViewController.m; sourceTree = "<group>"; };
+		5237B0BD1833E71B00E9358A /* CalculatePostageResultItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageResultItem.h; sourceTree = "<group>"; };
+		5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageResultItem.m; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 		526FA1A0180BB7BD00E562E7 /* StampImagesBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampImagesBrowserViewController.h; sourceTree = "<group>"; };
 		526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImagesBrowserViewController.m; sourceTree = "<group>"; };
-		528F267117F8318D006F7027 /* CalculatePostageSingaporeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageSingaporeView.h; sourceTree = "<group>"; };
-		528F267217F8318D006F7027 /* CalculatePostageSingaporeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageSingaporeView.m; sourceTree = "<group>"; };
-		528F267717F84A4A006F7027 /* CalculatePostageOverseasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageOverseasView.h; sourceTree = "<group>"; };
-		528F267817F84A4A006F7027 /* CalculatePostageOverseasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageOverseasView.m; sourceTree = "<group>"; };
 		528F268417F85B20006F7027 /* CalculatePostage_WeightUnits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculatePostage_WeightUnits.plist; sourceTree = "<group>"; };
 		528F268917F864C6006F7027 /* CalculatePostage_Countries.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculatePostage_Countries.plist; sourceTree = "<group>"; };
 		528F268B17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CalculatePostage_ExpectedDeliveryTimeDays.plist; sourceTree = "<group>"; };
@@ -416,11 +419,14 @@
 			isa = PBXGroup;
 			children = (
 				528F26AB17F8C562006F7027 /* TableViewCells */,
-				528F266D17F82B36006F7027 /* Views */,
 				52024F1D17F6860800AFD239 /* CalculatePostageViewController.h */,
 				52024F1E17F6860800AFD239 /* CalculatePostageViewController.m */,
 				528F269017F8B725006F7027 /* CalculatePostageResultsViewController.h */,
 				528F269117F8B725006F7027 /* CalculatePostageResultsViewController.m */,
+				5237B0B71833DE5B00E9358A /* CalculatePostageOverseasViewController.h */,
+				5237B0B81833DE5B00E9358A /* CalculatePostageOverseasViewController.m */,
+				5237B0BA1833DF3300E9358A /* CalculatePostageSingaporeViewController.h */,
+				5237B0BB1833DF3300E9358A /* CalculatePostageSingaporeViewController.m */,
 			);
 			path = CalculatePostage;
 			sourceTree = "<group>";
@@ -665,17 +671,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		528F266D17F82B36006F7027 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				528F267717F84A4A006F7027 /* CalculatePostageOverseasView.h */,
-				528F267817F84A4A006F7027 /* CalculatePostageOverseasView.m */,
-				528F267117F8318D006F7027 /* CalculatePostageSingaporeView.h */,
-				528F267217F8318D006F7027 /* CalculatePostageSingaporeView.m */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		528F268317F85AD9006F7027 /* Plists */ = {
 			isa = PBXGroup;
 			children = (
@@ -782,6 +777,8 @@
 			children = (
 				52C908EB18046BCA0063A026 /* Article.h */,
 				52C908EC18046BCA0063A026 /* Article.m */,
+				5237B0BD1833E71B00E9358A /* CalculatePostageResultItem.h */,
+				5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */,
 				528F270717F9C18C006F7027 /* EntityLocation.h */,
 				528F270817F9C18C006F7027 /* EntityLocation.m */,
 				529090F2180D2A2900D84030 /* Offer.h */,
@@ -1175,12 +1172,12 @@
 				521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */,
 				52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */,
 				52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */,
-				528F267917F84A4A006F7027 /* CalculatePostageOverseasView.m in Sources */,
 				52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */,
 				528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */,
 				52A8B6A4180F0F99002BC431 /* PaymentSubLevelViewController.m in Sources */,
 				52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */,
 				528F26B917F922F5006F7027 /* FindPostalCodeStreetView.m in Sources */,
+				5237B0BF1833E71B00E9358A /* CalculatePostageResultItem.m in Sources */,
 				5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */,
 				52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */,
 				529090F7180D2A2900D84030 /* OfferImage.m in Sources */,
@@ -1199,7 +1196,6 @@
 				526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */,
 				52C90915180490330063A026 /* PaymentMainViewController.m in Sources */,
 				521F785F1802944100B513FA /* CTextView.m in Sources */,
-				528F267317F8318D006F7027 /* CalculatePostageSingaporeView.m in Sources */,
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
 				521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
@@ -1219,10 +1215,12 @@
 				52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
 				52909106180D2D7700D84030 /* OfferImagesBrowserViewController.m in Sources */,
+				5237B0BC1833DF3300E9358A /* CalculatePostageSingaporeViewController.m in Sources */,
 				521F786B1802AB5100B513FA /* LocateUsDetailsPostingBoxView.m in Sources */,
 				52909100180D2ADA00D84030 /* OfferTableViewCell.m in Sources */,
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
+				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */,

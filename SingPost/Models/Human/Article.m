@@ -43,7 +43,7 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
 
 + (void)API_getSendReceiveItemsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getSingpostServicesArticlesOnSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[ApiClient sharedInstance] getSingpostServicesArticlesOnSuccess:^(id responseObject) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(ARTICLES_LOCK) {
                 NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
@@ -66,7 +66,7 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
                 }];
             }
         });
-    } onFailure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } onFailure:^(NSError *error) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock(NO, error);
