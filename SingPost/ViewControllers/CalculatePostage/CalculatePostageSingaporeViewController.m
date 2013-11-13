@@ -11,10 +11,14 @@
 #import "CDropDownListControl.h"
 #import "UIFont+SingPost.h"
 #import "UIView+Position.h"
-#import "FlatBlueButton.h"
 #import <TPKeyboardAvoidingScrollView.h>
+#import "FlatBlueButton.h"
+#import "CalculatePostageResultsViewController.h"
+#import "AppDelegate.h"
+#import <SVProgressHUD.h>
+#import "CalculatePostageResultItem.h"
 
-@interface CalculatePostageSingaporeViewController ()
+@interface CalculatePostageSingaporeViewController () <UITextFieldDelegate>
 
 @end
 
@@ -24,6 +28,7 @@
     TPKeyboardAvoidingScrollView *contentScrollView;
     CTextField *fromPostalCodeTextField, *toPostalCodeTextField, *weightTextField;
     CDropDownListControl *weightUnitsDropDownList;
+    NSNumberFormatter *numberFormatter;
 }
 
 - (void)loadView
@@ -33,17 +38,21 @@
     [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
     
     fromPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
+    [fromPostalCodeTextField setDelegate:self];
     [fromPostalCodeTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [fromPostalCodeTextField setPlaceholder:@"From postal code"];
     [contentScrollView addSubview:fromPostalCodeTextField];
     
     toPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
+    [toPostalCodeTextField setDelegate:self];
     [toPostalCodeTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [toPostalCodeTextField setPlaceholder:@"To postal code"];
     [contentScrollView addSubview:toPostalCodeTextField];
     
     weightTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 130, 175, 44)];
     [weightTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+    [weightTextField setDelegate:self];
+    [weightTextField setDelegate:self];
     [weightTextField setPlaceholder:@"Weight"];
     [contentScrollView addSubview:weightTextField];
     
@@ -73,11 +82,60 @@
     [contentScrollView setContentSize:contentScrollView.bounds.size];
 }
 
+#pragma mark - UITextField Delegates
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == weightTextField) {
+        //only digits with 1 decimal place
+        if (!numberFormatter)
+            numberFormatter = [[NSNumberFormatter alloc] init];
+        NSNumber *match = [numberFormatter numberFromString:[textField.text stringByAppendingString:string]];  // in case we entered two decimals
+        return (match != nil);
+    }
+    else if (textField == fromPostalCodeTextField || textField == toPostalCodeTextField) {
+        //only digits with no decimal place
+        NSString *s = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^\\d{0,20}$" options:0 error:nil];
+        NSTextCheckingResult *match = [regex firstMatchInString:s options:0 range:NSMakeRange(0, [s length])];
+        return (match != nil);
+    }
+    
+    return NO;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark - IBActions
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
-    NSLog(@"calculate postage button clicked");
+    if ([fromPostalCodeTextField.text length] == 0 || [toPostalCodeTextField.text length] == 0 || [weightTextField.text length] == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+    else {
+        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
+        
+        NSString *weightInGrams = [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? [NSNumber numberWithFloat:[weightTextField.text floatValue] * 1000].stringValue : [NSNumber numberWithFloat:[weightTextField.text floatValue]].stringValue;
+        
+        [CalculatePostageResultItem API_calculateSingaporePostageForFromPostalCode:fromPostalCodeTextField.text andToPostalCode:toPostalCodeTextField.text andWeight:weightInGrams onCompletion:^(NSArray *items, NSError *error) {
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+            }
+            else {
+                [SVProgressHUD dismiss];
+                CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithResultItems:items];
+                viewController.toCountry = @"Singapore";
+                viewController.itemWeight = [NSString stringWithFormat:@"%@ %@", weightTextField.text, [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? WEIGHT_KG_UNIT : WEIGHT_G_UNIT];
+                viewController.expectedDeliveryTime = @"-";
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
+        }];
+    }
 }
 
 @end

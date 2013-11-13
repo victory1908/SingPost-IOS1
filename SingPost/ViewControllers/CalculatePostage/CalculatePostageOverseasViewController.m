@@ -82,10 +82,11 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (textField == weightTextField) {
+        //only digits with 1 decimal place
         if (!numberFormatter)
             numberFormatter = [[NSNumberFormatter alloc] init];
-        NSNumber *test = [numberFormatter numberFromString:[textField.text stringByAppendingString:string]];  // in case we entered two decimals
-        return (test != nil);
+        NSNumber *match = [numberFormatter numberFromString:[textField.text stringByAppendingString:string]];  // in case we entered two decimals
+        return (match != nil);
     }
     return NO;
 }

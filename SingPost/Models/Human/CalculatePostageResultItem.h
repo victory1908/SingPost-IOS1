@@ -20,6 +20,8 @@
 @property (nonatomic) NSString *netPostageCharges;
 @property (nonatomic) NSString *deliveryTime;
 
++ (void)API_calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode andToPostalCode:(NSString *)toPostalCode andWeight:(NSString *)weightInGrams onCompletion:(void(^)(NSArray *items, NSError *error))completionBlock;
+
 + (void)API_calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onCompletion:(void(^)(NSArray *items, NSError *error))completionBlock;
 
 @end

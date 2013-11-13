@@ -20,6 +20,29 @@
     return item;
 }
 
++ (void)API_calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode andToPostalCode:(NSString *)toPostalCode andWeight:(NSString *)weightInGrams onCompletion:(void(^)(NSArray *items, NSError *error))completionBlock
+{
+    [[ApiClient sharedInstance] calculateSingaporePostageForFromPostalCode:fromPostalCode andToPostalCode:toPostalCode andWeight:weightInGrams onSuccess:^(RXMLElement *rootXML) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableArray *items = [NSMutableArray array];
+            [rootXML iterate:@"SingaporePostalInfoDetailList.SingaporePostalInfoDetail" usingBlock:^(RXMLElement *e) {
+                [items addObject:[CalculatePostageResultItem itemFromXMLElement:e]];
+            }];
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(items, nil);
+                });
+            }
+        });
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil, error);
+            });
+        }
+    }];
+}
+
 + (void)API_calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onCompletion:(void(^)(NSArray *items, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] calculateOverseasPostageForCountryCode:countryCode andWeight:weightInGrams andItemTypeCode:itemTypeCode andDeliveryCode:deliveryCode onSuccess:^(RXMLElement *rootXML) {
