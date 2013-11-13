@@ -15,7 +15,7 @@
 #import "OffersMoreMenuView.h"
 
 #import "TrackingMainViewController.h"
-#import "CalculatePostageViewController.h"
+#import "CalculatePostageMainViewController.h"
 #import "FindPostalCodesMainViewController.h"
 #import "LocateUsMainViewController.h"
 #import "SendReceiveMainViewController.h"
@@ -240,7 +240,7 @@ typedef enum {
     switch (landingPageButton) {
         case LANDINGPAGEBUTTON_CALCULATEPOSTAGE:
         {
-            CalculatePostageViewController *viewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
+            CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             break;
         }

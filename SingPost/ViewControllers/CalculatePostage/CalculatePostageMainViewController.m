@@ -1,12 +1,12 @@
 //
-//  CalculatePostageViewController.m
+//  CalculatePostageMainViewController.m
 //  SingPost
 //
 //  Created by Edward Soetiono on 28/9/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "CalculatePostageViewController.h"
+#import "CalculatePostageMainViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
 #import "CalculatePostageOverseasViewController.h"
@@ -15,7 +15,7 @@
 #import "UIView+Position.h"
 #import "ApiClient.h"
 
-@interface CalculatePostageViewController ()
+@interface CalculatePostageMainViewController ()
 
 @end
 
@@ -24,7 +24,7 @@ typedef enum  {
     CALCULATEPOSTAGE_SECTION_SINGAPORE
 } tCalculatePostageSections;
 
-@implementation CalculatePostageViewController
+@implementation CalculatePostageMainViewController
 {
     tCalculatePostageSections currentSection;
     SectionToggleButton *overseasSectionButton, *singaporeSectionButton;
@@ -158,22 +158,6 @@ typedef enum  {
             [selectedSectionIndicatorButton setFrame:singaporeSectionButton.frame];
     }];
 }
-
-
-//#pragma mark - Section Delegates
-//
-//- (void)calculatePostageOverseas:(CalculatePostageOverseasView *)sender
-//{
-////    [[ApiClient sharedInstance] calculateOverseasPostageForCountryCode:@"GBUKI" andWeight:@"150" andItemTypeCode:@" andDeliveryCode:<#(NSString *)#>]
-//    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
-//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-//}
-//
-//- (void)calculatePostageSingapore:(CalculatePostageSingaporeView *)sender
-//{
-//    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithNibName:nil bundle:nil];
-//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-//}
 
 #pragma mark - IBActions
 

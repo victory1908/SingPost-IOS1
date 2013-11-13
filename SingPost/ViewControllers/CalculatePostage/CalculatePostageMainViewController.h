@@ -1,5 +1,5 @@
 //
-//  CalculatePostageViewController.h
+//  CalculatePostageMainViewController.h
 //  SingPost
 //
 //  Created by Edward Soetiono on 28/9/13.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CalculatePostageViewController : UIViewController
+@interface CalculatePostageMainViewController : UIViewController
 
 @end
+

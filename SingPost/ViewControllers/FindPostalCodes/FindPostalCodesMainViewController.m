@@ -12,9 +12,9 @@
 #import "SectionToggleButton.h"
 #import "UIView+Position.h"
 
-#import "FindPostalCodeStreetView.h"
-#import "FindPostalCodeLandmarkView.h"
-#import "FindPostalCodePOBoxView.h"
+#import "FindPostalCodeLandmarkViewController.h"
+#import "FindPostalCodePOBoxViewController.h"
+#import "FindPostalCodeStreetViewController.h"
 
 @interface FindPostalCodesMainViewController ()
 
@@ -32,9 +32,10 @@ typedef enum  {
     SectionToggleButton *streetSectionButton, *landmarkSectionButton, *poBoxSectionButton;
     UIButton *selectedSectionIndicatorButton;
     UIScrollView *sectionContentScrollView;
-    FindPostalCodeStreetView *streetSectionView;
-    FindPostalCodeLandmarkView *landmarkSectionView;
-    FindPostalCodePOBoxView *poBoxSectionView;
+    
+    FindPostalCodeLandmarkViewController *landmarkViewController;
+    FindPostalCodePOBoxViewController *poBoxViewController;
+    FindPostalCodeStreetViewController *streetViewController;
 }
 
 - (void)loadView
@@ -62,15 +63,24 @@ typedef enum  {
     [sectionContentScrollView setScrollEnabled:NO];
     [contentView addSubview:sectionContentScrollView];
     
-    streetSectionView = [[FindPostalCodeStreetView alloc] initWithFrame:CGRectMake(FINDPOSTALCODES_SECTION_STREET * contentView.bounds.size.width, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [sectionContentScrollView addSubview:streetSectionView];
+    streetViewController = [[FindPostalCodeStreetViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:streetViewController];
+    [streetViewController.view setFrame:CGRectMake(FINDPOSTALCODES_SECTION_STREET * contentView.bounds.size.width, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [sectionContentScrollView addSubview:streetViewController.view];
+    [streetViewController didMoveToParentViewController:self];
     
-    landmarkSectionView = [[FindPostalCodeLandmarkView alloc] initWithFrame:CGRectMake(FINDPOSTALCODES_SECTION_LANDMARK * contentView.bounds.size.width, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [sectionContentScrollView addSubview:landmarkSectionView];
-    
-    poBoxSectionView = [[FindPostalCodePOBoxView alloc] initWithFrame:CGRectMake(FINDPOSTALCODES_SECTION_POBOX * contentView.bounds.size.width, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [sectionContentScrollView addSubview:poBoxSectionView];
-    
+    landmarkViewController = [[FindPostalCodeLandmarkViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:landmarkViewController];
+    [landmarkViewController.view setFrame:CGRectMake(FINDPOSTALCODES_SECTION_LANDMARK * contentView.bounds.size.width, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [sectionContentScrollView addSubview:landmarkViewController.view];
+    [landmarkViewController didMoveToParentViewController:self];
+
+    poBoxViewController = [[FindPostalCodePOBoxViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:poBoxViewController];
+    [poBoxViewController.view setFrame:CGRectMake(FINDPOSTALCODES_SECTION_POBOX * contentView.bounds.size.width, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+    [sectionContentScrollView addSubview:poBoxViewController.view];
+    [poBoxViewController didMoveToParentViewController:self];
+
     streetSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 44.5, 107, 49.5)];
     [streetSectionButton setTag:FINDPOSTALCODES_SECTION_STREET];
     [streetSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -178,9 +188,9 @@ typedef enum  {
 - (void)resignAllResponders
 {
     [sectionContentScrollView endEditing:YES];
-    [streetSectionView endEditing:YES];
-    [landmarkSectionView endEditing:YES];
-    [poBoxSectionView endEditing:YES];
+    [poBoxViewController.view endEditing:YES];
+    [streetViewController.view endEditing:YES];
+    [landmarkViewController.view endEditing:YES];
 }
 
 @end

@@ -1,28 +1,35 @@
 //
-//  FindPostalCodeLandmarkView.m
+//  FindPostalCodeLandmarkViewController.m
 //  SingPost
 //
-//  Created by Edward Soetiono on 30/9/13.
+//  Created by Edward Soetiono on 14/11/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "FindPostalCodeLandmarkView.h"
-#import <TPKeyboardAvoidingScrollView.h>
+#import "FindPostalCodeLandmarkViewController.h"
 #import "CTextField.h"
+#import "TPKeyboardAvoidingScrollView.h"
 #import "UIFont+SingPost.h"
 #import "FlatBlueButton.h"
 #import <QuartzCore/QuartzCore.h>
+#import <SVProgressHUD.h>
+#import "PostalCode.h"
 
-@implementation FindPostalCodeLandmarkView
+@interface FindPostalCodeLandmarkViewController ()
+
+@end
+
+@implementation FindPostalCodeLandmarkViewController
 {
     TPKeyboardAvoidingScrollView *contentScrollView;
     CTextField *majorBuildingEstateTextField;
+    UILabel *postalCodeLabel;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if ((self = [super initWithFrame:frame])) {
-        contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.bounds];
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         [contentScrollView setDelaysContentTouches:NO];
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
@@ -30,7 +37,7 @@
         [majorBuildingEstateTextField setPlaceholder:@"Major building / Estate name"];
         [contentScrollView addSubview:majorBuildingEstateTextField];
         
-        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 175, self.bounds.size.width - 30, 48)];
+        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 175, contentScrollView.bounds.size.width - 30, 48)];
         [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [findButton setTitle:@"FIND" forState:UIControlStateNormal];
         [contentScrollView addSubview:findButton];
@@ -48,24 +55,48 @@
         [postalCodeHeaderLabel setText:@"Postal Code"];
         [postalCodeContainerView addSubview:postalCodeHeaderLabel];
         
-        UILabel *postalCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, postalCodeContainerView.bounds.size.width, 44)];
+        postalCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, postalCodeContainerView.bounds.size.width, 44)];
         [postalCodeLabel setFont:[UIFont SingPostBoldFontOfSize:40.0f fontKey:kSingPostFontOpenSans]];
         [postalCodeLabel setTextAlignment:NSTextAlignmentCenter];
         [postalCodeLabel setTextColor:RGB(58, 68, 61)];
         [postalCodeLabel setBackgroundColor:[UIColor clearColor]];
-        [postalCodeLabel setText:@"123456"];
         [postalCodeContainerView addSubview:postalCodeLabel];
         
-        [contentScrollView setContentSize:contentScrollView.bounds.size];
-        [self addSubview:contentScrollView];
+        self.view = contentScrollView;
     }
     
     return self;
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    [contentScrollView setContentSize:contentScrollView.bounds.size];
+}
+
 - (IBAction)findButtonClicked:(id)sender
 {
-    NSLog(@"find button clicked");
+    [self.view endEditing:YES];
+    if ([majorBuildingEstateTextField.text length] == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+    else {
+        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
+        [postalCodeLabel setText:@""];
+        [PostalCode API_findPostalCodeForLandmark:majorBuildingEstateTextField.text onCompletion:^(NSString *postalCode, NSError *error) {
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+            }
+            else {
+                [SVProgressHUD dismiss];
+                if (postalCode)
+                    [postalCodeLabel setText:postalCode];
+                else
+                    [postalCodeLabel setText:@"Not found"];
+            }
+        }];
+    }
 }
 
 @end

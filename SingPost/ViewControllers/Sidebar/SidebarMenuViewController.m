@@ -13,7 +13,7 @@
 #import "SidebarMenuSubRowTableViewCell.h"
 #import "AppDelegate.h"
 
-#import "CalculatePostageViewController.h"
+#import "CalculatePostageMainViewController.h"
 #import "LandingPageViewController.h"
 #import "FindPostalCodesMainViewController.h"
 #import "TrackingMainViewController.h"
@@ -301,7 +301,7 @@
         switch ((tSidebarMenus)indexPath.row) {
             case SIDEBARMENU_CALCULATEPOSTAGE:
             {
-                CalculatePostageViewController *viewController = [[CalculatePostageViewController alloc] initWithNibName:nil bundle:nil];
+                CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }
