@@ -11,6 +11,7 @@
 #import "UIFont+SingPost.h"
 #import "UIImage+Extensions.h"
 #import "TrackingItemDetailTableViewCell.h"
+#import "ItemTracking.h"
 #import <KGModal.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -22,6 +23,8 @@
 {
     UILabel *trackingNumberLabel, *originLabel, *destinationLabel;
     UITableView *trackingDetailTableView;
+    ItemTracking *_trackedItem;
+    NSArray *_deliveryStatuses;
 }
 
 - (void)loadView
@@ -75,22 +78,22 @@
     
     trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 16, 130, 20)];
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [trackingNumberLabel setText:@"RA00000000SG"];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
+    [trackingNumberLabel setText:_trackedItem.trackingNumber];
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:trackingNumberLabel];
     
     originLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40, 130, 20)];
     [originLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [originLabel setText:@"Singapore"];
     [originLabel setTextColor:RGB(51, 51, 51)];
+    [originLabel setText:_trackedItem.originalCountry];
     [originLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:originLabel];
     
     destinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 65, 130, 20)];
     [destinationLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [destinationLabel setText:@"Australia"];
     [destinationLabel setTextColor:RGB(51, 51, 51)];
+    [destinationLabel setText:_trackedItem.destinationCountry];
     [destinationLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:destinationLabel];
     
@@ -130,7 +133,7 @@
     [contentView addSubview:headerView];
     
     //content
-    trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174, contentView.bounds.size.width, contentView.bounds.size.height - 174) style:UITableViewStylePlain];
+    trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174, contentView.bounds.size.width, contentView.bounds.size.height - 194) style:UITableViewStylePlain];
     [trackingDetailTableView setDelegate:self];
     [trackingDetailTableView setDataSource:self];
     [trackingDetailTableView setBackgroundColor:[UIColor clearColor]];
@@ -140,6 +143,23 @@
     [contentView addSubview:trackingDetailTableView];
     
     self.view = contentView;
+}
+
+//designated initializer
+- (id)initWithTrackedItem:(ItemTracking *)inTrackedItem
+{
+    NSParameterAssert(inTrackedItem);
+    if ((self = [super initWithNibName:nil bundle:nil])) {
+        _trackedItem = inTrackedItem;
+        _deliveryStatuses = _trackedItem.deliveryStatuses.array;
+    }
+    
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    return [self initWithTrackedItem:nil];
 }
 
 #pragma mark - IBActions
@@ -166,7 +186,7 @@
     infoLabelRect.origin.y = CGRectGetMaxY(headerLabelRect)+5;
     infoLabelRect.size.height -= CGRectGetMinY(infoLabelRect);
     UILabel *infoLabel = [[UILabel alloc] initWithFrame:infoLabelRect];
-    infoLabel.text = @"Tracking information";
+    infoLabel.text = @"Parcel information";
     infoLabel.numberOfLines = 6;
     infoLabel.textColor = [UIColor whiteColor];
     infoLabel.textAlignment = NSTextAlignmentCenter;
@@ -182,7 +202,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44.0f;
+    return 71.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -207,7 +227,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return _deliveryStatuses.count;
+}
+
+- (void)configureCell:(TrackingItemDetailTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    cell.deliveryStatus = _deliveryStatuses[indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,6 +244,8 @@
         cell = [[TrackingItemDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
 }

@@ -31,6 +31,9 @@
 #import "TermsOfUseViewController.h"
 #import "FAQViewController.h"
 
+#import "ItemTracking.h"
+#import <SVProgressHUD.h>
+
 @interface SidebarTrackingNumberTextField : UITextField
 
 @end
@@ -132,21 +135,29 @@
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
-    [self.view endEditing:YES];
-    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    if (trackingNumberTextField.text.length > 0) {
+        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+            [self.view endEditing:YES];
+            if (success) {
+                [SVProgressHUD dismiss];
+                TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+                trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            }
+        }];
+    }
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
     if (textField == trackingNumberTextField) {
-        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-        trackingMainViewController.trackingNumber = trackingNumberTextField.text;
-        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+        [self findTrackingNumberButtonClicked:nil];
     }
     return YES;
 }
@@ -183,6 +194,8 @@
     trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, SIDEBAR_WIDTH - 35, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
+    [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
+    [trackingNumberTextField setText:@"RC131180001SG"];
     [trackingNumberTextField setDelegate:self];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [headerView addSubview:trackingNumberTextField];

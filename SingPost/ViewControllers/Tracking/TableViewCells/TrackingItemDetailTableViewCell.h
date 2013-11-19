@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class DeliveryStatus;
+
 @interface TrackingItemDetailTableViewCell : UITableViewCell
+
+@property (nonatomic) DeliveryStatus *deliveryStatus;
 
 @end

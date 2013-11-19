@@ -79,9 +79,9 @@
         else if (panGesture.state == UIGestureRecognizerStateEnded) {
             if (sideBarMenuViewController.view.frame.origin.x > 0.0f) {
                 sideBarMenuViewController.isVisible = !sideBarMenuViewController.isVisible;
+                [sideBarMenuViewController.view endEditing:YES];
                 [self showSideBar:sideBarMenuViewController.isVisible step:(1.0f - fabsf(percentageOfWidth)) animate:YES preserveTransform:YES];
             }
-            
         }
         else {
             [appContentView setX:(percentageOfWidth * SIDEBAR_WIDTH)];

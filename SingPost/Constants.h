@@ -9,3 +9,5 @@
 #define SINGPOST_ITUNES_STORE_URL @"https://itunes.apple.com/sg/app/singpost-mobile/id647986630"
 
 #define SIDEBAR_WIDTH 275.0f
+
+#define ERROR_DOMAIN @"com.codigo.singpost.errordomain"

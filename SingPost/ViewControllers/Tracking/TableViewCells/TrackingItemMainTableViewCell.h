@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class ItemTracking;
+
 @interface TrackingItemMainTableViewCell : UITableViewCell
+
+@property (nonatomic) ItemTracking *item;
 
 @end

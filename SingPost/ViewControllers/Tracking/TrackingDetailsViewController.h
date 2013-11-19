@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class ItemTracking;
+
 @interface TrackingDetailsViewController : UIViewController
+
+- (id)initWithTrackedItem:(ItemTracking *)trackedItem;
 
 @end

@@ -16,7 +16,6 @@
 		52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */; };
 		52024F3117F72D2000AFD239 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F3017F72D2000AFD239 /* OpenSans-Semibold.ttf */; };
 		52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F3317F7301B00AFD239 /* TrackingItemDetailTableViewCell.m */; };
-		52024F3517F7348C00AFD239 /* TrackingDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */; };
 		521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
 		521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
@@ -24,11 +23,6 @@
 		521B172D17F1633000FEB6FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B172C17F1633000FEB6FD /* main.m */; };
 		521B173117F1633000FEB6FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B173017F1633000FEB6FD /* AppDelegate.m */; };
 		521B173317F1633000FEB6FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
-		521B173A17F1633000FEB6FD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B173917F1633000FEB6FD /* XCTest.framework */; };
-		521B173B17F1633000FEB6FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
-		521B173C17F1633000FEB6FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
-		521B174417F1633000FEB6FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 521B174217F1633000FEB6FD /* InfoPlist.strings */; };
-		521B174617F1633000FEB6FD /* SingPostTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B174517F1633000FEB6FD /* SingPostTests.m */; };
 		521B175517F1678100FEB6FD /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175417F1678100FEB6FD /* RootViewController.m */; };
 		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
 		521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F784D1802641100B513FA /* SendReceiveMainViewController.m */; };
@@ -117,6 +111,10 @@
 		52A8B6AE180F9F31002BC431 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B6AD180F9F31002BC431 /* FAQViewController.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
+		52B40292183B625700D14D43 /* ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B40291183B625700D14D43 /* ItemTracking.m */; };
+		52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4029A183B88D100D14D43 /* DeliveryStatus.m */; };
+		52B402A4183BC46900D14D43 /* _ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B402A3183BC46900D14D43 /* _ItemTracking.m */; };
+		52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
 		52C908ED18046BCA0063A026 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908EC18046BCA0063A026 /* Article.m */; };
 		52C908F918047F1E0063A026 /* _Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908F818047F1E0063A026 /* _Article.m */; };
@@ -130,16 +128,6 @@
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		521B173D17F1633000FEB6FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 521B171C17F1633000FEB6FD;
-			remoteInfo = SingPost;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,11 +160,7 @@
 		521B172F17F1633000FEB6FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		521B173017F1633000FEB6FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		521B173217F1633000FEB6FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../SingPost/Images.xcassets; sourceTree = "<group>"; };
-		521B173817F1633000FEB6FD /* SingPostTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingPostTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		521B173917F1633000FEB6FD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		521B174117F1633000FEB6FD /* SingPostTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPostTests-Info.plist"; sourceTree = "<group>"; };
-		521B174317F1633000FEB6FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		521B174517F1633000FEB6FD /* SingPostTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingPostTests.m; sourceTree = "<group>"; };
 		521B175317F1678100FEB6FD /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		521B175417F1678100FEB6FD /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		521B175717F1961100FEB6FD /* SidebarMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuViewController.h; sourceTree = "<group>"; };
@@ -335,6 +319,14 @@
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
 		52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeTransitionViewController.m; sourceTree = "<group>"; };
+		52B40290183B625700D14D43 /* ItemTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemTracking.h; sourceTree = "<group>"; };
+		52B40291183B625700D14D43 /* ItemTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTracking.m; sourceTree = "<group>"; };
+		52B40299183B88D100D14D43 /* DeliveryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryStatus.h; sourceTree = "<group>"; };
+		52B4029A183B88D100D14D43 /* DeliveryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryStatus.m; sourceTree = "<group>"; };
+		52B402A2183BC46900D14D43 /* _ItemTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ItemTracking.h; sourceTree = "<group>"; };
+		52B402A3183BC46900D14D43 /* _ItemTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ItemTracking.m; sourceTree = "<group>"; };
+		52B402A5183BCA8E00D14D43 /* _DeliveryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DeliveryStatus.h; sourceTree = "<group>"; };
+		52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DeliveryStatus.m; sourceTree = "<group>"; };
 		52C908E818045F3F0063A026 /* ApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiClient.h; sourceTree = "<group>"; };
 		52C908E918045F3F0063A026 /* ApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiClient.m; sourceTree = "<group>"; };
 		52C908EB18046BCA0063A026 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
@@ -369,16 +361,6 @@
 				521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */,
 				521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */,
 				9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		521B173517F1633000FEB6FD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				521B173A17F1633000FEB6FD /* XCTest.framework in Frameworks */,
-				521B173C17F1633000FEB6FD /* UIKit.framework in Frameworks */,
-				521B173B17F1633000FEB6FD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +434,6 @@
 			children = (
 				52305F8B17F5B49F00610A86 /* Resources */,
 				521B172617F1633000FEB6FD /* SingPost */,
-				521B173F17F1633000FEB6FD /* SingPostTests */,
 				521B171F17F1633000FEB6FD /* Frameworks */,
 				521B171E17F1633000FEB6FD /* Products */,
 				2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */,
@@ -463,7 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				521B171D17F1633000FEB6FD /* SingPost.app */,
-				521B173817F1633000FEB6FD /* SingPostTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -506,24 +486,6 @@
 				521B172917F1633000FEB6FD /* InfoPlist.strings */,
 				521B172C17F1633000FEB6FD /* main.m */,
 				521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		521B173F17F1633000FEB6FD /* SingPostTests */ = {
-			isa = PBXGroup;
-			children = (
-				521B174517F1633000FEB6FD /* SingPostTests.m */,
-				521B174017F1633000FEB6FD /* Supporting Files */,
-			);
-			path = SingPostTests;
-			sourceTree = "<group>";
-		};
-		521B174017F1633000FEB6FD /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				521B174117F1633000FEB6FD /* SingPostTests-Info.plist */,
-				521B174217F1633000FEB6FD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -774,8 +736,12 @@
 				52C908EC18046BCA0063A026 /* Article.m */,
 				5237B0BD1833E71B00E9358A /* CalculatePostageResultItem.h */,
 				5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */,
+				52B40299183B88D100D14D43 /* DeliveryStatus.h */,
+				52B4029A183B88D100D14D43 /* DeliveryStatus.m */,
 				528F270717F9C18C006F7027 /* EntityLocation.h */,
 				528F270817F9C18C006F7027 /* EntityLocation.m */,
+				52B40290183B625700D14D43 /* ItemTracking.h */,
+				52B40291183B625700D14D43 /* ItemTracking.m */,
 				529090F2180D2A2900D84030 /* Offer.h */,
 				529090F3180D2A2900D84030 /* Offer.m */,
 				529090F4180D2A2900D84030 /* OfferImage.h */,
@@ -795,8 +761,12 @@
 			children = (
 				52C908F718047F1E0063A026 /* _Article.h */,
 				52C908F818047F1E0063A026 /* _Article.m */,
+				52B402A5183BCA8E00D14D43 /* _DeliveryStatus.h */,
+				52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */,
 				528F270417F9C181006F7027 /* _EntityLocation.h */,
 				528F270517F9C181006F7027 /* _EntityLocation.m */,
+				52B402A2183BC46900D14D43 /* _ItemTracking.h */,
+				52B402A3183BC46900D14D43 /* _ItemTracking.m */,
 				529090EC180D2A1F00D84030 /* _Offer.h */,
 				529090ED180D2A1F00D84030 /* _Offer.m */,
 				529090EE180D2A1F00D84030 /* _OfferImage.h */,
@@ -1022,24 +992,6 @@
 			productReference = 521B171D17F1633000FEB6FD /* SingPost.app */;
 			productType = "com.apple.product-type.application";
 		};
-		521B173717F1633000FEB6FD /* SingPostTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 521B174C17F1633000FEB6FD /* Build configuration list for PBXNativeTarget "SingPostTests" */;
-			buildPhases = (
-				521B173417F1633000FEB6FD /* Sources */,
-				521B173517F1633000FEB6FD /* Frameworks */,
-				521B173617F1633000FEB6FD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				521B173E17F1633000FEB6FD /* PBXTargetDependency */,
-			);
-			name = SingPostTests;
-			productName = SingPostTests;
-			productReference = 521B173817F1633000FEB6FD /* SingPostTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1048,11 +1000,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Codigo;
-				TargetAttributes = {
-					521B173717F1633000FEB6FD = {
-						TestTargetID = 521B171C17F1633000FEB6FD;
-					};
-				};
 			};
 			buildConfigurationList = 521B171817F1633000FEB6FD /* Build configuration list for PBXProject "SingPost" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1067,7 +1014,6 @@
 			projectRoot = "";
 			targets = (
 				521B171C17F1633000FEB6FD /* SingPost */,
-				521B173717F1633000FEB6FD /* SingPostTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1097,14 +1043,6 @@
 				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
 				52A8B6AB180F11F4002BC431 /* Shop.plist in Resources */,
 				528F26E417F97F25006F7027 /* postingboxes.csv in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		521B173617F1633000FEB6FD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				521B174417F1633000FEB6FD /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1151,6 +1089,7 @@
 				52936485180B124300B83F6B /* StampCollectiblesTableViewCell.m in Sources */,
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
+				52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
 				52C908ED18046BCA0063A026 /* Article.m in Sources */,
@@ -1182,6 +1121,7 @@
 				52024F1F17F6860800AFD239 /* CalculatePostageMainViewController.m in Sources */,
 				52936481180B0FEE00B83F6B /* Stamp.m in Sources */,
 				52A8B69C180F099F002BC431 /* SendReceiveSubLevelViewController.m in Sources */,
+				52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
@@ -1219,6 +1159,7 @@
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
+				52B40292183B625700D14D43 /* ItemTracking.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */,
@@ -1239,41 +1180,17 @@
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
 				52C908EA18045F3F0063A026 /* ApiClient.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		521B173417F1633000FEB6FD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				52024F3517F7348C00AFD239 /* TrackingDetailsViewController.m in Sources */,
-				521B174617F1633000FEB6FD /* SingPostTests.m in Sources */,
+				52B402A4183BC46900D14D43 /* _ItemTracking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		521B173E17F1633000FEB6FD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 521B171C17F1633000FEB6FD /* SingPost */;
-			targetProxy = 521B173D17F1633000FEB6FD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		521B172917F1633000FEB6FD /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				521B172A17F1633000FEB6FD /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		521B174217F1633000FEB6FD /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				521B174317F1633000FEB6FD /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1391,48 +1308,6 @@
 			};
 			name = Release;
 		};
-		521B174D17F1633000FEB6FD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SingPost.app/SingPost";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SingPostTests/SingPostTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		521B174E17F1633000FEB6FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SingPost.app/SingPost";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				INFOPLIST_FILE = "SingPostTests/SingPostTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1450,15 +1325,6 @@
 			buildConfigurations = (
 				521B174A17F1633000FEB6FD /* Debug */,
 				521B174B17F1633000FEB6FD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		521B174C17F1633000FEB6FD /* Build configuration list for PBXNativeTarget "SingPostTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				521B174D17F1633000FEB6FD /* Debug */,
-				521B174E17F1633000FEB6FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

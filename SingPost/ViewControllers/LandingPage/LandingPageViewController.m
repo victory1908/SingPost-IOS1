@@ -30,6 +30,9 @@
 #import "MoreAppsViewController.h"
 #import "FAQViewController.h"
 
+#import "ItemTracking.h"
+#import <SVProgressHUD.h>
+
 typedef enum {
     LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
     LANDINGPAGEBUTTON_POSTALCODES,
@@ -66,11 +69,13 @@ typedef enum {
     
     trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 280, 47) : CGRectMake(20, 70, 280, 30)];
     [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
+    [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f];
     [trackingNumberTextField setInsetBoundsSize: INTERFACE_IS_4INCHSCREEN ? CGSizeMake(14, 12) : CGSizeMake(14, 3)];
     [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
+    [trackingNumberTextField setText:@"RC131180001SG"];
     [contentView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -190,12 +195,8 @@ typedef enum {
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    
     if (textField == trackingNumberTextField) {
-        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-        trackingMainViewController.trackingNumber = trackingNumberTextField.text;
-        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+        [self findTrackingNumberButtonClicked:nil];
     }
     
     return YES;
@@ -350,9 +351,20 @@ typedef enum {
 
 - (void)findTrackingNumberButtonClicked:(id)sender
 {
-    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+    if (trackingNumberTextField.text.length > 0) {
+        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+            if (success) {
+                [SVProgressHUD dismiss];
+                TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+                trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            }
+        }];
+    }
 }
 
 - (IBAction)toggleSidebarButtonClicked:(id)sender

@@ -18,7 +18,10 @@
 #import "AppDelegate.h"
 #import <SevenSwitch.h>
 #import <KGModal.h>
+#import <SVProgressHUD.h>
 #import "UIImage+Extensions.h"
+
+#import "ItemTracking.h"
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
@@ -28,9 +31,11 @@ typedef enum {
     TRACKINGITEMS_SECTION_TOTAL
 } tTrackingItemsSections;
 
-#define TEST_DATA_COUNT 5
+@interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
-@interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
+@property (nonatomic) NSFetchedResultsController *completedItemsFetchedResultsController;
+
 
 @end
 
@@ -94,7 +99,8 @@ typedef enum {
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+    if (textField == trackingNumberTextField)
+        [self findTrackingNumberButtonClicked:nil];
     return YES;
 }
 
@@ -103,7 +109,15 @@ typedef enum {
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    NSLog(@"find tracking number button clicked");
+    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            [SVProgressHUD dismiss];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        }
+    }];
 }
 
 - (IBAction)infoButtonClicked:(id)sender
@@ -142,12 +156,19 @@ typedef enum {
 
 #pragma mark - UITableView DataSource & Delegate
 
+- (void)configureCell:(TrackingItemMainTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
+        cell.item = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
         return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 140.0f : 30.0f;
     
-    return (indexPath.row % 2 == 0) ? 44.0f : 1.0f;
+    return 60.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -175,9 +196,18 @@ typedef enum {
     if (section == TRACKINGITEMS_SECTION_HEADER)
         return 1;
     
-    NSInteger numHeaders = 1;
-    NSInteger numSeparators = numHeaders + (TEST_DATA_COUNT - 1);
-    return TEST_DATA_COUNT + numHeaders + numSeparators;
+    NSInteger HEADER_COUNT = 1;
+    
+    if (section == TRACKINGITEMS_SECTION_ACTIVE) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.activeItemsFetchedResultsController.sections objectAtIndex:0];
+        return HEADER_COUNT + [sectionInfo numberOfObjects];
+    }
+        
+    if (section == TRACKINGITEMS_SECTION_COMPLETED) {
+        return 0;
+    }
+    
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -206,14 +236,14 @@ typedef enum {
             [activeItemsLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [sectionHeaderView addSubview:activeItemsLabel];
             
-            UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
-            [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
-            [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
-            [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
-            [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
-            [sectionHeaderView addSubview:numActiveItemsButton];
+//            UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//            [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
+//            [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
+//            [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
+//            [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//            [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
+//            [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
+//            [sectionHeaderView addSubview:numActiveItemsButton];
             
             UIButton *reloadOrangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [reloadOrangeButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
@@ -241,7 +271,6 @@ typedef enum {
 {
     static NSString *const headerCellIdentifier = @"TrackingHeaderMainTableViewCell";
     static NSString *const itemCellIdentifier = @"TrackingItemMainTableViewCell";
-    static NSString *const separatorCellIdentifier = @"SeparatorTableViewCell";
     static NSString *const trackingCellIdentifier = @"TrackingCell";
     
     if (indexPath.section == TRACKINGITEMS_SECTION_HEADER) {
@@ -252,6 +281,7 @@ typedef enum {
             
             trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, 290, 47)];
             [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+            [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
             [trackingNumberTextField setFontSize:16.0f];
             [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
             [trackingNumberTextField setInsetBoundsSize:CGSizeMake(14, 12)];
@@ -295,23 +325,13 @@ typedef enum {
         return cell;
     }
     else {
-        if ((indexPath.row % 2) == 0) {
-            TrackingItemMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
-            if (!cell)
-                cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-            
-            return cell;
-        }
-        else {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:separatorCellIdentifier];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:separatorCellIdentifier];
-                UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, cell.contentView.bounds.size.width - 30, 1)];
-                [separatorView setBackgroundColor:RGB(196, 197, 200)];
-                [cell.contentView addSubview:separatorView];
-            }
-            return cell;
-        }
+        TrackingItemMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
+        if (!cell)
+            cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+        
+        [self configureCell:cell atIndexPath:indexPath];
+        
+        return cell;
     }
 }
 
@@ -321,7 +341,12 @@ typedef enum {
         [self.view endEditing:YES];
     }
     else {
-        TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithNibName:nil bundle:nil];
+        
+        ItemTracking *trackedItem;
+        if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
+            trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        
+        TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -332,6 +357,73 @@ typedef enum {
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
+}
+
+#pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)activeItemsFetchedResultsController
+{
+    if (!_activeItemsFetchedResultsController) {
+        _activeItemsFetchedResultsController = [ItemTracking MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"group == %@", @"active"] sortedBy:ItemTrackingAttributes.addedOn ascending:NO delegate:self];
+    }
+    
+    return _activeItemsFetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [trackingItemsTableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [trackingItemsTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [trackingItemsTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    NSInteger section = TRACKINGITEMS_SECTION_HEADER;
+    if (controller == self.activeItemsFetchedResultsController) {
+        section = TRACKINGITEMS_SECTION_ACTIVE;
+    }
+    
+    NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row + 1 inSection:section];
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [trackingItemsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:(TrackingItemMainTableViewCell *)[trackingItemsTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [trackingItemsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [trackingItemsTableView endUpdates];
 }
 
 @end
