@@ -17,12 +17,12 @@
     [deliveryStatus setLocation:[el child:@"Location"].text];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssz"];
     NSDate *date = [dateFormatter dateFromString:[el child:@"Date"].text];
     
     if (!date) {
         //date formatting failed, try again formatting with milliseconds
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
         date = [dateFormatter dateFromString:[el child:@"Date"].text];
     }
     

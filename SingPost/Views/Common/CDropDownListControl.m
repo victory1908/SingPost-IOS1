@@ -39,7 +39,7 @@
         [blackDropDownIndicatorImageView setFrame:CGRectMake(self.bounds.size.width - 20, self.bounds.size.height / 2.0f - 3, 10, 6)];
         [self addSubview:blackDropDownIndicatorImageView];
         
-        pickerView = [[UIPickerView alloc] initWithFrame:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGRectMake(0, 42, 320, 230) : CGRectMake(0, 44, 320, 200)];
+        pickerView = [[UIPickerView alloc] initWithFrame:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGRectMake(0, 42, 320, 230) : CGRectMake(0, 44, 320, 215)];
         pickerView.showsSelectionIndicator = YES;
         [pickerView setDelegate:self];
         [pickerView setDataSource:self];
@@ -80,7 +80,7 @@
     [pickerViewActionSheet addSubview:pickerView];
     [pickerViewActionSheet addSubview:toolbar];
     [pickerViewActionSheet showInView:self];
-    [pickerViewActionSheet setBounds:CGRectMake(0, 0, 320, 445)];
+    [pickerViewActionSheet setBounds:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGRectMake(0, 0, 320, 430) : CGRectMake(0, 0, 320, 420)];
     [self selectRow:_selectedRowIndex animated:YES];
 }
 
