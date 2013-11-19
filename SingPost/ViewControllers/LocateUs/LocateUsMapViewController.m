@@ -90,6 +90,11 @@
     locateUsMapView = nil;
 }
 
+- (NSString *)selectedLocationType
+{
+    return typesDropDownList.selectedText;
+}
+
 #pragma mark - Map
 
 - (void)showFilteredLocationsOnMap

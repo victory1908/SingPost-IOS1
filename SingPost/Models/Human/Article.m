@@ -10,7 +10,7 @@
 
 static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
 
-- (void)updateWithApiDictionaryRepresentation:(NSDictionary *)attributes
+- (void)updateWithApiRepresentation:(NSDictionary *)attributes
 {
     self.name = attributes[@"Name"];
     self.htmlContent = attributes[@"Description"];
@@ -53,7 +53,7 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
                 
                 [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
                     Article *article = [Article MR_createInContext:localContext];
-                    [article updateWithApiDictionaryRepresentation:attributes];
+                    [article updateWithApiRepresentation:attributes];
                     [article setOrderingValue:idx];
                 }];
                 

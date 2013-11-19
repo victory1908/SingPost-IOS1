@@ -20,6 +20,12 @@
 
 - (CGFloat)distanceInKmToLocation:(CLLocation *)toLocation;
 - (BOOL)isOpenedAtCurrentTimeDigits:(NSInteger)timeDigits;
+
 - (void)updateWithCsvRepresentation:(NSArray *)csv;
+- (void)updateWithApiRepresentation:(NSArray *)json;
+
++ (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_updatePostingBoxLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_updateSamLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 
 @end

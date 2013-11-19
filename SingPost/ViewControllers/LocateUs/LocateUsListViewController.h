@@ -10,4 +10,6 @@
 
 @interface LocateUsListViewController : UIViewController
 
+@property (nonatomic, readonly) NSString *selectedLocationType;
+
 @end

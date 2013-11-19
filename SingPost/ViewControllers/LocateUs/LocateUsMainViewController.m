@@ -15,6 +15,9 @@
 #import "LocateUsListViewController.h"
 #import "LocateUsDetailsViewController.h"
 #import "UIView+Position.h"
+#import <UIAlertView+Blocks.h>
+#import <SVProgressHUD.h>
+#import "EntityLocation.h"
 
 typedef enum {
     LOCATEUS_VIEWMODE_MAP,
@@ -58,6 +61,7 @@ typedef enum {
     UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [reloadButton setImage:[UIImage imageNamed:@"reload_button"] forState:UIControlStateNormal];
     [reloadButton setFrame:CGRectMake(230, 0, 44, 44)];
+    [reloadButton addTarget:self action:@selector(reloadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [navigationBarView addSubview:reloadButton];
     
     locateUsMapViewController = [[LocateUsMapViewController alloc] initWithNibName:nil bundle:nil];
@@ -104,6 +108,56 @@ typedef enum {
                 break;
         }
     }
+}
+
+- (IBAction)reloadButtonClicked:(id)sender
+{
+    NSString *selectedType;
+    switch (currentMode) {
+        case LOCATEUS_VIEWMODE_LIST:
+        {
+            selectedType = locateUsListViewController.selectedLocationType;
+            break;
+        }
+        case LOCATEUS_VIEWMODE_MAP:
+        {
+            selectedType = locateUsMapViewController.selectedLocationType;
+            break;
+        }
+        default:
+            NSAssert(NO, @"unsupported view mode type");
+            break;
+    }
+    
+    NSLog(@"reload button clicked");
+    
+    [UIAlertView showWithTitle:@""
+                       message:[NSString stringWithFormat:@"Refreshing the list of %@ may take awhile. Do you wish to proceeed?", selectedType]
+             cancelButtonTitle:@"No"
+             otherButtonTitles:@[@"Yes"]
+                      tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                          if (buttonIndex != [alertView cancelButtonIndex]) {
+                              [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+                              if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
+                                  [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
+                                      [SVProgressHUD dismiss];
+                                  }];
+                              }
+                              else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
+                                  [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
+                                      [SVProgressHUD dismiss];
+                                  }];
+                              }
+                              else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
+                                  [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
+                                      [SVProgressHUD dismiss];
+                                  }];
+                              }
+                              else {
+                                  NSAssert(NO, @"unsupported location type");
+                              }
+                          }
+     }];
 }
 
 @end

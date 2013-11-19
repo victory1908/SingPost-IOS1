@@ -10,4 +10,6 @@
 
 @interface LocateUsMapViewController : UIViewController
 
+@property (nonatomic, readonly) NSString *selectedLocationType;
+
 @end

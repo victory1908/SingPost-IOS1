@@ -32,7 +32,6 @@
         
         statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 30, 190, 30)];
         [statusLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-        [statusLabel setText:@"3 days or less"];
         [statusLabel setTextColor:RGB(125, 136, 149)];
         [statusLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusLabel];
@@ -64,6 +63,7 @@
     [statusLabel setY:CGRectGetMaxY(serviceTitleLabel.frame)];
     [separatorView setY:CGRectGetMaxY(serviceTitleLabel.frame) + 40.0f];
     [costLabel setText:_item.netPostageCharges];
+    [costLabel setCenter:CGPointMake(costLabel.center.x, serviceTitleLabel.bounds.size.height / 2.0f + 23.0f)];
 }
 
 @end

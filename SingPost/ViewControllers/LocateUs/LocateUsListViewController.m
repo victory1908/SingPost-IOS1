@@ -151,6 +151,11 @@
     [self discardLocationManager];
 }
 
+- (NSString *)selectedLocationType
+{
+    return typesDropDownList.selectedText;
+}
+
 - (void)updateNumLocations
 {
     [searchLocationsCountLabel setText:[NSString stringWithFormat:@"     %d locations found", [self isSearching] ? filteredSearchResults.count : self.fetchedResultsController.fetchedObjects.count]];
@@ -439,11 +444,11 @@
 {
     switch (type) {
         case NSFetchedResultsChangeInsert:
-            [locationsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [locationsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [locationsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [locationsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -451,8 +456,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [locationsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [locationsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+            [locationsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [locationsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationNone];
             break;
     }
 }
@@ -460,6 +465,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [locationsTableView endUpdates];
+    [self updateNumLocations];
 }
 
 @end
