@@ -24,7 +24,7 @@
 
 #import "EntityLocation.h"
 
-@interface LocateUsListViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CMIndexBarDelegate, CLLocationManagerDelegate, UITextFieldDelegate>
+@interface LocateUsListViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CMIndexBarDelegate, CLLocationManagerDelegate, UITextFieldDelegate, CDropDownListControlDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -86,6 +86,7 @@
     
     typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
+    [typesDropDownList setDelegate:self];
     [typesDropDownList selectRow:0 animated:NO];
     [searchTermsView addSubview:typesDropDownList];
     
@@ -227,6 +228,13 @@
 {
     [findByTextField setText:@""];
     [self filterContentForSearchText:@""];
+}
+
+#pragma mark - CDropDownListControlDelegate
+
+- (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
+{
+    [self searchButtonClicked:nil];
 }
 
 #pragma mark - UITextField Delegate

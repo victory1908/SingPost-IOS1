@@ -54,6 +54,34 @@
     return trackingItem;
 }
 
++ (void)API_batchUpdateTrackedItems:(NSArray *)trackedItems onCompletion:(void(^)(BOOL success, NSError *error))completionBlock withProgressCompletion:(void(^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progressCompletion;
+{
+    [[ApiClient sharedInstance] batchUpdateTrackedItems:trackedItems onSuccess:^(RXMLElement *rootXML) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+            RXMLElement *rxmlItems = [rootXML child:@"ItemsTrackingDetailList"];
+            
+            for (RXMLElement *rxmlItem in [rxmlItems children:@"ItemTrackingDetail"]) {
+                [ItemTracking createIfNotExistsFromXMLElement:rxmlItem inContext:localContext error:nil];
+            }
+            
+            [localContext MR_saveToPersistentStoreAndWait];
+        });
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            completionBlock(NO, error);
+        }
+    } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            progressCompletion(numberOfFinishedOperations, totalNumberOfOperations);
+            if (numberOfFinishedOperations == totalNumberOfOperations) {
+                if (completionBlock)
+                    completionBlock(YES, nil);
+            }
+        });
+    }];
+}
+
 + (void)API_getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getItemTrackingDetailsForTrackingNumber:trackingNumber onSuccess:^(RXMLElement *rootXML) {

@@ -120,6 +120,26 @@ typedef enum {
     }];
 }
 
+- (IBAction)reloadTrackingItemsButtonClicked:(id)sender
+{
+    tTrackingItemsSections section = [(UIButton *)sender tag];
+    if (section == TRACKINGITEMS_SECTION_ACTIVE) {
+        __block CGFloat updateProgress = 0.0f;
+        [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
+        [ItemTracking API_batchUpdateTrackedItems:[self.activeItemsFetchedResultsController fetchedObjects] onCompletion:^(BOOL success, NSError *error) {
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+            }
+            else {
+                [SVProgressHUD dismiss];
+            }
+        } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+            updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
+            [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
+        }];
+    }
+}
+
 - (IBAction)infoButtonClicked:(id)sender
 {
     UIView *contentView = [[UIView alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 280, 500) : CGRectMake(0, 0, 280, 400)];
@@ -245,10 +265,12 @@ typedef enum {
 //            [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
 //            [sectionHeaderView addSubview:numActiveItemsButton];
             
-            UIButton *reloadOrangeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [reloadOrangeButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
-            [reloadOrangeButton setFrame:CGRectMake(260, 3, 44, 44)];
-            [sectionHeaderView addSubview:reloadOrangeButton];
+            UIButton *reloadTrackingItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [reloadTrackingItemsButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
+            [reloadTrackingItemsButton setFrame:CGRectMake(260, 3, 44, 44)];
+            [reloadTrackingItemsButton setTag:TRACKINGITEMS_SECTION_ACTIVE];
+            [reloadTrackingItemsButton addTarget:self action:@selector(reloadTrackingItemsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [sectionHeaderView addSubview:reloadTrackingItemsButton];
             break;
         }
         case TRACKINGITEMS_SECTION_COMPLETED: {

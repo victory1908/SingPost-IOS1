@@ -8,6 +8,7 @@
 
 #import "ApiClient.h"
 #import "EntityLocation.h"
+#import "ItemTracking.h"
 
 @implementation ApiClient
 
@@ -253,6 +254,45 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     }];
     
     [self enqueueHTTPRequestOperation:operation];
+}
+
+- (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion
+{
+    NSMutableArray *updateOperations = [NSMutableArray array];
+    
+    for (ItemTracking *trackedItem in trackedItems) {
+        NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+                         "<ItemTrackingNumbers>"
+                         "<TrackingNumber>%@</TrackingNumber>"
+                         "</ItemTrackingNumbers>"
+                         "</ItemTrackingDetailsRequest>", [trackedItem.trackingNumber uppercaseString]];
+        
+        NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
+        [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+            NSLog(@"%@", XMLElement);
+            if (success)
+                success(XMLElement);
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+            NSLog(@"failed: %@", error);
+            
+            if (failure)
+                failure(error);
+        }];
+        
+        [updateOperations addObject:operation];
+    }
+    
+    [self enqueueBatchOfHTTPRequestOperations:updateOperations
+                                progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+                                    if (progressCompletion)
+                                        progressCompletion(numberOfFinishedOperations, totalNumberOfOperations);
+                                } completionBlock:^(NSArray *operations) {
+                                    //do nothing
+                                }];
 }
 
 @end

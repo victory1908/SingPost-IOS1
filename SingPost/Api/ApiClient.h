@@ -14,6 +14,7 @@
 
 typedef void (^ApiClientSuccess)(id responseObject);
 typedef void (^ApiClientFailure)(NSError *error);
+typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations);
 
 + (ApiClient *)sharedInstance;
 
@@ -35,5 +36,6 @@ typedef void (^ApiClientFailure)(NSError *error);
 
 //tracking
 - (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion;
 
 @end

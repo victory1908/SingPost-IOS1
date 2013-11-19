@@ -19,7 +19,7 @@
 #import "AppDelegate.h"
 #import "LocateUsDetailsViewController.h"
 
-@interface LocateUsMapViewController () <MKMapViewDelegate>
+@interface LocateUsMapViewController () <MKMapViewDelegate, CDropDownListControlDelegate>
 
 @end
 
@@ -56,6 +56,7 @@
     typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
     [typesDropDownList selectRow:0 animated:NO];
+    [typesDropDownList setDelegate:self];
     [contentScrollView addSubview:typesDropDownList];
     
     FlatBlueButton *goButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(235, 70, 70, 44)];
@@ -124,6 +125,13 @@
     mapRegion.center = locateUsMapView.userLocation.coordinate;
     mapRegion.span = MKCoordinateSpanMake(0.015, 0.015);
     [locateUsMapView setRegion:mapRegion animated:YES];
+}
+
+#pragma mark - CDropDownListControlDelegate
+
+- (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
+{
+    [self goButtonClicked:nil];
 }
 
 #pragma mark - MKMapViewDelegate
