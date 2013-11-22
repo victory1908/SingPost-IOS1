@@ -128,8 +128,9 @@
             }
             else {
                 [SVProgressHUD dismiss];
-                CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithResultItems:items];
-                viewController.toCountry = @"Singapore";
+                CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithResultItems:items andResultType:CALCULATEPOSTAGE_RESULT_TYPE_SINGAPORE];
+                viewController.fromPostalCode = fromPostalCodeTextField.text;
+                viewController.toPostalCode = toPostalCodeTextField.text;
                 viewController.itemWeight = [NSString stringWithFormat:@"%@ %@", weightTextField.text, [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? WEIGHT_KG_UNIT : WEIGHT_G_UNIT];
                 viewController.expectedDeliveryTime = @"-";
                 [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];

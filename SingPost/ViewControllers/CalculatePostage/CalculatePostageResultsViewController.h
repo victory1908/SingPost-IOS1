@@ -8,13 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS,
+    CALCULATEPOSTAGE_RESULT_TYPE_SINGAPORE
+} tCalculatePostageResultTypes;
+
 @interface CalculatePostageResultsViewController : UIViewController
 
-- (id)initWithResultItems:(NSArray *)resultItems;
+- (id)initWithResultItems:(NSArray *)resultItems andResultType:(tCalculatePostageResultTypes)resultType;
 
 @property (nonatomic, readonly) NSArray *resultItems;
+@property (nonatomic, readonly) tCalculatePostageResultTypes resultType;
 @property (nonatomic) NSString *toCountry;
 @property (nonatomic) NSString *itemWeight;
 @property (nonatomic) NSString *expectedDeliveryTime;
+@property (nonatomic) NSString *toPostalCode;
+@property (nonatomic) NSString *fromPostalCode;
 
 @end

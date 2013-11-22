@@ -21,16 +21,17 @@
 
 @implementation CalculatePostageResultsViewController
 {
-    UILabel *toLabel, *weightLabel, *expectedDeliveryTimeLabel;
+    UILabel *toCountryLabel, *weightLabel, *expectedDeliveryTimeLabel, *fromPostalCodeLabel, *toPostalCodeLabel;
     UITableView *resultsTableView;
 }
 
 //designated initializer
-- (id)initWithResultItems:(NSArray *)inResultItems
+- (id)initWithResultItems:(NSArray *)inResultItems andResultType:(tCalculatePostageResultTypes)inResultType
 {
     NSParameterAssert(inResultItems);
     if ((self = [super initWithNibName:nil bundle:nil])) {
         _resultItems = inResultItems;
+        _resultType = inResultType;
     }
     
     return self;
@@ -38,7 +39,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    return [self initWithResultItems:nil];
+    return [self initWithResultItems:nil andResultType:CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS];
 }
 
 - (void)loadView
@@ -97,7 +98,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == HEADER_ROW)
-        return 100.0f;
+        return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 100.0f : 125.0f;
 
     if (indexPath.row == TITLE_ROW)
         return 30.0f;
@@ -140,58 +141,103 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:headerCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, cell.contentView.bounds.size.width, 100)];
+            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, cell.contentView.bounds.size.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 100 : 125.0f)];
             [cellContentView setBackgroundColor:RGB(240, 240, 240)];
             [cell.contentView addSubview:cellContentView];
             
-            UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, cellContentView.bounds.size.width, 1)];
+            CGFloat offsetY = 1.0f;
+            
+            UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, cellContentView.bounds.size.width, 1)];
             [topSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
             [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
             [cellContentView addSubview:topSeparatorView];
             
-            UILabel *toDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 130, 20)];
-            [toDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [toDisplayLabel setText:@"To"];
-            [toDisplayLabel setBackgroundColor:[UIColor clearColor]];
-            [toDisplayLabel setTextColor:RGB(168, 173, 180)];
-            [cellContentView addSubview:toDisplayLabel];
+            offsetY += 14.0f;
             
-            UILabel *weightDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 40, 130, 20)];
+            if (_resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS) {
+                UILabel *toCountryDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
+                [toCountryDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [toCountryDisplayLabel setText:@"To"];
+                [toCountryDisplayLabel setBackgroundColor:[UIColor clearColor]];
+                [toCountryDisplayLabel setTextColor:RGB(168, 173, 180)];
+                [cellContentView addSubview:toCountryDisplayLabel];
+                
+                toCountryLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
+                [toCountryLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [toCountryLabel setText:_toCountry];
+                [toCountryLabel setTextColor:RGB(51, 51, 51)];
+                [toCountryLabel setBackgroundColor:[UIColor clearColor]];
+                [cellContentView addSubview:toCountryLabel];
+                
+                offsetY += 25.0f;
+            }
+            else if (_resultType == CALCULATEPOSTAGE_RESULT_TYPE_SINGAPORE) {
+                UILabel *fromPostalCodeDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
+                [fromPostalCodeDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [fromPostalCodeDisplayLabel setText:@"From postal code"];
+                [fromPostalCodeDisplayLabel setBackgroundColor:[UIColor clearColor]];
+                [fromPostalCodeDisplayLabel setTextColor:RGB(168, 173, 180)];
+                [cellContentView addSubview:fromPostalCodeDisplayLabel];
+                
+                fromPostalCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
+                [fromPostalCodeLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [fromPostalCodeLabel setText:_fromPostalCode];
+                [fromPostalCodeLabel setTextColor:RGB(51, 51, 51)];
+                [fromPostalCodeLabel setBackgroundColor:[UIColor clearColor]];
+                [cellContentView addSubview:fromPostalCodeLabel];
+                
+                offsetY += 25.0f;
+                
+                UILabel *toPostalCodeDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
+                [toPostalCodeDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [toPostalCodeDisplayLabel setText:@"To postal code"];
+                [toPostalCodeDisplayLabel setBackgroundColor:[UIColor clearColor]];
+                [toPostalCodeDisplayLabel setTextColor:RGB(168, 173, 180)];
+                [cellContentView addSubview:toPostalCodeDisplayLabel];
+                
+                toPostalCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
+                [toPostalCodeLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [toPostalCodeLabel setText:_toPostalCode];
+                [toPostalCodeLabel setTextColor:RGB(51, 51, 51)];
+                [toPostalCodeLabel setBackgroundColor:[UIColor clearColor]];
+                [cellContentView addSubview:toPostalCodeLabel];
+                
+                offsetY += 25.0f;
+            }
+            
+            UILabel *weightDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
             [weightDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [weightDisplayLabel setText:@"Weight"];
             [weightDisplayLabel setBackgroundColor:[UIColor clearColor]];
             [weightDisplayLabel setTextColor:RGB(168, 173, 180)];
             [cellContentView addSubview:weightDisplayLabel];
             
-            UILabel *expectedDeliveryTimeDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 65, 170, 20)];
-            [expectedDeliveryTimeDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [expectedDeliveryTimeDisplayLabel setText:@"Expected delivery time"];
-            [expectedDeliveryTimeDisplayLabel setBackgroundColor:[UIColor clearColor]];
-            [expectedDeliveryTimeDisplayLabel setTextColor:RGB(168, 173, 180)];
-            [cellContentView addSubview:expectedDeliveryTimeDisplayLabel];
-            
-            toLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 16, 100, 20)];
-            [toLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [toLabel setText:_toCountry];
-            [toLabel setTextColor:RGB(51, 51, 51)];
-            [toLabel setBackgroundColor:[UIColor clearColor]];
-            [cellContentView addSubview:toLabel];
-            
-            weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 40, 100, 20)];
+            weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
             [weightLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [weightLabel setText:_itemWeight];
             [weightLabel setTextColor:RGB(51, 51, 51)];
             [weightLabel setBackgroundColor:[UIColor clearColor]];
             [cellContentView addSubview:weightLabel];
             
-            expectedDeliveryTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 65, 100, 20)];
+            offsetY += 25.0f;
+            
+            UILabel *expectedDeliveryTimeDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 170, 20)];
+            [expectedDeliveryTimeDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+            [expectedDeliveryTimeDisplayLabel setText:@"Expected delivery time"];
+            [expectedDeliveryTimeDisplayLabel setBackgroundColor:[UIColor clearColor]];
+            [expectedDeliveryTimeDisplayLabel setTextColor:RGB(168, 173, 180)];
+            [cellContentView addSubview:expectedDeliveryTimeDisplayLabel];
+            
+            expectedDeliveryTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
             [expectedDeliveryTimeLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [expectedDeliveryTimeLabel setText:_expectedDeliveryTime];
             [expectedDeliveryTimeLabel setTextColor:RGB(51, 51, 51)];
             [expectedDeliveryTimeLabel setBackgroundColor:[UIColor clearColor]];
             [cellContentView addSubview:expectedDeliveryTimeLabel];
             
-            UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, cellContentView.bounds.size.height - 1, cellContentView.bounds.size.width, 1)];
+            offsetY += 35.0f;
+            
+            UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, cellContentView.bounds.size.width, 1)];
             [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
             [cellContentView addSubview:bottomSeparatorView];
         }
@@ -216,7 +262,7 @@
             [serviceHeaderLabel setBackgroundColor:[UIColor clearColor]];
             [titleContentView addSubview:serviceHeaderLabel];
             
-            UILabel *costLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 5, 100, 16)];
+            UILabel *costLabel = [[UILabel alloc] initWithFrame:CGRectMake(277, 5, 40, 16)];
             [costLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
             [costLabel setText:@"Cost"];
             [costLabel setTextColor:RGB(125, 136, 149)];
