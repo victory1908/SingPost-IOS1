@@ -7,7 +7,7 @@
 extern const struct ItemTrackingAttributes {
 	__unsafe_unretained NSString *addedOn;
 	__unsafe_unretained NSString *destinationCountry;
-	__unsafe_unretained NSString *group;
+	__unsafe_unretained NSString *isActive;
 	__unsafe_unretained NSString *originalCountry;
 	__unsafe_unretained NSString *trackingNumber;
 } ItemTrackingAttributes;
@@ -60,11 +60,15 @@ extern const struct ItemTrackingFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSString* group;
+@property (nonatomic, strong) NSNumber* isActive;
 
 
 
-//- (BOOL)validateGroup:(id*)value_ error:(NSError**)error_;
+@property BOOL isActiveValue;
+- (BOOL)isActiveValue;
+- (void)setIsActiveValue:(BOOL)value_;
+
+//- (BOOL)validateIsActive:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -124,8 +128,11 @@ extern const struct ItemTrackingFetchedProperties {
 
 
 
-- (NSString*)primitiveGroup;
-- (void)setPrimitiveGroup:(NSString*)value;
+- (NSNumber*)primitiveIsActive;
+- (void)setPrimitiveIsActive:(NSNumber*)value;
+
+- (BOOL)primitiveIsActiveValue;
+- (void)setPrimitiveIsActiveValue:(BOOL)value_;
 
 
 

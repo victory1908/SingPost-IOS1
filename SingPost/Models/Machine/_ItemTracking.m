@@ -6,7 +6,7 @@
 const struct ItemTrackingAttributes ItemTrackingAttributes = {
 	.addedOn = @"addedOn",
 	.destinationCountry = @"destinationCountry",
-	.group = @"group",
+	.isActive = @"isActive",
 	.originalCountry = @"originalCountry",
 	.trackingNumber = @"trackingNumber",
 };
@@ -44,6 +44,11 @@ const struct ItemTrackingFetchedProperties ItemTrackingFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"isActiveValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isActive"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
@@ -65,8 +70,27 @@ const struct ItemTrackingFetchedProperties ItemTrackingFetchedProperties = {
 
 
 
-@dynamic group;
+@dynamic isActive;
 
+
+
+- (BOOL)isActiveValue {
+	NSNumber *result = [self isActive];
+	return [result boolValue];
+}
+
+- (void)setIsActiveValue:(BOOL)value_ {
+	[self setIsActive:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsActiveValue {
+	NSNumber *result = [self primitiveIsActive];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsActiveValue:(BOOL)value_ {
+	[self setPrimitiveIsActive:[NSNumber numberWithBool:value_]];
+}
 
 
 

@@ -123,21 +123,27 @@ typedef enum {
 - (IBAction)reloadTrackingItemsButtonClicked:(id)sender
 {
     tTrackingItemsSections section = [(UIButton *)sender tag];
-    if (section == TRACKINGITEMS_SECTION_ACTIVE) {
-        __block CGFloat updateProgress = 0.0f;
+    
+    NSArray *itemsToReload;
+    
+    if (section == TRACKINGITEMS_SECTION_ACTIVE)
+        itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
+    else if (section == TRACKINGITEMS_SECTION_COMPLETED)
+        itemsToReload = [self.completedItemsFetchedResultsController fetchedObjects];
+    
+    __block CGFloat updateProgress = 0.0f;
+    [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
+    [ItemTracking API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
+        if (error) {
+            [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+        }
+        else {
+            [SVProgressHUD dismiss];
+        }
+    } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+        updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
         [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
-        [ItemTracking API_batchUpdateTrackedItems:[self.activeItemsFetchedResultsController fetchedObjects] onCompletion:^(BOOL success, NSError *error) {
-            if (error) {
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
-            }
-            else {
-                [SVProgressHUD dismiss];
-            }
-        } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-            updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
-            [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
-        }];
-    }
+    }];
 }
 
 - (IBAction)infoButtonClicked:(id)sender
@@ -182,6 +188,10 @@ typedef enum {
         cell.item = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         [cell setHideSeparatorView:indexPath.row == (self.activeItemsFetchedResultsController.fetchedObjects.count)];
     }
+    else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
+        cell.item = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        [cell setHideSeparatorView:indexPath.row == (self.completedItemsFetchedResultsController.fetchedObjects.count)];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -190,10 +200,11 @@ typedef enum {
         return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 140.0f : 30.0f;
     
     ItemTracking *trackedItem;
-    if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
+    if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
         trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-    }
-    
+    else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
+        trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+
     CGSize statusLabelSize = [trackedItem.status sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
 
     return MAX(60, statusLabelSize.height + 14);
@@ -228,11 +239,12 @@ typedef enum {
     
     if (section == TRACKINGITEMS_SECTION_ACTIVE) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [self.activeItemsFetchedResultsController.sections objectAtIndex:0];
-        return HEADER_COUNT + [sectionInfo numberOfObjects];
+        return [sectionInfo numberOfObjects] == 0 ? 0 : HEADER_COUNT + [sectionInfo numberOfObjects];
     }
         
     if (section == TRACKINGITEMS_SECTION_COMPLETED) {
-        return 0;
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.completedItemsFetchedResultsController.sections objectAtIndex:0];
+        return [sectionInfo numberOfObjects] == 0 ? 0 : HEADER_COUNT + [sectionInfo numberOfObjects];
     }
     
     return 0;
@@ -371,10 +383,11 @@ typedef enum {
         [self.view endEditing:YES];
     }
     else {
-        
         ItemTracking *trackedItem;
         if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
             trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
+            trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         
         TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
@@ -394,10 +407,19 @@ typedef enum {
 - (NSFetchedResultsController *)activeItemsFetchedResultsController
 {
     if (!_activeItemsFetchedResultsController) {
-        _activeItemsFetchedResultsController = [ItemTracking MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"group == %@", @"active"] sortedBy:ItemTrackingAttributes.addedOn ascending:NO delegate:self];
+        _activeItemsFetchedResultsController = [ItemTracking MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 1"] sortedBy:ItemTrackingAttributes.addedOn ascending:NO delegate:self];
     }
     
     return _activeItemsFetchedResultsController;
+}
+
+- (NSFetchedResultsController *)completedItemsFetchedResultsController
+{
+    if (!_completedItemsFetchedResultsController) {
+        _completedItemsFetchedResultsController = [ItemTracking MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 0"] sortedBy:ItemTrackingAttributes.addedOn ascending:NO delegate:self];
+    }
+    
+    return _completedItemsFetchedResultsController;
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -426,9 +448,10 @@ typedef enum {
       newIndexPath:(NSIndexPath *)newIndexPath
 {
     NSInteger section = TRACKINGITEMS_SECTION_HEADER;
-    if (controller == self.activeItemsFetchedResultsController) {
+    if (controller == self.activeItemsFetchedResultsController)
         section = TRACKINGITEMS_SECTION_ACTIVE;
-    }
+    else if (controller == self.completedItemsFetchedResultsController)
+        section = TRACKINGITEMS_SECTION_COMPLETED;
     
     NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row + 1 inSection:section];
     switch (type) {

@@ -29,9 +29,9 @@
     if (!trackingItem) {
         trackingItem = [ItemTracking MR_createInContext:context];
         [trackingItem setAddedOn:[NSDate date]];
-        [trackingItem setGroup:@"active"]; //FIXME: how to determine group? hardcoded to active now
     }
     
+    [trackingItem setIsActiveValue:[[el child:@"TrackingNumberActive"].text boolValue]];
     [trackingItem setTrackingNumber:trackingNumber];
     [trackingItem setOriginalCountry:[el child:@"OriginalCountry"].text];
     [trackingItem setDestinationCountry:[el child:@"DestinationCountry"].text];

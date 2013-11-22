@@ -50,6 +50,7 @@
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */; };
 		526E92B7183FDA0200552710 /* PostalCodePoBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B6183FDA0200552710 /* PostalCodePoBoxTableViewCell.m */; };
+		526E92BA183FE6AE00552710 /* _ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B9183FE6AE00552710 /* _ItemTracking.m */; };
 		526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */; };
 		528C413A1834103700145E55 /* PostalCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 528C41391834103700145E55 /* PostalCode.m */; };
 		528C413D1834122700145E55 /* FindPostalCodeStreetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528C413C1834122700145E55 /* FindPostalCodeStreetViewController.m */; };
@@ -115,7 +116,6 @@
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
 		52B40292183B625700D14D43 /* ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B40291183B625700D14D43 /* ItemTracking.m */; };
 		52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4029A183B88D100D14D43 /* DeliveryStatus.m */; };
-		52B402A4183BC46900D14D43 /* _ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B402A3183BC46900D14D43 /* _ItemTracking.m */; };
 		52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
 		52C908ED18046BCA0063A026 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908EC18046BCA0063A026 /* Article.m */; };
@@ -213,6 +213,8 @@
 		526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCodeLandmarkResultTableViewCell.m; sourceTree = "<group>"; };
 		526E92B5183FDA0200552710 /* PostalCodePoBoxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCodePoBoxTableViewCell.h; sourceTree = "<group>"; };
 		526E92B6183FDA0200552710 /* PostalCodePoBoxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCodePoBoxTableViewCell.m; sourceTree = "<group>"; };
+		526E92B8183FE6AE00552710 /* _ItemTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ItemTracking.h; sourceTree = "<group>"; };
+		526E92B9183FE6AE00552710 /* _ItemTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ItemTracking.m; sourceTree = "<group>"; };
 		526FA1A0180BB7BD00E562E7 /* StampImagesBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampImagesBrowserViewController.h; sourceTree = "<group>"; };
 		526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImagesBrowserViewController.m; sourceTree = "<group>"; };
 		528C41381834103700145E55 /* PostalCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCode.h; sourceTree = "<group>"; };
@@ -329,8 +331,6 @@
 		52B40291183B625700D14D43 /* ItemTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTracking.m; sourceTree = "<group>"; };
 		52B40299183B88D100D14D43 /* DeliveryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryStatus.h; sourceTree = "<group>"; };
 		52B4029A183B88D100D14D43 /* DeliveryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryStatus.m; sourceTree = "<group>"; };
-		52B402A2183BC46900D14D43 /* _ItemTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ItemTracking.h; sourceTree = "<group>"; };
-		52B402A3183BC46900D14D43 /* _ItemTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ItemTracking.m; sourceTree = "<group>"; };
 		52B402A5183BCA8E00D14D43 /* _DeliveryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DeliveryStatus.h; sourceTree = "<group>"; };
 		52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DeliveryStatus.m; sourceTree = "<group>"; };
 		52C908E818045F3F0063A026 /* ApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiClient.h; sourceTree = "<group>"; };
@@ -783,8 +783,8 @@
 				52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */,
 				528F270417F9C181006F7027 /* _EntityLocation.h */,
 				528F270517F9C181006F7027 /* _EntityLocation.m */,
-				52B402A2183BC46900D14D43 /* _ItemTracking.h */,
-				52B402A3183BC46900D14D43 /* _ItemTracking.m */,
+				526E92B8183FE6AE00552710 /* _ItemTracking.h */,
+				526E92B9183FE6AE00552710 /* _ItemTracking.m */,
 				529090EC180D2A1F00D84030 /* _Offer.h */,
 				529090ED180D2A1F00D84030 /* _Offer.m */,
 				529090EE180D2A1F00D84030 /* _OfferImage.h */,
@@ -1180,6 +1180,7 @@
 				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
 				52B40292183B625700D14D43 /* ItemTracking.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
+				526E92BA183FE6AE00552710 /* _ItemTracking.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */,
 				52A8B68B180F0098002BC431 /* ArticleContentViewController.m in Sources */,
@@ -1200,7 +1201,6 @@
 				526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
 				52C908EA18045F3F0063A026 /* ApiClient.m in Sources */,
-				52B402A4183BC46900D14D43 /* _ItemTracking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
