@@ -122,6 +122,7 @@ typedef enum {
         case LOCATEUS_VIEWMODE_MAP:
         {
             selectedType = locateUsMapViewController.selectedLocationType;
+            [locateUsMapViewController removeMapAnnotations];
             break;
         }
         default:

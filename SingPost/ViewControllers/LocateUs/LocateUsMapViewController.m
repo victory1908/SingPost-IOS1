@@ -98,12 +98,18 @@
 
 #pragma mark - Map
 
+- (void)removeMapAnnotations
+{
+    [locateUsMapView removeAnnotations:locateUsMapView.annotations];
+}
+
 - (void)showFilteredLocationsOnMap
 {
     NSString *locationType = typesDropDownList.selectedText;
     NSString *searchText = findByTextField.text;
     
-    [locateUsMapView removeAnnotations:locateUsMapView.annotations];
+    [self removeMapAnnotations];
+
     NSArray *locations;
     if (searchText.length == 0) {
         locations = [EntityLocation MR_findByAttribute:EntityLocationAttributes.type withValue:locationType];
@@ -115,7 +121,8 @@
     
     for (EntityLocation *location in locations) {
         EntityLocationMapAnnotation *locationAnnotation = [[EntityLocationMapAnnotation alloc] initWithEntityLocation:location];
-        [locateUsMapView addAnnotation:locationAnnotation];
+        if (CLLocationCoordinate2DIsValid(location.coordinate))
+            [locateUsMapView addAnnotation:locationAnnotation];
     }
 }
 

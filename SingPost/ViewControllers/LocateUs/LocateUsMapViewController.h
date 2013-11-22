@@ -12,4 +12,6 @@
 
 @property (nonatomic, readonly) NSString *selectedLocationType;
 
+- (void)removeMapAnnotations;
+
 @end
