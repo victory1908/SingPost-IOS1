@@ -34,6 +34,7 @@
 {
     contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentScrollView setDelaysContentTouches:NO];
+    [contentScrollView setContentSize:CGSizeMake(320, 300)];
     [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
     
     toWhichCountryDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
@@ -72,11 +73,11 @@
     self.view = contentScrollView;
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    [contentScrollView setContentSize:contentScrollView.bounds.size];
-}
+//- (void)viewDidLayoutSubviews
+//{
+//    [super viewDidLayoutSubviews];
+//    [contentScrollView setContentSize:CGSizeMake(320, 200)];
+//}
 
 #pragma mark - UITextField Delegate
 

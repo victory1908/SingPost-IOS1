@@ -68,11 +68,9 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        NSLog(@"%@", XMLElement);
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -97,11 +95,9 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        NSLog(@"%@", XMLElement);
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -124,11 +120,9 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        NSLog(@"%@", XMLElement);
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -146,11 +140,9 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        NSLog(@"%@", XMLElement);
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -168,11 +160,9 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        NSLog(@"%@", XMLElement);
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -189,7 +179,6 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -204,7 +193,6 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -219,7 +207,6 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"%@", error);
         if (failure)
             failure(error);
     }];
@@ -243,12 +230,9 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        NSLog(@"%@", XMLElement);
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-        NSLog(@"failed: %@", error);
-        
         if (failure)
             failure(error);
     }];
@@ -273,12 +257,9 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
         [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
         
         AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-            NSLog(@"%@", XMLElement);
             if (success)
                 success(XMLElement);
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-            NSLog(@"failed: %@", error);
-            
             if (failure)
                 failure(error);
         }];

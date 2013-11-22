@@ -11,7 +11,7 @@
 @interface PostalCode : NSObject
 
 + (void)API_findPostalCodeForBuildingNo:(NSString *)buildingNo andStreetName:(NSString *)streetName onCompletion:(void(^)(NSString *postalCode, NSError *error))completionBlock;
-+ (void)API_findPostalCodeForLandmark:(NSString *)landmark onCompletion:(void(^)(NSString *postalCode, NSError *error))completionBlock;
-+ (void)API_findPostalCodeForWindowsDeliveryNo:(NSString *)windowsDeliveryNo andType:(NSString *)type andPostOffice:(NSString *)postOffice onCompletion:(void(^)(NSString *postalCode, NSError *error))completionBlock;
++ (void)API_findPostalCodeForLandmark:(NSString *)landmark onCompletion:(void(^)(NSArray *results, NSError *error))completionBlock;
++ (void)API_findPostalCodeForWindowsDeliveryNo:(NSString *)windowsDeliveryNo andType:(NSString *)type andPostOffice:(NSString *)postOffice onCompletion:(void(^)(NSArray *results, NSError *error))completionBlock;
 
 @end

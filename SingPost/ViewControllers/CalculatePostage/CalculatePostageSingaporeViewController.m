@@ -35,6 +35,7 @@
 {
     contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentScrollView setDelaysContentTouches:NO];
+    [contentScrollView setContentSize:CGSizeMake(320, 300)];
     [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
     
     fromPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
@@ -74,12 +75,6 @@
     [contentScrollView addSubview:calculatePostageButton];
     
     self.view = contentScrollView;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    [contentScrollView setContentSize:contentScrollView.bounds.size];
 }
 
 #pragma mark - UITextField Delegates

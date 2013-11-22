@@ -31,6 +31,7 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         [contentScrollView setDelaysContentTouches:NO];
+        [contentScrollView setContentSize:CGSizeMake(320, 370)];
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
         buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
@@ -78,12 +79,6 @@
     }
     
     return self;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    [contentScrollView setContentSize:contentScrollView.bounds.size];
 }
 
 - (IBAction)findButtonClicked:(id)sender

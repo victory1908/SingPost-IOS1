@@ -179,8 +179,6 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)API_updatePostingBoxLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getPostingBoxLocationsOnSuccess:^(id responseJSON) {
-        NSLog(@"posting box response: %@", responseJSON);
-        
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(LOCATIONS_LOCK) {
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
@@ -214,8 +212,6 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getPostOfficeLocationsOnSuccess:^(id responseJSON) {
-        NSLog(@"posting box response: %@", responseJSON);
-        
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(LOCATIONS_LOCK) {
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
@@ -249,8 +245,6 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)API_updateSamLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getSamLocationsOnSuccess:^(id responseJSON) {
-        NSLog(@"posting box response: %@", responseJSON);
-        
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(LOCATIONS_LOCK) {
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
