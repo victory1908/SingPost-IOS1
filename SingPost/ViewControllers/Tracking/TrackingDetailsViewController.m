@@ -12,6 +12,7 @@
 #import "UIImage+Extensions.h"
 #import "TrackingItemDetailTableViewCell.h"
 #import "ItemTracking.h"
+#import "DeliveryStatus.h"
 #import <KGModal.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -112,14 +113,14 @@
     [dateHeaderLabel setBackgroundColor:[UIColor clearColor]];
     [headerView addSubview:dateHeaderLabel];
     
-    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 5, 50, 16)];
+    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(85, 5, 50, 16)];
     [statusLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [statusLabel setText:@"Status"];
     [statusLabel setTextColor:RGB(125, 136, 149)];
     [statusLabel setBackgroundColor:[UIColor clearColor]];
     [headerView addSubview:statusLabel];
     
-    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(220, 5, 100, 16)];
+    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, 5, 100, 16)];
     [locationLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [locationLabel setText:@"Location"];
     [locationLabel setTextColor:RGB(125, 136, 149)];
@@ -202,7 +203,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 71.0f;
+    DeliveryStatus *deliveryStatus = _deliveryStatuses[indexPath.row];
+    CGSize statusLabelSize = [deliveryStatus.statusDescription sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
+    CGSize locationLabelSize = [deliveryStatus.location sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
+
+    return MAX(61.0f, MAX(statusLabelSize.height + 12.0f, locationLabelSize.height + 12.0f));
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

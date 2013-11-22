@@ -11,10 +11,13 @@
 #import "UIColor+SingPost.h"
 #import "ItemTracking.h"
 #import "PersistentBackgroundView.h"
+#import "UILabel+VerticalAlign.h"
+#import "UIView+Position.h"
 
 @implementation TrackingItemMainTableViewCell
 {
     UILabel *trackingNumberLabel, *statusLabel;
+    PersistentBackgroundView *separatorView;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -28,20 +31,20 @@
         UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
-        trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 180, 30)];
+        trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 150, 30)];
         [trackingNumberLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [trackingNumberLabel setTextColor:RGB(58, 68, 61)];
         [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:trackingNumberLabel];
         
-        statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 25, 250, 30)];
+        statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 6, STATUS_LABEL_SIZE.width, STATUS_LABEL_SIZE.height)];
         [statusLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [statusLabel setTextColor:RGB(50, 50, 50)];
         [statusLabel setNumberOfLines:0];
         [statusLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusLabel];
         
-        PersistentBackgroundView *separatorView = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(0, 59, contentView.bounds.size.width, 1.0f)];
+        separatorView = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(15, 59, contentView.bounds.size.width - 30, 1.0f)];
         [separatorView setPersistentBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
 
@@ -50,11 +53,23 @@
     return self;
 }
 
+- (void)setHideSeparatorView:(BOOL)inHideSeparatorView
+{
+    _hideSeparatorView = inHideSeparatorView;
+    [separatorView setHidden:_hideSeparatorView];
+}
+
 - (void)setItem:(ItemTracking *)inItem
 {
     _item = inItem;
     [trackingNumberLabel setText:_item.trackingNumber];
+    [trackingNumberLabel setVerticalAlignmentTop];
+    
+    [statusLabel setHeight:STATUS_LABEL_SIZE.height];
     [statusLabel setText:_item.status];
+    [statusLabel setVerticalAlignmentTop];
+    
+    [separatorView setY:MAX(59, CGRectGetMaxY(statusLabel.frame) + 7)];
 }
 
 @end

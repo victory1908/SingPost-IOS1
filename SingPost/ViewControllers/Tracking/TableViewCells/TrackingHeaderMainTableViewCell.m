@@ -24,14 +24,14 @@
         [trackingNumbersHeaderLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:trackingNumbersHeaderLabel];
         
-        UILabel *statusHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 0, 50, 30)];
+        UILabel *statusHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 50, 30)];
         [statusHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [statusHeaderLabel setText:@"Status"];
         [statusHeaderLabel setTextColor:RGB(125, 136, 149)];
         [statusHeaderLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusHeaderLabel];
         
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 29, contentView.bounds.size.width, 1.0f)];
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 29, contentView.bounds.size.width - 30, 1.0f)];
         [separatorView setBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
         

@@ -180,6 +180,7 @@ typedef enum {
 {
     if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
         cell.item = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        [cell setHideSeparatorView:indexPath.row == (self.activeItemsFetchedResultsController.fetchedObjects.count)];
     }
 }
 
@@ -188,7 +189,14 @@ typedef enum {
     if (indexPath.row == 0)
         return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 140.0f : 30.0f;
     
-    return 60.0f;
+    ItemTracking *trackedItem;
+    if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
+        trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+    }
+    
+    CGSize statusLabelSize = [trackedItem.status sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
+
+    return MAX(60, statusLabelSize.height + 14);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
