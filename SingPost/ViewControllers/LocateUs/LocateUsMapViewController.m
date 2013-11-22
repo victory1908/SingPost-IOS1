@@ -29,6 +29,7 @@
     CDropDownListControl *typesDropDownList;
     MKMapView *locateUsMapView;
     TPKeyboardAvoidingScrollView *contentScrollView;
+    NSMutableArray *locationAnnotations;
     
     CLLocationCoordinate2D lastKnownUserLocation;
     BOOL initialShouldCenterUserLocation;
@@ -100,7 +101,7 @@
 
 - (void)removeMapAnnotations
 {
-    [locateUsMapView removeAnnotations:locateUsMapView.annotations];
+    [locateUsMapView removeAnnotations:locationAnnotations];
 }
 
 - (void)showFilteredLocationsOnMap
@@ -119,10 +120,13 @@
         locations = [EntityLocation MR_findAllWithPredicate:predicate];
     }
     
+    locationAnnotations = [NSMutableArray array];
     for (EntityLocation *location in locations) {
         EntityLocationMapAnnotation *locationAnnotation = [[EntityLocationMapAnnotation alloc] initWithEntityLocation:location];
-        if (CLLocationCoordinate2DIsValid(location.coordinate))
+        if (CLLocationCoordinate2DIsValid(location.coordinate)) {
             [locateUsMapView addAnnotation:locationAnnotation];
+            [locationAnnotations addObject:locationAnnotation];
+        }
     }
 }
 
@@ -176,7 +180,6 @@
             annotationView.canShowCallout = YES;
             annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
             annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-
         }
     }
     

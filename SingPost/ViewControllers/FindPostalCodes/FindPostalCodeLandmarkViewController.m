@@ -37,6 +37,7 @@
         
         majorBuildingEstateTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
         [majorBuildingEstateTextField setPlaceholder:@"Major building / Estate name"];
+        majorBuildingEstateTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 12) : CGSizeMake(10, 10);
         [contentScrollView addSubview:majorBuildingEstateTextField];
         
         FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 80, contentScrollView.bounds.size.width - 30, 48)];

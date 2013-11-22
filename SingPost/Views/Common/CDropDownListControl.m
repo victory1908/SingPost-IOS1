@@ -27,6 +27,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self = [super initWithFrame:frame])) {
+        _selectedRowIndex = NSNotFound;
         [self setBackgroundColor:RGB(211, 210, 210)];
         
         selectedValueLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 10, 5)];
@@ -81,7 +82,6 @@
     [pickerViewActionSheet addSubview:toolbar];
     [pickerViewActionSheet showInView:self];
     [pickerViewActionSheet setBounds:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGRectMake(0, 0, 320, 430) : CGRectMake(0, 0, 320, 420)];
-    [self selectRow:_selectedRowIndex animated:YES];
 }
 
 - (void)dismissActionSheet
@@ -120,11 +120,15 @@
 
 - (NSString *)selectedText
 {
+    if (_selectedRowIndex == NSNotFound)
+        return nil;
     return _values[_selectedRowIndex][@"value"];
 }
 
 - (NSString *)selectedValue
 {
+    if (_selectedRowIndex == NSNotFound)
+        return nil;
     return _values[_selectedRowIndex][@"code"];
 }
 

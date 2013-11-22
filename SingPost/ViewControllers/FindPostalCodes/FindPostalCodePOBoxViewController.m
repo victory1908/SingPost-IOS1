@@ -35,9 +35,11 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         [contentScrollView setDelaysContentTouches:NO];
+        [contentScrollView setContentSize:CGSizeMake(320, 355)];
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
         windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 44)];
+        windowDeliveryNoTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 12) : CGSizeMake(10, 10);
         [contentScrollView addSubview:windowDeliveryNoTextField];
         
         typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 44)];
@@ -48,6 +50,7 @@
         
         postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
         [postOfficeTextField setPlaceholder:@"Post Office"];
+        postOfficeTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 12) : CGSizeMake(10, 10);
         [contentScrollView addSubview:postOfficeTextField];
         
         FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 137, contentScrollView.bounds.size.width - 30, 48)];
@@ -72,12 +75,6 @@
     }
     
     return self;
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    [contentScrollView setContentSize:contentScrollView.bounds.size];
 }
 
 #pragma mark - IBActions

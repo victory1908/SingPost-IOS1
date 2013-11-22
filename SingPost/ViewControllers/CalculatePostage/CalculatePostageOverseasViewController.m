@@ -73,12 +73,6 @@
     self.view = contentScrollView;
 }
 
-//- (void)viewDidLayoutSubviews
-//{
-//    [super viewDidLayoutSubviews];
-//    [contentScrollView setContentSize:CGSizeMake(320, 200)];
-//}
-
 #pragma mark - UITextField Delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -102,7 +96,7 @@
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
-    if ([toWhichCountryDropDownList.selectedValue length] == 0 || [weightTextField.text length] == 0) {
+    if (!toWhichCountryDropDownList.selectedValue || [weightTextField.text length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
