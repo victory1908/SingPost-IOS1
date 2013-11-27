@@ -98,7 +98,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == HEADER_ROW)
-        return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 125.0f;
+        return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 100.0f;
 
     if (indexPath.row == TITLE_ROW)
         return 30.0f;
