@@ -248,7 +248,7 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     NSUInteger chunk = 0;
     NSArray *chunkedTrackedItems;
     do {
-        chunkedTrackedItems = [trackedItems subarrayWithRange:NSMakeRange(0, MIN(trackedItems.count - (chunk * NUM_ITEMS_PER_API), NUM_ITEMS_PER_API))];
+        chunkedTrackedItems = [trackedItems subarrayWithRange:NSMakeRange(chunk * NUM_ITEMS_PER_API, MIN(trackedItems.count - (chunk * NUM_ITEMS_PER_API), NUM_ITEMS_PER_API))];
         
         if (chunkedTrackedItems.count > 0) {
             NSMutableString *trackingNumbersXml = [NSMutableString string];
@@ -279,7 +279,7 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
         }
         
         chunk++;
-    } while(chunkedTrackedItems.count > 0);
+    } while((chunk * NUM_ITEMS_PER_API) < trackedItems.count);
 
     [self enqueueBatchOfHTTPRequestOperations:updateOperations
                                 progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
