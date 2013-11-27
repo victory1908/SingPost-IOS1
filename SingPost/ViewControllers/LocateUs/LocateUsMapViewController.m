@@ -31,7 +31,6 @@
     TPKeyboardAvoidingScrollView *contentScrollView;
     NSMutableArray *locationAnnotations;
     
-    CLLocationCoordinate2D lastKnownUserLocation;
     BOOL initialShouldCenterUserLocation;
 }
 
@@ -45,6 +44,7 @@
     findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
     findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 6) : CGSizeMake(10, 10);
+    [findByTextField setReturnKeyType:UIReturnKeyGo];
     [findByTextField setPlaceholder:@"Find by street name,\nblk no., mrt station etc"];
     [contentScrollView addSubview:findByTextField];
     
@@ -106,6 +106,7 @@
 
 - (void)showFilteredLocationsOnMap
 {
+    [self.view endEditing:YES];
     NSString *locationType = typesDropDownList.selectedText;
     NSString *searchText = findByTextField.text;
     
@@ -128,12 +129,18 @@
             [locationAnnotations addObject:locationAnnotation];
         }
     }
+    
+    if (locations.count > 0) {
+        //zoom in to the first location
+        EntityLocation *firstLocation = [locations firstObject];
+        [self centerMapAtLocation:firstLocation.coordinate];
+    }
 }
 
-- (void)centerMapToLastKnownUserLocation
+- (void)centerMapAtLocation:(CLLocationCoordinate2D)coordinate
 {
     MKCoordinateRegion mapRegion;
-    mapRegion.center = locateUsMapView.userLocation.coordinate;
+    mapRegion.center = coordinate;
     mapRegion.span = MKCoordinateSpanMake(0.015, 0.015);
     [locateUsMapView setRegion:mapRegion animated:YES];
 }
@@ -149,11 +156,9 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    lastKnownUserLocation = mapView.userLocation.coordinate;
-    
     //center user location on initial load if required
     if (initialShouldCenterUserLocation) {
-        [self centerMapToLastKnownUserLocation];
+        [self centerMapAtLocation:mapView.userLocation.coordinate];
         initialShouldCenterUserLocation = NO;
     }
 }

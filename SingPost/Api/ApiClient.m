@@ -244,29 +244,43 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
 {
     NSMutableArray *updateOperations = [NSMutableArray array];
     
-    for (ItemTracking *trackedItem in trackedItems) {
-        NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-                         "<ItemTrackingNumbers>"
-                         "<TrackingNumber>%@</TrackingNumber>"
-                         "</ItemTrackingNumbers>"
-                         "</ItemTrackingDetailsRequest>", [trackedItem.trackingNumber uppercaseString]];
+#define NUM_ITEMS_PER_API 10
+    NSUInteger chunk = 0;
+    NSArray *chunkedTrackedItems;
+    do {
+        chunkedTrackedItems = [trackedItems subarrayWithRange:NSMakeRange(0, MIN(trackedItems.count - (chunk * NUM_ITEMS_PER_API), NUM_ITEMS_PER_API))];
         
-        NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
-        [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-        [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
-        [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+        if (chunkedTrackedItems.count > 0) {
+            NSMutableString *trackingNumbersXml = [NSMutableString string];
+            for (ItemTracking *trackedItem in chunkedTrackedItems) {
+                [trackingNumbersXml appendFormat:@"<TrackingNumber>%@</TrackingNumber>", [trackedItem.trackingNumber uppercaseString]];
+            }
+            
+            NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+                             "<ItemTrackingNumbers>"
+                             "%@"
+                             "</ItemTrackingNumbers>"
+                             "</ItemTrackingDetailsRequest>", trackingNumbersXml];
+
+            NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
+            [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+            [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+            [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+            
+            AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+                if (success)
+                    success(XMLElement);
+            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+                if (failure)
+                    failure(error);
+            }];
+            
+            [updateOperations addObject:operation];
+        }
         
-        AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-            if (success)
-                success(XMLElement);
-        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-            if (failure)
-                failure(error);
-        }];
-        
-        [updateOperations addObject:operation];
-    }
-    
+        chunk++;
+    } while(chunkedTrackedItems.count > 0);
+
     [self enqueueBatchOfHTTPRequestOperations:updateOperations
                                 progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
                                     if (progressCompletion)

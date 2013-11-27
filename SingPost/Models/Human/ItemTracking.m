@@ -60,7 +60,7 @@
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             RXMLElement *rxmlItems = [rootXML child:@"ItemsTrackingDetailList"];
-            
+
             for (RXMLElement *rxmlItem in [rxmlItems children:@"ItemTrackingDetail"]) {
                 [ItemTracking createIfNotExistsFromXMLElement:rxmlItem inContext:localContext error:nil];
             }
