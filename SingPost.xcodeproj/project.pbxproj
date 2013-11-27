@@ -47,6 +47,7 @@
 		5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0B81833DE5B00E9358A /* CalculatePostageOverseasViewController.m */; };
 		5237B0BC1833DF3300E9358A /* CalculatePostageSingaporeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BB1833DF3300E9358A /* CalculatePostageSingaporeViewController.m */; };
 		5237B0BF1833E71B00E9358A /* CalculatePostageResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */; };
+		52422F8818461CAB00970F23 /* PostalCodeStreetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52422F8718461CAB00970F23 /* PostalCodeStreetTableViewCell.m */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */; };
 		526E92B7183FDA0200552710 /* PostalCodePoBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B6183FDA0200552710 /* PostalCodePoBoxTableViewCell.m */; };
@@ -207,6 +208,8 @@
 		5237B0BB1833DF3300E9358A /* CalculatePostageSingaporeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageSingaporeViewController.m; sourceTree = "<group>"; };
 		5237B0BD1833E71B00E9358A /* CalculatePostageResultItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageResultItem.h; sourceTree = "<group>"; };
 		5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageResultItem.m; sourceTree = "<group>"; };
+		52422F8618461CAB00970F23 /* PostalCodeStreetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCodeStreetTableViewCell.h; sourceTree = "<group>"; };
+		52422F8718461CAB00970F23 /* PostalCodeStreetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCodeStreetTableViewCell.m; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 		526E92B2183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCodeLandmarkResultTableViewCell.h; sourceTree = "<group>"; };
@@ -649,6 +652,8 @@
 				526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */,
 				526E92B5183FDA0200552710 /* PostalCodePoBoxTableViewCell.h */,
 				526E92B6183FDA0200552710 /* PostalCodePoBoxTableViewCell.m */,
+				52422F8618461CAB00970F23 /* PostalCodeStreetTableViewCell.h */,
+				52422F8718461CAB00970F23 /* PostalCodeStreetTableViewCell.m */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -1190,6 +1195,7 @@
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
 				529090F6180D2A2900D84030 /* Offer.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,
+				52422F8818461CAB00970F23 /* PostalCodeStreetTableViewCell.m in Sources */,
 				52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */,
 				52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */,
 				52936493180B20B700B83F6B /* PersistentBackgroundLabel.m in Sources */,

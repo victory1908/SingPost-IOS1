@@ -98,7 +98,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == HEADER_ROW)
-        return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 100.0f : 125.0f;
+        return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 125.0f;
 
     if (indexPath.row == TITLE_ROW)
         return 30.0f;
@@ -218,22 +218,6 @@
             [weightLabel setTextColor:RGB(51, 51, 51)];
             [weightLabel setBackgroundColor:[UIColor clearColor]];
             [cellContentView addSubview:weightLabel];
-            
-            offsetY += 25.0f;
-            
-            UILabel *expectedDeliveryTimeDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 170, 20)];
-            [expectedDeliveryTimeDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [expectedDeliveryTimeDisplayLabel setText:@"Expected delivery time"];
-            [expectedDeliveryTimeDisplayLabel setBackgroundColor:[UIColor clearColor]];
-            [expectedDeliveryTimeDisplayLabel setTextColor:RGB(168, 173, 180)];
-            [cellContentView addSubview:expectedDeliveryTimeDisplayLabel];
-            
-            expectedDeliveryTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
-            [expectedDeliveryTimeLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [expectedDeliveryTimeLabel setText:_expectedDeliveryTime];
-            [expectedDeliveryTimeLabel setTextColor:RGB(51, 51, 51)];
-            [expectedDeliveryTimeLabel setBackgroundColor:[UIColor clearColor]];
-            [cellContentView addSubview:expectedDeliveryTimeLabel];
             
             offsetY += 35.0f;
             

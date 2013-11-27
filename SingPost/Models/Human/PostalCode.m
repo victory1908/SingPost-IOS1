@@ -11,18 +11,18 @@
 
 @implementation PostalCode
 
-+ (void)API_findPostalCodeForBuildingNo:(NSString *)buildingNo andStreetName:(NSString *)streetName onCompletion:(void(^)(NSString *postalCode, NSError *error))completionBlock
++ (void)API_findPostalCodeForBuildingNo:(NSString *)buildingNo andStreetName:(NSString *)streetName onCompletion:(void(^)(NSArray *results, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] findPostalCodeForBuildingNo:buildingNo andStreetName:streetName onSuccess:^(RXMLElement *rootXML) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSMutableArray *items = [NSMutableArray array];
             [rootXML iterate:@"PostalCodeByStreetDetailList.PostalCodeByStreetDetail" usingBlock:^(RXMLElement *e) {
-                [items addObject:[e child:@"PostalCode"].text];
+                [items addObject:@{@"buildingno": [e child:@"BuildingNo"].text, @"streetname": [e child:@"StreetName"].text, @"postalcode": [e child:@"PostalCode"].text}];
             }];
             
             if (completionBlock) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock([items firstObject], nil);
+                    completionBlock(items, nil);
                 });
             }
         });
