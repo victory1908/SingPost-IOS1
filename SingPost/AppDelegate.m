@@ -10,7 +10,7 @@
 #import "RootViewController.h"
 #import <Reachability.h>
 #import "DatabaseSeeder.h"
-#import "LocateUsListViewController.h"
+#import "PushNotification.h"
 
 @implementation AppDelegate
 
@@ -20,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
     [MagicalRecord setupCoreDataStack];
     [DatabaseSeeder seedLocationsDataIfRequired];
     [DatabaseSeeder seedStampsDataIfRequired];  //FIXME: for development only
@@ -27,8 +29,6 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-   
-    [self applyStylesheets];
     
     _rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     [self.window setRootViewController:_rootViewController];
@@ -64,13 +64,6 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma mark - Stylesheets
-
-- (void)applyStylesheets
-{
-
-}
-
 #pragma mark - Utilities
 
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection
@@ -82,6 +75,26 @@
     }
     
     return hasInternetConnection;
+}
+
+#pragma mark - APNS
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    NSString *sanitizedDeviceToken = [[[[deviceToken description]
+                                        stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                       stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                      stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
+    [PushNotification API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
+        //do nothing
+    }];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
 }
 
 @end

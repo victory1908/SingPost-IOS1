@@ -11,3 +11,4 @@
 #define SIDEBAR_WIDTH 275.0f
 
 #define ERROR_DOMAIN @"com.codigo.singpost.errordomain"
+#define KEYCHAIN_SERVICENAME @"KEYCHAIN_SINGPOST"

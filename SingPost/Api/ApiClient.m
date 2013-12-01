@@ -9,11 +9,17 @@
 #import "ApiClient.h"
 #import "EntityLocation.h"
 #import "ItemTracking.h"
+#import <SSKeychain.h>
 
 @implementation ApiClient
 
+@synthesize notificationProfileID = _notificationProfileID;
+
 static NSString *const BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
+
+static NSString *const APP_ID = @"M00001";
+static NSString *const OS = @"ios";
 
 #pragma mark - Shared singleton instance
 
@@ -34,6 +40,29 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
     }
     
     return self;
+}
+
+#pragma mark - Properties
+
+- (BOOL)hasRegistered
+{
+    return [[self notificationProfileID] length] > 0;
+}
+
+- (NSString *)notificationProfileID
+{
+    if (!_notificationProfileID) {
+        _notificationProfileID = [SSKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+    }
+    return _notificationProfileID;
+}
+
+- (void)setNotificationProfileID:(NSString *)inNotificationProfileID
+{
+    if (inNotificationProfileID.length > 0) {
+        _notificationProfileID = inNotificationProfileID;
+        [SSKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+    }
 }
 
 #pragma mark - API calls
@@ -288,6 +317,34 @@ static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
                                 } completionBlock:^(NSArray *operations) {
                                     //do nothing
                                 }];
+}
+
+#pragma mark - APNS
+
+- (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSString *xml = [NSString stringWithFormat: @"<RegisterRequest>"
+                     "<PushID>%@</PushID>"
+                     "<AppID>%@</AppID>"
+                     "<OS>%@</OS>"
+                     "</RegisterRequest>", apnsToken, APP_ID, OS];
+    
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/registration/add" parameters:nil];
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+        NSLog(@"xml element: %@", XMLElement);
+        if (success)
+            success(XMLElement);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+
 }
 
 @end
