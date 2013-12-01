@@ -14,6 +14,7 @@
 @implementation ApiClient
 
 @synthesize notificationProfileID = _notificationProfileID;
+@synthesize failedNotificationTrackingNumbers = _failedNotificationTrackingNumbers;
 
 static NSString *const BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
@@ -44,7 +45,7 @@ static NSString *const OS = @"ios";
 
 #pragma mark - Properties
 
-- (BOOL)hasRegistered
+- (BOOL)hasRegisteredProfileId
 {
     return [[self notificationProfileID] length] > 0;
 }
@@ -63,6 +64,25 @@ static NSString *const OS = @"ios";
         _notificationProfileID = inNotificationProfileID;
         [SSKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
     }
+}
+
+- (NSMutableSet *)failedNotificationTrackingNumbers
+{
+    if (!_failedNotificationTrackingNumbers) {
+        _failedNotificationTrackingNumbers = [NSMutableSet setWithArray:[[[NSUserDefaults standardUserDefaults] valueForKey:@"SETTINGS_FAILEDNOTIFICATIONNUMBERS"] componentsSeparatedByString:@"^"]];
+    }
+    
+    if (_failedNotificationTrackingNumbers.count == 0)
+        _failedNotificationTrackingNumbers = [NSMutableSet set];
+    
+    return _failedNotificationTrackingNumbers;
+}
+
+- (void)setFailedNotificationTrackingNumbers:(NSMutableSet *)inFailedNotificationTrackingNumbers
+{
+    _failedNotificationTrackingNumbers = inFailedNotificationTrackingNumbers;
+    [[NSUserDefaults standardUserDefaults] setValue:[_failedNotificationTrackingNumbers.allObjects componentsJoinedByString:@"^"] forKey:@"SETTINGS_FAILEDNOTIFICATIONNUMBERS"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - API calls
@@ -319,7 +339,7 @@ static NSString *const OS = @"ios";
                                 }];
 }
 
-#pragma mark - APNS
+#pragma mark - Notifications
 
 - (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
@@ -335,7 +355,6 @@ static NSString *const OS = @"ios";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        NSLog(@"xml element: %@", XMLElement);
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
@@ -344,7 +363,29 @@ static NSString *const OS = @"ios";
     }];
     
     [self enqueueHTTPRequestOperation:operation];
+}
 
+- (void)subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
+                     "<ProfileID>%@</ProfileID>"
+                     "<ItemNumberList><ItemNumber>%@</ItemNumber></ItemNumberList>"
+                     "</SubscribeRequest>", [self notificationProfileID], trackingNumber];
+    
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/add" parameters:nil];
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+        if (success)
+            success(XMLElement);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
 }
 
 @end

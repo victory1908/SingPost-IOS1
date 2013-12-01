@@ -1,6 +1,7 @@
 #import "ItemTracking.h"
 #import "ApiClient.h"
 #import "DeliveryStatus.h"
+#import "PushNotification.h"
 
 @interface ItemTracking ()
 
@@ -90,24 +91,27 @@
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             RXMLElement *rxmlItems = [rootXML child:@"ItemsTrackingDetailList"];
             
-            for (RXMLElement *rxmlItem in [rxmlItems children:@"ItemTrackingDetail"]) {
-                NSError *error;
-                [ItemTracking createIfNotExistsFromXMLElement:rxmlItem inContext:localContext error:&error];
-                if (error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(NO, error);
-                    });
-                    return;
-                }
+            NSError *error;
+            ItemTracking *trackedItem = [ItemTracking createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
+            if (!error) {
+                [PushNotification API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
+                    //TODO: fail workflow
+                }];
+                
+                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                    if (completionBlock) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completionBlock(!error, error);
+                        });
+                    }
+                }];
             }
-
-            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                if (completionBlock) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(!error, error);
-                    });
-                }
-            }];
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(NO, error);
+                });
+                
+            }
         });
     } onFailure:^(NSError *error) {
         if (completionBlock) {

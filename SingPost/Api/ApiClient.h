@@ -38,10 +38,12 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 - (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion;
 
-//APNS
+//notifications
 - (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void)subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
-@property (nonatomic, readonly) BOOL hasRegistered;
+@property (nonatomic, readonly) BOOL hasRegisteredProfileId;
 @property (nonatomic) NSString *notificationProfileID;
+@property (nonatomic) NSMutableSet *failedNotificationTrackingNumbers;
 
 @end
