@@ -10,4 +10,6 @@
 
 @interface TrackingHeaderMainTableViewCell : UITableViewCell
 
+@property (nonatomic, assign) BOOL hideSeparatorView;
+
 @end

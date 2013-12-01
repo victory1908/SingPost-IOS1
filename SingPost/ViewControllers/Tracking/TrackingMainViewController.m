@@ -74,7 +74,7 @@ typedef enum {
     [trackingItemsTableView setSeparatorColor:[UIColor clearColor]];
     [trackingItemsTableView setDelegate:self];
     [trackingItemsTableView setDataSource:self];
-    [trackingItemsTableView setBackgroundColor:[UIColor clearColor]];
+    [trackingItemsTableView setBackgroundColor:[UIColor whiteColor]];
     [trackingItemsTableView setBackgroundView:nil];
     [contentView addSubview:trackingItemsTableView];
     
@@ -239,12 +239,12 @@ typedef enum {
     
     if (section == TRACKINGITEMS_SECTION_ACTIVE) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [self.activeItemsFetchedResultsController.sections objectAtIndex:0];
-        return [sectionInfo numberOfObjects] == 0 ? 0 : HEADER_COUNT + [sectionInfo numberOfObjects];
+        return HEADER_COUNT + [sectionInfo numberOfObjects];
     }
         
     if (section == TRACKINGITEMS_SECTION_COMPLETED) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [self.completedItemsFetchedResultsController.sections objectAtIndex:0];
-        return [sectionInfo numberOfObjects] == 0 ? 0 : HEADER_COUNT + [sectionInfo numberOfObjects];
+        return HEADER_COUNT + [sectionInfo numberOfObjects];
     }
     
     return 0;
@@ -364,6 +364,13 @@ typedef enum {
             cell.userInteractionEnabled = NO;
         }
         
+        if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
+            [cell setHideSeparatorView:self.activeItemsFetchedResultsController.fetchedObjects.count == 0];
+        }
+        else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
+            [cell setHideSeparatorView:self.completedItemsFetchedResultsController.fetchedObjects.count == 0];
+        }
+
         return cell;
     }
     else {
@@ -392,6 +399,29 @@ typedef enum {
         TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath.section != TRACKINGITEMS_SECTION_HEADER && indexPath.row > 0;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        ItemTracking *trackedItemToDelete = nil;
+        if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
+            trackedItemToDelete = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
+            trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        
+        [ItemTracking deleteTrackedItem:trackedItemToDelete];
     }
 }
 
@@ -448,21 +478,33 @@ typedef enum {
       newIndexPath:(NSIndexPath *)newIndexPath
 {
     NSInteger section = TRACKINGITEMS_SECTION_HEADER;
-    if (controller == self.activeItemsFetchedResultsController)
+    NSInteger rowCount = 0;
+    if (controller == self.activeItemsFetchedResultsController) {
         section = TRACKINGITEMS_SECTION_ACTIVE;
-    else if (controller == self.completedItemsFetchedResultsController)
+        rowCount = self.activeItemsFetchedResultsController.fetchedObjects.count;
+    }
+    else if (controller == self.completedItemsFetchedResultsController) {
         section = TRACKINGITEMS_SECTION_COMPLETED;
+        rowCount = self.activeItemsFetchedResultsController.fetchedObjects.count;
+    }
     
+    NSLog(@"my row count: %d", rowCount);
     NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row + 1 inSection:section];
     switch (type) {
         case NSFetchedResultsChangeInsert:
+        {
+            if (rowCount == 1)
+                [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
-            
+        }
         case NSFetchedResultsChangeDelete:
-            [trackingItemsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        {
+            if (rowCount == 0)
+                [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
+            [trackingItemsTableView deleteRowsAtIndexPaths:@[dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
-            
+        }
         case NSFetchedResultsChangeUpdate:
             [self configureCell:(TrackingItemMainTableViewCell *)[trackingItemsTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;

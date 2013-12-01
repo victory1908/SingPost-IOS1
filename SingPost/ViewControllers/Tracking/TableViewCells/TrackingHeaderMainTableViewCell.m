@@ -10,6 +10,9 @@
 #import "UIFont+SingPost.h"
 
 @implementation TrackingHeaderMainTableViewCell
+{
+    UIView *separatorView;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -31,7 +34,7 @@
         [statusHeaderLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:statusHeaderLabel];
         
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 29, contentView.bounds.size.width - 30, 1.0f)];
+        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 29, contentView.bounds.size.width - 30, 1.0f)];
         [separatorView setBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
         
@@ -39,6 +42,12 @@
     }
     
     return self;
+}
+
+- (void)setHideSeparatorView:(BOOL)inHideSeparatorView
+{
+    _hideSeparatorView = inHideSeparatorView;
+    [separatorView setHidden:_hideSeparatorView];
 }
 
 @end

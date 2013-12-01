@@ -110,7 +110,6 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(NO, error);
                 });
-                
             }
         });
     } onFailure:^(NSError *error) {
@@ -120,5 +119,14 @@
     }];
 }
 
++ (void)deleteTrackedItem:(ItemTracking *)trackedItemToDelete
+{
+    [trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
+    [trackedItemToDelete.managedObjectContext save:nil];
+    
+    [PushNotification API_unsubscribeNotificationForTrackingNumber:trackedItemToDelete.trackingNumber onCompletion:^(BOOL success, NSError *error) {
+        //TODO: fail workflow
+    }];
+}
 
 @end

@@ -23,7 +23,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        [self setBackgroundColor:[UIColor clearColor]];
+        [self setBackgroundColor:[UIColor whiteColor]];
         UIView *v = [[UIView alloc] init];
         v.backgroundColor = RGB(240, 240, 240);
         self.selectedBackgroundView = v;
