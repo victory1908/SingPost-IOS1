@@ -75,4 +75,85 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     }];
 }
 
++ (void)API_getAboutThisAppOnCompletion:(void(^)(NSString *aboutThisApp))completionBlock
+{
+    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSString *aboutThisApp = nil;
+            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                if ([attributes[@"Name"] isEqualToString:@"About This App"]) {
+                    aboutThisApp = attributes[@"content"];
+                    *stop = YES;
+                }
+            }];
+            
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(aboutThisApp);
+                });
+            }
+        });
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
++ (void)API_getTermsOfUseOnCompletion:(void(^)(NSString *termsOfUse))completionBlock
+{
+    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSString *termsOfUse = nil;
+            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                if ([attributes[@"Name"] isEqualToString:@"Terms of Use"]) {
+                    termsOfUse = attributes[@"content"];
+                    *stop = YES;
+                }
+            }];
+            
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(termsOfUse);
+                });
+            }
+        });
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
++ (void)API_getFaqOnCompletion:(void(^)(NSString *termsOfUse))completionBlock
+{
+    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSString *faq = nil;
+            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                if ([attributes[@"Name"] isEqualToString:@"FAQ"]) {
+                    faq = attributes[@"content"];
+                    *stop = YES;
+                }
+            }];
+            
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(faq);
+                });
+            }
+        });
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
 @end

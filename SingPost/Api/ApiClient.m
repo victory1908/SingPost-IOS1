@@ -16,8 +16,8 @@
 @synthesize notificationProfileID = _notificationProfileID;
 @synthesize failedNotificationTrackingNumbers = _failedNotificationTrackingNumbers;
 
-static NSString *const BASE_URL = @"https://uatesb1.singpost.com";
-static NSString *const LOCATIONS_BASE_URL = @"http://mobile.singpost.com/";
+static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
+static NSString *const CMS_BASE_URL = @"http://mobile.singpost.com/";
 
 static NSString *const APP_ID = @"M00001";
 static NSString *const OS = @"ios";
@@ -28,7 +28,7 @@ static NSString *const OS = @"ios";
     static ApiClient *sharedInstance = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
-        sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:BASE_URL]];
+        sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL]];
     });
     
     return sharedInstance;
@@ -87,6 +87,8 @@ static NSString *const OS = @"ios";
 
 #pragma mark - API calls
 
+#pragma mark - Informations
+
 - (void)getSingpostServicesArticlesOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
     [self getPath:@"singpost-services.php"
@@ -99,6 +101,21 @@ static NSString *const OS = @"ios";
                   failure(error);
           }];
 }
+
+- (void)getSingpostContentsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-contents.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 
 #pragma mark - Calculate Postage
 
@@ -223,7 +240,7 @@ static NSString *const OS = @"ios";
 
 - (void)getPostingBoxLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"postingbox.php" relativeToURL:[NSURL URLWithString:LOCATIONS_BASE_URL]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"postingbox.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -237,7 +254,7 @@ static NSString *const OS = @"ios";
 
 - (void)getPostOfficeLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"postoffice.php" relativeToURL:[NSURL URLWithString:LOCATIONS_BASE_URL]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"postoffice.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -251,7 +268,7 @@ static NSString *const OS = @"ios";
 
 - (void)getSamLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"sam.php" relativeToURL:[NSURL URLWithString:LOCATIONS_BASE_URL]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"sam.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
