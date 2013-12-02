@@ -41,9 +41,60 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
 
 #pragma mark - APIs
 
-+ (void)API_getSendReceiveItemsOnCompletion:(void(^)(NSArray *items))completionBlock
++ (void)API_getSendReceiveItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock
 {
     [[ApiClient sharedInstance] getSendReceiveItemsOnSuccess:^(id responseJSON) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(responseJSON[@"root"]);
+            });
+        }
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
++ (void)API_getShopItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock
+{
+    [[ApiClient sharedInstance] getShopItemsOnSuccess:^(id responseJSON) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(responseJSON[@"root"]);
+            });
+        }
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
++ (void)API_getServicesOnCompletion:(void(^)(NSDictionary *items))completionBlock
+{
+    [[ApiClient sharedInstance] getServicesItemsOnSuccess:^(id responseJSON) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(responseJSON[@"root"]);
+            });
+        }
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
++ (void)API_getPayItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock
+{
+    [[ApiClient sharedInstance] getPayItemsOnSuccess:^(id responseJSON) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionBlock(responseJSON[@"root"]);

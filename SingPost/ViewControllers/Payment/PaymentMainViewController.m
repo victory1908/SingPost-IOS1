@@ -8,12 +8,10 @@
 
 #import "PaymentMainViewController.h"
 #import "AppDelegate.h"
-#import "PaymentSubLevelViewController.h"
+#import <SVProgressHUD.h>
+#import "Article.h"
 
 @implementation PaymentMainViewController
-{
-    NSArray *data;
-}
 
 - (void)viewDidLoad
 {
@@ -21,19 +19,20 @@
     [self setPageTitle:@"Pay"];
     [self setIsRootLevel:YES];
     
-    data = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Pay" ofType:@"plist"]];
-    [self setItems:[data valueForKey:@"category"]];
+    [SVProgressHUD showWithStatus:@"Please wait.."];
+    __weak PaymentMainViewController *weakSelf = self;
+    [Article API_getPayItemsOnCompletion:^(NSDictionary *items) {
+        [weakSelf setJsonData:items];
+        if ([items isKindOfClass:[NSDictionary class]])
+            [weakSelf setItems:items.allKeys];
+        [SVProgressHUD dismiss];
+    }];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)viewWillDisappear:(BOOL)animated
 {
-    int dataRow = floorf(indexPath.row / 2.0f);
-    PaymentSubLevelViewController *subLevelViewController = [[PaymentSubLevelViewController alloc] initWithNibName:nil bundle:nil];
-    [subLevelViewController setItems:data[dataRow][@"items"]];
-    [subLevelViewController setPageTitle:self.items[dataRow]];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subLevelViewController];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 @end

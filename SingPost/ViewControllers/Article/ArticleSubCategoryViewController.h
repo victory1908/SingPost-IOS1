@@ -1,14 +1,14 @@
 //
-//  SendReceiveSubLevelViewController.h
+//  ArticleSubCategoryViewController.h
 //  SingPost
 //
-//  Created by Edward Soetiono on 17/10/13.
+//  Created by Edward Soetiono on 2/12/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
 #import "ArticleViewController.h"
 
-@interface SendReceiveSubLevelViewController : ArticleViewController
+@interface ArticleSubCategoryViewController : ArticleViewController
 
 @property (nonatomic) NSArray *jsonItems;
 

@@ -11,7 +11,7 @@
 #import "UIFont+SingPost.h"
 #import "AppDelegate.h"
 #import "ArticleTableViewCell.h"
-#import "ArticleContentViewController.h"
+#import "ArticleSubCategoryViewController.h"
 #import "Article.h"
 #import <SVProgressHUD.h>
 
@@ -74,6 +74,12 @@
     [navigationBarView setTitle:_pageTitle];
 }
 
+- (void)setItems:(NSArray *)inItems
+{
+    _items = inItems;
+    [menusTableView reloadData];
+}
+
 #pragma mark - UITableView DataSource & Delegate
 
 - (void)configureCell:(ArticleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -128,7 +134,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //to be overriden by subclasses
+    int dataRow = floorf(indexPath.row / 2.0f);
+    ArticleSubCategoryViewController *subCategoryViewController = [[ArticleSubCategoryViewController alloc] initWithNibName:nil bundle:nil];
+    [subCategoryViewController setJsonItems:self.jsonData[self.jsonData.allKeys[dataRow]]];
+    [subCategoryViewController setPageTitle:self.items[dataRow]];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subCategoryViewController];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

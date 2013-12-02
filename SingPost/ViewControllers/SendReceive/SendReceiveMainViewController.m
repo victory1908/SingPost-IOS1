@@ -8,15 +8,10 @@
 
 #import "SendReceiveMainViewController.h"
 #import "AppDelegate.h"
-#import "SendReceiveSubLevelViewController.h"
-#import "ApiClient.h"
-#import <SVProgressHUD.h>
 #import "Article.h"
+#import <SVProgressHUD.h>
 
 @implementation SendReceiveMainViewController
-{
-    NSArray *data;
-}
 
 - (void)viewDidLoad
 {
@@ -24,14 +19,11 @@
     [self setPageTitle:@"Send & Receive"];
     [self setIsRootLevel:YES];
     
-    data = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SendReceive" ofType:@"plist"]];
-    [self setItems:[data valueForKey:@"category"]];
-    
     [SVProgressHUD showWithStatus:@"Please wait.."];
-    
     __weak SendReceiveMainViewController *weakSelf = self;
-    [Article API_getSendReceiveItemsOnCompletion:^(NSArray *items) {
-        [weakSelf setJsonItems:items];
+    [Article API_getSendReceiveItemsOnCompletion:^(NSDictionary *items) {
+        [weakSelf setJsonData:items];
+        [weakSelf setItems:items.allKeys];
         [SVProgressHUD dismiss];
     }];
 }
@@ -40,18 +32,6 @@
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    int dataRow = floorf(indexPath.row / 2.0f);
-    SendReceiveSubLevelViewController *subLevelViewController = [[SendReceiveSubLevelViewController alloc] initWithNibName:nil bundle:nil];
-    [subLevelViewController setItems:data[dataRow][@"items"]];
-    [subLevelViewController setJsonItems:self.jsonItems];
-    [subLevelViewController setPageTitle:self.items[dataRow]];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subLevelViewController];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

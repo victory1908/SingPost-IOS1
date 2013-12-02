@@ -8,7 +8,8 @@
 
 #import "ShopMainViewController.h"
 #import "AppDelegate.h"
-#import "SampleArticleContentViewController.h"
+#import <SVProgressHUD.h>
+#import "Article.h"
 
 @interface ShopMainViewController ()
 
@@ -22,17 +23,20 @@
     [self setPageTitle:@"Shop"];
     [self setIsRootLevel:YES];
     
-    NSArray *data = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Shop" ofType:@"plist"]];
-    [self setItems:[data valueForKey:@"category"]];
+    [SVProgressHUD showWithStatus:@"Please wait.."];
+    __weak ShopMainViewController *weakSelf = self;
+    [Article API_getShopItemsOnCompletion:^(NSDictionary *items) {
+        [weakSelf setJsonData:items];
+        if ([items isKindOfClass:[NSDictionary class]])
+            [weakSelf setItems:items.allKeys];
+        [SVProgressHUD dismiss];
+    }];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)viewWillDisappear:(BOOL)animated
 {
-    int dataRow = floorf(indexPath.row / 2.0f);
-    SampleArticleContentViewController *viewController = [[SampleArticleContentViewController alloc] initWithNibName:nil bundle:nil];
-    [viewController setPageTitle:self.items[dataRow]];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
 }
 
 @end
