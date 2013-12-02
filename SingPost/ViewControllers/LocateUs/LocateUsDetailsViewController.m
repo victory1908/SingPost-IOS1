@@ -306,7 +306,14 @@ typedef enum  {
         if (!annotationView) {
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.canShowCallout = YES;
-            annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
+            
+            NSString *locationType = _entityLocation.type;
+            if ([locationType isEqualToString:@"Post Office"])
+                annotationView.image = [UIImage imageNamed:@"post_office_map_overlay"];
+            else if ([locationType isEqualToString:@"SAM"])
+                annotationView.image = [UIImage imageNamed:@"sam_map_overlay"];
+            else if ([locationType isEqualToString:@"Posting Box"])
+                annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
         }
     }
     
