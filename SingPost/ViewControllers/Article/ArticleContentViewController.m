@@ -7,7 +7,6 @@
 //
 
 #import "ArticleContentViewController.h"
-#import "Article.h"
 #import "NavigationBarView.h"
 
 @interface ArticleContentViewController ()
@@ -20,11 +19,11 @@
 }
 
 //designated initializer
-- (id)initWithArticle:(Article *)inArticle
+- (id)initWithArticleJSON:(NSDictionary *)inArticleJSON
 {
-    NSParameterAssert(inArticle);
+    NSParameterAssert(inArticleJSON);
     if  ((self = [super initWithNibName:nil bundle:nil])) {
-        _article = inArticle;
+        _articleJSON = inArticleJSON;
     }
     
     return self;
@@ -32,7 +31,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    return [self initWithArticle:nil];
+    return [self initWithArticleJSON:nil];
 }
 
 - (void)loadView
@@ -41,7 +40,7 @@
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitleFontSize:14.0f];
-    [navigationBarView setTitle:_article.name];
+    [navigationBarView setTitle:_articleJSON[@"Name"]];
     [navigationBarView setShowBackButton:YES];
     [contentView addSubview:navigationBarView];
     
@@ -56,8 +55,8 @@
     [super viewDidLoad];
     
     //load html content
-    NSString *htmlContentWithThumbnail = [NSString stringWithFormat:@"<div><img style=\"width:%.0fpx;\" src=\"%@\"></img></div>%@", 300.0f, _article.thumbnail, _article.htmlContent];
-    [contentWebView loadHTMLString:htmlContentWithThumbnail baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+    NSString *htmlContentWithThumbnail = [NSString stringWithFormat:@"<div><img style=\"width:%.0fpx;\" src=\"%@\"></img></div>%@", 300.0f, _articleJSON[@"Thumbnail"], _articleJSON[@"Description"]];
+    [contentWebView loadHTMLString:htmlContentWithThumbnail baseURL:nil];
 }
 
 @end

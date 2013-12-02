@@ -18,6 +18,7 @@
 
 static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_BASE_URL = @"http://mobile.singpost.com/";
+static NSString *const CMS_BASE_URL_V2 = @"http://192.241.251.130/singpost/";
 
 static NSString *const APP_ID = @"M00001";
 static NSString *const OS = @"ios";
@@ -116,6 +117,19 @@ static NSString *const OS = @"ios";
     [self enqueueHTTPRequestOperation:operation];
 }
 
+- (void)getSendReceiveItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"v2/apisendreceive.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V2]]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
 
 #pragma mark - Calculate Postage
 

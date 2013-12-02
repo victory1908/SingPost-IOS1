@@ -11,6 +11,7 @@
 @interface ArticleViewController : UIViewController
 
 @property (nonatomic) NSArray *items;
+@property (nonatomic) NSArray *jsonItems;
 @property (nonatomic) NSString *pageTitle;
 @property (nonatomic, assign) BOOL isRootLevel;
 

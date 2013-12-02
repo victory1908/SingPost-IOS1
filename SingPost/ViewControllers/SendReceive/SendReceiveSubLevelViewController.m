@@ -7,7 +7,7 @@
 //
 
 #import "SendReceiveSubLevelViewController.h"
-#import "SampleArticleContentViewController.h"
+#import "ArticleContentViewController.h"
 #import "AppDelegate.h"
 
 @interface SendReceiveSubLevelViewController ()
@@ -15,6 +15,8 @@
 @end
 
 @implementation SendReceiveSubLevelViewController
+
+@synthesize jsonItems = _jsonItems;
 
 - (void)viewDidLoad
 {
@@ -25,9 +27,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     int dataRow = floorf(indexPath.row / 2.0f);
-    SampleArticleContentViewController *viewController = [[SampleArticleContentViewController alloc] initWithNibName:nil bundle:nil];
-    [viewController setPageTitle:self.items[dataRow]];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    
+    id articleJSON = nil;
+    for (id jsonItem in _jsonItems) {
+        if ([jsonItem[@"Name"] isEqualToString:self.items[dataRow]]) {
+            articleJSON = jsonItem;
+            break;
+        }
+    }
+
+    if (articleJSON) {
+        ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithArticleJSON:articleJSON];
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

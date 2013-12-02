@@ -41,35 +41,18 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
 
 #pragma mark - APIs
 
-+ (void)API_getSendReceiveItemsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
++ (void)API_getSendReceiveItemsOnCompletion:(void(^)(NSArray *items))completionBlock
 {
-    [[ApiClient sharedInstance] getSingpostServicesArticlesOnSuccess:^(id responseObject) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            @synchronized(ARTICLES_LOCK) {
-                NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                [Article MR_truncateAllInContext:localContext];
-                
-                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    Article *article = [Article MR_createInContext:localContext];
-                    [article updateWithApiRepresentation:attributes];
-                    [article setOrderingValue:idx];
-                }];
-                
-                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                    if (completionBlock) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completionBlock(!error, error);
-                        });
-                    }
-                }];
-            }
-        });
+    [[ApiClient sharedInstance] getSendReceiveItemsOnSuccess:^(id responseJSON) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(responseJSON[@"root"]);
+            });
+        }
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(NO, error);
+                completionBlock(nil);
             });
         }
     }];

@@ -10,4 +10,6 @@
 
 @interface SendReceiveSubLevelViewController : ArticleViewController
 
+@property (nonatomic) NSArray *jsonItems;
+
 @end
