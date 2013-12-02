@@ -81,19 +81,13 @@
     UIButton *locateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [locateUsButton setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
     [locateUsButton setFrame:CGRectMake(265, 24, 30, 30)];
-    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [searchTermsView addSubview:locateUsButton];
     
-    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
+    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 290, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
     [typesDropDownList setDelegate:self];
     [typesDropDownList selectRow:0 animated:NO];
     [searchTermsView addSubview:typesDropDownList];
-    
-    FlatBlueButton *goButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(235, 70, 70, 44)];
-    [goButton addTarget:self action:@selector(searchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [goButton setTitle:@"OK" forState:UIControlStateNormal];
-    [searchTermsView addSubview:goButton];
     
     searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
     [searchResultsContainerView setBackgroundColor:[UIColor redColor]];

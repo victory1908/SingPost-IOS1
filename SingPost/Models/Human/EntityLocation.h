@@ -9,8 +9,10 @@
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly) BOOL isOpened;
-@property (nonatomic, readonly) NSString *monFriOpeningHours;
-@property (nonatomic, readonly) NSString *monThuOpeningHours;
+@property (nonatomic, readonly) NSString *monOpeningHours;
+@property (nonatomic, readonly) NSString *tuesOpeningHours;
+@property (nonatomic, readonly) NSString *wedOpeningHours;
+@property (nonatomic, readonly) NSString *thursOpeningHours;
 @property (nonatomic, readonly) NSString *friOpeningHours;
 @property (nonatomic, readonly) NSString *satOpeningHours;
 @property (nonatomic, readonly) NSString *sunOpeningHours;

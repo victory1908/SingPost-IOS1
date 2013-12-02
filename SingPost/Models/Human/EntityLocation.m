@@ -82,14 +82,24 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%04d - %04d", openTime.integerValue, closeTime.integerValue];
 }
 
-- (NSString *)monFriOpeningHours
+- (NSString *)monOpeningHours
 {
     return [self openingHoursForOpenTime:self.mon_opening andCloseTime:self.mon_closing];
 }
 
-- (NSString *)monThuOpeningHours
+- (NSString *)tuesOpeningHours
 {
-    return [self monFriOpeningHours];
+    return [self openingHoursForOpenTime:self.tue_opening andCloseTime:self.tue_closing];
+}
+
+- (NSString *)wedOpeningHours
+{
+    return [self openingHoursForOpenTime:self.wed_opening andCloseTime:self.wed_closing];
+}
+
+- (NSString *)thursOpeningHours
+{
+    return [self openingHoursForOpenTime:self.thu_opening andCloseTime:self.thu_closing];
 }
 
 - (NSString *)friOpeningHours

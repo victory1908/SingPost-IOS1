@@ -45,9 +45,9 @@ typedef enum  {
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
-    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 60, contentView.bounds.size.width - 30, 60)];
+    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 52, contentView.bounds.size.width - 30, 80)];
     [instructionsLabel setNumberOfLines:0];
-    [instructionsLabel setText:@"Lorem ipstum dolor amet, consectetur adipiscing elit. Cras metus massa, lacinia et neque vel, feugiat condimentum odio."];
+    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcels. Singapore Post covers all addresses within Singapore and 220 countries worldwide"];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:[UIColor clearColor]];
     [contentView addSubview:instructionsLabel];

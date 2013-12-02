@@ -16,7 +16,6 @@
 #import "TrackingHeaderMainTableViewCell.h"
 #import "TrackingDetailsViewController.h"
 #import "AppDelegate.h"
-#import <SevenSwitch.h>
 #import <KGModal.h>
 #import <SVProgressHUD.h>
 #import "UIImage+Extensions.h"
@@ -43,7 +42,6 @@ typedef enum {
 {
     CTextField *trackingNumberTextField;
     UITableView *trackingItemsTableView;
-    SevenSwitch *receiveUpdateSwitch;
 }
 
 - (void)loadView
@@ -197,7 +195,7 @@ typedef enum {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
-        return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 140.0f : 30.0f;
+        return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 90.0f : 30.0f;
     
     ItemTracking *trackedItem;
     if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
@@ -213,16 +211,6 @@ typedef enum {
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return section == TRACKINGITEMS_SECTION_HEADER ? 0.0f : 50.0f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 0.1f;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    return [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -336,21 +324,6 @@ typedef enum {
             [findTrackingNumberButton setFrame:CGRectMake(265, 29, 35, 35)];
             [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
-            
-            UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, 220, 50)];
-            [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
-            [instructionsLabel setText:@"Turn on push notification to auto-receive\nlatest status updates of item(s) you are\ncurrently tracking"];
-            [instructionsLabel setNumberOfLines:0];
-            [instructionsLabel setTextColor:RGB(51, 51, 51)];
-            [instructionsLabel setBackgroundColor:[UIColor clearColor]];
-            [cell.contentView addSubview:instructionsLabel];
-            
-            receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
-            receiveUpdateSwitch.onTintColor = [UIColor SingPostBlueColor];
-            receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
-            receiveUpdateSwitch.center = CGPointMake(278, 104);
-            receiveUpdateSwitch.on = YES;
-            [cell.contentView addSubview:receiveUpdateSwitch];
         }
         
         return cell;
@@ -421,7 +394,9 @@ typedef enum {
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
             trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         
+        NSLog(@"deleting tracking item: %@", trackedItemToDelete.trackingNumber);
         [ItemTracking deleteTrackedItem:trackedItemToDelete];
+        [tableView setEditing:NO animated:YES];
     }
 }
 
@@ -485,7 +460,7 @@ typedef enum {
     }
     else if (controller == self.completedItemsFetchedResultsController) {
         section = TRACKINGITEMS_SECTION_COMPLETED;
-        rowCount = self.activeItemsFetchedResultsController.fetchedObjects.count;
+        rowCount = self.completedItemsFetchedResultsController.fetchedObjects.count;
     }
     
     NSLog(@"my row count: %d", rowCount);
@@ -502,7 +477,7 @@ typedef enum {
         {
             if (rowCount == 0)
                 [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
-            [trackingItemsTableView deleteRowsAtIndexPaths:@[dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [trackingItemsTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
         case NSFetchedResultsChangeUpdate:

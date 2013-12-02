@@ -81,7 +81,7 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([buildingBlockHouseNumberTextField.text length] == 0 || [streetNameTextField.text length] == 0) {
+    if ([buildingBlockHouseNumberTextField.text length] == 0 || [streetNameTextField.text length] < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }

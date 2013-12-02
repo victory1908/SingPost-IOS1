@@ -62,6 +62,11 @@ typedef enum  {
     return [self initWithEntityLocation:nil];
 }
 
+- (BOOL)shouldHideSectionSelector
+{
+    return [_entityLocation.type isEqualToString:@"SAM"] || [_entityLocation.type isEqualToString:@"Posting Box"];
+}
+
 - (void)loadView
 {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -104,15 +109,20 @@ typedef enum  {
     [showMapRouteButton addTarget:self action:@selector(showMapRouteDirectionsClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentScrollView addSubview:showMapRouteButton];
     
+    BOOL shouldHideSectionSelector = [self shouldHideSectionSelector];
+    
     UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 266, contentView.bounds.size.width, 0.5f)];
     [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+    [topSeparatorView setHidden:shouldHideSectionSelector];
     [contentScrollView addSubview:topSeparatorView];
     
     UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 316.5, contentView.bounds.size.width, 0.5f)];
     [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+    [bottomSeparatorView setHidden:shouldHideSectionSelector];
     [contentScrollView addSubview:bottomSeparatorView];
     
     openingHoursSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 266.5f, 107, 50)];
+    [openingHoursSectionButton setHidden:shouldHideSectionSelector];
     [openingHoursSectionButton setTag:LOCATEUSDETAILS_SECTION_OPENINGHOURS];
     [openingHoursSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [openingHoursSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -120,6 +130,7 @@ typedef enum  {
     [contentScrollView addSubview:openingHoursSectionButton];
     
     servicesSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(106.5, 266.5f, 108, 50)];
+    [servicesSectionButton setHidden:shouldHideSectionSelector];
     [servicesSectionButton setTag:LOCATEUSDETAILS_SECTION_SERVICES];
     [servicesSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [servicesSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -127,6 +138,7 @@ typedef enum  {
     [contentScrollView addSubview:servicesSectionButton];
     
     postingBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(214, 266.5f, 108, 50)];
+    [postingBoxSectionButton setHidden:shouldHideSectionSelector];
     [postingBoxSectionButton setTag:LOCATEUSDETAILS_SECTION_POSTINGBOX];
     [postingBoxSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [postingBoxSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -134,6 +146,7 @@ typedef enum  {
     [contentScrollView addSubview:postingBoxSectionButton];
     
     selectedSectionIndicatorButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [selectedSectionIndicatorButton setHidden:shouldHideSectionSelector];
     [selectedSectionIndicatorButton setBackgroundColor:RGB(36, 84, 157)];
     [selectedSectionIndicatorButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [selectedSectionIndicatorButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -142,9 +155,10 @@ typedef enum  {
     
     UIImageView *selectedIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"selected_indicator"]];
     [selectedIndicatorImageView setFrame:CGRectMake((int)(selectedSectionIndicatorButton.bounds.size.width / 2) - 8, selectedSectionIndicatorButton.bounds.size.height, 17, 8)];
+    [selectedIndicatorImageView setHidden:shouldHideSectionSelector];
     [selectedSectionIndicatorButton addSubview:selectedIndicatorImageView];
     
-    sectionContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 318, contentScrollView.bounds.size.width, contentScrollView.contentSize.height - 318)];
+    sectionContentScrollView = [[UIScrollView alloc] initWithFrame:shouldHideSectionSelector ? CGRectMake(0, 260, contentScrollView.bounds.size.width, contentScrollView.contentSize.height - 260) : CGRectMake(0, 318, contentScrollView.bounds.size.width, contentScrollView.contentSize.height - 318)];
     [sectionContentScrollView setBackgroundColor:[UIColor clearColor]];
     [sectionContentScrollView setDelaysContentTouches:NO];
     [sectionContentScrollView setPagingEnabled:YES];

@@ -19,7 +19,7 @@
 #import "AppDelegate.h"
 #import "LocateUsDetailsViewController.h"
 
-@interface LocateUsMapViewController () <MKMapViewDelegate, CDropDownListControlDelegate>
+@interface LocateUsMapViewController () <MKMapViewDelegate, CDropDownListControlDelegate, UITextFieldDelegate>
 
 @end
 
@@ -43,27 +43,21 @@
     
     findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
-    findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 6) : CGSizeMake(10, 10);
+    findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(40, 6) : CGSizeMake(40, 10);
     [findByTextField setReturnKeyType:UIReturnKeyGo];
+    [findByTextField setDelegate:self];
     [findByTextField setPlaceholder:@"Find by street name,\nblk no., mrt station etc"];
     [contentScrollView addSubview:findByTextField];
     
-    UIButton *locateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [locateUsButton setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
-    [locateUsButton setFrame:CGRectMake(265, 24, 30, 30)];
-    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [contentScrollView addSubview:locateUsButton];
+    UIImageView *searchIconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(22, 24, 27, 30)];
+    [searchIconImageView setImage:[UIImage imageNamed:@"magnifying_glass"]];
+    [contentScrollView addSubview:searchIconImageView];
     
-    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 215, 44)];
+    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 290, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
     [typesDropDownList selectRow:0 animated:NO];
     [typesDropDownList setDelegate:self];
     [contentScrollView addSubview:typesDropDownList];
-    
-    FlatBlueButton *goButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(235, 70, 70, 44)];
-    [goButton addTarget:self action:@selector(goButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [goButton setTitle:@"OK" forState:UIControlStateNormal];
-    [contentScrollView addSubview:goButton];
     
     initialShouldCenterUserLocation = YES;
     locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 180)];
@@ -95,6 +89,14 @@
 - (NSString *)selectedLocationType
 {
     return typesDropDownList.selectedText;
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self showFilteredLocationsOnMap];
+    return YES;
 }
 
 #pragma mark - Map
@@ -132,8 +134,7 @@
     
     if (locations.count > 0) {
         //zoom in to the first location
-        EntityLocation *firstLocation = [locations firstObject];
-        [self centerMapAtLocation:firstLocation.coordinate];
+        [self centerMapToFitAllLocations];
     }
 }
 
@@ -145,11 +146,23 @@
     [locateUsMapView setRegion:mapRegion animated:YES];
 }
 
+- (void)centerMapToFitAllLocations
+{
+    MKMapRect zoomRect = MKMapRectNull;
+    for (id <MKAnnotation> annotation in locateUsMapView.annotations)
+    {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    }
+    [locateUsMapView setVisibleMapRect:zoomRect animated:YES];
+}
+
 #pragma mark - CDropDownListControlDelegate
 
 - (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
 {
-    [self goButtonClicked:nil];
+    [self showFilteredLocationsOnMap];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -183,9 +196,16 @@
         if (!annotationView) {
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotationIdentifier];
             annotationView.canShowCallout = YES;
-            annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
             annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         }
+        
+        NSString *locationType = self.selectedLocationType;
+        if ([locationType isEqualToString:@"Post Office"])
+            annotationView.image = [UIImage imageNamed:@"post_office_map_overlay"];
+        else if ([locationType isEqualToString:@"SAM"])
+            annotationView.image = [UIImage imageNamed:@"sam_map_overlay"];
+        else if ([locationType isEqualToString:@"Posting Box"])
+            annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
     }
     
     return annotationView;
@@ -197,18 +217,6 @@
     
     LocateUsDetailsViewController *viewController = [[LocateUsDetailsViewController alloc] initWithEntityLocation:mapAnnotation.location];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-}
-
-#pragma mark - IBActions
-
-- (IBAction)goButtonClicked:(id)sender
-{
-    [self showFilteredLocationsOnMap];
-}
-
-- (IBAction)locateUsButtonClicked:(id)sender
-{
-    [self showFilteredLocationsOnMap];
 }
 
 @end

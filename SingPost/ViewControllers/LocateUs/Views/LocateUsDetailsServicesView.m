@@ -19,6 +19,7 @@
     if ((self = [super initWithFrame:frame])) {
         contentScrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:contentScrollView];
         
         UILabel *naLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, contentScrollView.bounds.size.width - 20, 15)];
         [naLabel setTextColor:RGB(58, 68, 81)];
@@ -26,8 +27,6 @@
         [naLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [naLabel setText:@"N/A"];
         [contentScrollView addSubview:naLabel];
-        
-        [self addSubview:contentScrollView];
         
         if (services.count > 0) {
             //clear existing labels

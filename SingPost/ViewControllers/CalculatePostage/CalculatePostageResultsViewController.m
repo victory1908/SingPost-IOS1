@@ -162,7 +162,7 @@
                 [toCountryDisplayLabel setTextColor:RGB(168, 173, 180)];
                 [cellContentView addSubview:toCountryDisplayLabel];
                 
-                toCountryLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
+                toCountryLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, offsetY, 200, 20)];
                 [toCountryLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
                 [toCountryLabel setText:_toCountry];
                 [toCountryLabel setTextColor:RGB(51, 51, 51)];
@@ -170,6 +170,20 @@
                 [cellContentView addSubview:toCountryLabel];
                 
                 offsetY += 25.0f;
+                
+                UILabel *weightDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
+                [weightDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [weightDisplayLabel setText:@"Weight"];
+                [weightDisplayLabel setBackgroundColor:[UIColor clearColor]];
+                [weightDisplayLabel setTextColor:RGB(168, 173, 180)];
+                [cellContentView addSubview:weightDisplayLabel];
+                
+                weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, offsetY, 200, 20)];
+                [weightLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [weightLabel setText:_itemWeight];
+                [weightLabel setTextColor:RGB(51, 51, 51)];
+                [weightLabel setBackgroundColor:[UIColor clearColor]];
+                [cellContentView addSubview:weightLabel];
             }
             else if (_resultType == CALCULATEPOSTAGE_RESULT_TYPE_SINGAPORE) {
                 UILabel *fromPostalCodeDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
@@ -203,21 +217,21 @@
                 [cellContentView addSubview:toPostalCodeLabel];
                 
                 offsetY += 25.0f;
+                
+                UILabel *weightDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
+                [weightDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [weightDisplayLabel setText:@"Weight"];
+                [weightDisplayLabel setBackgroundColor:[UIColor clearColor]];
+                [weightDisplayLabel setTextColor:RGB(168, 173, 180)];
+                [cellContentView addSubview:weightDisplayLabel];
+                
+                weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
+                [weightLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+                [weightLabel setText:_itemWeight];
+                [weightLabel setTextColor:RGB(51, 51, 51)];
+                [weightLabel setBackgroundColor:[UIColor clearColor]];
+                [cellContentView addSubview:weightLabel];
             }
-            
-            UILabel *weightDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 130, 20)];
-            [weightDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [weightDisplayLabel setText:@"Weight"];
-            [weightDisplayLabel setBackgroundColor:[UIColor clearColor]];
-            [weightDisplayLabel setTextColor:RGB(168, 173, 180)];
-            [cellContentView addSubview:weightDisplayLabel];
-            
-            weightLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, offsetY, 100, 20)];
-            [weightLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-            [weightLabel setText:_itemWeight];
-            [weightLabel setTextColor:RGB(51, 51, 51)];
-            [weightLabel setBackgroundColor:[UIColor clearColor]];
-            [cellContentView addSubview:weightLabel];
             
             offsetY += 35.0f;
             

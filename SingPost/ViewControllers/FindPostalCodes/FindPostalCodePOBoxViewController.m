@@ -49,7 +49,7 @@
         [contentScrollView addSubview:typeDropDownList];
         
         postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
-        [postOfficeTextField setPlaceholder:@"Post Office"];
+        [postOfficeTextField setPlaceholder:@"Name of Post Office"];
         postOfficeTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 12) : CGSizeMake(10, 10);
         [contentScrollView addSubview:postOfficeTextField];
         
@@ -82,7 +82,7 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([windowDeliveryNoTextField.text length] == 0 || [postOfficeTextField.text length] == 0) {
+    if ([windowDeliveryNoTextField.text length] == 0 || [postOfficeTextField.text length] < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }

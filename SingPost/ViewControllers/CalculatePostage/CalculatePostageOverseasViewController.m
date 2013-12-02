@@ -111,11 +111,17 @@
             }
             else {
                 [SVProgressHUD dismiss];
-                CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithResultItems:items andResultType:CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS];
-                viewController.toCountry = toWhichCountryDropDownList.selectedText;
-                viewController.itemWeight = [NSString stringWithFormat:@"%@ %@", weightTextField.text, [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? WEIGHT_KG_UNIT : WEIGHT_G_UNIT];
-                viewController.expectedDeliveryTime = expectedDeliveryTimeInDaysDropDownList.selectedRowIndex == 0 ? @"-" : [NSString stringWithFormat:@"%@ days", expectedDeliveryTimeInDaysDropDownList.selectedValue];
-                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+                if (items.count == 0) {
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Sorry, there are no results found. Please try again." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                    [alertView show];
+                }
+                else {
+                    CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithResultItems:items andResultType:CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS];
+                    viewController.toCountry = toWhichCountryDropDownList.selectedText;
+                    viewController.itemWeight = [NSString stringWithFormat:@"%@ %@", weightTextField.text, [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? WEIGHT_KG_UNIT : WEIGHT_G_UNIT];
+                    viewController.expectedDeliveryTime = expectedDeliveryTimeInDaysDropDownList.selectedRowIndex == 0 ? @"-" : [NSString stringWithFormat:@"%@ days", expectedDeliveryTimeInDaysDropDownList.selectedValue];
+                    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+                }
             }
         }];
     }
