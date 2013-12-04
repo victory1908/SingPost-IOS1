@@ -6,6 +6,7 @@
 
 extern const struct StampImageAttributes {
 	__unsafe_unretained NSString *image;
+	__unsafe_unretained NSString *name;
 } StampImageAttributes;
 
 extern const struct StampImageRelationships {
@@ -16,6 +17,7 @@ extern const struct StampImageFetchedProperties {
 } StampImageFetchedProperties;
 
 @class Stamp;
+
 
 
 
@@ -42,6 +44,16 @@ extern const struct StampImageFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* name;
+
+
+
+//- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) Stamp *stamp;
 
 //- (BOOL)validateStamp:(id*)value_ error:(NSError**)error_;
@@ -61,6 +73,12 @@ extern const struct StampImageFetchedProperties {
 
 - (NSString*)primitiveImage;
 - (void)setPrimitiveImage:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveName;
+- (void)setPrimitiveName:(NSString*)value;
 
 
 

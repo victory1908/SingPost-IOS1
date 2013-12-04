@@ -9,6 +9,7 @@
 #import "StampImagesBrowserViewController.h"
 #import "ColoredPageControl.h"
 #import "StampImage.h"
+#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 
 @interface StampImagesBrowserViewController () <UIScrollViewDelegate>
 
@@ -91,10 +92,10 @@
     imagesScrollView.contentOffset = CGPointMake(imagesScrollView.bounds.size.width * _currentIndex, 0);
     
     [_stampImages enumerateObjectsUsingBlock:^(StampImage *stampImage, NSUInteger idx, BOOL *stop) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:stampImage.image]];
-        [imageView setContentMode:UIViewContentModeCenter];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
+        [imageView setImageWithURL:[NSURL URLWithString:stampImage.image] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
         [imageView setTag:TAG_IMAGE_OFFSET + idx];
-        [imageView setFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
         [imagesScrollView addSubview:imageView];
     }];
 }
@@ -169,6 +170,7 @@
         [closeButton setHidden:NO];
         [pageControl setHidden:NO];
         [self populateImagesScrollView];
+        imagesScrollView.pagingEnabled = YES;
     }
 }
 

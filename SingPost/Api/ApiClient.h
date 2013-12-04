@@ -10,6 +10,8 @@
 #import <AFRaptureXMLRequestOperation.h>
 #import <RXMLElement.h>
 
+@class Stamp;
+
 @interface ApiClient : AFHTTPClient
 
 typedef void (^ApiClientSuccess)(id responseObject);
@@ -47,6 +49,10 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 - (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)unsubscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+
+//philately
+- (void)getStampsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void)getImagesOfStamp:(Stamp*)stamp onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
 @property (nonatomic, readonly) BOOL hasRegisteredProfileId;
 @property (nonatomic) NSString *notificationProfileID;

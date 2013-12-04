@@ -5,6 +5,7 @@
 
 const struct StampImageAttributes StampImageAttributes = {
 	.image = @"image",
+	.name = @"name",
 };
 
 const struct StampImageRelationships StampImageRelationships = {
@@ -48,6 +49,13 @@ const struct StampImageFetchedProperties StampImageFetchedProperties = {
 
 
 @dynamic image;
+
+
+
+
+
+
+@dynamic name;
 
 
 

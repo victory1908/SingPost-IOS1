@@ -12,21 +12,12 @@
 #import "UILabel+VerticalAlign.h"
 #import "UIView+Position.h"
 #import "PersistentBackgroundView.h"
+#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 
 @implementation StampCollectiblesTableViewCell
 {
     UIImageView *stampImageView;
     UILabel *titleLabel, *issueDateDisplayLabel, *issueDateLabel;
-}
-
-static NSDateFormatter *sDateFormatter;
-
-+ (void)initialize
-{
-    if (!sDateFormatter) {
-        sDateFormatter = [[NSDateFormatter alloc] init];
-        [sDateFormatter setDateFormat:@"dd MMMM yyyy"];
-    }
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -92,10 +83,10 @@ static NSDateFormatter *sDateFormatter;
     [issueDateDisplayLabel setY:CGRectGetMaxY(titleLabel.frame) + 9.0f];
     [issueDateDisplayLabel sizeToFit];
     [issueDateLabel setY:CGRectGetMaxY(issueDateDisplayLabel.frame)];
-    [issueDateLabel setText:[sDateFormatter stringFromDate:_stamp.issueDate]];
+    [issueDateLabel setText:[NSString stringWithFormat:@"%@ %@ %@", _stamp.day, _stamp.month, _stamp.year]];
     [issueDateLabel sizeToFit];
     
-    [stampImageView setImage:_stamp.displayImage];
+    [stampImageView setImageWithURL:[NSURL URLWithString:_stamp.thumbnail] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 }
 
 @end

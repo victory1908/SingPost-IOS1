@@ -24,7 +24,6 @@
     
     [MagicalRecord setupCoreDataStack];
     [DatabaseSeeder seedLocationsDataIfRequired];
-    [DatabaseSeeder seedStampsDataIfRequired];  //FIXME: for development only
     [DatabaseSeeder seedOffersDataIfRequired];  //FIXME: for development only
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

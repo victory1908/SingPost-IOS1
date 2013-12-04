@@ -16,8 +16,9 @@
 #import "StampCollectiblesTableViewCell.h"
 #import "StampCollectiblesDetailsViewController.h"
 #import "AppDelegate.h"
+#import <SVProgressHUD.h>
 
-@interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+@interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CDropDownListControlDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -61,8 +62,7 @@
     [contentScrollView addSubview:chosenYearLabel];
     
     yearDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 95, 240, 80, 44)];
-    [yearDropDownList setValues:@[@{@"code": @"2013 Collections", @"value": @"2013"}, @{@"code": @"2012 Collections", @"value": @"2012"}]];
-    [yearDropDownList selectRow:0 animated:NO];
+    [yearDropDownList setDelegate:self];
     [contentScrollView addSubview:yearDropDownList];
     
     UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 290.5, contentScrollView.bounds.size.width, 0.5f)];
@@ -80,6 +80,24 @@
     [contentScrollView addSubview:stampsTableView];
 
     self.view = contentScrollView;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [SVProgressHUD showWithStatus:@"Please wait.."];
+    
+    __weak StampCollectiblesMainViewController *weakSelf = self;
+    [Stamp API_getStampsOnCompletion:^(BOOL success, NSError *error) {
+        if (error)
+            [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+        else {
+            [yearDropDownList setValues:[Stamp yearsDropDownValues]];
+            [yearDropDownList selectRow:MAX(0, yearDropDownList.values.count - 1) animated:NO];
+            [weakSelf yearDropDownListSelected];
+            [SVProgressHUD dismiss];
+        }
+    }];
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -128,10 +146,15 @@
 
 #pragma mark - Fetched results controller
 
+- (NSPredicate *)frcSearchPredicate
+{
+    return [NSPredicate predicateWithFormat:@"year == %@", yearDropDownList.selectedText];
+}
+
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        _fetchedResultsController = [Stamp MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:StampAttributes.ordering ascending:YES delegate:self];
+        _fetchedResultsController = [Stamp MR_fetchAllGroupedBy:nil withPredicate:[self frcSearchPredicate] sortedBy:StampAttributes.ordering ascending:YES delegate:self];
     }
     
     return _fetchedResultsController;
@@ -185,6 +208,25 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [stampsTableView endUpdates];
+}
+
+#pragma mark - CDropDownListDelegate
+
+- (void)yearDropDownListSelected
+{
+    [chosenYearLabel setText:yearDropDownList.selectedValue];
+    [self.fetchedResultsController.fetchRequest setPredicate:[self frcSearchPredicate]];
+    
+    NSError *error = nil;
+    if ([self.fetchedResultsController performFetch:&error]) {
+        [stampsTableView reloadData];
+        [stampsTableView setContentOffset:CGPointZero animated:YES];
+    }
+}
+
+- (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
+{
+    [self yearDropDownListSelected];
 }
 
 @end

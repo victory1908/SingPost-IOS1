@@ -2,6 +2,8 @@
 
 @interface Stamp : _Stamp
 
-@property (nonatomic, readonly) UIImage *displayImage;
++ (NSArray *)yearsDropDownValues;
++ (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_getImagesOfStamps:(Stamp *)stamp onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 
 @end

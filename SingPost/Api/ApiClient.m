@@ -9,6 +9,7 @@
 #import "ApiClient.h"
 #import "EntityLocation.h"
 #import "ItemTracking.h"
+#import "Stamp.h"
 #import <SSKeychain.h>
 
 @implementation ApiClient
@@ -18,7 +19,7 @@
 
 static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_BASE_URL = @"http://mobile.singpost.com/";
-static NSString *const CMS_BASE_URL_V2 = @"http://192.241.251.130/singpost/v3/";
+static NSString *const CMS_BASE_URL_V3 = @"http://192.241.251.130/singpost/v3/";
 
 static NSString *const APP_ID = @"M00001";
 static NSString *const OS = @"ios";
@@ -106,7 +107,7 @@ static NSString *const OS = @"ios";
 
 - (void)getSendReceiveItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apisendreceive.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V2]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apisendreceive.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V3]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -120,7 +121,7 @@ static NSString *const OS = @"ios";
 
 - (void)getPayItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apipay.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V2]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apipay.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V3]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -134,7 +135,7 @@ static NSString *const OS = @"ios";
 
 - (void)getShopItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apishoponline.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V2]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apishoponline.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V3]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -148,7 +149,7 @@ static NSString *const OS = @"ios";
 
 - (void)getServicesItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiservices.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V2]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiservices.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V3]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -464,6 +465,36 @@ static NSString *const OS = @"ios";
         if (success)
             success(XMLElement);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+#pragma mark - Philately
+
+- (void)getStampsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-philately.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+- (void)getImagesOfStamp:(Stamp*)stamp onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"singpost-philately-images.php?album=%d", stamp.serverIdValue] relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
     }];

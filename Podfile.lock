@@ -10,10 +10,15 @@ PODS:
   - RaptureXML (1.0.1)
   - Reachability (3.1.1)
   - RegexKitLite (4.0)
+  - SDWebImage (3.5):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.5)
   - SSKeychain (1.2.1)
   - SVProgressHUD (0.9)
   - TPKeyboardAvoiding (1.2.1)
   - UALogger (0.2.3)
+  - UIActivityIndicator-for-SDWebImage (1.0.3):
+    - SDWebImage (~> 3.2)
   - UIAlertView+Blocks (0.7)
 
 DEPENDENCIES:
@@ -29,6 +34,7 @@ DEPENDENCIES:
   - SVProgressHUD (~> 0.9)
   - TPKeyboardAvoiding (~> 1.1)
   - UALogger (~> 0.2.3)
+  - UIActivityIndicator-for-SDWebImage (~> 1.0.3)
   - UIAlertView+Blocks (~> 0.7)
 
 SPEC CHECKSUMS:
@@ -41,10 +47,12 @@ SPEC CHECKSUMS:
   RaptureXML: ef017fda62eb95c60300108366d1f0cd0c28cbd4
   Reachability: be4883bb93f31e38266ae3365e5600a317aae735
   RegexKitLite: f7af7b4d2b675cd2ec9a4abab6aad6ae1f6499c0
+  SDWebImage: f1a72472f8a2d54445f1fedafe2090593d9caf7f
   SSKeychain: d18926838c2e7cd342e2a49e9f869858e49f035a
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   TPKeyboardAvoiding: 0536c563e6c8b8e95a7c4bf87fca9c0991f5e826
   UALogger: abe2af53cf3a72fd8ed3625ee331c546c4c7bde9
+  UIActivityIndicator-for-SDWebImage: e712b97826395022ce7b4a4b56eb7194090c19d5
   UIAlertView+Blocks: 7e876c2bace976306640443745b57912565d840d
 
 COCOAPODS: 0.25.0

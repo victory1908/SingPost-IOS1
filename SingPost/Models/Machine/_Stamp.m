@@ -4,9 +4,13 @@
 #import "_Stamp.h"
 
 const struct StampAttributes StampAttributes = {
+	.coverImage = @"coverImage",
+	.day = @"day",
 	.details = @"details",
-	.issueDate = @"issueDate",
+	.month = @"month",
 	.ordering = @"ordering",
+	.serverId = @"serverId",
+	.thumbnail = @"thumbnail",
 	.title = @"title",
 	.year = @"year",
 };
@@ -49,9 +53,28 @@ const struct StampFetchedProperties StampFetchedProperties = {
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
+	if ([key isEqualToString:@"serverIdValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"serverId"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic coverImage;
+
+
+
+
+
+
+@dynamic day;
+
+
 
 
 
@@ -63,7 +86,7 @@ const struct StampFetchedProperties StampFetchedProperties = {
 
 
 
-@dynamic issueDate;
+@dynamic month;
 
 
 
@@ -91,6 +114,39 @@ const struct StampFetchedProperties StampFetchedProperties = {
 - (void)setPrimitiveOrderingValue:(int32_t)value_ {
 	[self setPrimitiveOrdering:[NSNumber numberWithInt:value_]];
 }
+
+
+
+
+
+@dynamic serverId;
+
+
+
+- (int32_t)serverIdValue {
+	NSNumber *result = [self serverId];
+	return [result intValue];
+}
+
+- (void)setServerIdValue:(int32_t)value_ {
+	[self setServerId:[NSNumber numberWithInt:value_]];
+}
+
+- (int32_t)primitiveServerIdValue {
+	NSNumber *result = [self primitiveServerId];
+	return [result intValue];
+}
+
+- (void)setPrimitiveServerIdValue:(int32_t)value_ {
+	[self setPrimitiveServerId:[NSNumber numberWithInt:value_]];
+}
+
+
+
+
+
+@dynamic thumbnail;
+
 
 
 

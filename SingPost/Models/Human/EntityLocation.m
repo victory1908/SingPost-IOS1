@@ -222,7 +222,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getPostOfficeLocationsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(LOCATIONS_LOCK) {
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
                 [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", LOCATION_TYPE_POST_OFFICE] inContext:localContext];

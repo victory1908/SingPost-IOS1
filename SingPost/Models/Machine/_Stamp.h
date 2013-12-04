@@ -5,9 +5,13 @@
 
 
 extern const struct StampAttributes {
+	__unsafe_unretained NSString *coverImage;
+	__unsafe_unretained NSString *day;
 	__unsafe_unretained NSString *details;
-	__unsafe_unretained NSString *issueDate;
+	__unsafe_unretained NSString *month;
 	__unsafe_unretained NSString *ordering;
+	__unsafe_unretained NSString *serverId;
+	__unsafe_unretained NSString *thumbnail;
 	__unsafe_unretained NSString *title;
 	__unsafe_unretained NSString *year;
 } StampAttributes;
@@ -20,6 +24,10 @@ extern const struct StampFetchedProperties {
 } StampFetchedProperties;
 
 @class StampImage;
+
+
+
+
 
 
 
@@ -40,6 +48,26 @@ extern const struct StampFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSString* coverImage;
+
+
+
+//- (BOOL)validateCoverImage:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* day;
+
+
+
+//- (BOOL)validateDay:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* details;
 
 
@@ -50,11 +78,11 @@ extern const struct StampFetchedProperties {
 
 
 
-@property (nonatomic, strong) NSDate* issueDate;
+@property (nonatomic, strong) NSString* month;
 
 
 
-//- (BOOL)validateIssueDate:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateMonth:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -69,6 +97,30 @@ extern const struct StampFetchedProperties {
 - (void)setOrderingValue:(int32_t)value_;
 
 //- (BOOL)validateOrdering:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* serverId;
+
+
+
+@property int32_t serverIdValue;
+- (int32_t)serverIdValue;
+- (void)setServerIdValue:(int32_t)value_;
+
+//- (BOOL)validateServerId:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* thumbnail;
+
+
+
+//- (BOOL)validateThumbnail:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -116,14 +168,26 @@ extern const struct StampFetchedProperties {
 @interface _Stamp (CoreDataGeneratedPrimitiveAccessors)
 
 
+- (NSString*)primitiveCoverImage;
+- (void)setPrimitiveCoverImage:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveDay;
+- (void)setPrimitiveDay:(NSString*)value;
+
+
+
+
 - (NSString*)primitiveDetails;
 - (void)setPrimitiveDetails:(NSString*)value;
 
 
 
 
-- (NSDate*)primitiveIssueDate;
-- (void)setPrimitiveIssueDate:(NSDate*)value;
+- (NSString*)primitiveMonth;
+- (void)setPrimitiveMonth:(NSString*)value;
 
 
 
@@ -133,6 +197,21 @@ extern const struct StampFetchedProperties {
 
 - (int32_t)primitiveOrderingValue;
 - (void)setPrimitiveOrderingValue:(int32_t)value_;
+
+
+
+
+- (NSNumber*)primitiveServerId;
+- (void)setPrimitiveServerId:(NSNumber*)value;
+
+- (int32_t)primitiveServerIdValue;
+- (void)setPrimitiveServerIdValue:(int32_t)value_;
+
+
+
+
+- (NSString*)primitiveThumbnail;
+- (void)setPrimitiveThumbnail:(NSString*)value;
 
 
 
