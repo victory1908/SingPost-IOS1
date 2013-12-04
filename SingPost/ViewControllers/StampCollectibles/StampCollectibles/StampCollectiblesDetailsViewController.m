@@ -188,6 +188,12 @@
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 #pragma mark - UIScrollView Delegates
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

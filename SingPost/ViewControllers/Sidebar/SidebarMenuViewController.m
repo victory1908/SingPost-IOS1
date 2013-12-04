@@ -118,6 +118,12 @@
     self.view = contentView;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
@@ -195,9 +201,8 @@
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
-    [trackingNumberTextField setText:@"RC131180001SG"];
     [trackingNumberTextField setDelegate:self];
-    [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+    [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
     [headerView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];

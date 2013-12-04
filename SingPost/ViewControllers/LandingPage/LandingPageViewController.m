@@ -71,11 +71,10 @@ typedef enum {
     [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f];
-    [trackingNumberTextField setInsetBoundsSize: INTERFACE_IS_4INCHSCREEN ? CGSizeMake(14, 12) : CGSizeMake(14, 3)];
-    [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+    [trackingNumberTextField setInsetBoundsSize:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(10, 12) : CGSizeMake(10, 4)) : CGSizeMake(10, 12)];
+    [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
-    [trackingNumberTextField setText:@"RC131180001SG"];
     [contentView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -183,6 +182,12 @@ typedef enum {
     [contentView addSubview:offersMoreMenuView];
     
     self.view = contentView;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

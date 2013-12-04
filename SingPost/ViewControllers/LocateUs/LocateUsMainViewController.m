@@ -130,8 +130,6 @@ typedef enum {
             break;
     }
     
-    NSLog(@"reload button clicked");
-    
     [UIAlertView showWithTitle:@""
                        message:[NSString stringWithFormat:@"Refreshing the list of %@ may take awhile. Do you wish to proceeed?", selectedType]
              cancelButtonTitle:@"No"

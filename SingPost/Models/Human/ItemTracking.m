@@ -129,4 +129,15 @@
     }];
 }
 
++ (void)saveLastKnownTrackingNumber:(NSString *)lastKnownTrackingNumber
+{
+    [[NSUserDefaults standardUserDefaults] setValue:[lastKnownTrackingNumber uppercaseString] forKey:@"SETTINGS_LASTKNOWNTRACKINGNUMBER"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)lastKnownTrackingNumber
+{
+    return [[NSUserDefaults standardUserDefaults] valueForKey:@"SETTINGS_LASTKNOWNTRACKINGNUMBER"];
+}
+
 @end

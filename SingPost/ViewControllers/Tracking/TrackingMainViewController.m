@@ -91,6 +91,7 @@ typedef enum {
 {
     _trackingNumber = inTrackingNumber;
     [trackingNumberTextField setText:_trackingNumber];
+    [ItemTracking saveLastKnownTrackingNumber:_trackingNumber];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -310,7 +311,7 @@ typedef enum {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, 290, 47)];
-            [trackingNumberTextField setPlaceholder:@"Last tracking number entered"];
+            [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
             [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
             [trackingNumberTextField setFontSize:16.0f];
             [trackingNumberTextField setReturnKeyType:UIReturnKeySend];

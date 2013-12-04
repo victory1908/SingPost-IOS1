@@ -38,12 +38,10 @@
         
         buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
         [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
-        buildingBlockHouseNumberTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 12) : CGSizeMake(10, 10);
         [buildingBlockHouseNumberTextField setPlaceholder:@"Building / block / house number"];
         [contentScrollView addSubview:buildingBlockHouseNumberTextField];
         
         streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
-        streetNameTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(10, 12) : CGSizeMake(10, 10);
         [streetNameTextField setPlaceholder:@"Street name"];
         [contentScrollView addSubview:streetNameTextField];
         

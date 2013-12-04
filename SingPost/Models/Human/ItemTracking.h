@@ -4,6 +4,9 @@
 
 @property (nonatomic, readonly) NSString *status;
 
++ (void)saveLastKnownTrackingNumber:(NSString *)lastKnownTrackingNumber;
++ (NSString *)lastKnownTrackingNumber;
+
 + (void)deleteTrackedItem:(ItemTracking *)trackedItemToDelete;
 
 + (void)API_getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
