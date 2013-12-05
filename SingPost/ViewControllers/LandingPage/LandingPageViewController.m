@@ -211,10 +211,16 @@ typedef enum {
     [self updateMaintananceStatusUIs];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Home"];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

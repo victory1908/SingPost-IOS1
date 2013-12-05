@@ -35,6 +35,7 @@
     [self.window makeKeyAndVisible];
     
     [self updateMaintananceStatuses];
+    [self setupGoogleAnalytics];
     
     return YES;
 }
@@ -67,13 +68,22 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)setupGoogleAnalytics
+{
+    [GAI sharedInstance].trackUncaughtExceptions = NO;
+    [GAI sharedInstance].dispatchInterval = 20;
+
+//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
+}
+
 #pragma mark - Maintanance
 
 - (void)updateMaintananceStatuses
 {
     [[ApiClient sharedInstance] getMaintananceStatusOnSuccess:^(id responseJSON) {
         _maintenanceStatuses = responseJSON[@"root"];
-        NSLog(@"my maintanance status: %@", _maintenanceStatuses);
+//        NSLog(@"my maintanance status: %@", _maintenanceStatuses);
         [_rootViewController updateMaintananceStatusUIs];
     } onFailure:^(NSError *error) {
         _maintenanceStatuses = nil;

@@ -252,6 +252,20 @@
 
 - (IBAction)searchButtonClicked:(id)sender
 {
+    NSString *locationType = typesDropDownList.selectedText;
+    if ([locationType isEqualToString:@"Post Office"]) {
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- PO List"];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    else if ([locationType isEqualToString:@"SAM"]) {
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- SAM List"];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    else if ([locationType isEqualToString:@"Posting Box"]) {
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- Posting Box List"];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    
     [self.fetchedResultsController.fetchRequest setPredicate:[self frcSearchPredicate]];
     
     NSError *error = nil;

@@ -59,6 +59,13 @@
     self.view = contentView;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:self.pageTitle];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 #pragma mark - Accessors
 
 - (void)setIsRootLevel:(BOOL)inIsRootLevel
@@ -138,8 +145,12 @@
     ArticleSubCategoryViewController *subCategoryViewController = [[ArticleSubCategoryViewController alloc] initWithNibName:nil bundle:nil];
     [subCategoryViewController setJsonItems:self.jsonData[self.jsonData.allKeys[dataRow]]];
     [subCategoryViewController setPageTitle:self.items[dataRow]];
+    [subCategoryViewController setParentPageTitle:self.pageTitle];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subCategoryViewController];
     
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, self.items[dataRow]]];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

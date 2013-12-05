@@ -39,6 +39,7 @@
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
         windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 44)];
+        [windowDeliveryNoTextField setPlaceholder:@"Reference No"];
         [contentScrollView addSubview:windowDeliveryNoTextField];
         
         typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 44)];
@@ -75,6 +76,13 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode - PO Box"];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)findButtonClicked:(id)sender
@@ -95,6 +103,9 @@
                 _searchResults = results;
                 [SVProgressHUD dismiss];
             }
+            
+            [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode Result - PO Box"];
+            [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
             
             [resultsTableView reloadData];
             [resultsTableView setContentOffset:CGPointZero animated:YES];

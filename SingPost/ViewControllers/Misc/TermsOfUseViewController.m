@@ -49,6 +49,13 @@
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Terms"];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

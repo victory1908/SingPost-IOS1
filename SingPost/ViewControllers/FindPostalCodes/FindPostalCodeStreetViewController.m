@@ -76,6 +76,13 @@
     return self;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode - Street"];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
@@ -93,6 +100,9 @@
                 _searchResults = results;
                 [SVProgressHUD dismiss];
             }
+            
+            [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode Result - Street"];
+            [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
             
             [resultsTableView reloadData];
             [resultsTableView setContentOffset:CGPointZero animated:YES];

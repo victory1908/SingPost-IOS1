@@ -125,6 +125,12 @@
     [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateMaintananceStatusUIs];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];

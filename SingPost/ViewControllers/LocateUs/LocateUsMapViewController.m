@@ -136,6 +136,19 @@
         //zoom in to the first location
         [self centerMapToFitAllLocations];
     }
+    
+    if ([locationType isEqualToString:@"Post Office"]) {
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- PO Map"];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    else if ([locationType isEqualToString:@"SAM"]) {
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- SAM Map"];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    else if ([locationType isEqualToString:@"Posting Box"]) {
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- Posting Box Map"];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
 }
 
 - (void)centerMapAtLocation:(CLLocationCoordinate2D)coordinate

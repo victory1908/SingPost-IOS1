@@ -127,6 +127,13 @@
     self.view = contentView;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Feedback"];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)sendFeedbackButtonClicked:(id)sender

@@ -32,6 +32,9 @@
     ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithArticleJSON:articleJSON];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"%@ - %@ - %@", self.parentPageTitle, self.pageTitle, articleJSON[@"Name"]]];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

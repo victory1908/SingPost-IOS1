@@ -268,12 +268,21 @@ typedef enum  {
 
 - (IBAction)sectionButtonClicked:(id)sender
 {
-    if (sender == openingHoursSectionButton)
+    if (sender == openingHoursSectionButton) {
         [self goToSection:LOCATEUSDETAILS_SECTION_OPENINGHOURS];
-    else if (sender == servicesSectionButton)
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Operating Hours", _entityLocation.type]];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    else if (sender == servicesSectionButton) {
         [self goToSection:LOCATEUSDETAILS_SECTION_SERVICES];
-    else if (sender == postingBoxSectionButton)
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Services", _entityLocation.type]];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    else if (sender == postingBoxSectionButton) {
         [self goToSection:LOCATEUSDETAILS_SECTION_POSTINGBOX];
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Posting Box", _entityLocation.type]];
+        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
 }
 
 #pragma mark - LocateUsDetailsPostingBoxDelegate
@@ -382,6 +391,9 @@ typedef enum  {
 - (void)showMapRouteDirectionsClicked:(id)sender
 {
 	NSArray *routes = [self calculateRoutesFrom:locationMapView.userLocation.coordinate to:_entityLocation.coordinate];
+    
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Direction", _entityLocation.type]];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
     
     if (routes.count > 0) {
         CLLocationCoordinate2D polypoints[routes.count];

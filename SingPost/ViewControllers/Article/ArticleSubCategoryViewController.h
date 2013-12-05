@@ -11,5 +11,6 @@
 @interface ArticleSubCategoryViewController : ArticleViewController
 
 @property (nonatomic) NSArray *jsonItems;
+@property (nonatomic) NSString *parentPageTitle;
 
 @end

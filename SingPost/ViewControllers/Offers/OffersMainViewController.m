@@ -49,6 +49,13 @@
     self.view = contentView;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Offers"];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
+
 #pragma mark - UITableView DataSource & Delegate
 
 - (void)configureCell:(OfferTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
