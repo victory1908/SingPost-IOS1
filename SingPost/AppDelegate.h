@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, readonly) RootViewController *rootViewController;
+@property (nonatomic, readonly) NSDictionary *maintenanceStatuses;
 
 + (AppDelegate *)sharedAppDelegate;
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection;

@@ -29,12 +29,15 @@
 #import "OffersMainViewController.h"
 #import "MoreAppsViewController.h"
 #import "FAQViewController.h"
+#import "MaintanancePageViewController.h"
 
 #import "ItemTracking.h"
 #import <SVProgressHUD.h>
 
 typedef enum {
-    LANDINGPAGEBUTTON_CALCULATEPOSTAGE = 1,
+    LANDINGPAGEBUTTON_START = 100,
+    
+    LANDINGPAGEBUTTON_CALCULATEPOSTAGE,
     LANDINGPAGEBUTTON_POSTALCODES,
     LANDINGPAGEBUTTON_LOCATEUS,
     LANDINGPAGEBUTTON_SENDRECEIVE,
@@ -42,8 +45,26 @@ typedef enum {
     LANDINGPAGEBUTTON_SHOP,
     LANDINGPAGEBUTTON_MORESERVICES,
     LANDINGPAGEBUTTON_STAMPCOLLECTIBLES,
-    LANDINGPAGEBUTTON_MOREAPPS
+    LANDINGPAGEBUTTON_MOREAPPS,
+    
+    LANDINGPAGEBUTTON_END
 } tLandingPageButtons;
+
+@interface LandingPageButton : UIButton
+
+@property (nonatomic, assign) BOOL shouldDim;
+
+@end
+
+@implementation LandingPageButton
+
+- (void)setShouldDim:(BOOL)inShouldDim
+{
+    _shouldDim = inShouldDim;
+    [self setAlpha:_shouldDim ? 0.5f : 1.0f];
+}
+
+@end
 
 @interface LandingPageViewController () <UITextFieldDelegate, OffersMenuDelegate>
 
@@ -104,7 +125,7 @@ typedef enum {
     
     offsetY = STARTING_OFFSET_Y;
     offsetX = STARTING_OFFSET_X;
-    UIButton *menuCalculatePostageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuCalculatePostageButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuCalculatePostageButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuCalculatePostageButton setImage:[UIImage imageNamed:@"landing_calculatePostage"] forState:UIControlStateNormal];
     [menuCalculatePostageButton setTag:LANDINGPAGEBUTTON_CALCULATEPOSTAGE];
@@ -112,7 +133,7 @@ typedef enum {
     [contentView addSubview:menuCalculatePostageButton];
 
     offsetX += ICON_WIDTH;
-    UIButton *menuPostalCodesButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuPostalCodesButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuPostalCodesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuPostalCodesButton setImage:[UIImage imageNamed:@"landing_postalCodes"] forState:UIControlStateNormal];
     [menuPostalCodesButton setTag:LANDINGPAGEBUTTON_POSTALCODES];
@@ -120,7 +141,7 @@ typedef enum {
     [contentView addSubview:menuPostalCodesButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *menuPageLocateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuPageLocateUsButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuPageLocateUsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuPageLocateUsButton setImage:[UIImage imageNamed:@"landing_locateUs"] forState:UIControlStateNormal];
     [menuPageLocateUsButton setTag:LANDINGPAGEBUTTON_LOCATEUS];
@@ -129,7 +150,7 @@ typedef enum {
 
     offsetX = STARTING_OFFSET_X;
     offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
-    UIButton *menuSendReceiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuSendReceiveButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuSendReceiveButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuSendReceiveButton setTag:LANDINGPAGEBUTTON_SENDRECEIVE];
     [menuSendReceiveButton setImage:[UIImage imageNamed:@"landing_sendReceive"] forState:UIControlStateNormal];
@@ -137,7 +158,7 @@ typedef enum {
     [contentView addSubview:menuSendReceiveButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *menuPayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuPayButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuPayButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuPayButton setTag:LANDINGPAGEBUTTON_PAY];
     [menuPayButton setImage:[UIImage imageNamed:@"landing_pay"] forState:UIControlStateNormal];
@@ -145,7 +166,7 @@ typedef enum {
     [contentView addSubview:menuPayButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *menuShopButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuShopButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuShopButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuShopButton setTag:LANDINGPAGEBUTTON_SHOP];
     [menuShopButton setImage:[UIImage imageNamed:@"landing_shop"] forState:UIControlStateNormal];
@@ -154,7 +175,7 @@ typedef enum {
     
     offsetX = STARTING_OFFSET_X;
     offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
-    UIButton *menuMoreServicesButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuMoreServicesButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuMoreServicesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuMoreServicesButton setTag:LANDINGPAGEBUTTON_MORESERVICES];
     [menuMoreServicesButton setImage:[UIImage imageNamed:@"landing_moreServices"] forState:UIControlStateNormal];
@@ -162,7 +183,7 @@ typedef enum {
     [contentView addSubview:menuMoreServicesButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *menuStampCollectiblesButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuStampCollectiblesButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuStampCollectiblesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuStampCollectiblesButton setTag:LANDINGPAGEBUTTON_STAMPCOLLECTIBLES];
     [menuStampCollectiblesButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -170,7 +191,7 @@ typedef enum {
     [contentView addSubview:menuStampCollectiblesButton];
     
     offsetX += ICON_WIDTH;
-    UIButton *menuMoreAppsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *menuMoreAppsButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuMoreAppsButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
     [menuMoreAppsButton setImage:[UIImage imageNamed:@"landing_moreApps"] forState:UIControlStateNormal];
     [menuMoreAppsButton setTag:LANDINGPAGEBUTTON_MOREAPPS];
@@ -184,6 +205,12 @@ typedef enum {
     self.view = contentView;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateMaintananceStatusUIs];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -194,6 +221,64 @@ typedef enum {
 {
     [super touchesBegan:touches withEvent:event];
     [trackingNumberTextField resignFirstResponder];
+}
+
+- (void)updateMaintananceStatusUIs
+{
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    for (tLandingPageButtons tag = LANDINGPAGEBUTTON_START + 1; tag < LANDINGPAGEBUTTON_END; tag++) {
+        LandingPageButton *button = (LandingPageButton *)[self.view viewWithTag:tag];
+        switch (tag) {
+            case LANDINGPAGEBUTTON_CALCULATEPOSTAGE:
+            {
+                [button setShouldDim:[maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_POSTALCODES:
+            {
+                [button setShouldDim:[maintananceStatuses[@"FindPostalCodes"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_LOCATEUS:
+            {
+                [button setShouldDim:[maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_SENDRECEIVE:
+            {
+                [button setShouldDim:[maintananceStatuses[@"SendNReceive"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_PAY:
+            {
+                [button setShouldDim:[maintananceStatuses[@"Pay"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_SHOP:
+            {
+                [button setShouldDim:[maintananceStatuses[@"Shop"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_MORESERVICES:
+            {
+                [button setShouldDim:[maintananceStatuses[@"MoreServices"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_STAMPCOLLECTIBLES:
+            {
+                [button setShouldDim:[maintananceStatuses[@"StampCollectibles"] isEqualToString:@"on"]];
+                break;
+            }
+            case LANDINGPAGEBUTTON_MOREAPPS:
+            {
+                [button setShouldDim:[maintananceStatuses[@"MoreApps"] isEqualToString:@"on"]];
+                break;
+            }
+            default:
+                NSLog(@"not yet implemented");
+                break;
+        }
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -241,61 +326,116 @@ typedef enum {
 
 - (IBAction)menuButtonClicked:(UIButton *)sender
 {
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     tLandingPageButtons landingPageButton = ((UIButton *)sender).tag;
     
     switch (landingPageButton) {
         case LANDINGPAGEBUTTON_CALCULATEPOSTAGE:
         {
-            CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Calculate Postage" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_POSTALCODES:
         {
-            FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"FindPostalCodes"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Find Postal Codes" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_LOCATEUS:
         {
-            LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_SENDRECEIVE:
         {
-            SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"SendNReceive"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Send & Receive" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_PAY:
         {
-            PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"Pay"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Pay" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_SHOP:
         {
-            ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"Shop"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Shop" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_MORESERVICES:
         {
-            MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"MoreServices"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Services" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_STAMPCOLLECTIBLES:
         {
-            StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"StampCollectibles"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Stamp Collectibles" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         case LANDINGPAGEBUTTON_MOREAPPS:
         {
-            MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            if ([maintananceStatuses[@"MoreApps"] isEqualToString:@"on"]) {
+                MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Apps" andMessage:maintananceStatuses[@"Comment"]];
+                [self presentModalViewController:viewController animated:YES];
+            }
+            else {
+                MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+            }
             break;
         }
         default:

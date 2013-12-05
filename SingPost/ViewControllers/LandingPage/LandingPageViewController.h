@@ -10,4 +10,6 @@
 
 @interface LandingPageViewController : UIViewController
 
+- (void)updateMaintananceStatusUIs;
+
 @end

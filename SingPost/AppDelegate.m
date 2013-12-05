@@ -11,6 +11,7 @@
 #import <Reachability.h>
 #import "DatabaseSeeder.h"
 #import "PushNotification.h"
+#import "ApiClient.h"
 
 @implementation AppDelegate
 
@@ -33,6 +34,8 @@
     [self.window setRootViewController:_rootViewController];
     [self.window makeKeyAndVisible];
     
+    [self updateMaintananceStatuses];
+    
     return YES;
 }
 
@@ -51,6 +54,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self updateMaintananceStatuses];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -61,6 +65,19 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Maintanance
+
+- (void)updateMaintananceStatuses
+{
+    [[ApiClient sharedInstance] getMaintananceStatusOnSuccess:^(id responseJSON) {
+        _maintenanceStatuses = responseJSON[@"root"];
+        NSLog(@"my maintanance status: %@", _maintenanceStatuses);
+        [_rootViewController updateMaintananceStatusUIs];
+    } onFailure:^(NSError *error) {
+        _maintenanceStatuses = nil;
+    }];
 }
 
 #pragma mark - Utilities

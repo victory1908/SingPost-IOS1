@@ -54,6 +54,9 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 - (void)getStampsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)getImagesOfStamp:(Stamp*)stamp onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
+//misc
+- (void)getMaintananceStatusOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+
 @property (nonatomic, readonly) BOOL hasRegisteredProfileId;
 @property (nonatomic) NSString *notificationProfileID;
 @property (nonatomic) NSMutableSet *failedNotificationTrackingNumbers;

@@ -11,6 +11,7 @@
 @interface RootViewController : UIViewController
 
 - (void)toggleSideBarVisiblity;
+- (void)updateMaintananceStatusUIs;
 - (void)switchToViewController:(UIViewController *)viewController;
 - (void)cPushViewController:(UIViewController *)viewController;
 - (void)cPopViewController;

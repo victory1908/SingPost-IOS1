@@ -58,6 +58,7 @@
 		52774F59184E282500B1E32D /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52774F56184E282500B1E32D /* _Stamp.m */; };
 		52774F5A184E282500B1E32D /* _StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52774F58184E282500B1E32D /* _StampImage.m */; };
 		527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 527C2F2F184FCC4B00F1FB4F /* NSDictionary+Additions.m */; };
+		527C2F331850055100F1FB4F /* MaintanancePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527C2F321850055100F1FB4F /* MaintanancePageViewController.m */; };
 		528C413A1834103700145E55 /* PostalCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 528C41391834103700145E55 /* PostalCode.m */; };
 		528C413D1834122700145E55 /* FindPostalCodeStreetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528C413C1834122700145E55 /* FindPostalCodeStreetViewController.m */; };
 		528C41401834129200145E55 /* FindPostalCodeLandmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528C413F1834129200145E55 /* FindPostalCodeLandmarkViewController.m */; };
@@ -225,6 +226,8 @@
 		52774F58184E282500B1E32D /* _StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _StampImage.m; sourceTree = "<group>"; };
 		527C2F2E184FCC4B00F1FB4F /* NSDictionary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Additions.h"; sourceTree = "<group>"; };
 		527C2F2F184FCC4B00F1FB4F /* NSDictionary+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Additions.m"; sourceTree = "<group>"; };
+		527C2F311850055100F1FB4F /* MaintanancePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaintanancePageViewController.h; sourceTree = "<group>"; };
+		527C2F321850055100F1FB4F /* MaintanancePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaintanancePageViewController.m; sourceTree = "<group>"; };
 		528C41381834103700145E55 /* PostalCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCode.h; sourceTree = "<group>"; };
 		528C41391834103700145E55 /* PostalCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCode.m; sourceTree = "<group>"; };
 		528C413B1834122700145E55 /* FindPostalCodeStreetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPostalCodeStreetViewController.h; sourceTree = "<group>"; };
@@ -546,6 +549,8 @@
 				52909109180EA94F00D84030 /* MoreAppsViewController.m */,
 				52A8B6AC180F9F31002BC431 /* FAQViewController.h */,
 				52A8B6AD180F9F31002BC431 /* FAQViewController.m */,
+				527C2F311850055100F1FB4F /* MaintanancePageViewController.h */,
+				527C2F321850055100F1FB4F /* MaintanancePageViewController.m */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1105,6 +1110,7 @@
 				52024F1F17F6860800AFD239 /* CalculatePostageMainViewController.m in Sources */,
 				52936481180B0FEE00B83F6B /* Stamp.m in Sources */,
 				52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */,
+				527C2F331850055100F1FB4F /* MaintanancePageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				52774F59184E282500B1E32D /* _Stamp.m in Sources */,

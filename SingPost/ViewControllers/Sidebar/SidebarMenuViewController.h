@@ -10,6 +10,8 @@
 
 @interface SidebarMenuViewController : UIViewController
 
+- (void)updateMaintananceStatusUIs;
+
 @property (nonatomic, assign) BOOL isVisible;
 
 @end

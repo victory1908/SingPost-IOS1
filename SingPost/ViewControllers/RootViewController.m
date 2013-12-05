@@ -66,6 +66,13 @@
     [activeViewControllerContainerView addGestureRecognizer:sideBarPanGesture];
 }
 
+- (void)updateMaintananceStatusUIs
+{
+    if ([activeViewController isKindOfClass:[LandingPageViewController class]])
+        [(LandingPageViewController *)activeViewController updateMaintananceStatusUIs];
+    [sideBarMenuViewController updateMaintananceStatusUIs];
+}
+
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGesture
 {
     if (sideBarMenuViewController.isVisible) {

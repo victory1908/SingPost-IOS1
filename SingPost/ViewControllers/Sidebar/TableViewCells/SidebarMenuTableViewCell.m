@@ -8,6 +8,7 @@
 
 #import "SidebarMenuTableViewCell.h"
 #import "UIFont+SingPost.h"
+#import "AppDelegate.h"
 
 @interface SidebarMenuTableViewCell ()
 
@@ -89,6 +90,66 @@
     
     if (_sidebarMenu == SIDEBARMENU_STAMPCOLLECTIBLES)
         [starIndicatorImageView setHidden:NO];
+    
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    CGFloat alpha = 1.0f;
+    switch (_sidebarMenu) {
+        case SIDEBARMENU_CALCULATEPOSTAGE:
+        {
+            alpha = [maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_FINDPOSTALCODES:
+        {
+            alpha = [maintananceStatuses[@"FindPostalCodes"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_LOCATEUS:
+        {
+            alpha = [maintananceStatuses[@"LocateUs"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_SENDRECEIVE:
+        {
+            alpha = [maintananceStatuses[@"SendNReceive"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_PAY:
+        {
+            alpha = [maintananceStatuses[@"Pay"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_SHOP:
+        {
+            alpha = [maintananceStatuses[@"Shop"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_MORESERVICES:
+        {
+            alpha = [maintananceStatuses[@"MoreServices"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_STAMPCOLLECTIBLES:
+        {
+            alpha = [maintananceStatuses[@"StampCollectibles"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        case SIDEBARMENU_MOREAPPS:
+        {
+            alpha = [maintananceStatuses[@"MoreApps"] isEqualToString:@"on"] ? 0.5f : 1.0f;;
+            break;
+        }
+        default:
+            alpha = 1.0f;
+            NSLog(@"not yet implemented");
+            break;
+
+    }
+    
+    [menuNameLabel setAlpha:alpha];
+    [menuImageView setAlpha:alpha];
+    [subrowIndicatorImageView setAlpha:alpha];
+    [starIndicatorImageView setAlpha:alpha];
 }
 
 - (void)animateShowSubRows:(BOOL)isSubRowsVisible

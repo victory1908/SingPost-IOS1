@@ -30,6 +30,7 @@
 #import "AboutThisAppViewController.h"
 #import "TermsOfUseViewController.h"
 #import "FAQViewController.h"
+#import "MaintanancePageViewController.h"
 
 #import "ItemTracking.h"
 #import <SVProgressHUD.h>
@@ -128,6 +129,11 @@
 {
     [super touchesBegan:touches withEvent:event];
     [trackingNumberTextField resignFirstResponder];
+}
+
+- (void)updateMaintananceStatusUIs
+{
+    [menuTableView reloadData];
 }
 
 #pragma mark - IBActions
@@ -271,6 +277,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     if (indexPath.row > SIDEBARMENU_OFFERSMORE) {
         switch ((tSubRowsOffersMore)(indexPath.row - SIDEBARMENU_OFFERSMORE - 1)) {
             case SUBROWS_OFFERSMORE_OFFERS:
@@ -319,61 +326,115 @@
         switch ((tSidebarMenus)indexPath.row) {
             case SIDEBARMENU_CALCULATEPOSTAGE:
             {
-                CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Calculate Postage" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_FINDPOSTALCODES:
             {
-                FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"FindPostalCodes"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Find Postal Codes" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_LOCATEUS:
             {
-                LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_SENDRECEIVE:
             {
-                SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"SendNReceive"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Send & Receive" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_PAY:
             {
-                PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"Pay"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Pay" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_SHOP:
             {
-                ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"Shop"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Shop" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_MORESERVICES:
             {
-                MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"MoreServices"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Services" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_STAMPCOLLECTIBLES:
             {
-                StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                if ([maintananceStatuses[@"StampCollectibles"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Stamp Collectibles" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
+                break;
+            }
+            case SIDEBARMENU_MOREAPPS:
+            {
+                if ([maintananceStatuses[@"MoreApps"] isEqualToString:@"on"]) {
+                    MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Apps" andMessage:maintananceStatuses[@"Comment"]];
+                    [self presentModalViewController:viewController animated:YES];
+                }
+                else {
+                    MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                }
                 break;
             }
             case SIDEBARMENU_OFFERSMORE:
             {
                 [self toggleOffersMoreSubRows];
-                break;
-            }
-            case SIDEBARMENU_MOREAPPS:
-            {
-                MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }
             default:
