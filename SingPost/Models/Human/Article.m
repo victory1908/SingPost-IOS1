@@ -190,4 +190,58 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     }];
 }
 
++ (void)API_getTrackIOnCompletion:(void(^)(NSString *trackI))completionBlock
+{
+    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSString *faq = nil;
+            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                if ([attributes[@"Name"] isEqualToString:@"Track I"]) {
+                    faq = attributes[@"content"];
+                    *stop = YES;
+                }
+            }];
+            
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(faq);
+                });
+            }
+        });
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
++ (void)API_getTrackIIOnCompletion:(void(^)(NSString *trackII))completionBlock
+{
+    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            __block NSString *faq = nil;
+            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                if ([attributes[@"Name"] isEqualToString:@"Track II"]) {
+                    faq = attributes[@"content"];
+                    *stop = YES;
+                }
+            }];
+            
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(faq);
+                });
+            }
+        });
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
 @end

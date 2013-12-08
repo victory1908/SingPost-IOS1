@@ -15,5 +15,7 @@
 + (void)API_getAboutThisAppOnCompletion:(void(^)(NSString *aboutThisApp))completionBlock;
 + (void)API_getTermsOfUseOnCompletion:(void(^)(NSString *termsOfUse))completionBlock;
 + (void)API_getFaqOnCompletion:(void(^)(NSString *termsOfUse))completionBlock;
++ (void)API_getTrackIOnCompletion:(void(^)(NSString *trackI))completionBlock;
++ (void)API_getTrackIIOnCompletion:(void(^)(NSString *trackII))completionBlock;
 
 @end

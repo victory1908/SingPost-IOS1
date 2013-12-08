@@ -15,6 +15,8 @@
 #import "DeliveryStatus.h"
 #import <KGModal.h>
 #import <QuartzCore/QuartzCore.h>
+#import <SVProgressHUD.h>
+#import "Article.h"
 
 @interface TrackingDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -146,6 +148,12 @@
     self.view = contentView;
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 //designated initializer
 - (id)initWithTrackedItem:(ItemTracking *)inTrackedItem
 {
@@ -167,36 +175,17 @@
 
 - (IBAction)infoButtonClicked:(id)sender
 {
-    UIView *contentView = [[UIView alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 280, 500) : CGRectMake(0, 0, 280, 400)];
-    
-    CGRect headerLabelRect = contentView.bounds;
-    headerLabelRect.origin.y = 20;
-    headerLabelRect.size.height = 20;
-    UIFont *headerLabelFont = [UIFont boldSystemFontOfSize:17];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerLabelRect];
-    headerLabel.text = @"Parcel information";
-    headerLabel.font = headerLabelFont;
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.textAlignment = NSTextAlignmentCenter;
-    headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.shadowColor = [UIColor blackColor];
-    headerLabel.shadowOffset = CGSizeMake(0, 1);
-    [contentView addSubview:headerLabel];
-    
-    CGRect infoLabelRect = CGRectInset(contentView.bounds, 5, 5);
-    infoLabelRect.origin.y = CGRectGetMaxY(headerLabelRect)+5;
-    infoLabelRect.size.height -= CGRectGetMinY(infoLabelRect);
-    UILabel *infoLabel = [[UILabel alloc] initWithFrame:infoLabelRect];
-    infoLabel.text = @"Parcel information";
-    infoLabel.numberOfLines = 6;
-    infoLabel.textColor = [UIColor whiteColor];
-    infoLabel.textAlignment = NSTextAlignmentCenter;
-    infoLabel.backgroundColor = [UIColor clearColor];
-    infoLabel.shadowColor = [UIColor blackColor];
-    infoLabel.shadowOffset = CGSizeMake(0, 1);
-    [contentView addSubview:infoLabel];
-    
-    [[KGModal sharedInstance] showWithContentView:contentView andAnimated:YES];
+    [SVProgressHUD showWithStatus:@"Please wait.."];
+    [Article API_getTrackIIOnCompletion:^(NSString *trackII) {
+        [SVProgressHUD dismiss];
+        if (trackII) {
+            UIWebView *webView = [[UIWebView alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 280, 500) : CGRectMake(0, 0, 280, 400)];
+            [webView setBackgroundColor:[UIColor clearColor]];
+            [webView setOpaque:NO];
+            [webView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;color:white;\"><h4 style=\"text-align:center;\">Parcel Information</h4>%@</body></html>", trackII] baseURL:nil];
+            [[KGModal sharedInstance] showWithContentView:webView andAnimated:YES];
+        }
+    }];
 }
 
 #pragma mark - UITableView DataSource & Delegate

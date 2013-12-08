@@ -221,6 +221,7 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -515,6 +516,9 @@ typedef enum {
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }
         }];
+    }
+    else {
+        [SVProgressHUD showErrorWithStatus:@"Please enter tracking number"];
     }
 }
 

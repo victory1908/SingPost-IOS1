@@ -46,7 +46,7 @@
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [Article API_getAboutThisAppOnCompletion:^(NSString *aboutThisApp) {
         [SVProgressHUD dismiss];
-        [aboutThisAppWebView loadHTMLString:aboutThisApp baseURL:nil];
+        [aboutThisAppWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", aboutThisApp] baseURL:nil];
     }];
 }
 

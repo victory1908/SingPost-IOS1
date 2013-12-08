@@ -21,6 +21,7 @@
 #import "UIImage+Extensions.h"
 
 #import "ItemTracking.h"
+#import "Article.h"
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
@@ -86,6 +87,12 @@ typedef enum {
     [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
@@ -115,15 +122,20 @@ typedef enum {
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-    [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
-        if (success) {
-            [SVProgressHUD dismiss];
-        }
-        else {
-            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-        }
-    }];
+    if (trackingNumberTextField.text.length > 0) {
+        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+            if (success) {
+                [SVProgressHUD dismiss];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            }
+        }];
+    }
+    else {
+        [SVProgressHUD showErrorWithStatus:@"Please enter tracking number"];
+    }
 }
 
 - (IBAction)reloadTrackingItemsButtonClicked:(id)sender
@@ -154,36 +166,18 @@ typedef enum {
 
 - (IBAction)infoButtonClicked:(id)sender
 {
-    UIView *contentView = [[UIView alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 280, 500) : CGRectMake(0, 0, 280, 400)];
-    
-    CGRect headerLabelRect = contentView.bounds;
-    headerLabelRect.origin.y = 20;
-    headerLabelRect.size.height = 20;
-    UIFont *headerLabelFont = [UIFont boldSystemFontOfSize:17];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:headerLabelRect];
-    headerLabel.text = @"Tracking information";
-    headerLabel.font = headerLabelFont;
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.textAlignment = NSTextAlignmentCenter;
-    headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.shadowColor = [UIColor blackColor];
-    headerLabel.shadowOffset = CGSizeMake(0, 1);
-    [contentView addSubview:headerLabel];
-    
-    CGRect infoLabelRect = CGRectInset(contentView.bounds, 5, 5);
-    infoLabelRect.origin.y = CGRectGetMaxY(headerLabelRect)+5;
-    infoLabelRect.size.height -= CGRectGetMinY(infoLabelRect);
-    UILabel *infoLabel = [[UILabel alloc] initWithFrame:infoLabelRect];
-    infoLabel.text = @"Tracking information";
-    infoLabel.numberOfLines = 6;
-    infoLabel.textColor = [UIColor whiteColor];
-    infoLabel.textAlignment = NSTextAlignmentCenter;
-    infoLabel.backgroundColor = [UIColor clearColor];
-    infoLabel.shadowColor = [UIColor blackColor];
-    infoLabel.shadowOffset = CGSizeMake(0, 1);
-    [contentView addSubview:infoLabel];
-    
-    [[KGModal sharedInstance] showWithContentView:contentView andAnimated:YES];
+    [SVProgressHUD showWithStatus:@"Please wait.."];
+    [Article API_getTrackIOnCompletion:^(NSString *trackI) {
+        [SVProgressHUD dismiss];
+        
+        if (trackI) {
+            UIWebView *webView = [[UIWebView alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 280, 500) : CGRectMake(0, 0, 280, 400)];
+            [webView setBackgroundColor:[UIColor clearColor]];
+            [webView setOpaque:NO];
+            [webView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;color:white;\"><h4 style=\"text-align:center;\">Tracking Information</h4>%@</body></html>", trackI] baseURL:nil];
+            [[KGModal sharedInstance] showWithContentView:webView andAnimated:YES];
+        }
+    }];
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -471,7 +465,6 @@ typedef enum {
         rowCount = self.completedItemsFetchedResultsController.fetchedObjects.count;
     }
     
-    NSLog(@"my row count: %d", rowCount);
     NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row + 1 inSection:section];
     switch (type) {
         case NSFetchedResultsChangeInsert:

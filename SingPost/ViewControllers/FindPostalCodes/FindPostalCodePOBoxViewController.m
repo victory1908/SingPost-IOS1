@@ -109,6 +109,11 @@
             
             [resultsTableView reloadData];
             [resultsTableView setContentOffset:CGPointZero animated:YES];
+            
+            if (results.count == 0) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Sorry, there are no results found. Please try again." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alertView show];
+            }
         }];
     }
 }

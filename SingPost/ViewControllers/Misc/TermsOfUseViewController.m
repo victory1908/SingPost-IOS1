@@ -45,7 +45,7 @@
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [Article API_getTermsOfUseOnCompletion:^(NSString *termsOfUse) {
         [SVProgressHUD dismiss];
-        [termsOfUseWebView loadHTMLString:termsOfUse baseURL:nil];
+        [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", termsOfUse] baseURL:nil];
     }];
 }
 

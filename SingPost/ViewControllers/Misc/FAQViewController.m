@@ -51,7 +51,7 @@
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [Article API_getFaqOnCompletion:^(NSString *faqs) {
         [SVProgressHUD dismiss];
-        [faqWebView loadHTMLString:faqs baseURL:nil];
+        [faqWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", faqs] baseURL:nil];
     }];
 }
 

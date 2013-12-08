@@ -119,12 +119,6 @@
     self.view = contentView;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -167,6 +161,9 @@
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }
         }];
+    }
+    else {
+        [SVProgressHUD showErrorWithStatus:@"Please enter tracking number"];
     }
 }
 
@@ -215,6 +212,7 @@
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setDelegate:self];
     [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
+    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
     [headerView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
