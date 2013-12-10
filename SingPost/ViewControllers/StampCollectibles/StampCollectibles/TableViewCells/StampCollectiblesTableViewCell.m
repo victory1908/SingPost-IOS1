@@ -79,7 +79,7 @@
     _stamp = inStamp;
     
     [titleLabel setText:_stamp.title];
-    [titleLabel setVerticalAlignmentTop];
+    [titleLabel alignTop];
     [issueDateDisplayLabel setY:CGRectGetMaxY(titleLabel.frame) + 9.0f];
     [issueDateDisplayLabel sizeToFit];
     [issueDateLabel setY:CGRectGetMaxY(issueDateDisplayLabel.frame)];

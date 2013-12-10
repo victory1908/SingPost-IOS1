@@ -163,7 +163,8 @@
         }];
     }
     else {
-        [SVProgressHUD showErrorWithStatus:@"Please enter tracking number"];
+        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
     }
 }
 

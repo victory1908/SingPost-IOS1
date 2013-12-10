@@ -88,7 +88,7 @@ static NSDateFormatter *sDateFormatter;
     _offer = inOffer;
     
     [titleLabel setText:_offer.title];
-    [titleLabel setVerticalAlignmentTop];
+    [titleLabel alignTop];
     [offerDateDisplayLabel setY:CGRectGetMaxY(titleLabel.frame) + 9.0f];
     [offerDateDisplayLabel sizeToFit];
     [offerDateLabel setY:CGRectGetMaxY(offerDateDisplayLabel.frame)];

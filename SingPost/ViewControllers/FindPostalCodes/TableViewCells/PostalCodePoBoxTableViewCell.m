@@ -54,11 +54,11 @@
     _result = inResult;
     [locationLabel setHeight:LOCATION_LABEL_SIZE.height];
     [locationLabel setText:_result[@"postoffice"]];
-    [locationLabel setVerticalAlignmentTop];
+    [locationLabel alignTop];
     
     [postalCodeLabel setHeight:30];
     [postalCodeLabel setText:_result[@"postalcode"]];
-    [postalCodeLabel setVerticalAlignmentTop];
+    [postalCodeLabel alignTop];
     
     [separatorView setY:CGRectGetMaxY(locationLabel.frame) + 10];
 }

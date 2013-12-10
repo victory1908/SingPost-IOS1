@@ -111,7 +111,7 @@
         return 30.0f;
 
     CalculatePostageResultItem *item = _resultItems[indexPath.row - 2];
-    CGSize variableTextSize = [item.deliveryServiceName sizeWithFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans] constrainedToSize:CGSizeMake(190, 9999)];
+    CGSize variableTextSize = [item.deliveryServiceName sizeWithFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans] constrainedToSize:CGSizeMake(190, LONG_MAX)];
     return variableTextSize.height + 55.0f;
 }
 

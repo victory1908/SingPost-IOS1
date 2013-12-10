@@ -54,11 +54,11 @@
     _result = inResult;
     [landmarkLabel setHeight:LOCATION_LABEL_SIZE.height];
     [landmarkLabel setText:_result[@"landmark"]];
-    [landmarkLabel setVerticalAlignmentTop];
+    [landmarkLabel alignTop];
 
     [postalCodeLabel setHeight:30];
     [postalCodeLabel setText:_result[@"postalcode"]];
-    [postalCodeLabel setVerticalAlignmentTop];
+    [postalCodeLabel alignTop];
 
     [separatorView setY:CGRectGetMaxY(landmarkLabel.frame) + 10];
 }

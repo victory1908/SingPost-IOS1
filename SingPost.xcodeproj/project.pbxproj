@@ -48,6 +48,7 @@
 		5237B0BC1833DF3300E9358A /* CalculatePostageSingaporeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BB1833DF3300E9358A /* CalculatePostageSingaporeViewController.m */; };
 		5237B0BF1833E71B00E9358A /* CalculatePostageResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */; };
 		52422F8818461CAB00970F23 /* PostalCodeStreetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52422F8718461CAB00970F23 /* PostalCodeStreetTableViewCell.m */; };
+		5249518818574D3E00055555 /* StampCollectibleDetailExpandableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5249518718574D3E00055555 /* StampCollectibleDetailExpandableView.m */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		52518A1A184B060000F4F104 /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 52518A19184B060000F4F104 /* PushNotification.m */; };
 		52518A28184C841100F4F104 /* ArticleSubCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52518A27184C841100F4F104 /* ArticleSubCategoryViewController.m */; };
@@ -206,6 +207,8 @@
 		5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageResultItem.m; sourceTree = "<group>"; };
 		52422F8618461CAB00970F23 /* PostalCodeStreetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCodeStreetTableViewCell.h; sourceTree = "<group>"; };
 		52422F8718461CAB00970F23 /* PostalCodeStreetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCodeStreetTableViewCell.m; sourceTree = "<group>"; };
+		5249518618574D3E00055555 /* StampCollectibleDetailExpandableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampCollectibleDetailExpandableView.h; sourceTree = "<group>"; };
+		5249518718574D3E00055555 /* StampCollectibleDetailExpandableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectibleDetailExpandableView.m; sourceTree = "<group>"; };
 		524CEA3C17F2830400E0EAC3 /* UIView+Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Position.h"; sourceTree = "<group>"; };
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 		52518A18184B060000F4F104 /* PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotification.h; sourceTree = "<group>"; };
@@ -620,6 +623,15 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		5249518518574D1A00055555 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5249518618574D3E00055555 /* StampCollectibleDetailExpandableView.h */,
+				5249518718574D3E00055555 /* StampCollectibleDetailExpandableView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,6 +855,7 @@
 		52936478180B017C00B83F6B /* StampCollectibles */ = {
 			isa = PBXGroup;
 			children = (
+				5249518518574D1A00055555 /* Views */,
 				52936482180B121400B83F6B /* TableViewCells */,
 				52936479180B01A100B83F6B /* StampCollectiblesMainViewController.h */,
 				5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */,
@@ -1174,6 +1187,7 @@
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 				526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
+				5249518818574D3E00055555 /* StampCollectibleDetailExpandableView.m in Sources */,
 				52C908EA18045F3F0063A026 /* ApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

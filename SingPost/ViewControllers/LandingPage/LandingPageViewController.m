@@ -491,14 +491,9 @@ typedef enum {
             break;
         }
         default:
-            NSLog(@"offers menu button not implemented yet");
+            NSLog(@"not implemented yet");
             break;
     }
-}
-
-- (IBAction)offersMoreButtonClicked:(id)sender
-{
-    NSLog(@"offers more button clicked");
 }
 
 - (void)findTrackingNumberButtonClicked:(id)sender
@@ -518,7 +513,8 @@ typedef enum {
         }];
     }
     else {
-        [SVProgressHUD showErrorWithStatus:@"Please enter tracking number"];
+        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
     }
 }
 

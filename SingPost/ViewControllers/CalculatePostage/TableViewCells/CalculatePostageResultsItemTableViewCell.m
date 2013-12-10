@@ -23,7 +23,7 @@
         UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, 70)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
-        serviceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 200, 9999)];
+        serviceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 200, LONG_MAX)];
         [serviceTitleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [serviceTitleLabel setNumberOfLines:0];
         [serviceTitleLabel setTextColor:RGB(51, 51, 51)];
@@ -57,7 +57,7 @@
 {
     _item = inItem;
     
-    [serviceTitleLabel setWidth:190 andHeight:9999];
+    [serviceTitleLabel setWidth:190 andHeight:LONG_MAX];
     [serviceTitleLabel setText:_item.deliveryServiceName];
     [serviceTitleLabel sizeToFit];
     [statusLabel setText:[NSString stringWithFormat:@"%@ working days", _item.deliveryTime]];

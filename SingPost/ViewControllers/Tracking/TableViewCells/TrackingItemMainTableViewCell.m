@@ -63,11 +63,11 @@
 {
     _item = inItem;
     [trackingNumberLabel setText:_item.trackingNumber];
-    [trackingNumberLabel setVerticalAlignmentTop];
+    [trackingNumberLabel alignTop];
     
     [statusLabel setHeight:STATUS_LABEL_SIZE.height];
     [statusLabel setText:_item.status];
-    [statusLabel setVerticalAlignmentTop];
+    [statusLabel alignTop];
     
     [separatorView setY:MAX(59, CGRectGetMaxY(statusLabel.frame) + 7)];
 }

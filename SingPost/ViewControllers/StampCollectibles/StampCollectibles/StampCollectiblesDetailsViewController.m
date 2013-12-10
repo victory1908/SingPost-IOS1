@@ -20,15 +20,12 @@
 #import "AppDelegate.h"
 #import "LocateUsMainViewController.h"
 #import "StampImagesBrowserViewController.h"
-#import "UILabel+VerticalAlign.h"
-#import <UIActivityIndicator-for-SDWebImage/UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "StampCollectibleDetailExpandableView.h"
 
 @interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate>
 
 @end
-
-#define READLESS_LINES 4
-#define READLESS_HEIGHT 77.0f
 
 @implementation StampCollectiblesDetailsViewController
 {
@@ -36,10 +33,10 @@
     UIImageView *imagesScrollerBackgroundImageView;
     UIScrollView *contentScrollView, *imagesScrollView;
     ColoredPageControl *pageControl;
-    UILabel *detailsLabel;
+    StampCollectibleDetailExpandableView *detailsExpandableView;
     UIButton *moreButton;
     
-    BOOL isAnimating, isDetailsTextExpanded;
+    BOOL isAnimating;
 }
 
 //designated initializer
@@ -72,7 +69,7 @@
     contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height)];
     [contentView addSubview:contentScrollView];
     
-    __block CGFloat offsetY = 0;
+    CGFloat offsetY = 0;
     
     imagesScrollerBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, offsetY, 320, 185)];
     [imagesScrollerBackgroundImageView setImage:[UIImage imageNamed:@"image_scrolller_background"]];
@@ -119,28 +116,15 @@
     [issueDateLabel setBackgroundColor:[UIColor clearColor]];
     [issueDateLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [issueDateLabel setTextColor:RGB(125, 136, 149)];
-    [contentScrollView addSubview:issueDateLabel];
-
     [issueDateLabel setText:[NSString stringWithFormat:@"%@ %@ %@", _stamp.day, _stamp.month, _stamp.year]];
-    
+    [contentScrollView addSubview:issueDateLabel];
     offsetY += 32.0f;
     
-    detailsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.bounds.size.width - 30, 30)];
-    [detailsLabel setNumberOfLines:4];
-    [detailsLabel setBackgroundColor:[UIColor clearColor]];
-    [detailsLabel setTextColor:RGB(51, 51, 51)];
-    [detailsLabel setLineBreakMode:NSLineBreakByTruncatingTail];
-    [detailsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [detailsLabel setText:_stamp.details];
-    [detailsLabel sizeToFit];
-    [contentScrollView addSubview:detailsLabel];
-    [detailsLabel setVerticalAlignmentTop];
-    
-    offsetY += detailsLabel.bounds.size.height + 15.0f;
-    
-    CGSize detailsTextSize = [detailsLabel.text sizeWithFont:detailsLabel.font constrainedToSize:CGSizeMake(detailsLabel.bounds.size.width, 9999)];
-    
-    if (detailsTextSize.height > READLESS_HEIGHT) {
+    detailsExpandableView = [[StampCollectibleDetailExpandableView alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.bounds.size.width - 30, LONG_MAX) andText:_stamp.details];
+    [contentScrollView addSubview:detailsExpandableView];
+    offsetY += detailsExpandableView.bounds.size.height + 15.0f;
+        
+    if (detailsExpandableView.expandedHeight > detailsExpandableView.collapsedHeight) {
         moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [moreButton.layer setBorderWidth:1.0f];
         [moreButton.layer setBorderColor:RGB(36, 84, 157).CGColor];
@@ -153,10 +137,10 @@
         [moreButton addTarget:self action:@selector(moreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [moreButton setFrame:CGRectMake(15, offsetY, 50, 30)];
         [contentScrollView addSubview:moreButton];
-        
+
         offsetY += 60.0f;
     }
-
+    
     FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, offsetY, contentView.bounds.size.width - 30, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -166,14 +150,14 @@
     offsetY += 90.0f;
     
     [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, offsetY)];
-
+    
     self.view = contentView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [Stamp API_getImagesOfStamps:_stamp onCompletion:^(BOOL success, NSError *error) {
         [SVProgressHUD dismiss];
@@ -207,31 +191,19 @@
 
 - (IBAction)moreButtonClicked:(id)sender
 {
-    isDetailsTextExpanded = !isDetailsTextExpanded;
-    
-    [moreButton setTitle:isDetailsTextExpanded ? @"Less" : @"More" forState:UIControlStateNormal];
-    CGSize detailsTextSize = [detailsLabel.text sizeWithFont:detailsLabel.font constrainedToSize:CGSizeMake(detailsLabel.bounds.size.width, 9999)];
-    
-    for (UIView *subview in contentScrollView.subviews) {
-        if (subview.frame.origin.y > CGRectGetMaxY(detailsLabel.frame)) {
-            if (isDetailsTextExpanded)
-                [subview setY:subview.frame.origin.y + (detailsTextSize.height - READLESS_HEIGHT)];
-            else
-                [subview setY:subview.frame.origin.y - (detailsTextSize.height - READLESS_HEIGHT)];
-        }
-    }
+    [detailsExpandableView toggleExpandCollapse];
 
-    [detailsLabel setNumberOfLines:isDetailsTextExpanded ? 0 : READLESS_LINES];
-    [detailsLabel sizeToFit];
-    [detailsLabel setVerticalAlignmentTop];
-    
-    [UIView animateWithDuration:0.4f animations:^{
+    [UIView animateWithDuration:0.3f animations:^{
+        [detailsExpandableView setHeight:detailsExpandableView.bounds.size.height + detailsExpandableView.deltaHeight];
+        for (UIView *subview in contentScrollView.subviews) {
+            if (subview.frame.origin.y > CGRectGetMaxY(detailsExpandableView.frame) - detailsExpandableView.deltaHeight) {
+                [subview setY:subview.frame.origin.y + detailsExpandableView.deltaHeight];
+            }
+        }
         [contentScrollView setContentOffset:CGPointZero];
     } completion:^(BOOL finished) {
-        if (isDetailsTextExpanded)
-            [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, 480 + (detailsTextSize.height - READLESS_HEIGHT))];
-        else
-            [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, 480)];
+        [contentScrollView setContentSize:CGSizeMake(contentScrollView.contentSize.width, contentScrollView.contentSize.height + detailsExpandableView.deltaHeight)];
+        [moreButton setTitle:detailsExpandableView.isExpanded ? @"Less": @"More" forState:UIControlStateNormal];
     }];
 }
 
@@ -268,22 +240,22 @@
 
 #pragma mark - StampImageBrowserDelegate
 
-- (void)stampImageBrowserDismissed:(StampImagesBrowserViewController *)browserViewController
+- (void)stampImageBrowserDismissed:(StampImagesBrowserViewController *)imageBrowserViewController
 {
     if (isAnimating)
         return;
     
     isAnimating = YES;
     
-    [imagesScrollView setContentOffset:CGPointMake(imagesScrollView.bounds.size.width * browserViewController.currentIndex, 0)];
-    [browserViewController willMoveToParentViewController:nil];
+    [imagesScrollView setContentOffset:CGPointMake(imagesScrollView.bounds.size.width * imageBrowserViewController.currentIndex, 0)];
+    [imageBrowserViewController willMoveToParentViewController:nil];
     [UIView animateWithDuration:0.3f animations:^{
-        browserViewController.view.alpha = 0.2f;
-        browserViewController.view.center = [imagesScrollerBackgroundImageView convertPoint:imagesScrollView.center toView:self.view];
-        [browserViewController.view.layer setAffineTransform:CGAffineTransformMakeScale(0.25, 0.25)];
+        imageBrowserViewController.view.alpha = 0.2f;
+        imageBrowserViewController.view.center = [imagesScrollerBackgroundImageView convertPoint:imagesScrollView.center toView:self.view];
+        [imageBrowserViewController.view.layer setAffineTransform:CGAffineTransformMakeScale(0.25, 0.25)];
     } completion:^(BOOL finished) {
-        [browserViewController.view removeFromSuperview];
-        [browserViewController removeFromParentViewController];
+        [imageBrowserViewController.view removeFromSuperview];
+        [imageBrowserViewController removeFromParentViewController];
         isAnimating = NO;
     }];
 }

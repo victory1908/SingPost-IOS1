@@ -108,4 +108,9 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     return res;
 }
 
++ (Stamp *)featuredStamp
+{
+    return [Stamp MR_findFirstByAttribute:StampAttributes.ordering withValue:@(0)];
+}
+
 @end

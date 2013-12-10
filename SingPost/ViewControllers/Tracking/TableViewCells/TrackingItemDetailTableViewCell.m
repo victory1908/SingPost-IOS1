@@ -64,15 +64,15 @@
     [dateFormatter setDateFormat:@"dd-MM-yy HH:mm ZZZ"];
     [trackingDateLabel setHeight:70];
     [trackingDateLabel setText:[dateFormatter stringFromDate:_deliveryStatus.date]];
-    [trackingDateLabel setVerticalAlignmentTop];
+    [trackingDateLabel alignTop];
     
     [statusLabel setHeight:STATUS_LABEL_SIZE.height];
     [statusLabel setText:_deliveryStatus.statusDescription];
-    [statusLabel setVerticalAlignmentTop];
+    [statusLabel alignTop];
     
     [locationLabel setHeight:LOCATION_LABEL_SIZE.height];
     [locationLabel setText:_deliveryStatus.location];
-    [locationLabel setVerticalAlignmentTop];
+    [locationLabel alignTop];
     
     [separatorView setY:MAX(60, MAX(CGRectGetMaxY(statusLabel.frame) + 5, CGRectGetMaxY(locationLabel.frame) + 5))];
 }

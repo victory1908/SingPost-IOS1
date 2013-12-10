@@ -83,7 +83,6 @@
 {
     [[ApiClient sharedInstance] getMaintananceStatusOnSuccess:^(id responseJSON) {
         _maintenanceStatuses = responseJSON[@"root"];
-//        NSLog(@"my maintanance status: %@", _maintenanceStatuses);
         [_rootViewController updateMaintananceStatusUIs];
     } onFailure:^(NSError *error) {
         _maintenanceStatuses = nil;
@@ -104,6 +103,26 @@
 }
 
 #pragma mark - APNS
+
+- (void)handleRemoteNotification:(NSDictionary *)payloadInfo
+{
+    NSLog(@"received payload: %@", payloadInfo);
+    
+    NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
+    
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    if (state == UIApplicationStateActive) {
+        if ([aps[@"alert"] length] > 0) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"SingPost" message:aps[@"alert"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+            [alertView show];
+        }
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [self handleRemoteNotification:userInfo];
+}
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {

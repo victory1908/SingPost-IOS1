@@ -140,28 +140,23 @@ typedef enum {
 
 - (IBAction)reloadTrackingItemsButtonClicked:(id)sender
 {
-    tTrackingItemsSections section = [(UIButton *)sender tag];
-    
-    NSArray *itemsToReload;
-    
-    if (section == TRACKINGITEMS_SECTION_ACTIVE)
-        itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
-    else if (section == TRACKINGITEMS_SECTION_COMPLETED)
-        itemsToReload = [self.completedItemsFetchedResultsController fetchedObjects];
-    
-    __block CGFloat updateProgress = 0.0f;
-    [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
-    [ItemTracking API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
-        }
-        else {
-            [SVProgressHUD dismiss];
-        }
-    } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-        updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
+    NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
+
+    if (itemsToReload.count > 0) {
+        __block CGFloat updateProgress = 0.0f;
         [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
-    }];
+        [ItemTracking API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+            }
+            else {
+                [SVProgressHUD dismiss];
+            }
+        } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+            updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
+            [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
+        }];
+    }
 }
 
 - (IBAction)infoButtonClicked:(id)sender

@@ -17,6 +17,7 @@
 #import "StampCollectiblesDetailsViewController.h"
 #import "AppDelegate.h"
 #import <SVProgressHUD.h>
+#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 
 @interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CDropDownListControlDelegate>
 
@@ -30,6 +31,7 @@
     UILabel *chosenYearLabel;
     CDropDownListControl *yearDropDownList;
     UITableView *stampsTableView;
+    UIImageView *featuredImageView;
 }
 
 - (void)loadView
@@ -42,8 +44,7 @@
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentScrollView addSubview:navigationBarView];
     
-    UIImageView *featuredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, 186)];
-    [featuredImageView setImage:[UIImage imageNamed:@"sample_stamps_featured_image"]];
+    featuredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, 186)];
     [contentScrollView addSubview:featuredImageView];
     
     UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 230, contentScrollView.bounds.size.width, 0.5f)];
@@ -89,9 +90,11 @@
     
     __weak StampCollectiblesMainViewController *weakSelf = self;
     [Stamp API_getStampsOnCompletion:^(BOOL success, NSError *error) {
-        if (error)
+        if (error) {
             [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+        }
         else {
+            [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             [yearDropDownList setValues:[Stamp yearsDropDownValues]];
             [yearDropDownList selectRow:MAX(0, yearDropDownList.values.count - 1) animated:NO];
             [weakSelf yearDropDownListSelected];

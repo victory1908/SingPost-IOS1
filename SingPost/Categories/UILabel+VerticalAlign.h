@@ -10,6 +10,6 @@
 
 @interface UILabel (VerticalAlign)
 
-- (void)setVerticalAlignmentTop;
+- (void)alignTop;
 
 @end

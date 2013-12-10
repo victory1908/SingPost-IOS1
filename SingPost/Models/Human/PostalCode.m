@@ -41,7 +41,7 @@
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             __block NSMutableArray *items = [NSMutableArray array];
             [rootXML iterate:@"PostalAddressByLandMarkDetailList.PostalAddressByLandMarkDetail" usingBlock:^(RXMLElement *e) {
-                [items addObject:@{@"landmark": [e child:@"BuildingName"].text, @"postalcode": [e child:@"PostalCode"].text}];
+                [items addObject:@{@"landmark": [NSString stringWithFormat:@"%@ %@\n%@", [e child:@"BuildingNo"].text, [e child:@"BuildingName"].text, [e child:@"StreetName"].text], @"postalcode": [e child:@"PostalCode"].text}];
             }];
             
             if (completionBlock) {

@@ -60,7 +60,7 @@
     [maintananceMessageLabel setTextAlignment:NSTextAlignmentCenter];
     [maintananceMessageLabel setText:_message];
     [maintananceMessageLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [maintananceMessageLabel setVerticalAlignmentTop];
+    [maintananceMessageLabel alignTop];
     [contentView addSubview:maintananceMessageLabel];
     
     self.view = contentView;
