@@ -140,16 +140,19 @@ typedef enum {
                               if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
                                   [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
+                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
                                   }];
                               }
                               else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
                                   [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
+                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
                                   }];
                               }
                               else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
                                   [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
+                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
                                   }];
                               }
                               else {

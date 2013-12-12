@@ -245,11 +245,6 @@
 
 #pragma mark - IBActions
 
-- (IBAction)locateUsButtonClicked:(id)sender
-{
-    NSLog(@"locate us clicked");
-}
-
 - (IBAction)searchButtonClicked:(id)sender
 {
     NSString *locationType = typesDropDownList.selectedText;

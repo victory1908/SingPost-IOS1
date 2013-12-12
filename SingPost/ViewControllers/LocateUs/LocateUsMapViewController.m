@@ -104,6 +104,16 @@
 - (void)removeMapAnnotations
 {
     [locateUsMapView removeAnnotations:locationAnnotations];
+    [locationAnnotations removeAllObjects];
+}
+
+- (void)showFilteredLocationsOnMapWithDelay
+{
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self showFilteredLocationsOnMap];
+    });
 }
 
 - (void)showFilteredLocationsOnMap
@@ -124,13 +134,10 @@
     }
     
     locationAnnotations = [NSMutableArray array];
-    for (EntityLocation *location in locations) {
-        EntityLocationMapAnnotation *locationAnnotation = [[EntityLocationMapAnnotation alloc] initWithEntityLocation:location];
-        if (CLLocationCoordinate2DIsValid(location.coordinate)) {
-            [locateUsMapView addAnnotation:locationAnnotation];
-            [locationAnnotations addObject:locationAnnotation];
-        }
-    }
+    for (EntityLocation *location in locations)
+        [locationAnnotations addObject:[[EntityLocationMapAnnotation alloc] initWithEntityLocation:location]];
+    
+    [locateUsMapView addAnnotations:locationAnnotations];
     
     if (locations.count > 0) {
         //zoom in to the first location

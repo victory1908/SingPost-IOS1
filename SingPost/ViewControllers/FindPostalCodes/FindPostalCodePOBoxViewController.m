@@ -16,6 +16,7 @@
 #import <SVProgressHUD.h>
 #import "PostalCode.h"
 #import "PostalCodePoBoxTableViewCell.h"
+#import "NSString+Extensions.h"
 
 @interface FindPostalCodePOBoxViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -88,7 +89,7 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([windowDeliveryNoTextField.text length] == 0 || [postOfficeTextField.text length] < 3) {
+    if ([[windowDeliveryNoTextField.text trimWhiteSpaces] length] == 0 || [[postOfficeTextField.text trimWhiteSpaces] length] < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }

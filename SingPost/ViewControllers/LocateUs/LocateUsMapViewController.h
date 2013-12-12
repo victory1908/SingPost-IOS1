@@ -13,5 +13,6 @@
 @property (nonatomic, readonly) NSString *selectedLocationType;
 
 - (void)removeMapAnnotations;
+- (void)showFilteredLocationsOnMapWithDelay;
 
 @end

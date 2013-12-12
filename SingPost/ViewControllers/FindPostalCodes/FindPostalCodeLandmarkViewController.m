@@ -15,6 +15,7 @@
 #import <SVProgressHUD.h>
 #import "PostalCode.h"
 #import "PostalCodeLandmarkResultTableViewCell.h"
+#import "NSString+Extensions.h"
 
 @interface FindPostalCodeLandmarkViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -73,7 +74,7 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([majorBuildingEstateTextField.text length] < 3) {
+    if ([[majorBuildingEstateTextField.text trimWhiteSpaces] length] < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
