@@ -9,7 +9,6 @@
 #import "LandingPageViewController.h"
 #import "AppDelegate.h"
 #import "UIFont+SingPost.h"
-#import "UIColor+SingPost.h"
 #import "UIView+Position.h"
 #import "CTextField.h"
 #import "OffersMoreMenuView.h"
@@ -214,8 +213,7 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Home"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Home"];
 }
 
 - (void)viewDidLoad

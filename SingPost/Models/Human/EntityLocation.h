@@ -4,6 +4,8 @@
 #define LOCATION_TYPE_POST_OFFICE @"Post Office"
 #define LOCATION_TYPE_SAM @"SAM"
 #define LOCATION_TYPE_POSTING_BOX @"Posting Box"
+#define LOCATION_TYPE_AGENT @"Agent"
+#define LOCATION_TYPE_POPSTATION @"POPStation"
 
 @interface EntityLocation : _EntityLocation {}
 
@@ -23,11 +25,14 @@
 - (CGFloat)distanceInKmToLocation:(CLLocation *)toLocation;
 - (BOOL)isOpenedAtCurrentTimeDigits:(NSInteger)timeDigits;
 
-- (void)updateWithCsvRepresentation:(NSArray *)csv;
 - (void)updateWithApiRepresentation:(NSArray *)json;
+
++ (void)seedLocationsOfType:(NSString *)locationType onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 
 + (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_updatePostingBoxLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_updateSamLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_updateAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_updatePopStationLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 
 @end

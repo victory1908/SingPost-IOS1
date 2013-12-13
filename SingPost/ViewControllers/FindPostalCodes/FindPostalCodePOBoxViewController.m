@@ -80,8 +80,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode - PO Box"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode - PO Box"];
 }
 
 #pragma mark - IBActions
@@ -105,8 +104,7 @@
                 [SVProgressHUD dismiss];
             }
             
-            [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode Result - PO Box"];
-            [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+            [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result - PO Box"];
             
             [resultsTableView reloadData];
             [resultsTableView setContentOffset:CGPointZero animated:YES];

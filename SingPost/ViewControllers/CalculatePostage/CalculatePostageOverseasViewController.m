@@ -76,8 +76,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postage - Overseas"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postage - Overseas"];
 }
 
 #pragma mark - UITextField Delegate

@@ -15,7 +15,6 @@
 
 #import "EntityLocationMapAnnotation.h"
 #import "UIFont+SingPost.h"
-#import "UIColor+SingPost.h"
 #import "SectionToggleButton.h"
 #import "UIView+Position.h"
 #import "AppDelegate.h"
@@ -64,7 +63,7 @@ typedef enum  {
 
 - (BOOL)shouldHideSectionSelector
 {
-    return [_entityLocation.type isEqualToString:@"SAM"] || [_entityLocation.type isEqualToString:@"Posting Box"];
+    return [_entityLocation.type isEqualToString:LOCATION_TYPE_SAM] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTING_BOX] || [_entityLocation.type isEqualToString:LOCATION_TYPE_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POPSTATION];
 }
 
 - (void)loadView
@@ -204,6 +203,10 @@ typedef enum  {
         [addressImageView setImage:[UIImage imageNamed:@"postingbox_icon"]];
     else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SAM])
         [addressImageView setImage:[UIImage imageNamed:@"SAM"]];
+    else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_AGENT])
+        [addressImageView setImage:[UIImage imageNamed:@"icon-agents"]];
+    else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_POPSTATION])
+        [addressImageView setImage:[UIImage imageNamed:@"icon-popstation"]];
     
     [self goToSection:LOCATEUSDETAILS_SECTION_OPENINGHOURS];
 }
@@ -270,18 +273,15 @@ typedef enum  {
 {
     if (sender == openingHoursSectionButton) {
         [self goToSection:LOCATEUSDETAILS_SECTION_OPENINGHOURS];
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Operating Hours", _entityLocation.type]];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Locations - %@ - Operating Hours", _entityLocation.type]];
     }
     else if (sender == servicesSectionButton) {
         [self goToSection:LOCATEUSDETAILS_SECTION_SERVICES];
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Services", _entityLocation.type]];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Locations - %@ - Services", _entityLocation.type]];
     }
     else if (sender == postingBoxSectionButton) {
         [self goToSection:LOCATEUSDETAILS_SECTION_POSTINGBOX];
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Posting Box", _entityLocation.type]];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Locations - %@ - Posting Box", _entityLocation.type]];
     }
 }
 
@@ -317,12 +317,16 @@ typedef enum  {
             annotationView.canShowCallout = YES;
             
             NSString *locationType = _entityLocation.type;
-            if ([locationType isEqualToString:@"Post Office"])
+            if ([locationType isEqualToString:LOCATION_TYPE_POST_OFFICE])
                 annotationView.image = [UIImage imageNamed:@"post_office_map_overlay"];
-            else if ([locationType isEqualToString:@"SAM"])
+            else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
                 annotationView.image = [UIImage imageNamed:@"sam_map_overlay"];
-            else if ([locationType isEqualToString:@"Posting Box"])
+            else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
                 annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
+            else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
+                annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
+            else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
+                annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];
         }
     }
     
@@ -331,7 +335,7 @@ typedef enum  {
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay {
     MKPolylineView *plv = [[MKPolylineView alloc] initWithOverlay:overlay];
-    plv.strokeColor = [UIColor SingPostBlueColor];
+    plv.strokeColor = RGB(36, 84, 157);
     plv.lineWidth = 3.0;
     return plv;
 }
@@ -392,8 +396,7 @@ typedef enum  {
 {
 	NSArray *routes = [self calculateRoutesFrom:locationMapView.userLocation.coordinate to:_entityLocation.coordinate];
     
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"Locations - %@ - Direction", _entityLocation.type]];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Locations - %@ - Direction", _entityLocation.type]];
     
     if (routes.count > 0) {
         CLLocationCoordinate2D polypoints[routes.count];

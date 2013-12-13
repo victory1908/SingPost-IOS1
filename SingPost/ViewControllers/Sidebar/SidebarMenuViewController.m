@@ -8,7 +8,6 @@
 
 #import "SidebarMenuViewController.h"
 #import "UIFont+SingPost.h"
-#import "UIColor+SingPost.h"
 #import "SidebarMenuTableViewCell.h"
 #import "SidebarMenuSubRowTableViewCell.h"
 #import "AppDelegate.h"
@@ -48,7 +47,7 @@
         self.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = [UIColor clearColor];
-        self.textColor = [UIColor SingPostBlueColor];
+        self.textColor = RGB(36, 84, 157);
         self.font = [UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
     }
     
@@ -147,6 +146,7 @@
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
+    [self.view endEditing:YES];
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {

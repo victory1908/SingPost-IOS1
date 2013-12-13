@@ -248,18 +248,16 @@
 - (IBAction)searchButtonClicked:(id)sender
 {
     NSString *locationType = typesDropDownList.selectedText;
-    if ([locationType isEqualToString:@"Post Office"]) {
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- PO List"];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
-    else if ([locationType isEqualToString:@"SAM"]) {
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- SAM List"];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
-    else if ([locationType isEqualToString:@"Posting Box"]) {
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- Posting Box List"];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
+    if ([locationType isEqualToString:LOCATION_TYPE_POST_OFFICE])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- PO List"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM List"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Posting Box List"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM List"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation List"];
     
     [self.fetchedResultsController.fetchRequest setPredicate:[self frcSearchPredicate]];
     

@@ -53,8 +53,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"About"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"About"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

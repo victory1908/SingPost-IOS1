@@ -62,8 +62,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:self.pageTitle];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:self.pageTitle];
 }
 
 #pragma mark - Accessors
@@ -148,8 +147,7 @@
     [subCategoryViewController setParentPageTitle:self.pageTitle];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subCategoryViewController];
     
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, self.items[dataRow]]];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, self.items[dataRow]]];
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

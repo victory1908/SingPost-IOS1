@@ -8,7 +8,6 @@
 
 #import "CTextField.h"
 #import "UIFont+SingPost.h"
-#import "UIColor+SingPost.h"
 
 @implementation CTextField
 
@@ -23,7 +22,7 @@
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.contentVerticalAlignment  = UIControlContentVerticalAlignmentCenter;
         self.backgroundColor = RGB(240, 240, 240);
-        self.textColor = [UIColor SingPostBlueColor];
+        self.textColor = RGB(36, 84, 157);
         self.font = [UIFont SingPostRegularFontOfSize:_fontSize fontKey:kSingPostFontOpenSans];
     }
     
@@ -31,7 +30,7 @@
 }
 
 - (void)drawPlaceholderInRect:(CGRect)rect {
-    [[UIColor SingPostBlueColor] setFill];
+    [RGB(36, 84, 157) setFill];
     [[self placeholder] drawInRect:CGRectInset(rect, 0, _insetBoundsSize.height / 2 + (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 0.0f : -5.0f))
                           withFont:[UIFont SingPostLightItalicFontOfSize:_placeholderFontSize fontKey:kSingPostFontOpenSans]
                      lineBreakMode:NSLineBreakByWordWrapping];

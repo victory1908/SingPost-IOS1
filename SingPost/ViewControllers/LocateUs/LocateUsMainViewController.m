@@ -122,7 +122,6 @@ typedef enum {
         case LOCATEUS_VIEWMODE_MAP:
         {
             selectedType = locateUsMapViewController.selectedLocationType;
-            [locateUsMapViewController removeMapAnnotations];
             break;
         }
         default:
@@ -136,6 +135,7 @@ typedef enum {
              otherButtonTitles:@[@"Yes"]
                       tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                           if (buttonIndex != [alertView cancelButtonIndex]) {
+                              [locateUsMapViewController removeMapAnnotations];
                               [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
                               if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
                                   [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
@@ -151,6 +151,18 @@ typedef enum {
                               }
                               else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
                                   [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
+                                      [SVProgressHUD dismiss];
+                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
+                                  }];
+                              }
+                              else if ([selectedType isEqualToString:LOCATION_TYPE_AGENT]) {
+                                  [EntityLocation API_updateAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
+                                      [SVProgressHUD dismiss];
+                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
+                                  }];
+                              }
+                              else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
+                                  [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
                                       [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
                                   }];

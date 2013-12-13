@@ -79,8 +79,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:_resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? @"Postage Result - Overseas" : @"Postage Result - Singapore"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:_resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? @"Postage Result - Overseas" : @"Postage Result - Singapore"];
 }
 
 #pragma mark - IBActions

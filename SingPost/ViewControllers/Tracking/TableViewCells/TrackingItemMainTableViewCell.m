@@ -8,7 +8,6 @@
 
 #import "TrackingItemMainTableViewCell.h"
 #import "UIFont+SingPost.h"
-#import "UIColor+SingPost.h"
 #import "ItemTracking.h"
 #import "PersistentBackgroundView.h"
 #import "UILabel+VerticalAlign.h"

@@ -40,7 +40,6 @@
 		52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F8817F5B20600610A86 /* UIFont+SingPost.m */; };
 		52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */; };
 		52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */; };
-		52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F9217F5B79100610A86 /* UIColor+SingPost.m */; };
 		52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */; };
 		52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */; };
 		52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
@@ -57,6 +56,11 @@
 		526E92BA183FE6AE00552710 /* _ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B9183FE6AE00552710 /* _ItemTracking.m */; };
 		526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */; };
 		52731F70185A72FB007D6001 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52731F6F185A72FB007D6001 /* NSString+Extensions.m */; };
+		52731F73185AB1B4007D6001 /* SAM.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F72185AB1B4007D6001 /* SAM.json */; };
+		52731F75185AB1DC007D6001 /* Posting Box.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F74185AB1DC007D6001 /* Posting Box.json */; };
+		52731F77185AB1ED007D6001 /* Post Office.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F76185AB1ED007D6001 /* Post Office.json */; };
+		52731F79185AB21D007D6001 /* Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F78185AB21D007D6001 /* Agent.json */; };
+		52731F7D185AB239007D6001 /* POPStation.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F7C185AB239007D6001 /* POPStation.json */; };
 		52774F59184E282500B1E32D /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52774F56184E282500B1E32D /* _Stamp.m */; };
 		52774F5A184E282500B1E32D /* _StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52774F58184E282500B1E32D /* _StampImage.m */; };
 		527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 527C2F2F184FCC4B00F1FB4F /* NSDictionary+Additions.m */; };
@@ -81,10 +85,7 @@
 		528F26CF17F946B0006F7027 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F26D017F9561D006F7027 /* LocateUs_Types.plist */; };
 		528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */; };
-		528F26E417F97F25006F7027 /* postingboxes.csv in Resources */ = {isa = PBXBuildFile; fileRef = 528F26E317F97F25006F7027 /* postingboxes.csv */; };
 		528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26E717F97F3F006F7027 /* DatabaseSeeder.m */; };
-		528F26F617F99456006F7027 /* postoffices.csv in Resources */ = {isa = PBXBuildFile; fileRef = 528F26F517F99456006F7027 /* postoffices.csv */; };
-		528F26F817F99490006F7027 /* sams.csv in Resources */ = {isa = PBXBuildFile; fileRef = 528F26F717F99490006F7027 /* sams.csv */; };
 		528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */; };
 		528F270617F9C181006F7027 /* _EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270517F9C181006F7027 /* _EntityLocation.m */; };
 		528F270917F9C18C006F7027 /* EntityLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F270817F9C18C006F7027 /* EntityLocation.m */; };
@@ -194,8 +195,6 @@
 		52305F8817F5B20600610A86 /* UIFont+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SingPost.m"; sourceTree = "<group>"; };
 		52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		52305F9117F5B79100610A86 /* UIColor+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SingPost.h"; sourceTree = "<group>"; };
-		52305F9217F5B79100610A86 /* UIColor+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SingPost.m"; sourceTree = "<group>"; };
 		52305F9517F5C1CF00610A86 /* SidebarMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuTableViewCell.h; sourceTree = "<group>"; };
 		52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuTableViewCell.m; sourceTree = "<group>"; };
 		52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
@@ -226,6 +225,11 @@
 		526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImagesBrowserViewController.m; sourceTree = "<group>"; };
 		52731F6E185A72FB007D6001 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
 		52731F6F185A72FB007D6001 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
+		52731F72185AB1B4007D6001 /* SAM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SAM.json; sourceTree = "<group>"; };
+		52731F74185AB1DC007D6001 /* Posting Box.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Posting Box.json"; sourceTree = "<group>"; };
+		52731F76185AB1ED007D6001 /* Post Office.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Post Office.json"; sourceTree = "<group>"; };
+		52731F78185AB21D007D6001 /* Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Agent.json; sourceTree = "<group>"; };
+		52731F7C185AB239007D6001 /* POPStation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POPStation.json; sourceTree = "<group>"; };
 		52774F55184E282500B1E32D /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
 		52774F56184E282500B1E32D /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
 		52774F57184E282500B1E32D /* _StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StampImage.h; sourceTree = "<group>"; };
@@ -267,11 +271,8 @@
 		528F26CE17F946B0006F7027 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		528F26D017F9561D006F7027 /* LocateUs_Types.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LocateUs_Types.plist; sourceTree = "<group>"; };
 		528F26D817F97A35006F7027 /* SingPost.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SingPost.xcdatamodel; sourceTree = "<group>"; };
-		528F26E317F97F25006F7027 /* postingboxes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postingboxes.csv; sourceTree = "<group>"; };
 		528F26E617F97F3F006F7027 /* DatabaseSeeder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseSeeder.h; sourceTree = "<group>"; };
 		528F26E717F97F3F006F7027 /* DatabaseSeeder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseSeeder.m; sourceTree = "<group>"; };
-		528F26F517F99456006F7027 /* postoffices.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = postoffices.csv; sourceTree = "<group>"; };
-		528F26F717F99490006F7027 /* sams.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sams.csv; sourceTree = "<group>"; };
 		528F270117F9BBFC006F7027 /* LocateUsLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsLocationTableViewCell.h; sourceTree = "<group>"; };
 		528F270217F9BBFC006F7027 /* LocateUsLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsLocationTableViewCell.m; sourceTree = "<group>"; };
 		528F270417F9C181006F7027 /* _EntityLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EntityLocation.h; sourceTree = "<group>"; };
@@ -582,10 +583,8 @@
 		52305F8617F5B1DC00610A86 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				528F26E217F97EF1006F7027 /* CSVs */,
+				52731F71185AB194007D6001 /* LocationJSONs */,
 				528F268317F85AD9006F7027 /* Plists */,
-				52305F9117F5B79100610A86 /* UIColor+SingPost.h */,
-				52305F9217F5B79100610A86 /* UIColor+SingPost.m */,
 				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
 				52305F8817F5B20600610A86 /* UIFont+SingPost.m */,
 				52282FE617FAA8C300B2A7B4 /* EntityLocationMapAnnotation.h */,
@@ -667,6 +666,18 @@
 				52422F8718461CAB00970F23 /* PostalCodeStreetTableViewCell.m */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		52731F71185AB194007D6001 /* LocationJSONs */ = {
+			isa = PBXGroup;
+			children = (
+				52731F72185AB1B4007D6001 /* SAM.json */,
+				52731F74185AB1DC007D6001 /* Posting Box.json */,
+				52731F76185AB1ED007D6001 /* Post Office.json */,
+				52731F78185AB21D007D6001 /* Agent.json */,
+				52731F7C185AB239007D6001 /* POPStation.json */,
+			);
+			path = LocationJSONs;
 			sourceTree = "<group>";
 		};
 		528F268317F85AD9006F7027 /* Plists */ = {
@@ -813,16 +824,6 @@
 				52774F58184E282500B1E32D /* _StampImage.m */,
 			);
 			path = Machine;
-			sourceTree = "<group>";
-		};
-		528F26E217F97EF1006F7027 /* CSVs */ = {
-			isa = PBXGroup;
-			children = (
-				528F26F717F99490006F7027 /* sams.csv */,
-				528F26F517F99456006F7027 /* postoffices.csv */,
-				528F26E317F97F25006F7027 /* postingboxes.csv */,
-			);
-			path = CSVs;
 			sourceTree = "<group>";
 		};
 		528F270017F9BBD3006F7027 /* TableViewCells */ = {
@@ -1041,17 +1042,19 @@
 				528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */,
 				528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */,
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
+				52731F79185AB21D007D6001 /* Agent.json in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
-				528F26F817F99490006F7027 /* sams.csv in Resources */,
 				52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */,
+				52731F75185AB1DC007D6001 /* Posting Box.json in Resources */,
 				52024F3117F72D2000AFD239 /* OpenSans-Semibold.ttf in Resources */,
-				528F26F617F99456006F7027 /* postoffices.csv in Resources */,
+				52731F77185AB1ED007D6001 /* Post Office.json in Resources */,
 				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
 				52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */,
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
+				52731F7D185AB239007D6001 /* POPStation.json in Resources */,
 				528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */,
 				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
-				528F26E417F97F25006F7027 /* postingboxes.csv in Resources */,
+				52731F73185AB1B4007D6001 /* SAM.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1148,7 +1151,6 @@
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
 				521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
-				52305F9317F5B79100610A86 /* UIColor+SingPost.m in Sources */,
 				528C41401834129200145E55 /* FindPostalCodeLandmarkViewController.m in Sources */,
 				52A8B68C180F0098002BC431 /* ArticleViewController.m in Sources */,
 				52A8B6AE180F9F31002BC431 /* FAQViewController.m in Sources */,

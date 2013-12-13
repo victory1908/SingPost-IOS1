@@ -34,6 +34,7 @@
     [self.window setRootViewController:_rootViewController];
     [self.window makeKeyAndVisible];
     
+    [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
     [self setupGoogleAnalytics];
     
@@ -55,6 +56,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
 }
 
@@ -140,6 +142,14 @@
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
 	NSLog(@"Failed to get token, error: %@", error);
+}
+
+#pragma mark - Google Analytics
+
+- (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName
+{
+    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:screenName];
+    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 @end

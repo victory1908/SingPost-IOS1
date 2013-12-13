@@ -23,6 +23,7 @@
 #import <GAIFields.h>
 #import <GAIDictionaryBuilder.h>
 #import "Constants.h"
+#import "AppDelegate.h"
 
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define INTERFACE_IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)

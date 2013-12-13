@@ -2,7 +2,6 @@ platform :ios, '5.0'
 
 pod 'AFNetworking', '~> 1.3.2'
 pod 'AFRaptureXMLRequestOperation', '~> 1.0.2'
-pod 'CHCSVParser', '~> 2.0.7'
 pod 'GoogleAnalytics-iOS-SDK', '~> 3.0.2'
 pod 'MagicalRecord', '~> 2.2'
 pod 'KGModal', '~> 0.0.1'

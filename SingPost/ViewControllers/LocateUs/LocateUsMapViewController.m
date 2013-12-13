@@ -109,11 +109,7 @@
 
 - (void)showFilteredLocationsOnMapWithDelay
 {
-    double delayInSeconds = 2.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self showFilteredLocationsOnMap];
-    });
+    [self showFilteredLocationsOnMap];
 }
 
 - (void)showFilteredLocationsOnMap
@@ -144,18 +140,16 @@
         [self centerMapToFitAllLocations];
     }
     
-    if ([locationType isEqualToString:@"Post Office"]) {
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- PO Map"];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
-    else if ([locationType isEqualToString:@"SAM"]) {
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- SAM Map"];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
-    else if ([locationType isEqualToString:@"Posting Box"]) {
-        [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Locations- Posting Box Map"];
-        [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
+    if ([locationType isEqualToString:LOCATION_TYPE_POST_OFFICE])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- PO Map"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM Map"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Posting Box Map"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM Map"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation Map"];
 }
 
 - (void)centerMapAtLocation:(CLLocationCoordinate2D)coordinate
@@ -220,12 +214,16 @@
         }
         
         NSString *locationType = self.selectedLocationType;
-        if ([locationType isEqualToString:@"Post Office"])
+        if ([locationType isEqualToString:LOCATION_TYPE_POST_OFFICE])
             annotationView.image = [UIImage imageNamed:@"post_office_map_overlay"];
-        else if ([locationType isEqualToString:@"SAM"])
+        else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
             annotationView.image = [UIImage imageNamed:@"sam_map_overlay"];
-        else if ([locationType isEqualToString:@"Posting Box"])
+        else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
             annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
+        else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
+            annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
+        else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
+            annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];
     }
     
     return annotationView;

@@ -18,4 +18,7 @@
 + (AppDelegate *)sharedAppDelegate;
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection;
 
+//Google analytics
+- (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName;
+
 @end

@@ -13,13 +13,11 @@
 #import "Offer.h"
 #import "OfferImage.h"
 #import "NSDate+Extensions.h"
-#import <CHCSVParser.h>
 #import <SVProgressHUD.h>
 
 @implementation DatabaseSeeder
 
 #define SETTINGS_LOCATIONS_IS_SEEDED @"DB_IS_SEEDED"
-#define SETTINGS_STAMPS_IS_SEEDED @"STAMPS_IS_SEEDED"
 #define SETTINGS_OFFERS_IS_SEEDED @"OFFERS_IS_SEEDED"
 
 + (void)seedLocationsDataIfRequired
@@ -27,43 +25,18 @@
     if (![[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_LOCATIONS_IS_SEEDED]) {
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-            
-            [EntityLocation MR_truncateAllInContext:localContext];
-            
-            //seed posting boxes
-            NSString *csvFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"postingboxes" ofType:@"csv"];
-            NSArray *parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsSanitizesFields];
-            
-            for (id data in parsedData) {
-                EntityLocation *postingBox = [EntityLocation MR_createInContext:localContext];
-                [postingBox updateWithCsvRepresentation:data];
-            }
-            
-            //seed post offices
-            csvFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"postoffices" ofType:@"csv"];
-            parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsSanitizesFields];
-            
-            for (id data in parsedData) {
-                EntityLocation *postOffice = [EntityLocation MR_createInContext:localContext];
-                [postOffice updateWithCsvRepresentation:data];
-            }
-            
-            //seed sams
-            csvFile = [[NSBundle bundleForClass:[self class]] pathForResource:@"sams" ofType:@"csv"];
-            parsedData = [NSArray arrayWithContentsOfCSVFile:csvFile options:CHCSVParserOptionsSanitizesFields];
-            
-            for (id data in parsedData) {
-                EntityLocation *sam = [EntityLocation MR_createInContext:localContext];
-                [sam updateWithCsvRepresentation:data];
-            }
-            
-            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                if (!error) {
-                    [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:SETTINGS_LOCATIONS_IS_SEEDED];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                }
-                [SVProgressHUD dismiss];
+            [EntityLocation seedLocationsOfType:LOCATION_TYPE_POST_OFFICE onCompletion:^(BOOL success, NSError *error) {
+                [EntityLocation seedLocationsOfType:LOCATION_TYPE_SAM onCompletion:^(BOOL success, NSError *error) {
+                    [EntityLocation seedLocationsOfType:LOCATION_TYPE_POSTING_BOX onCompletion:^(BOOL success, NSError *error) {
+                        [EntityLocation seedLocationsOfType:LOCATION_TYPE_AGENT onCompletion:^(BOOL success, NSError *error) {
+                            [EntityLocation seedLocationsOfType:LOCATION_TYPE_POPSTATION onCompletion:^(BOOL success, NSError *error) {
+                                [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:SETTINGS_LOCATIONS_IS_SEEDED];
+                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                [SVProgressHUD dismiss];
+                            }];
+                        }];
+                    }];
+                }];
             }];
         });
     }

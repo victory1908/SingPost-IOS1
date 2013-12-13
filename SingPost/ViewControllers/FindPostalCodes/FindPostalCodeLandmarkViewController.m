@@ -67,8 +67,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode - Landmark"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode - Landmark"];
 }
 
 - (IBAction)findButtonClicked:(id)sender
@@ -90,8 +89,7 @@
                 [SVProgressHUD dismiss];
             }
             
-            [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode Result - Landmark"];
-            [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+            [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result - Landmark"];
             
             [resultsTableView reloadData];
             [resultsTableView setContentOffset:CGPointZero animated:YES];

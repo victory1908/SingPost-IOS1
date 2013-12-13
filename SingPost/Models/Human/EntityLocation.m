@@ -9,34 +9,6 @@
 
 static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
-- (void)updateWithCsvRepresentation:(NSArray *)csv
-{
-    self.name = csv[0];
-    self.type = csv[1];
-    self.address = csv[2];
-    self.latitude = csv[3];
-    self.longitude = csv[4];
-    self.notification = csv[5];
-    self.mon_opening = csv[6];
-    self.mon_closing = csv[7];
-    self.tue_opening = csv[8];
-    self.tue_closing = csv[9];
-    self.wed_opening = csv[10];
-    self.wed_closing = csv[11];
-    self.thu_opening = csv[12];
-    self.thu_closing = csv[13];
-    self.fri_opening = csv[14];
-    self.fri_closing = csv[15];
-    self.sat_opening = csv[16];
-    self.sat_closing = csv[17];
-    self.sun_opening = csv[18];
-    self.sun_closing = csv[19];
-    self.ph_opening = csv[20];
-    self.ph_closing = csv[21];
-    self.services = csv[22];
-    self.postingbox = csv[23];
-}
-
 - (void)updateWithApiRepresentation:(NSDictionary *)json
 {
     self.name = json[@"name"];
@@ -184,34 +156,53 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     return ([openingHour isEqualToString:@"-"] || [openingHour isEqualToString:@""]);
 }
 
+#pragma mark - Parser
+
++ (void)updateLocationsOfType:(NSString *)locationType jsonData:(id)json onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+{
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @synchronized(LOCATIONS_LOCK) {
+            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+            [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", locationType] inContext:localContext];
+            
+            [json[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                EntityLocation *location = [EntityLocation MR_createInContext:localContext];
+                [location updateWithApiRepresentation:attributes];
+            }];
+            
+            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                if (completionBlock) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock(!error, error);
+                    });
+                }
+            }];
+        }
+    });
+}
+
+#pragma mark - Seeders
+
++ (id)seedLocationsJsonOfType:(NSString *)locationType
+{
+    NSData *jsonData = [NSData dataWithContentsOfURL:[[NSBundle bundleForClass:self.class] URLForResource:locationType withExtension:@"json"]];
+    
+    return [NSJSONSerialization JSONObjectWithData:jsonData
+                                           options:kNilOptions
+                                             error:nil];
+}
+
++ (void)seedLocationsOfType:(NSString *)locationType onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+{
+    [[self class] updateLocationsOfType:locationType jsonData:[[self class] seedLocationsJsonOfType:locationType] onCompletion:completionBlock];
+}
+
 #pragma mark - API
 
 + (void)API_updatePostingBoxLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getPostingBoxLocationsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            @synchronized(LOCATIONS_LOCK) {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", LOCATION_TYPE_POSTING_BOX] inContext:localContext];
-                
-                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    EntityLocation *location = [EntityLocation MR_createInContext:localContext];
-                    [location updateWithApiRepresentation:attributes];
-                }];
-                
-                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                    if (completionBlock) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completionBlock(!error, error);
-                        });
-                    }
-                }];
-            }
-        });
-        
-        if (completionBlock) {
-            completionBlock(YES, nil);
-        }
+        [[self class] updateLocationsOfType:LOCATION_TYPE_POSTING_BOX jsonData:responseJSON onCompletion:completionBlock];
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             completionBlock(NO, error);
@@ -222,29 +213,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getPostOfficeLocationsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            @synchronized(LOCATIONS_LOCK) {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", LOCATION_TYPE_POST_OFFICE] inContext:localContext];
-                
-                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    EntityLocation *location = [EntityLocation MR_createInContext:localContext];
-                    [location updateWithApiRepresentation:attributes];
-                }];
-                
-                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                    if (completionBlock) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completionBlock(!error, error);
-                        });
-                    }
-                }];
-            }
-        });
-        
-        if (completionBlock) {
-            completionBlock(YES, nil);
-        }
+        [[self class] updateLocationsOfType:LOCATION_TYPE_POST_OFFICE jsonData:responseJSON onCompletion:completionBlock];
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             completionBlock(NO, error);
@@ -255,29 +224,29 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)API_updateSamLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getSamLocationsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            @synchronized(LOCATIONS_LOCK) {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-                [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", LOCATION_TYPE_SAM] inContext:localContext];
-                
-                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    EntityLocation *location = [EntityLocation MR_createInContext:localContext];
-                    [location updateWithApiRepresentation:attributes];
-                }];
-                
-                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                    if (completionBlock) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completionBlock(!error, error);
-                        });
-                    }
-                }];
-            }
-        });
-        
+        [[self class] updateLocationsOfType:LOCATION_TYPE_SAM jsonData:responseJSON onCompletion:completionBlock];
+    } onFailure:^(NSError *error) {
         if (completionBlock) {
-            completionBlock(YES, nil);
+            completionBlock(NO, error);
         }
+    }];
+}
+
++ (void)API_updateAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+{
+    [[ApiClient sharedInstance] getAgentLocationsOnSuccess:^(id responseJSON) {
+        [[self class] updateLocationsOfType:LOCATION_TYPE_AGENT jsonData:responseJSON onCompletion:completionBlock];
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            completionBlock(NO, error);
+        }
+    }];
+}
+
++ (void)API_updatePopStationLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+{
+    [[ApiClient sharedInstance] getPopStationLocationsOnSuccess:^(id responseJSON) {
+        [[self class] updateLocationsOfType:LOCATION_TYPE_POPSTATION jsonData:responseJSON onCompletion:completionBlock];
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             completionBlock(NO, error);

@@ -80,8 +80,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode - Street"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode - Street"];
 }
 
 - (IBAction)findButtonClicked:(id)sender
@@ -102,9 +101,8 @@
                 [SVProgressHUD dismiss];
             }
             
-            [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Postcode Result - Street"];
-            [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
-            
+            [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result- Street"];
+
             [resultsTableView reloadData];
             [resultsTableView setContentOffset:CGPointZero animated:YES];
             

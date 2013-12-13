@@ -10,7 +10,6 @@
 #import "NavigationBarView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIFont+SingPost.h"
-#import "UIColor+SingPost.h"
 #import "CTextField.h"
 #import "TrackingItemMainTableViewCell.h"
 #import "TrackingHeaderMainTableViewCell.h"
@@ -83,14 +82,19 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:@"Tracking Numbers"];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [SVProgressHUD dismiss];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

@@ -7,7 +7,6 @@
 //
 
 #import "CTextView.h"
-#import "UIColor+SingPost.h"
 #import "UIFont+SingPost.h"
 
 @implementation CTextView
@@ -25,7 +24,7 @@
     
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.backgroundColor = [UIColor clearColor];
-        self.textColor = [UIColor SingPostBlueColor];
+        self.textColor = RGB(36, 84, 157);
         self.font = [UIFont SingPostRegularFontOfSize:_fontSize fontKey:kSingPostFontOpenSans];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_textChanged:) name:UITextViewTextDidChangeNotification object:self];

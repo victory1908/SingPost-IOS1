@@ -8,7 +8,6 @@
 
 #import "SectionToggleButton.h"
 #import "UIFont+SingPost.h"
-#import "UIColor+SingPost.h"
 
 @implementation SectionToggleButton
 
@@ -16,7 +15,7 @@
 {
     if ((self = [super initWithFrame:frame])) {
         [self.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        [self setTitleColor:[UIColor SingPostBlueColor] forState:UIControlStateNormal];
+        [self setTitleColor:RGB(36, 84, 157) forState:UIControlStateNormal];
         [self setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
         
         UIView *rightSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width - 1, 0, 0.5f, self.bounds.size.height)];
