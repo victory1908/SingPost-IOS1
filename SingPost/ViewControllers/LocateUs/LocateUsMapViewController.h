@@ -11,8 +11,10 @@
 @interface LocateUsMapViewController : UIViewController
 
 @property (nonatomic, readonly) NSString *selectedLocationType;
+@property (nonatomic) NSUInteger selectedTypeRowIndex;
+@property (nonatomic) NSString *searchTerm;
 
 - (void)removeMapAnnotations;
-- (void)showFilteredLocationsOnMapWithDelay;
+- (void)showFilteredLocationsOnMap;
 
 @end

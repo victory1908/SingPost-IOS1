@@ -11,5 +11,9 @@
 @interface LocateUsListViewController : UIViewController
 
 @property (nonatomic, readonly) NSString *selectedLocationType;
+@property (nonatomic) NSUInteger selectedTypeRowIndex;
+@property (nonatomic) NSString *searchTerm;
+
+- (void)reloadData;
 
 @end

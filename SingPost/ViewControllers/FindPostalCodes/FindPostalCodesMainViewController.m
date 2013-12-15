@@ -154,6 +154,8 @@ typedef enum  {
 {
     currentSection = section;
     
+    [sectionContentScrollView endEditing:YES];
+    
     if (currentSection == FINDPOSTALCODES_SECTION_STREET)
         [selectedSectionIndicatorButton setTitle:@"Street" forState:UIControlStateNormal];
     else if (currentSection == FINDPOSTALCODES_SECTION_LANDMARK)

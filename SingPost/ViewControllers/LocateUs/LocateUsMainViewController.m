@@ -86,6 +86,9 @@ typedef enum {
             case LOCATEUS_VIEWMODE_LIST:
             {
                 currentMode = LOCATEUS_VIEWMODE_MAP;
+                [locateUsMapViewController setSearchTerm:locateUsListViewController.searchTerm];
+                [locateUsMapViewController setSelectedTypeRowIndex:locateUsListViewController.selectedTypeRowIndex];
+                [locateUsMapViewController showFilteredLocationsOnMap];
                 [toggleModesButton setImage:[UIImage imageNamed:@"list_toggle_button"] forState:UIControlStateNormal];
                 [(UIScrollView *)locateUsListViewController.view setContentOffset:CGPointZero];
                 [cubeContainerViewController animateFromCurrent:locateUsListViewController toNext:locateUsMapViewController forward:NO onCompletion:^{
@@ -96,6 +99,9 @@ typedef enum {
             case LOCATEUS_VIEWMODE_MAP:
             {
                 currentMode = LOCATEUS_VIEWMODE_LIST;
+                [locateUsListViewController setSearchTerm:locateUsMapViewController.searchTerm];
+                [locateUsListViewController setSelectedTypeRowIndex:locateUsMapViewController.selectedTypeRowIndex];
+                [locateUsListViewController reloadData];
                 [toggleModesButton setImage:[UIImage imageNamed:@"map_toggle_button"] forState:UIControlStateNormal];
                 [(UIScrollView *)locateUsMapViewController.view setContentOffset:CGPointZero];
                 [cubeContainerViewController animateFromCurrent:locateUsMapViewController toNext:locateUsListViewController forward:YES onCompletion:^{
@@ -112,22 +118,7 @@ typedef enum {
 
 - (IBAction)reloadButtonClicked:(id)sender
 {
-    NSString *selectedType;
-    switch (currentMode) {
-        case LOCATEUS_VIEWMODE_LIST:
-        {
-            selectedType = locateUsListViewController.selectedLocationType;
-            break;
-        }
-        case LOCATEUS_VIEWMODE_MAP:
-        {
-            selectedType = locateUsMapViewController.selectedLocationType;
-            break;
-        }
-        default:
-            NSAssert(NO, @"unsupported view mode type");
-            break;
-    }
+    NSString *selectedType = [self selectedType];
     
     [UIAlertView showWithTitle:@""
                        message:[NSString stringWithFormat:@"Refreshing the list of %@ may take awhile. Do you wish to proceeed?", selectedType]
@@ -140,31 +131,31 @@ typedef enum {
                               if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
                                   [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
+                                      [locateUsMapViewController showFilteredLocationsOnMap];
                                   }];
                               }
                               else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
                                   [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
+                                      [locateUsMapViewController showFilteredLocationsOnMap];
                                   }];
                               }
                               else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
                                   [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
+                                      [locateUsMapViewController showFilteredLocationsOnMap];
                                   }];
                               }
                               else if ([selectedType isEqualToString:LOCATION_TYPE_AGENT]) {
                                   [EntityLocation API_updateAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
+                                      [locateUsMapViewController showFilteredLocationsOnMap];
                                   }];
                               }
                               else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
                                   [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
                                       [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMapWithDelay];
+                                      [locateUsMapViewController showFilteredLocationsOnMap];
                                   }];
                               }
                               else {
@@ -172,6 +163,24 @@ typedef enum {
                               }
                           }
      }];
+}
+
+- (NSString *)selectedType
+{
+    switch (currentMode) {
+        case LOCATEUS_VIEWMODE_LIST:
+        {
+            return locateUsListViewController.selectedLocationType;
+            break;
+        }
+        case LOCATEUS_VIEWMODE_MAP:
+        {
+            return locateUsMapViewController.selectedLocationType;
+        }
+        default:
+            NSAssert(NO, @"unsupported view mode type");
+            return @"";
+    }
 }
 
 @end

@@ -12,16 +12,13 @@
 #import "CDropDownListControl.h"
 #import "FlatBlueButton.h"
 #import <MapKit/MapKit.h>
-#import "TPKeyboardAvoidingScrollView.h"
 #import "UIView+Position.h"
 #import "UIView+Origami.h"
 #import "UIFont+SingPost.h"
 #import "CMIndexBar.h"
 #import "LocateUsLocationTableViewCell.h"
 #import "AppDelegate.h"
-
 #import "LocateUsDetailsViewController.h"
-
 #import "EntityLocation.h"
 
 @interface LocateUsListViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CMIndexBarDelegate, CLLocationManagerDelegate, UITextFieldDelegate, CDropDownListControlDelegate>
@@ -32,7 +29,7 @@
 
 @implementation LocateUsListViewController
 {
-    TPKeyboardAvoidingScrollView *contentScrollView;
+    UIScrollView *contentScrollView;
     UITableView *locationsTableView;
     CTextField *findByTextField;
     UILabel *searchLocationsCountLabel;
@@ -62,7 +59,7 @@
 
 - (void)loadView
 {
-    contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    contentScrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [contentScrollView setDelaysContentTouches:NO];
     [contentScrollView setBackgroundColor:RGB(250, 250, 250)];
@@ -146,11 +143,6 @@
     [self discardLocationManager];
 }
 
-- (NSString *)selectedLocationType
-{
-    return typesDropDownList.selectedText;
-}
-
 - (void)updateNumLocations
 {
     [searchLocationsCountLabel setText:[NSString stringWithFormat:@"     %d locations found", [self isSearching] ? filteredSearchResults.count : self.fetchedResultsController.fetchedObjects.count]];
@@ -163,9 +155,10 @@
     if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
         return;
     }
-    
+
     if (!isAnimating) {
         isAnimating = YES;
+        [self.view endEditing:YES];
         [locationsTableView setBounces:NO];
         if (!shouldShowSearchTermsView)
             [locationsTableView setScrollEnabled:NO];
@@ -197,6 +190,39 @@
         }
     }
 }
+
+- (void)reloadData
+{
+    [self filterContentForSearchText:[self searchTerm]];
+}
+
+#pragma mark - Accessors
+
+- (NSString *)selectedLocationType
+{
+    return typesDropDownList.selectedText;
+}
+
+- (NSUInteger)selectedTypeRowIndex
+{
+    return typesDropDownList.selectedRowIndex;
+}
+
+- (void)setSelectedTypeRowIndex:(NSUInteger)inSelectedTypeRowIndex
+{
+    [typesDropDownList selectRow:inSelectedTypeRowIndex animated:YES];
+}
+
+- (NSString *)searchTerm
+{
+    return findByTextField.text;
+}
+
+- (void)setSearchTerm:(NSString *)searchTerm
+{
+    [findByTextField setText:searchTerm];
+}
+
 
 #pragma mark - Search
 
@@ -304,6 +330,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    NSLog(@"beep boop");
     if (scrollView.isTracking) {
         if (scrollView.contentOffset.y < 0)
             [self showSearchTermsView:YES];

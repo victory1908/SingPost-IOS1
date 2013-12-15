@@ -34,6 +34,8 @@
     BOOL initialShouldCenterUserLocation;
 }
 
+@synthesize searchTerm = _searchTerm;
+
 - (void)loadView
 {
     contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -86,9 +88,31 @@
     locateUsMapView = nil;
 }
 
+#pragma mark - Accessors
+
 - (NSString *)selectedLocationType
 {
     return typesDropDownList.selectedText;
+}
+
+- (NSUInteger)selectedTypeRowIndex
+{
+    return typesDropDownList.selectedRowIndex;
+}
+
+- (void)setSelectedTypeRowIndex:(NSUInteger)inSelectedTypeRowIndex
+{
+    [typesDropDownList selectRow:inSelectedTypeRowIndex animated:YES];
+}
+
+- (NSString *)searchTerm
+{
+    return findByTextField.text;
+}
+
+- (void)setSearchTerm:(NSString *)searchTerm
+{
+    [findByTextField setText:searchTerm];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -105,11 +129,6 @@
 {
     [locateUsMapView removeAnnotations:locationAnnotations];
     [locationAnnotations removeAllObjects];
-}
-
-- (void)showFilteredLocationsOnMapWithDelay
-{
-    [self showFilteredLocationsOnMap];
 }
 
 - (void)showFilteredLocationsOnMap

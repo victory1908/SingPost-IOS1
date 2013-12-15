@@ -18,7 +18,7 @@
 @synthesize failedNotificationTrackingNumbers = _failedNotificationTrackingNumbers;
 
 static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
-static NSString *const CMS_BASE_URL = @"http://mobile.singpost.com/";
+static NSString *const CMS_BASE_URL = @"http://192.241.251.130/singpost/";
 static NSString *const CMS_BASE_URL_V3 = @"http://192.241.251.130/singpost/v3/";
 
 static NSString *const APP_ID = @"M00001";
