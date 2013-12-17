@@ -96,7 +96,7 @@
         else {
             [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             [yearDropDownList setValues:[Stamp yearsDropDownValues]];
-            [yearDropDownList selectRow:MAX(0, yearDropDownList.values.count - 1) animated:NO];
+            [yearDropDownList selectRow:0 animated:NO];
             [weakSelf yearDropDownListSelected];
             [SVProgressHUD dismiss];
         }

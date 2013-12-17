@@ -161,6 +161,10 @@ typedef enum {
             [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
         }];
     }
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"There is no active item" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
+    }
 }
 
 - (IBAction)infoButtonClicked:(id)sender

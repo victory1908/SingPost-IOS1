@@ -30,7 +30,7 @@
             }];
             if (completionBlock) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(items, nil);
+                    completionBlock([items sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"netPostageCharges" ascending:YES selector:@selector(localizedStandardCompare:)]]], nil);
                 });
             }
         });
@@ -53,7 +53,7 @@
             }];
             if (completionBlock) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(items, nil);
+                    completionBlock([items sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"netPostageCharges" ascending:YES selector:@selector(localizedStandardCompare:)]]], nil);
                 });
             }
         });

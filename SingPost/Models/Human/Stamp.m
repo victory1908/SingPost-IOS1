@@ -96,7 +96,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     request.propertiesToFetch = @[StampAttributes.year];
     request.returnsDistinctResults = YES;
     request.resultType = NSDictionaryResultType;
-    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:StampAttributes.serverId ascending:YES]];
+    request.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:StampAttributes.year ascending:NO]];
     
     NSArray *years = [moc executeFetchRequest:request error:nil];
     
@@ -104,7 +104,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     for (NSDictionary *year in years) {
         [res addObject:@{@"code": [NSString stringWithFormat:@"%@ Collections", year[@"year"]], @"value": year[@"year"] }];
     }
-
+    
     return res;
 }
 
