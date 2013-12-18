@@ -86,6 +86,7 @@
 
 - (void)dismissActionSheet
 {
+    [self selectRow:[pickerView selectedRowInComponent:0] animated:NO];
     if ([_delegate respondsToSelector:@selector(CDropDownListControlDismissed:)]) {
         [_delegate CDropDownListControlDismissed:self];
     }
