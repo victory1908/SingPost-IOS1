@@ -19,7 +19,7 @@
 #import <SVProgressHUD.h>
 #import "UIImage+Extensions.h"
 
-#import "ItemTracking.h"
+#import "TrackedItem.h"
 #import "Article.h"
 
 typedef enum {
@@ -109,7 +109,7 @@ typedef enum {
 {
     _trackingNumber = inTrackingNumber;
     [trackingNumberTextField setText:_trackingNumber];
-    [ItemTracking saveLastKnownTrackingNumber:_trackingNumber];
+    [TrackedItem saveLastEnteredTrackingNumber:_trackingNumber];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -128,7 +128,7 @@ typedef enum {
     [self.view endEditing:YES];
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-        [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [SVProgressHUD dismiss];
             }
@@ -149,7 +149,7 @@ typedef enum {
     if (itemsToReload.count > 0) {
         __block CGFloat updateProgress = 0.0f;
         [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
-        [ItemTracking API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
+        [TrackedItem API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
             if (error) {
                 [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
             }
@@ -202,7 +202,7 @@ typedef enum {
     if (indexPath.row == 0)
         return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 90.0f : 30.0f;
     
-    ItemTracking *trackedItem;
+    TrackedItem *trackedItem;
     if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
         trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
     else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
@@ -368,15 +368,31 @@ typedef enum {
         [self.view endEditing:YES];
     }
     else {
-        ItemTracking *trackedItem;
+        TrackedItem *trackedItem;
         if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
             trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
             trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         
-        TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (trackedItem.shouldRefetchFromServer) {
+            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+            [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
+                if (success) {
+                    [SVProgressHUD dismiss];
+                    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+                    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+                    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                }
+                else {
+                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                }
+            }];
+        }
+        else {
+            TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
     }
 }
 
@@ -393,14 +409,13 @@ typedef enum {
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        ItemTracking *trackedItemToDelete = nil;
+        TrackedItem *trackedItemToDelete = nil;
         if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
             trackedItemToDelete = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
             trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         
-        NSLog(@"deleting tracking item: %@", trackedItemToDelete.trackingNumber);
-        [ItemTracking deleteTrackedItem:trackedItemToDelete];
+        [TrackedItem deleteTrackedItem:trackedItemToDelete];
         [tableView setEditing:NO animated:YES];
     }
 }
@@ -417,7 +432,7 @@ typedef enum {
 - (NSFetchedResultsController *)activeItemsFetchedResultsController
 {
     if (!_activeItemsFetchedResultsController) {
-        _activeItemsFetchedResultsController = [ItemTracking MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 1"] sortedBy:ItemTrackingAttributes.addedOn ascending:NO delegate:self];
+        _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 1"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
     }
     
     return _activeItemsFetchedResultsController;
@@ -426,7 +441,7 @@ typedef enum {
 - (NSFetchedResultsController *)completedItemsFetchedResultsController
 {
     if (!_completedItemsFetchedResultsController) {
-        _completedItemsFetchedResultsController = [ItemTracking MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 0"] sortedBy:ItemTrackingAttributes.addedOn ascending:NO delegate:self];
+        _completedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 0"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
     }
     
     return _completedItemsFetchedResultsController;

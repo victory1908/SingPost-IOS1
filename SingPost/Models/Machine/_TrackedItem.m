@@ -1,44 +1,45 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to ItemTracking.m instead.
+// Make changes to TrackedItem.m instead.
 
-#import "_ItemTracking.h"
+#import "_TrackedItem.h"
 
-const struct ItemTrackingAttributes ItemTrackingAttributes = {
+const struct TrackedItemAttributes TrackedItemAttributes = {
 	.addedOn = @"addedOn",
 	.destinationCountry = @"destinationCountry",
 	.isActive = @"isActive",
+	.lastUpdatedOn = @"lastUpdatedOn",
 	.originalCountry = @"originalCountry",
 	.trackingNumber = @"trackingNumber",
 };
 
-const struct ItemTrackingRelationships ItemTrackingRelationships = {
+const struct TrackedItemRelationships TrackedItemRelationships = {
 	.deliveryStatuses = @"deliveryStatuses",
 };
 
-const struct ItemTrackingFetchedProperties ItemTrackingFetchedProperties = {
+const struct TrackedItemFetchedProperties TrackedItemFetchedProperties = {
 };
 
-@implementation ItemTrackingID
+@implementation TrackedItemID
 @end
 
-@implementation _ItemTracking
+@implementation _TrackedItem
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"ItemTracking" inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"TrackedItem" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return @"ItemTracking";
+	return @"TrackedItem";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"ItemTracking" inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"TrackedItem" inManagedObjectContext:moc_];
 }
 
-- (ItemTrackingID*)objectID {
-	return (ItemTrackingID*)[super objectID];
+- (TrackedItemID*)objectID {
+	return (TrackedItemID*)[super objectID];
 }
 
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
@@ -91,6 +92,13 @@ const struct ItemTrackingFetchedProperties ItemTrackingFetchedProperties = {
 - (void)setPrimitiveIsActiveValue:(BOOL)value_ {
 	[self setPrimitiveIsActive:[NSNumber numberWithBool:value_]];
 }
+
+
+
+
+
+@dynamic lastUpdatedOn;
+
 
 
 

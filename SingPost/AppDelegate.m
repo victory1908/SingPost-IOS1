@@ -9,9 +9,13 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import <Reachability.h>
+#import <UIAlertView+Blocks.h>
+#import <SVProgressHUD.h>
 #import "DatabaseSeeder.h"
 #import "PushNotification.h"
+#import "TrackedItem.h"
 #import "ApiClient.h"
+#import "TrackingMainViewController.h"
 
 @implementation AppDelegate
 
@@ -110,14 +114,36 @@
 {
     NSLog(@"received payload: %@", payloadInfo);
     
+    NSString *trackingNumber = payloadInfo[@"i"];
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
     
-    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
-    if (state == UIApplicationStateActive) {
-        if ([aps[@"alert"] length] > 0) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"SingPost" message:aps[@"alert"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-            [alertView show];
-        }
+    if (trackingNumber.length > 0) {
+        //it's a tracking item apns
+        [UIAlertView showWithTitle:@"SingPost"
+                           message:aps[@"alert"]
+                 cancelButtonTitle:@"Cancel"
+                 otherButtonTitles:@[@"View"]
+                          tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                              if (buttonIndex != [alertView cancelButtonIndex]) {
+                                  [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+                                  [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumber onCompletion:^(BOOL success, NSError *error) {
+                                      if (success) {
+                                          [SVProgressHUD dismiss];
+                                          TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+                                          trackingMainViewController.trackingNumber = trackingNumber;
+                                          [self.rootViewController cPushViewController:trackingMainViewController];
+                                      }
+                                      else {
+                                          [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                                      }
+                                  }];
+                              }
+                          }];
+    }
+    else {
+        //a plain alert apns
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"SingPost" message:aps[@"alert"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+        [alertView show];
     }
 }
 

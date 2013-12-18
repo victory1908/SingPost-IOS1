@@ -10,11 +10,11 @@
 
 #define STATUS_LABEL_SIZE CGSizeMake(120, 500)
 
-@class ItemTracking;
+@class TrackedItem;
 
 @interface TrackingItemMainTableViewCell : UITableViewCell
 
-@property (nonatomic) ItemTracking *item;
+@property (nonatomic) TrackedItem *item;
 @property (nonatomic, assign) BOOL hideSeparatorView;
 
 @end

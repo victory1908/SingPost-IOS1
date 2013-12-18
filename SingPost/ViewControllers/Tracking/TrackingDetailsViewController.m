@@ -11,7 +11,7 @@
 #import "UIFont+SingPost.h"
 #import "UIImage+Extensions.h"
 #import "TrackingItemDetailTableViewCell.h"
-#import "ItemTracking.h"
+#import "TrackedItem.h"
 #import "DeliveryStatus.h"
 #import <KGModal.h>
 #import <QuartzCore/QuartzCore.h>
@@ -26,7 +26,7 @@
 {
     UILabel *trackingNumberLabel, *originLabel, *destinationLabel;
     UITableView *trackingDetailTableView;
-    ItemTracking *_trackedItem;
+    TrackedItem *_trackedItem;
     NSArray *_deliveryStatuses;
 }
 
@@ -155,7 +155,7 @@
 }
 
 //designated initializer
-- (id)initWithTrackedItem:(ItemTracking *)inTrackedItem
+- (id)initWithTrackedItem:(TrackedItem *)inTrackedItem
 {
     NSParameterAssert(inTrackedItem);
     if ((self = [super initWithNibName:nil bundle:nil])) {

@@ -8,7 +8,7 @@
 
 #import "TrackingItemMainTableViewCell.h"
 #import "UIFont+SingPost.h"
-#import "ItemTracking.h"
+#import "TrackedItem.h"
 #import "PersistentBackgroundView.h"
 #import "UILabel+VerticalAlign.h"
 #import "UIView+Position.h"
@@ -58,7 +58,7 @@
     [separatorView setHidden:_hideSeparatorView];
 }
 
-- (void)setItem:(ItemTracking *)inItem
+- (void)setItem:(TrackedItem *)inItem
 {
     _item = inItem;
     [trackingNumberLabel setText:_item.trackingNumber];

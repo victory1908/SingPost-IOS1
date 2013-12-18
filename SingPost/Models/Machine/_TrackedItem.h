@@ -1,23 +1,24 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to ItemTracking.h instead.
+// Make changes to TrackedItem.h instead.
 
 #import <CoreData/CoreData.h>
 
 
-extern const struct ItemTrackingAttributes {
+extern const struct TrackedItemAttributes {
 	__unsafe_unretained NSString *addedOn;
 	__unsafe_unretained NSString *destinationCountry;
 	__unsafe_unretained NSString *isActive;
+	__unsafe_unretained NSString *lastUpdatedOn;
 	__unsafe_unretained NSString *originalCountry;
 	__unsafe_unretained NSString *trackingNumber;
-} ItemTrackingAttributes;
+} TrackedItemAttributes;
 
-extern const struct ItemTrackingRelationships {
+extern const struct TrackedItemRelationships {
 	__unsafe_unretained NSString *deliveryStatuses;
-} ItemTrackingRelationships;
+} TrackedItemRelationships;
 
-extern const struct ItemTrackingFetchedProperties {
-} ItemTrackingFetchedProperties;
+extern const struct TrackedItemFetchedProperties {
+} TrackedItemFetchedProperties;
 
 @class DeliveryStatus;
 
@@ -27,14 +28,15 @@ extern const struct ItemTrackingFetchedProperties {
 
 
 
-@interface ItemTrackingID : NSManagedObjectID {}
+
+@interface TrackedItemID : NSManagedObjectID {}
 @end
 
-@interface _ItemTracking : NSManagedObject {}
+@interface _TrackedItem : NSManagedObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (ItemTrackingID*)objectID;
+- (TrackedItemID*)objectID;
 
 
 
@@ -74,6 +76,16 @@ extern const struct ItemTrackingFetchedProperties {
 
 
 
+@property (nonatomic, strong) NSDate* lastUpdatedOn;
+
+
+
+//- (BOOL)validateLastUpdatedOn:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
 @property (nonatomic, strong) NSString* originalCountry;
 
 
@@ -104,7 +116,7 @@ extern const struct ItemTrackingFetchedProperties {
 
 @end
 
-@interface _ItemTracking (CoreDataGeneratedAccessors)
+@interface _TrackedItem (CoreDataGeneratedAccessors)
 
 - (void)addDeliveryStatuses:(NSOrderedSet*)value_;
 - (void)removeDeliveryStatuses:(NSOrderedSet*)value_;
@@ -113,7 +125,7 @@ extern const struct ItemTrackingFetchedProperties {
 
 @end
 
-@interface _ItemTracking (CoreDataGeneratedPrimitiveAccessors)
+@interface _TrackedItem (CoreDataGeneratedPrimitiveAccessors)
 
 
 - (NSDate*)primitiveAddedOn;
@@ -133,6 +145,12 @@ extern const struct ItemTrackingFetchedProperties {
 
 - (BOOL)primitiveIsActiveValue;
 - (void)setPrimitiveIsActiveValue:(BOOL)value_;
+
+
+
+
+- (NSDate*)primitiveLastUpdatedOn;
+- (void)setPrimitiveLastUpdatedOn:(NSDate*)value;
 
 
 

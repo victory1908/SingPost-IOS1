@@ -1,16 +1,16 @@
-#import "ItemTracking.h"
+#import "TrackedItem.h"
 #import "ApiClient.h"
 #import "DeliveryStatus.h"
 #import "PushNotification.h"
 
-@interface ItemTracking ()
+@interface TrackedItem ()
 
 // Private interface goes here.
 
 @end
 
 
-@implementation ItemTracking
+@implementation TrackedItem
 
 - (NSString *)status
 {
@@ -18,7 +18,14 @@
     return firstDeliveryStatus ? firstDeliveryStatus.statusDescription : @"-";
 }
 
-+ (ItemTracking *)createIfNotExistsFromXMLElement:(RXMLElement *)el inContext:(NSManagedObjectContext *)context error:(NSError **)error
+- (BOOL)shouldRefetchFromServer
+{
+#define STALE_INTERVAL_SECONDS 300
+    NSTimeInterval intervalSinceLastUpdated = [[NSDate date] timeIntervalSinceDate:self.lastUpdatedOn];
+    return self.isActiveValue && (fabsl(intervalSinceLastUpdated) > STALE_INTERVAL_SECONDS);
+}
+
++ (TrackedItem *)createIfNotExistsFromXMLElement:(RXMLElement *)el inContext:(NSManagedObjectContext *)context error:(NSError **)error
 {
     if (![[[el child:@"TrackingNumberFound"] text] boolValue]) {
         *error = [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"Tracking number not found"}];
@@ -26,19 +33,20 @@
     }
     
     NSString *trackingNumber = [[el child:@"TrackingNumber"] text];
-    ItemTracking *trackingItem = [ItemTracking MR_findFirstByAttribute:ItemTrackingAttributes.trackingNumber withValue:trackingNumber inContext:context];
-    if (!trackingItem) {
-        trackingItem = [ItemTracking MR_createInContext:context];
-        [trackingItem setAddedOn:[NSDate date]];
+    TrackedItem *trackedItem = [TrackedItem MR_findFirstByAttribute:TrackedItemAttributes.trackingNumber withValue:trackingNumber inContext:context];
+    if (!trackedItem) {
+        trackedItem = [TrackedItem MR_createInContext:context];
+        [trackedItem setAddedOn:[NSDate date]];
     }
     
-    [trackingItem setIsActiveValue:[[el child:@"TrackingNumberActive"].text boolValue]];
-    [trackingItem setTrackingNumber:trackingNumber];
-    [trackingItem setOriginalCountry:[el child:@"OriginalCountry"].text];
-    [trackingItem setDestinationCountry:[el child:@"DestinationCountry"].text];
+    [trackedItem setIsActiveValue:[[el child:@"TrackingNumberActive"].text boolValue]];
+    [trackedItem setTrackingNumber:trackingNumber];
+    [trackedItem setOriginalCountry:[el child:@"OriginalCountry"].text];
+    [trackedItem setDestinationCountry:[el child:@"DestinationCountry"].text];
+    [trackedItem setLastUpdatedOn:[NSDate date]];
     
     //delete existing status
-    for (DeliveryStatus *deliveryStatus in trackingItem.deliveryStatuses) {
+    for (DeliveryStatus *deliveryStatus in trackedItem.deliveryStatuses) {
         [context deleteObject:deliveryStatus];
     }
     
@@ -50,9 +58,9 @@
         [deliveries addObject:[DeliveryStatus createFromXMLElement:rxmlDeliveryStatus inContext:context]];
     }
     
-    [trackingItem setDeliveryStatuses:deliveries];
+    [trackedItem setDeliveryStatuses:deliveries];
     
-    return trackingItem;
+    return trackedItem;
 }
 
 + (void)API_batchUpdateTrackedItems:(NSArray *)trackedItems onCompletion:(void(^)(BOOL success, NSError *error))completionBlock withProgressCompletion:(void(^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progressCompletion;
@@ -61,9 +69,9 @@
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             RXMLElement *rxmlItems = [rootXML child:@"ItemsTrackingDetailList"];
-
+            
             for (RXMLElement *rxmlItem in [rxmlItems children:@"ItemTrackingDetail"]) {
-                [ItemTracking createIfNotExistsFromXMLElement:rxmlItem inContext:localContext error:nil];
+                [TrackedItem createIfNotExistsFromXMLElement:rxmlItem inContext:localContext error:nil];
             }
             
             [localContext MR_saveToPersistentStoreAndWait];
@@ -92,7 +100,7 @@
             RXMLElement *rxmlItems = [rootXML child:@"ItemsTrackingDetailList"];
             
             NSError *error;
-            ItemTracking *trackedItem = [ItemTracking createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
+            TrackedItem *trackedItem = [TrackedItem createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
             if (!error) {
                 [PushNotification API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
                     //TODO: fail workflow
@@ -119,7 +127,7 @@
     }];
 }
 
-+ (void)deleteTrackedItem:(ItemTracking *)trackedItemToDelete
++ (void)deleteTrackedItem:(TrackedItem *)trackedItemToDelete
 {
     [trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
     [trackedItemToDelete.managedObjectContext save:nil];
@@ -129,15 +137,29 @@
     }];
 }
 
-+ (void)saveLastKnownTrackingNumber:(NSString *)lastKnownTrackingNumber
++ (void)saveLastEnteredTrackingNumber:(NSString *)lastKnownTrackingNumber
 {
-    [[NSUserDefaults standardUserDefaults] setValue:[lastKnownTrackingNumber uppercaseString] forKey:@"SETTINGS_LASTKNOWNTRACKINGNUMBER"];
+    [[NSUserDefaults standardUserDefaults] setValue:[lastKnownTrackingNumber uppercaseString] forKey:@"SETTINGS_LASTENTEREDTRACKINGNUMBER"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (NSString *)lastKnownTrackingNumber
++ (NSString *)lastEnteredTrackingNumber
 {
-    return [[NSUserDefaults standardUserDefaults] valueForKey:@"SETTINGS_LASTKNOWNTRACKINGNUMBER"];
+    return [[NSUserDefaults standardUserDefaults] valueForKey:@"SETTINGS_LASTENTEREDTRACKINGNUMBER"];
+}
+
++ (NSArray *)itemsRequiringUpdates
+{
+    NSArray *activeItems = [TrackedItem MR_findByAttribute:TrackedItemAttributes.isActive withValue:@(1)];
+    
+    NSMutableArray *res = [NSMutableArray array];
+    
+    for (TrackedItem *item in activeItems) {
+        if (item.shouldRefetchFromServer)
+            [res addObject:item];
+    }
+    
+    return res;
 }
 
 @end

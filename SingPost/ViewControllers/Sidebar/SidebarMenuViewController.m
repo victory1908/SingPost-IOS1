@@ -31,7 +31,7 @@
 #import "FAQViewController.h"
 #import "MaintanancePageViewController.h"
 
-#import "ItemTracking.h"
+#import "TrackedItem.h"
 #import <SVProgressHUD.h>
 
 @interface SidebarTrackingNumberTextField : UITextField
@@ -149,7 +149,7 @@
     [self.view endEditing:YES];
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-        [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
             [self.view endEditing:YES];
             if (success) {
                 [SVProgressHUD dismiss];
@@ -213,7 +213,7 @@
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setDelegate:self];
     [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
-    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
+    [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
     [headerView addSubview:trackingNumberTextField];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];

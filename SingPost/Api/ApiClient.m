@@ -8,7 +8,7 @@
 
 #import "ApiClient.h"
 #import "EntityLocation.h"
-#import "ItemTracking.h"
+#import "TrackedItem.h"
 #import "Stamp.h"
 #import <SSKeychain.h>
 
@@ -390,7 +390,7 @@ static NSString *const OS = @"ios";
         
         if (chunkedTrackedItems.count > 0) {
             NSMutableString *trackingNumbersXml = [NSMutableString string];
-            for (ItemTracking *trackedItem in chunkedTrackedItems) {
+            for (TrackedItem *trackedItem in chunkedTrackedItems) {
                 [trackingNumbersXml appendFormat:@"<TrackingNumber>%@</TrackingNumber>", [trackedItem.trackingNumber uppercaseString]];
             }
             

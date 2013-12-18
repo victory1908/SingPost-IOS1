@@ -1,13 +1,16 @@
-#import "_ItemTracking.h"
+#import "_TrackedItem.h"
 
-@interface ItemTracking : _ItemTracking {}
+@interface TrackedItem : _TrackedItem {}
 
 @property (nonatomic, readonly) NSString *status;
+@property (nonatomic, readonly) BOOL shouldRefetchFromServer;
 
-+ (void)saveLastKnownTrackingNumber:(NSString *)lastKnownTrackingNumber;
-+ (NSString *)lastKnownTrackingNumber;
++ (void)saveLastEnteredTrackingNumber:(NSString *)lastKnownTrackingNumber;
++ (NSString *)lastEnteredTrackingNumber;
 
-+ (void)deleteTrackedItem:(ItemTracking *)trackedItemToDelete;
++ (NSArray *)itemsRequiringUpdates;
+
++ (void)deleteTrackedItem:(TrackedItem *)trackedItemToDelete;
 
 + (void)API_getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_batchUpdateTrackedItems:(NSArray *)trackedItems onCompletion:(void(^)(BOOL success, NSError *error))completionBlock withProgressCompletion:(void(^)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations))progressCompletion;

@@ -43,6 +43,8 @@
 		52305F9717F5C1CF00610A86 /* SidebarMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */; };
 		52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */; };
 		52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
+		52359CDA186137E90068E6B9 /* _TrackedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52359CD9186137E90068E6B9 /* _TrackedItem.m */; };
+		52359CDD186137F80068E6B9 /* TrackedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52359CDC186137F80068E6B9 /* TrackedItem.m */; };
 		5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0B81833DE5B00E9358A /* CalculatePostageOverseasViewController.m */; };
 		5237B0BC1833DF3300E9358A /* CalculatePostageSingaporeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BB1833DF3300E9358A /* CalculatePostageSingaporeViewController.m */; };
 		5237B0BF1833E71B00E9358A /* CalculatePostageResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */; };
@@ -53,7 +55,6 @@
 		52518A28184C841100F4F104 /* ArticleSubCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52518A27184C841100F4F104 /* ArticleSubCategoryViewController.m */; };
 		526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */; };
 		526E92B7183FDA0200552710 /* PostalCodePoBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B6183FDA0200552710 /* PostalCodePoBoxTableViewCell.m */; };
-		526E92BA183FE6AE00552710 /* _ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B9183FE6AE00552710 /* _ItemTracking.m */; };
 		526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */; };
 		52731F70185A72FB007D6001 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52731F6F185A72FB007D6001 /* NSString+Extensions.m */; };
 		52731F73185AB1B4007D6001 /* SAM.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F72185AB1B4007D6001 /* SAM.json */; };
@@ -114,7 +115,6 @@
 		52A8B6AE180F9F31002BC431 /* FAQViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B6AD180F9F31002BC431 /* FAQViewController.m */; };
 		52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */; };
 		52AF5B2617FB48C2002D6798 /* CubeTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */; };
-		52B40292183B625700D14D43 /* ItemTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B40291183B625700D14D43 /* ItemTracking.m */; };
 		52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B4029A183B88D100D14D43 /* DeliveryStatus.m */; };
 		52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
@@ -199,6 +199,10 @@
 		52305F9617F5C1CF00610A86 /* SidebarMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuTableViewCell.m; sourceTree = "<group>"; };
 		52305F9B17F5C47100610A86 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		52305F9D17F5D44800610A86 /* SidebarMenus.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SidebarMenus.plist; path = TableViewCells/SidebarMenus.plist; sourceTree = "<group>"; };
+		52359CD8186137E90068E6B9 /* _TrackedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _TrackedItem.h; sourceTree = "<group>"; };
+		52359CD9186137E90068E6B9 /* _TrackedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _TrackedItem.m; sourceTree = "<group>"; };
+		52359CDB186137F80068E6B9 /* TrackedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackedItem.h; sourceTree = "<group>"; };
+		52359CDC186137F80068E6B9 /* TrackedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackedItem.m; sourceTree = "<group>"; };
 		5237B0B71833DE5B00E9358A /* CalculatePostageOverseasViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageOverseasViewController.h; sourceTree = "<group>"; };
 		5237B0B81833DE5B00E9358A /* CalculatePostageOverseasViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatePostageOverseasViewController.m; sourceTree = "<group>"; };
 		5237B0BA1833DF3300E9358A /* CalculatePostageSingaporeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatePostageSingaporeViewController.h; sourceTree = "<group>"; };
@@ -219,8 +223,6 @@
 		526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCodeLandmarkResultTableViewCell.m; sourceTree = "<group>"; };
 		526E92B5183FDA0200552710 /* PostalCodePoBoxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCodePoBoxTableViewCell.h; sourceTree = "<group>"; };
 		526E92B6183FDA0200552710 /* PostalCodePoBoxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCodePoBoxTableViewCell.m; sourceTree = "<group>"; };
-		526E92B8183FE6AE00552710 /* _ItemTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ItemTracking.h; sourceTree = "<group>"; };
-		526E92B9183FE6AE00552710 /* _ItemTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ItemTracking.m; sourceTree = "<group>"; };
 		526FA1A0180BB7BD00E562E7 /* StampImagesBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampImagesBrowserViewController.h; sourceTree = "<group>"; };
 		526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImagesBrowserViewController.m; sourceTree = "<group>"; };
 		52731F6E185A72FB007D6001 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
@@ -329,8 +331,6 @@
 		52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsMapViewController.m; sourceTree = "<group>"; };
 		52AF5B2417FB48C2002D6798 /* CubeTransitionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubeTransitionViewController.h; sourceTree = "<group>"; };
 		52AF5B2517FB48C2002D6798 /* CubeTransitionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubeTransitionViewController.m; sourceTree = "<group>"; };
-		52B40290183B625700D14D43 /* ItemTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemTracking.h; sourceTree = "<group>"; };
-		52B40291183B625700D14D43 /* ItemTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTracking.m; sourceTree = "<group>"; };
 		52B40299183B88D100D14D43 /* DeliveryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeliveryStatus.h; sourceTree = "<group>"; };
 		52B4029A183B88D100D14D43 /* DeliveryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeliveryStatus.m; sourceTree = "<group>"; };
 		52B402A5183BCA8E00D14D43 /* _DeliveryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DeliveryStatus.h; sourceTree = "<group>"; };
@@ -787,8 +787,6 @@
 				52B4029A183B88D100D14D43 /* DeliveryStatus.m */,
 				528F270717F9C18C006F7027 /* EntityLocation.h */,
 				528F270817F9C18C006F7027 /* EntityLocation.m */,
-				52B40290183B625700D14D43 /* ItemTracking.h */,
-				52B40291183B625700D14D43 /* ItemTracking.m */,
 				529090F2180D2A2900D84030 /* Offer.h */,
 				529090F3180D2A2900D84030 /* Offer.m */,
 				529090F4180D2A2900D84030 /* OfferImage.h */,
@@ -799,6 +797,8 @@
 				52936480180B0FEE00B83F6B /* Stamp.m */,
 				529364A5180B2FFE00B83F6B /* StampImage.h */,
 				529364A6180B2FFE00B83F6B /* StampImage.m */,
+				52359CDB186137F80068E6B9 /* TrackedItem.h */,
+				52359CDC186137F80068E6B9 /* TrackedItem.m */,
 			);
 			path = Human;
 			sourceTree = "<group>";
@@ -812,8 +812,6 @@
 				52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */,
 				528F270417F9C181006F7027 /* _EntityLocation.h */,
 				528F270517F9C181006F7027 /* _EntityLocation.m */,
-				526E92B8183FE6AE00552710 /* _ItemTracking.h */,
-				526E92B9183FE6AE00552710 /* _ItemTracking.m */,
 				529090EC180D2A1F00D84030 /* _Offer.h */,
 				529090ED180D2A1F00D84030 /* _Offer.m */,
 				529090EE180D2A1F00D84030 /* _OfferImage.h */,
@@ -822,6 +820,8 @@
 				52774F56184E282500B1E32D /* _Stamp.m */,
 				52774F57184E282500B1E32D /* _StampImage.h */,
 				52774F58184E282500B1E32D /* _StampImage.m */,
+				52359CD8186137E90068E6B9 /* _TrackedItem.h */,
+				52359CD9186137E90068E6B9 /* _TrackedItem.m */,
 			);
 			path = Machine;
 			sourceTree = "<group>";
@@ -1103,6 +1103,7 @@
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
+				52359CDA186137E90068E6B9 /* _TrackedItem.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
 				52C908ED18046BCA0063A026 /* Article.m in Sources */,
 				52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */,
@@ -1146,6 +1147,7 @@
 				52909103180D2D2700D84030 /* OfferDetailsViewController.m in Sources */,
 				529364A7180B2FFE00B83F6B /* StampImage.m in Sources */,
 				526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */,
+				52359CDD186137F80068E6B9 /* TrackedItem.m in Sources */,
 				52C90915180490330063A026 /* PaymentMainViewController.m in Sources */,
 				521F785F1802944100B513FA /* CTextView.m in Sources */,
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
@@ -1170,9 +1172,7 @@
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
-				52B40292183B625700D14D43 /* ItemTracking.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
-				526E92BA183FE6AE00552710 /* _ItemTracking.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */,
 				52518A1A184B060000F4F104 /* PushNotification.m in Sources */,
@@ -1303,7 +1303,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
+				PROVISIONING_PROFILE = "00A3D069-917E-4BA8-8686-21B9409E4685";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1322,7 +1322,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
+				PROVISIONING_PROFILE = "00A3D069-917E-4BA8-8686-21B9409E4685";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

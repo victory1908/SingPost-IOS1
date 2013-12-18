@@ -30,7 +30,7 @@
 #import "FAQViewController.h"
 #import "MaintanancePageViewController.h"
 
-#import "ItemTracking.h"
+#import "TrackedItem.h"
 #import <SVProgressHUD.h>
 
 typedef enum {
@@ -219,7 +219,7 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [trackingNumberTextField setText:[ItemTracking lastKnownTrackingNumber]];
+    [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -498,7 +498,7 @@ typedef enum {
 {
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-        [ItemTracking API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [SVProgressHUD dismiss];
                 TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
