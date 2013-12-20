@@ -85,16 +85,12 @@
 
 - (void)configureCell:(ArticleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    //only process if an item cell (not a separator cell!)
-    if (indexPath.row % 2 == 0) {
-        int dataRow = floorf(indexPath.row / 2.0f);
-        cell.title = moreAppsDisplayTexts[dataRow];
-    }
+    cell.title = moreAppsDisplayTexts[indexPath.row];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (indexPath.row % 2 == 0) ? 70.0f : 1.0f;
+    return 70.0f;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -104,40 +100,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return moreAppsDisplayTexts.count * 2;
+    return moreAppsDisplayTexts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *const itemCellIdentifier = @"MoreAppsItemTableViewCell";
-    static NSString *const separatorCellIdentifier = @"SeparatorTableViewCell";
     
-    if ((indexPath.row % 2) == 0) {
-        ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
-        if (!cell)
-            cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-        
-        [self configureCell:cell atIndexPath:indexPath];
-        
-        return cell;
-    }
-    else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:separatorCellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:separatorCellIdentifier];
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width, 1)];
-            [separatorView setBackgroundColor:RGB(196, 197, 200)];
-            [cell.contentView addSubview:separatorView];
-        }
-        return cell;
-    }
-}
+    ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
+    if (!cell)
+        cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int dataRow = floorf(indexPath.row / 2.0f);
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:moreAppsURLs[dataRow]]];
-    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:moreAppsURLs[indexPath.row]]];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
