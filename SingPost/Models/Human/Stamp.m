@@ -21,6 +21,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     self.details = json[@"Description"];
     self.coverImage = json[@"CoverImage"];
     self.thumbnail = json[@"Thumbnail"];
+    self.price = json[@"Buy"];
 }
 
 + (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock

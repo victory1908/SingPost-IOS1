@@ -21,13 +21,12 @@
     [super viewDidLoad];
     [self setIsRootLevel:NO];
     
-    [self setItems:[_jsonItems valueForKey:@"Name"]];
+//    [self setItems:[_jsonItems valueForKey:@"Name"]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int dataRow = floorf(indexPath.row / 2.0f);
-    id articleJSON = _jsonItems[dataRow];
+    id articleJSON = self.subJsonItems[indexPath.row];
     
     ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithArticleJSON:articleJSON];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];

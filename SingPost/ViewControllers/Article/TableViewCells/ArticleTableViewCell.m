@@ -36,6 +36,10 @@
         [disclosureIndicatorImageView setFrame:CGRectMake(295, 25, 8, 17)];
         [contentView addSubview:disclosureIndicatorImageView];
         
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 69, contentView.bounds.size.width, 1)];
+        [separatorView setBackgroundColor:RGB(196, 197, 200)];
+        [contentView addSubview:separatorView];
+        
         [self.contentView addSubview:contentView];
     }
     

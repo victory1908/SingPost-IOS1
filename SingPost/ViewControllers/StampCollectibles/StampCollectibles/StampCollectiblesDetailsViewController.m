@@ -141,6 +141,15 @@
         offsetY += 60.0f;
     }
     
+    UILabel *stampPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY + 10, 280, 999)];
+    [stampPriceLabel setNumberOfLines:0];
+    [stampPriceLabel setText:_stamp.price];
+    [stampPriceLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [stampPriceLabel sizeToFit];
+    [contentScrollView addSubview:stampPriceLabel];
+    
+    offsetY += stampPriceLabel.bounds.size.height + 20.0f;
+    
     FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, offsetY, contentView.bounds.size.width - 30, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];

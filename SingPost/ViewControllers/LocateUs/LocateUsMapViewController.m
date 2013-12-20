@@ -45,7 +45,7 @@
     
     findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
-    findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(40, 6) : CGSizeMake(40, 10);
+    findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(40, 3) : CGSizeMake(40, 5);
     [findByTextField setReturnKeyType:UIReturnKeyGo];
     [findByTextField setDelegate:self];
     [findByTextField setPlaceholder:@"Find by street name,\nblk no., mrt station etc"];

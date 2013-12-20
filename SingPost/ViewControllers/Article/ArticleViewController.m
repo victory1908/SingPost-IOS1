@@ -23,7 +23,7 @@
 @implementation ArticleViewController
 {
     NavigationBarView *navigationBarView;
-    UITableView *menusTableView;
+    UITableView *contentsTableView;
 }
 
 - (void)loadView
@@ -47,14 +47,14 @@
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
     [instructionsLabelBackgroundView addSubview:instructionsLabel];
     
-    menusTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
-    [menusTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [menusTableView setSeparatorColor:[UIColor clearColor]];
-    [menusTableView setBackgroundView:nil];
-    [menusTableView setDelegate:self];
-    [menusTableView setDataSource:self];
-    [menusTableView setBackgroundColor:[UIColor whiteColor]];
-    [contentView addSubview:menusTableView];
+    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    [contentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [contentsTableView setSeparatorColor:[UIColor clearColor]];
+    [contentsTableView setBackgroundView:nil];
+    [contentsTableView setDelegate:self];
+    [contentsTableView setDataSource:self];
+    [contentsTableView setBackgroundColor:[UIColor whiteColor]];
+    [contentView addSubview:contentsTableView];
     
     self.view = contentView;
 }
@@ -80,26 +80,22 @@
     [navigationBarView setTitle:_pageTitle];
 }
 
-- (void)setItems:(NSArray *)inItems
+- (void)setJsonItems:(NSDictionary *)inJsonData
 {
-    _items = inItems;
-    [menusTableView reloadData];
+    _jsonItems = inJsonData;
+    [contentsTableView reloadData];
 }
 
 #pragma mark - UITableView DataSource & Delegate
 
 - (void)configureCell:(ArticleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    //only process if an item cell (not a separator cell!)
-    if (indexPath.row % 2 == 0) {
-        int dataRow = floorf(indexPath.row / 2.0f);
-        cell.title = _items[dataRow];
-    }
+    cell.title = _isRootLevel ? self.jsonItems[@"keys"][indexPath.row] : self.subJsonItems[indexPath.row][@"Name"];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (indexPath.row % 2 == 0) ? 70.0f : 1.0f;
+    return 70.0f;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -109,45 +105,31 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _items.count * 2;
+    return _isRootLevel ? [self.jsonItems[@"keys"] count] : [self.subJsonItems count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *const itemCellIdentifier = @"ArticleItemTableViewCell";
-    static NSString *const separatorCellIdentifier = @"SeparatorTableViewCell";
     
-    if ((indexPath.row % 2) == 0) {
-        ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
-        if (!cell)
-            cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-        
-        [self configureCell:cell atIndexPath:indexPath];
-        
-        return cell;
-    }
-    else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:separatorCellIdentifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:separatorCellIdentifier];
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width, 1)];
-            [separatorView setBackgroundColor:RGB(196, 197, 200)];
-            [cell.contentView addSubview:separatorView];
-        }
-        return cell;
-    }
+    ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
+    if (!cell)
+        cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+
+    [self configureCell:cell atIndexPath:indexPath];
+
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int dataRow = floorf(indexPath.row / 2.0f);
     ArticleSubCategoryViewController *subCategoryViewController = [[ArticleSubCategoryViewController alloc] initWithNibName:nil bundle:nil];
-    [subCategoryViewController setJsonItems:self.jsonData[self.jsonData.allKeys[dataRow]]];
-    [subCategoryViewController setPageTitle:self.items[dataRow]];
+    [subCategoryViewController setSubJsonItems:self.jsonItems[self.jsonItems[@"keys"][indexPath.row]]];
+    [subCategoryViewController setPageTitle:self.jsonItems[@"keys"][indexPath.row]];
     [subCategoryViewController setParentPageTitle:self.pageTitle];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subCategoryViewController];
     
-    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, self.items[dataRow]]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, self.jsonItems[@"keys"][indexPath.row]]];
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -10,6 +10,7 @@ extern const struct StampAttributes {
 	__unsafe_unretained NSString *details;
 	__unsafe_unretained NSString *month;
 	__unsafe_unretained NSString *ordering;
+	__unsafe_unretained NSString *price;
 	__unsafe_unretained NSString *serverId;
 	__unsafe_unretained NSString *thumbnail;
 	__unsafe_unretained NSString *title;
@@ -24,6 +25,7 @@ extern const struct StampFetchedProperties {
 } StampFetchedProperties;
 
 @class StampImage;
+
 
 
 
@@ -97,6 +99,16 @@ extern const struct StampFetchedProperties {
 - (void)setOrderingValue:(int32_t)value_;
 
 //- (BOOL)validateOrdering:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* price;
+
+
+
+//- (BOOL)validatePrice:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -197,6 +209,12 @@ extern const struct StampFetchedProperties {
 
 - (int32_t)primitiveOrderingValue;
 - (void)setPrimitiveOrderingValue:(int32_t)value_;
+
+
+
+
+- (NSString*)primitivePrice;
+- (void)setPrimitivePrice:(NSString*)value;
 
 
 

@@ -90,16 +90,23 @@ typedef enum {
     trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 280, 47) : CGRectMake(20, 70, 280, 30)];
     [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
-    [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 16.0f : 14.0f];
-    [trackingNumberTextField setInsetBoundsSize:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(10, 12) : CGSizeMake(10, 4)) : CGSizeMake(10, 12)];
+    [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f];
+    [trackingNumberTextField setPlaceholderFontSize:INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f];
+    [trackingNumberTextField setInsetBoundsSize:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 8) : CGSizeMake(40, 3)) : (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 6) : CGSizeMake(40, 5))];
     [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
     
+    UIButton *trackingListButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon"] forState:UIControlStateNormal];
+    [trackingListButton addTarget:self action:@selector(trackingListButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [trackingListButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(28, 80, 40, 48) : CGRectMake(28, 70, 26, 31)];
+    [contentView addSubview:trackingListButton];
+    
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(260, 87, 35, 35) : CGRectMake(269, 72, 29, 29)];
+    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(260, 87, 35, 35) : CGRectMake(269, 71, 29, 29)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:findTrackingNumberButton];
     
@@ -494,6 +501,12 @@ typedef enum {
     }
 }
 
+- (IBAction)trackingListButtonClicked:(id)sender
+{
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+}
+
 - (void)findTrackingNumberButtonClicked:(id)sender
 {
     if (trackingNumberTextField.text.length > 0) {
@@ -511,8 +524,8 @@ typedef enum {
         }];
     }
     else {
-        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please enter tracking number" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
     }
 }
 

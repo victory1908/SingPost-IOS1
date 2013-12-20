@@ -163,8 +163,8 @@
         }];
     }
     else {
-        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please enter tracking number" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
     }
 }
 

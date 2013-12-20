@@ -26,9 +26,7 @@
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak ShopMainViewController *weakSelf = self;
     [Article API_getShopItemsOnCompletion:^(NSDictionary *items) {
-        [weakSelf setJsonData:items];
-        if ([items isKindOfClass:[NSDictionary class]])
-            [weakSelf setItems:items.allKeys];
+        [weakSelf setJsonItems:items];
         [SVProgressHUD dismiss];
     }];
 }

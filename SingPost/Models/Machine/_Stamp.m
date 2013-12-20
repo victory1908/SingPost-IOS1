@@ -9,6 +9,7 @@ const struct StampAttributes StampAttributes = {
 	.details = @"details",
 	.month = @"month",
 	.ordering = @"ordering",
+	.price = @"price",
 	.serverId = @"serverId",
 	.thumbnail = @"thumbnail",
 	.title = @"title",
@@ -114,6 +115,13 @@ const struct StampFetchedProperties StampFetchedProperties = {
 - (void)setPrimitiveOrderingValue:(int32_t)value_ {
 	[self setPrimitiveOrdering:[NSNumber numberWithInt:value_]];
 }
+
+
+
+
+
+@dynamic price;
+
 
 
 

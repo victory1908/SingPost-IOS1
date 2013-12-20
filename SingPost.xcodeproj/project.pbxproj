@@ -62,7 +62,6 @@
 		52731F77185AB1ED007D6001 /* Post Office.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F76185AB1ED007D6001 /* Post Office.json */; };
 		52731F79185AB21D007D6001 /* Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F78185AB21D007D6001 /* Agent.json */; };
 		52731F7D185AB239007D6001 /* POPStation.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F7C185AB239007D6001 /* POPStation.json */; };
-		52774F59184E282500B1E32D /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52774F56184E282500B1E32D /* _Stamp.m */; };
 		52774F5A184E282500B1E32D /* _StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52774F58184E282500B1E32D /* _StampImage.m */; };
 		527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 527C2F2F184FCC4B00F1FB4F /* NSDictionary+Additions.m */; };
 		527C2F331850055100F1FB4F /* MaintanancePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527C2F321850055100F1FB4F /* MaintanancePageViewController.m */; };
@@ -126,6 +125,7 @@
 		52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */; };
 		52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */; };
 		52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */; };
+		52F1AF111863CD9200373066 /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F1AF101863CD9200373066 /* _Stamp.m */; };
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
@@ -232,8 +232,6 @@
 		52731F76185AB1ED007D6001 /* Post Office.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Post Office.json"; sourceTree = "<group>"; };
 		52731F78185AB21D007D6001 /* Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Agent.json; sourceTree = "<group>"; };
 		52731F7C185AB239007D6001 /* POPStation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POPStation.json; sourceTree = "<group>"; };
-		52774F55184E282500B1E32D /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
-		52774F56184E282500B1E32D /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
 		52774F57184E282500B1E32D /* _StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StampImage.h; sourceTree = "<group>"; };
 		52774F58184E282500B1E32D /* _StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _StampImage.m; sourceTree = "<group>"; };
 		527C2F2E184FCC4B00F1FB4F /* NSDictionary+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Additions.h"; sourceTree = "<group>"; };
@@ -353,6 +351,8 @@
 		52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		52DDA48217FEB2BA00C8BF1C /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
 		52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
+		52F1AF0F1863CD9200373066 /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
+		52F1AF101863CD9200373066 /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
 		52F8134117FBE69F00516210 /* SidebarMenuSubRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuSubRowTableViewCell.h; sourceTree = "<group>"; };
 		52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuSubRowTableViewCell.m; sourceTree = "<group>"; };
 		52F8134517FBFE5400516210 /* LocateUsDetailsOpeningHoursView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsOpeningHoursView.h; sourceTree = "<group>"; };
@@ -816,8 +816,8 @@
 				529090ED180D2A1F00D84030 /* _Offer.m */,
 				529090EE180D2A1F00D84030 /* _OfferImage.h */,
 				529090EF180D2A1F00D84030 /* _OfferImage.m */,
-				52774F55184E282500B1E32D /* _Stamp.h */,
-				52774F56184E282500B1E32D /* _Stamp.m */,
+				52F1AF0F1863CD9200373066 /* _Stamp.h */,
+				52F1AF101863CD9200373066 /* _Stamp.m */,
 				52774F57184E282500B1E32D /* _StampImage.h */,
 				52774F58184E282500B1E32D /* _StampImage.m */,
 				52359CD8186137E90068E6B9 /* _TrackedItem.h */,
@@ -1132,11 +1132,11 @@
 				528C413D1834122700145E55 /* FindPostalCodeStreetViewController.m in Sources */,
 				52024F1F17F6860800AFD239 /* CalculatePostageMainViewController.m in Sources */,
 				52936481180B0FEE00B83F6B /* Stamp.m in Sources */,
+				52F1AF111863CD9200373066 /* _Stamp.m in Sources */,
 				52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */,
 				527C2F331850055100F1FB4F /* MaintanancePageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				52C908F918047F1E0063A026 /* _Article.m in Sources */,
-				52774F59184E282500B1E32D /* _Stamp.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */,
 				529090F0180D2A1F00D84030 /* _Offer.m in Sources */,

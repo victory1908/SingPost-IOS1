@@ -22,8 +22,7 @@
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak SendReceiveMainViewController *weakSelf = self;
     [Article API_getSendReceiveItemsOnCompletion:^(NSDictionary *items) {
-        [weakSelf setJsonData:items];
-        [weakSelf setItems:items.allKeys];
+        [weakSelf setJsonItems:items];
         [SVProgressHUD dismiss];
     }];
 }

@@ -22,9 +22,7 @@
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak PaymentMainViewController *weakSelf = self;
     [Article API_getPayItemsOnCompletion:^(NSDictionary *items) {
-        [weakSelf setJsonData:items];
-        if ([items isKindOfClass:[NSDictionary class]])
-            [weakSelf setItems:items.allKeys];
+        [weakSelf setJsonItems:items];
         [SVProgressHUD dismiss];
     }];
 }

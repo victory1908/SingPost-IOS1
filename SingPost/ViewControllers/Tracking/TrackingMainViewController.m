@@ -314,19 +314,18 @@ typedef enum {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:trackingCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, 290, 47)];
+            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, 290, 44)];
             [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
             [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
             [trackingNumberTextField setFontSize:16.0f];
             [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
-            [trackingNumberTextField setInsetBoundsSize:CGSizeMake(14, 12)];
             [trackingNumberTextField setText:_trackingNumber];
             [trackingNumberTextField setDelegate:self];
             [cell.contentView addSubview:trackingNumberTextField];
             
             UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-            [findTrackingNumberButton setFrame:CGRectMake(265, 29, 35, 35)];
+            [findTrackingNumberButton setFrame:CGRectMake(265, 27, 35, 35)];
             [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
         }

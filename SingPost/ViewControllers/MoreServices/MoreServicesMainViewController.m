@@ -22,12 +22,15 @@
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak MoreServicesMainViewController *weakSelf = self;
     [Article API_getServicesOnCompletion:^(NSDictionary *items) {
-        [weakSelf setJsonData:items];
-        if ([items isKindOfClass:[NSDictionary class]])
-            [weakSelf setItems:items.allKeys];
+        [weakSelf setJsonItems:items];
         [SVProgressHUD dismiss];
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 
 @end
