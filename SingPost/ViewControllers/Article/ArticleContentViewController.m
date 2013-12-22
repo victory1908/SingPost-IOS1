@@ -55,6 +55,7 @@
     
     contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 10)];
     [contentWebView setDelegate:self];
+    [contentWebView.scrollView setScrollEnabled:NO];
     [contentScrollView addSubview:contentWebView];
     
     locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, -100, contentScrollView.bounds.size.width - 30, 48)];

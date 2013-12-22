@@ -158,6 +158,7 @@ typedef enum  {
     [selectedSectionIndicatorButton addSubview:selectedIndicatorImageView];
     
     sectionContentScrollView = [[UIScrollView alloc] initWithFrame:shouldHideSectionSelector ? CGRectMake(0, 260, contentScrollView.bounds.size.width, contentScrollView.contentSize.height - 260) : CGRectMake(0, 318, contentScrollView.bounds.size.width, contentScrollView.contentSize.height - 318)];
+    [sectionContentScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [sectionContentScrollView setBackgroundColor:[UIColor clearColor]];
     [sectionContentScrollView setDelaysContentTouches:NO];
     [sectionContentScrollView setPagingEnabled:YES];

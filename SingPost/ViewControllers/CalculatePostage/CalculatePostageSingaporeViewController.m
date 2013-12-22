@@ -35,7 +35,7 @@
 {
     contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentScrollView setDelaysContentTouches:NO];
-    [contentScrollView setContentSize:CGSizeMake(320, 300)];
+    [contentScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
     
     fromPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];

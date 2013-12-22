@@ -34,7 +34,7 @@
 {
     contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentScrollView setDelaysContentTouches:NO];
-    [contentScrollView setContentSize:CGSizeMake(320, 300)];
+    [contentScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
     
     toWhichCountryDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
