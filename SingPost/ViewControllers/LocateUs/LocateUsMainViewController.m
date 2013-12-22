@@ -106,6 +106,7 @@ typedef enum {
                 [(UIScrollView *)locateUsMapViewController.view setContentOffset:CGPointZero];
                 [cubeContainerViewController animateFromCurrent:locateUsMapViewController toNext:locateUsListViewController forward:YES onCompletion:^{
                     isAnimating = NO;
+                    
                 }];
                 break;
             }

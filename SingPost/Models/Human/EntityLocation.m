@@ -1,5 +1,6 @@
 #import "EntityLocation.h"
 #import "ApiClient.h"
+#import "NSDictionary+Additions.h"
 
 @interface EntityLocation ()
 
@@ -13,7 +14,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 {
     self.name = json[@"name"];
     self.type = json[@"type"];
-    self.address = json[@"address"];
+    self.address = [json objectForKeyOrNil:@"address"];
     self.latitude = json[@"latitude"];
     self.longitude = json[@"longitude"];
     self.notification = json[@"notification"];
@@ -165,10 +166,12 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
             [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", locationType] inContext:localContext];
             
-            [json[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                EntityLocation *location = [EntityLocation MR_createInContext:localContext];
-                [location updateWithApiRepresentation:attributes];
-            }];
+            if ([json[@"root"] isKindOfClass:[NSArray class]]) {
+                [json[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                    EntityLocation *location = [EntityLocation MR_createInContext:localContext];
+                    [location updateWithApiRepresentation:attributes];
+                }];
+            }
             
             [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 if (completionBlock) {

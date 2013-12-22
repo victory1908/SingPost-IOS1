@@ -193,6 +193,7 @@
 
 - (void)reloadData
 {
+    [self loadLocationsDataForSelectedType];
     [self filterContentForSearchText:[self searchTerm]];
 }
 
@@ -223,7 +224,6 @@
     [findByTextField setText:searchTerm];
 }
 
-
 #pragma mark - Search
 
 - (BOOL)isSearching
@@ -248,6 +248,18 @@
 {
     [findByTextField setText:@""];
     [self filterContentForSearchText:@""];
+}
+
+- (void)loadLocationsDataForSelectedType
+{
+    [self.fetchedResultsController.fetchRequest setPredicate:[self frcSearchPredicate]];
+    
+    NSError *error = nil;
+    if ([self.fetchedResultsController performFetch:&error]) {
+        [locationsTableView reloadData];
+        [locationsTableView setContentOffset:CGPointZero animated:YES];
+        [self updateNumLocations];
+    }
 }
 
 #pragma mark - CDropDownListControlDelegate
@@ -285,14 +297,7 @@
     else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation List"];
     
-    [self.fetchedResultsController.fetchRequest setPredicate:[self frcSearchPredicate]];
-    
-    NSError *error = nil;
-    if ([self.fetchedResultsController performFetch:&error]) {
-        [locationsTableView reloadData];
-        [locationsTableView setContentOffset:CGPointZero animated:YES];
-        [self updateNumLocations];
-    }
+    [self loadLocationsDataForSelectedType];
 }
 
 #pragma mark - CLLocationManagerDelegates
@@ -330,7 +335,6 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"beep boop");
     if (scrollView.isTracking) {
         if (scrollView.contentOffset.y < 0)
             [self showSearchTermsView:YES];

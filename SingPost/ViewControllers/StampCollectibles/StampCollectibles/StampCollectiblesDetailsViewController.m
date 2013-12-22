@@ -138,7 +138,7 @@
         [moreButton setFrame:CGRectMake(15, offsetY, 50, 30)];
         [contentScrollView addSubview:moreButton];
 
-        offsetY += 60.0f;
+        offsetY += 40.0f;
     }
     
     UILabel *stampPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY + 10, 280, 999)];
@@ -148,7 +148,7 @@
     [stampPriceLabel sizeToFit];
     [contentScrollView addSubview:stampPriceLabel];
     
-    offsetY += stampPriceLabel.bounds.size.height + 20.0f;
+    offsetY += stampPriceLabel.bounds.size.height + 30.0f;
     
     FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, offsetY, contentView.bounds.size.width - 30, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -156,7 +156,7 @@
     [locateUsButton setTitle:@"FIND OUR LOCATIONS NEAR YOU" forState:UIControlStateNormal];
     [contentScrollView addSubview:locateUsButton];
     
-    offsetY += 90.0f;
+    offsetY += 80.0f;
     
     [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, offsetY)];
     
