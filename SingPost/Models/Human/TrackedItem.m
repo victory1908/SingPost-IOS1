@@ -102,7 +102,7 @@
             NSError *error;
             TrackedItem *trackedItem = [TrackedItem createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
             if (!error) {
-                [PushNotification API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
+                [PushNotificationManager API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
                     if (success) {
                         [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                             if (completionBlock) {
@@ -136,7 +136,7 @@
 
 + (void)deleteTrackedItem:(TrackedItem *)trackedItemToDelete onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [PushNotification API_unsubscribeNotificationForTrackingNumber:trackedItemToDelete.trackingNumber onCompletion:^(BOOL success, NSError *error) {
+    [PushNotificationManager API_unsubscribeNotificationForTrackingNumber:trackedItemToDelete.trackingNumber onCompletion:^(BOOL success, NSError *error) {
         if (success) {
             [trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
             [trackedItemToDelete.managedObjectContext save:nil];

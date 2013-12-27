@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PushNotification : NSObject
+@interface PushNotificationManager : NSObject
 
 + (void)API_registerAPNSToken:(NSString *)apnsToken onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
