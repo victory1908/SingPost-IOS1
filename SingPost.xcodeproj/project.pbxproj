@@ -1014,6 +1014,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Codigo;
+				TargetAttributes = {
+					521B171C17F1633000FEB6FD = {
+						DevelopmentTeam = U23P7UQX7R;
+					};
+				};
 			};
 			buildConfigurationList = 521B171817F1633000FEB6FD /* Build configuration list for PBXProject "SingPost" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1297,13 +1302,15 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
+				PROVISIONING_PROFILE = "64FD7B63-9F37-4358-8967-E043368431B8";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1316,13 +1323,15 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
+				PROVISIONING_PROFILE = "64FD7B63-9F37-4358-8967-E043368431B8";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

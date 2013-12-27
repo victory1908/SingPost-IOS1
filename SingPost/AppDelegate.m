@@ -131,10 +131,10 @@
                                           [SVProgressHUD dismiss];
                                           TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
                                           trackingMainViewController.trackingNumber = trackingNumber;
-                                          [self.rootViewController cPushViewController:trackingMainViewController];
+                                          [self.rootViewController switchToViewController:trackingMainViewController];
                                       }
                                       else {
-                                          [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                                          [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
                                       }
                                   }];
                               }
@@ -154,15 +154,17 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-    NSString *sanitizedDeviceToken = [[[[deviceToken description]
-                                        stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                                       stringByReplacingOccurrencesOfString: @">" withString: @""]
-                                      stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
-    NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
-    [PushNotification API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
-        //do nothing
-    }];
+    if (![[ApiClient sharedInstance] hasRegisteredProfileId]) {
+        NSString *sanitizedDeviceToken = [[[[deviceToken description]
+                                            stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                           stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                          stringByReplacingOccurrencesOfString: @" " withString: @""];
+        
+        NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
+        [PushNotification API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
+            //do nothing
+        }];
+    }
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

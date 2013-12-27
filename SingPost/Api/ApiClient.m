@@ -161,6 +161,20 @@ static NSString *const OS = @"ios";
     [self enqueueHTTPRequestOperation:operation];
 }
 
+- (void)getSingPostAppsItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-apps.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+        success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+        failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 #pragma mark - Calculate Postage
 
 - (void)calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode andToPostalCode:(NSString *)toPostalCode andWeight:(NSString *)weightInGrams onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
