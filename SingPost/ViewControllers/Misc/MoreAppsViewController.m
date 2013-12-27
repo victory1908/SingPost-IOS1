@@ -11,6 +11,8 @@
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
 #import "ArticleTableViewCell.h"
+#import "Article.h"
+#import <SVProgressHUD.h>
 
 @interface MoreAppsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -21,17 +23,7 @@
 {
     NavigationBarView *navigationBarView;
     UITableView *moreAppsTableView;
-    NSArray *moreAppsDisplayTexts, *moreAppsURLs;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        moreAppsDisplayTexts = @[@"SingPost vBOX", @"Post-a-Card"];
-        moreAppsURLs = @[@"https://itunes.apple.com/sg/app/singpost-vbox/id494837008", @"https://itunes.apple.com/sg/app/post-a-card/id530061954?mt=8"];
-    }
-    
-    return self;
+    NSArray *appsItems;
 }
 
 - (void)loadView
@@ -74,6 +66,22 @@
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"More Apps"];
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+    [Article API_getSingPostAppsOnCompletion:^(NSArray *apps) {
+        appsItems = apps;
+        [moreAppsTableView reloadData];
+    }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
 #pragma mark - Accessors
 
 - (void)setPageTitle:(NSString *)pageTitle
@@ -85,7 +93,7 @@
 
 - (void)configureCell:(ArticleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.title = moreAppsDisplayTexts[indexPath.row];
+    cell.title = appsItems[indexPath.row][@"Name"];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -100,7 +108,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return moreAppsDisplayTexts.count;
+    return appsItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,7 +125,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:moreAppsURLs[indexPath.row]]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appsItems[indexPath.row][@"IOSURL"]]];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

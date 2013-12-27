@@ -103,14 +103,21 @@
             TrackedItem *trackedItem = [TrackedItem createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
             if (!error) {
                 [PushNotification API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
-                    //TODO: fail workflow
-                }];
-                
-                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                    if (completionBlock) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completionBlock(!error, error);
-                        });
+                    if (success) {
+                        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                            if (completionBlock) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    completionBlock(!error, error);
+                                });
+                            }
+                        }];
+                    }
+                    else {
+                        if (completionBlock) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                completionBlock(NO, error);
+                            });
+                        }
                     }
                 }];
             }
@@ -127,13 +134,14 @@
     }];
 }
 
-+ (void)deleteTrackedItem:(TrackedItem *)trackedItemToDelete
++ (void)deleteTrackedItem:(TrackedItem *)trackedItemToDelete onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
-    [trackedItemToDelete.managedObjectContext save:nil];
-    
     [PushNotification API_unsubscribeNotificationForTrackingNumber:trackedItemToDelete.trackingNumber onCompletion:^(BOOL success, NSError *error) {
-        //TODO: fail workflow
+        if (success) {
+            [trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
+            [trackedItemToDelete.managedObjectContext save:nil];
+        }
+        completionBlock(success, error);
     }];
 }
 

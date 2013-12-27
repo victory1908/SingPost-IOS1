@@ -158,7 +158,7 @@
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
             }
             else {
-                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
             }
         }];
     }
@@ -322,7 +322,6 @@
             }
             default:
             {
-                NSLog(@"not yet implemented");
                 break;
             }
         }
@@ -444,7 +443,6 @@
             }
             default:
             {
-                NSLog(@"not yet implemented");
                 break;
             }
         }

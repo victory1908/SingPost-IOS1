@@ -414,8 +414,16 @@ typedef enum {
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
             trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         
-        [TrackedItem deleteTrackedItem:trackedItemToDelete];
-        [tableView setEditing:NO animated:YES];
+        [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
+        [TrackedItem deleteTrackedItem:trackedItemToDelete onCompletion:^(BOOL success, NSError *error) {
+            if (!success)
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+            else {
+                [SVProgressHUD dismiss];
+                [tableView setEditing:NO animated:YES];
+            }
+        }];
+        
     }
 }
 

@@ -2,11 +2,6 @@
 
 @interface Article : _Article {}
 
-+ (NSFetchedResultsController *)frcSendReceiveArticlesWithDelegate:(id)delegate;
-+ (NSFetchedResultsController *)frcPaymentArticlesWithDelegate:(id)delegate;
-+ (NSFetchedResultsController *)frcShopArticlesWithDelegate:(id)delegate;
-+ (NSFetchedResultsController *)frcMoreServicesArticlesWithDelegate:(id)delegate;
-
 //Apis
 + (void)API_getSendReceiveItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock;
 + (void)API_getShopItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock;
@@ -17,5 +12,6 @@
 + (void)API_getFaqOnCompletion:(void(^)(NSString *termsOfUse))completionBlock;
 + (void)API_getTrackIOnCompletion:(void(^)(NSString *trackI))completionBlock;
 + (void)API_getTrackIIOnCompletion:(void(^)(NSString *trackII))completionBlock;
++ (void)API_getSingPostAppsOnCompletion:(void(^)(NSArray *apps))completionBlock;
 
 @end

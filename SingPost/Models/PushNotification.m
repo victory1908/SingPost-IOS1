@@ -1,4 +1,4 @@
-
+S
 //
 //  PushNotification.m
 //  SingPost
@@ -39,7 +39,7 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (completionBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(YES, nil);
+                        completionBlock([[rootXML child:@"ErrorCode"].text isEqualToString:@"0"], nil);
                     });
                 }
             });
@@ -53,7 +53,7 @@
     }
     else {
         if (completionBlock) {
-            completionBlock(NO, [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"No registered profile ID"}]);
+            completionBlock(YES, [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"No registered profile ID"}]);
         }
     }
 }
@@ -65,7 +65,7 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (completionBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(YES, nil);
+                        completionBlock([[rootXML child:@"ErrorCode"].text isEqualToString:@"0"], nil);
                     });
                 }
             });
@@ -79,7 +79,7 @@
     }
     else {
         if (completionBlock) {
-            completionBlock(NO, [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"No registered profile ID"}]);
+            completionBlock(YES, [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"No registered profile ID"}]);
         }
     }
 }
