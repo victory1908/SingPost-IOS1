@@ -79,13 +79,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self showFilteredLocationsOnMap];
+    
+    [self loadLocations];
 }
 
 - (void)dealloc
 {
     [locateUsMapView setDelegate:nil];
     locateUsMapView = nil;
+}
+
+- (void)loadLocations
+{
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        [_delegate performSelector:@selector(fetchAndReloadLocationsData)];
+#pragma clang diagnostic pop
+    }
+    else {
+        [self showFilteredLocationsOnMap];
+    }
 }
 
 #pragma mark - Accessors
@@ -154,10 +168,8 @@
     
     [locateUsMapView addAnnotations:locationAnnotations];
     
-    if (locations.count > 0) {
-        //zoom in to the first location
+    if (locations.count > 0)
         [self centerMapToFitAllLocations];
-    }
     
     if ([locationType isEqualToString:LOCATION_TYPE_POST_OFFICE])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- PO Map"];
@@ -165,8 +177,8 @@
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM Map"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Posting Box Map"];
-    else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
-        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM Map"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Agent Map"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation Map"];
 }
@@ -195,7 +207,7 @@
 
 - (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
 {
-    [self showFilteredLocationsOnMap];
+    [self loadLocations];
 }
 
 #pragma mark - MKMapViewDelegate

@@ -13,5 +13,6 @@
 + (void)API_getTrackIOnCompletion:(void(^)(NSString *trackI))completionBlock;
 + (void)API_getTrackIIOnCompletion:(void(^)(NSString *trackII))completionBlock;
 + (void)API_getSingPostAppsOnCompletion:(void(^)(NSArray *apps))completionBlock;
++ (void)API_getOffersOnCompletion:(void(^)(NSArray *items))completionBlock;
 
 @end

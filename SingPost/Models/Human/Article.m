@@ -143,6 +143,26 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     }];
 }
 
++ (void)API_getOffersOnCompletion:(void(^)(NSArray *items))completionBlock
+{
+    [[ApiClient sharedInstance] getOffersItemsOnSuccess:^(id responseJSON) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray *sortedItems = [responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(sortedItems);
+                });
+            });
+        }
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
 + (void)API_getFaqOnCompletion:(void(^)(NSString *termsOfUse))completionBlock
 {
     [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
@@ -229,8 +249,9 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     [[ApiClient sharedInstance] getSingPostAppsItemsOnSuccess:^(id responseJSON) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             if (completionBlock) {
+                NSArray *sortedItems = [responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(responseJSON[@"root"]);
+                    completionBlock(sortedItems);
                 });
             }
         });

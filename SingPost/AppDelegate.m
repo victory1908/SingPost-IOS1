@@ -29,7 +29,6 @@
     
     [MagicalRecord setupCoreDataStack];
     [DatabaseSeeder seedLocationsDataIfRequired];
-    [DatabaseSeeder seedOffersDataIfRequired];  //FIXME: for development only
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -77,7 +76,7 @@
 - (void)setupGoogleAnalytics
 {
     [GAI sharedInstance].trackUncaughtExceptions = NO;
-    [GAI sharedInstance].dispatchInterval = 20;
+    [GAI sharedInstance].dispatchInterval = 30;
 
 //    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
@@ -112,8 +111,6 @@
 
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo
 {
-    NSLog(@"received payload: %@", payloadInfo);
-    
     NSString *trackingNumber = payloadInfo[@"i"];
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
     

@@ -13,6 +13,7 @@
 @property (nonatomic, readonly) NSString *selectedLocationType;
 @property (nonatomic) NSUInteger selectedTypeRowIndex;
 @property (nonatomic) NSString *searchTerm;
+@property (nonatomic, weak) id delegate;
 
 - (void)reloadData;
 

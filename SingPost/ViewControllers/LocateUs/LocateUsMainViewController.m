@@ -58,14 +58,16 @@ typedef enum {
     [toggleModesButton setFrame:CGRectMake(270, 0, 44, 44)];
     [navigationBarView addSubview:toggleModesButton];
     
-    UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [reloadButton setImage:[UIImage imageNamed:@"reload_button"] forState:UIControlStateNormal];
-    [reloadButton setFrame:CGRectMake(230, 0, 44, 44)];
-    [reloadButton addTarget:self action:@selector(reloadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [navigationBarView addSubview:reloadButton];
+//    UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [reloadButton setImage:[UIImage imageNamed:@"reload_button"] forState:UIControlStateNormal];
+//    [reloadButton setFrame:CGRectMake(230, 0, 44, 44)];
+//    [reloadButton addTarget:self action:@selector(reloadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    [navigationBarView addSubview:reloadButton];
     
     locateUsMapViewController = [[LocateUsMapViewController alloc] initWithNibName:nil bundle:nil];
+    locateUsMapViewController.delegate = self;
     locateUsListViewController = [[LocateUsListViewController alloc] initWithNibName:nil bundle:nil];
+    locateUsListViewController.delegate = self;
     
     cubeContainerViewController = [[CubeTransitionViewController alloc] initWithViewControllers:@[locateUsMapViewController, locateUsListViewController]];
     [self addChildViewController:cubeContainerViewController];
@@ -117,6 +119,52 @@ typedef enum {
     }
 }
 
+- (void)fetchAndReloadLocationsData
+{
+    NSString *selectedType = [self selectedType];
+    
+    [locateUsMapViewController removeMapAnnotations];
+    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
+        [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
+            [SVProgressHUD dismiss];
+            [locateUsMapViewController showFilteredLocationsOnMap];
+            [locateUsListViewController reloadData];
+        }];
+    }
+    else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
+        [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
+            [SVProgressHUD dismiss];
+            [locateUsMapViewController showFilteredLocationsOnMap];
+            [locateUsListViewController reloadData];
+        }];
+    }
+    else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
+        [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
+            [SVProgressHUD dismiss];
+            [locateUsMapViewController showFilteredLocationsOnMap];
+            [locateUsListViewController reloadData];
+        }];
+    }
+    else if ([selectedType isEqualToString:LOCATION_TYPE_AGENT]) {
+        [EntityLocation API_updateAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
+            [SVProgressHUD dismiss];
+            [locateUsMapViewController showFilteredLocationsOnMap];
+            [locateUsListViewController reloadData];
+        }];
+    }
+    else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
+        [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
+            [SVProgressHUD dismiss];
+            [locateUsMapViewController showFilteredLocationsOnMap];
+            [locateUsListViewController reloadData];
+        }];
+    }
+    else {
+        NSAssert(NO, @"unsupported location type");
+    }
+}
+
 - (IBAction)reloadButtonClicked:(id)sender
 {
     NSString *selectedType = [self selectedType];
@@ -127,41 +175,7 @@ typedef enum {
              otherButtonTitles:@[@"Yes"]
                       tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                           if (buttonIndex != [alertView cancelButtonIndex]) {
-                              [locateUsMapViewController removeMapAnnotations];
-                              [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-                              if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
-                                  [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
-                                      [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMap];
-                                  }];
-                              }
-                              else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
-                                  [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
-                                      [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMap];
-                                  }];
-                              }
-                              else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
-                                  [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
-                                      [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMap];
-                                  }];
-                              }
-                              else if ([selectedType isEqualToString:LOCATION_TYPE_AGENT]) {
-                                  [EntityLocation API_updateAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
-                                      [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMap];
-                                  }];
-                              }
-                              else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
-                                  [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
-                                      [SVProgressHUD dismiss];
-                                      [locateUsMapViewController showFilteredLocationsOnMap];
-                                  }];
-                              }
-                              else {
-                                  NSAssert(NO, @"unsupported location type");
-                              }
+                              [self fetchAndReloadLocationsData];
                           }
      }];
 }

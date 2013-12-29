@@ -93,10 +93,6 @@
 		529090F1180D2A1F00D84030 /* _OfferImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090EF180D2A1F00D84030 /* _OfferImage.m */; };
 		529090F6180D2A2900D84030 /* Offer.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090F3180D2A2900D84030 /* Offer.m */; };
 		529090F7180D2A2900D84030 /* OfferImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090F5180D2A2900D84030 /* OfferImage.m */; };
-		529090FC180D2AA000D84030 /* OffersMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090FB180D2AA000D84030 /* OffersMainViewController.m */; };
-		52909100180D2ADA00D84030 /* OfferTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 529090FF180D2ADA00D84030 /* OfferTableViewCell.m */; };
-		52909103180D2D2700D84030 /* OfferDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909102180D2D2700D84030 /* OfferDetailsViewController.m */; };
-		52909106180D2D7700D84030 /* OfferImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */; };
 		5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52909109180EA94F00D84030 /* MoreAppsViewController.m */; };
 		52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293646F180AC54C00B83F6B /* OffersMoreMenuView.m */; };
 		5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5293647A180B01A100B83F6B /* StampCollectiblesMainViewController.m */; };
@@ -125,6 +121,8 @@
 		52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */; };
 		52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */; };
 		52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */; };
+		52E752F61870A24D00D853B3 /* OffersMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E752F51870A24D00D853B3 /* OffersMainViewController.m */; };
+		52E752F91870A5FA00D853B3 /* OffersDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E752F81870A5FA00D853B3 /* OffersDetailsViewController.m */; };
 		52F1AF111863CD9200373066 /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F1AF101863CD9200373066 /* _Stamp.m */; };
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
@@ -287,14 +285,6 @@
 		529090F3180D2A2900D84030 /* Offer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Offer.m; sourceTree = "<group>"; };
 		529090F4180D2A2900D84030 /* OfferImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferImage.h; sourceTree = "<group>"; };
 		529090F5180D2A2900D84030 /* OfferImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferImage.m; sourceTree = "<group>"; };
-		529090FA180D2AA000D84030 /* OffersMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMainViewController.h; sourceTree = "<group>"; };
-		529090FB180D2AA000D84030 /* OffersMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMainViewController.m; sourceTree = "<group>"; };
-		529090FE180D2ADA00D84030 /* OfferTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferTableViewCell.h; sourceTree = "<group>"; };
-		529090FF180D2ADA00D84030 /* OfferTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferTableViewCell.m; sourceTree = "<group>"; };
-		52909101180D2D2700D84030 /* OfferDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferDetailsViewController.h; sourceTree = "<group>"; };
-		52909102180D2D2700D84030 /* OfferDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferDetailsViewController.m; sourceTree = "<group>"; };
-		52909104180D2D7700D84030 /* OfferImagesBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferImagesBrowserViewController.h; sourceTree = "<group>"; };
-		52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferImagesBrowserViewController.m; sourceTree = "<group>"; };
 		52909108180EA94F00D84030 /* MoreAppsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreAppsViewController.h; sourceTree = "<group>"; };
 		52909109180EA94F00D84030 /* MoreAppsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreAppsViewController.m; sourceTree = "<group>"; };
 		5293646E180AC54C00B83F6B /* OffersMoreMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMoreMenuView.h; sourceTree = "<group>"; };
@@ -351,6 +341,10 @@
 		52DDA48017FEA6F000C8BF1C /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		52DDA48217FEB2BA00C8BF1C /* UIView+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shadow.h"; sourceTree = "<group>"; };
 		52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shadow.m"; sourceTree = "<group>"; };
+		52E752F41870A24D00D853B3 /* OffersMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersMainViewController.h; sourceTree = "<group>"; };
+		52E752F51870A24D00D853B3 /* OffersMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersMainViewController.m; sourceTree = "<group>"; };
+		52E752F71870A5FA00D853B3 /* OffersDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersDetailsViewController.h; sourceTree = "<group>"; };
+		52E752F81870A5FA00D853B3 /* OffersDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersDetailsViewController.m; sourceTree = "<group>"; };
 		52F1AF0F1863CD9200373066 /* _Stamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Stamp.h; sourceTree = "<group>"; };
 		52F1AF101863CD9200373066 /* _Stamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Stamp.m; sourceTree = "<group>"; };
 		52F8134117FBE69F00516210 /* SidebarMenuSubRowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuSubRowTableViewCell.h; sourceTree = "<group>"; };
@@ -514,7 +508,7 @@
 				52C90916180491010063A026 /* Shop */,
 				52C9091A180491B60063A026 /* MoreServices */,
 				52936478180B017C00B83F6B /* StampCollectibles */,
-				529090F9180D2A7B00D84030 /* Offers */,
+				52E752F31870A23600D853B3 /* Offers */,
 				521F785318026DDD00B513FA /* Misc */,
 				521B175317F1678100FEB6FD /* RootViewController.h */,
 				521B175417F1678100FEB6FD /* RootViewController.m */,
@@ -835,29 +829,6 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
-		529090F9180D2A7B00D84030 /* Offers */ = {
-			isa = PBXGroup;
-			children = (
-				529090FD180D2AA900D84030 /* TableViewCells */,
-				529090FA180D2AA000D84030 /* OffersMainViewController.h */,
-				529090FB180D2AA000D84030 /* OffersMainViewController.m */,
-				52909101180D2D2700D84030 /* OfferDetailsViewController.h */,
-				52909102180D2D2700D84030 /* OfferDetailsViewController.m */,
-				52909104180D2D7700D84030 /* OfferImagesBrowserViewController.h */,
-				52909105180D2D7700D84030 /* OfferImagesBrowserViewController.m */,
-			);
-			path = Offers;
-			sourceTree = "<group>";
-		};
-		529090FD180D2AA900D84030 /* TableViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				529090FE180D2ADA00D84030 /* OfferTableViewCell.h */,
-				529090FF180D2ADA00D84030 /* OfferTableViewCell.m */,
-			);
-			path = TableViewCells;
-			sourceTree = "<group>";
-		};
 		52936478180B017C00B83F6B /* StampCollectibles */ = {
 			isa = PBXGroup;
 			children = (
@@ -969,6 +940,17 @@
 				52DDA47A17FE7F4700C8BF1C /* UIView+Origami.m */,
 			);
 			path = XYOrigami;
+			sourceTree = "<group>";
+		};
+		52E752F31870A23600D853B3 /* Offers */ = {
+			isa = PBXGroup;
+			children = (
+				52E752F41870A24D00D853B3 /* OffersMainViewController.h */,
+				52E752F51870A24D00D853B3 /* OffersMainViewController.m */,
+				52E752F71870A5FA00D853B3 /* OffersDetailsViewController.h */,
+				52E752F81870A5FA00D853B3 /* OffersDetailsViewController.m */,
+			);
+			path = Offers;
 			sourceTree = "<group>";
 		};
 		52F8134417FBFE3B00516210 /* Views */ = {
@@ -1149,7 +1131,6 @@
 				528C4143183412DF00145E55 /* FindPostalCodePOBoxViewController.m in Sources */,
 				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
-				52909103180D2D2700D84030 /* OfferDetailsViewController.m in Sources */,
 				529364A7180B2FFE00B83F6B /* StampImage.m in Sources */,
 				526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */,
 				52359CDD186137F80068E6B9 /* TrackedItem.m in Sources */,
@@ -1157,6 +1138,7 @@
 				521F785F1802944100B513FA /* CTextView.m in Sources */,
 				528F270617F9C181006F7027 /* _EntityLocation.m in Sources */,
 				521F785618026E0A00B513FA /* FeedbackViewController.m in Sources */,
+				52E752F91870A5FA00D853B3 /* OffersDetailsViewController.m in Sources */,
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				528C41401834129200145E55 /* FindPostalCodeLandmarkViewController.m in Sources */,
 				52A8B68C180F0098002BC431 /* ArticleViewController.m in Sources */,
@@ -1166,14 +1148,13 @@
 				52024F3417F7301B00AFD239 /* TrackingItemDetailTableViewCell.m in Sources */,
 				528F26E817F97F3F006F7027 /* DatabaseSeeder.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
+				52E752F61870A24D00D853B3 /* OffersMainViewController.m in Sources */,
 				529090F1180D2A1F00D84030 /* _OfferImage.m in Sources */,
 				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
 				52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
-				52909106180D2D7700D84030 /* OfferImagesBrowserViewController.m in Sources */,
 				5237B0BC1833DF3300E9358A /* CalculatePostageSingaporeViewController.m in Sources */,
 				521F786B1802AB5100B513FA /* LocateUsDetailsPostingBoxView.m in Sources */,
-				52909100180D2ADA00D84030 /* OfferTableViewCell.m in Sources */,
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
@@ -1196,7 +1177,6 @@
 				52AF5B1A17FB212C002D6798 /* LocateUsMapViewController.m in Sources */,
 				528F26B217F91E5A006F7027 /* FindPostalCodesMainViewController.m in Sources */,
 				52024F2617F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m in Sources */,
-				529090FC180D2AA000D84030 /* OffersMainViewController.m in Sources */,
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 				526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
@@ -1310,7 +1290,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "64FD7B63-9F37-4358-8967-E043368431B8";
+				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1331,7 +1311,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "64FD7B63-9F37-4358-8967-E043368431B8";
+				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

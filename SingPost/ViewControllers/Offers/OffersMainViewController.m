@@ -2,29 +2,27 @@
 //  OffersMainViewController.m
 //  SingPost
 //
-//  Created by Edward Soetiono on 15/10/13.
+//  Created by Edward Soetiono on 30/12/13.
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
 #import "OffersMainViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
-#import "UIView+Position.h"
-#import "DatabaseSeeder.h"
-#import "Offer.h"
-#import "OfferTableViewCell.h"
-#import "OfferDetailsViewController.h"
 #import "AppDelegate.h"
+#import "ArticleTableViewCell.h"
+#import "ArticleContentViewController.h"
+#import "Article.h"
+#import <SVProgressHUD.h>
 
-@interface OffersMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
-
-@property (nonatomic) NSFetchedResultsController *fetchedResultsController;
+@interface OffersMainViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
 @implementation OffersMainViewController
 {
-    UITableView *offersTableView;
+    NavigationBarView *navigationBarView;
+    UITableView *contentsTableView;
 }
 
 - (void)loadView
@@ -32,132 +30,102 @@
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:RGB(250, 250, 250)];
     
-    NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
-    [navigationBarView setTitle:@"Offers"];
+    navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
-    offersTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
-    [offersTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [offersTableView setSeparatorColor:[UIColor clearColor]];
-    [offersTableView setBackgroundView:nil];
-    [offersTableView setDelegate:self];
-    [offersTableView setDataSource:self];
-    [offersTableView setBackgroundColor:[UIColor whiteColor]];
-    [contentView addSubview:offersTableView];
+    UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 100)];
+    [instructionsLabelBackgroundView setBackgroundColor:RGB(240, 240, 240)];
+    [contentView addSubview:instructionsLabelBackgroundView];
+    
+    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
+    [instructionsLabel setNumberOfLines:0];
+    [instructionsLabel setText:@"Lorem ipstum dolor amet, consectetur adipiscing elit. Cras metus massa, lacinia et neque vel, feugiat condimentum odio."];
+    [instructionsLabel setTextColor:RGB(58, 68, 81)];
+    [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
+    [instructionsLabelBackgroundView addSubview:instructionsLabel];
+    
+    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    [contentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [contentsTableView setSeparatorColor:[UIColor clearColor]];
+    [contentsTableView setBackgroundView:nil];
+    [contentsTableView setDelegate:self];
+    [contentsTableView setDataSource:self];
+    [contentsTableView setBackgroundColor:[UIColor whiteColor]];
+    [contentView addSubview:contentsTableView];
     
     self.view = contentView;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewDidAppear:animated];
-    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Offers"];
+    [super viewDidLoad];
+    [navigationBarView setTitle:@"Offers"];
+    
+    [SVProgressHUD showWithStatus:@"Please wait.."];
+    __weak OffersMainViewController *weakSelf = self;
+    [Article API_getOffersOnCompletion:^(NSArray *items) {
+        [weakSelf setOffersItems:items];
+        [SVProgressHUD dismiss];
+    }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
+
+- (void)setOffersItems:(NSArray *)inOffersItems
+{
+    _offersItems = inOffersItems;
+    [contentsTableView reloadData];
 }
 
 #pragma mark - UITableView DataSource & Delegate
 
-- (void)configureCell:(OfferTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(ArticleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.offer = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.title = _offersItems[indexPath.row][@"Name"];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120.0f;
+    return 70.0f;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.fetchedResultsController.sections count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return _offersItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const itemCellIdentifier = @"OfferTableViewCell";
+    static NSString *const itemCellIdentifier = @"ArticleItemTableViewCell";
     
-    OfferTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
-    if (!cell) {
-        cell = [[OfferTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-    }
+    ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
+    if (!cell)
+        cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
     
     [self configureCell:cell atIndexPath:indexPath];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OfferDetailsViewController *detailsViewController = [[OfferDetailsViewController alloc] initWithOffer:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:detailsViewController];
+    id articleJSON = _offersItems[indexPath.row];
+    
+    ArticleContentViewController *detailViewController = [[ArticleContentViewController alloc] initWithArticleJSON:articleJSON];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:detailViewController];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (!_fetchedResultsController) {
-        _fetchedResultsController = [Offer MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:OfferAttributes.ordering ascending:YES delegate:self];
-    }
-    
-    return _fetchedResultsController;
-}
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [offersTableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [offersTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [offersTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller
-   didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath
-     forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    switch (type) {
-        case NSFetchedResultsChangeInsert:
-            [offersTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [offersTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:(OfferTableViewCell *)[offersTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [offersTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [offersTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [offersTableView endUpdates];
 }
 
 @end

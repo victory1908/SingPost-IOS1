@@ -122,7 +122,6 @@
 {
     [super viewDidLayoutSubviews];
     [contentScrollView setContentSize:contentScrollView.bounds.size];
-    
 }
 
 - (void)viewDidLoad
@@ -266,7 +265,15 @@
 
 - (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
 {
-    [self searchButtonClicked:nil];
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        [_delegate performSelector:@selector(fetchAndReloadLocationsData)];
+#pragma clang diagnostic pop
+    }
+    else {
+        [self reloadData];
+    }
 }
 
 #pragma mark - UITextField Delegate
@@ -292,8 +299,8 @@
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM List"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Posting Box List"];
-    else if ([locationType isEqualToString:LOCATION_TYPE_SAM])
-        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM List"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Agent List"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation List"];
     
