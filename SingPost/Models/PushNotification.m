@@ -9,7 +9,7 @@
 #import "PushNotification.h"
 #import "ApiClient.h"
 
-@implementation PushNotification
+@implementation PushNotificationManager
 
 + (void)API_registerAPNSToken:(NSString *)apnsToken onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {

@@ -6,7 +6,7 @@
 		<key>code</key>
 		<string>999</string>
 		<key>value</key>
-		<string>No specific time</string>
+		<string>Expected delivery time (days)</string>
 	</dict>
 	<dict>
 		<key>code</key>

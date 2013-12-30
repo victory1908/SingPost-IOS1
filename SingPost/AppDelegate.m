@@ -158,7 +158,7 @@
                                           stringByReplacingOccurrencesOfString: @" " withString: @""];
         
         NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
-        [PushNotification API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
+        [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
             //do nothing
         }];
     }
