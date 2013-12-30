@@ -107,7 +107,7 @@
         return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 100.0f;
 
     if (indexPath.row == TITLE_ROW)
-        return 30.0f;
+        return 40.0f;
 
     CalculatePostageResultItem *item = _resultItems[indexPath.row - 2];
     CGSize variableTextSize = [item.deliveryServiceName sizeWithFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans] constrainedToSize:CGSizeMake(190, LONG_MAX)];
