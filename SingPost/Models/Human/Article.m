@@ -1,5 +1,6 @@
 #import "Article.h"
 #import "ApiClient.h"
+#import "ArticleCategory.h"
 
 @interface Article ()
 
@@ -8,25 +9,50 @@
 
 @implementation Article
 
-static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
+#pragma mark - Parsers
 
 - (void)updateWithApiRepresentation:(NSDictionary *)attributes
 {
     self.name = attributes[@"Name"];
     self.htmlContent = attributes[@"Description"];
-    self.category = attributes[@"Category"];
     self.thumbnail = attributes[@"Thumbnail"];
     self.websiteURL = attributes[@"WebsiteURL"];
 }
 
++ (NSArray *)articleItemsForJSON:(NSDictionary *)jsonItems module:(NSString *)moduleName
+{
+    NSMutableArray *items = [NSMutableArray array];
+    NSArray *sortedCategories = jsonItems[@"keys"];
+    
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    
+    for (NSString *category in sortedCategories) {
+        ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+        articleCategory.module = moduleName;
+        articleCategory.category = category;
+        
+        NSMutableArray *articles = [NSMutableArray array];
+        [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+            Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+            [article updateWithApiRepresentation:articleJSON];
+            [articles addObject:article];
+        }];
+        [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
+        
+        [items addObject:articleCategory];
+    }
+    
+    return items;
+}
+
 #pragma mark - APIs
 
-+ (void)API_getSendReceiveItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock
++ (void)API_getSendReceiveItemsOnCompletion:(void(^)(NSArray *items))completionBlock
 {
     [[ApiClient sharedInstance] getSendReceiveItemsOnSuccess:^(id responseJSON) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(responseJSON[@"root"]);
+                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Send and Receive"]);
             });
         }
     } onFailure:^(NSError *error) {
@@ -38,12 +64,12 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     }];
 }
 
-+ (void)API_getShopItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock
++ (void)API_getShopItemsOnCompletion:(void(^)(NSArray *items))completionBlock
 {
     [[ApiClient sharedInstance] getShopItemsOnSuccess:^(id responseJSON) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(responseJSON[@"root"]);
+                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Pay"]);
             });
         }
     } onFailure:^(NSError *error) {
@@ -55,12 +81,12 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     }];
 }
 
-+ (void)API_getServicesOnCompletion:(void(^)(NSDictionary *items))completionBlock
++ (void)API_getServicesOnCompletion:(void(^)(NSArray *items))completionBlock
 {
     [[ApiClient sharedInstance] getServicesItemsOnSuccess:^(id responseJSON) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(responseJSON[@"root"]);
+                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"More Services"]);
             });
         }
     } onFailure:^(NSError *error) {
@@ -72,12 +98,29 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
     }];
 }
 
-+ (void)API_getPayItemsOnCompletion:(void(^)(NSDictionary *items))completionBlock
++ (void)API_getPayItemsOnCompletion:(void(^)(NSArray *items))completionBlock
 {
     [[ApiClient sharedInstance] getPayItemsOnSuccess:^(id responseJSON) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(responseJSON[@"root"]);
+                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Pay"]);
+            });
+        }
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(nil);
+            });
+        }
+    }];
+}
+
++ (void)API_getOffersOnCompletion:(void(^)(NSArray *items))completionBlock
+{
+    [[ApiClient sharedInstance] getOffersItemsOnSuccess:^(id responseJSON) {
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Offers"]);
             });
         }
     } onFailure:^(NSError *error) {
@@ -134,26 +177,6 @@ static NSString *ARTICLES_LOCK = @"ARTICLES_LOCK";
                 });
             }
         });
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil);
-            });
-        }
-    }];
-}
-
-+ (void)API_getOffersOnCompletion:(void(^)(NSArray *items))completionBlock
-{
-    [[ApiClient sharedInstance] getOffersItemsOnSuccess:^(id responseJSON) {
-        if (completionBlock) {
-            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSArray *sortedItems = [responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(sortedItems);
-                });
-            });
-        }
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{

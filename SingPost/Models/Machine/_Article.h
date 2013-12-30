@@ -5,7 +5,6 @@
 
 
 extern const struct ArticleAttributes {
-	__unsafe_unretained NSString *category;
 	__unsafe_unretained NSString *htmlContent;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *ordering;
@@ -26,7 +25,6 @@ extern const struct ArticleFetchedProperties {
 
 
 
-
 @interface ArticleID : NSManagedObjectID {}
 @end
 
@@ -35,16 +33,6 @@ extern const struct ArticleFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (ArticleID*)objectID;
-
-
-
-
-
-@property (nonatomic, strong) NSString* category;
-
-
-
-//- (BOOL)validateCategory:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -112,12 +100,6 @@ extern const struct ArticleFetchedProperties {
 @end
 
 @interface _Article (CoreDataGeneratedPrimitiveAccessors)
-
-
-- (NSString*)primitiveCategory;
-- (void)setPrimitiveCategory:(NSString*)value;
-
-
 
 
 - (NSString*)primitiveHtmlContent;

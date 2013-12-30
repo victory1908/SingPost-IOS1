@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavigationBarView.h"
 
 @interface ArticleViewController : UIViewController
+{
+@protected
+    NavigationBarView *navigationBarView;
+}
 
-@property (nonatomic) NSDictionary *jsonItems;
-@property (nonatomic) NSArray *subJsonItems;
+@property (nonatomic) NSArray *items;
 @property (nonatomic) NSString *pageTitle;
-@property (nonatomic, assign) BOOL isRootLevel;
 
 @end

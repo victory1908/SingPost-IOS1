@@ -17,12 +17,11 @@
 {
     [super viewDidLoad];
     [self setPageTitle:@"Send & Receive"];
-    [self setIsRootLevel:YES];
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak SendReceiveMainViewController *weakSelf = self;
-    [Article API_getSendReceiveItemsOnCompletion:^(NSDictionary *items) {
-        [weakSelf setJsonItems:items];
+    [Article API_getSendReceiveItemsOnCompletion:^(NSArray *items) {
+        [weakSelf setItems:items];
         [SVProgressHUD dismiss];
     }];
 }

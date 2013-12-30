@@ -7,22 +7,20 @@
 //
 
 #import "ArticleViewController.h"
-#import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
 #import "AppDelegate.h"
 #import "ArticleTableViewCell.h"
-#import "ArticleSubCategoryViewController.h"
+#import "ArticleSubViewController.h"
+#import "ArticleCategory.h"
 #import "Article.h"
 #import <SVProgressHUD.h>
 
 @interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate>
 
-
 @end
 
 @implementation ArticleViewController
 {
-    NavigationBarView *navigationBarView;
     UITableView *contentsTableView;
 }
 
@@ -65,14 +63,13 @@
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:self.pageTitle];
 }
 
-#pragma mark - Accessors
-
-- (void)setIsRootLevel:(BOOL)inIsRootLevel
+- (void)viewDidLoad
 {
-    _isRootLevel = inIsRootLevel;
-    [navigationBarView setShowSidebarToggleButton:_isRootLevel];
-    [navigationBarView setShowBackButton:!_isRootLevel];
+    [super viewDidLoad];
+    [navigationBarView setShowSidebarToggleButton:YES];
 }
+
+#pragma mark - Accessors
 
 - (void)setPageTitle:(NSString *)inPageTitle
 {
@@ -80,9 +77,9 @@
     [navigationBarView setTitle:_pageTitle];
 }
 
-- (void)setJsonItems:(NSDictionary *)inJsonData
+- (void)setItems:(NSArray *)inItems
 {
-    _jsonItems = inJsonData;
+    _items = inItems;
     [contentsTableView reloadData];
 }
 
@@ -90,7 +87,8 @@
 
 - (void)configureCell:(ArticleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    cell.title = _isRootLevel ? self.jsonItems[@"keys"][indexPath.row] : self.subJsonItems[indexPath.row][@"Name"];
+    ArticleCategory *articleCategory = _items[indexPath.row];
+    cell.title = articleCategory.category;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,7 +103,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _isRootLevel ? [self.jsonItems[@"keys"] count] : [self.subJsonItems count];
+    return _items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,13 +121,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ArticleSubCategoryViewController *subCategoryViewController = [[ArticleSubCategoryViewController alloc] initWithNibName:nil bundle:nil];
-    [subCategoryViewController setSubJsonItems:self.jsonItems[self.jsonItems[@"keys"][indexPath.row]]];
-    [subCategoryViewController setPageTitle:self.jsonItems[@"keys"][indexPath.row]];
-    [subCategoryViewController setParentPageTitle:self.pageTitle];
+    ArticleCategory *articleCategory = _items[indexPath.row];
+    
+    ArticleSubViewController *subCategoryViewController = [[ArticleSubViewController alloc] initWithNibName:nil bundle:nil];
+    [subCategoryViewController setArticleCategory:articleCategory];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subCategoryViewController];
     
-    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, self.jsonItems[@"keys"][indexPath.row]]];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, articleCategory.category]];
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

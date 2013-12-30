@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Article;
+
 @interface ArticleContentViewController : UIViewController
 
-- (id)initWithArticleJSON:(NSDictionary *)articleJSON;
-
-@property (nonatomic, readonly) NSDictionary *articleJSON;
+@property (nonatomic) Article *article;
 
 @end

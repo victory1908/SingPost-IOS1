@@ -6,10 +6,8 @@
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import  <UIKit/UIKit.h>
+#import "ArticleViewController.h"
 
-@interface OffersMainViewController : UIViewController
-
-@property (nonatomic) NSArray *offersItems;
+@interface OffersMainViewController : ArticleViewController
 
 @end

@@ -52,7 +52,7 @@
 		5249518818574D3E00055555 /* StampCollectibleDetailExpandableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5249518718574D3E00055555 /* StampCollectibleDetailExpandableView.m */; };
 		524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		52518A1A184B060000F4F104 /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 52518A19184B060000F4F104 /* PushNotification.m */; };
-		52518A28184C841100F4F104 /* ArticleSubCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52518A27184C841100F4F104 /* ArticleSubCategoryViewController.m */; };
+		52518A28184C841100F4F104 /* ArticleSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52518A27184C841100F4F104 /* ArticleSubViewController.m */; };
 		526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */; };
 		526E92B7183FDA0200552710 /* PostalCodePoBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 526E92B6183FDA0200552710 /* PostalCodePoBoxTableViewCell.m */; };
 		526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 526FA1A1180BB7BD00E562E7 /* StampImagesBrowserViewController.m */; };
@@ -104,6 +104,9 @@
 		52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936495180B20EF00B83F6B /* PersistentBackgroundView.m */; };
 		52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */; };
 		529364A7180B2FFE00B83F6B /* StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 529364A6180B2FFE00B83F6B /* StampImage.m */; };
+		52A7A2761871D9D100253FA2 /* _Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A7A2731871D9D100253FA2 /* _Article.m */; };
+		52A7A27A1871D9DC00253FA2 /* ArticleCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A7A2791871D9DC00253FA2 /* ArticleCategory.m */; };
+		52A7A27D1871DF0D00253FA2 /* _ArticleCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A7A27C1871DF0D00253FA2 /* _ArticleCategory.m */; };
 		52A8B686180F007E002BC431 /* ArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B685180F007E002BC431 /* ArticleTableViewCell.m */; };
 		52A8B68B180F0098002BC431 /* ArticleContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B688180F0098002BC431 /* ArticleContentViewController.m */; };
 		52A8B68C180F0098002BC431 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A8B68A180F0098002BC431 /* ArticleViewController.m */; };
@@ -114,7 +117,6 @@
 		52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */; };
 		52C908EA18045F3F0063A026 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
 		52C908ED18046BCA0063A026 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908EC18046BCA0063A026 /* Article.m */; };
-		52C908F918047F1E0063A026 /* _Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908F818047F1E0063A026 /* _Article.m */; };
 		52C90915180490330063A026 /* PaymentMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90914180490330063A026 /* PaymentMainViewController.m */; };
 		52C90919180491110063A026 /* ShopMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C90918180491110063A026 /* ShopMainViewController.m */; };
 		52C9091E180491DC0063A026 /* MoreServicesMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C9091D180491DC0063A026 /* MoreServicesMainViewController.m */; };
@@ -214,8 +216,8 @@
 		524CEA3D17F2830400E0EAC3 /* UIView+Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Position.m"; sourceTree = "<group>"; };
 		52518A18184B060000F4F104 /* PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotification.h; sourceTree = "<group>"; };
 		52518A19184B060000F4F104 /* PushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotification.m; sourceTree = "<group>"; };
-		52518A26184C841100F4F104 /* ArticleSubCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleSubCategoryViewController.h; sourceTree = "<group>"; };
-		52518A27184C841100F4F104 /* ArticleSubCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleSubCategoryViewController.m; sourceTree = "<group>"; };
+		52518A26184C841100F4F104 /* ArticleSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleSubViewController.h; sourceTree = "<group>"; };
+		52518A27184C841100F4F104 /* ArticleSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleSubViewController.m; sourceTree = "<group>"; };
 		526E92B2183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCodeLandmarkResultTableViewCell.h; sourceTree = "<group>"; };
 		526E92B3183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostalCodeLandmarkResultTableViewCell.m; sourceTree = "<group>"; };
 		526E92B5183FDA0200552710 /* PostalCodePoBoxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostalCodePoBoxTableViewCell.h; sourceTree = "<group>"; };
@@ -306,6 +308,12 @@
 		52936498180B254400B83F6B /* StampCollectiblesDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampCollectiblesDetailsViewController.m; sourceTree = "<group>"; };
 		529364A5180B2FFE00B83F6B /* StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StampImage.h; sourceTree = "<group>"; };
 		529364A6180B2FFE00B83F6B /* StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StampImage.m; sourceTree = "<group>"; };
+		52A7A2721871D9D100253FA2 /* _Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Article.h; sourceTree = "<group>"; };
+		52A7A2731871D9D100253FA2 /* _Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Article.m; sourceTree = "<group>"; };
+		52A7A2781871D9DC00253FA2 /* ArticleCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleCategory.h; sourceTree = "<group>"; };
+		52A7A2791871D9DC00253FA2 /* ArticleCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleCategory.m; sourceTree = "<group>"; };
+		52A7A27B1871DF0D00253FA2 /* _ArticleCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _ArticleCategory.h; sourceTree = "<group>"; };
+		52A7A27C1871DF0D00253FA2 /* _ArticleCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _ArticleCategory.m; sourceTree = "<group>"; };
 		52A8B684180F007E002BC431 /* ArticleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTableViewCell.h; sourceTree = "<group>"; };
 		52A8B685180F007E002BC431 /* ArticleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTableViewCell.m; sourceTree = "<group>"; };
 		52A8B687180F0098002BC431 /* ArticleContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleContentViewController.h; sourceTree = "<group>"; };
@@ -326,8 +334,6 @@
 		52C908E918045F3F0063A026 /* ApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiClient.m; sourceTree = "<group>"; };
 		52C908EB18046BCA0063A026 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		52C908EC18046BCA0063A026 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
-		52C908F718047F1E0063A026 /* _Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _Article.h; sourceTree = "<group>"; };
-		52C908F818047F1E0063A026 /* _Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _Article.m; sourceTree = "<group>"; };
 		52C90913180490330063A026 /* PaymentMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentMainViewController.h; sourceTree = "<group>"; };
 		52C90914180490330063A026 /* PaymentMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMainViewController.m; sourceTree = "<group>"; };
 		52C90917180491110063A026 /* ShopMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopMainViewController.h; sourceTree = "<group>"; };
@@ -772,6 +778,8 @@
 			children = (
 				52C908EB18046BCA0063A026 /* Article.h */,
 				52C908EC18046BCA0063A026 /* Article.m */,
+				52A7A2781871D9DC00253FA2 /* ArticleCategory.h */,
+				52A7A2791871D9DC00253FA2 /* ArticleCategory.m */,
 				5237B0BD1833E71B00E9358A /* CalculatePostageResultItem.h */,
 				5237B0BE1833E71B00E9358A /* CalculatePostageResultItem.m */,
 				52B40299183B88D100D14D43 /* DeliveryStatus.h */,
@@ -797,8 +805,10 @@
 		528F26DB17F97BA6006F7027 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
-				52C908F718047F1E0063A026 /* _Article.h */,
-				52C908F818047F1E0063A026 /* _Article.m */,
+				52A7A2721871D9D100253FA2 /* _Article.h */,
+				52A7A2731871D9D100253FA2 /* _Article.m */,
+				52A7A27B1871DF0D00253FA2 /* _ArticleCategory.h */,
+				52A7A27C1871DF0D00253FA2 /* _ArticleCategory.m */,
 				52B402A5183BCA8E00D14D43 /* _DeliveryStatus.h */,
 				52B402A6183BCA8E00D14D43 /* _DeliveryStatus.m */,
 				528F270417F9C181006F7027 /* _EntityLocation.h */,
@@ -868,8 +878,8 @@
 				52A8B683180F0069002BC431 /* TableViewCells */,
 				52A8B689180F0098002BC431 /* ArticleViewController.h */,
 				52A8B68A180F0098002BC431 /* ArticleViewController.m */,
-				52518A26184C841100F4F104 /* ArticleSubCategoryViewController.h */,
-				52518A27184C841100F4F104 /* ArticleSubCategoryViewController.m */,
+				52518A26184C841100F4F104 /* ArticleSubViewController.h */,
+				52518A27184C841100F4F104 /* ArticleSubViewController.m */,
 				52A8B687180F0098002BC431 /* ArticleContentViewController.h */,
 				52A8B688180F0098002BC431 /* ArticleContentViewController.m */,
 			);
@@ -1118,11 +1128,10 @@
 				52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */,
 				527C2F331850055100F1FB4F /* MaintanancePageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
-				52C908F918047F1E0063A026 /* _Article.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */,
 				529090F0180D2A1F00D84030 /* _Offer.m in Sources */,
-				52518A28184C841100F4F104 /* ArticleSubCategoryViewController.m in Sources */,
+				52518A28184C841100F4F104 /* ArticleSubViewController.m in Sources */,
 				528C4143183412DF00145E55 /* FindPostalCodePOBoxViewController.m in Sources */,
 				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
@@ -1145,6 +1154,7 @@
 				52E752F61870A24D00D853B3 /* OffersMainViewController.m in Sources */,
 				529090F1180D2A1F00D84030 /* _OfferImage.m in Sources */,
 				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
+				52A7A27D1871DF0D00253FA2 /* _ArticleCategory.m in Sources */,
 				52936496180B20EF00B83F6B /* PersistentBackgroundView.m in Sources */,
 				528F269617F8B7D8006F7027 /* NavigationBarView.m in Sources */,
 				5237B0BC1833DF3300E9358A /* CalculatePostageSingaporeViewController.m in Sources */,
@@ -1153,6 +1163,7 @@
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
+				52A7A2761871D9D100253FA2 /* _Article.m in Sources */,
 				521B172D17F1633000FEB6FD /* main.m in Sources */,
 				5290910A180EA94F00D84030 /* MoreAppsViewController.m in Sources */,
 				52518A1A184B060000F4F104 /* PushNotification.m in Sources */,
@@ -1161,6 +1172,7 @@
 				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,
 				52774F5A184E282500B1E32D /* _StampImage.m in Sources */,
 				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
+				52A7A27A1871D9DC00253FA2 /* ArticleCategory.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
 				529090F6180D2A2900D84030 /* Offer.m in Sources */,
 				528F26B517F920A0006F7027 /* SectionToggleButton.m in Sources */,

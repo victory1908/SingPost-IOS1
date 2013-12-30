@@ -17,12 +17,11 @@
 {
     [super viewDidLoad];
     [self setPageTitle:@"Pay"];
-    [self setIsRootLevel:YES];
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak PaymentMainViewController *weakSelf = self;
-    [Article API_getPayItemsOnCompletion:^(NSDictionary *items) {
-        [weakSelf setJsonItems:items];
+    [Article API_getPayItemsOnCompletion:^(NSArray *items) {
+        [weakSelf setItems:items];
         [SVProgressHUD dismiss];
     }];
 }

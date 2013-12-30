@@ -15,7 +15,6 @@
 @implementation ApiClient
 
 @synthesize notificationProfileID = _notificationProfileID;
-@synthesize failedNotificationTrackingNumbers = _failedNotificationTrackingNumbers;
 
 static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_BASE_URL = @"http://192.241.251.130/singpost/";
@@ -144,7 +143,7 @@ static NSString *const OS = @"ios";
 
 - (void)getOffersItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-updates.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-updates.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);

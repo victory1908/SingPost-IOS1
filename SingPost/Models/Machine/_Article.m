@@ -4,7 +4,6 @@
 #import "_Article.h"
 
 const struct ArticleAttributes ArticleAttributes = {
-	.category = @"category",
 	.htmlContent = @"htmlContent",
 	.name = @"name",
 	.ordering = @"ordering",
@@ -52,13 +51,6 @@ const struct ArticleFetchedProperties ArticleFetchedProperties = {
 
 	return keyPaths;
 }
-
-
-
-
-@dynamic category;
-
-
 
 
 

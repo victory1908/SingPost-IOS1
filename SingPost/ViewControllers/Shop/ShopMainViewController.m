@@ -21,12 +21,11 @@
 {
     [super viewDidLoad];
     [self setPageTitle:@"Shop"];
-    [self setIsRootLevel:YES];
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak ShopMainViewController *weakSelf = self;
-    [Article API_getShopItemsOnCompletion:^(NSDictionary *items) {
-        [weakSelf setJsonItems:items];
+    [Article API_getShopItemsOnCompletion:^(NSArray *items) {
+        [weakSelf setItems:items];
         [SVProgressHUD dismiss];
     }];
 }
