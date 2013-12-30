@@ -71,6 +71,7 @@
     [super viewDidLoad];
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [Article API_getSingPostAppsOnCompletion:^(NSArray *apps) {
+        [SVProgressHUD dismiss];
         appsItems = apps;
         [moreAppsTableView reloadData];
     }];
