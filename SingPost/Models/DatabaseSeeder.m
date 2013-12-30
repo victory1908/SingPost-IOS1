@@ -8,11 +8,6 @@
 
 #import "DatabaseSeeder.h"
 #import "EntityLocation.h"
-#import "Stamp.h"
-#import "StampImage.h"
-#import "Offer.h"
-#import "OfferImage.h"
-#import "NSDate+Extensions.h"
 #import <SVProgressHUD.h>
 
 @implementation DatabaseSeeder
