@@ -68,25 +68,6 @@ static NSString *const OS = @"ios";
     }
 }
 
-- (NSMutableSet *)failedNotificationTrackingNumbers
-{
-    if (!_failedNotificationTrackingNumbers) {
-        _failedNotificationTrackingNumbers = [NSMutableSet setWithArray:[[[NSUserDefaults standardUserDefaults] valueForKey:@"SETTINGS_FAILEDNOTIFICATIONNUMBERS"] componentsSeparatedByString:@"^"]];
-    }
-    
-    if (_failedNotificationTrackingNumbers.count == 0)
-        _failedNotificationTrackingNumbers = [NSMutableSet set];
-    
-    return _failedNotificationTrackingNumbers;
-}
-
-- (void)setFailedNotificationTrackingNumbers:(NSMutableSet *)inFailedNotificationTrackingNumbers
-{
-    _failedNotificationTrackingNumbers = inFailedNotificationTrackingNumbers;
-    [[NSUserDefaults standardUserDefaults] setValue:[_failedNotificationTrackingNumbers.allObjects componentsJoinedByString:@"^"] forKey:@"SETTINGS_FAILEDNOTIFICATIONNUMBERS"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 #pragma mark - API calls
 
 #pragma mark - Informations
