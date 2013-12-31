@@ -88,7 +88,11 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([[windowDeliveryNoTextField.text trimWhiteSpaces] length] == 0 || [[postOfficeTextField.text trimWhiteSpaces] length] < 3) {
+    if ([[postOfficeTextField.text trimWhiteSpaces] length] < 3) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+    else if ([[windowDeliveryNoTextField.text trimWhiteSpaces] length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }

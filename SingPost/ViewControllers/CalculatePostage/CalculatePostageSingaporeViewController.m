@@ -18,6 +18,8 @@
 #import <SVProgressHUD.h>
 #import "CalculatePostageResultItem.h"
 
+#define NUM_DIGITS_SINGAPORE_POSTAL_CODES 6
+
 @interface CalculatePostageSingaporeViewController () <UITextFieldDelegate>
 
 @end
@@ -115,11 +117,11 @@
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
-    if ([fromPostalCodeTextField.text length] == 0 || [toPostalCodeTextField.text length] == 0 || [weightTextField.text length] == 0) {
+    if ([weightTextField.text length] == 0 || [fromPostalCodeTextField.text length] != NUM_DIGITS_SINGAPORE_POSTAL_CODES || [toPostalCodeTextField.text length] != NUM_DIGITS_SINGAPORE_POSTAL_CODES) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
-    else {
+    else if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         
         NSString *weightInGrams = [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? [NSNumber numberWithFloat:[weightTextField.text floatValue] * 1000].stringValue : [NSNumber numberWithFloat:[weightTextField.text floatValue]].stringValue;

@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Codigo. All rights reserved.
 //
 
-#import "ArticleViewController.h"
+#import "ArticleSubViewController.h"
 
-@interface OffersMainViewController : ArticleViewController
+@interface OffersMainViewController : ArticleSubViewController
 
 @end

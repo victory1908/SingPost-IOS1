@@ -143,7 +143,7 @@ static NSString *const OS = @"ios";
 
 - (void)getOffersItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-updates.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-updates.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -548,6 +548,42 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+#pragma mark - Feedback
+
+- (void)postFeedbackMessage:(NSString *)message subject:(NSString *)subject onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+#define FEEDBACK_EMAIL_ADDRESS @"mobilityAtSP@singpost.com"
+    
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/feedback/send" parameters:nil];
+    [request addValue:@"text/html" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:FEEDBACK_EMAIL_ADDRESS forHTTPHeaderField:@"EmailTo"];
+    [request addValue:APP_ID forHTTPHeaderField:@"AppID"];
+    [request addValue:subject forHTTPHeaderField:@"Subject"];
+    [request setHTTPBody:[message dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        if ([responseString isEqualToString:@"ACCEPTED"]) {
+            if (success) {
+                success(responseString);
+            }
+        }
+        else {
+            if (failure) {
+                failure([NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: responseString}]);
+            }
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failure) {
+            failure(error);
+        }
     }];
     
     [self enqueueHTTPRequestOperation:operation];

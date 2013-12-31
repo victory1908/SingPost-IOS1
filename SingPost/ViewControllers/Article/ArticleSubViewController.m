@@ -31,27 +31,33 @@
 - (void)setArticleCategory:(ArticleCategory *)inArticleCategory
 {
     _articleCategory = inArticleCategory;
-    _articleItems = [_articleCategory.articles array];
+    self.items = [_articleCategory.articles array];
+}
+
+- (void)setShowAsRootViewController:(BOOL)showAsRootViewController
+{
+    [navigationBarView setShowSidebarToggleButton:showAsRootViewController];
+    [navigationBarView setShowBackButton:!showAsRootViewController];
 }
 
 #pragma mark - UITableView DataSource & Delegate
 
 - (void)configureCell:(ArticleTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Article *article = _articleItems[indexPath.row];
+    Article *article = self.items[indexPath.row];
     cell.title = article.name;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _articleItems.count;
+    return self.items.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Article *article = _articleItems[indexPath.row];
+    Article *article = self.items[indexPath.row];
     ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithNibName:nil bundle:nil];
-    [viewController setArticle:_articleItems[indexPath.row]];
+    [viewController setArticle:article];
 
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@ - %@", _articleCategory.module, _articleCategory.category, article.name]];

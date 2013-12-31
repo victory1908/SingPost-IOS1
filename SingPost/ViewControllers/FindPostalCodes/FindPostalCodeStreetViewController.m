@@ -86,7 +86,11 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([[buildingBlockHouseNumberTextField.text trimWhiteSpaces] length] == 0 || [[streetNameTextField.text trimWhiteSpaces] length] < 3) {
+    if ([[streetNameTextField.text trimWhiteSpaces] length] < 3) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+    else if ([[buildingBlockHouseNumberTextField.text trimWhiteSpaces] length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }

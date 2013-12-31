@@ -16,6 +16,7 @@
 #import "TrackedItem.h"
 #import "ApiClient.h"
 #import "TrackingMainViewController.h"
+#import "TrackingDetailsViewController.h"
 
 @implementation AppDelegate
 
@@ -25,6 +26,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+
+    if (remoteNotification) {
+        [self handleRemoteNotification:remoteNotification shouldPrompt:NO];
+    }
+
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     [MagicalRecord setupCoreDataStack];
@@ -100,42 +107,54 @@
 {
     BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
     if (!hasInternetConnection && warnIfNoConnection) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No/Slow Internet Connection" message:@"Your device is not connected to the internet, or may have slow access." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No/Slow Internet Connection" message:@"SingPost App has detected no internet access. Make sure your device is connected to cellular data network or WiFi." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
         [alertView show];
     }
     
     return hasInternetConnection;
 }
 
+#pragma mark - Tracking
+
+- (void)goToTrackingDetailsPageForTrackingNumber:(NSString *)trackingNumber
+{
+    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumber onCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            TrackedItem *trackedItem = [TrackedItem MR_findFirstByAttribute:TrackedItemAttributes.trackingNumber withValue:trackingNumber];
+            TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+            [self.rootViewController cPushViewController:trackingDetailsViewController];
+            [SVProgressHUD dismiss];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+        }
+    }];
+}
+
 #pragma mark - APNS
 
-- (void)handleRemoteNotification:(NSDictionary *)payloadInfo
+- (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt
 {
     NSString *trackingNumber = payloadInfo[@"i"];
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
     
     if (trackingNumber.length > 0) {
         //it's a tracking item apns
-        [UIAlertView showWithTitle:@"SingPost"
-                           message:aps[@"alert"]
-                 cancelButtonTitle:@"Cancel"
-                 otherButtonTitles:@[@"View"]
-                          tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                              if (buttonIndex != [alertView cancelButtonIndex]) {
-                                  [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-                                  [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumber onCompletion:^(BOOL success, NSError *error) {
-                                      if (success) {
-                                          [SVProgressHUD dismiss];
-                                          TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-                                          trackingMainViewController.trackingNumber = trackingNumber;
-                                          [self.rootViewController switchToViewController:trackingMainViewController];
-                                      }
-                                      else {
-                                          [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
-                                      }
-                                  }];
-                              }
-                          }];
+        if (shouldPrompt) {
+            [UIAlertView showWithTitle:@"SingPost"
+                               message:aps[@"alert"]
+                     cancelButtonTitle:@"Cancel"
+                     otherButtonTitles:@[@"View"]
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                  if (buttonIndex != [alertView cancelButtonIndex]) {
+                                      [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
+                                  }
+                              }];
+        }
+        else {
+            [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
+        }
     }
     else {
         //a plain alert apns
@@ -146,7 +165,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [self handleRemoteNotification:userInfo];
+    [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateActive)];
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken

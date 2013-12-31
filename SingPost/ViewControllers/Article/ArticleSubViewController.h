@@ -13,6 +13,6 @@
 @interface ArticleSubViewController : ArticleViewController
 
 @property (nonatomic) ArticleCategory *articleCategory;
-@property (nonatomic, readonly) NSArray *articleItems;
+@property (nonatomic, assign) BOOL showAsRootViewController;
 
 @end

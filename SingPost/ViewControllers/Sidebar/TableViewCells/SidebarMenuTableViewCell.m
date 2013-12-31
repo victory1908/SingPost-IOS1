@@ -19,7 +19,7 @@
 @implementation SidebarMenuTableViewCell
 {
     UILabel *menuNameLabel;
-    UIImageView *menuImageView, *subrowIndicatorImageView, *starIndicatorImageView;
+    UIImageView *menuImageView, *subrowIndicatorImageView;
 }
 
 - (NSArray *)sidebarMenusData
@@ -55,11 +55,6 @@
         [separatorView setBackgroundColor:RGB(225, 225, 225)];
         [contentView addSubview:separatorView];
         
-        starIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-        [starIndicatorImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 38, 12, 20, 20)];
-        [starIndicatorImageView setHidden:YES];
-        [contentView addSubview:starIndicatorImageView];
-        
         subrowIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"showSubRow_indicator"]];
         [subrowIndicatorImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 32, 20, 8, 5)];
         [subrowIndicatorImageView setHidden:YES];
@@ -74,7 +69,6 @@
 {
     [super prepareForReuse];
     [subrowIndicatorImageView setHidden:YES];
-    [starIndicatorImageView setHidden:YES];
 }
 
 - (void)setSidebarMenu:(tSidebarMenus)inSidebarMenu
@@ -87,9 +81,6 @@
     
     if (_sidebarMenu == SIDEBARMENU_OFFERSMORE)
         [subrowIndicatorImageView setHidden:NO];
-    
-    if (_sidebarMenu == SIDEBARMENU_STAMPCOLLECTIBLES)
-        [starIndicatorImageView setHidden:NO];
     
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     CGFloat alpha = 1.0f;
@@ -149,7 +140,6 @@
     [menuNameLabel setAlpha:alpha];
     [menuImageView setAlpha:alpha];
     [subrowIndicatorImageView setAlpha:alpha];
-    [starIndicatorImageView setAlpha:alpha];
 }
 
 - (void)animateShowSubRows:(BOOL)isSubRowsVisible

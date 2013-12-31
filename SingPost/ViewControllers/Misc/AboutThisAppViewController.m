@@ -56,9 +56,9 @@
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"About"];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
 }
 

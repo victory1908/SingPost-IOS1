@@ -14,6 +14,8 @@
 #import "CTextField.h"
 #import "CTextView.h"
 #import "FlatBlueButton.h"
+#import "ApiClient.h"
+#import <SVProgressHUD.h>
 
 @interface FeedbackViewController ()
 
@@ -137,7 +139,21 @@
 
 - (IBAction)sendFeedbackButtonClicked:(id)sender
 {
-    NSLog(@"send feedback button clicked");
+    if ([nameTextField.text length] == 0 || [contactNumberTextField.text length] == 0 || [emailAddressTextField.text length] == 0 || [commentsTextView.text length] == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+    }
+    else {
+        [self.view endEditing:YES];
+        NSString *feedbackMessage = [NSString stringWithFormat:@"Name: %@\nContact: %@\nEmail: %@\nMessage: %@", nameTextField.text, contactNumberTextField.text, emailAddressTextField.text, commentsTextView.text];
+        
+        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
+        [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"Customer Feedback on SingPost Mobile App" onSuccess:^(id responseObject) {
+            [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
+        } onFailure:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"An error has occured"];
+        }];
+    }
 }
 
 @end

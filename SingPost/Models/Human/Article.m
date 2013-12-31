@@ -119,8 +119,19 @@
 {
     [[ApiClient sharedInstance] getOffersItemsOnSuccess:^(id responseJSON) {
         if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Offers"]);
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSMutableArray *items = [NSMutableArray array];
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+
+                [[responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+                    Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+                    [article updateWithApiRepresentation:articleJSON];
+                    [items addObject:article];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(items);
+                });
             });
         }
     } onFailure:^(NSError *error) {

@@ -102,12 +102,11 @@
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
-//    if (!toWhichCountryDropDownList.selectedValue || !expectedDeliveryTimeInDaysDropDownList.selectedValue || [weightTextField.text length] == 0) {
     if (!toWhichCountryDropDownList.selectedValue || [weightTextField.text length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
-    else {
+    else if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         
         NSString *weightInGrams = [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? [NSNumber numberWithFloat:[weightTextField.text floatValue] * 1000].stringValue : [NSNumber numberWithFloat:[weightTextField.text floatValue]].stringValue;

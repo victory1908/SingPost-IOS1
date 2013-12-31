@@ -20,6 +20,7 @@
 {
     [super viewDidLoad];
     [self setPageTitle:@"Offers"];
+    [self setShowAsRootViewController:YES];
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak OffersMainViewController *weakSelf = self;
@@ -29,9 +30,9 @@
     }];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
 }
 

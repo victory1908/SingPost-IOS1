@@ -36,6 +36,8 @@
 
 @interface SidebarTrackingNumberTextField : UITextField
 
+@property (nonatomic, assign) CGSize insetBoundsSize;
+
 @end
 
 @implementation SidebarTrackingNumberTextField
@@ -49,6 +51,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.textColor = RGB(36, 84, 157);
         self.font = [UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
+        self.insetBoundsSize = CGSizeMake(36, 6);
     }
     
     return self;
@@ -60,11 +63,13 @@
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 10, 6);
+    CGRect rect = [super textRectForBounds:bounds];
+    return CGRectInset(rect, _insetBoundsSize.width, _insetBoundsSize.height);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
-    return CGRectInset(bounds, 10, 6);
+    CGRect rect = [super editingRectForBounds:bounds];
+    return CGRectInset(rect, _insetBoundsSize.width, _insetBoundsSize.height);
 }
 
 @end
@@ -158,7 +163,7 @@
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
             }
             else {
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }
         }];
     }
@@ -203,10 +208,6 @@
     [trackLabel setBackgroundColor:[UIColor clearColor]];
     [headerView addSubview:trackLabel];
     
-    UIImageView *starImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
-    [starImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 38, 9, 20, 20)];
-    [headerView addSubview:starImageView];
-    
     trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, SIDEBAR_WIDTH - 35, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
@@ -215,6 +216,12 @@
     [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
     [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
     [headerView addSubview:trackingNumberTextField];
+    
+    UIButton *trackingListButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon_small"] forState:UIControlStateNormal];
+    [trackingListButton addTarget:self action:@selector(trackingListButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [trackingListButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, 29, 44, 44) : CGRectMake(15, 31, 40, 40)];
+    [headerView addSubview:trackingListButton];
     
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
@@ -475,6 +482,13 @@
     
     [menuTableView endUpdates];
     [menuTableView scrollToRowAtIndexPath:(showOffersMoreSubrows ? subRowsIndexPaths[0] : [NSIndexPath indexPathForRow:SIDEBARMENU_OFFERSMORE inSection:0]) atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (IBAction)trackingListButtonClicked:(id)sender
+{
+    [self.view endEditing:YES];
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
 }
 
 @end

@@ -519,7 +519,7 @@ typedef enum {
                 [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
             }
             else {
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }
         }];
     }
