@@ -60,7 +60,12 @@
     [viewController setArticle:article];
 
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
-    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@ - %@", _articleCategory.module, _articleCategory.category, article.name]];
+    if (_articleCategory) {
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@ - %@", _articleCategory.module, _articleCategory.category, article.name]];
+    }
+    else {
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, article.name]];
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
