@@ -148,7 +148,7 @@
         NSString *feedbackMessage = [NSString stringWithFormat:@"Name: %@\nContact: %@\nEmail: %@\nMessage: %@", nameTextField.text, contactNumberTextField.text, emailAddressTextField.text, commentsTextView.text];
         
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
-        [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"Customer Feedback on SingPost Mobile App" onSuccess:^(id responseObject) {
+        [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"SingPost Mobile App | Customer Feedback" onSuccess:^(id responseObject) {
             [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
         } onFailure:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"An error has occured"];

@@ -557,7 +557,7 @@ static NSString *const OS = @"ios";
 
 - (void)postFeedbackMessage:(NSString *)message subject:(NSString *)subject onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-#define FEEDBACK_EMAIL_ADDRESS @"mobilityAtSP@singpost.com"
+#define FEEDBACK_EMAIL_ADDRESS @"mobilityAtSP@singpost.com,chirag@singpost.com"
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/feedback/send" parameters:nil];
     [request addValue:@"text/html" forHTTPHeaderField:@"Content-Type"];

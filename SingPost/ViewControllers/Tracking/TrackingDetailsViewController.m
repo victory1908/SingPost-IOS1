@@ -7,6 +7,7 @@
 //
 
 #import "TrackingDetailsViewController.h"
+#import "TrackingFeedbackViewController.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
 #import "UIImage+Extensions.h"
@@ -192,11 +193,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DeliveryStatus *deliveryStatus = _deliveryStatuses[indexPath.row];
-    CGSize statusLabelSize = [deliveryStatus.statusDescription sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
-    CGSize locationLabelSize = [deliveryStatus.location sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
-
-    return MAX(61.0f, MAX(statusLabelSize.height + 12.0f, locationLabelSize.height + 12.0f));
+    if (indexPath.row < _deliveryStatuses.count) {
+        DeliveryStatus *deliveryStatus = _deliveryStatuses[indexPath.row];
+        CGSize statusLabelSize = [deliveryStatus.statusDescription sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
+        CGSize locationLabelSize = [deliveryStatus.location sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
+        
+        return MAX(61.0f, MAX(statusLabelSize.height + 12.0f, locationLabelSize.height + 12.0f));
+    }
+    return 60;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -221,7 +225,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _deliveryStatuses.count;
+    return _deliveryStatuses.count + 1;
 }
 
 - (void)configureCell:(TrackingItemDetailTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -231,17 +235,42 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *const cellIdentifier = @"TrackingItemMainTableViewCell";
-
-    TrackingItemDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        cell = [[TrackingItemDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.row < _deliveryStatuses.count) {
+        static NSString *const cellIdentifier = @"TrackingItemMainTableViewCell";
+        
+        TrackingItemDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!cell) {
+            cell = [[TrackingItemDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        [self configureCell:cell atIndexPath:indexPath];
+        
+        return cell;
     }
-    
-    [self configureCell:cell atIndexPath:indexPath];
-    
-    return cell;
+    else {
+        static NSString *const feedbackCellIdentifier = @"FeedbackCell";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:feedbackCellIdentifier];
+        if (cell == nil) {
+            // allocate the cell:
+            cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
+            
+            UIImage *feedbackImage = [UIImage imageNamed:@"tracking_feedback"];
+            
+            UIImageView *feedbackBanner = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 60)];
+            feedbackBanner.image = feedbackImage;
+            [cell addSubview:feedbackBanner];
+        }
+        return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < _deliveryStatuses.count)
+        return;
+    TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] initWithTrackedItem:_trackedItem];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
 }
 
 @end
