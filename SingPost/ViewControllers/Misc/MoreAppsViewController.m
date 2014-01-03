@@ -126,8 +126,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appsItems[indexPath.row][@"IOSURL"]]];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:appsItems[indexPath.row][@"IOSSCHEME"]]])
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appsItems[indexPath.row][@"IOSSCHEME"]]];
+    else {
+        NSURL *urlToOpen;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+            urlToOpen = [NSURL URLWithString:appsItems[indexPath.row][@"IPADURL"]];
+        else
+            urlToOpen = [NSURL URLWithString:appsItems[indexPath.row][@"IOSSCHEME"]];
+    }
 }
 
 @end
