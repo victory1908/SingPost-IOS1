@@ -9,6 +9,7 @@
 #import "MaintanancePageViewController.h"
 #import "UIFont+SingPost.h"
 #import "UILabel+VerticalAlign.h"
+#import "FlatBlueButton.h"
 
 @interface MaintanancePageViewController ()
 
@@ -37,13 +38,13 @@
     [backgroundImageView setImage:[UIImage imageNamed:@"maintanance_bg"]];
     [backgroundImageView setContentMode:UIViewContentModeScaleToFill];
     [contentView addSubview:backgroundImageView];
-    
+    /*
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeButton setImage:[UIImage imageNamed:@"button_close"] forState:UIControlStateNormal];
     [closeButton setFrame:CGRectMake(270, 10, 44, 44)];
     [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:closeButton];
-    
+    */
     UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 275, 200, 20)];
     [moduleNameLabel setBackgroundColor:[UIColor clearColor]];
     [moduleNameLabel setTextColor:RGB(195, 17, 38)];
@@ -62,6 +63,11 @@
     [maintananceMessageLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [maintananceMessageLabel alignTop];
     [contentView addSubview:maintananceMessageLabel];
+    
+    FlatBlueButton *sendFeedbackButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, maintananceMessageLabel.frame.origin.y + maintananceMessageLabel.frame.size.height + 10, 290 , 48)];
+    [sendFeedbackButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [sendFeedbackButton setTitle:@"CONTINUE TO APP" forState:UIControlStateNormal];
+    [contentView addSubview:sendFeedbackButton];
     
     self.view = contentView;
 }

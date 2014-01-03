@@ -170,6 +170,10 @@
     
     if (locations.count > 0)
         [self centerMapToFitAllLocations];
+    else {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"No results found" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
+    }
     
     if ([locationType isEqualToString:LOCATION_TYPE_POST_OFFICE])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- PO Map"];
