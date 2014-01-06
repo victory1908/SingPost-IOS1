@@ -237,7 +237,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
 + (void)API_updatePostalAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getAgentLocationsOnSuccess:^(id responseJSON) {
+    [[ApiClient sharedInstance] getPostalAgentLocationsOnSuccess:^(id responseJSON) {
         [[self class] updateLocationsOfType:LOCATION_TYPE_POSTAL_AGENT jsonData:responseJSON onCompletion:completionBlock];
     } onFailure:^(NSError *error) {
         if (completionBlock) {
@@ -248,7 +248,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
 + (void)API_updateSingPostAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getAgentLocationsOnSuccess:^(id responseJSON) {
+    [[ApiClient sharedInstance] getSingPostAgentLocationsOnSuccess:^(id responseJSON) {
         [[self class] updateLocationsOfType:LOCATION_TYPE_SINGPOST_AGENT jsonData:responseJSON onCompletion:completionBlock];
     } onFailure:^(NSError *error) {
         if (completionBlock) {

@@ -42,7 +42,8 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 - (void)getPostOfficeLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)getSamLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)getPostingBoxLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
-- (void)getAgentLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void)getPostalAgentLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void)getSingPostAgentLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)getPopStationLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
 //tracking
