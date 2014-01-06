@@ -66,7 +66,7 @@ typedef enum {
     [infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [infoButton setFrame:CGRectMake(255, 7, 50, 30)];
     [navigationBarView addSubview:infoButton];
-
+    
     trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [trackingItemsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingItemsTableView setSeparatorColor:[UIColor clearColor]];
@@ -145,7 +145,7 @@ typedef enum {
 - (IBAction)reloadTrackingItemsButtonClicked:(id)sender
 {
     NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
-
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES] && itemsToReload.count > 0) {
         __block CGFloat updateProgress = 0.0f;
         [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
@@ -161,7 +161,7 @@ typedef enum {
             [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
         }];
     }
-    else {
+    if (!itemsToReload.count > 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"There is no active item" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
     }
@@ -207,9 +207,9 @@ typedef enum {
         trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
     else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
         trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-
+    
     CGSize statusLabelSize = [trackedItem.status sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
-
+    
     return MAX(60, statusLabelSize.height + 14);
 }
 
@@ -234,7 +234,7 @@ typedef enum {
         id <NSFetchedResultsSectionInfo> sectionInfo = [self.activeItemsFetchedResultsController.sections objectAtIndex:0];
         return HEADER_COUNT + [sectionInfo numberOfObjects];
     }
-        
+    
     if (section == TRACKINGITEMS_SECTION_COMPLETED) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [self.completedItemsFetchedResultsController.sections objectAtIndex:0];
         return HEADER_COUNT + [sectionInfo numberOfObjects];
@@ -258,7 +258,7 @@ typedef enum {
     UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 49, tableView.bounds.size.width, 1)];
     [bottomSeparatorView setBackgroundColor:RGB(231, 232, 233)];
     [sectionHeaderView addSubview:bottomSeparatorView];
-
+    
     switch ((tTrackingItemsSections)section) {
         case TRACKINGITEMS_SECTION_ACTIVE:
         {
@@ -269,14 +269,14 @@ typedef enum {
             [activeItemsLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [sectionHeaderView addSubview:activeItemsLabel];
             
-//            UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//            [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
-//            [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
-//            [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
-//            [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//            [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
-//            [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
-//            [sectionHeaderView addSubview:numActiveItemsButton];
+            //            UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            //            [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
+            //            [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
+            //            [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
+            //            [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            //            [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
+            //            [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
+            //            [sectionHeaderView addSubview:numActiveItemsButton];
             
             UIButton *reloadTrackingItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [reloadTrackingItemsButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
@@ -332,7 +332,7 @@ typedef enum {
         
         return cell;
     }
-
+    
     if (indexPath.row == 0) {
         TrackingHeaderMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:headerCellIdentifier];
         if (!cell) {
@@ -347,7 +347,7 @@ typedef enum {
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
             [cell setHideSeparatorView:self.completedItemsFetchedResultsController.fetchedObjects.count == 0];
         }
-
+        
         return cell;
     }
     else {
