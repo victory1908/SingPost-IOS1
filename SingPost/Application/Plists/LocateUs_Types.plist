@@ -24,11 +24,17 @@
 		<key>code</key>
 		<string>3</string>
 		<key>value</key>
-		<string>Agent</string>
+		<string>SingPost Agent</string>
 	</dict>
 	<dict>
 		<key>code</key>
 		<string>4</string>
+		<key>value</key>
+		<string>Postal Agent</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>5</string>
 		<key>value</key>
 		<string>POPStation</string>
 	</dict>

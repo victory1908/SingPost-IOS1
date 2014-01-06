@@ -119,21 +119,41 @@
     ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
     if (!cell)
         cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-    
+    NSLog(@"%@",appsItems);
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:appsItems[indexPath.row][@"IOSSCHEME"]]])
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appsItems[indexPath.row][@"IOSSCHEME"]]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *urlSchemeString = appsItems[indexPath.row][@"IOSSCHEME"];
+    
+    if (![urlSchemeString length] < 0 || urlSchemeString == nil)
+        return;
+    
+    if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:urlSchemeString]])
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlSchemeString]];
+    
     else {
-        NSURL *urlToOpen;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            urlToOpen = [NSURL URLWithString:appsItems[indexPath.row][@"IPADURL"]];
-        else
-            urlToOpen = [NSURL URLWithString:appsItems[indexPath.row][@"IOSSCHEME"]];
+        NSURL *urlToOpen = nil;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            NSString *appStoreURL = appsItems[indexPath.row][@"IPADURL"];
+            if (![appStoreURL length] < 0 || appStoreURL == nil)
+                return;
+            
+            urlToOpen = [NSURL URLWithString:appStoreURL];
+        }
+        else {
+            NSString *appStoreURL = appsItems[indexPath.row][@"IOSURL"];
+            if (![appStoreURL length] < 0 || appStoreURL == nil)
+                return;
+            
+            urlToOpen = [NSURL URLWithString:appStoreURL];
+        }
+        if([[UIApplication sharedApplication]canOpenURL:urlToOpen])
+            [[UIApplication sharedApplication] openURL:urlToOpen];
     }
 }
 

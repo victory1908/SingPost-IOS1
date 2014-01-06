@@ -152,7 +152,13 @@
         
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"SingPost Mobile App | Customer Feedback" onSuccess:^(id responseObject) {
-            [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
+
+            nameTextField.text = @"";
+            contactNumberTextField.text = @"";
+            emailAddressTextField.text = @"";
+            commentsTextView.text = @"";
+            
+            [SVProgressHUD showSuccessWithStatus:@"Feedback has been submitted."];
         } onFailure:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"An error has occured"];
         }];

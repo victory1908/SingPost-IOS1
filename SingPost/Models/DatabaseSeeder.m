@@ -22,11 +22,13 @@
             [EntityLocation seedLocationsOfType:LOCATION_TYPE_POST_OFFICE onCompletion:^(BOOL success, NSError *error) {
                 [EntityLocation seedLocationsOfType:LOCATION_TYPE_SAM onCompletion:^(BOOL success, NSError *error) {
                     [EntityLocation seedLocationsOfType:LOCATION_TYPE_POSTING_BOX onCompletion:^(BOOL success, NSError *error) {
-                        [EntityLocation seedLocationsOfType:LOCATION_TYPE_AGENT onCompletion:^(BOOL success, NSError *error) {
-                            [EntityLocation seedLocationsOfType:LOCATION_TYPE_POPSTATION onCompletion:^(BOOL success, NSError *error) {
-                                [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:SETTINGS_LOCATIONS_IS_SEEDED];
-                                [[NSUserDefaults standardUserDefaults] synchronize];
-                                [SVProgressHUD dismiss];
+                        [EntityLocation seedLocationsOfType:LOCATION_TYPE_POSTAL_AGENT onCompletion:^(BOOL success, NSError *error) {
+                            [EntityLocation seedLocationsOfType:LOCATION_TYPE_SINGPOST_AGENT onCompletion:^(BOOL success, NSError *error) {
+                                [EntityLocation seedLocationsOfType:LOCATION_TYPE_POPSTATION onCompletion:^(BOOL success, NSError *error) {
+                                    [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:SETTINGS_LOCATIONS_IS_SEEDED];
+                                    [[NSUserDefaults standardUserDefaults] synchronize];
+                                    [SVProgressHUD dismiss];
+                                }];
                             }];
                         }];
                     }];

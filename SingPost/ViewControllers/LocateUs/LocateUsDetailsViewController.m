@@ -63,7 +63,7 @@ typedef enum  {
 
 - (BOOL)shouldHideSectionSelector
 {
-    return [_entityLocation.type isEqualToString:LOCATION_TYPE_SAM] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTING_BOX] || [_entityLocation.type isEqualToString:LOCATION_TYPE_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POPSTATION];
+    return [_entityLocation.type isEqualToString:LOCATION_TYPE_SAM] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTING_BOX] || [_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POPSTATION];
 }
 
 - (void)loadView
@@ -204,7 +204,9 @@ typedef enum  {
         [addressImageView setImage:[UIImage imageNamed:@"postingbox_icon"]];
     else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SAM])
         [addressImageView setImage:[UIImage imageNamed:@"SAM"]];
-    else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_AGENT])
+    else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT])
+        [addressImageView setImage:[UIImage imageNamed:@"icon-agents"]];
+    else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
         [addressImageView setImage:[UIImage imageNamed:@"icon-agents"]];
     else if ([_entityLocation.type isEqualToString:LOCATION_TYPE_POPSTATION])
         [addressImageView setImage:[UIImage imageNamed:@"icon-popstation"]];
@@ -324,7 +326,9 @@ typedef enum  {
                 annotationView.image = [UIImage imageNamed:@"sam_map_overlay"];
             else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
                 annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
-            else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
+            else if ([locationType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT])
+                annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
+            else if ([locationType isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
                 annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
             else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
                 annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];

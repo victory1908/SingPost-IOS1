@@ -4,7 +4,8 @@
 #define LOCATION_TYPE_POST_OFFICE @"Post Office"
 #define LOCATION_TYPE_SAM @"SAM"
 #define LOCATION_TYPE_POSTING_BOX @"Posting Box"
-#define LOCATION_TYPE_AGENT @"Agent"
+#define LOCATION_TYPE_SINGPOST_AGENT @"SingPost Agent"
+#define LOCATION_TYPE_POSTAL_AGENT @"Postal Agent"
 #define LOCATION_TYPE_POPSTATION @"POPStation"
 
 @interface EntityLocation : _EntityLocation {}
@@ -32,7 +33,8 @@
 + (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_updatePostingBoxLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_updateSamLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
-+ (void)API_updateAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_updatePostalAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_updateSingPostAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_updatePopStationLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 
 @end

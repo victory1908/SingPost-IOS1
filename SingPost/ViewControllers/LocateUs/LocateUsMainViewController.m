@@ -146,13 +146,21 @@ typedef enum {
             [locateUsListViewController reloadData];
         }];
     }
-    else if ([selectedType isEqualToString:LOCATION_TYPE_AGENT]) {
-        [EntityLocation API_updateAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
+    else if ([selectedType isEqualToString:LOCATION_TYPE_POSTAL_AGENT]) {
+        [EntityLocation API_updatePostalAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
             [locateUsMapViewController showFilteredLocationsOnMap];
             [locateUsListViewController reloadData];
         }];
     }
+    else if ([selectedType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT]) {
+        [EntityLocation API_updateSingPostAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
+            [SVProgressHUD dismiss];
+            [locateUsMapViewController showFilteredLocationsOnMap];
+            [locateUsListViewController reloadData];
+        }];
+    }
+
     else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
         [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];

@@ -225,7 +225,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _deliveryStatuses.count + 1;
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    NSString *status = maintananceStatuses[@"ReportThis"];
+    
+    if ([status isEqualToString:@"on"])
+        return _deliveryStatuses.count;
+    else
+        return _deliveryStatuses.count + 1;
 }
 
 - (void)configureCell:(TrackingItemDetailTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath

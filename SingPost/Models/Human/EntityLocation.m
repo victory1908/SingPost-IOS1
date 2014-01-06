@@ -235,10 +235,21 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     }];
 }
 
-+ (void)API_updateAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
++ (void)API_updatePostalAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getAgentLocationsOnSuccess:^(id responseJSON) {
-        [[self class] updateLocationsOfType:LOCATION_TYPE_AGENT jsonData:responseJSON onCompletion:completionBlock];
+        [[self class] updateLocationsOfType:LOCATION_TYPE_POSTAL_AGENT jsonData:responseJSON onCompletion:completionBlock];
+    } onFailure:^(NSError *error) {
+        if (completionBlock) {
+            completionBlock(NO, error);
+        }
+    }];
+}
+
++ (void)API_updateSingPostAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+{
+    [[ApiClient sharedInstance] getAgentLocationsOnSuccess:^(id responseJSON) {
+        [[self class] updateLocationsOfType:LOCATION_TYPE_SINGPOST_AGENT jsonData:responseJSON onCompletion:completionBlock];
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             completionBlock(NO, error);

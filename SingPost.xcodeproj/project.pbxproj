@@ -60,7 +60,7 @@
 		52731F73185AB1B4007D6001 /* SAM.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F72185AB1B4007D6001 /* SAM.json */; };
 		52731F75185AB1DC007D6001 /* Posting Box.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F74185AB1DC007D6001 /* Posting Box.json */; };
 		52731F77185AB1ED007D6001 /* Post Office.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F76185AB1ED007D6001 /* Post Office.json */; };
-		52731F79185AB21D007D6001 /* Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F78185AB21D007D6001 /* Agent.json */; };
+		52731F79185AB21D007D6001 /* Postal Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F78185AB21D007D6001 /* Postal Agent.json */; };
 		52731F7D185AB239007D6001 /* POPStation.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F7C185AB239007D6001 /* POPStation.json */; };
 		52774F5A184E282500B1E32D /* _StampImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 52774F58184E282500B1E32D /* _StampImage.m */; };
 		527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 527C2F2F184FCC4B00F1FB4F /* NSDictionary+Additions.m */; };
@@ -127,6 +127,7 @@
 		52F1AF111863CD9200373066 /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F1AF101863CD9200373066 /* _Stamp.m */; };
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
+		91B49BC1187AC76200C7FE62 /* SingPost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* SingPost Agent.json */; };
 		91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -230,7 +231,7 @@
 		52731F72185AB1B4007D6001 /* SAM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = SAM.json; sourceTree = "<group>"; };
 		52731F74185AB1DC007D6001 /* Posting Box.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Posting Box.json"; sourceTree = "<group>"; };
 		52731F76185AB1ED007D6001 /* Post Office.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Post Office.json"; sourceTree = "<group>"; };
-		52731F78185AB21D007D6001 /* Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Agent.json; sourceTree = "<group>"; };
+		52731F78185AB21D007D6001 /* Postal Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Postal Agent.json"; sourceTree = "<group>"; };
 		52731F7C185AB239007D6001 /* POPStation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = POPStation.json; sourceTree = "<group>"; };
 		52774F57184E282500B1E32D /* _StampImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _StampImage.h; sourceTree = "<group>"; };
 		52774F58184E282500B1E32D /* _StampImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _StampImage.m; sourceTree = "<group>"; };
@@ -355,6 +356,7 @@
 		52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuSubRowTableViewCell.m; sourceTree = "<group>"; };
 		52F8134517FBFE5400516210 /* LocateUsDetailsOpeningHoursView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsOpeningHoursView.h; sourceTree = "<group>"; };
 		52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsOpeningHoursView.m; sourceTree = "<group>"; };
+		91B49BC0187AC76200C7FE62 /* SingPost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SingPost Agent.json"; sourceTree = "<group>"; };
 		91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingFeedbackViewController.h; sourceTree = "<group>"; };
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -673,10 +675,11 @@
 		52731F71185AB194007D6001 /* LocationJSONs */ = {
 			isa = PBXGroup;
 			children = (
+				91B49BC0187AC76200C7FE62 /* SingPost Agent.json */,
 				52731F72185AB1B4007D6001 /* SAM.json */,
 				52731F74185AB1DC007D6001 /* Posting Box.json */,
 				52731F76185AB1ED007D6001 /* Post Office.json */,
-				52731F78185AB21D007D6001 /* Agent.json */,
+				52731F78185AB21D007D6001 /* Postal Agent.json */,
 				52731F7C185AB239007D6001 /* POPStation.json */,
 			);
 			path = LocationJSONs;
@@ -1039,7 +1042,7 @@
 				528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */,
 				528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */,
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
-				52731F79185AB21D007D6001 /* Agent.json in Resources */,
+				52731F79185AB21D007D6001 /* Postal Agent.json in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
 				52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */,
 				52731F75185AB1DC007D6001 /* Posting Box.json in Resources */,
@@ -1051,6 +1054,7 @@
 				52731F7D185AB239007D6001 /* POPStation.json in Resources */,
 				528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */,
 				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
+				91B49BC1187AC76200C7FE62 /* SingPost Agent.json in Resources */,
 				52731F73185AB1B4007D6001 /* SAM.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

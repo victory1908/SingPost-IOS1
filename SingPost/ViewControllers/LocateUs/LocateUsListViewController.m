@@ -299,8 +299,10 @@
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM List"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Posting Box List"];
-    else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
-        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Agent List"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SingPost Agent List"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Postal Agent List"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation List"];
     

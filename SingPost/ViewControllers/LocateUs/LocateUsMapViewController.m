@@ -181,8 +181,10 @@
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SAM Map"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Posting Box Map"];
-    else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
-        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Agent Map"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SingPost Agent Map"];
+    else if ([locationType isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Postal Agent Map"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation Map"];
 }
@@ -255,7 +257,9 @@
             annotationView.image = [UIImage imageNamed:@"sam_map_overlay"];
         else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
             annotationView.image = [UIImage imageNamed:@"posting_box_map_overlay"];
-        else if ([locationType isEqualToString:LOCATION_TYPE_AGENT])
+        else if ([locationType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT])
+            annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
+        else if ([locationType isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
             annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
         else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
             annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];

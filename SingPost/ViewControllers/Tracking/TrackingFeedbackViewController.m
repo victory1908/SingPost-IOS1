@@ -138,7 +138,8 @@
     NSString *postMessage = [NSString stringWithFormat:@"TrackingNo.: %@ \n Message: %@",_trackedItem.trackingNumber,commentsTextView.text];
     [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
     [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {
-        [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
+        commentsTextView.text = @"";
+        [SVProgressHUD showSuccessWithStatus:@"Feedback has been submitted."];
     } onFailure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:@"An error has occured"];
     }];

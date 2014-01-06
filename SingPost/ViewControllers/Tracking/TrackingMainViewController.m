@@ -18,6 +18,7 @@
 #import <KGModal.h>
 #import <SVProgressHUD.h>
 #import "UIImage+Extensions.h"
+#import "UIAlertView+Blocks.h"
 
 #import "TrackedItem.h"
 #import "Article.h"
@@ -146,6 +147,36 @@ typedef enum {
 {
     NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
     
+    if (!itemsToReload.count > 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"There is no active item" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
+        return;
+    }
+    
+    if ([itemsToReload count] >= 10 ) {
+        [UIAlertView showWithTitle:nil
+                           message:@"Enquiring multiple tracking numbers at once might take a while. Do you want to proceed?"
+                 cancelButtonTitle:@"Cancel"
+                 otherButtonTitles:@[@"Ok"]
+                          tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
+         {
+             if (buttonIndex != [alertView cancelButtonIndex]) {
+                 [self reloadTrackingItems];
+             }
+             else {
+                 return;
+             }
+         }];
+    }
+    else {
+        [self reloadTrackingItems];
+    }
+}
+
+- (void)reloadTrackingItems {
+    
+    NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES] && itemsToReload.count > 0) {
         __block CGFloat updateProgress = 0.0f;
         [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
@@ -160,10 +191,6 @@ typedef enum {
             updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
             [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
         }];
-    }
-    if (!itemsToReload.count > 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"There is no active item" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alertView show];
     }
 }
 
@@ -268,16 +295,16 @@ typedef enum {
             [activeItemsLabel setBackgroundColor:[UIColor clearColor]];
             [activeItemsLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [sectionHeaderView addSubview:activeItemsLabel];
-            
-            //            UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            //            [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
-            //            [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
-            //            [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
-            //            [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            //            [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
-            //            [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
-            //            [sectionHeaderView addSubview:numActiveItemsButton];
-            
+            /*
+             UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+             [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
+             [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
+             [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
+             [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+             [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
+             [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
+             [sectionHeaderView addSubview:numActiveItemsButton];
+             */
             UIButton *reloadTrackingItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [reloadTrackingItemsButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
             [reloadTrackingItemsButton setFrame:CGRectMake(260, 3, 44, 44)];
