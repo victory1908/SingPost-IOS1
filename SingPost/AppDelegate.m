@@ -107,7 +107,7 @@
 {
     BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
     if (!hasInternetConnection && warnIfNoConnection) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No/Slow Internet Connection" message:@"SingPost App has detected no internet access. Make sure your device is connected to cellular data network or WiFi." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No/Slow Internet Connection" message:@"SingPost App has detected no internet access. Make sure your device is connected to internet via a cellular data network or WiFi." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
         [alertView show];
     }
     

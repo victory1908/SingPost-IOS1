@@ -51,7 +51,7 @@
     UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, contentView.bounds.size.width, 130)];
     [instructionsLabelBackgroundView setBackgroundColor:RGB(240, 240, 240)];
     [contentScrollView addSubview:instructionsLabelBackgroundView];
-
+    
     UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
     [instructionsLabel setNumberOfLines:0];
     [instructionsLabel setText:@"At SingPost, we are always looking to improve your customer experience. If you have any feedback or ideas for us, we would love to hear from you."];
@@ -96,6 +96,8 @@
     emailAddressTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, 290, 44)];
     [emailAddressTextField setKeyboardType:UIKeyboardTypeEmailAddress];
     [emailAddressTextField setPlaceholder:@"Email address"];
+    emailAddressTextField.delegate = self;
+    emailAddressTextField.returnKeyType = UIReturnKeyNext;
     [contentScrollView addSubview:emailAddressTextField];
     
     offsetY += 70.0f;
@@ -126,7 +128,7 @@
     [sendFeedbackButton addTarget:self action:@selector(sendFeedbackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [sendFeedbackButton setTitle:@"SEND FEEDBACK" forState:UIControlStateNormal];
     [contentScrollView addSubview:sendFeedbackButton];
-
+    
     self.view = contentView;
 }
 
@@ -148,7 +150,7 @@
      {
          if (buttonIndex != [alertView cancelButtonIndex]) {
              if ([nameTextField.text length] == 0 || [contactNumberTextField.text length] == 0 || [emailAddressTextField.text length] == 0 || [commentsTextView.text length] == 0) {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                  [alertView show];
              }
              else {
@@ -166,6 +168,15 @@
          else
              return;
      }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (textField == emailAddressTextField) {
+        [commentsTextView becomeFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 @end
