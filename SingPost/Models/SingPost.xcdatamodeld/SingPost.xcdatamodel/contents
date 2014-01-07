@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Article" representedClassName="Article" syncable="YES">
+        <attribute name="buttonType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="htmlContent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ordering" attributeType="Integer 32" syncable="YES"/>
@@ -83,14 +84,14 @@
         <relationship name="deliveryStatuses" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="DeliveryStatus" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Article" positionX="-3035" positionY="-241" width="128" height="118"/>
-        <element name="DeliveryStatus" positionX="-3276" positionY="-106" width="135" height="88"/>
-        <element name="EntityLocation" positionX="-2864" positionY="-252" width="128" height="403"/>
-        <element name="Offer" positionX="-3206" positionY="270" width="128" height="133"/>
-        <element name="OfferImage" positionX="-2997" positionY="278" width="128" height="73"/>
-        <element name="Stamp" positionX="-3458" positionY="83" width="128" height="208"/>
-        <element name="StampImage" positionX="-3276" positionY="108" width="128" height="88"/>
-        <element name="TrackedItem" positionX="-3465" positionY="-124" width="128" height="148"/>
-        <element name="ArticleCategory" positionX="-3231" positionY="-225" width="128" height="88"/>
+        <element name="Article" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ArticleCategory" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DeliveryStatus" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="EntityLocation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Offer" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="OfferImage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Stamp" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="StampImage" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TrackedItem" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

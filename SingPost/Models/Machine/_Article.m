@@ -4,6 +4,7 @@
 #import "_Article.h"
 
 const struct ArticleAttributes ArticleAttributes = {
+	.buttonType = @"buttonType",
 	.htmlContent = @"htmlContent",
 	.name = @"name",
 	.ordering = @"ordering",
@@ -51,6 +52,13 @@ const struct ArticleFetchedProperties ArticleFetchedProperties = {
 
 	return keyPaths;
 }
+
+
+
+
+@dynamic buttonType;
+
+
 
 
 

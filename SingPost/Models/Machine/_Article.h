@@ -5,6 +5,7 @@
 
 
 extern const struct ArticleAttributes {
+	__unsafe_unretained NSString *buttonType;
 	__unsafe_unretained NSString *htmlContent;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *ordering;
@@ -25,6 +26,7 @@ extern const struct ArticleFetchedProperties {
 
 
 
+
 @interface ArticleID : NSManagedObjectID {}
 @end
 
@@ -33,6 +35,16 @@ extern const struct ArticleFetchedProperties {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 - (ArticleID*)objectID;
+
+
+
+
+
+@property (nonatomic, strong) NSString* buttonType;
+
+
+
+//- (BOOL)validateButtonType:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -100,6 +112,12 @@ extern const struct ArticleFetchedProperties {
 @end
 
 @interface _Article (CoreDataGeneratedPrimitiveAccessors)
+
+
+- (NSString*)primitiveButtonType;
+- (void)setPrimitiveButtonType:(NSString*)value;
+
+
 
 
 - (NSString*)primitiveHtmlContent;

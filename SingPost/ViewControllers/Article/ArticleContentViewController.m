@@ -55,6 +55,7 @@
 {
     [super viewDidLoad];
     
+    NSLog(@"Article %@",self.article);
     if ([_article.htmlContent length] > 0) {
         NSString *htmlContentWithThumbnail = [NSString stringWithFormat:@"<div><img style=\"width:%.0fpx;\" src=\"%@\"></img></div>%@", 300.0f, _article.thumbnail, _article.htmlContent];
         [contentWebView loadHTMLString:htmlContentWithThumbnail baseURL:nil];

@@ -17,6 +17,7 @@
     self.htmlContent = attributes[@"Description"];
     self.thumbnail = attributes[@"Thumbnail"];
     self.websiteURL = attributes[@"WebsiteURL"];
+    self.buttonType = attributes[@"ButtonType"];
 }
 
 + (NSArray *)articleItemsForJSON:(NSDictionary *)jsonItems module:(NSString *)moduleName
