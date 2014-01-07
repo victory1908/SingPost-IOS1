@@ -129,6 +129,7 @@
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		91B49BC1187AC76200C7FE62 /* SingPost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* SingPost Agent.json */; };
 		91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */; };
+		91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -359,6 +360,8 @@
 		91B49BC0187AC76200C7FE62 /* SingPost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SingPost Agent.json"; sourceTree = "<group>"; };
 		91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingFeedbackViewController.h; sourceTree = "<group>"; };
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
+		91FD0023187BEDBE00DE1765 /* OffersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersTableViewCell.h; sourceTree = "<group>"; };
+		91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -960,6 +963,8 @@
 		52E752F31870A23600D853B3 /* Offers */ = {
 			isa = PBXGroup;
 			children = (
+				91FD0023187BEDBE00DE1765 /* OffersTableViewCell.h */,
+				91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */,
 				52E752F41870A24D00D853B3 /* OffersMainViewController.h */,
 				52E752F51870A24D00D853B3 /* OffersMainViewController.m */,
 			);
@@ -1195,6 +1200,7 @@
 				521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */,
 				526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
+				91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */,
 				5249518818574D3E00055555 /* StampCollectibleDetailExpandableView.m in Sources */,
 				91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */,
 				52C908EA18045F3F0063A026 /* ApiClient.m in Sources */,

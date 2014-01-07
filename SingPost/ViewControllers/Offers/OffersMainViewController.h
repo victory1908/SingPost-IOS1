@@ -8,6 +8,6 @@
 
 #import "ArticleSubViewController.h"
 
-@interface OffersMainViewController : ArticleSubViewController
+@interface OffersMainViewController : UIViewController
 
 @end
