@@ -11,6 +11,7 @@
 #import "FlatBlueButton.h"
 #import "UIView+Position.h"
 #import "LocateUsMainViewController.h"
+#import "CalculatePostageMainViewController.h"
 #import "Article.h"
 
 @interface ArticleContentViewController () <UIWebViewDelegate>
@@ -22,6 +23,7 @@
     UIScrollView *contentScrollView;
     UIWebView *contentWebView;
     FlatBlueButton *locateUsButton;
+    FlatBlueButton *calculateButton;
 }
 
 - (void)loadView
@@ -43,19 +45,44 @@
     [contentWebView.scrollView setScrollEnabled:NO];
     [contentScrollView addSubview:contentWebView];
     
-    locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, -100, contentScrollView.bounds.size.width - 30, 48)];
-    [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
-    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [contentScrollView addSubview:locateUsButton];
+    NSInteger buttonType = [self.article.buttonType integerValue];
     
+    switch (buttonType) {
+        case 1: //No button
+            break;
+        case 2:
+            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,contentScrollView.bounds.size.width - 30,48)];
+            [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
+            [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [contentScrollView addSubview:locateUsButton];
+            break;
+        case 3:
+            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,contentScrollView.bounds.size.width - 30,48)];
+            [calculateButton setTitle:@"CALCULATE" forState:UIControlStateNormal];
+            [calculateButton addTarget:self action:@selector(calculateButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [contentScrollView addSubview:calculateButton];
+            break;
+        case 4:
+            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,140,48)];
+            [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
+            [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [contentScrollView addSubview:locateUsButton];
+            
+            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(165,-100,140,48)];
+            [calculateButton setTitle:@"CALCULATE" forState:UIControlStateNormal];
+            [calculateButton addTarget:self action:@selector(calculateButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [contentScrollView addSubview:calculateButton];
+            break;
+            
+        default:
+            break;
+    }
     self.view = contentView;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"Article %@",self.article);
     if ([_article.htmlContent length] > 0) {
         NSString *htmlContentWithThumbnail = [NSString stringWithFormat:@"<div><img style=\"width:%.0fpx;\" src=\"%@\"></img></div>%@", 300.0f, _article.thumbnail, _article.htmlContent];
         [contentWebView loadHTMLString:htmlContentWithThumbnail baseURL:nil];
@@ -71,13 +98,26 @@
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
 }
 
+- (IBAction)calculateButtonClicked:(id)sender
+{
+    CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
+    viewController.showNavBarBackButton = YES;
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+}
+
 #pragma mark - UIWebView Delegates
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     CGFloat pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
     [webView setHeight:pageHeight];
-    [locateUsButton setY:pageHeight];
+    
+    if (locateUsButton != nil)
+        [locateUsButton setY:pageHeight];
+    
+    if (calculateButton != nil)
+        [calculateButton setY:pageHeight];
+    
     [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, pageHeight + 65.0f)];
 }
 

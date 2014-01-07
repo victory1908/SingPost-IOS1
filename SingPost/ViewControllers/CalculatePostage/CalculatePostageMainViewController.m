@@ -42,9 +42,12 @@ typedef enum  {
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:@"Calculate Postage"];
-    [navigationBarView setShowSidebarToggleButton:YES];
+    if (_showNavBarBackButton)
+        [navigationBarView setShowBackButton:YES];
+    else
+        [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
-    
+
     UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 52, contentView.bounds.size.width - 30, 80)];
     [instructionsLabel setNumberOfLines:0];
     [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcels. Singapore Post covers all addresses within Singapore and 220 countries worldwide"];

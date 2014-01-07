@@ -10,5 +10,7 @@
 
 @interface CalculatePostageMainViewController : UIViewController
 
+@property (nonatomic, assign) BOOL showNavBarBackButton;
+
 @end
 
