@@ -136,9 +136,9 @@
 
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt
 {
-    NSString *trackingNumber = payloadInfo[@"i"];
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
-    
+    NSDictionary *data = [payloadInfo objectForKey:@"data"];
+    NSString *trackingNumber = data[@"i"];
     if (trackingNumber.length > 0) {
         //it's a tracking item apns
         if (shouldPrompt) {
@@ -170,6 +170,7 @@
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
+    NSLog(@"device push token %@",[deviceToken description]);
     if (![[ApiClient sharedInstance] hasRegisteredProfileId]) {
         NSString *sanitizedDeviceToken = [[[[deviceToken description]
                                             stringByReplacingOccurrencesOfString: @"<" withString: @""]
