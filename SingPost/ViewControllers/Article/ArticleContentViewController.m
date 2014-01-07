@@ -45,7 +45,13 @@
     [contentWebView.scrollView setScrollEnabled:NO];
     [contentScrollView addSubview:contentWebView];
     
-    NSInteger buttonType = [self.article.buttonType integerValue];
+    NSString *btnTypeString = self.article.buttonType;
+    NSInteger buttonType;
+    
+    if (btnTypeString == nil)
+        buttonType = 2;
+    else
+        buttonType = [self.article.buttonType integerValue];
     
     switch (buttonType) {
         case 1: //No button
@@ -58,7 +64,7 @@
             break;
         case 3:
             calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,contentScrollView.bounds.size.width - 30,48)];
-            [calculateButton setTitle:@"CALCULATE" forState:UIControlStateNormal];
+            [calculateButton setTitle:@"CALCULATE POSTAGE" forState:UIControlStateNormal];
             [calculateButton addTarget:self action:@selector(calculateButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:calculateButton];
             break;
@@ -69,7 +75,9 @@
             [contentScrollView addSubview:locateUsButton];
             
             calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(165,-100,140,48)];
-            [calculateButton setTitle:@"CALCULATE" forState:UIControlStateNormal];
+            [calculateButton setTitle:@"CALCULATE POSTAGE" forState:UIControlStateNormal];
+            calculateButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            calculateButton.titleLabel.textAlignment = NSTextAlignmentCenter;
             [calculateButton addTarget:self action:@selector(calculateButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:calculateButton];
             break;
