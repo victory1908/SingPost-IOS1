@@ -153,7 +153,7 @@ typedef enum {
         return;
     }
     
-    if ([itemsToReload count] >= 10 ) {
+    if ([itemsToReload count] > 10 ) {
         [UIAlertView showWithTitle:nil
                            message:@"Enquiring multiple tracking numbers at once might take a while. Do you want to proceed?"
                  cancelButtonTitle:@"Cancel"
