@@ -5,6 +5,7 @@
 
 const struct ArticleAttributes ArticleAttributes = {
 	.buttonType = @"buttonType",
+	.expireDate = @"expireDate",
 	.htmlContent = @"htmlContent",
 	.name = @"name",
 	.ordering = @"ordering",
@@ -57,6 +58,13 @@ const struct ArticleFetchedProperties ArticleFetchedProperties = {
 
 
 @dynamic buttonType;
+
+
+
+
+
+
+@dynamic expireDate;
 
 
 

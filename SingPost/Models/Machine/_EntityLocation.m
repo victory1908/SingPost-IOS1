@@ -5,6 +5,7 @@
 
 const struct EntityLocationAttributes EntityLocationAttributes = {
 	.address = @"address",
+	.contactNumber = @"contactNumber",
 	.fri_closing = @"fri_closing",
 	.fri_opening = @"fri_opening",
 	.latitude = @"latitude",
@@ -23,6 +24,7 @@ const struct EntityLocationAttributes EntityLocationAttributes = {
 	.sun_opening = @"sun_opening",
 	.thu_closing = @"thu_closing",
 	.thu_opening = @"thu_opening",
+	.town = @"town",
 	.tue_closing = @"tue_closing",
 	.tue_opening = @"tue_opening",
 	.type = @"type",
@@ -70,6 +72,13 @@ const struct EntityLocationFetchedProperties EntityLocationFetchedProperties = {
 
 
 @dynamic address;
+
+
+
+
+
+
+@dynamic contactNumber;
 
 
 
@@ -196,6 +205,13 @@ const struct EntityLocationFetchedProperties EntityLocationFetchedProperties = {
 
 
 @dynamic thu_opening;
+
+
+
+
+
+
+@dynamic town;
 
 
 

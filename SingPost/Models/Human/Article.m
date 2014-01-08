@@ -18,6 +18,7 @@
     self.thumbnail = attributes[@"Thumbnail"];
     self.websiteURL = attributes[@"WebsiteURL"];
     self.buttonType = attributes[@"ButtonType"];
+    self.expireDate = attributes[@"expireDate"];
 }
 
 + (NSArray *)articleItemsForJSON:(NSDictionary *)jsonItems module:(NSString *)moduleName

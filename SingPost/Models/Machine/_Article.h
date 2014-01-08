@@ -6,6 +6,7 @@
 
 extern const struct ArticleAttributes {
 	__unsafe_unretained NSString *buttonType;
+	__unsafe_unretained NSString *expireDate;
 	__unsafe_unretained NSString *htmlContent;
 	__unsafe_unretained NSString *name;
 	__unsafe_unretained NSString *ordering;
@@ -18,6 +19,7 @@ extern const struct ArticleRelationships {
 
 extern const struct ArticleFetchedProperties {
 } ArticleFetchedProperties;
+
 
 
 
@@ -45,6 +47,16 @@ extern const struct ArticleFetchedProperties {
 
 
 //- (BOOL)validateButtonType:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* expireDate;
+
+
+
+//- (BOOL)validateExpireDate:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -116,6 +128,12 @@ extern const struct ArticleFetchedProperties {
 
 - (NSString*)primitiveButtonType;
 - (void)setPrimitiveButtonType:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveExpireDate;
+- (void)setPrimitiveExpireDate:(NSString*)value;
 
 
 

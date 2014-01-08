@@ -36,6 +36,8 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     self.ph_closing = json[@"ph_closing_2ndcollection_time"];
     self.services = [json[@"services"] isKindOfClass:[NSArray class]] ? [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:json[@"services"] options:0 error:nil] encoding:NSUTF8StringEncoding] : @"";
     self.postingbox = json[@"posting_box"];
+    self.town = json[@"town"];
+    self.contactNumber = json[@"contact_number"];
 }
 
 - (CLLocationCoordinate2D)coordinate

@@ -2,6 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Article" representedClassName="Article" syncable="YES">
         <attribute name="buttonType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expireDate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="htmlContent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ordering" attributeType="Integer 32" syncable="YES"/>
@@ -20,6 +21,7 @@
     </entity>
     <entity name="EntityLocation" representedClassName="EntityLocation" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fri_closing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fri_opening" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
@@ -38,6 +40,7 @@
         <attribute name="sun_opening" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thu_closing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thu_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="town" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tue_closing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tue_opening" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
