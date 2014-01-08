@@ -77,13 +77,12 @@
 - (void)setArticle:(Article *)article
 {
     _article = article;
-    NSLog(@"%@",article);
     [titleLabel setText:article.name];
     [titleLabel alignTop];
     [expiryDateDisplayLabel setY:CGRectGetMaxY(titleLabel.frame) + 9.0f];
     [expiryDateDisplayLabel sizeToFit];
     [expiryDateLabel setY:CGRectGetMaxY(expiryDateDisplayLabel.frame)];
-    [expiryDateLabel setText:@"2014"];
+    [expiryDateLabel setText:article.expireDate];
     [expiryDateLabel sizeToFit];
     
     [offerImageView setImageWithURL:[NSURL URLWithString:_article.thumbnail] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];

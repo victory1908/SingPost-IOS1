@@ -22,6 +22,7 @@
 #import "LocateUsDetailsOpeningHoursView.h"
 #import "LocateUsDetailsServicesView.h"
 #import "LocateUsDetailsPostingBoxView.h"
+#import "LocateUSDetailsDetailsView.h"
 
 @interface LocateUsDetailsViewController () <MKMapViewDelegate, LocateUsDetailsPostingBoxDelegate>
 
@@ -52,7 +53,6 @@ typedef enum  {
     if ((self = [super initWithNibName:nil bundle:nil])) {
         _entityLocation = inEntityLocation;
     }
-    
     return self;
 }
 
@@ -63,7 +63,7 @@ typedef enum  {
 
 - (BOOL)shouldHideSectionSelector
 {
-    return [_entityLocation.type isEqualToString:LOCATION_TYPE_SAM] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTING_BOX] || [_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POPSTATION];
+    return [_entityLocation.type isEqualToString:LOCATION_TYPE_SAM] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTING_BOX] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POPSTATION];
 }
 
 - (void)loadView
@@ -141,7 +141,10 @@ typedef enum  {
     [postingBoxSectionButton setTag:LOCATEUSDETAILS_SECTION_POSTINGBOX];
     [postingBoxSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [postingBoxSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [postingBoxSectionButton setTitle:@"Posting Box" forState:UIControlStateNormal];
+    if (_entityLocation.town != nil && _entityLocation.contactNumber != nil)
+        [postingBoxSectionButton setTitle:@"Details" forState:UIControlStateNormal];
+    else
+        [postingBoxSectionButton setTitle:@"Posting Box" forState:UIControlStateNormal];
     [contentScrollView addSubview:postingBoxSectionButton];
     
     selectedSectionIndicatorButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -171,9 +174,15 @@ typedef enum  {
     LocateUsDetailsServicesView *servicesSectionView = [[LocateUsDetailsServicesView alloc] initWithServices:_entityLocation.servicesArray andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_SERVICES, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
     [sectionContentScrollView addSubview:servicesSectionView];
     
-    LocateUsDetailsPostingBoxView *postingBoxSectionView = [[LocateUsDetailsPostingBoxView alloc] initWithPostingBox:_entityLocation.relatedPostingBox andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_POSTINGBOX, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
-    [postingBoxSectionView setDelegate:self];
-    [sectionContentScrollView addSubview:postingBoxSectionView];
+    if (_entityLocation.town != nil && _entityLocation.contactNumber != nil) {
+        LocateUSDetailsDetailsView *vc = [[LocateUSDetailsDetailsView alloc]initWithLocation:_entityLocation andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_POSTINGBOX, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+        [sectionContentScrollView addSubview:vc];
+    }
+    else {
+        LocateUsDetailsPostingBoxView *postingBoxSectionView = [[LocateUsDetailsPostingBoxView alloc] initWithPostingBox:_entityLocation.relatedPostingBox andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_POSTINGBOX, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
+        [postingBoxSectionView setDelegate:self];
+        [sectionContentScrollView addSubview:postingBoxSectionView];
+    }
     
     UIPanGestureRecognizer *sectionSelectionPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSectionSelectionPanGesture:)];
     [selectedSectionIndicatorButton addGestureRecognizer:sectionSelectionPanGestureRecognizer];
@@ -237,8 +246,12 @@ typedef enum  {
             [selectedSectionIndicatorButton setTitle:@"Opening hours" forState:UIControlStateNormal];
         else if (CGRectContainsPoint(servicesSectionButton.frame, gestureRecognizer.view.center))
             [selectedSectionIndicatorButton setTitle:@"Services" forState:UIControlStateNormal];
-        else if (CGRectContainsPoint(postingBoxSectionButton.frame, gestureRecognizer.view.center))
-            [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
+        else if (CGRectContainsPoint(postingBoxSectionButton.frame, gestureRecognizer.view.center)) {
+            if (_entityLocation.town != nil && _entityLocation.contactNumber != nil)
+                [selectedSectionIndicatorButton setTitle:@"Details" forState:UIControlStateNormal];
+            else
+                [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -250,8 +263,12 @@ typedef enum  {
         [selectedSectionIndicatorButton setTitle:@"Opening hours" forState:UIControlStateNormal];
     else if (currentSection == LOCATEUSDETAILS_SECTION_SERVICES)
         [selectedSectionIndicatorButton setTitle:@"Services" forState:UIControlStateNormal];
-    else if (currentSection == LOCATEUSDETAILS_SECTION_POSTINGBOX)
-        [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
+    else if (currentSection == LOCATEUSDETAILS_SECTION_POSTINGBOX) {
+        if (_entityLocation.town != nil && _entityLocation.contactNumber != nil)
+            [selectedSectionIndicatorButton setTitle:@"Details" forState:UIControlStateNormal];
+        else
+            [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
+    }
     
     [sectionContentScrollView setContentOffset:CGPointMake(currentSection * sectionContentScrollView.bounds.size.width, 0) animated:YES];
     
