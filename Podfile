@@ -14,3 +14,5 @@ pod 'SSKeychain', '~> 1.2.1'
 pod 'TPKeyboardAvoiding', '~> 1.1'
 pod 'UIAlertView+Blocks', '~> 0.7'
 pod 'UIActivityIndicator-for-SDWebImage', '~> 1.0.3'
+pod 'SevenSwitch', '~> 1.3.0'
+
