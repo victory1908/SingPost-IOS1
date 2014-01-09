@@ -119,13 +119,15 @@
     ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
     if (!cell)
         cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-    NSLog(@"%@",appsItems);
+
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *device = [UIDevice currentDevice].model;
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString *urlSchemeString = appsItems[indexPath.row][@"IOSSCHEME"];
@@ -138,7 +140,7 @@
     
     else {
         NSURL *urlToOpen = nil;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        if ([device hasPrefix:@"iPad"]) {
             NSString *appStoreURL = appsItems[indexPath.row][@"IPADURL"];
             if (![appStoreURL length] < 0 || appStoreURL == nil)
                 return;
