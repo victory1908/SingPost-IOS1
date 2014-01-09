@@ -265,15 +265,18 @@
 
 - (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
 {
+    /*
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-        [_delegate performSelector:@selector(fetchAndReloadLocationsData)];
+        //[_delegate performSelector:@selector(fetchAndReloadLocationsData)];
 #pragma clang diagnostic pop
     }
     else {
         [self reloadData];
     }
+     */
+    [self reloadData];
 }
 
 #pragma mark - UITextField Delegate

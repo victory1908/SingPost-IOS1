@@ -14,6 +14,7 @@
 #import "ArticleCategory.h"
 #import "Article.h"
 #import <SVProgressHUD.h>
+#import "ArticleContentViewController.h"
 
 @interface ArticleViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -113,9 +114,9 @@
     ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
     if (!cell)
         cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-
+    
     [self configureCell:cell atIndexPath:indexPath];
-
+    
     return cell;
 }
 
@@ -123,12 +124,22 @@
 {
     ArticleCategory *articleCategory = _items[indexPath.row];
     
-    ArticleSubViewController *subCategoryViewController = [[ArticleSubViewController alloc] initWithNibName:nil bundle:nil];
-    [subCategoryViewController setArticleCategory:articleCategory];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subCategoryViewController];
+    NSArray *articlesCategoryArray = [articleCategory.articles array];
+    
+    if ([articlesCategoryArray count] == 1) {
+        Article *article = [articlesCategoryArray firstObject];
+        ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithNibName:nil bundle:nil];
+        [viewController setArticle:article];
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    }
+    else {
+        ArticleSubViewController *subCategoryViewController = [[ArticleSubViewController alloc] initWithNibName:nil bundle:nil];
+        [subCategoryViewController setArticleCategory:articleCategory];
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:subCategoryViewController];
+    }
     
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", self.pageTitle, articleCategory.category]];
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
