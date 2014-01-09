@@ -134,7 +134,7 @@
             [monToFriOpeningHoursDisplayLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
             [monToFriOpeningHoursDisplayLabel setTextColor:RGB(58, 68, 81)];
             [monToFriOpeningHoursDisplayLabel setBackgroundColor:[UIColor clearColor]];
-            [monToFriOpeningHoursDisplayLabel setText:@"Mon - Fri"];
+            [monToFriOpeningHoursDisplayLabel setText:@"Monday - Friday"];
             [contentScrollView addSubview:monToFriOpeningHoursDisplayLabel];
             
             monToFriOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
