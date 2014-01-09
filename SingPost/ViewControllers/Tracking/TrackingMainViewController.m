@@ -19,6 +19,7 @@
 #import <SVProgressHUD.h>
 #import "UIImage+Extensions.h"
 #import "UIAlertView+Blocks.h"
+#import <SevenSwitch.h>
 
 #import "TrackedItem.h"
 #import "Article.h"
@@ -43,6 +44,7 @@ typedef enum {
 {
     CTextField *trackingNumberTextField;
     UITableView *trackingItemsTableView;
+    SevenSwitch *receiveUpdateSwitch;
 }
 
 - (void)loadView
@@ -227,7 +229,7 @@ typedef enum {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
-        return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 90.0f : 30.0f;
+        return indexPath.section == TRACKINGITEMS_SECTION_HEADER ? 140.0f : 30.0f;
     
     TrackedItem *trackedItem;
     if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
@@ -355,6 +357,21 @@ typedef enum {
             [findTrackingNumberButton setFrame:CGRectMake(265, 27, 35, 35)];
             [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
+            
+            UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, 220, 50)];
+            [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
+            [instructionsLabel setText:@"Turn on push notification to auto-receive\nlatest status updates of item(s) you are\ncurrently tracking"];
+            [instructionsLabel setNumberOfLines:0];
+            [instructionsLabel setTextColor:RGB(51, 51, 51)];
+            [instructionsLabel setBackgroundColor:[UIColor clearColor]];
+            [cell.contentView addSubview:instructionsLabel];
+            
+            receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
+            receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
+            receiveUpdateSwitch.center = CGPointMake(278, 104);
+            receiveUpdateSwitch.on = YES;
+            [cell.contentView addSubview:receiveUpdateSwitch];
+
         }
         
         return cell;
