@@ -360,18 +360,21 @@ typedef enum {
             
             UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, 220, 50)];
             [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
-            [instructionsLabel setText:@"Turn on push notification to auto-receive\nlatest status updates of item(s) you are\ncurrently tracking"];
+            [instructionsLabel setText:@"Turn on to auto-receive latest status updates of item(s) you are currently tracking"];
             [instructionsLabel setNumberOfLines:0];
             [instructionsLabel setTextColor:RGB(51, 51, 51)];
             [instructionsLabel setBackgroundColor:[UIColor clearColor]];
             [cell.contentView addSubview:instructionsLabel];
             
+            UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+            BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
+            
             receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
             receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
             receiveUpdateSwitch.center = CGPointMake(278, 104);
-            receiveUpdateSwitch.on = YES;
+            receiveUpdateSwitch.on = notificationStatus;
+            [receiveUpdateSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
             [cell.contentView addSubview:receiveUpdateSwitch];
-
         }
         
         return cell;
@@ -564,6 +567,28 @@ typedef enum {
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [trackingItemsTableView endUpdates];
+}
+
+- (void)switchChanged:(UIControl *)sender {
+    
+    if (receiveUpdateSwitch.isOn) {
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
+        
+        if (notificationStatus) {
+            //Register for notification
+            NSLog(@"Register");
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            receiveUpdateSwitch.on = NO;
+        }
+    }
+    else {
+        NSLog(@"Deregister");
+    }
+    
 }
 
 @end
