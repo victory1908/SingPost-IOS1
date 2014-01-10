@@ -14,6 +14,10 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 {
     self.name = json[@"name"];
     self.type = json[@"type"];
+    
+    if ([self.type isEqualToString:@"Singpost Agent"])
+        self.type = @"SingPost Agent";
+    
     self.address = [json objectForKeyOrNil:@"address"];
     self.latitude = json[@"latitude"];
     self.longitude = json[@"longitude"];
@@ -149,7 +153,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type == %@ AND name == %@", LOCATION_TYPE_POSTING_BOX, self.postingbox];
         return [EntityLocation MR_findFirstWithPredicate:predicate];
     }
-
+    
     return nil;
 }
 
