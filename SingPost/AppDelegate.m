@@ -48,6 +48,8 @@
     [self updateMaintananceStatuses];
     [self setupGoogleAnalytics];
     
+    [self checkAppAndOSVersion];
+    
     return YES;
 }
 
@@ -112,6 +114,15 @@
     }
     
     return hasInternetConnection;
+}
+
+- (void)checkAppAndOSVersion {
+   NSString *deviceOS = [[UIDevice currentDevice] systemVersion];
+    NSLog(@"Device OS %@",deviceOS);
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSLog(@"App Version %@",appVersion);
+    
+    [[ApiClient sharedInstance]checkAppUpdateWithAppVer:appVersion andOSVer:deviceOS];
 }
 
 #pragma mark - Tracking

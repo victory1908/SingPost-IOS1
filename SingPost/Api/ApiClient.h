@@ -65,6 +65,9 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 //feedback
 - (void)postFeedbackMessage:(NSString *)message subject:(NSString *)subject onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
+//App update checking
+- (void)checkAppUpdateWithAppVer:(NSString *)appVer andOSVer:(NSString *)osVer;
+
 @property (nonatomic, readonly) BOOL hasRegisteredProfileId;
 @property (nonatomic) NSString *notificationProfileID;
 

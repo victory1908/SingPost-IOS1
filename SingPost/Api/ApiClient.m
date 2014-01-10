@@ -603,4 +603,24 @@ static NSString *const OS = @"ios";
     [self enqueueHTTPRequestOperation:operation];
 }
 
+#pragma mark - App version
+
+- (void)checkAppUpdateWithAppVer:(NSString *)appVer andOSVer:(NSString *)osVer {
+    
+    NSString *fullPath = [NSString stringWithFormat:@"%@/ma/versionchecker/checkversion?applicationId=M00002&applicationVersion=%@&os=IOS&osVersion=%@",SINGPOST_BASE_URL,appVer,osVer];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fullPath]];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        [self handleAppUpdateResponse:JSON];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+
+    }];
+
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+- (void)handleAppUpdateResponse:(NSDictionary *)responseJSON {
+    
+}
+
 @end
