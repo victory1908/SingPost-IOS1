@@ -13,6 +13,7 @@
 #import "LocateUsMainViewController.h"
 #import "CalculatePostageMainViewController.h"
 #import "Article.h"
+#import "SVProgressHUD.h"
 
 @interface ArticleContentViewController () <UIWebViewDelegate>
 
@@ -94,6 +95,7 @@
     if ([_article.htmlContent length] > 0) {
         NSString *htmlContentWithThumbnail = [NSString stringWithFormat:@"<div><img style=\"width:%.0fpx;\" src=\"%@\"></img></div>%@", 300.0f, _article.thumbnail, _article.htmlContent];
         [contentWebView loadHTMLString:htmlContentWithThumbnail baseURL:nil];
+        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }
 }
 
@@ -127,6 +129,8 @@
         [calculateButton setY:pageHeight];
     
     [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, pageHeight + 65.0f)];
+    
+    [SVProgressHUD dismiss];
 }
 
 @end
