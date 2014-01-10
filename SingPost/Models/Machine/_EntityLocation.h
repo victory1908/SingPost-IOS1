@@ -17,6 +17,7 @@ extern const struct EntityLocationAttributes {
 	__unsafe_unretained NSString *notification;
 	__unsafe_unretained NSString *ph_closing;
 	__unsafe_unretained NSString *ph_opening;
+	__unsafe_unretained NSString *postal_code;
 	__unsafe_unretained NSString *postingbox;
 	__unsafe_unretained NSString *sat_closing;
 	__unsafe_unretained NSString *sat_opening;
@@ -38,6 +39,7 @@ extern const struct EntityLocationRelationships {
 
 extern const struct EntityLocationFetchedProperties {
 } EntityLocationFetchedProperties;
+
 
 
 
@@ -195,6 +197,16 @@ extern const struct EntityLocationFetchedProperties {
 
 
 //- (BOOL)validatePh_opening:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* postal_code;
+
+
+
+//- (BOOL)validatePostal_code:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -418,6 +430,12 @@ extern const struct EntityLocationFetchedProperties {
 
 - (NSString*)primitivePh_opening;
 - (void)setPrimitivePh_opening:(NSString*)value;
+
+
+
+
+- (NSString*)primitivePostal_code;
+- (void)setPrimitivePostal_code:(NSString*)value;
 
 
 

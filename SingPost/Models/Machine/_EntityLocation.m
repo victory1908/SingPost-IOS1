@@ -16,6 +16,7 @@ const struct EntityLocationAttributes EntityLocationAttributes = {
 	.notification = @"notification",
 	.ph_closing = @"ph_closing",
 	.ph_opening = @"ph_opening",
+	.postal_code = @"postal_code",
 	.postingbox = @"postingbox",
 	.sat_closing = @"sat_closing",
 	.sat_opening = @"sat_opening",
@@ -149,6 +150,13 @@ const struct EntityLocationFetchedProperties EntityLocationFetchedProperties = {
 
 
 @dynamic ph_opening;
+
+
+
+
+
+
+@dynamic postal_code;
 
 
 

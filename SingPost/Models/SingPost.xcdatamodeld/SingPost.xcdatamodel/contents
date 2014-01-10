@@ -32,6 +32,7 @@
         <attribute name="notification" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ph_closing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ph_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postal_code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="postingbox" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sat_closing" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sat_opening" optional="YES" attributeType="String" syncable="YES"/>

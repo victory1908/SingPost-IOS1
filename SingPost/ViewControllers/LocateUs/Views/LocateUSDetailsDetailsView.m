@@ -23,12 +23,12 @@
         [contactNumber setText:[NSString stringWithFormat:@"Contact number : %@",inLocation.contactNumber]];
         [self addSubview:contactNumber];
         
-        UILabel *town = [[UILabel alloc] initWithFrame:CGRectMake(15,35,320,15)];
-        [town setTextColor:RGB(58, 68, 81)];
-        [town setBackgroundColor:[UIColor clearColor]];
-        [town setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        [town setText:[NSString stringWithFormat:@"Town : %@",inLocation.town]];
-        [self addSubview:town];
+        UILabel *postalCode = [[UILabel alloc] initWithFrame:CGRectMake(15,35,320,15)];
+        [postalCode setTextColor:RGB(58, 68, 81)];
+        [postalCode setBackgroundColor:[UIColor clearColor]];
+        [postalCode setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+        [postalCode setText:[NSString stringWithFormat:@"Postal code : %@",inLocation.postal_code]];
+        [self addSubview:postalCode];
         
     }
     return self;

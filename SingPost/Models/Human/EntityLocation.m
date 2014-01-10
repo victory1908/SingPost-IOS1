@@ -38,6 +38,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     self.postingbox = json[@"posting_box"];
     self.town = [json objectForKeyOrNil:@"town"];
     self.contactNumber = [json objectForKeyOrNil:@"contact_number"];
+    self.postal_code = [json objectForKeyOrNil:@"postal_code"];
 }
 
 - (CLLocationCoordinate2D)coordinate
