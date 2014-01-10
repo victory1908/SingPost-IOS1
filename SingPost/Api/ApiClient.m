@@ -607,20 +607,50 @@ static NSString *const OS = @"ios";
 
 - (void)checkAppUpdateWithAppVer:(NSString *)appVer andOSVer:(NSString *)osVer {
     
-    NSString *fullPath = [NSString stringWithFormat:@"%@/ma/versionchecker/checkversion?applicationId=M00002&applicationVersion=%@&os=IOS&osVersion=%@",SINGPOST_BASE_URL,appVer,osVer];
+    NSString *fullPath = [NSString stringWithFormat:@"%@/ma/versionchecker/checkversion?applicationId=%@&applicationVersion=%@&os=IOS&osVersion=%@",SINGPOST_BASE_URL,APP_ID,appVer,osVer];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fullPath]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         [self handleAppUpdateResponse:JSON];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-
+        
     }];
-
+    
     [self enqueueHTTPRequestOperation:operation];
 }
 
 - (void)handleAppUpdateResponse:(NSDictionary *)responseJSON {
-    
+    NSInteger statusCode = [responseJSON[@"status"]integerValue];
+    NSLog(@"responseJSON %@",responseJSON);
+    switch (statusCode) {
+        case 1:
+        {
+            //Must update
+            break;
+        }  
+        case 2:
+        {
+            //Unsupported OS
+            break;
+        }
+        case 3:
+        {
+            //Update available
+            break;
+        }
+        case 4:
+        {
+            //No upgrade
+            break;
+        }
+        case 500:
+        {
+            //Validation fail
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 @end
