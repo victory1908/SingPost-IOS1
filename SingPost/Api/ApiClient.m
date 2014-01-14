@@ -11,6 +11,7 @@
 #import "TrackedItem.h"
 #import "Stamp.h"
 #import <SSKeychain.h>
+#import "UIAlertView+Blocks.h"
 
 @implementation ApiClient
 
@@ -20,7 +21,7 @@ static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_BASE_URL = @"http://192.241.251.130/singpost/";
 static NSString *const CMS_BASE_URL_V4 = @"http://192.241.251.130/singpost/v4/";
 
-static NSString *const APP_ID = @"M00001";
+static NSString *const APP_ID = @"M00002";
 static NSString *const OS = @"ios";
 
 #pragma mark - Shared singleton instance
@@ -161,10 +162,10 @@ static NSString *const OS = @"ios";
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiapps.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
-        success(JSON);
+            success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
-        failure(error);
+            failure(error);
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -200,13 +201,13 @@ static NSString *const OS = @"ios";
 - (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
     NSString *xml = [NSString stringWithFormat:@"<OverseasPostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-         "<Country>%@</Country>"
-         "<Weight>%@</Weight>"
-         "<DeliveryServiceName></DeliveryServiceName>"
-         "<ItemType>%@</ItemType>"
-         "<PriceRange>999</PriceRange>"
-         "<DeliveryTimeRange>%@</DeliveryTimeRange>"
-         "</OverseasPostalInfoDetailsRequest>", countryCode, weightInGrams, itemTypeCode, deliveryCode];
+                     "<Country>%@</Country>"
+                     "<Weight>%@</Weight>"
+                     "<DeliveryServiceName></DeliveryServiceName>"
+                     "<ItemType>%@</ItemType>"
+                     "<PriceRange>999</PriceRange>"
+                     "<DeliveryTimeRange>%@</DeliveryTimeRange>"
+                     "</OverseasPostalInfoDetailsRequest>", countryCode, weightInGrams, itemTypeCode, deliveryCode];
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/FilterOverseasPostalInfo" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -380,10 +381,10 @@ static NSString *const OS = @"ios";
 - (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
     NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-                         "<ItemTrackingNumbers>"
-                         "<TrackingNumber>%@</TrackingNumber>"
-                         "</ItemTrackingNumbers>"
-                         "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
+                     "<ItemTrackingNumbers>"
+                     "<TrackingNumber>%@</TrackingNumber>"
+                     "</ItemTrackingNumbers>"
+                     "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -422,7 +423,7 @@ static NSString *const OS = @"ios";
                              "%@"
                              "</ItemTrackingNumbers>"
                              "</ItemTrackingDetailsRequest>", trackingNumbersXml];
-
+            
             NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
             [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
             [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
@@ -441,7 +442,7 @@ static NSString *const OS = @"ios";
         
         chunk++;
     } while((chunk * NUM_ITEMS_PER_API) < trackedItems.count);
-
+    
     [self enqueueBatchOfHTTPRequestOperations:updateOperations
                                 progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
                                     if (progressCompletion)
@@ -606,7 +607,6 @@ static NSString *const OS = @"ios";
 #pragma mark - App version
 
 - (void)checkAppUpdateWithAppVer:(NSString *)appVer andOSVer:(NSString *)osVer {
-    
     NSString *fullPath = [NSString stringWithFormat:@"%@/ma/versionchecker/checkversion?applicationId=%@&applicationVersion=%@&os=IOS&osVersion=%@",SINGPOST_BASE_URL,APP_ID,appVer,osVer];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fullPath]];
@@ -621,13 +621,24 @@ static NSString *const OS = @"ios";
 
 - (void)handleAppUpdateResponse:(NSDictionary *)responseJSON {
     NSInteger statusCode = [responseJSON[@"status"]integerValue];
-    NSLog(@"responseJSON %@",responseJSON);
     switch (statusCode) {
         case 1:
         {
             //Must update
+            [UIAlertView showWithTitle:nil
+                               message:responseJSON[@"message"]
+                     cancelButtonTitle:@"Update Now"
+                     otherButtonTitles:nil
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                  if (buttonIndex == [alertView cancelButtonIndex]) {
+                                      NSString *linkToAppStore = responseJSON[@"link"];
+                                      if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
+                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+                                  }
+                              }];
+            
             break;
-        }  
+        }
         case 2:
         {
             //Unsupported OS
@@ -636,6 +647,17 @@ static NSString *const OS = @"ios";
         case 3:
         {
             //Update available
+            [UIAlertView showWithTitle:nil
+                               message:responseJSON[@"message"]
+                     cancelButtonTitle:@"Maybe Later"
+                     otherButtonTitles:@[@"Update Now"]
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                  if (buttonIndex != [alertView cancelButtonIndex]) {
+                                      NSString *linkToAppStore = responseJSON[@"link"];
+                                      if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
+                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+                                  }
+                              }];
             break;
         }
         case 4:
