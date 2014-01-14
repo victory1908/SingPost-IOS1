@@ -39,11 +39,11 @@
         
         buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
         [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
-        [buildingBlockHouseNumberTextField setPlaceholder:@"Building / block / house number"];
+        [buildingBlockHouseNumberTextField setPlaceholder:@"Building/block/house number (Min. 3 characters)"];
         [contentScrollView addSubview:buildingBlockHouseNumberTextField];
         
         streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
-        [streetNameTextField setPlaceholder:@"Street name"];
+        [streetNameTextField setPlaceholder:@"Street name (Min. 3 characters)"];
         [contentScrollView addSubview:streetNameTextField];
         
         UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, 150, 20)];
@@ -90,7 +90,7 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
-    else if ([[buildingBlockHouseNumberTextField.text trimWhiteSpaces] length] == 0) {
+    else if ([[buildingBlockHouseNumberTextField.text trimWhiteSpaces] length] < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }

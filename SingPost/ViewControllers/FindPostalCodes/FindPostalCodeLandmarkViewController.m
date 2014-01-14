@@ -37,7 +37,7 @@
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
         majorBuildingEstateTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
-        [majorBuildingEstateTextField setPlaceholder:@"Major building / Estate name"];
+        [majorBuildingEstateTextField setPlaceholder:@"Major building/Estate name (Min. 3 characters)"];
         [contentScrollView addSubview:majorBuildingEstateTextField];
         
         FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 80, contentScrollView.bounds.size.width - 30, 48)];

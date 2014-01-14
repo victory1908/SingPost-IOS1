@@ -15,7 +15,7 @@
 {
     if ((self = [super initWithFrame:frame])) {
         _fontSize = 16.0f;
-        _placeholderFontSize = 16.0f;
+        _placeholderFontSize = 12.0f;
         _insetBoundsSize = CGSizeMake(10, 5);
 
         self.background = [UIImage imageNamed:@"trackingTextBox_grayBg"];

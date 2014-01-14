@@ -40,7 +40,7 @@
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
         windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 44)];
-        [windowDeliveryNoTextField setPlaceholder:@"Reference No"];
+        [windowDeliveryNoTextField setPlaceholder:@"Reference No (Min. 1 character)"];
         [contentScrollView addSubview:windowDeliveryNoTextField];
         
         typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 44)];
@@ -50,7 +50,7 @@
         [contentScrollView addSubview:typeDropDownList];
         
         postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
-        [postOfficeTextField setPlaceholder:@"Name of Post Office"];
+        [postOfficeTextField setPlaceholder:@"Name of Post Office (Min. 3 characters)"];
         [contentScrollView addSubview:postOfficeTextField];
         
         FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 137, contentScrollView.bounds.size.width - 30, 48)];
