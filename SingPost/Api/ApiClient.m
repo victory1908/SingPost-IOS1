@@ -200,6 +200,9 @@ static NSString *const OS = @"ios";
 
 - (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
+    if (deliveryCode == nil || [deliveryCode length] <= 0)
+        deliveryCode = @"999";
+    
     NSString *xml = [NSString stringWithFormat:@"<OverseasPostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
                      "<Country>%@</Country>"
                      "<Weight>%@</Weight>"
