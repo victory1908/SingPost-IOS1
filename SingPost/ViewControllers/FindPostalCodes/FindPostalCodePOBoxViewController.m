@@ -40,7 +40,7 @@
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
         windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 44)];
-        [windowDeliveryNoTextField setPlaceholder:@"Reference No (Min. 1 character)"];
+        [windowDeliveryNoTextField setPlaceholder:@"Reference No\n(Min. 1 character)"];
         [contentScrollView addSubview:windowDeliveryNoTextField];
         
         typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 44)];

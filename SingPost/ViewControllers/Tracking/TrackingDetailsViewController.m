@@ -259,14 +259,19 @@
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:feedbackCellIdentifier];
         if (cell == nil) {
-            // allocate the cell:
             cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
             
-            UIImage *feedbackImage = [UIImage imageNamed:@"tracking_feedback"];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 290, 50)];
+            [label setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+            label.numberOfLines = 0;
             
-            UIImageView *feedbackBanner = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 60)];
-            feedbackBanner.image = feedbackImage;
-            [cell addSubview:feedbackBanner];
+            label.text = @"Send a note to SingPost with regards to any technical issue about your tracking infomation.";
+            
+            NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithAttributedString: label.attributedText];
+            [text addAttribute: NSForegroundColorAttributeName value: [UIColor blueColor] range: NSMakeRange(0,11)];
+            [label setAttributedText:text];
+            [cell addSubview:label];
+            
         }
         return cell;
     }
@@ -276,6 +281,7 @@
     if (indexPath.row < _deliveryStatuses.count)
         return;
     TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] initWithTrackedItem:_trackedItem];
+    vc.deliveryStatusArray = _deliveryStatuses;
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
 }
 

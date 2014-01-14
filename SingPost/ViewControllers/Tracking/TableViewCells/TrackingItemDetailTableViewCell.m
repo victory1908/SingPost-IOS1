@@ -61,7 +61,7 @@
     _deliveryStatus = inDeliveryStatus;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd-MM-yy HH:mm ZZZ"];
+    [dateFormatter setDateFormat:@"dd-MM-yy"];
     [trackingDateLabel setHeight:70];
     [trackingDateLabel setText:[dateFormatter stringFromDate:_deliveryStatus.date]];
     [trackingDateLabel alignTop];
