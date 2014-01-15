@@ -261,17 +261,20 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
             
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 290, 50)];
-            [label setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 290, 60)];
+            [label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
             label.numberOfLines = 0;
             
-            label.text = @"Send a note to SingPost with regards to any technical issue about your tracking infomation.";
+            label.text = @"Is the information about your item incorrect? Send a report to SingPost.";
             
             NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithAttributedString: label.attributedText];
-            [text addAttribute: NSForegroundColorAttributeName value: [UIColor blueColor] range: NSMakeRange(0,11)];
+            [text addAttribute: NSForegroundColorAttributeName value:[UIColor blueColor] range: NSMakeRange(46,14)];
+            
+            UIFont *boldFont = [UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
+            
+            [text addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(46, 14)];
             [label setAttributedText:text];
             [cell addSubview:label];
-            
         }
         return cell;
     }

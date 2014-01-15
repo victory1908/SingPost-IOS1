@@ -104,7 +104,7 @@
     
     UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, trackingInfoView.frame.origin.y + trackingInfoView.frame.size.height + 10, contentView.bounds.size.width - 30, 80)];
     [instructionsLabel setNumberOfLines:0];
-    [instructionsLabel setText:@"SingPost will be alerted about this tracking number. Use the box below to submit any specific feedback (if any) along with the alert. Tap the ‘Send’ button to submit the alert."];
+    [instructionsLabel setText:@"SingPost will be alerted about this tracking number. Use the box below to submit any specific feedback (optional).\n\nTap the ‘Send’ button to submit the alert."];
     [instructionsLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:[UIColor clearColor]];
     [contentScrollView addSubview:instructionsLabel];
@@ -152,14 +152,25 @@
     
     NSString *postMessage = [NSString stringWithFormat:@"TrackingNo.: %@\n%@Message: %@",_trackedItem.trackingNumber,deliveryStatusString,commentsTextView.text];
     
-    [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
-    
-    [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {
-        commentsTextView.text = @"";
-        [SVProgressHUD showSuccessWithStatus:@"Feedback has been submitted."];
-    } onFailure:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"An error has occured"];
-    }];
+    [UIAlertView showWithTitle:nil
+                       message:@"Submit alert?"
+             cancelButtonTitle:@"No"
+             otherButtonTitles:@[@"Yes"]
+                      tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
+     {
+         if (buttonIndex != [alertView cancelButtonIndex]) {
+             [self.view endEditing:YES];
+             [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
+             [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {
+                 [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
+             } onFailure:^(NSError *error) {
+                 [SVProgressHUD showErrorWithStatus:@"An error has occured"];
+             }];
+         }
+         else
+             return;
+         
+     }];
 }
 
 @end
