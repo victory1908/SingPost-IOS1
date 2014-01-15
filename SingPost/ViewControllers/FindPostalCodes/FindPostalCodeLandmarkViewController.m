@@ -91,13 +91,17 @@
             
             [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result - Landmark"];
             
-            [resultsTableView reloadData];
-            [resultsTableView setContentOffset:CGPointZero animated:YES];
-            
             if (results.count == 0) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Sorry, there are no results found. Please try again." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alertView show];
             }
+            if (results.count > 20) {
+                _searchResults = nil;
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Your enquiry matches a lot of addresses, Please make your enquiry as detailed as possible." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                [alert show];
+            }
+            [resultsTableView reloadData];
+            [resultsTableView setContentOffset:CGPointZero animated:YES];
         }];
     }
 }
