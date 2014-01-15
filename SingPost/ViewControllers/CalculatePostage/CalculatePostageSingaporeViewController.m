@@ -65,7 +65,7 @@
     [contentScrollView addSubview:weightUnitsDropDownList];
     
     UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 175, 150, 20)];
-    [allFieldMandatoryLabel setText:@"All fields are mandatory"];
+    [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
     [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
     [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
     [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];

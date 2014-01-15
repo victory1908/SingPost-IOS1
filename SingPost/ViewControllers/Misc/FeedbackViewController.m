@@ -75,7 +75,7 @@
     
     offsetY += 22.0f;
     UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 150, 20)];
-    [allFieldMandatoryLabel setText:@"All fields are mandatory"];
+    [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
     [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
     [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
     [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
