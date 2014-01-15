@@ -14,4 +14,6 @@
 
 - (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 
+@property (strong, nonatomic) NSArray *deliveryStatusArray;
+
 @end
