@@ -206,7 +206,11 @@
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
     }
-    [locateUsMapView setVisibleMapRect:zoomRect animated:YES];
+    
+    if (locateUsMapView.userLocation.location == nil)
+        [locateUsMapView setVisibleMapRect:zoomRect animated:YES];
+    else
+        [self centerMapAtLocation:locateUsMapView.userLocation.coordinate];
 }
 
 #pragma mark - CDropDownListControlDelegate
