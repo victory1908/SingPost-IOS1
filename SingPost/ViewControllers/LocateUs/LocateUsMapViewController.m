@@ -182,7 +182,7 @@
     else if ([locationType isEqualToString:LOCATION_TYPE_POSTING_BOX])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Posting Box Map"];
     else if ([locationType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT])
-        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- SingPost Agent Map"];
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Speedpost Agent Map"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- Postal Agent Map"];
     else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])

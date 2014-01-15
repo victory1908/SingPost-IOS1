@@ -4,7 +4,7 @@
 #define LOCATION_TYPE_POST_OFFICE @"Post Office"
 #define LOCATION_TYPE_SAM @"SAM"
 #define LOCATION_TYPE_POSTING_BOX @"Posting Box"
-#define LOCATION_TYPE_SINGPOST_AGENT @"SingPost Agent"
+#define LOCATION_TYPE_SINGPOST_AGENT @"Speedpost Agent"
 #define LOCATION_TYPE_POSTAL_AGENT @"Postal Agent"
 #define LOCATION_TYPE_POPSTATION @"POPStation"
 

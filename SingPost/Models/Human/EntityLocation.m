@@ -16,7 +16,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     self.type = json[@"type"];
     
     if ([self.type isEqualToString:@"Singpost Agent"])
-        self.type = @"SingPost Agent";
+        self.type = @"Speedpost Agent";
     
     self.address = [json objectForKeyOrNil:@"address"];
     self.latitude = json[@"latitude"];

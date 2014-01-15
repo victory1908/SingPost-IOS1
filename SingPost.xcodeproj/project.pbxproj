@@ -128,7 +128,7 @@
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
-		91B49BC1187AC76200C7FE62 /* SingPost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* SingPost Agent.json */; };
+		91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */; };
 		91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */; };
 		91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
@@ -360,7 +360,7 @@
 		52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsOpeningHoursView.m; sourceTree = "<group>"; };
 		915E55ED187C128E00790DBC /* LocateUSDetailsDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUSDetailsDetailsView.h; sourceTree = "<group>"; };
 		915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUSDetailsDetailsView.m; sourceTree = "<group>"; };
-		91B49BC0187AC76200C7FE62 /* SingPost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "SingPost Agent.json"; sourceTree = "<group>"; };
+		91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Speedpost Agent.json"; sourceTree = "<group>"; };
 		91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingFeedbackViewController.h; sourceTree = "<group>"; };
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
 		91FD0023187BEDBE00DE1765 /* OffersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersTableViewCell.h; sourceTree = "<group>"; };
@@ -681,7 +681,7 @@
 		52731F71185AB194007D6001 /* LocationJSONs */ = {
 			isa = PBXGroup;
 			children = (
-				91B49BC0187AC76200C7FE62 /* SingPost Agent.json */,
+				91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */,
 				52731F72185AB1B4007D6001 /* SAM.json */,
 				52731F74185AB1DC007D6001 /* Posting Box.json */,
 				52731F76185AB1ED007D6001 /* Post Office.json */,
@@ -1064,7 +1064,7 @@
 				52731F7D185AB239007D6001 /* POPStation.json in Resources */,
 				528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */,
 				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
-				91B49BC1187AC76200C7FE62 /* SingPost Agent.json in Resources */,
+				91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */,
 				52731F73185AB1B4007D6001 /* SAM.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
