@@ -307,12 +307,14 @@ typedef enum {
              [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
              [sectionHeaderView addSubview:numActiveItemsButton];
              */
+            /*
             UIButton *reloadTrackingItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [reloadTrackingItemsButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
             [reloadTrackingItemsButton setFrame:CGRectMake(260, 3, 44, 44)];
             [reloadTrackingItemsButton setTag:TRACKINGITEMS_SECTION_ACTIVE];
             [reloadTrackingItemsButton addTarget:self action:@selector(reloadTrackingItemsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [sectionHeaderView addSubview:reloadTrackingItemsButton];
+             */
             break;
         }
         case TRACKINGITEMS_SECTION_COMPLETED: {
