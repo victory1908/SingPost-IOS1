@@ -141,7 +141,7 @@ typedef enum  {
     [postingBoxSectionButton setTag:LOCATEUSDETAILS_SECTION_POSTINGBOX];
     [postingBoxSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [postingBoxSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    if (_entityLocation.town != nil && _entityLocation.contactNumber != nil)
+    if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
         [postingBoxSectionButton setTitle:@"Details" forState:UIControlStateNormal];
     else
         [postingBoxSectionButton setTitle:@"Posting Box" forState:UIControlStateNormal];
@@ -247,7 +247,7 @@ typedef enum  {
         else if (CGRectContainsPoint(servicesSectionButton.frame, gestureRecognizer.view.center))
             [selectedSectionIndicatorButton setTitle:@"Services" forState:UIControlStateNormal];
         else if (CGRectContainsPoint(postingBoxSectionButton.frame, gestureRecognizer.view.center)) {
-            if (_entityLocation.town != nil && _entityLocation.contactNumber != nil)
+                if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
                 [selectedSectionIndicatorButton setTitle:@"Details" forState:UIControlStateNormal];
             else
                 [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
@@ -264,7 +264,7 @@ typedef enum  {
     else if (currentSection == LOCATEUSDETAILS_SECTION_SERVICES)
         [selectedSectionIndicatorButton setTitle:@"Services" forState:UIControlStateNormal];
     else if (currentSection == LOCATEUSDETAILS_SECTION_POSTINGBOX) {
-        if (_entityLocation.town != nil && _entityLocation.contactNumber != nil)
+            if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
             [selectedSectionIndicatorButton setTitle:@"Details" forState:UIControlStateNormal];
         else
             [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
