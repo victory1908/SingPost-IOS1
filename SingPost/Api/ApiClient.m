@@ -353,7 +353,7 @@ static NSString *const OS = @"ios";
 
 - (void)getSingPostAgentLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"api-singpostagent.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"api-speedpostagent.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
