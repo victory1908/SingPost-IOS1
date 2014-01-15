@@ -39,21 +39,21 @@
         [contentScrollView setContentSize:CGSizeMake(320, 355)];
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         
-        windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 44)];
+        windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 54)];
         [windowDeliveryNoTextField setPlaceholder:@"Reference No\n(Min. 1 character)"];
         [contentScrollView addSubview:windowDeliveryNoTextField];
         
-        typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 44)];
+        typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 54)];
         [typeDropDownList setFontSize:14.0f];
         [typeDropDownList setPlistValueFile:@"FindPostalCodes_Types"];
         [typeDropDownList selectRow:0 animated:NO];
         [contentScrollView addSubview:typeDropDownList];
         
-        postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
+        postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 85, 290, 44)];
         [postOfficeTextField setPlaceholder:@"Name of Post Office (Min. 3 characters)"];
         [contentScrollView addSubview:postOfficeTextField];
         
-        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 137, contentScrollView.bounds.size.width - 30, 48)];
+        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 147, contentScrollView.bounds.size.width - 30, 48)];
         [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [findButton setTitle:@"FIND" forState:UIControlStateNormal];
         [contentScrollView addSubview:findButton];
@@ -62,7 +62,7 @@
         [separatorView setBackgroundColor:RGB(196, 197, 200)];
         [contentScrollView addSubview:separatorView];
         
-        resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 200.5, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 315) style:UITableViewStylePlain];
+        resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 210, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 315) style:UITableViewStylePlain];
         [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [resultsTableView setSeparatorColor:[UIColor clearColor]];
         [resultsTableView setDelegate:self];
@@ -93,7 +93,7 @@
         [alertView show];
     }
     else if ([[windowDeliveryNoTextField.text trimWhiteSpaces] length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 1 character" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else {

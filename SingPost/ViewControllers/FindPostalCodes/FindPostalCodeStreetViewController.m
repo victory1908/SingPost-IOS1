@@ -39,14 +39,14 @@
         
         buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
         [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
-        [buildingBlockHouseNumberTextField setPlaceholder:@"Building/block/house number (Min. 1 characters)"];
+        [buildingBlockHouseNumberTextField setPlaceholder:@"Building/block/house number (Min. 1 character)"];
         [contentScrollView addSubview:buildingBlockHouseNumberTextField];
         
         streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
         [streetNameTextField setPlaceholder:@"Street name (Min. 3 characters)"];
         [contentScrollView addSubview:streetNameTextField];
         
-        UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, 150, 20)];
+        UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, 290, 20)];
         [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
         [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
         [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
@@ -91,7 +91,7 @@
         [alertView show];
     }
     else if ([[buildingBlockHouseNumberTextField.text trimWhiteSpaces] length] < 1) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 1 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 1 character" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else {
@@ -106,18 +106,19 @@
             }
             
             [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result- Street"];
-
-            [resultsTableView reloadData];
-            [resultsTableView setContentOffset:CGPointZero animated:YES];
             
             if (results.count == 0) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Sorry, there are no results found. Please try again." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alertView show];
             }
-            if (results.count >= 10) {
+            if (results.count > 20) {
+                _searchResults = nil;
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Your enquiry matches a lot of addresses, Please make your enquiry as detailed as possible." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                 [alert show];
             }
+            [resultsTableView reloadData];
+            [resultsTableView setContentOffset:CGPointZero animated:YES];
+            
         }];
     }
 }

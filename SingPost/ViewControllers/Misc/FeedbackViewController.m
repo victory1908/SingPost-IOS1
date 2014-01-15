@@ -74,7 +74,7 @@
     [contentScrollView addSubview:personalInformationDisplayLabel];
     
     offsetY += 22.0f;
-    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 150, 20)];
+    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 290, 20)];
     [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
     [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
     [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];

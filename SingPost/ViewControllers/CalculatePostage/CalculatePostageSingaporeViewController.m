@@ -64,7 +64,7 @@
     [weightUnitsDropDownList selectRow:0 animated:NO];
     [contentScrollView addSubview:weightUnitsDropDownList];
     
-    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 175, 150, 20)];
+    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 175, 290, 20)];
     [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
     [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
     [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
