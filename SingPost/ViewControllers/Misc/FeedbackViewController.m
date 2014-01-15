@@ -143,7 +143,7 @@
 - (IBAction)sendFeedbackButtonClicked:(id)sender
 {
     if ([nameTextField.text length] == 0 || [contactNumberTextField.text length] == 0 || [emailAddressTextField.text length] == 0 || [commentsTextView.text length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else {
