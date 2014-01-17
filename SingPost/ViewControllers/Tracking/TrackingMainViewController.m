@@ -581,7 +581,8 @@ typedef enum {
             //Register for notification
             NSLog(@"Register");
             
-            //Quick fix for now. If there are other push notifications in the app, will be affected
+            //Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later.
+#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later
             [[UIApplication sharedApplication] registerForRemoteNotificationTypes:7];
         }
         else {
@@ -593,7 +594,8 @@ typedef enum {
     else {
         NSLog(@"Deregister");
         
-        //Quick fix for now. If there are other push notifications in the app, will be affected
+        //Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later and call the API_unsubscribeNotificationForTrackingNumber
+#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later
         [[UIApplication sharedApplication] unregisterForRemoteNotifications];
     }
     

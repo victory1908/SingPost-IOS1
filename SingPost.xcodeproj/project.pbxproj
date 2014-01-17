@@ -767,8 +767,8 @@
 				52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */,
 				52282FF417FACBA600B2A7B4 /* LocateUsListViewController.h */,
 				52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */,
-				52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */,
 				52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */,
+				52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */,
 			);
 			path = LocateUs;
 			sourceTree = "<group>";
