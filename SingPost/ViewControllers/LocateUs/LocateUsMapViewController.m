@@ -32,6 +32,7 @@
     NSMutableArray *locationAnnotations;
     
     BOOL initialShouldCenterUserLocation;
+    BOOL shouldCenterUserLocation;
 }
 
 @synthesize searchTerm = _searchTerm;
@@ -100,6 +101,8 @@
     else {
         [self showFilteredLocationsOnMap];
     }
+    
+    shouldCenterUserLocation = YES;
 }
 
 #pragma mark - Accessors
@@ -133,6 +136,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    shouldCenterUserLocation = NO;
     [self showFilteredLocationsOnMap];
     return YES;
 }
@@ -168,8 +172,9 @@
     
     [locateUsMapView addAnnotations:locationAnnotations];
     
-    if (locations.count > 0)
+    if (locations.count > 0){
         [self centerMapToFitAllLocations];
+    }
     else {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"No results found" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
@@ -189,11 +194,38 @@
         [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Locations- POPStation Map"];
 }
 
+- (CLLocationDistance)findNearestDistanceByMyCoorinate : (CLLocationCoordinate2D) myLocation{
+    //CLLocationCoordinate2D nearestLocation;
+    
+    CLLocationDistance shorestDistance = MAXFLOAT;
+    
+    for (EntityLocationMapAnnotation *location in locationAnnotations) {
+        CLLocation * location1 = [[CLLocation alloc] initWithLatitude:[location.location.latitude doubleValue]longitude:[location.location.longitude doubleValue]];
+        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:myLocation.latitude longitude:myLocation.longitude];
+        
+        CLLocationDistance distance = [location1 distanceFromLocation:location2];
+        
+        if(distance < shorestDistance){
+            shorestDistance = distance;
+            //nearestLocation = location1.coordinate;
+        }
+    }
+    
+    return shorestDistance;
+}
+
 - (void)centerMapAtLocation:(CLLocationCoordinate2D)coordinate
 {
     MKCoordinateRegion mapRegion;
     mapRegion.center = coordinate;
-    mapRegion.span = MKCoordinateSpanMake(0.015, 0.015);
+    
+    CLLocationDistance distance = [self findNearestDistanceByMyCoorinate:coordinate];
+    
+    if(distance > 5000000)
+        distance = 800;
+    
+    float zoomLevel = distance / 800 * 0.015;
+    mapRegion.span = MKCoordinateSpanMake(zoomLevel, zoomLevel);
     [locateUsMapView setRegion:mapRegion animated:YES];
 }
 
@@ -202,12 +234,17 @@
     MKMapRect zoomRect = MKMapRectNull;
     for (id <MKAnnotation> annotation in locateUsMapView.annotations)
     {
+        if(!shouldCenterUserLocation) {
+            if([annotation isKindOfClass:[MKUserLocation class]]){
+                continue;
+            }
+        }
         MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
     }
     
-    if (locateUsMapView.userLocation.location == nil)
+    if (locateUsMapView.userLocation.location == nil || !shouldCenterUserLocation)
         [locateUsMapView setVisibleMapRect:zoomRect animated:YES];
     else
         [self centerMapAtLocation:locateUsMapView.userLocation.coordinate];

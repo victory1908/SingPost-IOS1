@@ -11,6 +11,7 @@
 #import "CDropDownListControl.h"
 #import "UIFont+SingPost.h"
 #import "UIView+Position.h"
+#import "UIView+Origami.h"
 #import "DatabaseSeeder.h"
 #import "Stamp.h"
 #import "StampCollectiblesTableViewCell.h"
@@ -19,7 +20,7 @@
 #import <SVProgressHUD.h>
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 
-@interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CDropDownListControlDelegate>
+@interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CDropDownListControlDelegate,UIScrollViewDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 
@@ -32,6 +33,9 @@
     CDropDownListControl *yearDropDownList;
     UITableView *stampsTableView;
     UIImageView *featuredImageView;
+    UIView * searchTermsView, * searchResultsContainerView;
+    
+    
 }
 
 - (void)loadView
@@ -39,48 +43,58 @@
     contentScrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentScrollView setBackgroundColor:RGB(250, 250, 250)];
     
+    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, 186)];
+    [searchTermsView setBackgroundColor:RGB(250, 250, 250)];
+    
+   
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:@"Stamp Collectibles"];
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentScrollView addSubview:navigationBarView];
     
-    featuredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, 186)];
-    [contentScrollView addSubview:featuredImageView];
+    featuredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 186)];
+    [searchTermsView addSubview:featuredImageView];
     
-    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 230, contentScrollView.bounds.size.width, 0.5f)];
+    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
+    [contentScrollView addSubview:searchResultsContainerView];
+    
+    
+    UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 230-44-186, contentScrollView.bounds.size.width, 0.5f)];
     [topSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
-    [contentScrollView addSubview:topSeparatorView];
+    [searchResultsContainerView addSubview:topSeparatorView];
     
-    UIView *yearSectionBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 230.5, contentScrollView.bounds.size.width, 60)];
+    UIView *yearSectionBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 230.5- 44-186, contentScrollView.bounds.size.width, 60)];
     [yearSectionBackgroundView setBackgroundColor:RGB(240, 240, 240)];
-    [contentScrollView addSubview:yearSectionBackgroundView];
+    [searchResultsContainerView addSubview:yearSectionBackgroundView];
     
-    chosenYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 240, 200, 44)];
+    chosenYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 240-44-186, 200, 44)];
     [chosenYearLabel setBackgroundColor:[UIColor clearColor]];
     [chosenYearLabel setTextColor:RGB(195, 17, 38)];
     [chosenYearLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [contentScrollView addSubview:chosenYearLabel];
+    [searchResultsContainerView addSubview:chosenYearLabel];
     
-    yearDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 95, 240, 80, 44)];
+    yearDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(contentScrollView.bounds.size.width - 95, 240-44-186, 80, 44)];
     [yearDropDownList setDelegate:self];
-    [contentScrollView addSubview:yearDropDownList];
+    [searchResultsContainerView addSubview:yearDropDownList];
     
-    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 290.5, contentScrollView.bounds.size.width, 0.5f)];
+    UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 290.5-44-186, contentScrollView.bounds.size.width, 0.5f)];
     [bottomSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
-    [contentScrollView addSubview:bottomSeparatorView];
+    [searchResultsContainerView addSubview:bottomSeparatorView];
     
-    stampsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 291, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 291 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    stampsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 291-44-186, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 291 - [UIApplication sharedApplication].statusBarFrame.size.height + 186) style:UITableViewStylePlain];
     [stampsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [stampsTableView setSeparatorColor:[UIColor clearColor]];
     [stampsTableView setBackgroundView:nil];
     [stampsTableView setDelegate:self];
     [stampsTableView setDataSource:self];
     [stampsTableView setBackgroundColor:[UIColor whiteColor]];
-    [contentScrollView addSubview:stampsTableView];
+    [searchResultsContainerView addSubview:stampsTableView];
 
     self.view = contentScrollView;
+    
+    contentScrollView.delegate = self;
 }
 
 - (void)viewDidLoad
@@ -101,6 +115,8 @@
             [SVProgressHUD dismiss];
         }
     }];
+    
+    [self showSearchTermsView:YES];
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -231,5 +247,61 @@
 {
     [self yearDropDownListSelected];
 }
+
+#define ANIMATION_DURATION 0.5f
+
+- (void)showSearchTermsView:(BOOL)shouldShowSearchTermsView
+{
+    if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
+        return;
+    }
+    
+    if (!isAnimating) {
+        isAnimating = YES;
+        [self.view endEditing:YES];
+        [stampsTableView setBounces:NO];
+        if (!shouldShowSearchTermsView)
+            [stampsTableView setScrollEnabled:NO];
+        
+        if (shouldShowSearchTermsView) {
+            [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+                //[indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 345 : 255];
+            }];
+            [searchResultsContainerView showOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [stampsTableView setBounces:YES];
+                
+                isSearchTermViewShown = YES;
+                isAnimating = NO;
+            }];
+        }
+        else {
+            [yearDropDownList resignFirstResponder];
+            [stampsTableView setContentOffset:CGPointZero];
+            [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+                //[indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 475 : 385];
+            }];
+            [searchResultsContainerView hideOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [stampsTableView setBounces:YES];
+                [stampsTableView setScrollEnabled:YES];
+                
+                isSearchTermViewShown = NO;
+                isAnimating = NO;
+            }];
+        }
+    }
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.isTracking) {
+        if (scrollView.contentOffset.y < 0)
+            [self showSearchTermsView:YES];
+        else if (scrollView.contentOffset.y >= 0)
+            [self showSearchTermsView:NO];
+    }
+}
+
 
 @end

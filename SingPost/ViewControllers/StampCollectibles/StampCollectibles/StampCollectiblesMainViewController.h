@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StampCollectiblesMainViewController : UIViewController
+@interface StampCollectiblesMainViewController : UIViewController {
+    BOOL isAnimating;
+    BOOL isSearchTermViewShown;
+}
 
 @end

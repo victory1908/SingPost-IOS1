@@ -280,7 +280,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    if ([filteredSearchResults count] <= 0) {
+    if ([filteredSearchResults count] <= 0 && textField.text.length > 0) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"No results found" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         [alert show];
     }

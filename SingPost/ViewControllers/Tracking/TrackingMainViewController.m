@@ -577,9 +577,12 @@ typedef enum {
         UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
         BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
         
-        if (notificationStatus) {
+        if (!notificationStatus) {
             //Register for notification
             NSLog(@"Register");
+            
+            //Quick fix for now. If there are other push notifications in the app, will be affected
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:7];
         }
         else {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -589,6 +592,9 @@ typedef enum {
     }
     else {
         NSLog(@"Deregister");
+        
+        //Quick fix for now. If there are other push notifications in the app, will be affected
+        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
     }
     
 }
