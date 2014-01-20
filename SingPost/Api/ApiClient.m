@@ -504,6 +504,36 @@ static NSString *const OS = @"ios";
     [self enqueueHTTPRequestOperation:operation];
 }
 
+- (void)subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+
+    
+    NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
+                     "<ProfileID>%@</ProfileID>"
+                     "<ItemNumberList>", [self notificationProfileID]];
+    
+    for(NSString * itemNumber in trackingNumberArray) {
+        xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
+    }
+    xml = [xml stringByAppendingString:@"</ItemNumberList>""</SubscribeRequest>"];
+    
+    
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/add" parameters:nil];
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+        if (success)
+            success(XMLElement);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 - (void)unsubscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
     NSString *xml = [NSString stringWithFormat: @"<UnsubscribeRequest>"
@@ -526,6 +556,35 @@ static NSString *const OS = @"ios";
     
     [self enqueueHTTPRequestOperation:operation];
 }
+
+- (void)unsubscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+{
+    NSString *xml = [NSString stringWithFormat: @"<UnsubscribeRequest>"
+                     "<ProfileID>%@</ProfileID>"
+                     "<ItemNumberList>", [self notificationProfileID]];
+    
+    for(NSString * itemNumber in trackingNumberArray) {
+        xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
+    }
+    xml = [xml stringByAppendingString:@"</ItemNumberList>""</UnsubscribeRequest>"];
+    
+    
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/remove" parameters:nil];
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+        if (success)
+            success(XMLElement);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+        if (failure)
+            failure(error);
+    }];
+    
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 
 #pragma mark - Philately
 

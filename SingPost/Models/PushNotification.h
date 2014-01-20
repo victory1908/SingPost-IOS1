@@ -12,6 +12,8 @@
 
 + (void)API_registerAPNSToken:(NSString *)apnsToken onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 + (void)API_unsubscribeNotificationForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
++ (void)API_unsubscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onCompletion:(void(^)(BOOL success, NSError *error))completionBlock;
 
 @end

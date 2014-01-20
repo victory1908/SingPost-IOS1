@@ -23,6 +23,7 @@
 
 #import "TrackedItem.h"
 #import "Article.h"
+#import "PushNotification.h"
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
@@ -463,6 +464,8 @@ typedef enum {
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
             trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         
+        
+        
         [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         [TrackedItem deleteTrackedItem:trackedItemToDelete onCompletion:^(BOOL success, NSError *error) {
             if (!success)
@@ -582,8 +585,24 @@ typedef enum {
             NSLog(@"Register");
             
             //Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later.
-#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later
             [[UIApplication sharedApplication] registerForRemoteNotificationTypes:7];
+#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later. It will be something like below.
+            
+            /*NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+            
+            NSMutableArray * numberArray = [NSMutableArray array];
+            for(TrackedItem *trackedItemToDelete in trackedArray){
+                [numberArray addObject:trackedItemToDelete.trackingNumber ];
+            }
+            
+            [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+                if (success) {
+                    //[trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
+                    //[trackedItemToDelete.managedObjectContext save:nil];
+                }
+                //completionBlock(success, error);
+            }];*/
+            
         }
         else {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -595,8 +614,27 @@ typedef enum {
         NSLog(@"Deregister");
         
         //Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later and call the API_unsubscribeNotificationForTrackingNumber
-#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later
         [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+        
+#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later. It will be something like below.
+        
+        /*NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+        
+        NSMutableArray * numberArray = [NSMutableArray array];
+        for(TrackedItem *trackedItemToDelete in trackedArray){
+            [numberArray addObject:trackedItemToDelete.trackingNumber ];
+        }
+        
+        [PushNotificationManager API_unsubscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+            if (success) {
+                //[trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
+                //[trackedItemToDelete.managedObjectContext save:nil];
+            }
+            //completionBlock(success, error);
+        }];*/
+        
+        
+        
     }
     
 }

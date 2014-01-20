@@ -57,10 +57,62 @@
     }
 }
 
++ (void)API_subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+{
+    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
+        [[ApiClient sharedInstance] subscribeNotificationForTrackingNumberArray:trackingNumberArray onSuccess:^(RXMLElement *rootXML) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                if (completionBlock) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock([[rootXML child:@"ErrorCode"].text isEqualToString:@"0"], nil);
+                    });
+                }
+            });
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(NO, error);
+                });
+            }
+        }];
+    }
+    else {
+        if (completionBlock) {
+            completionBlock(YES, [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"No registered profile ID"}]);
+        }
+    }
+}
+
 + (void)API_unsubscribeNotificationForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
         [[ApiClient sharedInstance] unsubscribeNotificationForTrackingNumber:trackingNumber onSuccess:^(RXMLElement *rootXML) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                if (completionBlock) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completionBlock([[rootXML child:@"ErrorCode"].text isEqualToString:@"0"], nil);
+                    });
+                }
+            });
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completionBlock(NO, error);
+                });
+            }
+        }];
+    }
+    else {
+        if (completionBlock) {
+            completionBlock(YES, [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"No registered profile ID"}]);
+        }
+    }
+}
+
++ (void)API_unsubscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+{
+    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
+        [[ApiClient sharedInstance] unsubscribeNotificationForTrackingNumberArray:trackingNumberArray onSuccess:^(RXMLElement *rootXML) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (completionBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
