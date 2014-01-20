@@ -54,7 +54,7 @@
             [mondayOpeningHoursDisplayLabel setText:@"Monday"];
             [contentScrollView addSubview:mondayOpeningHoursDisplayLabel];
             
-            monOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            monOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
             [monOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
             [monOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
             [monOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -71,7 +71,7 @@
             [tuesdayOpeningHoursDisplayLabel setText:@"Tuesday"];
             [contentScrollView addSubview:tuesdayOpeningHoursDisplayLabel];
             
-            tuesOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            tuesOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
             [tuesOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
             [tuesOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
             [tuesOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -88,7 +88,7 @@
             [wednesdayOpeningHoursDisplayLabel setText:@"Wednesday"];
             [contentScrollView addSubview:wednesdayOpeningHoursDisplayLabel];
             
-            wedOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            wedOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
             [wedOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
             [wedOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
             [wedOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -105,7 +105,7 @@
             [thursdayOpeningHoursDisplayLabel setText:@"Thursday"];
             [contentScrollView addSubview:thursdayOpeningHoursDisplayLabel];
             
-            thursOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            thursOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
             [thursOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
             [thursOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
             [thursOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -122,7 +122,7 @@
             [fridayOpeningHoursDisplayLabel setText:@"Friday"];
             [contentScrollView addSubview:fridayOpeningHoursDisplayLabel];
             
-            friOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            friOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
             [friOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
             [friOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
             [friOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -140,7 +140,7 @@
             [monToFriOpeningHoursDisplayLabel setText:@"Monday - Friday"];
             [contentScrollView addSubview:monToFriOpeningHoursDisplayLabel];
             
-            monToFriOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+            monToFriOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
             [monToFriOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
             [monToFriOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
             [monToFriOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -158,7 +158,7 @@
         [saturdayOpeningHoursDisplayLabel setText:@"Saturday"];
         [contentScrollView addSubview:saturdayOpeningHoursDisplayLabel];
         
-        saturdayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+        saturdayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
         [saturdayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
         [saturdayOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
         [saturdayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -173,7 +173,7 @@
         [sundayOpeningHoursDisplayLabel setText:@"Sunday"];
         [contentScrollView addSubview:sundayOpeningHoursDisplayLabel];
         
-        sundayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+        sundayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
         [sundayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
         [sundayOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
         [sundayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -188,7 +188,7 @@
         [publicHolidayOpeningHoursDisplayLabel setText:@"Public Holiday"];
         [contentScrollView addSubview:publicHolidayOpeningHoursDisplayLabel];
         
-        publicHolidayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, offsetY, 110, 20)];
+        publicHolidayOpeningHoursLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, offsetY, 130, 20)];
         [publicHolidayOpeningHoursLabel setTextColor:RGB(58, 68, 81)];
         [publicHolidayOpeningHoursLabel setTextAlignment:NSTextAlignmentRight];
         [publicHolidayOpeningHoursLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
