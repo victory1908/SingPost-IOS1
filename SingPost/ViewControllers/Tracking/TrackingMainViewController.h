@@ -12,4 +12,6 @@
 
 @property (nonatomic) NSString *trackingNumber;
 
+@property (nonatomic,assign) BOOL isOn;
+
 @end

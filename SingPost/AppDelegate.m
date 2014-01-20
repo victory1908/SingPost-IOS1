@@ -31,8 +31,19 @@
     if (remoteNotification) {
         [self handleRemoteNotification:remoteNotification shouldPrompt:NO];
     }
+    
+    NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+    NSString * isNotificationOn = [userDefault valueForKey:@"IS_NOTIF_ON"];
+    BOOL isPushSwitchOn;
+    if(!isNotificationOn || [isNotificationOn isEqualToString:@"NO"]){
+        isPushSwitchOn = NO;
+    } else {
+        isPushSwitchOn = YES;
+    }
 
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    if(isPushSwitchOn) {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
     
     [MagicalRecord setupCoreDataStack];
     [DatabaseSeeder seedLocationsDataIfRequired];

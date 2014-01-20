@@ -491,7 +491,9 @@ static NSString *const OS = @"ios";
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/add" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSData * data = [xml dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
         if (success)

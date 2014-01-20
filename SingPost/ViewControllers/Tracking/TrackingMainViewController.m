@@ -99,6 +99,10 @@ typedef enum {
 {
     [super viewDidLoad];
     [[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES];
+    
+    
+    
+    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -375,7 +379,20 @@ typedef enum {
             receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
             receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
             receiveUpdateSwitch.center = CGPointMake(278, 104);
-            receiveUpdateSwitch.on = notificationStatus;
+            
+            
+            NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+            NSString * isNotificationOn = [userDefault valueForKey:@"IS_NOTIF_ON"];
+            BOOL isSwitchOn = NO;
+            if(!isNotificationOn || [isNotificationOn isEqualToString:@"NO"]){
+                isSwitchOn = NO;
+            } else {
+                isSwitchOn = YES;
+            }
+            
+            //receiveUpdateSwitch.on = notificationStatus;
+            receiveUpdateSwitch.on = isSwitchOn;
+            
             [receiveUpdateSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
             [cell.contentView addSubview:receiveUpdateSwitch];
         }
@@ -578,17 +595,22 @@ typedef enum {
     
     if (receiveUpdateSwitch.isOn) {
         UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
+        //BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
         
-        if (!notificationStatus) {
+        //if (!notificationStatus) {
             //Register for notification
             NSLog(@"Register");
             
-            //Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later.
-            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:7];
-#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later. It will be something like below.
+
+            //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:7];
             
-            /*NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+            NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+            [userDefault setObject:@"YES" forKey:@"IS_NOTIF_ON"];
+            [userDefault synchronize];
+
+#warning The below is trying to subscribe the trackNumbers, It is not tested yet!
+            
+            NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
             
             NSMutableArray * numberArray = [NSMutableArray array];
             for(TrackedItem *trackedItemToDelete in trackedArray){
@@ -601,24 +623,28 @@ typedef enum {
                     //[trackedItemToDelete.managedObjectContext save:nil];
                 }
                 //completionBlock(success, error);
-            }];*/
+            }];
             
-        }
+       /* }
         else {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             receiveUpdateSwitch.on = NO;
-        }
+        }*/
     }
     else {
         NSLog(@"Deregister");
         
-        //Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later and call the API_unsubscribeNotificationForTrackingNumber
-        [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+        //[[UIApplication sharedApplication] unregisterForRemoteNotifications];
         
-#warning Quick fix for now. If there are other push notifications in the app, will be affected. Please do change it later. It will be something like below.
+        NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
+        [userDefault setObject:@"NO" forKey:@"IS_NOTIF_ON"];
+        [userDefault synchronize];
+
         
-        /*NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+#warning The below is trying to unsubscribe the trackNumbers, It is not tested yet!
+        
+        NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
         
         NSMutableArray * numberArray = [NSMutableArray array];
         for(TrackedItem *trackedItemToDelete in trackedArray){
@@ -631,7 +657,7 @@ typedef enum {
                 //[trackedItemToDelete.managedObjectContext save:nil];
             }
             //completionBlock(success, error);
-        }];*/
+        }];
         
         
         
