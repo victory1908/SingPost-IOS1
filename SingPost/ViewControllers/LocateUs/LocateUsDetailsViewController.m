@@ -174,7 +174,7 @@ typedef enum  {
     LocateUsDetailsServicesView *servicesSectionView = [[LocateUsDetailsServicesView alloc] initWithServices:_entityLocation.servicesArray andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_SERVICES, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
     [sectionContentScrollView addSubview:servicesSectionView];
     
-    if (_entityLocation.postal_code != nil || _entityLocation.contactNumber != nil) {
+    if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT]) {
         LocateUSDetailsDetailsView *vc = [[LocateUSDetailsDetailsView alloc]initWithLocation:_entityLocation andFrame:CGRectMake(sectionContentScrollView.bounds.size.width * LOCATEUSDETAILS_SECTION_POSTINGBOX, 0, sectionContentScrollView.bounds.size.width, sectionContentScrollView.bounds.size.height)];
         [sectionContentScrollView addSubview:vc];
     }

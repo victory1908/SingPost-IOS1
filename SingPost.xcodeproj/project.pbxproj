@@ -767,8 +767,8 @@
 				52AF5B1917FB212C002D6798 /* LocateUsMapViewController.m */,
 				52282FF417FACBA600B2A7B4 /* LocateUsListViewController.h */,
 				52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */,
-				52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */,
 				52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */,
+				52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */,
 			);
 			path = LocateUs;
 			sourceTree = "<group>";
@@ -1312,8 +1312,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
@@ -1321,7 +1321,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A8D536E8-3CB0-4C3E-A9D5-F276AABD8807";
+				PROVISIONING_PROFILE = "12FF57A0-F5A5-47CE-989F-6192BCD8D006";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1334,8 +1334,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
@@ -1343,7 +1343,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "A8D536E8-3CB0-4C3E-A9D5-F276AABD8807";
+				PROVISIONING_PROFILE = "12FF57A0-F5A5-47CE-989F-6192BCD8D006";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
