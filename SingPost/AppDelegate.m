@@ -118,9 +118,7 @@
 
 - (void)checkAppAndOSVersion {
     NSString *deviceOS = [[UIDevice currentDevice] systemVersion];
-    NSLog(@"Device OS %@",deviceOS);
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    NSLog(@"App Version %@",appVersion);
     
     [[ApiClient sharedInstance]checkAppUpdateWithAppVer:appVersion andOSVer:deviceOS];
 }
@@ -182,17 +180,15 @@
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     NSLog(@"device push token %@",[deviceToken description]);
-    if (![[ApiClient sharedInstance] hasRegisteredProfileId]) {
-        NSString *sanitizedDeviceToken = [[[[deviceToken description]
-                                            stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                                           stringByReplacingOccurrencesOfString: @">" withString: @""]
-                                          stringByReplacingOccurrencesOfString: @" " withString: @""];
-        
-        NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
-        [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
-            //do nothing
-        }];
-    }
+    NSString *sanitizedDeviceToken = [[[[deviceToken description]
+                                        stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                                       stringByReplacingOccurrencesOfString: @">" withString: @""]
+                                      stringByReplacingOccurrencesOfString: @" " withString: @""];
+    
+    NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
+    [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
+        //do nothing
+    }];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
