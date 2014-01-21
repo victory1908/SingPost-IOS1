@@ -101,7 +101,7 @@
             
             NSError *error;
             TrackedItem *trackedItem = [TrackedItem createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
-            if (!error) {////
+            if (!error) {
                 [PushNotificationManager API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
                     if (success) {
                         [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {

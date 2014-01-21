@@ -27,23 +27,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-
+    
     if (remoteNotification) {
         [self handleRemoteNotification:remoteNotification shouldPrompt:NO];
     }
     
-    NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-    NSString * isNotificationOn = [userDefault valueForKey:@"IS_NOTIF_ON"];
-    BOOL isPushSwitchOn;
-    if(!isNotificationOn || [isNotificationOn isEqualToString:@"NO"]){
-        isPushSwitchOn = NO;
-    } else {
-        isPushSwitchOn = YES;
-    }
-
-    if(isPushSwitchOn) {
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    }
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     [MagicalRecord setupCoreDataStack];
     [DatabaseSeeder seedLocationsDataIfRequired];
@@ -72,7 +61,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -97,8 +86,8 @@
 {
     [GAI sharedInstance].trackUncaughtExceptions = NO;
     [GAI sharedInstance].dispatchInterval = 30;
-
-//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    //    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
 }
 
@@ -128,7 +117,7 @@
 }
 
 - (void)checkAppAndOSVersion {
-   NSString *deviceOS = [[UIDevice currentDevice] systemVersion];
+    NSString *deviceOS = [[UIDevice currentDevice] systemVersion];
     NSLog(@"Device OS %@",deviceOS);
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     NSLog(@"App Version %@",appVersion);

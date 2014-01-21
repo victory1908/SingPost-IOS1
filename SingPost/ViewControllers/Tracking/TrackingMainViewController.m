@@ -99,10 +99,6 @@ typedef enum {
 {
     [super viewDidLoad];
     [[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES];
-    
-    
-    
-    
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -635,12 +631,9 @@ typedef enum {
     else {
         NSLog(@"Deregister");
         
-        //[[UIApplication sharedApplication] unregisterForRemoteNotifications];
-        
         NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
         [userDefault setObject:@"NO" forKey:@"IS_NOTIF_ON"];
         [userDefault synchronize];
-
         
 #warning The below is trying to unsubscribe the trackNumbers, It is not tested yet!
         
