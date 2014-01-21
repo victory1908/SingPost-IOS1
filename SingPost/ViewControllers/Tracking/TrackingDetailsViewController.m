@@ -268,11 +268,10 @@
             label.text = @"Is the information about your item incorrect? Send a report to SingPost.";
             
             NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithAttributedString: label.attributedText];
-            [text addAttribute: NSForegroundColorAttributeName value:[UIColor blueColor] range: NSMakeRange(46,14)];
-            
+            [text addAttribute: NSForegroundColorAttributeName value:RGB(61, 133, 198) range: NSMakeRange(46,14)];
             UIFont *boldFont = [UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
-            
             [text addAttribute:NSFontAttributeName value:boldFont range:NSMakeRange(46, 14)];
+            
             [label setAttributedText:text];
             [cell addSubview:label];
         }
