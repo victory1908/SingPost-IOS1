@@ -15,5 +15,6 @@
 - (void)switchToViewController:(UIViewController *)viewController;
 - (void)cPushViewController:(UIViewController *)viewController;
 - (void)cPopViewController;
+- (BOOL)isSideBarVisible;
 
 @end

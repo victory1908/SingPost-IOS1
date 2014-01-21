@@ -272,4 +272,8 @@
     [CATransaction commit];
 }
 
+- (BOOL)isSideBarVisible {
+    return sideBarMenuViewController.isVisible;
+}
+
 @end

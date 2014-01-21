@@ -127,6 +127,9 @@
 
 - (void)goToTrackingDetailsPageForTrackingNumber:(NSString *)trackingNumber
 {
+    if ([self.rootViewController isSideBarVisible])
+        [self.rootViewController toggleSideBarVisiblity];
+    
     BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
     
     [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
