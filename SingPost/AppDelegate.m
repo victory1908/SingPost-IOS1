@@ -127,8 +127,10 @@
 
 - (void)goToTrackingDetailsPageForTrackingNumber:(NSString *)trackingNumber
 {
+    BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+    
     [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-    [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumber onCompletion:^(BOOL success, NSError *error) {
+    [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
         if (success) {
             TrackedItem *trackedItem = [TrackedItem MR_findFirstByAttribute:TrackedItemAttributes.trackingNumber withValue:trackingNumber];
             TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];

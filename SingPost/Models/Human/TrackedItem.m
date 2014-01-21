@@ -91,7 +91,7 @@
     }];
 }
 
-+ (void)API_getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
++ (void)API_getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber notification:(BOOL)pushOn onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getItemTrackingDetailsForTrackingNumber:trackingNumber onSuccess:^(RXMLElement *rootXML) {
         NSLog(@"tracking item response: %@", rootXML);
@@ -102,24 +102,18 @@
             NSError *error;
             TrackedItem *trackedItem = [TrackedItem createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
             if (!error) {
-                [PushNotificationManager API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
-                    if (success) {
-                        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                            if (completionBlock) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    completionBlock(!error, error);
-                                });
-                            }
-                        }];
-                    }
-                    else {
-                        if (completionBlock) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                completionBlock(NO, error);
-                            });
-                        }
+                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                    if (completionBlock) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completionBlock(!error, error);
+                        });
                     }
                 }];
+                if (pushOn) {
+                    [PushNotificationManager API_subscribeNotificationForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error)
+                     {
+                     }];
+                }
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{

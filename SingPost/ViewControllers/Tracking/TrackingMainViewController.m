@@ -129,10 +129,12 @@ typedef enum {
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
+    BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+    
     [self.view endEditing:YES];
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [SVProgressHUD dismiss];
             }
@@ -309,12 +311,12 @@ typedef enum {
              [sectionHeaderView addSubview:numActiveItemsButton];
              */
             /*
-            UIButton *reloadTrackingItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [reloadTrackingItemsButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
-            [reloadTrackingItemsButton setFrame:CGRectMake(260, 3, 44, 44)];
-            [reloadTrackingItemsButton setTag:TRACKINGITEMS_SECTION_ACTIVE];
-            [reloadTrackingItemsButton addTarget:self action:@selector(reloadTrackingItemsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [sectionHeaderView addSubview:reloadTrackingItemsButton];
+             UIButton *reloadTrackingItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+             [reloadTrackingItemsButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
+             [reloadTrackingItemsButton setFrame:CGRectMake(260, 3, 44, 44)];
+             [reloadTrackingItemsButton setTag:TRACKINGITEMS_SECTION_ACTIVE];
+             [reloadTrackingItemsButton addTarget:self action:@selector(reloadTrackingItemsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+             [sectionHeaderView addSubview:reloadTrackingItemsButton];
              */
             break;
         }
@@ -368,26 +370,14 @@ typedef enum {
             [instructionsLabel setTextColor:RGB(51, 51, 51)];
             [instructionsLabel setBackgroundColor:[UIColor clearColor]];
             [cell.contentView addSubview:instructionsLabel];
-            
-            UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-            BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
+
+            BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
             
             receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
             receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
             receiveUpdateSwitch.center = CGPointMake(278, 104);
             
-            
-            NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-            NSString * isNotificationOn = [userDefault valueForKey:@"IS_NOTIF_ON"];
-            BOOL isSwitchOn = NO;
-            if(!isNotificationOn || [isNotificationOn isEqualToString:@"NO"]){
-                isSwitchOn = NO;
-            } else {
-                isSwitchOn = YES;
-            }
-            
-            //receiveUpdateSwitch.on = notificationStatus;
-            receiveUpdateSwitch.on = isSwitchOn;
+            receiveUpdateSwitch.on = notificationStatus;
             
             [receiveUpdateSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
             [cell.contentView addSubview:receiveUpdateSwitch];
@@ -438,7 +428,10 @@ typedef enum {
         
         if (trackedItem.shouldRefetchFromServer) {
             [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-            [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber onCompletion:^(BOOL success, NSError *error) {
+            
+            BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+            
+            [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
                 if (success) {
                     [SVProgressHUD dismiss];
                     TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
@@ -589,71 +582,53 @@ typedef enum {
 
 - (void)switchChanged:(UIControl *)sender {
     
+    UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+    BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
+    
     if (receiveUpdateSwitch.isOn) {
-        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        //BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
-        
-        //if (!notificationStatus) {
+        if (notificationStatus) {
             //Register for notification
-            NSLog(@"Register");
-            
-
-            //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:7];
-            
-            NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-            [userDefault setObject:@"YES" forKey:@"IS_NOTIF_ON"];
-            [userDefault synchronize];
-
-#warning The below is trying to subscribe the trackNumbers, It is not tested yet!
-            
             NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+            if ([trackedArray count] == 0)
+                return;
+            
+            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             
             NSMutableArray * numberArray = [NSMutableArray array];
-            for(TrackedItem *trackedItemToDelete in trackedArray){
-                [numberArray addObject:trackedItemToDelete.trackingNumber ];
+            for(TrackedItem *trackedItem in trackedArray){
+                [numberArray addObject:trackedItem.trackingNumber];
             }
             
             [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
-                if (success) {
-                    //[trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
-                    //[trackedItemToDelete.managedObjectContext save:nil];
-                }
-                //completionBlock(success, error);
+                [SVProgressHUD dismiss];
             }];
             
-       /* }
+        }
         else {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
             [alert show];
             receiveUpdateSwitch.on = NO;
-        }*/
-    }
-    else {
-        NSLog(@"Deregister");
-        
-        NSUserDefaults * userDefault = [NSUserDefaults standardUserDefaults];
-        [userDefault setObject:@"NO" forKey:@"IS_NOTIF_ON"];
-        [userDefault synchronize];
-        
-#warning The below is trying to unsubscribe the trackNumbers, It is not tested yet!
-        
-        NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
-        
-        NSMutableArray * numberArray = [NSMutableArray array];
-        for(TrackedItem *trackedItemToDelete in trackedArray){
-            [numberArray addObject:trackedItemToDelete.trackingNumber ];
         }
         
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NOTIFICATION_KEY"];
+    }
+    else {
+        //Deregister for notification
+        NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+        if ([trackedArray count] == 0)
+            return;
+        
+        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        
+        NSMutableArray * numberArray = [NSMutableArray array];
+        for(TrackedItem *trackedItem in trackedArray)
+            [numberArray addObject:trackedItem.trackingNumber];
+        
         [PushNotificationManager API_unsubscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
-            if (success) {
-                //[trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
-                //[trackedItemToDelete.managedObjectContext save:nil];
-            }
-            //completionBlock(success, error);
+            [SVProgressHUD dismiss];
         }];
         
-        
-        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NOTIFICATION_KEY"];
     }
     
 }

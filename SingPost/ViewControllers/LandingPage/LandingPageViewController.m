@@ -137,7 +137,7 @@ typedef enum {
     [menuCalculatePostageButton setTag:LANDINGPAGEBUTTON_CALCULATEPOSTAGE];
     [menuCalculatePostageButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuCalculatePostageButton];
-
+    
     offsetX += ICON_WIDTH;
     LandingPageButton *menuPostalCodesButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [menuPostalCodesButton setFrame:CGRectMake(offsetX, offsetY, ICON_WIDTH, ICON_HEIGHT)];
@@ -153,7 +153,7 @@ typedef enum {
     [menuPageLocateUsButton setTag:LANDINGPAGEBUTTON_LOCATEUS];
     [menuPageLocateUsButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:menuPageLocateUsButton];
-
+    
     offsetX = STARTING_OFFSET_X;
     offsetY += ICON_HEIGHT + ICON_SPACING_VERTICAL;
     LandingPageButton *menuSendReceiveButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
@@ -511,7 +511,10 @@ typedef enum {
 {
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text onCompletion:^(BOOL success, NSError *error) {
+        
+        BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+        
+        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [SVProgressHUD dismiss];
                 TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
