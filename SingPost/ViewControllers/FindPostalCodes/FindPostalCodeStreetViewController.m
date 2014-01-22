@@ -16,8 +16,9 @@
 #import "PostalCode.h"
 #import "PostalCodeStreetTableViewCell.h"
 #import "NSString+Extensions.h"
+#import "UIView+Origami.h"
 
-@interface FindPostalCodeStreetViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface FindPostalCodeStreetViewController () <UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate>
 
 @end
 
@@ -27,60 +28,73 @@
     CTextField *buildingBlockHouseNumberTextField, *streetNameTextField;
     UITableView *resultsTableView;
     NSArray *_searchResults;
+    
+    UIView * searchTermsView, * searchResultsContainerView;
+    BOOL isAnimating;
+    BOOL isSearchTermViewShown;
+    
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        [contentScrollView setDelaysContentTouches:NO];
-        [contentScrollView setContentSize:CGSizeMake(320, 370)];
-        [contentScrollView setBackgroundColor:[UIColor clearColor]];
-        
-        buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
-        [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
-        [buildingBlockHouseNumberTextField setPlaceholder:@"Building/block/house number (Min. 1 character)"];
-        [contentScrollView addSubview:buildingBlockHouseNumberTextField];
-        
-        streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
-        [streetNameTextField setPlaceholder:@"Street name (Min. 3 characters)"];
-        [contentScrollView addSubview:streetNameTextField];
-        
-        UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, 290, 20)];
-        [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
-        [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
-        [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
-        [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-        [contentScrollView addSubview:allFieldMandatoryLabel];
-        
-        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 165, contentScrollView.bounds.size.width - 30, 48)];
-        [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [findButton setTitle:@"FIND" forState:UIControlStateNormal];
-        [contentScrollView addSubview:findButton];
-        
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 234, 320, 0.5f)];
-        [separatorView setBackgroundColor:RGB(196, 197, 200)];
-        [contentScrollView addSubview:separatorView];
-        
-        resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 235, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 351) style:UITableViewStylePlain];
-        [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [resultsTableView setSeparatorColor:[UIColor clearColor]];
-        [resultsTableView setDelegate:self];
-        [resultsTableView setDataSource:self];
-        [resultsTableView setBackgroundColor:[UIColor whiteColor]];
-        [resultsTableView setBackgroundView:nil];
-        [contentScrollView addSubview:resultsTableView];
-        
-        self.view = contentScrollView;
-    }
+- (void)loadView {
+    contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [contentScrollView setDelaysContentTouches:NO];
+    //[contentScrollView setContentSize:CGSizeMake(320, 370)];
+    [contentScrollView setBackgroundColor:[UIColor clearColor]];
     
-    return self;
+    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width,235)];
+    [searchTermsView setBackgroundColor:RGB(250, 250, 250)];
+    
+    //
+    buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
+    [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+    [buildingBlockHouseNumberTextField setPlaceholder:@"Building/block/house number (Min. 1 character)"];
+    [searchTermsView addSubview:buildingBlockHouseNumberTextField];
+    
+    streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
+    [streetNameTextField setPlaceholder:@"Street name (Min. 3 characters)"];
+    [searchTermsView addSubview:streetNameTextField];
+    
+    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, 290, 20)];
+    [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
+    [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
+    [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
+    [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [searchTermsView addSubview:allFieldMandatoryLabel];
+    
+    FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 165, contentScrollView.bounds.size.width - 30, 48)];
+    [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [findButton setTitle:@"FIND" forState:UIControlStateNormal];
+    [searchTermsView addSubview:findButton];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 234, 320, 0.5f)];
+    [separatorView setBackgroundColor:RGB(196, 197, 200)];
+    [searchTermsView addSubview:separatorView];
+    //
+    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
+    [contentScrollView addSubview:searchResultsContainerView];
+
+    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 235, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 351) style:UITableViewStylePlain];
+    [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [resultsTableView setSeparatorColor:[UIColor clearColor]];
+    [resultsTableView setDelegate:self];
+    [resultsTableView setDataSource:self];
+    [resultsTableView setBackgroundColor:[UIColor whiteColor]];
+    [resultsTableView setBackgroundView:nil];
+    [searchResultsContainerView addSubview:resultsTableView];
+    
+    self.view = contentScrollView;
+    contentScrollView.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode - Street"];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self showSearchTermsView:YES];
 }
 
 - (IBAction)findButtonClicked:(id)sender
@@ -214,6 +228,61 @@
 - (void)configureCell:(PostalCodeStreetTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     [cell setResult:_searchResults[indexPath.row - 1]];
+}
+
+#define ANIMATION_DURATION 0.5f
+
+- (void)showSearchTermsView:(BOOL)shouldShowSearchTermsView
+{
+    if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
+        return;
+    }
+    
+    if (!isAnimating) {
+        isAnimating = YES;
+        [self.view endEditing:YES];
+        [resultsTableView setBounces:NO];
+        if (!shouldShowSearchTermsView)
+            [resultsTableView setScrollEnabled:NO];
+        
+        if (shouldShowSearchTermsView) {
+            [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+                //[indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 345 : 255];
+            }];
+            [searchResultsContainerView showOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [resultsTableView setBounces:YES];
+                
+                isSearchTermViewShown = YES;
+                isAnimating = NO;
+            }];
+        }
+        else {
+            // [yearDropDownList resignFirstResponder];
+            [resultsTableView setContentOffset:CGPointZero];
+            [UIView animateWithDuration:ANIMATION_DURATION animations:^{
+                //[indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 475 : 385];
+            }];
+            [searchResultsContainerView hideOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [resultsTableView setBounces:YES];
+                [resultsTableView setScrollEnabled:YES];
+                
+                isSearchTermViewShown = NO;
+                isAnimating = NO;
+            }];
+        }
+    }
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.isTracking) {
+        if (scrollView.contentOffset.y < 0)
+            [self showSearchTermsView:YES];
+        else if (scrollView.contentOffset.y >= 0)
+            [self showSearchTermsView:NO];
+    }
 }
 
 @end
