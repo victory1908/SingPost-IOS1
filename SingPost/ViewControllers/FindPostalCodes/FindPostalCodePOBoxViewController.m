@@ -17,70 +17,79 @@
 #import "PostalCode.h"
 #import "PostalCodePoBoxTableViewCell.h"
 #import "NSString+Extensions.h"
+#import "UIView+Origami.h"
 
-@interface FindPostalCodePOBoxViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface FindPostalCodePOBoxViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
 @end
 
 @implementation FindPostalCodePOBoxViewController
 {
-    TPKeyboardAvoidingScrollView *contentScrollView;
+    UIScrollView *contentScrollView;
     CTextField *windowDeliveryNoTextField, *postOfficeTextField;
     CDropDownListControl *typeDropDownList;
     UITableView *resultsTableView;
     NSArray *_searchResults;
+    
+    UIView * searchTermsView, * searchResultsContainerView;
+    BOOL isAnimating;
+    BOOL isSearchTermViewShown;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        [contentScrollView setDelaysContentTouches:NO];
-        [contentScrollView setContentSize:CGSizeMake(320, 355)];
-        [contentScrollView setBackgroundColor:[UIColor clearColor]];
-        
-        windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 54)];
-        [windowDeliveryNoTextField setPlaceholder:@"Reference No\n(Min. 1 character)"];
-        [contentScrollView addSubview:windowDeliveryNoTextField];
-        
-        typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 54)];
-        [typeDropDownList setFontSize:14.0f];
-        [typeDropDownList setPlistValueFile:@"FindPostalCodes_Types"];
-        [typeDropDownList selectRow:0 animated:NO];
-        [contentScrollView addSubview:typeDropDownList];
-        
-        postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 85, 290, 44)];
-        [postOfficeTextField setPlaceholder:@"Name of Post Office (Min. 3 characters)"];
-        [contentScrollView addSubview:postOfficeTextField];
-        
-        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 147, contentScrollView.bounds.size.width - 30, 48)];
-        [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [findButton setTitle:@"FIND" forState:UIControlStateNormal];
-        [contentScrollView addSubview:findButton];
-        
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, 320, 0.5f)];
-        [separatorView setBackgroundColor:RGB(196, 197, 200)];
-        [contentScrollView addSubview:separatorView];
-        
-        resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 210, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 315) style:UITableViewStylePlain];
-        [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [resultsTableView setSeparatorColor:[UIColor clearColor]];
-        [resultsTableView setDelegate:self];
-        [resultsTableView setDataSource:self];
-        [resultsTableView setBackgroundColor:[UIColor whiteColor]];
-        [resultsTableView setBackgroundView:nil];
-        [contentScrollView addSubview:resultsTableView];
-        
-        self.view = contentScrollView;
-    }
+- (void)loadView {
+    contentScrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    return self;
+    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width,201)];
+    
+    windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 54)];
+    windowDeliveryNoTextField.delegate = self;
+    [windowDeliveryNoTextField setPlaceholder:@"Reference No\n(Min. 1 character)"];
+    [searchTermsView addSubview:windowDeliveryNoTextField];
+    
+    typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 54)];
+    [typeDropDownList setFontSize:14.0f];
+    [typeDropDownList setPlistValueFile:@"FindPostalCodes_Types"];
+    [typeDropDownList selectRow:0 animated:NO];
+    [searchTermsView addSubview:typeDropDownList];
+    
+    postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 85, 290, 44)];
+    postOfficeTextField.delegate = self;
+    [postOfficeTextField setPlaceholder:@"Name of Post Office (Min. 3 characters)"];
+    [searchTermsView addSubview:postOfficeTextField];
+    
+    FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 147, contentScrollView.bounds.size.width - 30, 48)];
+    [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [findButton setTitle:@"FIND" forState:UIControlStateNormal];
+    [searchTermsView addSubview:findButton];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, 320, 0.5f)];
+    [separatorView setBackgroundColor:RGB(196, 197, 200)];
+    [searchTermsView addSubview:separatorView];
+    
+    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
+    [contentScrollView addSubview:searchResultsContainerView];
+    
+    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 118) style:UITableViewStylePlain];
+    [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [resultsTableView setSeparatorColor:[UIColor clearColor]];
+    [resultsTableView setDelegate:self];
+    [resultsTableView setDataSource:self];
+    [resultsTableView setBackgroundColor:[UIColor whiteColor]];
+    [resultsTableView setBackgroundView:nil];
+    [searchResultsContainerView addSubview:resultsTableView];
+    
+    self.view = contentScrollView;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode - PO Box"];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self showSearchTermsView:YES];
 }
 
 #pragma mark - IBActions
@@ -217,5 +226,65 @@
     [cell setResult:_searchResults[indexPath.row - 1]];
 }
 
+#define ANIMATION_DURATION 0.5f
+
+- (void)showSearchTermsView:(BOOL)shouldShowSearchTermsView
+{
+    if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
+        return;
+    }
+    
+    if (!isAnimating) {
+        isAnimating = YES;
+        [self.view endEditing:YES];
+        [resultsTableView setBounces:NO];
+        if (!shouldShowSearchTermsView)
+            [resultsTableView setScrollEnabled:NO];
+        
+        if (shouldShowSearchTermsView) {
+            [searchResultsContainerView showOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [resultsTableView setBounces:YES];
+                
+                isSearchTermViewShown = YES;
+                isAnimating = NO;
+            }];
+        }
+        else {
+            [resultsTableView setContentOffset:CGPointZero];
+            [searchResultsContainerView hideOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [resultsTableView setBounces:YES];
+                [resultsTableView setScrollEnabled:YES];
+                
+                isSearchTermViewShown = NO;
+                isAnimating = NO;
+            }];
+        }
+    }
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.isTracking) {
+        if (scrollView.contentOffset.y < 0)
+            [self showSearchTermsView:YES];
+        else if (scrollView.contentOffset.y >= 0)
+            [self showSearchTermsView:NO];
+    }
+}
+
+#pragma mark - UITextField Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == windowDeliveryNoTextField) {
+        [postOfficeTextField becomeFirstResponder];
+        return YES;
+    }
+    else {
+        [textField resignFirstResponder];
+        return NO;
+    }
+}
 
 @end

@@ -16,58 +16,67 @@
 #import "PostalCode.h"
 #import "PostalCodeLandmarkResultTableViewCell.h"
 #import "NSString+Extensions.h"
+#import "UIView+Origami.h"
 
-@interface FindPostalCodeLandmarkViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface FindPostalCodeLandmarkViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
 @end
 
 @implementation FindPostalCodeLandmarkViewController
 {
-    TPKeyboardAvoidingScrollView *contentScrollView;
+    UIScrollView *contentScrollView;
     CTextField *majorBuildingEstateTextField;
     UITableView *resultsTableView;
     NSArray *_searchResults;
+    
+    UIView * searchTermsView, * searchResultsContainerView;
+    BOOL isAnimating;
+    BOOL isSearchTermViewShown;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        [contentScrollView setContentSize:CGSizeMake(320, 355)];
-        [contentScrollView setBackgroundColor:[UIColor clearColor]];
-        
-        majorBuildingEstateTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
-        [majorBuildingEstateTextField setPlaceholder:@"Major building/Estate name (Min. 3 characters)"];
-        [contentScrollView addSubview:majorBuildingEstateTextField];
-        
-        FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 80, contentScrollView.bounds.size.width - 30, 48)];
-        [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [findButton setTitle:@"FIND" forState:UIControlStateNormal];
-        [contentScrollView addSubview:findButton];
-        
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 149, 320, 0.5f)];
-        [separatorView setBackgroundColor:RGB(196, 197, 200)];
-        [contentScrollView addSubview:separatorView];
-        
-        resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 150, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 266) style:UITableViewStylePlain];
-        [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [resultsTableView setSeparatorColor:[UIColor clearColor]];
-        [resultsTableView setDelegate:self];
-        [resultsTableView setDataSource:self];
-        [resultsTableView setBackgroundColor:[UIColor whiteColor]];
-        [resultsTableView setBackgroundView:nil];
-        [contentScrollView addSubview:resultsTableView];
-        
-        self.view = contentScrollView;
-    }
+- (void)loadView {
+    contentScrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    return self;
+    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width,150)];
+    
+    majorBuildingEstateTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
+    majorBuildingEstateTextField.delegate = self;
+    [majorBuildingEstateTextField setPlaceholder:@"Major building/Estate name (Min. 3 characters)"];
+    [searchTermsView addSubview:majorBuildingEstateTextField];
+    
+    FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 80, contentScrollView.bounds.size.width - 30, 48)];
+    [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [findButton setTitle:@"FIND" forState:UIControlStateNormal];
+    [searchTermsView addSubview:findButton];
+    
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 149, 320, 0.5f)];
+    [separatorView setBackgroundColor:RGB(196, 197, 200)];
+    [searchTermsView addSubview:separatorView];
+    
+    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
+    [contentScrollView addSubview:searchResultsContainerView];
+    
+    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 118) style:UITableViewStylePlain];
+    [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [resultsTableView setSeparatorColor:[UIColor clearColor]];
+    [resultsTableView setDelegate:self];
+    [resultsTableView setDataSource:self];
+    [resultsTableView setBackgroundColor:[UIColor whiteColor]];
+    [resultsTableView setBackgroundView:nil];
+    [searchResultsContainerView addSubview:resultsTableView];
+    
+    self.view = contentScrollView;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode - Landmark"];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self showSearchTermsView:YES];
 }
 
 - (IBAction)findButtonClicked:(id)sender
@@ -116,7 +125,7 @@
         return 35.0f;
     
     NSDictionary *result = _searchResults[indexPath.row - 1];
-
+    
     CGSize labelSize = [result[@"landmark"] sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
     
     return MAX(36.0f, labelSize.height + 21.0f);
@@ -147,7 +156,7 @@
     static NSString *const titleCellIdentifier = @"PostalCodeLandmarkResultsTitleTableViewCell";
     static NSString *const cellIdentifier = @"PostalCodeLandmarkItemTableViewCell";
     
-   if (indexPath.row == TITLE_ROW) {
+    if (indexPath.row == TITLE_ROW) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:titleCellIdentifier];
         
         if (!cell) {
@@ -178,24 +187,79 @@
         }
         
         return cell;
-   }
-
-   else {
-       PostalCodeLandmarkResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-       if (!cell) {
-           cell = [[PostalCodeLandmarkResultTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    else {
+        PostalCodeLandmarkResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (!cell) {
+            cell = [[PostalCodeLandmarkResultTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-       }
-       
-       [self configureCell:cell atIndexPath:indexPath];
-       
-       return cell;
-   }
+        }
+        
+        [self configureCell:cell atIndexPath:indexPath];
+        
+        return cell;
+    }
 }
 
 - (void)configureCell:(PostalCodeLandmarkResultTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     [cell setResult:_searchResults[indexPath.row - 1]];
+}
+
+#define ANIMATION_DURATION 0.5f
+
+- (void)showSearchTermsView:(BOOL)shouldShowSearchTermsView
+{
+    if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
+        return;
+    }
+    
+    if (!isAnimating) {
+        isAnimating = YES;
+        [self.view endEditing:YES];
+        [resultsTableView setBounces:NO];
+        if (!shouldShowSearchTermsView)
+            [resultsTableView setScrollEnabled:NO];
+        
+        if (shouldShowSearchTermsView) {
+            [searchResultsContainerView showOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [resultsTableView setBounces:YES];
+                
+                isSearchTermViewShown = YES;
+                isAnimating = NO;
+            }];
+        }
+        else {
+            [resultsTableView setContentOffset:CGPointZero];
+            [searchResultsContainerView hideOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
+                [resultsTableView setBounces:YES];
+                [resultsTableView setScrollEnabled:YES];
+                
+                isSearchTermViewShown = NO;
+                isAnimating = NO;
+            }];
+        }
+    }
+}
+
+#pragma mark - UIScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.isTracking) {
+        if (scrollView.contentOffset.y < 0)
+            [self showSearchTermsView:YES];
+        else if (scrollView.contentOffset.y >= 0)
+            [self showSearchTermsView:NO];
+    }
+}
+
+#pragma mark - UITextField Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
 }
 
 @end

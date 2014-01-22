@@ -18,13 +18,13 @@
 #import "NSString+Extensions.h"
 #import "UIView+Origami.h"
 
-@interface FindPostalCodeStreetViewController () <UITableViewDataSource, UITableViewDelegate,UIScrollViewDelegate>
+@interface FindPostalCodeStreetViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
 @end
 
 @implementation FindPostalCodeStreetViewController
 {
-    TPKeyboardAvoidingScrollView *contentScrollView;
+    UIScrollView *contentScrollView;
     CTextField *buildingBlockHouseNumberTextField, *streetNameTextField;
     UITableView *resultsTableView;
     NSArray *_searchResults;
@@ -36,21 +36,18 @@
 }
 
 - (void)loadView {
-    contentScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [contentScrollView setDelaysContentTouches:NO];
-    //[contentScrollView setContentSize:CGSizeMake(320, 370)];
-    [contentScrollView setBackgroundColor:[UIColor clearColor]];
+    contentScrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width,235)];
-    [searchTermsView setBackgroundColor:RGB(250, 250, 250)];
+    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width,235)];
     
-    //
     buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
+    buildingBlockHouseNumberTextField.delegate = self;
     [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [buildingBlockHouseNumberTextField setPlaceholder:@"Building/block/house number (Min. 1 character)"];
     [searchTermsView addSubview:buildingBlockHouseNumberTextField];
     
     streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
+    streetNameTextField.delegate = self;
     [streetNameTextField setPlaceholder:@"Street name (Min. 3 characters)"];
     [searchTermsView addSubview:streetNameTextField];
     
@@ -69,11 +66,11 @@
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 234, 320, 0.5f)];
     [separatorView setBackgroundColor:RGB(196, 197, 200)];
     [searchTermsView addSubview:separatorView];
-    //
-    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
+    
+    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
     [contentScrollView addSubview:searchResultsContainerView];
-
-    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 235, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 351) style:UITableViewStylePlain];
+    
+    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 118) style:UITableViewStylePlain];
     [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [resultsTableView setSeparatorColor:[UIColor clearColor]];
     [resultsTableView setDelegate:self];
@@ -83,7 +80,6 @@
     [searchResultsContainerView addSubview:resultsTableView];
     
     self.view = contentScrollView;
-    contentScrollView.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -246,9 +242,6 @@
             [resultsTableView setScrollEnabled:NO];
         
         if (shouldShowSearchTermsView) {
-            [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-                //[indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 345 : 255];
-            }];
             [searchResultsContainerView showOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
                 [resultsTableView setBounces:YES];
                 
@@ -257,11 +250,7 @@
             }];
         }
         else {
-            // [yearDropDownList resignFirstResponder];
             [resultsTableView setContentOffset:CGPointZero];
-            [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-                //[indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 475 : 385];
-            }];
             [searchResultsContainerView hideOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
                 [resultsTableView setBounces:YES];
                 [resultsTableView setScrollEnabled:YES];
@@ -282,6 +271,19 @@
             [self showSearchTermsView:YES];
         else if (scrollView.contentOffset.y >= 0)
             [self showSearchTermsView:NO];
+    }
+}
+
+#pragma mark - UITextField Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == buildingBlockHouseNumberTextField) {
+        [streetNameTextField becomeFirstResponder];
+        return YES;
+    }
+    else {
+        [textField resignFirstResponder];
+        return NO;
     }
 }
 
