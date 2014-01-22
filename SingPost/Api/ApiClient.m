@@ -508,7 +508,7 @@ static NSString *const OS = @"ios";
 
 - (void)subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-
+    
     
     NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
                      "<ProfileID>%@</ProfileID>"
@@ -671,6 +671,10 @@ static NSString *const OS = @"ios";
 #pragma mark - App version
 
 - (void)checkAppUpdateWithAppVer:(NSString *)appVer andOSVer:(NSString *)osVer {
+    //Reset check update date
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"checkUpdateDate"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     NSString *fullPath = [NSString stringWithFormat:@"%@/ma/versionchecker/checkversion?applicationId=%@&applicationVersion=%@&os=IOS&osVersion=%@",SINGPOST_BASE_URL,APP_ID,appVer,osVer];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fullPath]];

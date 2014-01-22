@@ -120,7 +120,11 @@
     NSString *deviceOS = [[UIDevice currentDevice] systemVersion];
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     
-    [[ApiClient sharedInstance]checkAppUpdateWithAppVer:appVersion andOSVer:deviceOS];
+    NSDate * checkUpdateDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"checkUpdateDate"];
+    NSTimeInterval timeFromLastCheck = [checkUpdateDate timeIntervalSinceNow];
+    
+    if (checkUpdateDate == nil || timeFromLastCheck < -86400) //86400 seconds in 24hours
+        [[ApiClient sharedInstance]checkAppUpdateWithAppVer:appVersion andOSVer:deviceOS];
 }
 
 #pragma mark - Tracking
