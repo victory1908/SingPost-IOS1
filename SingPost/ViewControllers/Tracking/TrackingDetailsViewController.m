@@ -285,6 +285,7 @@
     TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] initWithTrackedItem:_trackedItem];
     vc.deliveryStatusArray = _deliveryStatuses;
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
