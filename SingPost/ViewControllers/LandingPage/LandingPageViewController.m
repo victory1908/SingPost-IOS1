@@ -14,6 +14,7 @@
 #import "OffersMoreMenuView.h"
 
 #import "TrackingMainViewController.h"
+#import "TrackingDetailsViewController.h"
 #import "CalculatePostageMainViewController.h"
 #import "FindPostalCodesMainViewController.h"
 #import "LocateUsMainViewController.h"
@@ -517,9 +518,16 @@ typedef enum {
         [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [SVProgressHUD dismiss];
+                /*
                 TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
                 trackingMainViewController.trackingNumber = trackingNumberTextField.text;
                 [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+                */
+                NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
+                TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
+                TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+                trackingDetailsViewController.fromSideBar = NO;
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
             }
             else {
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];

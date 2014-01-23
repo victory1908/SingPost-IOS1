@@ -141,6 +141,7 @@
         if (success) {
             TrackedItem *trackedItem = [TrackedItem MR_findFirstByAttribute:TrackedItemAttributes.trackingNumber withValue:trackingNumber];
             TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+            trackingDetailsViewController.fromSideBar = NO;
             [self.rootViewController cPushViewController:trackingDetailsViewController];
             [SVProgressHUD dismiss];
         }

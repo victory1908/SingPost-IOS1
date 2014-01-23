@@ -38,7 +38,12 @@
     
     //navigation bar
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
-    [navigationBarView setShowBackButton:YES];
+    
+    if (self.fromSideBar)
+        [navigationBarView setShowSidebarToggleButton:YES];
+    else
+        [navigationBarView setShowBackButton:YES];
+    
     [navigationBarView setTitle:@"Parcel Information"];
     [contentView addSubview:navigationBarView];
     

@@ -137,6 +137,11 @@ typedef enum {
         [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [SVProgressHUD dismiss];
+                NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
+                TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
+                TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+                trackingDetailsViewController.fromSideBar = NO;
+                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
             }
             else {
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
@@ -435,6 +440,7 @@ typedef enum {
                 if (success) {
                     [SVProgressHUD dismiss];
                     TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+                    trackingDetailsViewController.fromSideBar = NO;
                     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
                     [tableView deselectRowAtIndexPath:indexPath animated:YES];
                 }
@@ -445,6 +451,7 @@ typedef enum {
         }
         else {
             TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+            trackingDetailsViewController.fromSideBar = NO;
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
         }

@@ -31,6 +31,8 @@
 #import "FAQViewController.h"
 #import "MaintanancePageViewController.h"
 
+#import "TrackingDetailsViewController.h"
+
 #import "TrackedItem.h"
 #import <SVProgressHUD.h>
 
@@ -161,9 +163,16 @@
             [self.view endEditing:YES];
             if (success) {
                 [SVProgressHUD dismiss];
+                /*
                 TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
                 trackingMainViewController.trackingNumber = trackingNumberTextField.text;
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+                //[[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+                */
+                NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
+                TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
+                TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+                trackingDetailsViewController.fromSideBar = YES;
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingDetailsViewController];
             }
             else {
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];

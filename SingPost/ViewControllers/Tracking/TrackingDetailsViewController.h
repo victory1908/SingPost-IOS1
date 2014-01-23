@@ -14,4 +14,6 @@
 
 - (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 
+@property BOOL fromSideBar;
+
 @end
