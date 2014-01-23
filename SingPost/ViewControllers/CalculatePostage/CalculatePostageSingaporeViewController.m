@@ -117,11 +117,7 @@
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
-    if ([fromPostalCodeTextField.text length] > NUM_DIGITS_SINGAPORE_POSTAL_CODES || [toPostalCodeTextField.text length] > NUM_DIGITS_SINGAPORE_POSTAL_CODES) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Invalid postal code" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-    }
-    else if ([weightTextField.text length] == 0) {
+    if ([weightTextField.text length] == 0 || [fromPostalCodeTextField.text length] > NUM_DIGITS_SINGAPORE_POSTAL_CODES || [toPostalCodeTextField.text length] > NUM_DIGITS_SINGAPORE_POSTAL_CODES) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
