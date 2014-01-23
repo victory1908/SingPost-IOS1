@@ -128,6 +128,7 @@
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
+		9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */; };
 		91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */; };
 		91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */; };
 		91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */; };
@@ -360,6 +361,8 @@
 		52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsOpeningHoursView.m; sourceTree = "<group>"; };
 		915E55ED187C128E00790DBC /* LocateUSDetailsDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUSDetailsDetailsView.h; sourceTree = "<group>"; };
 		915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUSDetailsDetailsView.m; sourceTree = "<group>"; };
+		9160E762189126FE0046FC1E /* LocateUsFSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsFSMapViewController.h; sourceTree = "<group>"; };
+		9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsFSMapViewController.m; sourceTree = "<group>"; };
 		91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Speedpost Agent.json"; sourceTree = "<group>"; };
 		91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingFeedbackViewController.h; sourceTree = "<group>"; };
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
@@ -769,6 +772,8 @@
 				52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */,
 				52282FD117FA982100B2A7B4 /* LocateUsDetailsViewController.h */,
 				52282FD217FA982100B2A7B4 /* LocateUsDetailsViewController.m */,
+				9160E762189126FE0046FC1E /* LocateUsFSMapViewController.h */,
+				9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */,
 			);
 			path = LocateUs;
 			sourceTree = "<group>";
@@ -1181,6 +1186,7 @@
 				915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */,
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
+				9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */,
 				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				52A7A2761871D9D100253FA2 /* _Article.m in Sources */,
