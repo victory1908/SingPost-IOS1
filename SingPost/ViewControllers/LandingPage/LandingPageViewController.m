@@ -476,6 +476,7 @@ typedef enum {
         case OFFERSMENUBUTTON_TERMSOFUSE:
         {
             TermsOfUseViewController *viewController = [[TermsOfUseViewController alloc] initWithNibName:nil bundle:nil];
+            viewController.isFirstLaunch = NO;
             [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             break;
         }

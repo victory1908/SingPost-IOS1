@@ -10,4 +10,6 @@
 
 @interface TermsOfUseViewController : UIViewController
 
+@property BOOL isFirstLaunch;
+
 @end

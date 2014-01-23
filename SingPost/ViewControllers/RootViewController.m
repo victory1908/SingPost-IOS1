@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "SidebarMenuViewController.h"
 #import "UIView+Position.h"
+#import "TermsOfUseViewController.h"
 
 #import "LandingPageViewController.h"
 #import "TrackingMainViewController.h"
@@ -64,6 +65,8 @@
     sideBarPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     [sideBarPanGesture setEnabled:NO];
     [activeViewControllerContainerView addGestureRecognizer:sideBarPanGesture];
+    
+    [self showTermsAndCondition];
 }
 
 - (void)updateMaintananceStatusUIs
@@ -274,6 +277,22 @@
 
 - (BOOL)isSideBarVisible {
     return sideBarMenuViewController.isVisible;
+}
+
+#pragma mark - Terms and Condition
+
+- (void)showTermsAndCondition {
+    
+    NSDate * date = [[NSUserDefaults standardUserDefaults] objectForKey:@"TNC_SHOWN"];
+    if (date != nil)
+        return;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TNC_SHOWN"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    TermsOfUseViewController *vc = [[TermsOfUseViewController alloc]init];
+    vc.isFirstLaunch = YES;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
 }
 
 @end

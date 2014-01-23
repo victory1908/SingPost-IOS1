@@ -11,6 +11,9 @@
 #import "UIFont+SingPost.h"
 #import "Article.h"
 #import <SVProgressHUD.h>
+#import "FlatBlueButton.h"
+#import "LandingPageViewController.h"
+#import "UIView+Position.h"
 
 @interface TermsOfUseViewController ()
 
@@ -19,6 +22,7 @@
 @implementation TermsOfUseViewController
 {
     UIWebView *termsOfUseWebView;
+    FlatBlueButton *agreeButton;
 }
 
 - (void)loadView
@@ -28,12 +32,23 @@
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:@"Terms Of Use"];
-    [navigationBarView setShowSidebarToggleButton:YES];
+    
+    if (!self.isFirstLaunch)
+        [navigationBarView setShowSidebarToggleButton:YES];
+    
     [contentView addSubview:navigationBarView];
     
     termsOfUseWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, navigationBarView.bounds.size.height, contentView.bounds.size.width, contentView.bounds.size.height - navigationBarView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height)];
     [termsOfUseWebView setBackgroundColor:[UIColor clearColor]];
     [contentView addSubview:termsOfUseWebView];
+    
+    if (self.isFirstLaunch) {
+        [termsOfUseWebView setHeight:termsOfUseWebView.frame.size.height - 78];
+        agreeButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,termsOfUseWebView.frame.size.height + 59,contentView.bounds.size.width - 30,48)];
+        [agreeButton setTitle:@"AGREE" forState:UIControlStateNormal];
+        [agreeButton addTarget:self action:@selector(agreeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [contentView addSubview:agreeButton];
+    }
     
     self.view = contentView;
 }
@@ -59,6 +74,11 @@
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
+}
+
+- (IBAction)agreeButtonClicked:(id)sender {
+    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:landingPageViewController];
 }
 
 @end

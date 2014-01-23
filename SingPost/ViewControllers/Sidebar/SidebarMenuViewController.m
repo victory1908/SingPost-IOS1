@@ -325,6 +325,7 @@
             case SUBROWS_OFFERSMORE_TERMSOFUSE:
             {
                 TermsOfUseViewController *viewController = [[TermsOfUseViewController alloc] initWithNibName:nil bundle:nil];
+                viewController.isFirstLaunch = NO;
                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 break;
             }
