@@ -8,6 +8,7 @@ extern const struct TrackedItemAttributes {
 	__unsafe_unretained NSString *addedOn;
 	__unsafe_unretained NSString *destinationCountry;
 	__unsafe_unretained NSString *isActive;
+	__unsafe_unretained NSString *isRead;
 	__unsafe_unretained NSString *lastUpdatedOn;
 	__unsafe_unretained NSString *originalCountry;
 	__unsafe_unretained NSString *trackingNumber;
@@ -21,6 +22,7 @@ extern const struct TrackedItemFetchedProperties {
 } TrackedItemFetchedProperties;
 
 @class DeliveryStatus;
+
 
 
 
@@ -71,6 +73,20 @@ extern const struct TrackedItemFetchedProperties {
 - (void)setIsActiveValue:(BOOL)value_;
 
 //- (BOOL)validateIsActive:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* isRead;
+
+
+
+@property BOOL isReadValue;
+- (BOOL)isReadValue;
+- (void)setIsReadValue:(BOOL)value_;
+
+//- (BOOL)validateIsRead:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -145,6 +161,15 @@ extern const struct TrackedItemFetchedProperties {
 
 - (BOOL)primitiveIsActiveValue;
 - (void)setPrimitiveIsActiveValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveIsRead;
+- (void)setPrimitiveIsRead:(NSNumber*)value;
+
+- (BOOL)primitiveIsReadValue;
+- (void)setPrimitiveIsReadValue:(BOOL)value_;
 
 
 

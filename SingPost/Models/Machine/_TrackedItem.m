@@ -7,6 +7,7 @@ const struct TrackedItemAttributes TrackedItemAttributes = {
 	.addedOn = @"addedOn",
 	.destinationCountry = @"destinationCountry",
 	.isActive = @"isActive",
+	.isRead = @"isRead",
 	.lastUpdatedOn = @"lastUpdatedOn",
 	.originalCountry = @"originalCountry",
 	.trackingNumber = @"trackingNumber",
@@ -47,6 +48,11 @@ const struct TrackedItemFetchedProperties TrackedItemFetchedProperties = {
 	
 	if ([key isEqualToString:@"isActiveValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isActive"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
+	if ([key isEqualToString:@"isReadValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isRead"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
@@ -91,6 +97,32 @@ const struct TrackedItemFetchedProperties TrackedItemFetchedProperties = {
 
 - (void)setPrimitiveIsActiveValue:(BOOL)value_ {
 	[self setPrimitiveIsActive:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
+@dynamic isRead;
+
+
+
+- (BOOL)isReadValue {
+	NSNumber *result = [self isRead];
+	return [result boolValue];
+}
+
+- (void)setIsReadValue:(BOOL)value_ {
+	[self setIsRead:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsReadValue {
+	NSNumber *result = [self primitiveIsRead];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsReadValue:(BOOL)value_ {
+	[self setPrimitiveIsRead:[NSNumber numberWithBool:value_]];
 }
 
 

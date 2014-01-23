@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B3116" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Article" representedClassName="Article" syncable="YES">
         <attribute name="buttonType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="expireDate" optional="YES" attributeType="String" syncable="YES"/>
@@ -82,6 +82,7 @@
         <attribute name="addedOn" attributeType="Date" syncable="YES"/>
         <attribute name="destinationCountry" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isActive" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastUpdatedOn" attributeType="Date" syncable="YES"/>
         <attribute name="originalCountry" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trackingNumber" attributeType="String" syncable="YES"/>
