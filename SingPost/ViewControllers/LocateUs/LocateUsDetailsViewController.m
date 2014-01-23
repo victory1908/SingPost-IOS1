@@ -24,6 +24,8 @@
 #import "LocateUsDetailsPostingBoxView.h"
 #import "LocateUSDetailsDetailsView.h"
 
+#import "LocateUsFSMapViewController.h"
+
 @interface LocateUsDetailsViewController () <MKMapViewDelegate, LocateUsDetailsPostingBoxDelegate>
 
 @end
@@ -416,24 +418,9 @@ typedef enum  {
 
 - (void)showMapRouteDirectionsClicked:(id)sender
 {
-	NSArray *routes = [self calculateRoutesFrom:locationMapView.userLocation.coordinate to:_entityLocation.coordinate];
-    
-    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Locations - %@ - Direction", _entityLocation.type]];
-    
-    if (routes.count > 0) {
-        CLLocationCoordinate2D polypoints[routes.count];
-        for (int i = 0; i < routes.count; i++) {
-            CLLocation *loc = routes[i];
-            polypoints[i].latitude = loc.coordinate.latitude;
-            polypoints[i].longitude = loc.coordinate.longitude;
-        }
-        
-        [locationMapView removeOverlays:locationMapView.overlays];
-        
-        MKPolyline *polyline = [MKPolyline polylineWithCoordinates:polypoints count:routes.count];
-        [locationMapView addOverlay:polyline];
-        [locationMapView setVisibleMapRect:polyline.boundingMapRect animated:YES];
-    }
+    LocateUsFSMapViewController *vc = [[LocateUsFSMapViewController alloc]init];
+    vc.entityLocation = _entityLocation;
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
 }
 
 @end
