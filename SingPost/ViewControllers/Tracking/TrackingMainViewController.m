@@ -482,7 +482,7 @@ typedef enum {
         [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         [TrackedItem deleteTrackedItem:trackedItemToDelete onCompletion:^(BOOL success, NSError *error) {
             if (!success)
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+                [SVProgressHUD showErrorWithStatus:@"Delete fail."];
             else {
                 [SVProgressHUD dismiss];
                 [tableView setEditing:NO animated:YES];
