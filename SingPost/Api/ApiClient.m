@@ -671,10 +671,6 @@ static NSString *const OS = @"ios";
 #pragma mark - App version
 
 - (void)checkAppUpdateWithAppVer:(NSString *)appVer andOSVer:(NSString *)osVer {
-    //Reset check update date
-    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"checkUpdateDate"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
     NSString *fullPath = [NSString stringWithFormat:@"%@/ma/versionchecker/checkversion?applicationId=%@&applicationVersion=%@&os=IOS&osVersion=%@",SINGPOST_BASE_URL,APP_ID,appVer,osVer];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:fullPath]];
@@ -714,18 +710,27 @@ static NSString *const OS = @"ios";
         }
         case 3:
         {
-            //Update available
-            [UIAlertView showWithTitle:nil
-                               message:responseJSON[@"message"]
-                     cancelButtonTitle:@"Maybe Later"
-                     otherButtonTitles:@[@"Update Now"]
-                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                  if (buttonIndex != [alertView cancelButtonIndex]) {
-                                      NSString *linkToAppStore = responseJSON[@"link"];
-                                      if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
-                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
-                                  }
-                              }];
+            NSDate * checkUpdateDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"checkUpdateDate"];
+            NSTimeInterval timeFromLastCheck = [checkUpdateDate timeIntervalSinceNow];
+            
+            if (checkUpdateDate == nil || timeFromLastCheck < -86400) //86400 seconds in 24hours
+            {
+                //Update available
+                [UIAlertView showWithTitle:nil
+                                   message:responseJSON[@"message"]
+                         cancelButtonTitle:@"Maybe Later"
+                         otherButtonTitles:@[@"Update Now"]
+                                  tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                      if (buttonIndex != [alertView cancelButtonIndex]) {
+                                          NSString *linkToAppStore = responseJSON[@"link"];
+                                          if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
+                                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+                                      }
+                                  }];
+                //Reset check update date
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"checkUpdateDate"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
             break;
         }
         case 4:
