@@ -21,4 +21,6 @@
 //Google analytics
 - (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName;
 
+- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
+
 @end

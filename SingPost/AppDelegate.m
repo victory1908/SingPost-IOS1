@@ -210,4 +210,17 @@
     [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
+#pragma mark - Core data
+
+- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion
+{
+    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+        if(!success)
+            DLog(@"%@", error);
+        
+        if (completion)
+            completion(success, error);
+    }];
+}
+
 @end
