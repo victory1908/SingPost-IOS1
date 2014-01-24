@@ -46,7 +46,7 @@
         separatorView = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(15, 59, contentView.bounds.size.width - 30, 1.0f)];
         [separatorView setPersistentBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
-
+        
         [self.contentView addSubview:contentView];
     }
     return self;
@@ -69,6 +69,14 @@
     [statusLabel alignTop];
     
     [separatorView setY:MAX(59, CGRectGetMaxY(statusLabel.frame) + 7)];
+
+    if (!_item.isReadValue)
+        [self setTextBold];
+}
+
+- (void)setTextBold {
+    [trackingNumberLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [statusLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
 }
 
 @end

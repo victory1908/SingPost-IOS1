@@ -45,21 +45,48 @@
     [trackedItem setDestinationCountry:[el child:@"DestinationCountry"].text];
     [trackedItem setLastUpdatedOn:[NSDate date]];
     
-    //delete existing status
-    for (DeliveryStatus *deliveryStatus in trackedItem.deliveryStatuses) {
-        [context deleteObject:deliveryStatus];
-    }
+    NSOrderedSet *oldStatus = trackedItem.deliveryStatuses;
+    DLog(@"Old Status Set %d",[oldStatus count]);
     
-    //rebuild delivery statuses
+    
     RXMLElement *rxmlItems = [el child:@"DeliveryStatusDetails"];
     
-    NSMutableOrderedSet *deliveries = [NSMutableOrderedSet orderedSet];
+    NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
     for (RXMLElement *rxmlDeliveryStatus in [rxmlItems children:@"DeliveryStatusDetail"]) {
-        [deliveries addObject:[DeliveryStatus createFromXMLElement:rxmlDeliveryStatus inContext:context]];
+        [newStatus addObject:[DeliveryStatus createFromXMLElement:rxmlDeliveryStatus inContext:context]];
     }
     
-    [trackedItem setDeliveryStatuses:deliveries];
+    DLog(@"New Status Set %d",[newStatus count]);
     
+    if ([oldStatus count] == [newStatus count])
+        return trackedItem;
+    
+    else {
+        //delete existing status
+        for (DeliveryStatus *deliveryStatus in trackedItem.deliveryStatuses) {
+            [context deleteObject:deliveryStatus];
+        }
+        trackedItem.isReadValue = NO;
+        [trackedItem setDeliveryStatuses:newStatus];
+        return trackedItem;
+    }
+    
+    /*
+     //delete existing status
+     for (DeliveryStatus *deliveryStatus in trackedItem.deliveryStatuses) {
+     [context deleteObject:deliveryStatus];
+     }
+     
+     //rebuild delivery statuses
+     RXMLElement *rxmlItems = [el child:@"DeliveryStatusDetails"];
+     
+     NSMutableOrderedSet *deliveries = [NSMutableOrderedSet orderedSet];
+     for (RXMLElement *rxmlDeliveryStatus in [rxmlItems children:@"DeliveryStatusDetail"]) {
+     [deliveries addObject:[DeliveryStatus createFromXMLElement:rxmlDeliveryStatus inContext:context]];
+     }
+     
+     [trackedItem setDeliveryStatuses:deliveries];
+     */
     return trackedItem;
 }
 
