@@ -166,12 +166,18 @@ typedef enum  {
     [sectionContentScrollView setContentOffset:CGPointMake(currentSection * sectionContentScrollView.bounds.size.width, 0) animated:YES];
     
     [UIView animateWithDuration:0.3f animations:^{
-        if (currentSection == FINDPOSTALCODES_SECTION_STREET)
+        if (currentSection == FINDPOSTALCODES_SECTION_STREET) {
+            [streetViewController showSearchTermsView:YES];
             [selectedSectionIndicatorButton setFrame:streetSectionButton.frame];
-        else if (currentSection == FINDPOSTALCODES_SECTION_LANDMARK)
+        }
+        else if (currentSection == FINDPOSTALCODES_SECTION_LANDMARK) {
+            [landmarkViewController showSearchTermsView:YES];
             [selectedSectionIndicatorButton setFrame:landmarkSectionButton.frame];
-        else if (currentSection == FINDPOSTALCODES_SECTION_POBOX)
+        }
+        else if (currentSection == FINDPOSTALCODES_SECTION_POBOX) {
+            [poBoxViewController showSearchTermsView:YES];
             [selectedSectionIndicatorButton setFrame:poBoxSectionButton.frame];
+        }
     }];
 }
 

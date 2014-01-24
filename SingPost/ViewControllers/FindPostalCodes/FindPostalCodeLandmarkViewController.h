@@ -10,4 +10,6 @@
 
 @interface FindPostalCodeLandmarkViewController : UIViewController
 
+- (void)showSearchTermsView:(BOOL)shouldShowSearchTermsView;
+
 @end
