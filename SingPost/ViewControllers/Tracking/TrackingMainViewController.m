@@ -38,7 +38,7 @@ typedef enum {
 
 @property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
 @property (nonatomic) NSFetchedResultsController *completedItemsFetchedResultsController;
-
+@property (nonatomic) NSFetchedResultsController *unsortedItemsFetchedResultsController;
 
 @end
 
@@ -198,6 +198,8 @@ typedef enum {
             }
             else {
                 [SVProgressHUD dismiss];
+                [trackingItemsTableView reloadData];
+                
             }
         } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
             updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
@@ -235,8 +237,8 @@ typedef enum {
         [cell setHideSeparatorView:indexPath.row == (self.completedItemsFetchedResultsController.fetchedObjects.count)];
     }
     else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED) {
-        cell.item = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-        [cell setHideSeparatorView:indexPath.row == (self.completedItemsFetchedResultsController.fetchedObjects.count)];
+        cell.item = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        [cell setHideSeparatorView:indexPath.row == (self.unsortedItemsFetchedResultsController.fetchedObjects.count)];
     }
 }
 
@@ -251,7 +253,7 @@ typedef enum {
     else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
         trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
     else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
-        trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+        trackedItem = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
     
     CGSize statusLabelSize = [trackedItem.status sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
     
@@ -286,7 +288,7 @@ typedef enum {
     }
     
     if (section == TRACKINGITEMS_SECTION_UNSORTED) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [self.completedItemsFetchedResultsController.sections objectAtIndex:0];
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.unsortedItemsFetchedResultsController.sections objectAtIndex:0];
         return HEADER_COUNT + [sectionInfo numberOfObjects];
     }
     
@@ -428,7 +430,7 @@ typedef enum {
             [cell setHideSeparatorView:self.completedItemsFetchedResultsController.fetchedObjects.count == 0];
         }
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED) {
-            [cell setHideSeparatorView:self.completedItemsFetchedResultsController.fetchedObjects.count == 0];
+            [cell setHideSeparatorView:self.unsortedItemsFetchedResultsController.fetchedObjects.count == 0];
         }
         
         return cell;
@@ -456,7 +458,7 @@ typedef enum {
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
             trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
-            trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+            trackedItem = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         /*
          if (trackedItem.shouldRefetchFromServer) {
          [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
@@ -511,7 +513,7 @@ typedef enum {
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
             trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
-            trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
+            trackedItemToDelete = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
 
         [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         [TrackedItem deleteTrackedItem:trackedItemToDelete onCompletion:^(BOOL success, NSError *error) {
@@ -538,7 +540,7 @@ typedef enum {
 - (NSFetchedResultsController *)activeItemsFetchedResultsController
 {
     if (!_activeItemsFetchedResultsController) {
-        _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 1"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+        _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'true'"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
     }
     
     return _activeItemsFetchedResultsController;
@@ -547,10 +549,19 @@ typedef enum {
 - (NSFetchedResultsController *)completedItemsFetchedResultsController
 {
     if (!_completedItemsFetchedResultsController) {
-        _completedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 0"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+        _completedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'false'"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
     }
     
     return _completedItemsFetchedResultsController;
+}
+
+- (NSFetchedResultsController *)unsortedItemsFetchedResultsController
+{
+    if (!_unsortedItemsFetchedResultsController) {
+        _unsortedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"!isActive.length > 0"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+    }
+    
+    return _unsortedItemsFetchedResultsController;
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -588,9 +599,9 @@ typedef enum {
         section = TRACKINGITEMS_SECTION_COMPLETED;
         rowCount = self.completedItemsFetchedResultsController.fetchedObjects.count;
     }
-    else if (controller == self.completedItemsFetchedResultsController) {
+    else if (controller == self.unsortedItemsFetchedResultsController) {
         section = TRACKINGITEMS_SECTION_UNSORTED;
-        rowCount = self.completedItemsFetchedResultsController.fetchedObjects.count;
+        rowCount = self.unsortedItemsFetchedResultsController.fetchedObjects.count;
     }
     
     NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row + 1 inSection:section];

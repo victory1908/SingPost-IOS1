@@ -233,7 +233,7 @@
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     NSString *status = maintananceStatuses[@"ReportThis"];
     
-    if ([status isEqualToString:@"on"] ||  !_trackedItem.isActiveValue)
+    if ([status isEqualToString:@"on"] || [_trackedItem.isActive isEqualToString:@"false"])
         return _deliveryStatuses.count;
     else
         return _deliveryStatuses.count + 1;

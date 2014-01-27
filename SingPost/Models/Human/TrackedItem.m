@@ -17,20 +17,20 @@
     DeliveryStatus *firstDeliveryStatus = [self.deliveryStatuses firstObject];
     return firstDeliveryStatus ? firstDeliveryStatus.statusDescription : @"-";
 }
-
+/*
 - (BOOL)shouldRefetchFromServer
 {
 #define STALE_INTERVAL_SECONDS 300
     NSTimeInterval intervalSinceLastUpdated = [[NSDate date] timeIntervalSinceDate:self.lastUpdatedOn];
     return self.isActiveValue && (fabsl(intervalSinceLastUpdated) > STALE_INTERVAL_SECONDS);
 }
-
+*/
 + (TrackedItem *)createIfNotExistsFromXMLElement:(RXMLElement *)el inContext:(NSManagedObjectContext *)context error:(NSError **)error
 {
-    if (![[[el child:@"TrackingNumberFound"] text] boolValue]) {
-        *error = [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"Tracking number not found"}];
-        return nil;
-    }
+    //if (![[[el child:@"TrackingNumberFound"] text] boolValue]) {
+       // *error = [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"Tracking number not found"}];
+      //  return nil;
+   // }
     
     NSString *trackingNumber = [[el child:@"TrackingNumber"] text];
     TrackedItem *trackedItem = [TrackedItem MR_findFirstByAttribute:TrackedItemAttributes.trackingNumber withValue:trackingNumber inContext:context];
@@ -38,8 +38,9 @@
         trackedItem = [TrackedItem MR_createInContext:context];
         [trackedItem setAddedOn:[NSDate date]];
     }
-    
-    [trackedItem setIsActiveValue:[[el child:@"TrackingNumberActive"].text boolValue]];
+    NSLog(@"TrackingNumberActive text %@",[el child:@"TrackingNumberActive"].text);
+    trackedItem.isActive = [el child:@"TrackingNumberActive"].text;
+    //[trackedItem setIsActiveValue:[[el child:@"TrackingNumberActive"].text boolValue]];
     [trackedItem setTrackingNumber:trackingNumber];
     [trackedItem setOriginalCountry:[el child:@"OriginalCountry"].text];
     [trackedItem setDestinationCountry:[el child:@"DestinationCountry"].text];
@@ -47,8 +48,7 @@
     
     NSOrderedSet *oldStatus = trackedItem.deliveryStatuses;
     DLog(@"Old Status Set %d",[oldStatus count]);
-    
-    
+
     RXMLElement *rxmlItems = [el child:@"DeliveryStatusDetails"];
     
     NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
@@ -128,6 +128,7 @@
             
             NSError *error;
             TrackedItem *trackedItem = [TrackedItem createIfNotExistsFromXMLElement:[[rxmlItems children:@"ItemTrackingDetail"] firstObject] inContext:localContext error:&error];
+            NSLog(@"TrackedItem %@",trackedItem);
             if (!error) {
                 [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                     if (completionBlock) {
