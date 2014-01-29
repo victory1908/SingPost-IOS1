@@ -536,7 +536,7 @@ typedef enum {
         }];
     }
     else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please enter tracking number" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
     }
 }

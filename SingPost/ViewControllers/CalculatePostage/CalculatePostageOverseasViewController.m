@@ -103,7 +103,7 @@
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
     if (!toWhichCountryDropDownList.selectedValue || [weightTextField.text length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered correctly" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
@@ -118,7 +118,7 @@
             else {
                 [SVProgressHUD dismiss];
                 if (items.count == 0) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Sorry, there are no results found. Please try again." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_RESULTS_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                     [alertView show];
                 }
                 else {

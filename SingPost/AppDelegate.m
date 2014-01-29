@@ -109,7 +109,7 @@
 {
     BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
     if (!hasInternetConnection && warnIfNoConnection) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No/Slow Internet Connection" message:@"SingPost App has detected no internet access. Make sure your device is connected to internet via a cellular data network or WiFi." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_INTERNET_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
     }
     
@@ -170,11 +170,6 @@
         else {
             [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
         }
-    }
-    else {
-        //a plain alert apns
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"SingPost" message:aps[@"alert"] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-        [alertView show];
     }
 }
 

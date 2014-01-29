@@ -4,6 +4,12 @@
 //  The contents of this file are implicitly included at the beginning of every source file.
 //
 
+//App Constants
+#define INCOMPLETE_FIELDS_ERROR             @"Please ensure that all fields are entered correctly"
+#define NO_INTERNET_ERROR                   @"SingPost App has detected no internet access. Make sure your device is connected to internet via a cellular data network or WiFi"
+#define NO_RESULTS_ERROR                    @"Sorry, there are no results found. Please try again"
+#define NO_TRACKING_NUMBER_ERROR            @"Please enter tracking number"
+
 #import <Availability.h>
 
 #ifndef __IPHONE_3_0

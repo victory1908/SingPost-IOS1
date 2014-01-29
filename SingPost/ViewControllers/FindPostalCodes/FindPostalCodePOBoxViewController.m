@@ -39,7 +39,7 @@
 - (void)loadView {
     contentScrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width,201)];
+    searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width,225)];
     
     windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 54)];
     windowDeliveryNoTextField.delegate = self;
@@ -57,12 +57,19 @@
     [postOfficeTextField setPlaceholder:@"Name of Post Office (Min. 3 characters)"];
     [searchTermsView addSubview:postOfficeTextField];
     
-    FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 147, contentScrollView.bounds.size.width - 30, 48)];
+    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 134, 290, 20)];
+    [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
+    [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
+    [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
+    [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    [searchTermsView addSubview:allFieldMandatoryLabel];
+    
+    FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 159, contentScrollView.bounds.size.width - 30, 48)];
     [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"FIND" forState:UIControlStateNormal];
     [searchTermsView addSubview:findButton];
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 200, 320, 0.5f)];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 224, 320, 0.5f)];
     [separatorView setBackgroundColor:RGB(196, 197, 200)];
     [searchTermsView addSubview:separatorView];
     
@@ -98,11 +105,11 @@
 {
     [self.view endEditing:YES];
     if ([[postOfficeTextField.text trimWhiteSpaces] length] < 3) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else if ([[windowDeliveryNoTextField.text trimWhiteSpaces] length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 1 character" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else {
@@ -120,12 +127,12 @@
             [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result - PO Box"];
             
             if (results.count == 0) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Sorry, there are no results found. Please try again." delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_RESULTS_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
                 [alertView show];
             }
             if (results.count > 20) {
                 _searchResults = nil;
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Your enquiry matches a lot of addresses, Please make your enquiry as detailed as possible." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Your enquiry matches a lot of addresses, Please make your enquiry as detailed as possible." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
             }
             [resultsTableView reloadData];

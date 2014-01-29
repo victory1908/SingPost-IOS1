@@ -143,7 +143,7 @@
 - (IBAction)sendFeedbackButtonClicked:(id)sender
 {
     if ([nameTextField.text length] == 0 || [contactNumberTextField.text length] == 0 || [emailAddressTextField.text length] == 0 || [commentsTextView.text length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Please ensure that all fields are entered" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
     else {
@@ -152,7 +152,7 @@
         
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"SingPost Mobile App | Customer Feedback" onSuccess:^(id responseObject) {
-
+            
             nameTextField.text = @"";
             contactNumberTextField.text = @"";
             emailAddressTextField.text = @"";
@@ -162,34 +162,6 @@
         } onFailure:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"An error has occured"];
         }];
-        /*
-         [UIAlertView showWithTitle:nil
-         message:@"Send feedback?"
-         cancelButtonTitle:@"Cancel"
-         otherButtonTitles:@[@"Ok"]
-         tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
-         {
-         if (buttonIndex != [alertView cancelButtonIndex]) {
-         if ([nameTextField.text length] == 0 || [contactNumberTextField.text length] == 0 || [emailAddressTextField.text length] == 0 || [commentsTextView.text length] == 0) {
-         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Enter a minimum of 3 characters" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-         [alertView show];
-         }
-         else {
-         [self.view endEditing:YES];
-         NSString *feedbackMessage = [NSString stringWithFormat:@"Name: %@\nContact: %@\nEmail: %@\nMessage: %@", nameTextField.text, contactNumberTextField.text, emailAddressTextField.text, commentsTextView.text];
-         
-         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
-         [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"SingPost Mobile App | Customer Feedback" onSuccess:^(id responseObject) {
-         [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
-         } onFailure:^(NSError *error) {
-         [SVProgressHUD showErrorWithStatus:@"An error has occured"];
-         }];
-         }
-         }
-         else
-         return;
-         }];
-         */
     }
 }
 
