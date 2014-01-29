@@ -124,13 +124,13 @@ typedef enum {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField == trackingNumberTextField)
-        [self findTrackingNumberButtonClicked:nil];
+        [self findTrackingNumberButtonClicked];
     return YES;
 }
 
 #pragma mark - IBActions
 
-- (IBAction)findTrackingNumberButtonClicked:(id)sender
+- (IBAction)findTrackingNumberButtonClicked
 {
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
@@ -150,7 +150,6 @@ typedef enum {
                 NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
                 TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
                 TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-                trackingDetailsViewController.fromSideBar = NO;
                 [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
             }
             else {
@@ -397,7 +396,7 @@ typedef enum {
             UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
             [findTrackingNumberButton setFrame:CGRectMake(265, 27, 35, 35)];
-            [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
             
             UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, 220, 50)];
@@ -496,7 +495,6 @@ typedef enum {
         TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
         trackedItem.isReadValue = YES;
         [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
-        trackingDetailsViewController.fromSideBar = NO;
         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }

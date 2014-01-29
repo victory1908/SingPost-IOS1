@@ -152,7 +152,7 @@
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:landingPageViewController];
 }
 
-- (IBAction)findTrackingNumberButtonClicked:(id)sender
+- (void)findTrackingNumberButtonClicked
 {
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
@@ -161,36 +161,23 @@
         return;
     }
     
-    [self.view endEditing:YES];
-    if (trackingNumberTextField.text.length > 0) {
-        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-        
-        BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
-        
-        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
-            [self.view endEditing:YES];
-            if (success) {
-                [SVProgressHUD dismiss];
-                /*
-                TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-                trackingMainViewController.trackingNumber = trackingNumberTextField.text;
-                //[[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
-                */
-                NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
-                TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
-                TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-                trackingDetailsViewController.fromSideBar = YES;
-                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingDetailsViewController];
-            }
-            else {
-                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-            }
-        }];
-    }
-    else {
+    if (!trackingNumberTextField.text.length > 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
+        return;
     }
+    
+    [self.view endEditing:YES];
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    
+    [trackingMainViewController setTrackingNumber:trackingNumberTextField.text];
+    
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [trackingMainViewController findTrackingNumberButtonClicked];
+    });
 }
 
 #pragma mark - UITextFieldDelegate
@@ -198,7 +185,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField == trackingNumberTextField) {
-        [self findTrackingNumberButtonClicked:nil];
+        [self findTrackingNumberButtonClicked];
     }
     return YES;
 }
@@ -246,7 +233,7 @@
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
     [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, 39, 25, 25)];
-    [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
     
     UITapGestureRecognizer *resignRespondersTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleResignRespondersTapped:)];
@@ -490,7 +477,7 @@
     NSMutableArray *subRowsIndexPaths = [NSMutableArray array];
     for (int i = 1; i <= SUBROWS_OFFERSMORE_TOTAL; i++)
         [subRowsIndexPaths addObject:[NSIndexPath indexPathForRow:SIDEBARMENU_OFFERSMORE + i inSection:0]];
-
+    
     [menuTableView beginUpdates];
     if (showOffersMoreSubrows) {
         [menuTableView insertRowsAtIndexPaths:subRowsIndexPaths

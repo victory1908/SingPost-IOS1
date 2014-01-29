@@ -14,4 +14,7 @@
 
 @property (nonatomic,assign) BOOL isOn;
 
+- (void)setTrackingNumber:(NSString *)inTrackingNumber;
+- (void)findTrackingNumberButtonClicked;
+
 @end

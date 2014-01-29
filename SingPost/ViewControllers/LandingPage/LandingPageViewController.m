@@ -108,7 +108,7 @@ typedef enum {
     UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
     [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(260, 87, 35, 35) : CGRectMake(269, 71, 29, 29)];
-    [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
@@ -299,7 +299,7 @@ typedef enum {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField == trackingNumberTextField) {
-        [self findTrackingNumberButtonClicked:nil];
+        [self findTrackingNumberButtonClicked];
     }
     
     return YES;
@@ -509,7 +509,7 @@ typedef enum {
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
 }
 
-- (void)findTrackingNumberButtonClicked:(id)sender
+- (void)findTrackingNumberButtonClicked
 {
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
@@ -518,34 +518,23 @@ typedef enum {
         return;
     }
     
-    if (trackingNumberTextField.text.length > 0) {
-        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-        
-        BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
-        
-        [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
-            if (success) {
-                [SVProgressHUD dismiss];
-                /*
-                TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-                trackingMainViewController.trackingNumber = trackingNumberTextField.text;
-                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
-                */
-                NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
-                TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
-                TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-                trackingDetailsViewController.fromSideBar = NO;
-                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
-            }
-            else {
-                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-            }
-        }];
-    }
-    else {
+    if (!trackingNumberTextField.text.length > 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
+        return;
     }
+    
+    [self.view endEditing:YES];
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    
+    [trackingMainViewController setTrackingNumber:trackingNumberTextField.text];
+    
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [trackingMainViewController findTrackingNumberButtonClicked];
+    });
 }
 
 - (IBAction)toggleSidebarButtonClicked:(id)sender
