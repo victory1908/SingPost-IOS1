@@ -130,7 +130,7 @@ typedef enum {
 
 #pragma mark - IBActions
 
-- (IBAction)findTrackingNumberButtonClicked
+- (void)findTrackingNumberButtonClicked
 {
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil

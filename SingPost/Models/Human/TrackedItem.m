@@ -180,15 +180,15 @@
 
 + (NSArray *)itemsRequiringUpdates
 {
-    NSArray *activeItems = [TrackedItem MR_findByAttribute:TrackedItemAttributes.isActive withValue:@(1)];
+    //NSArray *activeItems = [TrackedItem MR_findByAttribute:TrackedItemAttributes.isActive withValue:@(1)];
     
     NSMutableArray *res = [NSMutableArray array];
-    
+    /*
     for (TrackedItem *item in activeItems) {
         if (item.shouldRefetchFromServer)
             [res addObject:item];
     }
-    
+    */
     return res;
 }
 

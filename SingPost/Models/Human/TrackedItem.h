@@ -3,7 +3,7 @@
 @interface TrackedItem : _TrackedItem {}
 
 @property (nonatomic, readonly) NSString *status;
-@property (nonatomic, readonly) BOOL shouldRefetchFromServer;
+//@property (nonatomic, readonly) BOOL shouldRefetchFromServer;
 
 + (void)saveLastEnteredTrackingNumber:(NSString *)lastKnownTrackingNumber;
 + (NSString *)lastEnteredTrackingNumber;
