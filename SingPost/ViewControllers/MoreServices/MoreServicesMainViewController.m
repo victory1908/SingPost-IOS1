@@ -18,10 +18,10 @@
     [super viewDidLoad];
     [self setPageTitle:@"More Services"];
     
-    [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak MoreServicesMainViewController *weakSelf = self;
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getServicesOnCompletion:^(NSArray *items) {
             [weakSelf setItems:items];
             [SVProgressHUD dismiss];

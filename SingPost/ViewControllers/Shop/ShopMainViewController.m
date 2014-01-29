@@ -22,10 +22,10 @@
     [super viewDidLoad];
     [self setPageTitle:@"Shop"];
     
-    [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak ShopMainViewController *weakSelf = self;
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getShopItemsOnCompletion:^(NSArray *items) {
             [weakSelf setItems:items];
             [SVProgressHUD dismiss];

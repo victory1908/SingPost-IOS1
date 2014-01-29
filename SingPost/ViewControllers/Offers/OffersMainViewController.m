@@ -33,8 +33,8 @@
 {
     [super viewDidLoad];
     
-    [SVProgressHUD showWithStatus:@"Please wait.."];
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getOffersOnCompletion:^(NSArray *items) {
             itemsArray = items;
             [SVProgressHUD dismiss];

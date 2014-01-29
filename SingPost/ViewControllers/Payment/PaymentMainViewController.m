@@ -18,9 +18,9 @@
     [super viewDidLoad];
     [self setPageTitle:@"Pay"];
     
-    [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak PaymentMainViewController *weakSelf = self;
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getPayItemsOnCompletion:^(NSArray *items) {
             [weakSelf setItems:items];
             [SVProgressHUD dismiss];
