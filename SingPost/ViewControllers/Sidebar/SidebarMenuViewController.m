@@ -11,6 +11,7 @@
 #import "SidebarMenuTableViewCell.h"
 #import "SidebarMenuSubRowTableViewCell.h"
 #import "AppDelegate.h"
+#import "RegexKitLite.h"
 
 #import "CalculatePostageMainViewController.h"
 #import "LandingPageViewController.h"
@@ -153,6 +154,13 @@
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
+    if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
+                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     [self.view endEditing:YES];
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];

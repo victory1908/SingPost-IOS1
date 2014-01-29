@@ -20,6 +20,7 @@
 #import "UIImage+Extensions.h"
 #import "UIAlertView+Blocks.h"
 #import <SevenSwitch.h>
+#import "RegexKitLite.h"
 
 #import "TrackedItem.h"
 #import "Article.h"
@@ -131,11 +132,18 @@ typedef enum {
 
 - (IBAction)findTrackingNumberButtonClicked:(id)sender
 {
-    BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+    if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
+                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     
     [self.view endEditing:YES];
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+        
         [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackingNumberTextField.text notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [SVProgressHUD dismiss];
@@ -151,7 +159,7 @@ typedef enum {
         }];
     }
     else {
-        [SVProgressHUD showErrorWithStatus:@"Please enter tracking number"];
+        [SVProgressHUD showErrorWithStatus:NO_TRACKING_NUMBER_ERROR];
     }
 }
 /*
@@ -401,7 +409,7 @@ typedef enum {
             [cell.contentView addSubview:instructionsLabel];
             
             BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
-
+            
             receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
             receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
             receiveUpdateSwitch.center = CGPointMake(278, 104);
@@ -514,7 +522,7 @@ typedef enum {
             trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
             trackedItemToDelete = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-
+        
         [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         [TrackedItem deleteTrackedItem:trackedItemToDelete onCompletion:^(BOOL success, NSError *error) {
             if (!success)

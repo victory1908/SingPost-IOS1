@@ -12,7 +12,7 @@
 #import "UIView+Position.h"
 #import "CTextField.h"
 #import "OffersMoreMenuView.h"
-
+#import "RegexKitLite.h"
 #import "TrackingMainViewController.h"
 #import "TrackingDetailsViewController.h"
 #import "CalculatePostageMainViewController.h"
@@ -511,6 +511,13 @@ typedef enum {
 
 - (void)findTrackingNumberButtonClicked:(id)sender
 {
+    if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
+                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     if (trackingNumberTextField.text.length > 0) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         
