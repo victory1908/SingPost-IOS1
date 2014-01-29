@@ -47,11 +47,13 @@
 {
     [super viewDidLoad];
     
-    [SVProgressHUD showWithStatus:@"Please wait..."];
-    [Article API_getFaqOnCompletion:^(NSString *faqs) {
-        [SVProgressHUD dismiss];
-        [faqWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", faqs] baseURL:nil];
-    }];
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait..."];
+        [Article API_getFaqOnCompletion:^(NSString *faqs) {
+            [SVProgressHUD dismiss];
+            [faqWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", faqs] baseURL:nil];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

@@ -89,19 +89,13 @@ typedef enum {
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
-    [self reloadTrackingItems];
+    //[self reloadTrackingItems];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -139,8 +133,15 @@ typedef enum {
         return;
     }
     
+    if (trackingNumberTextField.text.length == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil
+                                                  cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        [alertView show];
+        return;
+    }
+    
     [self.view endEditing:YES];
-    if (trackingNumberTextField.text.length > 0) {
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
         
@@ -156,9 +157,6 @@ typedef enum {
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }
         }];
-    }
-    else {
-        [SVProgressHUD showErrorWithStatus:NO_TRACKING_NUMBER_ERROR];
     }
 }
 /*

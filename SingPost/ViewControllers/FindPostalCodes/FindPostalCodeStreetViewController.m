@@ -96,15 +96,14 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([[streetNameTextField.text trimWhiteSpaces] length] < 3) {
+    if ([[streetNameTextField.text trimWhiteSpaces] length] < 3 || [[buildingBlockHouseNumberTextField.text trimWhiteSpaces] length] < 1) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        return;
     }
-    else if ([[buildingBlockHouseNumberTextField.text trimWhiteSpaces] length] < 1) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-    }
-    else {
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [PostalCode API_findPostalCodeForBuildingNo:buildingBlockHouseNumberTextField.text andStreetName:streetNameTextField.text onCompletion:^(NSArray *results, NSError *error) {
             if (error) {
@@ -115,7 +114,7 @@
                 [SVProgressHUD dismiss];
             }
             
-            [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result- Street"];
+            [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Postcode Result - Street"];
             
             if (results.count == 0) {
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_RESULTS_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];

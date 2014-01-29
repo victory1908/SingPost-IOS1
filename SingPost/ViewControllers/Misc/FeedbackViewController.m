@@ -145,8 +145,9 @@
     if ([nameTextField.text length] == 0 || [contactNumberTextField.text length] == 0 || [emailAddressTextField.text length] == 0 || [commentsTextView.text length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        return;
     }
-    else {
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [self.view endEditing:YES];
         NSString *feedbackMessage = [NSString stringWithFormat:@"Name: %@\nContact: %@\nEmail: %@\nMessage: %@", nameTextField.text, contactNumberTextField.text, emailAddressTextField.text, commentsTextView.text];
         

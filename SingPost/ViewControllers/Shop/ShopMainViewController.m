@@ -24,10 +24,13 @@
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak ShopMainViewController *weakSelf = self;
-    [Article API_getShopItemsOnCompletion:^(NSArray *items) {
-        [weakSelf setItems:items];
-        [SVProgressHUD dismiss];
-    }];
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [Article API_getShopItemsOnCompletion:^(NSArray *items) {
+            [weakSelf setItems:items];
+            [SVProgressHUD dismiss];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

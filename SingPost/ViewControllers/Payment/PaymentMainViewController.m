@@ -20,10 +20,12 @@
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak PaymentMainViewController *weakSelf = self;
-    [Article API_getPayItemsOnCompletion:^(NSArray *items) {
-        [weakSelf setItems:items];
-        [SVProgressHUD dismiss];
-    }];
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [Article API_getPayItemsOnCompletion:^(NSArray *items) {
+            [weakSelf setItems:items];
+            [SVProgressHUD dismiss];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

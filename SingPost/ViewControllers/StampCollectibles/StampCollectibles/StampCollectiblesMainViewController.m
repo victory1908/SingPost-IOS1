@@ -46,7 +46,7 @@
     searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, 186)];
     [searchTermsView setBackgroundColor:RGB(250, 250, 250)];
     
-   
+    
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:@"Stamp Collectibles"];
     [navigationBarView setShowSidebarToggleButton:YES];
@@ -91,7 +91,7 @@
     [stampsTableView setDataSource:self];
     [stampsTableView setBackgroundColor:[UIColor whiteColor]];
     [searchResultsContainerView addSubview:stampsTableView];
-
+    
     self.view = contentScrollView;
     
     contentScrollView.delegate = self;
@@ -103,18 +103,21 @@
     [SVProgressHUD showWithStatus:@"Please wait.."];
     
     __weak StampCollectiblesMainViewController *weakSelf = self;
-    [Stamp API_getStampsOnCompletion:^(BOOL success, NSError *error) {
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
-        }
-        else {
-            [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [yearDropDownList setValues:[Stamp yearsDropDownValues]];
-            [yearDropDownList selectRow:0 animated:NO];
-            [weakSelf yearDropDownListSelected];
-            [SVProgressHUD dismiss];
-        }
-    }];
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [Stamp API_getStampsOnCompletion:^(BOOL success, NSError *error) {
+            if (error) {
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+            }
+            else {
+                [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                [yearDropDownList setValues:[Stamp yearsDropDownValues]];
+                [yearDropDownList selectRow:0 animated:NO];
+                [weakSelf yearDropDownListSelected];
+                [SVProgressHUD dismiss];
+            }
+        }];
+    }
     
     [self showSearchTermsView:YES];
 }
@@ -141,7 +144,7 @@
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController.sections objectAtIndex:section];
     return [sectionInfo numberOfObjects];
 }
-    
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *const itemCellIdentifier = @"StampsCollectiblesItemTableViewCell";

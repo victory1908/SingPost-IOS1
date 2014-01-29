@@ -69,12 +69,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [SVProgressHUD showWithStatus:@"Please wait..."];
-    [Article API_getSingPostAppsOnCompletion:^(NSArray *apps) {
-        [SVProgressHUD dismiss];
-        appsItems = apps;
-        [moreAppsTableView reloadData];
-    }];
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait..."];
+        [Article API_getSingPostAppsOnCompletion:^(NSArray *apps) {
+            [SVProgressHUD dismiss];
+            appsItems = apps;
+            [moreAppsTableView reloadData];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -119,7 +121,7 @@
     ArticleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
     if (!cell)
         cell = [[ArticleTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
-
+    
     [self configureCell:cell atIndexPath:indexPath];
     
     return cell;}

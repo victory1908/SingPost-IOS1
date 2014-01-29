@@ -85,8 +85,9 @@
     if ([[majorBuildingEstateTextField.text trimWhiteSpaces] length] < 3) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        return;
     }
-    else {
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         _searchResults = nil;
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [PostalCode API_findPostalCodeForLandmark:majorBuildingEstateTextField.text onCompletion:^(NSArray *results, NSError *error) {

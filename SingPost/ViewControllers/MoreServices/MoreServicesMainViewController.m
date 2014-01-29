@@ -20,10 +20,13 @@
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak MoreServicesMainViewController *weakSelf = self;
-    [Article API_getServicesOnCompletion:^(NSArray *items) {
-        [weakSelf setItems:items];
-        [SVProgressHUD dismiss];
-    }];
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [Article API_getServicesOnCompletion:^(NSArray *items) {
+            [weakSelf setItems:items];
+            [SVProgressHUD dismiss];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

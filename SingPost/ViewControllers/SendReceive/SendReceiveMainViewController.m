@@ -18,12 +18,15 @@
     [super viewDidLoad];
     [self setPageTitle:@"Send & Receive"];
     
-    [SVProgressHUD showWithStatus:@"Please wait.."];
     __weak SendReceiveMainViewController *weakSelf = self;
-    [Article API_getSendReceiveItemsOnCompletion:^(NSArray *items) {
-        [weakSelf setItems:items];
-        [SVProgressHUD dismiss];
-    }];
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait.."];
+        [Article API_getSendReceiveItemsOnCompletion:^(NSArray *items) {
+            [weakSelf setItems:items];
+            [SVProgressHUD dismiss];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

@@ -34,11 +34,13 @@
     [super viewDidLoad];
     
     [SVProgressHUD showWithStatus:@"Please wait.."];
-    [Article API_getOffersOnCompletion:^(NSArray *items) {
-        itemsArray = items;
-        [SVProgressHUD dismiss];
-        [offersTableView reloadData];
-    }];
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [Article API_getOffersOnCompletion:^(NSArray *items) {
+            itemsArray = items;
+            [SVProgressHUD dismiss];
+            [offersTableView reloadData];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated

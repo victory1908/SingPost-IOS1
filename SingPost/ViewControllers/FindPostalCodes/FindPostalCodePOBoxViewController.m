@@ -104,15 +104,13 @@
 - (IBAction)findButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
-    if ([[postOfficeTextField.text trimWhiteSpaces] length] < 3) {
+    if ([[postOfficeTextField.text trimWhiteSpaces] length] < 3 || [[windowDeliveryNoTextField.text trimWhiteSpaces] length] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        return;
     }
-    else if ([[windowDeliveryNoTextField.text trimWhiteSpaces] length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-    }
-    else {
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         _searchResults = nil;
         [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [PostalCode API_findPostalCodeForWindowsDeliveryNo:windowDeliveryNoTextField.text andType:typeDropDownList.selectedValue andPostOffice:postOfficeTextField.text onCompletion:^(NSArray *results, NSError *error) {
