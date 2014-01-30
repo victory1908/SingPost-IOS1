@@ -528,12 +528,10 @@ typedef enum {
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
     
-    [trackingMainViewController setTrackingNumber:trackingNumberTextField.text];
-    
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [trackingMainViewController findTrackingNumberButtonClicked];
+        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
     });
 }
 

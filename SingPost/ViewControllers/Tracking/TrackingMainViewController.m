@@ -89,7 +89,7 @@ typedef enum {
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
-    //[self reloadTrackingItems];
+    [self reloadTrackingItems];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -118,14 +118,15 @@ typedef enum {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField == trackingNumberTextField)
-        [self findTrackingNumberButtonClicked];
+        [self addTrackingNumber:trackingNumberTextField.text];
     return YES;
 }
 
-#pragma mark - IBActions
+#pragma mark - Tracking Numbers
 
-- (void)findTrackingNumberButtonClicked
-{
+- (void)addTrackingNumber:(NSString *)trackingNumber {
+    [self setTrackingNumber:trackingNumber];
+    
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -150,8 +151,13 @@ typedef enum {
                 [SVProgressHUD dismiss];
                 NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
                 TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
-                TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-                [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+                if (trackedItem.isFoundValue)
+                    [self goToDetailPageWithTrackedItem:trackedItem];
+                else {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
+                                                         cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                }
             }
             else {
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
@@ -159,60 +165,34 @@ typedef enum {
         }];
     }
 }
-/*
- - (IBAction)reloadTrackingItemsButtonClicked:(id)sender
- {
- NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
- 
- if (!itemsToReload.count > 0) {
- UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"There is no active item" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
- [alertView show];
- return;
- }
- 
- if ([itemsToReload count] > 10 ) {
- [UIAlertView showWithTitle:nil
- message:@"Enquiring multiple tracking numbers at once might take a while. Do you want to proceed?"
- cancelButtonTitle:@"Cancel"
- otherButtonTitles:@[@"Ok"]
- tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
- {
- if (buttonIndex != [alertView cancelButtonIndex]) {
- [self reloadTrackingItems];
- }
- else {
- return;
- }
- }];
- }
- else {
- [self reloadTrackingItems];
- }
- }
- */
+
 - (void)reloadTrackingItems {
-    
     NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
-    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES] && itemsToReload.count > 0) {
         __block CGFloat updateProgress = 0.0f;
         [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
         [TrackedItem API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
-            if (error) {
+            if (error)
                 [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
-            }
             else {
                 [SVProgressHUD dismiss];
                 [trackingItemsTableView reloadData];
-                
             }
         } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
             updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
             [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
         }];
     }
+    else {
+        double delayInSeconds = 3.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [trackingItemsTableView reloadData];
+        });
+    }
 }
 
+#pragma mark - Actions
 - (IBAction)infoButtonClicked:(id)sender
 {
     [SVProgressHUD showWithStatus:@"Please wait.."];
@@ -227,6 +207,17 @@ typedef enum {
             [[KGModal sharedInstance] showWithContentView:webView andAnimated:YES];
         }
     }];
+}
+
+- (void)goToDetailPageWithTrackedItem:(TrackedItem *)trackedItem {
+    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+    trackedItem.isReadValue = YES;
+    [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+}
+
+- (void)onTrackingNumberBtn:(id)sender {
+    [self addTrackingNumber:trackingNumberTextField.text];
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -325,24 +316,6 @@ typedef enum {
             [activeItemsLabel setBackgroundColor:[UIColor clearColor]];
             [activeItemsLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [sectionHeaderView addSubview:activeItemsLabel];
-            /*
-             UIButton *numActiveItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-             [numActiveItemsButton setBackgroundImage:[UIImage imageNamed:@"blue_circle"] forState:UIControlStateNormal];
-             [numActiveItemsButton.titleLabel setFont:[UIFont SingPostSemiboldFontOfSize:7.0f fontKey:kSingPostFontOpenSans]];
-             [numActiveItemsButton setTitleEdgeInsets:UIEdgeInsetsMake(1, 1, 0, 0)];
-             [numActiveItemsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-             [numActiveItemsButton setTitle:@"1" forState:UIControlStateNormal];
-             [numActiveItemsButton setFrame:CGRectMake(105, 12, 14, 14)];
-             [sectionHeaderView addSubview:numActiveItemsButton];
-             */
-            /*
-             UIButton *reloadTrackingItemsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-             [reloadTrackingItemsButton setImage:[UIImage imageNamed:@"reload_button_orange"] forState:UIControlStateNormal];
-             [reloadTrackingItemsButton setFrame:CGRectMake(260, 3, 44, 44)];
-             [reloadTrackingItemsButton setTag:TRACKINGITEMS_SECTION_ACTIVE];
-             [reloadTrackingItemsButton addTarget:self action:@selector(reloadTrackingItemsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-             [sectionHeaderView addSubview:reloadTrackingItemsButton];
-             */
             break;
         }
         case TRACKINGITEMS_SECTION_COMPLETED: {
@@ -375,7 +348,7 @@ typedef enum {
     static NSString *const headerCellIdentifier = @"TrackingHeaderMainTableViewCell";
     static NSString *const itemCellIdentifier = @"TrackingItemMainTableViewCell";
     static NSString *const trackingCellIdentifier = @"TrackingCell";
-    
+
     if (indexPath.section == TRACKINGITEMS_SECTION_HEADER) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:trackingCellIdentifier];
         if (!cell) {
@@ -394,7 +367,7 @@ typedef enum {
             UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
             [findTrackingNumberButton setFrame:CGRectMake(265, 27, 35, 35)];
-            [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+            [findTrackingNumberButton addTarget:self action:@selector(onTrackingNumberBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
             
             UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, 220, 50)];
@@ -453,47 +426,41 @@ typedef enum {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == TRACKINGITEMS_SECTION_HEADER) {
+    if (indexPath.section == TRACKINGITEMS_SECTION_HEADER)
         [self.view endEditing:YES];
-    }
     else {
         TrackedItem *trackedItem;
-        if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
+        if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
             trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-        else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
+            [self goToDetailPageWithTrackedItem:trackedItem];
+        }
+        else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
             trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-        else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
+            [self goToDetailPageWithTrackedItem:trackedItem];
+        }
+        else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED) {
             trackedItem = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-        /*
-         if (trackedItem.shouldRefetchFromServer) {
-         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-         
-         BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
-         
-         [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
-         if (success) {
-         [SVProgressHUD dismiss];
-         TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-         trackingDetailsViewController.fromSideBar = NO;
-         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
-         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-         }
-         else {
-         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-         }
-         }];
-         }
-         else {
-         TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-         trackingDetailsViewController.fromSideBar = NO;
-         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
-         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-         }
-         */
-        TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-        trackedItem.isReadValue = YES;
-        [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
-        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+            
+            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+            
+            BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+            
+            [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
+                if (success) {
+                    [SVProgressHUD dismiss];
+                    if (trackedItem.isFoundValue)
+                        [self goToDetailPageWithTrackedItem:trackedItem];
+                    else {
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
+                                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alert show];
+                    }
+                }
+                else {
+                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                }
+            }];
+        }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 }
@@ -562,7 +529,7 @@ typedef enum {
 - (NSFetchedResultsController *)unsortedItemsFetchedResultsController
 {
     if (!_unsortedItemsFetchedResultsController) {
-        _unsortedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"!isActive.length > 0"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+        _unsortedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isFound == 0"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
     }
     
     return _unsortedItemsFetchedResultsController;
@@ -630,7 +597,7 @@ typedef enum {
             
         case NSFetchedResultsChangeMove:
             [trackingItemsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+            [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
@@ -643,7 +610,6 @@ typedef enum {
 #pragma mark - Notification switch
 
 - (void)switchChanged:(UIControl *)sender {
-    
     UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
     BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
     
@@ -696,7 +662,6 @@ typedef enum {
             [SVProgressHUD dismiss];
         }];
     }
-    
 }
 
 @end

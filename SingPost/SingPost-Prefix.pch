@@ -5,11 +5,12 @@
 //
 
 //App Constants
-#define INCOMPLETE_FIELDS_ERROR             @"Please ensure that all fields are entered correctly"
-#define NO_INTERNET_ERROR                   @"SingPost App has detected no internet access. Make sure your device is connected to internet via a cellular data network or WiFi"
-#define NO_RESULTS_ERROR                    @"Sorry, there are no results found. Please try again"
-#define NO_TRACKING_NUMBER_ERROR            @"Please enter tracking number"
-#define INVALID_TRACKING_NUMBER_ERROR       @"Please enter a valid tracking number"
+#define INCOMPLETE_FIELDS_ERROR             @"Please ensure that all fields are entered correctly."
+#define NO_INTERNET_ERROR                   @"SingPost App has detected no internet access. Make sure your device is connected to internet via a cellular data network or WiFi."
+#define NO_RESULTS_ERROR                    @"Sorry, there are no results found. Please try again."
+#define NO_TRACKING_NUMBER_ERROR            @"Please enter tracking number."
+#define INVALID_TRACKING_NUMBER_ERROR       @"Please enter a valid tracking number."
+#define TRACKED_ITEM_NOT_FOUND_ERROR        @"Item number incorrect or tracking status for this item is not yet updated please try again later. This number will be stored for your easy reference later."
 
 #import <Availability.h>
 
@@ -18,10 +19,10 @@
 #endif
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <SystemConfiguration/SystemConfiguration.h>
-    #import <MobileCoreServices/MobileCoreServices.h>
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 #endif
 
 #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
