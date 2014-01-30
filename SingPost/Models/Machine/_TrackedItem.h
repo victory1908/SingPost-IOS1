@@ -5,24 +5,25 @@
 
 
 extern const struct TrackedItemAttributes {
-    __unsafe_unretained NSString *addedOn;
-    __unsafe_unretained NSString *destinationCountry;
-    __unsafe_unretained NSString *isActive;
-    __unsafe_unretained NSString *isRead;
-    __unsafe_unretained NSString *lastUpdatedOn;
+	__unsafe_unretained NSString *addedOn;
+	__unsafe_unretained NSString *destinationCountry;
+	__unsafe_unretained NSString *isActive;
+	__unsafe_unretained NSString *isFound;
+	__unsafe_unretained NSString *isRead;
+	__unsafe_unretained NSString *lastUpdatedOn;
 	__unsafe_unretained NSString *originalCountry;
-    
-    __unsafe_unretained NSString *trackingNumber;
+	__unsafe_unretained NSString *trackingNumber;
 } TrackedItemAttributes;
 
 extern const struct TrackedItemRelationships {
-    __unsafe_unretained NSString *deliveryStatuses;
+	__unsafe_unretained NSString *deliveryStatuses;
 } TrackedItemRelationships;
 
 extern const struct TrackedItemFetchedProperties {
 } TrackedItemFetchedProperties;
 
 @class DeliveryStatus;
+
 
 
 
@@ -45,7 +46,7 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSDate* addedOn;
+@property (nonatomic, strong) NSDate* addedOn;
 
 
 
@@ -55,7 +56,7 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* destinationCountry;
+@property (nonatomic, strong) NSString* destinationCountry;
 
 
 
@@ -65,7 +66,7 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* isActive;
+@property (nonatomic, strong) NSString* isActive;
 
 
 
@@ -75,7 +76,21 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSNumber* isRead;
+@property (nonatomic, strong) NSNumber* isFound;
+
+
+
+@property BOOL isFoundValue;
+- (BOOL)isFoundValue;
+- (void)setIsFoundValue:(BOOL)value_;
+
+//- (BOOL)validateIsFound:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSNumber* isRead;
 
 
 
@@ -89,7 +104,7 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSDate* lastUpdatedOn;
+@property (nonatomic, strong) NSDate* lastUpdatedOn;
 
 
 
@@ -99,7 +114,7 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* originalCountry;
+@property (nonatomic, strong) NSString* originalCountry;
 
 
 
@@ -109,7 +124,7 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSString* trackingNumber;
+@property (nonatomic, strong) NSString* trackingNumber;
 
 
 
@@ -119,7 +134,7 @@ extern const struct TrackedItemFetchedProperties {
 
 
 
-@property (nonatomic, retain) NSOrderedSet *deliveryStatuses;
+@property (nonatomic, strong) NSOrderedSet *deliveryStatuses;
 
 - (NSMutableOrderedSet*)deliveryStatusesSet;
 
@@ -155,6 +170,15 @@ extern const struct TrackedItemFetchedProperties {
 
 - (NSString*)primitiveIsActive;
 - (void)setPrimitiveIsActive:(NSString*)value;
+
+
+
+
+- (NSNumber*)primitiveIsFound;
+- (void)setPrimitiveIsFound:(NSNumber*)value;
+
+- (BOOL)primitiveIsFoundValue;
+- (void)setPrimitiveIsFoundValue:(BOOL)value_;
 
 
 

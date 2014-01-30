@@ -7,6 +7,7 @@ const struct TrackedItemAttributes TrackedItemAttributes = {
 	.addedOn = @"addedOn",
 	.destinationCountry = @"destinationCountry",
 	.isActive = @"isActive",
+	.isFound = @"isFound",
 	.isRead = @"isRead",
 	.lastUpdatedOn = @"lastUpdatedOn",
 	.originalCountry = @"originalCountry",
@@ -46,6 +47,11 @@ const struct TrackedItemFetchedProperties TrackedItemFetchedProperties = {
 + (NSSet*)keyPathsForValuesAffectingValueForKey:(NSString*)key {
 	NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
 	
+	if ([key isEqualToString:@"isFoundValue"]) {
+		NSSet *affectingKey = [NSSet setWithObject:@"isFound"];
+		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+		return keyPaths;
+	}
 	if ([key isEqualToString:@"isReadValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"isRead"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -74,6 +80,32 @@ const struct TrackedItemFetchedProperties TrackedItemFetchedProperties = {
 
 @dynamic isActive;
 
+
+
+
+
+
+@dynamic isFound;
+
+
+
+- (BOOL)isFoundValue {
+	NSNumber *result = [self isFound];
+	return [result boolValue];
+}
+
+- (void)setIsFoundValue:(BOOL)value_ {
+	[self setIsFound:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveIsFoundValue {
+	NSNumber *result = [self primitiveIsFound];
+	return [result boolValue];
+}
+
+- (void)setPrimitiveIsFoundValue:(BOOL)value_ {
+	[self setPrimitiveIsFound:[NSNumber numberWithBool:value_]];
+}
 
 
 

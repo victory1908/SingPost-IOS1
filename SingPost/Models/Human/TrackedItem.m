@@ -18,75 +18,48 @@
     return firstDeliveryStatus ? firstDeliveryStatus.statusDescription : @"-";
 }
 /*
-- (BOOL)shouldRefetchFromServer
-{
-#define STALE_INTERVAL_SECONDS 300
-    NSTimeInterval intervalSinceLastUpdated = [[NSDate date] timeIntervalSinceDate:self.lastUpdatedOn];
-    return self.isActiveValue && (fabsl(intervalSinceLastUpdated) > STALE_INTERVAL_SECONDS);
-}
-*/
+ - (BOOL)shouldRefetchFromServer
+ {
+ #define STALE_INTERVAL_SECONDS 300
+ NSTimeInterval intervalSinceLastUpdated = [[NSDate date] timeIntervalSinceDate:self.lastUpdatedOn];
+ return self.isActiveValue && (fabsl(intervalSinceLastUpdated) > STALE_INTERVAL_SECONDS);
+ }
+ */
 + (TrackedItem *)createIfNotExistsFromXMLElement:(RXMLElement *)el inContext:(NSManagedObjectContext *)context error:(NSError **)error
 {
-    //if (![[[el child:@"TrackingNumberFound"] text] boolValue]) {
-       // *error = [NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: @"Tracking number not found"}];
-      //  return nil;
-   // }
-    
     NSString *trackingNumber = [[el child:@"TrackingNumber"] text];
     TrackedItem *trackedItem = [TrackedItem MR_findFirstByAttribute:TrackedItemAttributes.trackingNumber withValue:trackingNumber inContext:context];
     if (!trackedItem) {
         trackedItem = [TrackedItem MR_createInContext:context];
         [trackedItem setAddedOn:[NSDate date]];
     }
-    NSLog(@"TrackingNumberActive text %@",[el child:@"TrackingNumberActive"].text);
+    
+    trackedItem.isFoundValue = [[el child:@"TrackingNumberFound"].text boolValue];
     trackedItem.isActive = [el child:@"TrackingNumberActive"].text;
-    //[trackedItem setIsActiveValue:[[el child:@"TrackingNumberActive"].text boolValue]];
-    [trackedItem setTrackingNumber:trackingNumber];
-    [trackedItem setOriginalCountry:[el child:@"OriginalCountry"].text];
-    [trackedItem setDestinationCountry:[el child:@"DestinationCountry"].text];
-    [trackedItem setLastUpdatedOn:[NSDate date]];
+    trackedItem.trackingNumber = trackingNumber;
+    trackedItem.originalCountry = [el child:@"OriginalCountry"].text;
+    trackedItem.destinationCountry = [el child:@"DestinationCountry"].text;
+    trackedItem.lastUpdatedOn = [NSDate date];
     
     NSOrderedSet *oldStatus = trackedItem.deliveryStatuses;
-    DLog(@"Old Status Set %d",[oldStatus count]);
-
-    RXMLElement *rxmlItems = [el child:@"DeliveryStatusDetails"];
     
+    RXMLElement *rxmlItems = [el child:@"DeliveryStatusDetails"];
     NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
     for (RXMLElement *rxmlDeliveryStatus in [rxmlItems children:@"DeliveryStatusDetail"]) {
         [newStatus addObject:[DeliveryStatus createFromXMLElement:rxmlDeliveryStatus inContext:context]];
     }
     
-    DLog(@"New Status Set %d",[newStatus count]);
-    
-    if ([oldStatus count] == [newStatus count])
-        return trackedItem;
-    
-    else {
+    if ([oldStatus count] != [newStatus count]) {
         //delete existing status
         for (DeliveryStatus *deliveryStatus in trackedItem.deliveryStatuses) {
             [context deleteObject:deliveryStatus];
         }
         trackedItem.isReadValue = NO;
         [trackedItem setDeliveryStatuses:newStatus];
-        return trackedItem;
     }
+    else
+        trackedItem.isReadValue = YES;
     
-    /*
-     //delete existing status
-     for (DeliveryStatus *deliveryStatus in trackedItem.deliveryStatuses) {
-     [context deleteObject:deliveryStatus];
-     }
-     
-     //rebuild delivery statuses
-     RXMLElement *rxmlItems = [el child:@"DeliveryStatusDetails"];
-     
-     NSMutableOrderedSet *deliveries = [NSMutableOrderedSet orderedSet];
-     for (RXMLElement *rxmlDeliveryStatus in [rxmlItems children:@"DeliveryStatusDetail"]) {
-     [deliveries addObject:[DeliveryStatus createFromXMLElement:rxmlDeliveryStatus inContext:context]];
-     }
-     
-     [trackedItem setDeliveryStatuses:deliveries];
-     */
     return trackedItem;
 }
 
@@ -184,11 +157,11 @@
     
     NSMutableArray *res = [NSMutableArray array];
     /*
-    for (TrackedItem *item in activeItems) {
-        if (item.shouldRefetchFromServer)
-            [res addObject:item];
-    }
-    */
+     for (TrackedItem *item in activeItems) {
+     if (item.shouldRefetchFromServer)
+     [res addObject:item];
+     }
+     */
     return res;
 }
 

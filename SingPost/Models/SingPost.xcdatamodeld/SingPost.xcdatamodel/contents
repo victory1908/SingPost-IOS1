@@ -82,6 +82,7 @@
         <attribute name="addedOn" attributeType="Date" syncable="YES"/>
         <attribute name="destinationCountry" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isActive" attributeType="String" syncable="YES"/>
+        <attribute name="isFound" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="lastUpdatedOn" attributeType="Date" syncable="YES"/>
         <attribute name="originalCountry" optional="YES" attributeType="String" syncable="YES"/>
