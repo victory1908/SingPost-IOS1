@@ -98,12 +98,6 @@ typedef enum {
     [SVProgressHUD dismiss];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [super touchesBegan:touches withEvent:event];
-    [trackingNumberTextField resignFirstResponder];
-}
-
 #pragma mark - Accessors
 
 - (void)setTrackingNumber:(NSString *)inTrackingNumber

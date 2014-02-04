@@ -66,7 +66,11 @@
     [sideBarPanGesture setEnabled:NO];
     [activeViewControllerContainerView addGestureRecognizer:sideBarPanGesture];
     
-    [self showTermsAndCondition];
+    double delayInSeconds = 0.2;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self showTermsAndCondition];
+    });
 }
 
 - (void)updateMaintananceStatusUIs
@@ -287,11 +291,10 @@
 #pragma mark - Terms and Condition
 
 - (void)showTermsAndCondition {
-    
     NSDate * date = [[NSUserDefaults standardUserDefaults] objectForKey:@"TNC_SHOWN"];
     if (date != nil)
         return;
-    
+
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TNC_SHOWN"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
