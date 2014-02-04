@@ -152,7 +152,7 @@ typedef enum {
                 if (trackedItem.isFoundValue)
                     [self goToDetailPageWithTrackedItem:trackedItem];
                 else {
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:NEW_TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
                                                          cancelButtonTitle:@"OK" otherButtonTitles:nil];
                     [alert show];
                 }
