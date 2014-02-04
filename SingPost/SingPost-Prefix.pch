@@ -11,6 +11,7 @@
 #define NO_TRACKING_NUMBER_ERROR            @"Please enter tracking number."
 #define INVALID_TRACKING_NUMBER_ERROR       @"Please enter a valid tracking number."
 #define TRACKED_ITEM_NOT_FOUND_ERROR        @"Item number incorrect or tracking status for this item is not yet updated. Please try again later."
+#define NEW_TRACKED_ITEM_NOT_FOUND_ERROR    @"Item number incorrect or tracking status for this item is not yet updated. Please try again later. This number will be stored for your easy reference later."
 
 #import <Availability.h>
 

@@ -89,13 +89,17 @@ typedef enum {
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
-    [self reloadTrackingItems];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self reloadTrackingItems];
 }
 
 #pragma mark - Accessors
