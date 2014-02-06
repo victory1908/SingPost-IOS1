@@ -294,9 +294,6 @@
     NSDate * date = [[NSUserDefaults standardUserDefaults] objectForKey:@"TNC_SHOWN"];
     if (date != nil)
         return;
-
-    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TNC_SHOWN"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     TermsOfUseViewController *vc = [[TermsOfUseViewController alloc]init];
     vc.isFirstLaunch = YES;

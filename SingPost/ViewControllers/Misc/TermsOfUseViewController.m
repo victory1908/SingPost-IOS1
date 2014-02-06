@@ -34,7 +34,7 @@
     [navigationBarView setTitle:@"Terms Of Use"];
     
     if (!self.isFirstLaunch)
-        [navigationBarView setShowSidebarToggleButton:YES];
+    [navigationBarView setShowSidebarToggleButton:YES];
     
     [contentView addSubview:navigationBarView];
     
@@ -56,7 +56,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    
+    BOOL warnInternet = YES;
+    
+    if (self.isFirstLaunch)
+    warnInternet = NO;
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:warnInternet]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];
         [Article API_getTermsOfUseOnCompletion:^(NSString *termsOfUse) {
             [SVProgressHUD dismiss];
@@ -80,6 +86,8 @@
 - (IBAction)agreeButtonClicked:(id)sender {
     LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:landingPageViewController];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TNC_SHOWN"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
