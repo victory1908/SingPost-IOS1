@@ -166,7 +166,7 @@ typedef enum {
 
 - (void)reloadTrackingItems {
     NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES] && itemsToReload.count > 0) {
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO] && itemsToReload.count > 0) {
         __block CGFloat updateProgress = 0.0f;
         [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
         [TrackedItem API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
