@@ -102,6 +102,12 @@ typedef enum {
     [self reloadTrackingItems];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    [trackingNumberTextField resignFirstResponder];
+}
+
 #pragma mark - Accessors
 
 - (void)setTrackingNumber:(NSString *)inTrackingNumber
@@ -180,13 +186,6 @@ typedef enum {
             updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
             [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
         }];
-    }
-    else {
-        double delayInSeconds = 3.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [trackingItemsTableView reloadData];
-        });
     }
 }
 

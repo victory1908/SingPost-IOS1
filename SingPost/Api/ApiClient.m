@@ -472,11 +472,21 @@ static NSString *const OS = @"ios";
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        if (success)
+        if (success) {
             success(XMLElement);
+            /*
+             [UIAlertView showWithTitle:[NSString stringWithFormat:@"Error code %@",[XMLElement child:@"ErrorCode"].text]
+             message:[XMLElement child:@"ErrorDesc"].text
+             cancelButtonTitle:@"OK"
+             otherButtonTitles:nil
+             tapBlock:nil];
+             */
+        }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-        if (failure)
+        if (failure) {
             failure(error);
+            DLog(@"Fail");
+        }
     }];
     
     [self enqueueHTTPRequestOperation:operation];

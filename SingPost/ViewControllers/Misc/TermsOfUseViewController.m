@@ -14,6 +14,7 @@
 #import "FlatBlueButton.h"
 #import "LandingPageViewController.h"
 #import "UIView+Position.h"
+#import "UIAlertView+Blocks.h"
 
 @interface TermsOfUseViewController ()
 
@@ -34,7 +35,7 @@
     [navigationBarView setTitle:@"Terms Of Use"];
     
     if (!self.isFirstLaunch)
-    [navigationBarView setShowSidebarToggleButton:YES];
+        [navigationBarView setShowSidebarToggleButton:YES];
     
     [contentView addSubview:navigationBarView];
     
@@ -57,17 +58,21 @@
 {
     [super viewDidLoad];
     
-    BOOL warnInternet = YES;
-    
-    if (self.isFirstLaunch)
-    warnInternet = NO;
-    
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:warnInternet]) {
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];
         [Article API_getTermsOfUseOnCompletion:^(NSString *termsOfUse) {
             [SVProgressHUD dismiss];
             [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", termsOfUse] baseURL:nil];
         }];
+        agreeButton.enabled = YES;
+    }
+    else {
+        [UIAlertView showWithTitle:nil
+                           message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access."
+                 cancelButtonTitle:@"OK"
+                 otherButtonTitles:nil
+                          tapBlock:nil];
+        agreeButton.enabled = NO;
     }
 }
 

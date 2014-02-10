@@ -44,7 +44,6 @@
     [self.window setRootViewController:_rootViewController];
     [self.window makeKeyAndVisible];
     
-    [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
     [self setupGoogleAnalytics];
     
