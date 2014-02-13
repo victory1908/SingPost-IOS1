@@ -23,7 +23,7 @@
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "StampCollectibleDetailExpandableView.h"
 
-@interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate>
+@interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate ,UIWebViewDelegate>
 
 @end
 
@@ -35,6 +35,8 @@
     ColoredPageControl *pageControl;
     StampCollectibleDetailExpandableView *detailsExpandableView;
     UIButton *moreButton;
+    UIWebView *contentWebView;
+    FlatBlueButton *locateUsButton;
     
     BOOL isAnimating;
 }
@@ -120,43 +122,47 @@
     [contentScrollView addSubview:issueDateLabel];
     offsetY += 32.0f;
     
-    detailsExpandableView = [[StampCollectibleDetailExpandableView alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.bounds.size.width - 30, LONG_MAX) andText:_stamp.details];
-    [contentScrollView addSubview:detailsExpandableView];
-    offsetY += detailsExpandableView.bounds.size.height + 15.0f;
-        
-    if (detailsExpandableView.expandedHeight > detailsExpandableView.collapsedHeight) {
-        moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [moreButton.layer setBorderWidth:1.0f];
-        [moreButton.layer setBorderColor:RGB(36, 84, 157).CGColor];
-        [moreButton setBackgroundImage:nil forState:UIControlStateNormal];
-        [moreButton setBackgroundImage:[UIImage imageWithColor:RGB(76, 109, 166)] forState:UIControlStateHighlighted];
-        [moreButton setTitle:@"More" forState:UIControlStateNormal];
-        [moreButton setTitleColor:RGB(36, 84, 157) forState:UIControlStateNormal];
-        [moreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        [moreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-        [moreButton addTarget:self action:@selector(moreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [moreButton setFrame:CGRectMake(15, offsetY, 50, 30)];
-        [contentScrollView addSubview:moreButton];
-
-        offsetY += 40.0f;
-    }
-    
-    UILabel *stampPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY + 10, 280, 999)];
-    [stampPriceLabel setNumberOfLines:0];
-    [stampPriceLabel setText:_stamp.price];
-    [stampPriceLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [stampPriceLabel sizeToFit];
-    [contentScrollView addSubview:stampPriceLabel];
-    
-    offsetY += stampPriceLabel.bounds.size.height + 30.0f;
-    
-    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, offsetY, contentView.bounds.size.width - 30, 48)];
+    contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 10)];
+    [contentWebView loadHTMLString:[NSString stringWithFormat:@"%@%@",_stamp.details,_stamp.price] baseURL:nil];
+    [contentWebView setDelegate:self];
+    [contentWebView.scrollView setScrollEnabled:NO];
+    [contentScrollView addSubview:contentWebView];
+    /*
+     detailsExpandableView = [[StampCollectibleDetailExpandableView alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.bounds.size.width - 30, LONG_MAX) andText:_stamp.details];
+     [contentScrollView addSubview:detailsExpandableView];
+     offsetY += detailsExpandableView.bounds.size.height + 15.0f;
+     
+     if (detailsExpandableView.expandedHeight > detailsExpandableView.collapsedHeight) {
+     moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+     [moreButton.layer setBorderWidth:1.0f];
+     [moreButton.layer setBorderColor:RGB(36, 84, 157).CGColor];
+     [moreButton setBackgroundImage:nil forState:UIControlStateNormal];
+     [moreButton setBackgroundImage:[UIImage imageWithColor:RGB(76, 109, 166)] forState:UIControlStateHighlighted];
+     [moreButton setTitle:@"More" forState:UIControlStateNormal];
+     [moreButton setTitleColor:RGB(36, 84, 157) forState:UIControlStateNormal];
+     [moreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+     [moreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+     [moreButton addTarget:self action:@selector(moreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+     [moreButton setFrame:CGRectMake(15, offsetY, 50, 30)];
+     [contentScrollView addSubview:moreButton];
+     
+     offsetY += 40.0f;
+     }
+     
+     UILabel *stampPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY + 10, 280, 999)];
+     [stampPriceLabel setNumberOfLines:0];
+     [stampPriceLabel setText:_stamp.price];
+     [stampPriceLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+     [stampPriceLabel sizeToFit];
+     [contentScrollView addSubview:stampPriceLabel];
+     
+     offsetY += stampPriceLabel.bounds.size.height + 30.0f;
+     */
+    locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, -1000, contentView.bounds.size.width - 30, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [locateUsButton setTitle:@"FIND OUR LOCATIONS NEAR YOU" forState:UIControlStateNormal];
     [contentScrollView addSubview:locateUsButton];
-    
-    offsetY += 80.0f;
     
     [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, offsetY)];
     
@@ -166,7 +172,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [Stamp API_getImagesOfStamps:_stamp onCompletion:^(BOOL success, NSError *error) {
         [SVProgressHUD dismiss];
@@ -201,7 +207,7 @@
 - (IBAction)moreButtonClicked:(id)sender
 {
     [detailsExpandableView toggleExpandCollapse];
-
+    
     [UIView animateWithDuration:0.3f animations:^{
         [detailsExpandableView setHeight:detailsExpandableView.bounds.size.height + detailsExpandableView.deltaHeight];
         for (UIView *subview in contentScrollView.subviews) {
@@ -267,6 +273,18 @@
         [imageBrowserViewController removeFromParentViewController];
         isAnimating = NO;
     }];
+}
+
+#pragma mark - UIWebView Delegates
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    CGFloat pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+    [webView setHeight:pageHeight];
+    
+    if (locateUsButton != nil)
+        [locateUsButton setY:pageHeight + 252];
+    
+    [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, pageHeight + 310)];
 }
 
 @end
