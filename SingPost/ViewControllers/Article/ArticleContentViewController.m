@@ -133,4 +133,15 @@
     [SVProgressHUD dismiss];
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *urlScheme = request.URL.scheme;
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        if ([urlScheme hasPrefix:@"http"]) {
+            [[UIApplication sharedApplication]openURL:request.URL];
+        }
+        return NO;
+    }
+    return YES;
+}
+
 @end
