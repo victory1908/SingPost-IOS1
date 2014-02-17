@@ -17,8 +17,8 @@
 
 @synthesize notificationProfileID = _notificationProfileID;
 
-//static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com"; //Development
-static NSString *const SINGPOST_BASE_URL = @"https://prdesb1.singpost.com/"; //Production
+static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com"; //Development
+//static NSString *const SINGPOST_BASE_URL = @"https://prdesb1.singpost.com/"; //Production
 static NSString *const CMS_BASE_URL = @"http://192.241.251.130/singpost/";
 static NSString *const CMS_BASE_URL_V4 = @"http://192.241.251.130/singpost/v4/";
 

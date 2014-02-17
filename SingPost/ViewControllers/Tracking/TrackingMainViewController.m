@@ -164,7 +164,7 @@ typedef enum {
                 }
             }
             else {
-                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
             }
         }];
     }

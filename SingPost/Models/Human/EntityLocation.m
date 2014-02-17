@@ -61,10 +61,8 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
         return @"24 hours";
     
     
-    if ([self.type isEqualToString:LOCATION_TYPE_SAM]) {
-        if ([self isNullOpeningHours:openTime])
-            return @"24 hours";
-    }
+    if ([self isNullOpeningHours:openTime])
+        return @"24 hours";
     
     else if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
         if(openTime.length < 2)
@@ -161,6 +159,9 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 {
     int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
     
+    if ([self.sunOpeningHours isEqualToString:@"24 hours"])
+        return YES;
+    
     // Sunday = 1, Saturday = 7
     if (weekDay == 1)
         return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sun_opening andClosingHours:self.sun_closing];
@@ -178,7 +179,6 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
         if ([self isNullOpeningHours:openingHours])
             return YES;
     }
-    
     return (timeDigits < [closingHours integerValue] && timeDigits > [openingHours integerValue]);
 }
 
