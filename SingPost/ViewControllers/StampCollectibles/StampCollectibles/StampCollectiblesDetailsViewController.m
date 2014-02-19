@@ -36,9 +36,8 @@
     UIImageView *imagesScrollerBackgroundImageView;
     UIScrollView *contentScrollView, *imagesScrollView;
     ColoredPageControl *pageControl;
-    StampCollectibleDetailExpandableView *detailsExpandableView;
     UIButton *moreButton;
-    UIWebView *contentWebView;
+    UIWebView *contentWebView,*pricingWebView;
     FlatBlueButton *locateUsButton;
     
     BOOL isAnimating;
@@ -125,8 +124,8 @@
     [contentScrollView addSubview:issueDateLabel];
     offsetY += 32.0f;
     
-    contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 125)];
-    [contentWebView loadHTMLString:[NSString stringWithFormat:@"%@%@",_stamp.details,_stamp.price] baseURL:nil];
+    contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 90)];
+    [contentWebView loadHTMLString:_stamp.details baseURL:nil];
     [contentWebView setDelegate:self];
     [contentWebView.scrollView setScrollEnabled:NO];
     [contentScrollView addSubview:contentWebView];
@@ -144,7 +143,13 @@
     [moreButton setFrame:CGRectMake(15, contentWebView.bottom + 15, 50, 30)];
     [contentScrollView addSubview:moreButton];
     
-    locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, moreButton.bottom + 15, contentView.bounds.size.width - 30, 48)];
+    pricingWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, moreButton.bottom + 15, contentScrollView.bounds.size.width, 125)];
+    [pricingWebView loadHTMLString:_stamp.price baseURL:nil];
+    [pricingWebView setDelegate:self];
+    [pricingWebView.scrollView setScrollEnabled:NO];
+    [contentScrollView addSubview:pricingWebView];
+    
+    locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, pricingWebView.bottom + 15, contentView.bounds.size.width - 30, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [locateUsButton setTitle:@"FIND OUR LOCATIONS NEAR YOU" forState:UIControlStateNormal];
@@ -193,9 +198,10 @@
 {
     if (!self.isExpanded) {
         [UIView animateWithDuration:0.2 animations:^{
-            contentWebView.height = self.pageHeight;
+            contentWebView.height = self.pageHeight + 15;
             moreButton.top = contentWebView.bottom;
-            locateUsButton.top = moreButton.bottom + 15;
+            pricingWebView.top = moreButton.bottom + 15;
+            locateUsButton.top = pricingWebView.bottom + 15;
             [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
             
         } completion:^(BOOL finished) {
@@ -205,9 +211,10 @@
     }
     else {
         [UIView animateWithDuration:0.2 animations:^{
-            contentWebView.height = 125;
+            contentWebView.height = 90;
             moreButton.top = contentWebView.bottom + 15;
-            locateUsButton.top = moreButton.bottom + 15;
+            pricingWebView.top = moreButton.bottom + 15;
+            locateUsButton.top = pricingWebView.bottom + 15;
             [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
             
         } completion:^(BOOL finished) {
@@ -272,7 +279,21 @@
 
 #pragma mark - UIWebView Delegates
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    self.pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+    if (webView == contentWebView) {
+        self.pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+        if (self.pageHeight <= 90) {
+            moreButton.hidden = YES;
+            contentWebView.height = self.pageHeight + 15;
+            pricingWebView.top = contentWebView.bottom + 15;
+            locateUsButton.top = pricingWebView.bottom + 15;
+        }
+    }
+    
+    else if (webView == pricingWebView) {
+        pricingWebView.height = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+        locateUsButton.top = pricingWebView.bottom + 15;
+        [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
+    }
 }
 
 @end

@@ -9,18 +9,13 @@
 #import "ArticleContentViewController.h"
 #import "NavigationBarView.h"
 #import "FlatBlueButton.h"
-#import "UIFont+SingPost.h"
 #import "UIView+Position.h"
 #import "LocateUsMainViewController.h"
 #import "CalculatePostageMainViewController.h"
 #import "Article.h"
 #import "SVProgressHUD.h"
-#import "UIImage+Extensions.h"
 
 @interface ArticleContentViewController () <UIWebViewDelegate>
-
-@property CGFloat pageHeight;
-@property BOOL isExpanded;
 
 @end
 
@@ -30,7 +25,6 @@
     UIWebView *contentWebView;
     FlatBlueButton *locateUsButton;
     FlatBlueButton *calculateButton;
-    UIButton *moreButton;
 }
 
 - (void)loadView
@@ -47,24 +41,11 @@
     contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, navigationBarView.bounds.size.height, contentView.bounds.size.width, contentView.bounds.size.height - navigationBarView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height)];
     [contentView addSubview:contentScrollView];
     
-    contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 381)];
+    contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 10)];
     [contentWebView setDelegate:self];
     [contentWebView.scrollView setScrollEnabled:NO];
     [contentScrollView addSubview:contentWebView];
-    
-    moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [moreButton.layer setBorderWidth:1.0f];
-    [moreButton.layer setBorderColor:RGB(36, 84, 157).CGColor];
-    [moreButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [moreButton setBackgroundImage:[UIImage imageWithColor:RGB(76, 109, 166)] forState:UIControlStateHighlighted];
-    [moreButton setTitle:@"More" forState:UIControlStateNormal];
-    [moreButton setTitleColor:RGB(36, 84, 157) forState:UIControlStateNormal];
-    [moreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [moreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [moreButton addTarget:self action:@selector(moreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [moreButton setFrame:CGRectMake(15, contentWebView.bottom + 15, 50, 30)];
-    [contentScrollView addSubview:moreButton];
-    
+
     NSString *btnTypeString = self.article.buttonType;
     NSInteger buttonType;
     
@@ -77,24 +58,24 @@
         case 1: //No button
             break;
         case 2:
-            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,moreButton.bottom + 15,contentScrollView.bounds.size.width - 30,48)];
+            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,contentScrollView.bounds.size.width - 30,48)];
             [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
             [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:locateUsButton];
             break;
         case 3:
-            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,moreButton.bottom + 15,contentScrollView.bounds.size.width - 30,48)];
+            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,contentScrollView.bounds.size.width - 30,48)];
             [calculateButton setTitle:@"CALCULATE POSTAGE" forState:UIControlStateNormal];
             [calculateButton addTarget:self action:@selector(calculateButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:calculateButton];
             break;
         case 4:
-            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,moreButton.bottom + 15,140,48)];
+            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,140,48)];
             [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
             [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:locateUsButton];
             
-            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(165,moreButton.bottom + 15,140,48)];
+            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(165,-100,140,48)];
             [calculateButton setTitle:@"CALCULATE POSTAGE" forState:UIControlStateNormal];
             calculateButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             calculateButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -134,53 +115,21 @@
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
 }
 
-- (IBAction)moreButtonClicked:(id)sender
-{
-    if (!self.isExpanded) {
-        [UIView animateWithDuration:0.2 animations:^{
-            contentWebView.height = self.pageHeight;
-            moreButton.top = contentWebView.bottom;
-            
-            if (locateUsButton != nil)
-                locateUsButton.top = moreButton.bottom + 15;
-            
-            if (calculateButton != nil)
-                calculateButton.top = moreButton.bottom + 15;
-            
-            [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
-            
-        } completion:^(BOOL finished) {
-            [moreButton setTitle:@"Less" forState:UIControlStateNormal];
-            self.isExpanded = YES;
-        }];
-    }
-    else {
-        [UIView animateWithDuration:0.2 animations:^{
-            contentWebView.height = 381;
-            moreButton.top = contentWebView.bottom + 15;
-            
-            if (locateUsButton != nil)
-                locateUsButton.top = moreButton.bottom + 15;
-            
-            if (calculateButton != nil)
-                calculateButton.top = moreButton.bottom + 15;
-            
-            [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
-            
-        } completion:^(BOOL finished) {
-            [moreButton setTitle:@"More" forState:UIControlStateNormal];
-            self.isExpanded = NO;
-        }];
-    }
-}
-
 #pragma mark - UIWebView Delegates
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    self.pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+    CGFloat pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+    [webView setHeight:pageHeight];
     
-    [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
+    if (locateUsButton != nil)
+        [locateUsButton setY:pageHeight];
+    
+    if (calculateButton != nil)
+        [calculateButton setY:pageHeight];
+    
+    [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, pageHeight + 65.0f)];
+
     [SVProgressHUD dismiss];
 }
 
