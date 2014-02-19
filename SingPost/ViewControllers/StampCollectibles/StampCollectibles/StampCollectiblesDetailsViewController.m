@@ -125,6 +125,8 @@
     offsetY += 32.0f;
     
     contentWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, offsetY, contentScrollView.bounds.size.width, 90)];
+    [contentWebView setBackgroundColor:[UIColor clearColor]];
+    [contentWebView setOpaque:NO];
     [contentWebView loadHTMLString:_stamp.details baseURL:nil];
     [contentWebView setDelegate:self];
     [contentWebView.scrollView setScrollEnabled:NO];
@@ -144,6 +146,8 @@
     [contentScrollView addSubview:moreButton];
     
     pricingWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, moreButton.bottom + 15, contentScrollView.bounds.size.width, 125)];
+    [pricingWebView setBackgroundColor:[UIColor clearColor]];
+    [pricingWebView setOpaque:NO];
     [pricingWebView loadHTMLString:_stamp.price baseURL:nil];
     [pricingWebView setDelegate:self];
     [pricingWebView.scrollView setScrollEnabled:NO];
