@@ -4,6 +4,9 @@
 //  The contents of this file are implicitly included at the beginning of every source file.
 //
 
+#import "UIView+Additions.h"
+#import "UIScrollView+Additions.h"
+
 //App Constants
 #define INCOMPLETE_FIELDS_ERROR             @"Please ensure that all fields are entered correctly."
 #define NO_INTERNET_ERROR_TITLE             @"Something has gone wrong!"

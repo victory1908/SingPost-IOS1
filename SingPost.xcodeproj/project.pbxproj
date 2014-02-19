@@ -129,6 +129,8 @@
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
 		9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */; };
+		9192B4FB18B450EF004EB15A /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9192B4FA18B450EF004EB15A /* UIView+Additions.m */; };
+		9192B4FE18B45126004EB15A /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */; };
 		91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */; };
 		91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */; };
 		91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */; };
@@ -363,6 +365,10 @@
 		915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUSDetailsDetailsView.m; sourceTree = "<group>"; };
 		9160E762189126FE0046FC1E /* LocateUsFSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsFSMapViewController.h; sourceTree = "<group>"; };
 		9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsFSMapViewController.m; sourceTree = "<group>"; };
+		9192B4F918B450EF004EB15A /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
+		9192B4FA18B450EF004EB15A /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
+		9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Additions.h"; sourceTree = "<group>"; };
+		9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Additions.m"; sourceTree = "<group>"; };
 		91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Speedpost Agent.json"; sourceTree = "<group>"; };
 		91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingFeedbackViewController.h; sourceTree = "<group>"; };
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
@@ -485,6 +491,10 @@
 		521B172617F1633000FEB6FD /* SingPost */ = {
 			isa = PBXGroup;
 			children = (
+				9192B4F918B450EF004EB15A /* UIView+Additions.h */,
+				9192B4FA18B450EF004EB15A /* UIView+Additions.m */,
+				9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */,
+				9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */,
 				52024F1817F6836800AFD239 /* Views */,
 				52C908E718045F210063A026 /* Api */,
 				52282FCC17FA8F7C00B2A7B4 /* Vendor */,
@@ -1133,6 +1143,7 @@
 				52731F70185A72FB007D6001 /* NSString+Extensions.m in Sources */,
 				521F786218029D7100B513FA /* AboutThisAppViewController.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
+				9192B4FB18B450EF004EB15A /* UIView+Additions.m in Sources */,
 				521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */,
 				52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */,
 				52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */,
@@ -1158,6 +1169,7 @@
 				52518A28184C841100F4F104 /* ArticleSubViewController.m in Sources */,
 				528C4143183412DF00145E55 /* FindPostalCodePOBoxViewController.m in Sources */,
 				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
+				9192B4FE18B45126004EB15A /* UIScrollView+Additions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
 				529364A7180B2FFE00B83F6B /* StampImage.m in Sources */,
 				526FA1A2180BB7BD00E562E7 /* StampImagesBrowserViewController.m in Sources */,
