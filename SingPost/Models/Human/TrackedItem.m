@@ -17,14 +17,14 @@
     DeliveryStatus *firstDeliveryStatus = [self.deliveryStatuses firstObject];
     return firstDeliveryStatus ? firstDeliveryStatus.statusDescription : @"-";
 }
-/*
- - (BOOL)shouldRefetchFromServer
- {
- #define STALE_INTERVAL_SECONDS 300
- NSTimeInterval intervalSinceLastUpdated = [[NSDate date] timeIntervalSinceDate:self.lastUpdatedOn];
- return self.isActiveValue && (fabsl(intervalSinceLastUpdated) > STALE_INTERVAL_SECONDS);
- }
- */
+
+- (BOOL)shouldRefetchFromServer
+{
+#define STALE_INTERVAL_SECONDS 300
+    NSTimeInterval intervalSinceLastUpdated = [[NSDate date] timeIntervalSinceDate:self.lastUpdatedOn];
+    return (fabsl(intervalSinceLastUpdated) > STALE_INTERVAL_SECONDS);
+}
+
 + (TrackedItem *)createIfNotExistsFromXMLElement:(RXMLElement *)el inContext:(NSManagedObjectContext *)context error:(NSError **)error
 {
     NSString *trackingNumber = [[el child:@"TrackingNumber"] text];
