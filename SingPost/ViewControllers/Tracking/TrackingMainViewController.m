@@ -430,21 +430,19 @@ typedef enum {
         if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
             trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
             
-            if (trackedItem.shouldRefetchFromServer) {
-                [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-                
-                BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
-                
-                [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
-                    if (success) {
-                        [SVProgressHUD dismiss];
-                        [self goToDetailPageWithTrackedItem:trackedItem];
-                    }
-                    else {
-                        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                    }
-                }];
-            }
+            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+            
+            BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+            
+            [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
+                if (success) {
+                    [SVProgressHUD dismiss];
+                    [self goToDetailPageWithTrackedItem:trackedItem];
+                }
+                else {
+                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                }
+            }];
         }
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
             trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
