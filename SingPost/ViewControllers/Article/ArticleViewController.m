@@ -23,6 +23,7 @@
 @implementation ArticleViewController
 {
     UITableView *contentsTableView;
+    UILabel *instructionsLabel;
 }
 
 - (void)loadView
@@ -34,19 +35,18 @@
     [navigationBarView setTitle:_pageTitle];
     [contentView addSubview:navigationBarView];
     
-    UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 100)];
+    UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 120)];
     [instructionsLabelBackgroundView setBackgroundColor:RGB(240, 240, 240)];
     [contentView addSubview:instructionsLabelBackgroundView];
     
-    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
+    instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
     [instructionsLabel setNumberOfLines:0];
-    [instructionsLabel setText:@"Lorem ipstum dolor amet, consectetur adipiscing elit. Cras metus massa, lacinia et neque vel, feugiat condimentum odio."];
     [instructionsLabel setTextColor:RGB(58, 68, 81)];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
     [instructionsLabelBackgroundView addSubview:instructionsLabel];
     
-    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [contentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [contentsTableView setSeparatorColor:[UIColor clearColor]];
     [contentsTableView setBackgroundView:nil];
@@ -76,6 +76,22 @@
 {
     _pageTitle = inPageTitle;
     [navigationBarView setTitle:_pageTitle];
+    
+    NSString *shortDescription = @"";
+    
+    if ([_pageTitle isEqualToString:@"Send & Receive"]) {
+        shortDescription = @"Use SingPost postal and courier services to send letters/parcels within Singapore or to 220 countries worldwide. We also offer a variety of services of receiving letters/parcels within Singapore. Check them out below.";
+    }
+    else if ([_pageTitle isEqualToString:@"Pay"]) {
+        shortDescription = @"Use our network of Post Offices, Self-service Automated Machines (SAM) and our online portal Vbox to pay various types of bills.";
+    }
+    else if ([_pageTitle isEqualToString:@"Shop"]) {
+        shortDescription = @"Whether you are shopping overseas or within Singapore, we offer services for all your shopping needs.";
+    }
+    else if ([_pageTitle isEqualToString:@"More Services"]) {
+        shortDescription = @"Government applications, Financial planning, Cash services - we offer a host of additional services which make your trip to the Post Office worthwhile.";
+    }
+    [instructionsLabel setText:shortDescription];
 }
 
 - (void)setItems:(NSArray *)inItems

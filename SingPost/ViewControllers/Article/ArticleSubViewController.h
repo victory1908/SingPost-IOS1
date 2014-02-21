@@ -10,9 +10,17 @@
 
 @class ArticleCategory;
 
-@interface ArticleSubViewController : ArticleViewController
+@interface ArticleSubViewController : UIViewController
+
+{
+@protected
+    NavigationBarView *navigationBarView;
+}
 
 @property (nonatomic) ArticleCategory *articleCategory;
 @property (nonatomic, assign) BOOL showAsRootViewController;
+
+@property (nonatomic) NSArray *items;
+@property (nonatomic) NSString *pageTitle;
 
 @end
