@@ -29,8 +29,8 @@
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
     TRACKINGITEMS_SECTION_ACTIVE,
-    TRACKINGITEMS_SECTION_COMPLETED,
     TRACKINGITEMS_SECTION_UNSORTED,
+    TRACKINGITEMS_SECTION_COMPLETED,
     
     TRACKINGITEMS_SECTION_TOTAL
 } tTrackingItemsSections;
@@ -95,11 +95,6 @@ typedef enum {
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    //[self reloadTrackingItems];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -169,26 +164,26 @@ typedef enum {
         }];
     }
 }
-
-- (void)reloadTrackingItems {
-    NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO] && itemsToReload.count > 0) {
-        __block CGFloat updateProgress = 0.0f;
-        [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
-        [TrackedItem API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
-            if (error)
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
-            else {
-                [SVProgressHUD dismiss];
-                [trackingItemsTableView reloadData];
-            }
-        } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-            updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
-            [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
-        }];
-    }
-}
-
+/*
+ - (void)reloadTrackingItems {
+ NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
+ if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO] && itemsToReload.count > 0) {
+ __block CGFloat updateProgress = 0.0f;
+ [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
+ [TrackedItem API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
+ if (error)
+ [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+ else {
+ [SVProgressHUD dismiss];
+ [trackingItemsTableView reloadData];
+ }
+ } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+ updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
+ [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
+ }];
+ }
+ }
+ */
 #pragma mark - Actions
 - (IBAction)infoButtonClicked:(id)sender
 {
@@ -327,7 +322,7 @@ typedef enum {
         case TRACKINGITEMS_SECTION_UNSORTED: {
             UILabel *completedItemsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 3, 300, 44)];
             [completedItemsLabel setTextColor:RGB(125, 136, 149)];
-            [completedItemsLabel setText:@"Unsorted items"];
+            [completedItemsLabel setText:@"No info yet items"];
             [completedItemsLabel setBackgroundColor:[UIColor clearColor]];
             [completedItemsLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [sectionHeaderView addSubview:completedItemsLabel];

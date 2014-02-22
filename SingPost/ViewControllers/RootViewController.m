@@ -187,11 +187,6 @@
             activeViewController = sourceViewController;
         }
     }];
-    
-    if ([sourceViewController isKindOfClass:[TrackingMainViewController class]]) {
-        TrackingMainViewController *vc = (TrackingMainViewController *)sourceViewController;
-        [vc reloadTrackingItems];
-    }
 }
 
 #pragma mark - UI

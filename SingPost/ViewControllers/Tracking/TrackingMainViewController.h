@@ -16,6 +16,4 @@
 
 - (void)addTrackingNumber:(NSString *)trackingNumber;
 
-- (void)reloadTrackingItems;
-
 @end
