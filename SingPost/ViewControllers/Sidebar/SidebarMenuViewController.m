@@ -340,6 +340,7 @@
                 break;
             }
         }
+        [self toggleOffersMoreSubRows];
     }
     else {
         switch ((tSidebarMenus)indexPath.row) {
@@ -471,7 +472,10 @@
 - (void)toggleOffersMoreSubRows
 {
     showOffersMoreSubrows = !showOffersMoreSubrows;
-    SidebarMenuTableViewCell *cell = (SidebarMenuTableViewCell *)[menuTableView cellForRowAtIndexPath:menuTableView.indexPathForSelectedRow];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:SIDEBARMENU_OFFERSMORE inSection:1];
+    
+    SidebarMenuTableViewCell *cell = (SidebarMenuTableViewCell *)[menuTableView cellForRowAtIndexPath:indexPath];
     [cell animateShowSubRows:showOffersMoreSubrows];
     
     NSMutableArray *subRowsIndexPaths = [NSMutableArray array];
