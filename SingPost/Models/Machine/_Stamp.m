@@ -7,6 +7,7 @@ const struct StampAttributes StampAttributes = {
 	.coverImage = @"coverImage",
 	.day = @"day",
 	.details = @"details",
+	.issueDate = @"issueDate",
 	.month = @"month",
 	.ordering = @"ordering",
 	.price = @"price",
@@ -81,6 +82,13 @@ const struct StampFetchedProperties StampFetchedProperties = {
 
 
 @dynamic details;
+
+
+
+
+
+
+@dynamic issueDate;
 
 
 

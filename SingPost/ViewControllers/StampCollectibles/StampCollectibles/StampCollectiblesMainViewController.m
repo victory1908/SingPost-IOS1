@@ -176,7 +176,7 @@
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (!_fetchedResultsController) {
-        _fetchedResultsController = [Stamp MR_fetchAllGroupedBy:nil withPredicate:[self frcSearchPredicate] sortedBy:StampAttributes.ordering ascending:YES delegate:self];
+        _fetchedResultsController = [Stamp MR_fetchAllGroupedBy:nil withPredicate:[self frcSearchPredicate] sortedBy:StampAttributes.issueDate ascending:NO delegate:self];
     }
     
     return _fetchedResultsController;

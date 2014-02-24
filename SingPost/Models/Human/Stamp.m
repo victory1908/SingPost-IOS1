@@ -22,6 +22,12 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     self.coverImage = json[@"CoverImage"];
     self.thumbnail = json[@"Thumbnail"];
     self.price = json[@"Buy"];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"dd/MMMM/yyy"];
+    
+    NSDate *date = [formatter dateFromString:[NSString stringWithFormat:@"%@/%@/%@",self.day,self.month,self.year]];
+    self.issueDate = date;
 }
 
 + (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
@@ -111,7 +117,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
 
 + (Stamp *)featuredStamp
 {
-    return [Stamp MR_findFirstByAttribute:StampAttributes.ordering withValue:@(0)];
+    return [Stamp MR_findFirstOrderedByAttribute:StampAttributes.issueDate ascending:NO];
 }
 
 @end

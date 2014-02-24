@@ -64,6 +64,7 @@
         <attribute name="coverImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="day" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="issueDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="month" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ordering" attributeType="Integer 32" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
