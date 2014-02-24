@@ -36,19 +36,19 @@
     [navigationBarView setTitle:@"More Apps"];
     [contentView addSubview:navigationBarView];
     
-    UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 100)];
+    UIView *instructionsLabelBackgroundView = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, 120)];
     [instructionsLabelBackgroundView setBackgroundColor:RGB(240, 240, 240)];
     [contentView addSubview:instructionsLabelBackgroundView];
     
     UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
     [instructionsLabel setNumberOfLines:0];
-    [instructionsLabel setText:@"Lorem ipstum dolor amet, consectetur adipiscing elit. Cras metus massa, lacinia et neque vel, feugiat condimentum odio."];
+    [instructionsLabel setText:@"Redeem an offer, send a postcard full of memories, receive digital mail in your own digital mailbox - all from the comfort of your smartphone. SingPost offers these services to you via its group of smartphone apps. Go ahead and download them today!"];
     [instructionsLabel setTextColor:RGB(58, 68, 81)];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
     [instructionsLabelBackgroundView addSubview:instructionsLabel];
     
-    moreAppsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 144, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    moreAppsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [moreAppsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [moreAppsTableView setSeparatorColor:[UIColor clearColor]];
     [moreAppsTableView setBackgroundView:nil];
