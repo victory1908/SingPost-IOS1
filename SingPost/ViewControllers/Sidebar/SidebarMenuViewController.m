@@ -169,6 +169,7 @@
     
     [self.view endEditing:YES];
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = NO;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
     
     [trackingMainViewController setTrackingNumber:trackingNumberTextField.text];
@@ -354,6 +355,8 @@
                     CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_FINDPOSTALCODES:
@@ -366,6 +369,8 @@
                     FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_LOCATEUS:
@@ -378,6 +383,8 @@
                     LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_SENDRECEIVE:
@@ -390,6 +397,8 @@
                     SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_PAY:
@@ -402,6 +411,8 @@
                     PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_SHOP:
@@ -414,6 +425,8 @@
                     ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_MORESERVICES:
@@ -426,6 +439,8 @@
                     MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_STAMPCOLLECTIBLES:
@@ -438,6 +453,8 @@
                     StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_MOREAPPS:
@@ -450,6 +467,8 @@
                     MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
+                if (showOffersMoreSubrows)
+                    [self toggleOffersMoreSubRows];
                 break;
             }
             case SIDEBARMENU_OFFERSMORE:

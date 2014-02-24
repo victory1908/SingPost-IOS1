@@ -132,6 +132,7 @@
         [self.rootViewController toggleSideBarVisiblity];
     
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = YES;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
     
     double delayInSeconds = 0.5;

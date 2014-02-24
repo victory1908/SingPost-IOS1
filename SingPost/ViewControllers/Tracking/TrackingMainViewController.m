@@ -116,8 +116,10 @@ typedef enum {
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField == trackingNumberTextField)
+    if (textField == trackingNumberTextField) {
+        self.isPushNotification = NO;
         [self addTrackingNumber:trackingNumberTextField.text];
+    }
     return YES;
 }
 
@@ -126,18 +128,20 @@ typedef enum {
 - (void)addTrackingNumber:(NSString *)trackingNumber {
     [self setTrackingNumber:trackingNumber];
     
-    if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
-                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    
-    if (trackingNumberTextField.text.length == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil
-                                                  cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alertView show];
-        return;
+    if (!self.isPushNotification) {
+        if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
+                                                 cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        
+        if (trackingNumberTextField.text.length == 0) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil
+                                                      cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alertView show];
+            return;
+        }
     }
     
     [self.view endEditing:YES];
@@ -210,6 +214,7 @@ typedef enum {
 
 - (void)onTrackingNumberBtn:(id)sender {
     [self addTrackingNumber:trackingNumberTextField.text];
+    self.isPushNotification = NO;
 }
 
 #pragma mark - UITableView DataSource & Delegate

@@ -526,6 +526,7 @@ typedef enum {
     
     [self.view endEditing:YES];
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = NO;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
     
     double delayInSeconds = 0.5;

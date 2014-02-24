@@ -14,6 +14,8 @@
 
 @property (nonatomic,assign) BOOL isOn;
 
+@property BOOL isPushNotification;
+
 - (void)addTrackingNumber:(NSString *)trackingNumber;
 
 @end
