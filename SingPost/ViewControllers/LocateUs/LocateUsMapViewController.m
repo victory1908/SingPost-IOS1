@@ -279,6 +279,7 @@
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:selfAnnotationIdentifier];
             annotationView.canShowCallout = YES;
             annotationView.image = [UIImage imageNamed:@"self_map_overlay"];
+            annotationView.centerOffset = CGPointMake(annotationView.image.size.width/2, -(annotationView.image.size.height/2));
         }
     }
     else {
@@ -304,6 +305,8 @@
             annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
         else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
             annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];
+        
+        annotationView.centerOffset = CGPointMake(annotationView.image.size.width/2, -(annotationView.image.size.height/2));
     }
     
     return annotationView;

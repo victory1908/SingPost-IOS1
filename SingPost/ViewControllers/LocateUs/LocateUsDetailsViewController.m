@@ -249,7 +249,7 @@ typedef enum  {
         else if (CGRectContainsPoint(servicesSectionButton.frame, gestureRecognizer.view.center))
             [selectedSectionIndicatorButton setTitle:@"Services" forState:UIControlStateNormal];
         else if (CGRectContainsPoint(postingBoxSectionButton.frame, gestureRecognizer.view.center)) {
-                if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
+            if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
                 [selectedSectionIndicatorButton setTitle:@"Details" forState:UIControlStateNormal];
             else
                 [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
@@ -266,7 +266,7 @@ typedef enum  {
     else if (currentSection == LOCATEUSDETAILS_SECTION_SERVICES)
         [selectedSectionIndicatorButton setTitle:@"Services" forState:UIControlStateNormal];
     else if (currentSection == LOCATEUSDETAILS_SECTION_POSTINGBOX) {
-            if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
+        if ([_entityLocation.type isEqualToString:LOCATION_TYPE_SINGPOST_AGENT] || [_entityLocation.type isEqualToString:LOCATION_TYPE_POSTAL_AGENT])
             [selectedSectionIndicatorButton setTitle:@"Details" forState:UIControlStateNormal];
         else
             [selectedSectionIndicatorButton setTitle:@"Posting Box" forState:UIControlStateNormal];
@@ -328,6 +328,7 @@ typedef enum  {
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:selfAnnotationIdentifier];
             annotationView.canShowCallout = YES;
             annotationView.image = [UIImage imageNamed:@"self_map_overlay"];
+            annotationView.centerOffset = CGPointMake(annotationView.image.size.width/2, -(annotationView.image.size.height/2));
         }
     }
     else {
@@ -352,6 +353,7 @@ typedef enum  {
             else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
                 annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];
         }
+        annotationView.centerOffset = CGPointMake(annotationView.image.size.width/2, -(annotationView.image.size.height/2));
     }
     
     return annotationView;
