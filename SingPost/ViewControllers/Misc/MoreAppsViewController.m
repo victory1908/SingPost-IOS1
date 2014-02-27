@@ -42,7 +42,7 @@
     
     UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
     [instructionsLabel setNumberOfLines:0];
-    [instructionsLabel setText:@"Redeem an offer, send a postcard full of memories, receive digital mail in your own digital mailbox - all from the comfort of your smartphone. SingPost offers these services to you via its group of smartphone apps. Go ahead and download them today!"];
+    [instructionsLabel setText:@"Redeem an offer, send a postcard full of memories, receive digital mail - all from the comfort of your smartphone. Go ahead, download our apps and enjoy these services today!"];
     [instructionsLabel setTextColor:RGB(58, 68, 81)];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
