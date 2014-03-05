@@ -156,18 +156,44 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
 - (BOOL)isOpenedAtCurrentTimeDigits:(NSInteger)timeDigits
 {
-    int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
+    NSInteger weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
     
     if ([self.sunOpeningHours isEqualToString:@"24 hours"])
         return YES;
     
     // Sunday = 1, Saturday = 7
-    if (weekDay == 1)
-        return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sun_opening andClosingHours:self.sun_closing];
-    else if (weekDay == 7)
-        return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sat_opening andClosingHours:self.sat_closing];
-    
-    return [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.mon_opening andClosingHours:self.mon_closing];
+    BOOL isLocationOpen;
+    switch (weekDay) {
+        case 1: {
+            isLocationOpen = [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sun_opening andClosingHours:self.sun_closing];
+            break;
+        }
+        case 2: {
+            isLocationOpen = [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.mon_opening andClosingHours:self.mon_closing];
+            break;
+        }
+        case 3: {
+            isLocationOpen = [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.tue_opening andClosingHours:self.tue_closing];
+            break;
+        }
+        case 4: {
+            isLocationOpen = [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.wed_opening andClosingHours:self.wed_closing];
+            break;
+        }
+        case 5: {
+            isLocationOpen = [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.thu_opening andClosingHours:self.thu_closing];
+            break;
+        }
+        case 6: {
+            isLocationOpen = [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.fri_opening andClosingHours:self.fri_closing];
+            break;
+        }
+        case 7: {
+            isLocationOpen = [self isOpenedRelativeToTimeDigits:timeDigits andOpeningHours:self.sat_opening andClosingHours:self.sat_closing];
+            break;
+        }
+    }
+    return isLocationOpen;
 }
 
 - (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits andOpeningHours:(NSString *)openingHours andClosingHours:(NSString *)closingHours
