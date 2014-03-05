@@ -48,7 +48,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
 - (NSString *)openingHoursForOpenTime:(NSString *)openTime andCloseTime:(NSString *)closeTime
 {
-    if ([openTime isEqualToString:@""] || [closeTime isEqualToString:@""])
+    if ([openTime isEqualToString:@""] && [closeTime isEqualToString:@""])
         return @"Closed";
     
     if ([openTime isEqualToString:@"Closed"])
@@ -59,7 +59,6 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     
     if ([openTime isEqualToString:@"24 hours"])
         return @"24 hours";
-    
     
     if ([self isNullOpeningHours:openTime])
         return @"24 hours";
