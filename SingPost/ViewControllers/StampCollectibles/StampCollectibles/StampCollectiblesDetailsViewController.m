@@ -107,7 +107,7 @@
     
     offsetY += 15.0f;
     
-    UILabel *issueDateDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 100, 20)];
+    UILabel *issueDateDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, offsetY, 100, 20)];
     [issueDateDisplayLabel setText:@"Date of issue"];
     [issueDateDisplayLabel setBackgroundColor:[UIColor clearColor]];
     [issueDateDisplayLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
@@ -116,7 +116,7 @@
     
     offsetY += 20.0f;
     
-    UILabel *issueDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, offsetY, 150, 20)];
+    UILabel *issueDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, offsetY, 150, 20)];
     [issueDateLabel setBackgroundColor:[UIColor clearColor]];
     [issueDateLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [issueDateLabel setTextColor:RGB(125, 136, 149)];
@@ -142,7 +142,7 @@
     [moreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [moreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [moreButton addTarget:self action:@selector(moreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [moreButton setFrame:CGRectMake(15, contentWebView.bottom + 15, 50, 30)];
+    [moreButton setFrame:CGRectMake(8, contentWebView.bottom + 15, 50, 30)];
     [contentScrollView addSubview:moreButton];
     
     pricingWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, moreButton.bottom + 15, contentScrollView.bounds.size.width, 125)];
