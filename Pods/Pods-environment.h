@@ -22,7 +22,7 @@
 #define COCOAPODS_POD_AVAILABLE_GoogleAnalytics_iOS_SDK
 #define COCOAPODS_VERSION_MAJOR_GoogleAnalytics_iOS_SDK 3
 #define COCOAPODS_VERSION_MINOR_GoogleAnalytics_iOS_SDK 0
-#define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 2
+#define COCOAPODS_VERSION_PATCH_GoogleAnalytics_iOS_SDK 3
 
 // KGModal
 #define COCOAPODS_POD_AVAILABLE_KGModal
@@ -41,6 +41,12 @@
 #define COCOAPODS_VERSION_MAJOR_MagicalRecord 2
 #define COCOAPODS_VERSION_MINOR_MagicalRecord 2
 #define COCOAPODS_VERSION_PATCH_MagicalRecord 0
+
+// MagicalRecord/Core
+#define COCOAPODS_POD_AVAILABLE_MagicalRecord_Core
+#define COCOAPODS_VERSION_MAJOR_MagicalRecord_Core 2
+#define COCOAPODS_VERSION_MINOR_MagicalRecord_Core 2
+#define COCOAPODS_VERSION_PATCH_MagicalRecord_Core 0
 
 // RaptureXML
 #define COCOAPODS_POD_AVAILABLE_RaptureXML
