@@ -13,4 +13,8 @@
 #define ERROR_DOMAIN @"com.codigo.singpost.errordomain"
 #define KEYCHAIN_SERVICENAME @"KEYCHAIN_SINGPOST"
 
-#define GAI_ID @"UA-37021472-1"
+//Production
+//#define GAI_ID @"UA-37021472-1"
+
+//Development
+#define GAI_ID @"UA-46197062-1"
