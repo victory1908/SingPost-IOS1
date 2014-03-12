@@ -28,9 +28,9 @@
 static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
 
 @interface AFNetworkActivityIndicatorManager ()
-@property (readwrite, nonatomic, assign) NSInteger activityCount;
+@property (readwrite, assign) NSInteger activityCount;
 @property (readwrite, nonatomic, strong) NSTimer *activityIndicatorVisibilityTimer;
-@property (readonly, nonatomic, getter = isNetworkActivityIndicatorVisible) BOOL networkActivityIndicatorVisible;
+@property (readonly, getter = isNetworkActivityIndicatorVisible) BOOL networkActivityIndicatorVisible;
 
 - (void)updateNetworkActivityIndicatorVisibility;
 - (void)updateNetworkActivityIndicatorVisibilityDelayed;
@@ -105,10 +105,7 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
 	@synchronized(self) {
 		_activityCount = activityCount;
 	}
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateNetworkActivityIndicatorVisibilityDelayed];
-    });
+    [self updateNetworkActivityIndicatorVisibilityDelayed];
 }
 
 - (void)incrementActivityCount {
@@ -117,25 +114,16 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
 		_activityCount++;
 	}
     [self didChangeValueForKey:@"activityCount"];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateNetworkActivityIndicatorVisibilityDelayed];
-    });
+    [self updateNetworkActivityIndicatorVisibilityDelayed];
 }
 
 - (void)decrementActivityCount {
     [self willChangeValueForKey:@"activityCount"];
 	@synchronized(self) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
 		_activityCount = MAX(_activityCount - 1, 0);
-#pragma clang diagnostic pop
 	}
     [self didChangeValueForKey:@"activityCount"];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateNetworkActivityIndicatorVisibilityDelayed];
-    });
+    [self updateNetworkActivityIndicatorVisibilityDelayed];
 }
 
 - (void)networkingOperationDidStart:(NSNotification *)notification {

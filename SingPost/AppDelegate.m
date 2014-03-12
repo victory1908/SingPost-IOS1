@@ -58,7 +58,6 @@
 
 - (void)setupGoogleAnalytics
 {
-    [GAI sharedInstance].trackUncaughtExceptions = NO;
     [GAI sharedInstance].dispatchInterval = 30;
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
 }

@@ -1,5 +1,5 @@
 PODS:
-  - AFNetworking (1.3.3)
+  - AFNetworking (1.2.1)
   - AFRaptureXMLRequestOperation (1.0.2):
     - AFNetworking (~> 1.2.1)
     - RaptureXML (~> 1.0.1)
@@ -12,21 +12,21 @@ PODS:
   - RaptureXML (1.0.1)
   - Reachability (3.1.1)
   - RegexKitLite (4.0)
-  - SDWebImage (3.5.2):
+  - SDWebImage (3.5.4):
     - SDWebImage/Core
-  - SDWebImage/Core (3.5.2)
+  - SDWebImage/Core (3.5.4)
   - SevenSwitch (1.3.0)
   - SSKeychain (1.2.1)
-  - SVProgressHUD (0.9)
-  - TPKeyboardAvoiding (1.2.1)
+  - SVProgressHUD (1.0)
+  - TPKeyboardAvoiding (1.2.3)
   - UALogger (0.2.3)
   - UIActivityIndicator-for-SDWebImage (1.0.3):
     - SDWebImage (~> 3.2)
-  - UIAlertView+Blocks (0.7)
+  - UIAlertView+Blocks (0.8.1)
 
 DEPENDENCIES:
-  - AFNetworking (~> 1.3.2)
-  - AFRaptureXMLRequestOperation (~> 1.0.2)
+  - AFNetworking (= 1.2.1)
+  - AFRaptureXMLRequestOperation (= 1.0.2)
   - GoogleAnalytics-iOS-SDK (~> 3.0.3)
   - KGModal (~> 0.0.1)
   - MagicalRecord (~> 2.2)
@@ -35,14 +35,14 @@ DEPENDENCIES:
   - RegexKitLite (~> 4.0)
   - SevenSwitch (~> 1.3.0)
   - SSKeychain (~> 1.2.1)
-  - SVProgressHUD (~> 0.9)
+  - SVProgressHUD (~> 1.0)
   - TPKeyboardAvoiding (~> 1.1)
   - UALogger (~> 0.2.3)
   - UIActivityIndicator-for-SDWebImage (~> 1.0.3)
   - UIAlertView+Blocks (~> 0.7)
 
 SPEC CHECKSUMS:
-  AFNetworking: 61fdd49e2ffe6380378df37b3b6e70630bb9dd66
+  AFNetworking: a44069e3c9c89867544f6639482f155c7e5f9b41
   AFRaptureXMLRequestOperation: 2dedbb46c01724c1ba2ac1f3ec7dad7d8dfca7eb
   GoogleAnalytics-iOS-SDK: 7b0e55cfe5e70d60478a7b105f15ac71e8bc373e
   KGModal: d52efa48b6bb232ea5ed002b511cef115c81e4a0
@@ -51,13 +51,13 @@ SPEC CHECKSUMS:
   RaptureXML: ef017fda62eb95c60300108366d1f0cd0c28cbd4
   Reachability: be4883bb93f31e38266ae3365e5600a317aae735
   RegexKitLite: f7af7b4d2b675cd2ec9a4abab6aad6ae1f6499c0
-  SDWebImage: fe7ce01ae4e0a884d168f59c9dd82d35baf8429e
+  SDWebImage: 1a62010700adbba823b621fc217906739dbf6aa5
   SevenSwitch: f1ae106a4fcb459829ba5a6a3265e7e9f873f80c
   SSKeychain: d18926838c2e7cd342e2a49e9f869858e49f035a
-  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
-  TPKeyboardAvoiding: 0536c563e6c8b8e95a7c4bf87fca9c0991f5e826
+  SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
+  TPKeyboardAvoiding: 17995aaa6db26ac2a9fa8714a86509c5888f0392
   UALogger: abe2af53cf3a72fd8ed3625ee331c546c4c7bde9
   UIActivityIndicator-for-SDWebImage: e712b97826395022ce7b4a4b56eb7194090c19d5
-  UIAlertView+Blocks: 7e876c2bace976306640443745b57912565d840d
+  UIAlertView+Blocks: bac565670861210aff25f574638f0c552648a0a8
 
 COCOAPODS: 0.29.0

@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>385C7848-6D8D-4E1B-B5C2-32974EDD01E5</string>
+	<string>82169DAB-2D93-4BC8-8E49-173870EF1F97</string>
 	<key>IDESourceControlProjectName</key>
 	<string>SingPost</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0118243C-867B-4C08-957B-E999B155E6AA</key>
-		<string>ssh://bitbucket.org/codigo/singpost-ios.git</string>
+		<key>B2C84A1C-9FEA-460F-AC56-E56DCE257A00</key>
+		<string>https://bitbucket.org/codigo/singpost-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>SingPost.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0118243C-867B-4C08-957B-E999B155E6AA</key>
+		<key>B2C84A1C-9FEA-460F-AC56-E56DCE257A00</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://bitbucket.org/codigo/singpost-ios.git</string>
+	<string>https://bitbucket.org/codigo/singpost-ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>0118243C-867B-4C08-957B-E999B155E6AA</string>
+	<string>B2C84A1C-9FEA-460F-AC56-E56DCE257A00</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0118243C-867B-4C08-957B-E999B155E6AA</string>
+			<string>B2C84A1C-9FEA-460F-AC56-E56DCE257A00</string>
 			<key>IDESourceControlWCCName</key>
 			<string>SingPost</string>
 		</dict>

@@ -9,8 +9,8 @@
 // AFNetworking
 #define COCOAPODS_POD_AVAILABLE_AFNetworking
 #define COCOAPODS_VERSION_MAJOR_AFNetworking 1
-#define COCOAPODS_VERSION_MINOR_AFNetworking 3
-#define COCOAPODS_VERSION_PATCH_AFNetworking 3
+#define COCOAPODS_VERSION_MINOR_AFNetworking 2
+#define COCOAPODS_VERSION_PATCH_AFNetworking 1
 
 // AFRaptureXMLRequestOperation
 #define COCOAPODS_POD_AVAILABLE_AFRaptureXMLRequestOperation
@@ -70,13 +70,13 @@
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
 #define COCOAPODS_VERSION_MAJOR_SDWebImage 3
 #define COCOAPODS_VERSION_MINOR_SDWebImage 5
-#define COCOAPODS_VERSION_PATCH_SDWebImage 2
+#define COCOAPODS_VERSION_PATCH_SDWebImage 4
 
 // SDWebImage/Core
 #define COCOAPODS_POD_AVAILABLE_SDWebImage_Core
 #define COCOAPODS_VERSION_MAJOR_SDWebImage_Core 3
 #define COCOAPODS_VERSION_MINOR_SDWebImage_Core 5
-#define COCOAPODS_VERSION_PATCH_SDWebImage_Core 2
+#define COCOAPODS_VERSION_PATCH_SDWebImage_Core 4
 
 // SSKeychain
 #define COCOAPODS_POD_AVAILABLE_SSKeychain
@@ -86,8 +86,8 @@
 
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
-#define COCOAPODS_VERSION_MAJOR_SVProgressHUD 0
-#define COCOAPODS_VERSION_MINOR_SVProgressHUD 9
+#define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
+#define COCOAPODS_VERSION_MINOR_SVProgressHUD 0
 #define COCOAPODS_VERSION_PATCH_SVProgressHUD 0
 
 // SevenSwitch
@@ -100,7 +100,7 @@
 #define COCOAPODS_POD_AVAILABLE_TPKeyboardAvoiding
 #define COCOAPODS_VERSION_MAJOR_TPKeyboardAvoiding 1
 #define COCOAPODS_VERSION_MINOR_TPKeyboardAvoiding 2
-#define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 1
+#define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 3
 
 // UALogger
 #define COCOAPODS_POD_AVAILABLE_UALogger
@@ -117,6 +117,6 @@
 // UIAlertView+Blocks
 #define COCOAPODS_POD_AVAILABLE_UIAlertView_Blocks
 #define COCOAPODS_VERSION_MAJOR_UIAlertView_Blocks 0
-#define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 7
-#define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 0
+#define COCOAPODS_VERSION_MINOR_UIAlertView_Blocks 8
+#define COCOAPODS_VERSION_PATCH_UIAlertView_Blocks 1
 
