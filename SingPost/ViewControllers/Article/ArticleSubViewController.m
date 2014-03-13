@@ -47,7 +47,7 @@
     [navigationBarView setTitle:_pageTitle];
     [contentView addSubview:navigationBarView];
     
-    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarView.bottom, contentView.bounds.size.width, contentView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarView.bottom, contentView.bounds.size.width, contentView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - 44)style:UITableViewStylePlain];
     [contentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [contentsTableView setSeparatorColor:[UIColor clearColor]];
     [contentsTableView setBackgroundView:nil];

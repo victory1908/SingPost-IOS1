@@ -46,7 +46,7 @@
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
     [instructionsLabelBackgroundView addSubview:instructionsLabel];
     
-    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
+    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164, contentView.bounds.size.width, contentView.bounds.size.height - 164 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [contentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [contentsTableView setSeparatorColor:[UIColor clearColor]];
     [contentsTableView setBackgroundView:nil];
