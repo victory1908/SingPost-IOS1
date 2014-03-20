@@ -82,7 +82,16 @@
     [expiryDateDisplayLabel setY:CGRectGetMaxY(titleLabel.frame) + 9.0f];
     [expiryDateDisplayLabel sizeToFit];
     [expiryDateLabel setY:CGRectGetMaxY(expiryDateDisplayLabel.frame)];
-    [expiryDateLabel setText:article.expireDate];
+    
+    NSString *dateString = article.expireDate;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *dateFromString = [dateFormatter dateFromString:dateString];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc] init];
+    [newDateFormatter setDateFormat:@"dd-MM-yyyy HH:mm"];
+    NSString *strDate = [newDateFormatter stringFromDate:dateFromString];
+    
+    [expiryDateLabel setText:strDate];
     [expiryDateLabel sizeToFit];
     
     [offerImageView setImageWithURL:[NSURL URLWithString:_article.thumbnail] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
