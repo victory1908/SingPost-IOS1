@@ -99,7 +99,7 @@
     Article *article = [itemsArray objectAtIndex:indexPath.row];
     ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithNibName:nil bundle:nil];
     [viewController setArticle:article];
-    
+    viewController.previousViewTitle = @"Offers";
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"%@ - %@", @"Offers", article.name]];

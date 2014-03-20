@@ -14,4 +14,6 @@
 
 @property (nonatomic) Article *article;
 
+@property (strong, nonatomic) NSString *previousViewTitle;
+
 @end

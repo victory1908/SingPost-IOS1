@@ -146,6 +146,7 @@
         Article *article = [articlesCategoryArray firstObject];
         ArticleContentViewController *viewController = [[ArticleContentViewController alloc] initWithNibName:nil bundle:nil];
         [viewController setArticle:article];
+        viewController.previousViewTitle = self.pageTitle;
         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     }
     else {

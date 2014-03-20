@@ -14,6 +14,7 @@
 #import "CalculatePostageMainViewController.h"
 #import "Article.h"
 #import "SVProgressHUD.h"
+#import "UIAlertView+Blocks.h"
 
 @interface ArticleContentViewController () <UIWebViewDelegate>
 
@@ -45,7 +46,7 @@
     [contentWebView setDelegate:self];
     [contentWebView.scrollView setScrollEnabled:NO];
     [contentScrollView addSubview:contentWebView];
-
+    
     NSString *btnTypeString = self.article.buttonType;
     NSInteger buttonType;
     
@@ -129,7 +130,7 @@
         [calculateButton setY:pageHeight];
     
     [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, pageHeight + 65.0f)];
-
+    
     [SVProgressHUD dismiss];
 }
 
@@ -137,7 +138,19 @@
     NSString *urlScheme = request.URL.scheme;
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         if ([urlScheme hasPrefix:@"http"]) {
-            [[UIApplication sharedApplication]openURL:request.URL];
+            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
+                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
+                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
+                                  if (buttonIndex == 1) {
+                                      NSString *category = [NSString stringWithFormat:@"%@ - %@",self.previousViewTitle,_article.name];
+                                      NSMutableDictionary *params = [[GAIDictionaryBuilder createEventWithCategory:category
+                                                                                                            action:@"Link clicked"
+                                                                                                             label:request.URL.absoluteString
+                                                                                                             value:nil] build];
+                                      [[[GAI sharedInstance] defaultTracker]send:params];
+                                      [[UIApplication sharedApplication]openURL:request.URL];
+                                  }
+                              }];
         }
         return NO;
     }
