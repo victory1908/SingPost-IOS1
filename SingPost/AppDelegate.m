@@ -146,6 +146,9 @@
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
     NSLog(@"device push token %@",[deviceToken description]);
+    
+    [UIAlertView showWithTitle:deviceToken.description message:nil cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+    
     NSString *sanitizedDeviceToken = [[[[deviceToken description]
                                         stringByReplacingOccurrencesOfString: @"<" withString: @""]
                                        stringByReplacingOccurrencesOfString: @">" withString: @""]
