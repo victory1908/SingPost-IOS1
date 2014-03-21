@@ -16,7 +16,6 @@
     self.name = attributes[@"Name"];
     self.htmlContent = attributes[@"Description"];
     self.thumbnail = attributes[@"Thumbnail"];
-    self.websiteURL = attributes[@"WebsiteURL"];
     self.buttonType = attributes[@"ButtonType"];
     self.expireDate = attributes[@"expireDate"];
 }
