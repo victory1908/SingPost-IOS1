@@ -80,7 +80,7 @@
     NSString *shortDescription = @"";
     
     if ([_pageTitle isEqualToString:@"Send & Receive"]) {
-        shortDescription = @"Use SingPost postal and courier services to send letters/parcels within Singapore or to 220 countries worldwide. We also offer a variety of services of receiving letters/parcels within Singapore. Check them out below.";
+        shortDescription = @"Use SingPost postal and courier services to send letters/parcels within Singapore or to 220 countries worldwide. We also offer a variety of services for receiving letters/parcels within Singapore. Check them out below.";
     }
     else if ([_pageTitle isEqualToString:@"Pay"]) {
         shortDescription = @"Use our network of Post Offices, Self-service Automated Machines (SAM) and our online portal Vbox to pay various types of bills.";
