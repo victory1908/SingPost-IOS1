@@ -14,7 +14,7 @@
 #define KEYCHAIN_SERVICENAME @"KEYCHAIN_SINGPOST"
 
 //Production
-//#define GAI_ID @"UA-37021472-1"
+#define GAI_SINGPOST_ID @"UA-37021472-1"
 
 //Development
 #define GAI_ID @"UA-46197062-1"

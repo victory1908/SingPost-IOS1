@@ -60,6 +60,7 @@
     [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
     [GAI sharedInstance].dispatchInterval = 30;
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
 }
 
 #pragma mark - Maintanance
