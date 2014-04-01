@@ -129,6 +129,7 @@
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
 		9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */; };
+		91692BD818EA868E0079B62D /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
 		9192B4FB18B450EF004EB15A /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9192B4FA18B450EF004EB15A /* UIView+Additions.m */; };
 		9192B4FE18B45126004EB15A /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */; };
 		91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */; };
@@ -365,6 +366,7 @@
 		915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUSDetailsDetailsView.m; sourceTree = "<group>"; };
 		9160E762189126FE0046FC1E /* LocateUsFSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsFSMapViewController.h; sourceTree = "<group>"; };
 		9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsFSMapViewController.m; sourceTree = "<group>"; };
+		91692BD718EA868E0079B62D /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
 		9192B4F918B450EF004EB15A /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		9192B4FA18B450EF004EB15A /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Additions.h"; sourceTree = "<group>"; };
@@ -619,6 +621,7 @@
 		52305F8B17F5B49F00610A86 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				91692BD718EA868E0079B62D /* AppIcon.png */,
 				52305F8C17F5B4AF00610A86 /* Fonts */,
 				521B173217F1633000FEB6FD /* Images.xcassets */,
 			);
@@ -1062,6 +1065,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91692BD818EA868E0079B62D /* AppIcon.png in Resources */,
 				521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */,
 				528F268A17F864C6006F7027 /* CalculatePostage_Countries.plist in Resources */,
 				528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */,
