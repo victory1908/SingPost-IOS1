@@ -18,3 +18,6 @@
 
 //Development
 #define GAI_ID @"UA-46197062-1"
+
+//Pilot build
+#define GAI_PILOT_ID @"UA-49593258-1"

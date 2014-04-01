@@ -46,7 +46,7 @@
     
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification)
-    [self handleRemoteNotification:remoteNotification shouldPrompt:NO];
+        [self handleRemoteNotification:remoteNotification shouldPrompt:NO];
     return YES;
 }
 
@@ -60,7 +60,8 @@
     [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
     [GAI sharedInstance].dispatchInterval = 30;
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
-    [[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
+    //[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_PILOT_ID];
 }
 
 #pragma mark - Maintanance
@@ -100,7 +101,7 @@
 - (void)goToTrackingDetailsPageForTrackingNumber:(NSString *)trackingNumber
 {
     if ([self.rootViewController isSideBarVisible])
-    [self.rootViewController toggleSideBarVisiblity];
+        [self.rootViewController toggleSideBarVisiblity];
     
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = YES;
@@ -177,9 +178,9 @@
 {
     [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
         if(!success)
-        DLog(@"%@", error);
+            DLog(@"%@", error);
         if (completion)
-        completion(success, error);
+            completion(success, error);
     }];
 }
 
