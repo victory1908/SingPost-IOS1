@@ -163,6 +163,7 @@ typedef enum {
                 }
             }
             else {
+                [SVProgressHUD dismiss];
                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
                                    message:NO_INTERNET_ERROR
                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
@@ -442,7 +443,10 @@ typedef enum {
                     [self goToDetailPageWithTrackedItem:trackedItem];
                 }
                 else {
-                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                    [SVProgressHUD dismiss];
+                    [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                       message:NO_INTERNET_ERROR
+                             cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                 }
             }];
         }
@@ -469,7 +473,10 @@ typedef enum {
                     }
                 }
                 else {
-                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                    [SVProgressHUD dismiss];
+                    [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                       message:NO_INTERNET_ERROR
+                             cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                 }
             }];
         }
