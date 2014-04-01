@@ -163,7 +163,9 @@ typedef enum {
                 }
             }
             else {
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+                [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                   message:NO_INTERNET_ERROR
+                         cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
             }
         }];
     }
