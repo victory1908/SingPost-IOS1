@@ -164,9 +164,16 @@ typedef enum {
             }
             else {
                 [SVProgressHUD dismiss];
-                [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                   message:NO_INTERNET_ERROR
-                         cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                if (error.code == 1001) {
+                    [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                       message:ERRORCODE1001_MESSAGE
+                             cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                }
+                else {
+                    [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                       message:NO_INTERNET_ERROR
+                             cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                }
             }
         }];
     }
@@ -444,9 +451,16 @@ typedef enum {
                 }
                 else {
                     [SVProgressHUD dismiss];
-                    [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                       message:NO_INTERNET_ERROR
-                             cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    if (error.code == 1001) {
+                        [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                           message:ERRORCODE1001_MESSAGE
+                                 cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    }
+                    else {
+                        [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                           message:NO_INTERNET_ERROR
+                                 cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    }
                 }
             }];
         }
@@ -474,9 +488,16 @@ typedef enum {
                 }
                 else {
                     [SVProgressHUD dismiss];
+                    if (error.code == 1001) {
+                        [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                           message:ERRORCODE1001_MESSAGE
+                                 cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    }
+                    else {
                     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
                                        message:NO_INTERNET_ERROR
                              cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    }
                 }
             }];
         }
