@@ -17,6 +17,7 @@
 #import "ApiClient.h"
 #import "TrackingMainViewController.h"
 #import "TrackingDetailsViewController.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -29,8 +30,13 @@
     application.applicationIconBadgeNumber = 0;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
+    [self setupGoogleAnalytics];
     [MagicalRecord setupCoreDataStack];
     [DatabaseSeeder seedLocationsDataIfRequired];
+    
+    [Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
+    
+    [self checkAppAndOSVersion];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -40,9 +46,6 @@
     [self.window makeKeyAndVisible];
     
     [self updateMaintananceStatuses];
-    [self setupGoogleAnalytics];
-    
-    [self checkAppAndOSVersion];
     
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification)

@@ -134,6 +134,7 @@
 		9192B4FE18B45126004EB15A /* UIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */; };
 		91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */; };
 		91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */; };
+		91BAA22718ED0082000C1034 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BAA22618ED0082000C1034 /* Crashlytics.framework */; };
 		91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -374,6 +375,7 @@
 		91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Speedpost Agent.json"; sourceTree = "<group>"; };
 		91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingFeedbackViewController.h; sourceTree = "<group>"; };
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
+		91BAA22618ED0082000C1034 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		91FD0023187BEDBE00DE1765 /* OffersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersTableViewCell.h; sourceTree = "<group>"; };
 		91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -387,6 +389,7 @@
 				521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */,
 				521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */,
 				521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */,
+				91BAA22718ED0082000C1034 /* Crashlytics.framework in Frameworks */,
 				9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +483,7 @@
 		521B171F17F1633000FEB6FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91BAA22618ED0082000C1034 /* Crashlytics.framework */,
 				528F26CE17F946B0006F7027 /* MapKit.framework */,
 				521B172017F1633000FEB6FD /* Foundation.framework */,
 				521B172217F1633000FEB6FD /* CoreGraphics.framework */,
@@ -1019,6 +1023,7 @@
 				521B171A17F1633000FEB6FD /* Frameworks */,
 				521B171B17F1633000FEB6FD /* Resources */,
 				C1AFE0B1476C4E51948DC15C /* Copy Pods Resources */,
+				91BAA22518ED0072000C1034 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1091,6 +1096,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		91BAA22518ED0072000C1034 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run fb5017e08feeb7069b1c5d7b664775e80e3e30da 9c61f15d3ecb033696af53ecb38698e9aa9860c2fa52db54c297e2cba3eed16d";
+		};
 		C1AFE0B1476C4E51948DC15C /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1333,6 +1351,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
@@ -1340,7 +1362,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "53BB4F52-845B-4334-82B7-33B9C84710C5";
+				PROVISIONING_PROFILE = "F983896D-0D6B-49D0-9B92-0F5D5872CC39";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1354,6 +1376,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
 				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
