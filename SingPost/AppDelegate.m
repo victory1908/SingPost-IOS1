@@ -169,10 +169,14 @@
 
 #pragma mark - Google Analytics
 
-- (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName
-{
-    [[GAI sharedInstance].defaultTracker set:kGAIScreenName value:screenName];
-    [[GAI sharedInstance].defaultTracker send:[[GAIDictionaryBuilder createAppView] build]];
+- (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName {
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_ID]set:kGAIScreenName value:screenName];
+    //[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID]set:kGAIScreenName value:screenName];
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_PILOT_ID]set:kGAIScreenName value:screenName];
+    
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createAppView] build]];
+    //[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createAppView] build]];
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_PILOT_ID] send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Core data
