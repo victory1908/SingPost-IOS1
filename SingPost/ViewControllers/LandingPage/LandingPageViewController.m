@@ -46,6 +46,8 @@ typedef enum {
     LANDINGPAGEBUTTON_MORESERVICES,
     LANDINGPAGEBUTTON_STAMPCOLLECTIBLES,
     LANDINGPAGEBUTTON_MOREAPPS,
+    LANDINGPAGEBUTTON_TRACKING_LIST,
+    LANDINGPAGEBUTTON_TRACKING_FIND,
     
     LANDINGPAGEBUTTON_END
 } tLandingPageButtons;
@@ -99,16 +101,18 @@ typedef enum {
     [trackingNumberTextField setDelegate:self];
     [contentView addSubview:trackingNumberTextField];
     
-    UIButton *trackingListButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *trackingListButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon"] forState:UIControlStateNormal];
     [trackingListButton addTarget:self action:@selector(trackingListButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [trackingListButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(28, 80, 40, 48) : CGRectMake(28, 70, 26, 31)];
+    trackingListButton.tag = LANDINGPAGEBUTTON_TRACKING_LIST;
     [contentView addSubview:trackingListButton];
     
-    UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    LandingPageButton *findTrackingNumberButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
     [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(260, 87, 35, 35) : CGRectMake(269, 71, 29, 29)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    findTrackingNumberButton.tag = LANDINGPAGEBUTTON_TRACKING_FIND;
     [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
@@ -287,8 +291,14 @@ typedef enum {
                 [button setShouldDim:[maintananceStatuses[@"MoreApps"] isEqualToString:@"on"]];
                 break;
             }
+            case LANDINGPAGEBUTTON_TRACKING_LIST: {
+                [button setShouldDim:[maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]];
+            }
+            case LANDINGPAGEBUTTON_TRACKING_FIND: {
+                [button setShouldDim:[maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]];
+            }
             default:
-                NSLog(@"not yet implemented");
+                NSLog(@"not yet implemented %@",button);
                 break;
         }
     }
@@ -296,12 +306,22 @@ typedef enum {
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == trackingNumberTextField) {
-        [self findTrackingNumberButtonClicked];
+        NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+        if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+            MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
+                                                                                                           andMessage:maintananceStatuses[@"Comment"]];
+            [self presentModalViewController:viewController animated:YES];
+            return NO;
+        }
     }
-    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == trackingNumberTextField)
+        [self findTrackingNumberButtonClicked];
     return YES;
 }
 
@@ -505,12 +525,28 @@ typedef enum {
 
 - (IBAction)trackingListButtonClicked:(id)sender
 {
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
+                                                                                                       andMessage:maintananceStatuses[@"Comment"]];
+        [self presentModalViewController:viewController animated:YES];
+        return;
+    }
+    
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
 }
 
 - (void)findTrackingNumberButtonClicked
 {
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
+                                                                                                       andMessage:maintananceStatuses[@"Comment"]];
+        [self presentModalViewController:viewController animated:YES];
+        return;
+    }
+    
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];

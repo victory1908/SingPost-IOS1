@@ -154,6 +154,14 @@
 
 - (void)findTrackingNumberButtonClicked
 {
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
+                                                                                                       andMessage:maintananceStatuses[@"Comment"]];
+        [self presentModalViewController:viewController animated:YES];
+        return;
+    }
+    
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -182,6 +190,18 @@
 }
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField == trackingNumberTextField) {
+        NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+        if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+            MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
+                                                                                                           andMessage:maintananceStatuses[@"Comment"]];
+            [self presentModalViewController:viewController animated:YES];
+            return NO;
+        }
+    }
+    return YES;
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -236,6 +256,12 @@
     [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, 39, 25, 25)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
+    
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+        trackingListButton.alpha = 0.5;
+        findTrackingNumberButton.alpha = 0.5;
+    }
     
     UITapGestureRecognizer *resignRespondersTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleResignRespondersTapped:)];
     [headerView addGestureRecognizer:resignRespondersTapRecognizer];
@@ -517,6 +543,13 @@
 
 - (IBAction)trackingListButtonClicked:(id)sender
 {
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
+                                                                                                       andMessage:maintananceStatuses[@"Comment"]];
+        [self presentModalViewController:viewController animated:YES];
+        return;
+    }
     [self.view endEditing:YES];
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
