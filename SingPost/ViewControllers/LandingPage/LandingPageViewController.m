@@ -302,6 +302,8 @@ typedef enum {
                 break;
         }
     }
+    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"])
+        trackingNumberTextField.alpha = 0.5;
 }
 
 #pragma mark - UITextFieldDelegate

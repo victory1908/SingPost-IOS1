@@ -86,6 +86,8 @@
     UIButton *landingPageButton;
     SidebarTrackingNumberTextField *trackingNumberTextField;
     UITableView *menuTableView;
+    UIButton *trackingListButton;
+    UIButton *findTrackingNumberButton;
     
     BOOL showOffersMoreSubrows;
 }
@@ -141,6 +143,13 @@
 - (void)updateMaintananceStatusUIs
 {
     [menuTableView reloadData];
+    
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
+        trackingNumberTextField.alpha = 0.5;
+        trackingListButton.alpha = 0.5;
+        findTrackingNumberButton.alpha = 0.5;
+    }
 }
 
 #pragma mark - IBActions
@@ -245,23 +254,17 @@
     [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
     [headerView addSubview:trackingNumberTextField];
     
-    UIButton *trackingListButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    trackingListButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon_small"] forState:UIControlStateNormal];
     [trackingListButton addTarget:self action:@selector(trackingListButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [trackingListButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(15, 29, 44, 44) : CGRectMake(15, 31, 40, 40)];
     [headerView addSubview:trackingListButton];
     
-    UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
     [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, 39, 25, 25)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
-    
-    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
-    if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
-        trackingListButton.alpha = 0.5;
-        findTrackingNumberButton.alpha = 0.5;
-    }
     
     UITapGestureRecognizer *resignRespondersTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleResignRespondersTapped:)];
     [headerView addGestureRecognizer:resignRespondersTapRecognizer];
