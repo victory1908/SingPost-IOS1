@@ -18,14 +18,14 @@
 @synthesize notificationProfileID = _notificationProfileID;
 
 //Development
-static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
-static NSString *const CMS_BASE_URL = @"http://128.199.255.14/singpost/";
-static NSString *const CMS_BASE_URL_V4 = @"http://128.199.255.14/singpost/v4/";
+//static NSString *const SINGPOST_BASE_URL = @"https://uatesb1.singpost.com";
+//static NSString *const CMS_BASE_URL = @"http://128.199.255.14/singpost/";
+//static NSString *const CMS_BASE_URL_V4 = @"http://128.199.255.14/singpost/v4/";
 
 //Production
-//static NSString *const SINGPOST_BASE_URL = @"https://prdesb1.singpost.com/";
-//static NSString *const CMS_BASE_URL = @"http://mobile.singpost.com/mobile2/";
-//static NSString *const CMS_BASE_URL_V4 = @"http://mobile.singpost.com/mobile2/v4/";
+static NSString *const SINGPOST_BASE_URL = @"https://prdesb1.singpost.com/";
+static NSString *const CMS_BASE_URL = @"http://mobile.singpost.com/mobile2/";
+static NSString *const CMS_BASE_URL_V4 = @"http://mobile.singpost.com/mobile2/v4/";
 
 static NSString *const APP_ID = @"M00002";
 static NSString *const OS = @"ios";
