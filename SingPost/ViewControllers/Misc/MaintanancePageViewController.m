@@ -39,19 +39,27 @@
     [backgroundImageView setContentMode:UIViewContentModeScaleToFill];
     [contentView addSubview:backgroundImageView];
     
-    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 275, 200, 300)];
+    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 275, 200, 20)];
     moduleNameLabel.backgroundColor = [UIColor clearColor];
     moduleNameLabel.textColor = RGB(195, 17, 38);
     moduleNameLabel.textAlignment = NSTextAlignmentCenter;
-    moduleNameLabel.numberOfLines = 0;
-    moduleNameLabel.text = _message;
-    [moduleNameLabel alignTop];
-    [moduleNameLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    moduleNameLabel.text = @"Service Unavailable";
+    moduleNameLabel.font = [UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
     [contentView addSubview:moduleNameLabel];
+    
+    UILabel *maintananceMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 310, 200, 300)];
+    [maintananceMessageLabel setBackgroundColor:[UIColor clearColor]];
+    [maintananceMessageLabel setTextColor:RGB(67, 67, 67)];
+    [maintananceMessageLabel setNumberOfLines:0];
+    [maintananceMessageLabel setTextAlignment:NSTextAlignmentCenter];
+    [maintananceMessageLabel setText:_message];
+    [maintananceMessageLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [maintananceMessageLabel alignTop];
+    [contentView addSubview:maintananceMessageLabel];
     
     FlatBlueButton *closeButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, moduleNameLabel.frame.origin.y + moduleNameLabel.frame.size.height + 10, 290 , 48)];
     [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [closeButton setTitle:@"CONTINUE TO APP" forState:UIControlStateNormal];
+    [closeButton setTitle:@"GO BACK" forState:UIControlStateNormal];
     [contentView addSubview:closeButton];
     
     self.view = contentView;
