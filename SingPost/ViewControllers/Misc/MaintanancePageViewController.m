@@ -38,36 +38,21 @@
     [backgroundImageView setImage:[UIImage imageNamed:@"maintanance_bg"]];
     [backgroundImageView setContentMode:UIViewContentModeScaleToFill];
     [contentView addSubview:backgroundImageView];
-    /*
-    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeButton setImage:[UIImage imageNamed:@"button_close"] forState:UIControlStateNormal];
-    [closeButton setFrame:CGRectMake(270, 10, 44, 44)];
-    [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [contentView addSubview:closeButton];
-    */
-    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 275, 200, 20)];
-    [moduleNameLabel setBackgroundColor:[UIColor clearColor]];
-    [moduleNameLabel setTextColor:RGB(195, 17, 38)];
-    [moduleNameLabel setAdjustsFontSizeToFitWidth:YES];
-    [moduleNameLabel setTextAlignment:NSTextAlignmentCenter];
-    [moduleNameLabel setText:[NSString stringWithFormat:@"%@ Service down", _moduleName]];
+    
+    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 275, 200, 300)];
+    moduleNameLabel.backgroundColor = [UIColor clearColor];
+    moduleNameLabel.textColor = RGB(195, 17, 38);
+    moduleNameLabel.textAlignment = NSTextAlignmentCenter;
+    moduleNameLabel.numberOfLines = 0;
+    moduleNameLabel.text = _message;
+    [moduleNameLabel alignTop];
     [moduleNameLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [contentView addSubview:moduleNameLabel];
     
-    UILabel *maintananceMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 310, 200, 300)];
-    [maintananceMessageLabel setBackgroundColor:[UIColor clearColor]];
-    [maintananceMessageLabel setTextColor:RGB(67, 67, 67)];
-    [maintananceMessageLabel setNumberOfLines:0];
-    [maintananceMessageLabel setTextAlignment:NSTextAlignmentCenter];
-    [maintananceMessageLabel setText:_message];
-    [maintananceMessageLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [maintananceMessageLabel alignTop];
-    [contentView addSubview:maintananceMessageLabel];
-    
-    FlatBlueButton *sendFeedbackButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, maintananceMessageLabel.frame.origin.y + maintananceMessageLabel.frame.size.height + 10, 290 , 48)];
-    [sendFeedbackButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [sendFeedbackButton setTitle:@"CONTINUE TO APP" forState:UIControlStateNormal];
-    [contentView addSubview:sendFeedbackButton];
+    FlatBlueButton *closeButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, moduleNameLabel.frame.origin.y + moduleNameLabel.frame.size.height + 10, 290 , 48)];
+    [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [closeButton setTitle:@"CONTINUE TO APP" forState:UIControlStateNormal];
+    [contentView addSubview:closeButton];
     
     self.view = contentView;
 }
