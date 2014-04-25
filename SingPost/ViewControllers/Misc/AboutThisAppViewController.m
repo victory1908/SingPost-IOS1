@@ -31,10 +31,9 @@
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
-    UILabel *versionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, navigationBarView.bounds.size.height + 5, navigationBarView.bounds.size.width, 20)];
+    UILabel *versionLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, navigationBarView.bounds.size.height + 5, navigationBarView.bounds.size.width - 10, 20)];
     versionLabel.font = [UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans];
     versionLabel.text = [NSString stringWithFormat:@"SingPost Mobile App – Ver %@",[NSBundle mainBundle].infoDictionary[@"CFBundleVersion"]];
-    versionLabel.textAlignment = NSTextAlignmentCenter;
     [contentView addSubview:versionLabel];
     
     aboutThisAppWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, navigationBarView.bounds.size.height + versionLabel.height + 5, contentView.bounds.size.width, contentView.bounds.size.height - navigationBarView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - versionLabel.height - 5)];
