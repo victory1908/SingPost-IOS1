@@ -39,7 +39,7 @@
     [backgroundImageView setContentMode:UIViewContentModeScaleToFill];
     [contentView addSubview:backgroundImageView];
     
-    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 275, 200, 20)];
+    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 275, 290, 20)];
     moduleNameLabel.backgroundColor = [UIColor clearColor];
     moduleNameLabel.textColor = RGB(195, 17, 38);
     moduleNameLabel.textAlignment = NSTextAlignmentCenter;
@@ -47,17 +47,18 @@
     moduleNameLabel.font = [UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
     [contentView addSubview:moduleNameLabel];
     
-    UILabel *maintananceMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 310, 200, 300)];
-    [maintananceMessageLabel setBackgroundColor:[UIColor clearColor]];
-    [maintananceMessageLabel setTextColor:RGB(67, 67, 67)];
-    [maintananceMessageLabel setNumberOfLines:0];
-    [maintananceMessageLabel setTextAlignment:NSTextAlignmentCenter];
-    [maintananceMessageLabel setText:_message];
-    [maintananceMessageLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    UILabel *maintananceMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 310, 290, 300)];
+    maintananceMessageLabel.backgroundColor = [UIColor clearColor];
+    maintananceMessageLabel.textColor = RGB(67, 67, 67);
+    maintananceMessageLabel.numberOfLines = 0;
+    maintananceMessageLabel.textAlignment = NSTextAlignmentCenter;
+    maintananceMessageLabel.text = _message;
+    maintananceMessageLabel.font = [UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
     [maintananceMessageLabel alignTop];
     [contentView addSubview:maintananceMessageLabel];
     
-    FlatBlueButton *closeButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, moduleNameLabel.frame.origin.y + moduleNameLabel.frame.size.height + 10, 290 , 48)];
+    FlatBlueButton *closeButton = [[FlatBlueButton alloc] initWithFrame:
+                                   CGRectMake(15, 325 + maintananceMessageLabel.frame.size.height, 290 , 48)];
     [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [closeButton setTitle:@"GO BACK" forState:UIControlStateNormal];
     [contentView addSubview:closeButton];
