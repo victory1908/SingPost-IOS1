@@ -13,11 +13,11 @@
 #define ERROR_DOMAIN @"com.codigo.singpost.errordomain"
 #define KEYCHAIN_SERVICENAME @"KEYCHAIN_SINGPOST"
 
-//Production
+//SingPost Production
 #define GAI_SINGPOST_ID @"UA-37021472-1"
 
-//Development
-#define GAI_ID @"UA-46197062-1"
-
-//Pilot build
+//SingPost Pilot
 #define GAI_PILOT_ID @"UA-49593258-1"
+
+//Codigo
+#define GAI_ID @"UA-46197062-1"
