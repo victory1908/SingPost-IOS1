@@ -85,12 +85,19 @@ typedef enum {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
-    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"35iphone_background_envelope"]];
-    [envelopBackgroundImageView setUserInteractionEnabled:YES];
-    [envelopBackgroundImageView setFrame:(INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248))];
+    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] init];
+    if (INTERFACE_IS_IPAD) {
+        envelopBackgroundImageView.image = [UIImage imageNamed:@"background_envelope"];
+        envelopBackgroundImageView.frame = CGRectMake(0, 0, 768, 1024);
+    }
+    else {
+        envelopBackgroundImageView.image = [UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"35iphone_background_envelope"];
+        envelopBackgroundImageView.frame = (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248));
+    }
+    envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
-    trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, 280, 47) : CGRectMake(20, 70, 280, 30)];
+    trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40, 47) : CGRectMake(20, 70, contentView.width - 40, 30)];
     [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f];
@@ -108,15 +115,16 @@ typedef enum {
     trackingListButton.tag = LANDINGPAGEBUTTON_TRACKING_LIST;
     [contentView addSubview:trackingListButton];
     
+    CGFloat findTrackingBtnX = trackingNumberTextField.width - 15;
     LandingPageButton *findTrackingNumberButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(260, 87, 35, 35) : CGRectMake(269, 71, 29, 29)];
+    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 87, 35, 35) : CGRectMake(findTrackingBtnX, 71, 29, 29)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     findTrackingNumberButton.tag = LANDINGPAGEBUTTON_TRACKING_FIND;
     [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
-    [singPostLogoImageView setFrame:CGRectMake(82, 8, 155, 55)];
+    [singPostLogoImageView setFrame:CGRectMake((contentView.width - 155)/2, 8, 155, 55)];
     [contentView addSubview:singPostLogoImageView];
     
     UIButton *toggleSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -314,7 +322,7 @@ typedef enum {
         if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
             MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
                                                                                                            andMessage:maintananceStatuses[@"Comment"]];
-            [self presentModalViewController:viewController animated:YES];
+            [self presentViewController:viewController animated:YES completion:nil];
             return NO;
         }
     }
@@ -369,7 +377,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Calculate Postage" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -381,7 +389,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"FindPostalCodes"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Find Postal Codes" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -393,7 +401,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -405,7 +413,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"SendNReceive"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Send & Receive" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -417,7 +425,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"Pay"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Pay" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -429,7 +437,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"Shop"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Shop" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -441,7 +449,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"MoreServices"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Services" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -453,7 +461,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"StampCollectibles"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Stamp Collectibles" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -465,7 +473,7 @@ typedef enum {
         {
             if ([maintananceStatuses[@"MoreApps"] isEqualToString:@"on"]) {
                 MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Apps" andMessage:maintananceStatuses[@"Comment"]];
-                [self presentModalViewController:viewController animated:YES];
+                [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
                 MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
@@ -531,7 +539,7 @@ typedef enum {
     if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
         MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
                                                                                                        andMessage:maintananceStatuses[@"Comment"]];
-        [self presentModalViewController:viewController animated:YES];
+        [self presentViewController:viewController animated:YES completion:nil];
         return;
     }
     
@@ -545,7 +553,7 @@ typedef enum {
     if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
         MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
                                                                                                        andMessage:maintananceStatuses[@"Comment"]];
-        [self presentModalViewController:viewController animated:YES];
+        [self presentViewController:viewController animated:YES completion:nil];
         return;
     }
     
