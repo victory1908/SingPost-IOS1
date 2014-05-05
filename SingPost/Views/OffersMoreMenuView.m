@@ -41,19 +41,24 @@
         [self setClipsToBounds:NO];
         
         toggleMenuButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [toggleMenuButton setFrame:CGRectMake(110, -5, 110, 44)];
+        [toggleMenuButton setFrame:CGRectMake(frame.size.width/3, -5, frame.size.width/3, 44)];
         [toggleMenuButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [toggleMenuButton setImage:[UIImage imageNamed:@"offersmore_indicator"] forState:UIControlStateNormal];
         [toggleMenuButton setTitle:@"Offers & More" forState:UIControlStateNormal];
         [toggleMenuButton setTitleColor:RGB(36, 84, 157) forState:UIControlStateNormal];
         [toggleMenuButton setTitleColor:RGB(58, 68, 81) forState:UIControlStateHighlighted];
-        [toggleMenuButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
         [toggleMenuButton addTarget:self action:@selector(toggleMenuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [toggleMenuButton setBackgroundColor:[UIColor clearColor]];
-        toggleMenuButton.imageEdgeInsets = UIEdgeInsetsMake(1, 89, 0, 0);
+        
+        if (INTERFACE_IS_IPAD)
+            toggleMenuButton.imageEdgeInsets = UIEdgeInsetsMake(1, 175, 0, 0);
+        else
+            toggleMenuButton.imageEdgeInsets = UIEdgeInsetsMake(1, 100, 0, 0);
         [self addSubview:toggleMenuButton];
         
         CGFloat offsetY = 32.0f;
+        CGFloat btnWidth = (frame.size.width - 80)/2;
+        CGFloat secondRowBtn = (frame.size.width / 2.0f) + 20;
         
         UIView *horizontalSeparatorView1 = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, self.bounds.size.width, 0.5f)];
         [horizontalSeparatorView1 setBackgroundColor:RGB(212, 214, 216)];
@@ -61,7 +66,7 @@
         
         offsetY += 10.0f;
         
-        OffersMoreMenuButton *offersButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(10, offsetY, 140, 42)];
+        OffersMoreMenuButton *offersButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(20, offsetY, btnWidth, 42)];
         [offersButton setTag:OFFERSMENUBUTTON_OFFERS];
         [offersButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [offersButton setTitle:@"Offers" forState:UIControlStateNormal];
@@ -71,7 +76,7 @@
         [separatorMenuView1 setBackgroundColor:RGB(212, 214, 216)];
         [self addSubview:separatorMenuView1];
         
-        OffersMoreMenuButton *feedbackButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(170, offsetY, 140, 42)];
+        OffersMoreMenuButton *feedbackButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(secondRowBtn, offsetY, btnWidth, 42)];
         [feedbackButton setTag:OFFERSMENUBUTTON_FEEDBACK];
         [feedbackButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [feedbackButton setTitle:@"Feedback" forState:UIControlStateNormal];
@@ -79,17 +84,17 @@
         
         offsetY += 52.0f;
         
-        UIView *horizontalSeparatorView1A = [[UIView alloc] initWithFrame:CGRectMake(10, offsetY, 145, 0.5f)];
+        UIView *horizontalSeparatorView1A = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, btnWidth, 0.5f)];
         [horizontalSeparatorView1A setBackgroundColor:RGB(212, 214, 216)];
         [self addSubview:horizontalSeparatorView1A];
         
-        UIView *horizontalSeparatorView1B = [[UIView alloc] initWithFrame:CGRectMake(165, offsetY, 145, 0.5f)];
+        UIView *horizontalSeparatorView1B = [[UIView alloc] initWithFrame:CGRectMake(secondRowBtn, offsetY, btnWidth, 0.5f)];
         [horizontalSeparatorView1B setBackgroundColor:RGB(212, 214, 216)];
         [self addSubview:horizontalSeparatorView1B];
         
         offsetY += 10.0f;
         
-        OffersMoreMenuButton *aboutThisAppButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(10, offsetY, 140, 42)];
+        OffersMoreMenuButton *aboutThisAppButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(20, offsetY, btnWidth, 42)];
         [aboutThisAppButton setTag:OFFERSMENUBUTTON_ABOUTTHISAPP];
         [aboutThisAppButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [aboutThisAppButton setTitle:@"About this App" forState:UIControlStateNormal];
@@ -98,26 +103,26 @@
         UIView *separatorMenuView2 = [[UIView alloc] initWithFrame:CGRectMake(floorf(self.bounds.size.width / 2.0f), offsetY, 0.5, 42)];
         [separatorMenuView2 setBackgroundColor:RGB(212, 214, 216)];
         [self addSubview:separatorMenuView2];
-
-        OffersMoreMenuButton *termsOfUseButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(170, offsetY, 140, 42)];
+        
+        OffersMoreMenuButton *termsOfUseButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(secondRowBtn, offsetY, btnWidth, 42)];
         [termsOfUseButton setTag:OFFERSMENUBUTTON_TERMSOFUSE];
         [termsOfUseButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [termsOfUseButton setTitle:@"Terms of use" forState:UIControlStateNormal];
         [self addSubview:termsOfUseButton];
-
+        
         offsetY += 52.0f;
         
-        UIView *horizontalSeparatorView2A = [[UIView alloc] initWithFrame:CGRectMake(10, offsetY, 145, 0.5f)];
+        UIView *horizontalSeparatorView2A = [[UIView alloc] initWithFrame:CGRectMake(20, offsetY, btnWidth, 0.5f)];
         [horizontalSeparatorView2A setBackgroundColor:RGB(212, 214, 216)];
         [self addSubview:horizontalSeparatorView2A];
         
-        UIView *horizontalSeparatorView2B = [[UIView alloc] initWithFrame:CGRectMake(165, offsetY, 145, 0.5f)];
+        UIView *horizontalSeparatorView2B = [[UIView alloc] initWithFrame:CGRectMake(secondRowBtn, offsetY, btnWidth, 0.5f)];
         [horizontalSeparatorView2B setBackgroundColor:RGB(212, 214, 216)];
         [self addSubview:horizontalSeparatorView2B];
         
         offsetY += 10.0f;
         
-        OffersMoreMenuButton *faqButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(10, offsetY, 140, 42)];
+        OffersMoreMenuButton *faqButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(10, offsetY, btnWidth, 42)];
         [faqButton setTag:OFFERSMENUBUTTON_FAQS];
         [faqButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [faqButton setTitle:@"FAQs" forState:UIControlStateNormal];
@@ -126,8 +131,8 @@
         UIView *separatorMenuView3 = [[UIView alloc] initWithFrame:CGRectMake(floorf(self.bounds.size.width / 2.0f), offsetY, 0.5, 42)];
         [separatorMenuView3 setBackgroundColor:RGB(212, 214, 216)];
         [self addSubview:separatorMenuView3];
-
-        OffersMoreMenuButton *rateOurAppButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(170, offsetY, 140, 42)];
+        
+        OffersMoreMenuButton *rateOurAppButton = [[OffersMoreMenuButton alloc] initWithFrame:CGRectMake(secondRowBtn, offsetY, btnWidth, 42)];
         [rateOurAppButton setTag:OFFERSMENUBUTTON_RATEOURAPP];
         [rateOurAppButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [rateOurAppButton setTitle:@"Rate our app" forState:UIControlStateNormal];
