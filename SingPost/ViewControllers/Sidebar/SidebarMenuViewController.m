@@ -122,7 +122,7 @@
     [contentView addSubview:menuTableView];
     
     UIImageView *dropShadowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"drop-shadow"]];
-    [dropShadowImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 25, 0, 25, 640)];
+    [dropShadowImageView setFrame:CGRectMake(SIDEBAR_WIDTH - 25, 0, 25, contentView.height)];
     [contentView addSubview:dropShadowImageView];
     
     self.view = contentView;
@@ -167,7 +167,7 @@
     if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
         MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
                                                                                                        andMessage:maintananceStatuses[@"Comment"]];
-        [self presentModalViewController:viewController animated:YES];
+        [self presentViewController:viewController animated:YES completion:nil];
         return;
     }
     
@@ -205,7 +205,7 @@
         if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
             MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
                                                                                                            andMessage:maintananceStatuses[@"Comment"]];
-            [self presentModalViewController:viewController animated:YES];
+            [self presentViewController:viewController animated:YES completion:nil];
             return NO;
         }
     }
@@ -378,7 +378,7 @@
             {
                 if ([maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Calculate Postage" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -392,7 +392,7 @@
             {
                 if ([maintananceStatuses[@"FindPostalCodes"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Find Postal Codes" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     FindPostalCodesMainViewController *viewController = [[FindPostalCodesMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -406,7 +406,7 @@
             {
                 if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -420,7 +420,7 @@
             {
                 if ([maintananceStatuses[@"SendNReceive"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Send & Receive" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     SendReceiveMainViewController *viewController = [[SendReceiveMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -434,7 +434,7 @@
             {
                 if ([maintananceStatuses[@"Pay"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Pay" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     PaymentMainViewController *viewController = [[PaymentMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -448,7 +448,7 @@
             {
                 if ([maintananceStatuses[@"Shop"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Shop" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -462,7 +462,7 @@
             {
                 if ([maintananceStatuses[@"MoreServices"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Services" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     MoreServicesMainViewController *viewController = [[MoreServicesMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -476,7 +476,7 @@
             {
                 if ([maintananceStatuses[@"StampCollectibles"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Stamp Collectibles" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     StampCollectiblesMainViewController *viewController = [[StampCollectiblesMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -490,7 +490,7 @@
             {
                 if ([maintananceStatuses[@"MoreApps"] isEqualToString:@"on"]) {
                     MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"More Apps" andMessage:maintananceStatuses[@"Comment"]];
-                    [self presentModalViewController:viewController animated:YES];
+                    [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
                     MoreAppsViewController *viewController = [[MoreAppsViewController alloc] initWithNibName:nil bundle:nil];
@@ -550,7 +550,7 @@
     if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
         MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
                                                                                                        andMessage:maintananceStatuses[@"Comment"]];
-        [self presentModalViewController:viewController animated:YES];
+        [self presentViewController:viewController animated:YES completion:nil];
         return;
     }
     [self.view endEditing:YES];
