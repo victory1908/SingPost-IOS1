@@ -25,18 +25,21 @@
         UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
         [contentView setBackgroundColor:[UIColor clearColor]];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 250, 50)];
+        float width3 = INTERFACE_IS_IPAD ? 715.0f : 250.0f;
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, width3, 50)];
         [titleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [titleLabel setTextColor:RGB(51, 51, 51)];
         [titleLabel setNumberOfLines:2];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:titleLabel];
         
+        float width2 = INTERFACE_IS_IPAD ? 740.0f : 295.0f;
         UIImageView *disclosureIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_disclosure_indicator"]];
-        [disclosureIndicatorImageView setFrame:CGRectMake(295, 25, 8, 17)];
+        [disclosureIndicatorImageView setFrame:CGRectMake(width2, 25, 8, 17)];
         [contentView addSubview:disclosureIndicatorImageView];
         
-        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 69, contentView.bounds.size.width, 1)];
+        float width = INTERFACE_IS_IPAD ? 780.0f : contentView.bounds.size.width;
+        UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 69, width, 1)];
         [separatorView setBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
         

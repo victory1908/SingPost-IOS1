@@ -36,7 +36,8 @@
         [offerImageView setContentMode:UIViewContentModeScaleToFill];
         [contentView addSubview:offerImageView];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 7, 180, 44)];
+        float width2 = INTERFACE_IS_IPAD ? 620.0f : 180.0f;
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 7, width2, 44)];
         [titleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [titleLabel setNumberOfLines:2];
         [titleLabel setTextColor:RGB(51, 51, 51)];
@@ -56,7 +57,8 @@
         [expiryDateLabel setTextColor:RGB(125, 136, 149)];
         [contentView addSubview:expiryDateLabel];
         
-        PersistentBackgroundView *separatorView = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(130, 108, 173, 0.5)];
+        float width = INTERFACE_IS_IPAD ? 620.0f : 173.0f;
+        PersistentBackgroundView *separatorView = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(130, 108, width, 0.5)];
         [separatorView setPersistentBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
         
