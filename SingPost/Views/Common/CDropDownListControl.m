@@ -11,13 +11,14 @@
 #import "UIView+Position.h"
 #import "UIImage+Extensions.h"
 
-@interface CDropDownListControl () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
+@interface CDropDownListControl () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIPopoverControllerDelegate>
 
 @end
 
 @implementation CDropDownListControl
 {
     UIPickerView *pickerView;
+    UIPopoverController *pickerPopover;
     UIActionSheet *pickerViewActionSheet;
     UILabel *selectedValueLabel;
 }
@@ -52,6 +53,7 @@
 
 - (void)showActionSheet
 {
+    if (!INTERFACE_IS_IPAD) {
     pickerViewActionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                         delegate:nil
                                                cancelButtonTitle:nil
@@ -82,6 +84,36 @@
     [pickerViewActionSheet addSubview:toolbar];
     [pickerViewActionSheet showInView:self];
     [pickerViewActionSheet setBounds:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGRectMake(0, 0, 320, 430) : CGRectMake(0, 0, 320, 420)];
+    }
+    else
+    {
+        if (pickerPopover) {
+            [pickerPopover dismissPopoverAnimated:YES];
+        }
+        UIColor *navbarColor = [UIColor colorWithRed:(0/255.0) green:(0/255.0) blue:(0/255.0) alpha:1.0];
+        UIViewController * popoverContent = [[UIViewController alloc] init];
+        UIView* popoverView = [[UIView alloc] init];
+        popoverView.backgroundColor = [UIColor whiteColor];
+        UIView *headerView=[[UIView alloc]init];
+        [headerView setBackgroundColor:navbarColor];
+        UIButton *done_btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [done_btn setTitle:@"Done" forState:UIControlStateNormal];
+        [done_btn addTarget:self action:@selector(dismissActionSheet) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:done_btn];
+        [popoverView addSubview:headerView];
+        [popoverView addSubview:pickerView];
+        popoverContent.view = popoverView;
+        popoverView.frame = CGRectMake(0, 0, 320, 344);
+        headerView.frame = CGRectMake(0, 0, 320, 45);
+        [done_btn setFrame:CGRectMake(260, 8, 50,30)];
+        popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 244);
+        pickerPopover = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
+        [pickerPopover presentPopoverFromRect:self.bounds inView:self
+                     permittedArrowDirections:UIPopoverArrowDirectionUp
+                                     animated:YES];
+        pickerPopover.delegate = self;
+
+    }
 }
 
 - (void)dismissActionSheet
@@ -90,7 +122,8 @@
     if ([_delegate respondsToSelector:@selector(CDropDownListControlDismissed:)]) {
         [_delegate CDropDownListControlDismissed:self];
     }
-    [pickerViewActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+    if(!INTERFACE_IS_IPAD)[pickerViewActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+    else [pickerPopover dismissPopoverAnimated:YES];
 }
 
 - (void)selectRow:(NSInteger)row animated:(BOOL)shouldAnimate

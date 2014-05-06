@@ -21,3 +21,6 @@
 
 //Codigo
 #define GAI_ID @"UA-46197062-1"
+
+// ipad frame
+#define INTERFACE_IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
