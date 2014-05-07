@@ -169,7 +169,7 @@
 		521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SingPost-Prefix.pch"; sourceTree = "<group>"; };
 		521B172F17F1633000FEB6FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		521B173017F1633000FEB6FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		521B173217F1633000FEB6FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../SingPost/Images.xcassets; sourceTree = "<group>"; };
+		521B173217F1633000FEB6FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		521B173917F1633000FEB6FD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		521B175317F1678100FEB6FD /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		521B175417F1678100FEB6FD /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
@@ -199,8 +199,8 @@
 		52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityLocationMapAnnotation.m; sourceTree = "<group>"; };
 		52282FF417FACBA600B2A7B4 /* LocateUsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsListViewController.h; sourceTree = "<group>"; };
 		52282FF517FACBA600B2A7B4 /* LocateUsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsListViewController.m; sourceTree = "<group>"; };
-		52305F8717F5B20600610A86 /* UIFont+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SingPost.h"; sourceTree = "<group>"; };
-		52305F8817F5B20600610A86 /* UIFont+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SingPost.m"; sourceTree = "<group>"; };
+		52305F8717F5B20600610A86 /* UIFont+SingPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+SingPost.h"; path = "../Application/UIFont+SingPost.h"; sourceTree = "<group>"; };
+		52305F8817F5B20600610A86 /* UIFont+SingPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+SingPost.m"; path = "../Application/UIFont+SingPost.m"; sourceTree = "<group>"; };
 		52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		52305F8F17F5B4CA00610A86 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		52305F9517F5C1CF00610A86 /* SidebarMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarMenuTableViewCell.h; sourceTree = "<group>"; };
@@ -367,11 +367,11 @@
 		915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUSDetailsDetailsView.m; sourceTree = "<group>"; };
 		9160E762189126FE0046FC1E /* LocateUsFSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsFSMapViewController.h; sourceTree = "<group>"; };
 		9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsFSMapViewController.m; sourceTree = "<group>"; };
-		91692BD718EA868E0079B62D /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
-		9192B4F918B450EF004EB15A /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
-		9192B4FA18B450EF004EB15A /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
-		9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Additions.h"; sourceTree = "<group>"; };
-		9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Additions.m"; sourceTree = "<group>"; };
+		91692BD718EA868E0079B62D /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AppIcon.png; path = ../Resources/AppIcon.png; sourceTree = "<group>"; };
+		9192B4F918B450EF004EB15A /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Additions.h"; path = "../UIView+Additions.h"; sourceTree = "<group>"; };
+		9192B4FA18B450EF004EB15A /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Additions.m"; path = "../UIView+Additions.m"; sourceTree = "<group>"; };
+		9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+Additions.h"; path = "../UIScrollView+Additions.h"; sourceTree = "<group>"; };
+		9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+Additions.m"; path = "../UIScrollView+Additions.m"; sourceTree = "<group>"; };
 		91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Speedpost Agent.json"; sourceTree = "<group>"; };
 		91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingFeedbackViewController.h; sourceTree = "<group>"; };
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
@@ -464,8 +464,8 @@
 		521B171417F1633000FEB6FD = {
 			isa = PBXGroup;
 			children = (
-				52305F8B17F5B49F00610A86 /* Resources */,
 				521B172617F1633000FEB6FD /* SingPost */,
+				521B172717F1633000FEB6FD /* Supporting Files */,
 				521B171F17F1633000FEB6FD /* Frameworks */,
 				521B171E17F1633000FEB6FD /* Products */,
 				2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */,
@@ -497,20 +497,14 @@
 		521B172617F1633000FEB6FD /* SingPost */ = {
 			isa = PBXGroup;
 			children = (
-				9192B4F918B450EF004EB15A /* UIView+Additions.h */,
-				9192B4FA18B450EF004EB15A /* UIView+Additions.m */,
-				9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */,
-				9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */,
+				87DCFD7A191A1B4F00E9B0DD /* AppDelegate */,
 				52024F1817F6836800AFD239 /* Views */,
 				52C908E718045F210063A026 /* Api */,
 				52282FCC17FA8F7C00B2A7B4 /* Vendor */,
-				52305F8617F5B1DC00610A86 /* Application */,
+				52305F8617F5B1DC00610A86 /* Datebase */,
 				524CEA3B17F282B800E0EAC3 /* Categories */,
 				528F26D517F97991006F7027 /* Models */,
 				521B174F17F1653E00FEB6FD /* ViewControllers */,
-				521B172F17F1633000FEB6FD /* AppDelegate.h */,
-				521B173017F1633000FEB6FD /* AppDelegate.m */,
-				521B172717F1633000FEB6FD /* Supporting Files */,
 			);
 			path = SingPost;
 			sourceTree = "<group>";
@@ -518,6 +512,9 @@
 		521B172717F1633000FEB6FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				52305F8C17F5B4AF00610A86 /* Fonts */,
+				91692BD718EA868E0079B62D /* AppIcon.png */,
+				521B173217F1633000FEB6FD /* Images.xcassets */,
 				52024F1517F67B7800AFD239 /* Constants.h */,
 				521B172817F1633000FEB6FD /* SingPost-Info.plist */,
 				521B172917F1633000FEB6FD /* InfoPlist.strings */,
@@ -525,11 +522,13 @@
 				521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = SingPost;
 			sourceTree = "<group>";
 		};
 		521B174F17F1653E00FEB6FD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				87DCFD7B191A1D4900E9B0DD /* RootViewController */,
 				52A8B682180F004B002BC431 /* Article */,
 				52AF5B2317FB48AF002D6798 /* Common */,
 				521B175617F195F200FEB6FD /* SidebarMenu */,
@@ -545,8 +544,6 @@
 				52936478180B017C00B83F6B /* StampCollectibles */,
 				52E752F31870A23600D853B3 /* Offers */,
 				521F785318026DDD00B513FA /* Misc */,
-				521B175317F1678100FEB6FD /* RootViewController.h */,
-				521B175417F1678100FEB6FD /* RootViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -609,27 +606,16 @@
 			path = CMIndexBar;
 			sourceTree = "<group>";
 		};
-		52305F8617F5B1DC00610A86 /* Application */ = {
+		52305F8617F5B1DC00610A86 /* Datebase */ = {
 			isa = PBXGroup;
 			children = (
 				52731F71185AB194007D6001 /* LocationJSONs */,
 				528F268317F85AD9006F7027 /* Plists */,
-				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
-				52305F8817F5B20600610A86 /* UIFont+SingPost.m */,
 				52282FE617FAA8C300B2A7B4 /* EntityLocationMapAnnotation.h */,
 				52282FE717FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m */,
 			);
+			name = Datebase;
 			path = Application;
-			sourceTree = "<group>";
-		};
-		52305F8B17F5B49F00610A86 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				91692BD718EA868E0079B62D /* AppIcon.png */,
-				52305F8C17F5B4AF00610A86 /* Fonts */,
-				521B173217F1633000FEB6FD /* Images.xcassets */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		52305F8C17F5B4AF00610A86 /* Fonts */ = {
@@ -641,7 +627,8 @@
 				52024F3017F72D2000AFD239 /* OpenSans-Semibold.ttf */,
 				52305F8D17F5B4C100610A86 /* OpenSans-LightItalic.ttf */,
 			);
-			path = Fonts;
+			name = Fonts;
+			path = ../Resources/Fonts;
 			sourceTree = "<group>";
 		};
 		52305F9417F5C17100610A86 /* TableViewCells */ = {
@@ -667,6 +654,8 @@
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
+				52305F8817F5B20600610A86 /* UIFont+SingPost.m */,
 				527C2F2E184FCC4B00F1FB4F /* NSDictionary+Additions.h */,
 				527C2F2F184FCC4B00F1FB4F /* NSDictionary+Additions.m */,
 				52936489180B1B1500B83F6B /* UILabel+VerticalAlign.h */,
@@ -681,6 +670,10 @@
 				5293648D180B1C9900B83F6B /* NSDate+Extensions.m */,
 				52731F6E185A72FB007D6001 /* NSString+Extensions.h */,
 				52731F6F185A72FB007D6001 /* NSString+Extensions.m */,
+				9192B4F918B450EF004EB15A /* UIView+Additions.h */,
+				9192B4FA18B450EF004EB15A /* UIView+Additions.m */,
+				9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */,
+				9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1009,6 +1002,24 @@
 				915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		87DCFD7A191A1B4F00E9B0DD /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				521B172F17F1633000FEB6FD /* AppDelegate.h */,
+				521B173017F1633000FEB6FD /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		87DCFD7B191A1D4900E9B0DD /* RootViewController */ = {
+			isa = PBXGroup;
+			children = (
+				521B175317F1678100FEB6FD /* RootViewController.h */,
+				521B175417F1678100FEB6FD /* RootViewController.m */,
+			);
+			name = RootViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
