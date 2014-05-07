@@ -91,32 +91,47 @@ OffersMenuDelegate
     envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
-    if (INTERFACE_IS_IPAD)
+    if (INTERFACE_IS_IPAD) {
         trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668, 50)];
-    else
+        trackingNumberTextField.fontSize = 16.0f;
+        trackingNumberTextField.placeholderFontSize = 16.0f;
+        trackingNumberTextField.insetBoundsSize = CGSizeMake(50, 7);
+    }
+    else {
         trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40, 47) : CGRectMake(20, 70, contentView.width - 40, 30)];
-    
-    [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
-    [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
-    [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f];
-    [trackingNumberTextField setPlaceholderFontSize:INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f];
-    [trackingNumberTextField setInsetBoundsSize:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 8) : CGSizeMake(40, 3)) : (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 6) : CGSizeMake(40, 5))];
-    [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
-    [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
-    [trackingNumberTextField setDelegate:self];
+        trackingNumberTextField.fontSize = INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f;
+        trackingNumberTextField.placeholderFontSize = INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f;
+        trackingNumberTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 8) : CGSizeMake(40, 3)) : (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 6) : CGSizeMake(40, 5));
+    }
+    trackingNumberTextField.background = [UIImage imageNamed:@"trackingTextBox"];
+    trackingNumberTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+    trackingNumberTextField.placeholder = @"Please enter tracking number";
+    trackingNumberTextField.returnKeyType = UIReturnKeySend;
+    trackingNumberTextField.delegate = self;
     [contentView addSubview:trackingNumberTextField];
     
     LandingPageButton *trackingListButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon"] forState:UIControlStateNormal];
     [trackingListButton addTarget:self action:@selector(trackingListButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [trackingListButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(28, 80, 40, 48) : CGRectMake(28, 70, 26, 31)];
+    
+    if (INTERFACE_IS_IPAD)
+        trackingListButton.frame = CGRectMake(58, 240, 40, 48);
+    else
+        trackingListButton.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(28, 80, 40, 48) : CGRectMake(28, 70, 26, 31);
     trackingListButton.tag = LANDINGPAGEBUTTON_TRACKING_LIST;
     [contentView addSubview:trackingListButton];
     
-    CGFloat findTrackingBtnX = trackingNumberTextField.width - 15;
     LandingPageButton *findTrackingNumberButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
+    CGFloat findTrackingBtnX;
+    if (INTERFACE_IS_IPAD) {
+        findTrackingBtnX = trackingNumberTextField.right - 40;
+        findTrackingNumberButton.frame = CGRectMake(findTrackingBtnX, trackingNumberTextField.center.y - 35/2, 35, 35);
+    }
+    else {
+        findTrackingBtnX = trackingNumberTextField.width - 15;
+        findTrackingNumberButton.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 87, 35, 35) : CGRectMake(findTrackingBtnX, 71, 29, 29);
+    }
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 87, 35, 35) : CGRectMake(findTrackingBtnX, 71, 29, 29)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     findTrackingNumberButton.tag = LANDINGPAGEBUTTON_TRACKING_FIND;
     [contentView addSubview:findTrackingNumberButton];
