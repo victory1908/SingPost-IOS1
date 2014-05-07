@@ -59,45 +59,43 @@ typedef enum {
 @end
 
 @implementation LandingPageButton
-
-- (void)setShouldDim:(BOOL)inShouldDim
-{
+- (void)setShouldDim:(BOOL)inShouldDim {
     _shouldDim = inShouldDim;
     [self setAlpha:_shouldDim ? 0.5f : 1.0f];
 }
-
 @end
 
-@interface LandingPageViewController () <UITextFieldDelegate, OffersMenuDelegate>
-
+@interface LandingPageViewController ()
+<
+UITextFieldDelegate,
+OffersMenuDelegate
+>
 @end
 
-@implementation LandingPageViewController
-{
+@implementation LandingPageViewController {
     CTextField *trackingNumberTextField;
     OffersMoreMenuView *offersMoreMenuView;
 }
 
 #pragma mark - View lifecycle
 
-- (void)loadView
-{
+- (void)loadView {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
-    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] init];
-    if (INTERFACE_IS_IPAD) {
-        envelopBackgroundImageView.image = [UIImage imageNamed:@"background_envelope"];
-        envelopBackgroundImageView.frame = CGRectMake(0, 0, 768, 1024);
-    }
-    else {
-        envelopBackgroundImageView.image = [UIImage imageNamed:INTERFACE_IS_4INCHSCREEN ? @"background_envelope" : @"35iphone_background_envelope"];
+    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"EnvelopeBackground"]];
+    if (INTERFACE_IS_IPAD)
+        envelopBackgroundImageView.frame = CGRectMake(0, 0, 768, 552);
+    else
         envelopBackgroundImageView.frame = (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248));
-    }
     envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
-    trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40, 47) : CGRectMake(20, 70, contentView.width - 40, 30)];
+    if (INTERFACE_IS_IPAD)
+        trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668, 50)];
+    else
+        trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40, 47) : CGRectMake(20, 70, contentView.width - 40, 30)];
+    
     [trackingNumberTextField setBackground:[UIImage imageNamed:@"trackingTextBox"]];
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setFontSize:INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f];
@@ -124,22 +122,42 @@ typedef enum {
     [contentView addSubview:findTrackingNumberButton];
     
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost"]];
-    [singPostLogoImageView setFrame:CGRectMake((contentView.width - 155)/2, 8, 155, 55)];
+    if (INTERFACE_IS_IPAD)
+        singPostLogoImageView.frame = CGRectMake((contentView.width - 272)/2, 80, 272, 92);
+    else
+        singPostLogoImageView.frame = CGRectMake((contentView.width - 155)/2, 8, 155, 55);
     [contentView addSubview:singPostLogoImageView];
     
     UIButton *toggleSidebarButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [toggleSidebarButton setFrame:CGRectMake(10, 10, 30, 30)];
+    if (INTERFACE_IS_IPAD)
+        toggleSidebarButton.frame = CGRectMake(15, 15, 88, 88);
+    else
+        toggleSidebarButton.frame = CGRectMake(0, 0, 44, 44);
     [toggleSidebarButton setImage:[UIImage imageNamed:@"sidebar_button"] forState:UIControlStateNormal];
     [toggleSidebarButton addTarget:self action:@selector(toggleSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:toggleSidebarButton];
     
     //landing page buttons
-#define NUM_ICON_HORIZONTAL 3.0f
-#define ICON_WIDTH (INTERFACE_IS_4INCHSCREEN ? 90.0f : 80.0f)
-#define ICON_HEIGHT (INTERFACE_IS_4INCHSCREEN ? 90.0f : 80.0f)
-#define ICON_SPACING_VERTICAL (INTERFACE_IS_4INCHSCREEN ? 10.0f : 5.0f)
-#define STARTING_OFFSET_X (INTERFACE_IS_4INCHSCREEN ? 30.0f : 40.0f)
-#define STARTING_OFFSET_Y (INTERFACE_IS_4INCHSCREEN ? 230.0f : 185.0f)
+    NSInteger ICON_WIDTH;
+    NSInteger ICON_HEIGHT;
+    NSInteger ICON_SPACING_VERTICAL;
+    NSInteger STARTING_OFFSET_X;
+    NSInteger STARTING_OFFSET_Y;
+    
+    if (INTERFACE_IS_IPAD) {
+        ICON_WIDTH = 150;
+        ICON_HEIGHT = 150;
+        ICON_SPACING_VERTICAL = 20;
+        STARTING_OFFSET_X = 159;
+        STARTING_OFFSET_Y = 480;
+    }
+    else {
+        ICON_WIDTH = (INTERFACE_IS_4INCHSCREEN ? 90 : 80);
+        ICON_HEIGHT = (INTERFACE_IS_4INCHSCREEN ? 90 : 80);
+        ICON_SPACING_VERTICAL = (INTERFACE_IS_4INCHSCREEN ? 10 : 5);
+        STARTING_OFFSET_X = (INTERFACE_IS_4INCHSCREEN ? 30 : 40);
+        STARTING_OFFSET_Y = (INTERFACE_IS_4INCHSCREEN ? 230 : 185);
+    }
     CGFloat offsetX, offsetY;
     
     offsetY = STARTING_OFFSET_Y;
