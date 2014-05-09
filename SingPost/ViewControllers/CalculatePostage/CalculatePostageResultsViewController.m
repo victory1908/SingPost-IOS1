@@ -61,13 +61,15 @@
     [resultsTableView setBackgroundView:nil];
     [contentView addSubview:resultsTableView];
     
-    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, 125, 48)];
+    CGFloat btnWidth = (contentView.width - 40)/2;
+    
+    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, btnWidth, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
     [contentView addSubview:locateUsButton];
-
-    FlatBlueButton *calculateAgainButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(145, locateUsButton.frame.origin.y, 160, 48)];
+    
+    FlatBlueButton *calculateAgainButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(locateUsButton.right + 10, locateUsButton.top, btnWidth, 48)];
     [calculateAgainButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [calculateAgainButton addTarget:self action:@selector(calculateAgainButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [calculateAgainButton setTitle:@"CALCULATE AGAIN" forState:UIControlStateNormal];
@@ -147,7 +149,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:headerCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, cell.contentView.bounds.size.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 100 : 125.0f)];
+            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, tableView.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 100 : 125.0f)];
             [cellContentView setBackgroundColor:RGB(240, 240, 240)];
             [cell.contentView addSubview:cellContentView];
             
@@ -255,7 +257,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:titleCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            UIView *titleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width, 30)];
+            UIView *titleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, 30)];
             [titleContentView setBackgroundColor:[UIColor whiteColor]];
             [cell.contentView addSubview:titleContentView];
             
@@ -267,6 +269,7 @@
             [titleContentView addSubview:serviceHeaderLabel];
             
             UILabel *costLabel = [[UILabel alloc] initWithFrame:CGRectMake(277, 5, 40, 16)];
+            costLabel.right = titleContentView.right - 15;
             [costLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
             [costLabel setText:@"Cost"];
             [costLabel setTextColor:RGB(125, 136, 149)];
@@ -287,9 +290,7 @@
             cell = [[CalculatePostageResultsItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        
         [self configureCell:cell atIndexPath:indexPath];
-        
         return cell;
     }
 }

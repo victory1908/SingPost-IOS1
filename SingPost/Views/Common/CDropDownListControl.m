@@ -90,7 +90,7 @@
         if (pickerPopover) {
             [pickerPopover dismissPopoverAnimated:YES];
         }
-        UIColor *navbarColor = [UIColor colorWithRed:(0/255.0) green:(0/255.0) blue:(0/255.0) alpha:1.0];
+        UIColor *navbarColor = [UIColor colorWithRed:(235.0/255.0) green:(235.0/255.0) blue:(235.0/255.0) alpha:1.0];
         UIViewController * popoverContent = [[UIViewController alloc] init];
         UIView* popoverView = [[UIView alloc] init];
         popoverView.backgroundColor = [UIColor whiteColor];
@@ -194,7 +194,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 250, 40)];
         label.font = [UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
         label.backgroundColor = [UIColor clearColor];
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.numberOfLines = 0;
         view = label;
     }

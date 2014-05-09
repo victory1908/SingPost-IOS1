@@ -40,29 +40,30 @@
     [contentScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
     
-    fromPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
+    fromPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, contentScrollView.width - 30, 44)];
     [fromPostalCodeTextField setDelegate:self];
     [fromPostalCodeTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [fromPostalCodeTextField setPlaceholder:@"From postal code"];
     [contentScrollView addSubview:fromPostalCodeTextField];
     
-    toPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
+    toPostalCodeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, contentScrollView.width - 30, 44)];
     [toPostalCodeTextField setDelegate:self];
     [toPostalCodeTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [toPostalCodeTextField setPlaceholder:@"To postal code"];
     [contentScrollView addSubview:toPostalCodeTextField];
     
-    weightTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 130, 175, 44)];
+    weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(202, 130, 103, 44)];
+    weightUnitsDropDownList.right = toPostalCodeTextField.right;
+    [weightUnitsDropDownList setPlistValueFile:@"CalculatePostage_WeightUnits"];
+    [weightUnitsDropDownList selectRow:0 animated:NO];
+    [contentScrollView addSubview:weightUnitsDropDownList];
+    
+    weightTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 130, toPostalCodeTextField.width - weightUnitsDropDownList.width - 10, 44)];
     [weightTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [weightTextField setDelegate:self];
     [weightTextField setDelegate:self];
     [weightTextField setPlaceholder:@"Weight"];
     [contentScrollView addSubview:weightTextField];
-    
-    weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(202, 130, 103, 44)];
-    [weightUnitsDropDownList setPlistValueFile:@"CalculatePostage_WeightUnits"];
-    [weightUnitsDropDownList selectRow:0 animated:NO];
-    [contentScrollView addSubview:weightUnitsDropDownList];
     
     UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 175, 290, 20)];
     [allFieldMandatoryLabel setText:@"All fields above are mandatory"];

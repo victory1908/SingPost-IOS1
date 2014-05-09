@@ -20,7 +20,14 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, 70)];
+        
+        CGFloat width;
+        if (INTERFACE_IS_IPAD)
+            width = 768;
+        else
+            width = 320;
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 70)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         serviceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 200, LONG_MAX)];
@@ -37,6 +44,7 @@
         [contentView addSubview:statusLabel];
         
         costLabel = [[UILabel alloc] initWithFrame:CGRectMake(216, 20, 85, 30)];
+        costLabel.right = contentView.right - 15;
         [costLabel setFont:[UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
         [costLabel setTextColor:RGB(51, 51, 51)];
         [costLabel setTextAlignment:NSTextAlignmentRight];
@@ -57,7 +65,7 @@
 {
     _item = inItem;
     
-    [serviceTitleLabel setWidth:190 andHeight:LONG_MAX];
+    [serviceTitleLabel setWidth:separatorView.width/2 andHeight:LONG_MAX];
     [serviceTitleLabel setText:_item.deliveryServiceName];
     [serviceTitleLabel sizeToFit];
     [statusLabel setText:[NSString stringWithFormat:@"%@ working days", _item.deliveryTime]];

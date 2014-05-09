@@ -37,21 +37,22 @@
     [contentScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [contentScrollView setBackgroundColor:RGB(240, 240, 240)];
     
-    toWhichCountryDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
+    toWhichCountryDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 15, contentScrollView.width - 30, 44)];
     [toWhichCountryDropDownList setPlistValueFile:@"CalculatePostage_Countries"];
     [toWhichCountryDropDownList setPlaceholderText:@"To which country"];
     [contentScrollView addSubview:toWhichCountryDropDownList];
     
-    weightTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 175, 44)];
+    weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(202, 75, 103, 44)];
+    weightUnitsDropDownList.right = toWhichCountryDropDownList.right;
+    [weightUnitsDropDownList setPlistValueFile:@"CalculatePostage_WeightUnits"];
+    [weightUnitsDropDownList selectRow:0 animated:NO];
+    [contentScrollView addSubview:weightUnitsDropDownList];
+    
+    weightTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, toWhichCountryDropDownList.width - weightUnitsDropDownList.width - 10, 44)];
     [weightTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [weightTextField setDelegate:self];
     [weightTextField setPlaceholder:@"Weight"];
     [contentScrollView addSubview:weightTextField];
-    
-    weightUnitsDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(202, 75, 103, 44)];
-    [weightUnitsDropDownList setPlistValueFile:@"CalculatePostage_WeightUnits"];
-    [weightUnitsDropDownList selectRow:0 animated:NO];
-    [contentScrollView addSubview:weightUnitsDropDownList];
     
     UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, 290, 20)];
     [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
@@ -60,7 +61,7 @@
     [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [contentScrollView addSubview:allFieldMandatoryLabel];
     
-    expectedDeliveryTimeInDaysDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 160, 290, 44)];
+    expectedDeliveryTimeInDaysDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 160, contentScrollView.bounds.size.width - 30, 44)];
     [expectedDeliveryTimeInDaysDropDownList setPlistValueFile:@"CalculatePostage_ExpectedDeliveryTimeDays"];
     [expectedDeliveryTimeInDaysDropDownList setPlaceholderText:@"Expected delivery time (days)"];
     [contentScrollView addSubview:expectedDeliveryTimeInDaysDropDownList];
