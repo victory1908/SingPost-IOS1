@@ -9,6 +9,8 @@
 #import "CTextField.h"
 #import "UIFont+SingPost.h"
 
+#define DEFAULT_TEXTFIELD_BACKGROUND      [[UIImage imageNamed:@"trackingTextBox_grayBg"]resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,15,15)]
+
 @implementation CTextField
 
 - (id)initWithFrame:(CGRect)frame
@@ -18,7 +20,7 @@
         _placeholderFontSize = 12.0f;
         _insetBoundsSize = CGSizeMake(10, 5);
 
-        self.background = [UIImage imageNamed:@"trackingTextBox_grayBg"];
+        self.background = DEFAULT_TEXTFIELD_BACKGROUND;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.contentVerticalAlignment  = UIControlContentVerticalAlignmentCenter;
         self.backgroundColor = RGB(240, 240, 240);
