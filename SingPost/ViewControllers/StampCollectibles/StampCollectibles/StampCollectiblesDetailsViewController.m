@@ -76,7 +76,7 @@
     
     CGFloat offsetY = 0;
     
-    imagesScrollerBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, offsetY, 320, 185)];
+    imagesScrollerBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, 185)];
     [imagesScrollerBackgroundImageView setImage:[UIImage imageNamed:@"image_scrolller_background"]];
     [contentScrollView addSubview:imagesScrollerBackgroundImageView];
     
@@ -97,7 +97,7 @@
     UIButton *enlargeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [enlargeButton setImage:[UIImage imageNamed:@"button_enlarge"] forState:UIControlStateNormal];
     [enlargeButton addTarget:self action:@selector(enlargeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [enlargeButton setFrame:CGRectMake(275, offsetY, 44, 44)];
+    [enlargeButton setFrame:CGRectMake(contentView.bounds.size.width - 44, offsetY, 44, 44)];
     [contentScrollView addSubview:enlargeButton];
     
     offsetY += 185.0f;

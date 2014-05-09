@@ -68,7 +68,7 @@
     
     closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeButton setImage:[UIImage imageNamed:@"button_close"] forState:UIControlStateNormal];
-    [closeButton setFrame:CGRectMake(270, 20, 38, 38)];
+    [closeButton setFrame:CGRectMake(contentView.width - 60, 20, 38, 38)];
     [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:closeButton];
     
@@ -193,7 +193,7 @@
     [self startZoomForView:view];
 }
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
 	if (1.0f == scale)
 		[self stopZoom];

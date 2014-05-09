@@ -46,7 +46,6 @@
     searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, 186)];
     [searchTermsView setBackgroundColor:RGB(250, 250, 250)];
     
-    
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:@"Stamp Collectibles"];
     [navigationBarView setShowSidebarToggleButton:YES];
@@ -57,7 +56,6 @@
     
     searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
     [contentScrollView addSubview:searchResultsContainerView];
-    
     
     UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 230-44-186, contentScrollView.bounds.size.width, 0.5f)];
     [topSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
