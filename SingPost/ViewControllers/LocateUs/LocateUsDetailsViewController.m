@@ -101,12 +101,12 @@ typedef enum  {
     [addressLabel setBackgroundColor:[UIColor clearColor]];
     [contentScrollView addSubview:addressLabel];
     
-    isOpenedIndicatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(255, 230, 10, 10)];
+    isOpenedIndicatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(contentScrollView.width - 65, 230, 10, 10)];
     [contentScrollView addSubview:isOpenedIndicatorImageView];
     
     UIButton *showMapRouteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [showMapRouteButton setImage:[UIImage imageNamed:@"search_map_button"] forState:UIControlStateNormal];
-    [showMapRouteButton setFrame:CGRectMake(270, 212, 44, 44)];
+    [showMapRouteButton setFrame:CGRectMake(contentScrollView.width - 50, 212, 44, 44)];
     [showMapRouteButton addTarget:self action:@selector(showMapRouteDirectionsClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentScrollView addSubview:showMapRouteButton];
     
@@ -122,7 +122,9 @@ typedef enum  {
     [bottomSeparatorView setHidden:shouldHideSectionSelector];
     [contentScrollView addSubview:bottomSeparatorView];
     
-    openingHoursSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 266.5f, 107, 50)];
+    CGFloat btnWidth = contentScrollView.width/3;
+    
+    openingHoursSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 266.5f, btnWidth, 50)];
     [openingHoursSectionButton setHidden:shouldHideSectionSelector];
     [openingHoursSectionButton setTag:LOCATEUSDETAILS_SECTION_OPENINGHOURS];
     [openingHoursSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
@@ -130,7 +132,7 @@ typedef enum  {
     [openingHoursSectionButton setTitle:@"Opening hours" forState:UIControlStateNormal];
     [contentScrollView addSubview:openingHoursSectionButton];
     
-    servicesSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(106.5, 266.5f, 108, 50)];
+    servicesSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(openingHoursSectionButton.right, 266.5f, btnWidth, 50)];
     [servicesSectionButton setHidden:shouldHideSectionSelector];
     [servicesSectionButton setTag:LOCATEUSDETAILS_SECTION_SERVICES];
     [servicesSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
@@ -138,7 +140,7 @@ typedef enum  {
     [servicesSectionButton setTitle:@"Services" forState:UIControlStateNormal];
     [contentScrollView addSubview:servicesSectionButton];
     
-    postingBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(214, 266.5f, 108, 50)];
+    postingBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(servicesSectionButton.right, 266.5f, btnWidth, 50)];
     [postingBoxSectionButton setHidden:shouldHideSectionSelector];
     [postingBoxSectionButton setTag:LOCATEUSDETAILS_SECTION_POSTINGBOX];
     [postingBoxSectionButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];

@@ -67,7 +67,7 @@
     searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 130)];
     [searchTermsView setBackgroundColor:RGB(250, 250, 250)];
     
-    findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
+    findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, contentScrollView.width - 30, 44)];
     findByTextField.delegate = self;
     [findByTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
@@ -77,10 +77,10 @@
     
     UIButton *locateUsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [locateUsButton setImage:[UIImage imageNamed:@"search_icon"] forState:UIControlStateNormal];
-    [locateUsButton setFrame:CGRectMake(265, 24, 30, 30)];
+    [locateUsButton setFrame:CGRectMake(findByTextField.right - 45, 24, 30, 30)];
     [searchTermsView addSubview:locateUsButton];
     
-    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 290, 44)];
+    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, contentScrollView.width - 30, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
     [typesDropDownList setDelegate:self];
     [typesDropDownList selectRow:0 animated:NO];
@@ -407,7 +407,14 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:separatorCellIdentifier];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:separatorCellIdentifier];
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width, 1)];
+            
+            CGFloat width;
+            if (INTERFACE_IS_IPAD)
+                width = 768;
+            else
+                width = 320;
+            
+            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 1)];
             [separatorView setBackgroundColor:RGB(196, 197, 200)];
             [cell.contentView addSubview:separatorView];
         }

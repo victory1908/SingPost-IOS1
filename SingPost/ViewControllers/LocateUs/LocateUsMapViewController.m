@@ -44,7 +44,7 @@
     [contentScrollView setDelaysContentTouches:NO];
     [contentScrollView setBackgroundColor:RGB(250, 250, 250)];
     
-    findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, 290, 44)];
+    findByTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 15, contentScrollView.width - 30, 44)];
     findByTextField.placeholderFontSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 11.0f : 9.0f;
     findByTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGSizeMake(40, 3) : CGSizeMake(40, 5);
     [findByTextField setReturnKeyType:UIReturnKeyGo];
@@ -56,7 +56,7 @@
     [searchIconImageView setImage:[UIImage imageNamed:@"magnifying_glass"]];
     [contentScrollView addSubview:searchIconImageView];
     
-    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, 290, 44)];
+    typesDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(15, 70, contentScrollView.width - 30, 44)];
     [typesDropDownList setPlistValueFile:@"LocateUs_Types"];
     [typesDropDownList selectRow:0 animated:NO];
     [typesDropDownList setDelegate:self];

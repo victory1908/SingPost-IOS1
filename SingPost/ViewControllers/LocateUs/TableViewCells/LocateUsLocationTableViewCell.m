@@ -25,8 +25,14 @@
         v.backgroundColor = RGB(204, 204, 204);
         self.selectedBackgroundView = v;
         
-        UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
-        [contentView setBackgroundColor:[UIColor clearColor]];
+        CGFloat width;
+        if (INTERFACE_IS_IPAD)
+            width = 768;
+        else
+            width = 320;
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.contentView.bounds.size.height)];
+        [contentView setBackgroundColor:[UIColor whiteColor]];
         
         UIView *openingHoursIndicatorContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 24, 60)];
         [openingHoursIndicatorContainerView setBackgroundColor:RGB(237, 237, 237)];
@@ -46,14 +52,14 @@
         [closedIndicatorButton setFrame:CGRectMake(7, 36, 10, 10)];
         [openingHoursIndicatorContainerView addSubview:closedIndicatorButton];
         
-        nameLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 10, 170, 20)];
+        nameLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 10, width - 150, 20)];
         [nameLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [nameLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [nameLabel setTextColor:RGB(51, 51, 51)];
         [nameLabel setPersistentBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:nameLabel];
         
-        addressLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 30, 170, 20)];
+        addressLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(38, 30, width - 150, 20)];
         [addressLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [addressLabel setLineBreakMode:NSLineBreakByTruncatingTail];
         [addressLabel setTextColor:RGB(125, 136, 149)];
@@ -61,6 +67,7 @@
         [contentView addSubview:addressLabel];
         
         distanceLabel = [[PersistentBackgroundLabel alloc] initWithFrame:CGRectMake(210, 9, 70, 24)];
+        distanceLabel.right = contentView.right - 35;
         [distanceLabel setPersistentBackgroundColor:RGB(36, 84, 157)];
         [distanceLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [distanceLabel setTextColor:[UIColor whiteColor]];

@@ -55,14 +55,8 @@ typedef enum {
     toggleModesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [toggleModesButton setImage:[UIImage imageNamed:@"list_toggle_button"] forState:UIControlStateNormal];
     [toggleModesButton addTarget:self action:@selector(toggleButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [toggleModesButton setFrame:CGRectMake(270, 0, 44, 44)];
+    [toggleModesButton setFrame:CGRectMake(navigationBarView.right - 44, 0, 44, 44)];
     [navigationBarView addSubview:toggleModesButton];
-    
-    //    UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [reloadButton setImage:[UIImage imageNamed:@"reload_button"] forState:UIControlStateNormal];
-    //    [reloadButton setFrame:CGRectMake(230, 0, 44, 44)];
-    //    [reloadButton addTarget:self action:@selector(reloadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    //    [navigationBarView addSubview:reloadButton];
     
     locateUsMapViewController = [[LocateUsMapViewController alloc] initWithNibName:nil bundle:nil];
     locateUsMapViewController.delegate = self;
@@ -129,40 +123,30 @@ typedef enum {
         [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
             [self updateViewData];
-           // [locateUsMapViewController showFilteredLocationsOnMap];
-           // [locateUsListViewController reloadData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
         [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
             [self updateViewData];
-           // [locateUsMapViewController showFilteredLocationsOnMap];
-           // [locateUsListViewController reloadData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
         [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
             [self updateViewData];
-            //[locateUsMapViewController showFilteredLocationsOnMap];
-           // [locateUsListViewController reloadData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTAL_AGENT]) {
         [EntityLocation API_updatePostalAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
             [self updateViewData];
-            //[locateUsMapViewController showFilteredLocationsOnMap];
-            //[locateUsListViewController reloadData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT]) {
         [EntityLocation API_updateSingPostAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
             [self updateViewData];
-           // [locateUsMapViewController showFilteredLocationsOnMap];
-            //[locateUsListViewController reloadData];
         }];
     }
     
@@ -170,8 +154,6 @@ typedef enum {
         [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
             [self updateViewData];
-           // [locateUsMapViewController showFilteredLocationsOnMap];
-           // [locateUsListViewController reloadData];
         }];
     }
     else {
