@@ -22,6 +22,7 @@
 #import "StampImagesBrowserViewController.h"
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "StampCollectibleDetailExpandableView.h"
+#import "UIAlertView+Blocks.h"
 
 @interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate ,UIWebViewDelegate>
 
@@ -298,6 +299,23 @@
         locateUsButton.top = pricingWebView.bottom + 15;
         [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
     }
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *urlScheme = request.URL.scheme;
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        if ([urlScheme hasPrefix:@"http"]) {
+            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
+                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
+                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
+                                  if (buttonIndex == 1) {
+                                      [[UIApplication sharedApplication]openURL:request.URL];
+                                  }
+                              }];
+        }
+        return NO;
+    }
+    return YES;
 }
 
 @end
