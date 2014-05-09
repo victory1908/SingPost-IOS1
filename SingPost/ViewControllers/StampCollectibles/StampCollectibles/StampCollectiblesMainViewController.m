@@ -52,6 +52,7 @@
     [contentScrollView addSubview:navigationBarView];
     
     featuredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 186)];
+    [featuredImageView setContentMode:UIViewContentModeScaleAspectFit];
     [searchTermsView addSubview:featuredImageView];
     
     searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 44, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
