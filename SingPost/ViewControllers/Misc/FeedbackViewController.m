@@ -18,6 +18,8 @@
 #import <SVProgressHUD.h>
 #import "UIAlertView+Blocks.h"
 
+#define DEFAULT_TEXTFIELD_BACKGROUND      [[UIImage imageNamed:@"trackingTextBox_grayBg"]resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,15,15)]
+
 @interface FeedbackViewController ()
 
 @end
@@ -82,18 +84,18 @@
     [contentScrollView addSubview:allFieldMandatoryLabel];
     
     offsetY += 45.0f;
-    nameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, 290, 44)];
+    nameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.width - 30, 44)];
     [nameTextField setPlaceholder:@"Name"];
     [contentScrollView addSubview:nameTextField];
     
     offsetY += 56.0f;
-    contactNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, 290, 44)];
+    contactNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.width - 30, 44)];
     [contactNumberTextField setPlaceholder:@"Contact number"];
     [contactNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [contentScrollView addSubview:contactNumberTextField];
     
     offsetY += 56.0f;
-    emailAddressTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, 290, 44)];
+    emailAddressTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.width - 30, 44)];
     [emailAddressTextField setKeyboardType:UIKeyboardTypeEmailAddress];
     [emailAddressTextField setPlaceholder:@"Email address"];
     emailAddressTextField.delegate = self;
@@ -115,8 +117,8 @@
     [contentScrollView addSubview:yourCommentDisplayLabel];
     
     offsetY += 20.0f;
-    UIImageView *commentsBackgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"trackingTextBox_grayBg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)]];
-    [commentsBackgroundImageView setFrame:CGRectMake(15, offsetY + 20, 290, 150)];
+    UIImageView *commentsBackgroundImageView = [[UIImageView alloc] initWithImage:DEFAULT_TEXTFIELD_BACKGROUND];
+    [commentsBackgroundImageView setFrame:CGRectMake(15, offsetY + 20, contentScrollView.width - 30, 150)];
     [contentScrollView addSubview:commentsBackgroundImageView];
     
     commentsTextView = [[CTextView alloc] initWithFrame:CGRectInset(commentsBackgroundImageView.frame, 5, 5)];

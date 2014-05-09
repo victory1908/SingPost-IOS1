@@ -56,34 +56,35 @@
         buttonType = [self.article.buttonType integerValue];
     
     switch (buttonType) {
-        case 1: //No button
-            break;
-        case 2:
+        case 2: {
             locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,contentScrollView.bounds.size.width - 30,48)];
             [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
             [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:locateUsButton];
             break;
-        case 3:
+        }
+        case 3: {
             calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,contentScrollView.bounds.size.width - 30,48)];
             [calculateButton setTitle:@"CALCULATE POSTAGE" forState:UIControlStateNormal];
             [calculateButton addTarget:self action:@selector(calculateButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:calculateButton];
             break;
-        case 4:
-            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,140,48)];
+        }
+        case 4: {
+            CGFloat btnWidth = (contentScrollView.width - 40)/2;
+            locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,-100,btnWidth,48)];
             [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
             [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:locateUsButton];
             
-            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(165,-100,140,48)];
+            calculateButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(locateUsButton.right + 10,-100,btnWidth,48)];
             [calculateButton setTitle:@"CALCULATE POSTAGE" forState:UIControlStateNormal];
             calculateButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             calculateButton.titleLabel.textAlignment = NSTextAlignmentCenter;
             [calculateButton addTarget:self action:@selector(calculateButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [contentScrollView addSubview:calculateButton];
             break;
-            
+        }
         default:
             break;
     }
