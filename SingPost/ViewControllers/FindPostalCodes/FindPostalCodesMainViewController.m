@@ -81,19 +81,21 @@ typedef enum  {
     [sectionContentScrollView addSubview:poBoxViewController.view];
     [poBoxViewController didMoveToParentViewController:self];
 
-    streetSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 44.5, 107, 49.5)];
+    CGFloat btnWidth = contentView.width/3;
+    
+    streetSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(0, 44.5, btnWidth, 49.5)];
     [streetSectionButton setTag:FINDPOSTALCODES_SECTION_STREET];
     [streetSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [streetSectionButton setTitle:@"Street" forState:UIControlStateNormal];
     [contentView addSubview:streetSectionButton];
     
-    landmarkSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(106.5, 44.5, 108, 49.5)];
+    landmarkSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(streetSectionButton.right, 44.5, btnWidth, 49.5)];
     [landmarkSectionButton setTag:FINDPOSTALCODES_SECTION_LANDMARK];
     [landmarkSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [landmarkSectionButton setTitle:@"Landmark" forState:UIControlStateNormal];
     [contentView addSubview:landmarkSectionButton];
     
-    poBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(214, 44.5, 106.5, 49.5)];
+    poBoxSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(landmarkSectionButton.right, 44.5, btnWidth, 49.5)];
     [poBoxSectionButton setTag:FINDPOSTALCODES_SECTION_POBOX];
     [poBoxSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [poBoxSectionButton setTitle:@"PO Box" forState:UIControlStateNormal];

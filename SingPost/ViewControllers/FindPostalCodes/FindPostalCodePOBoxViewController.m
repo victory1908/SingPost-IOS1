@@ -41,21 +41,22 @@
     
     searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width,225)];
     
-    windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 140, 54)];
-    windowDeliveryNoTextField.delegate = self;
-    [windowDeliveryNoTextField setPlaceholder:@"Reference No\n(Min. 1 character)"];
-    [searchTermsView addSubview:windowDeliveryNoTextField];
+    postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 85, contentScrollView.width - 30, 44)];
+    postOfficeTextField.delegate = self;
+    [postOfficeTextField setPlaceholder:@"Name of Post Office (Min. 3 characters)"];
+    [searchTermsView addSubview:postOfficeTextField];
     
     typeDropDownList = [[CDropDownListControl alloc] initWithFrame:CGRectMake(160, 20, 145, 54)];
+    typeDropDownList.right = postOfficeTextField.right;
     [typeDropDownList setFontSize:14.0f];
     [typeDropDownList setPlistValueFile:@"FindPostalCodes_Types"];
     [typeDropDownList selectRow:0 animated:NO];
     [searchTermsView addSubview:typeDropDownList];
     
-    postOfficeTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 85, 290, 44)];
-    postOfficeTextField.delegate = self;
-    [postOfficeTextField setPlaceholder:@"Name of Post Office (Min. 3 characters)"];
-    [searchTermsView addSubview:postOfficeTextField];
+    windowDeliveryNoTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, contentScrollView.width - 40 - typeDropDownList.width, 54)];
+    windowDeliveryNoTextField.delegate = self;
+    [windowDeliveryNoTextField setPlaceholder:@"Reference No\n(Min. 1 character)"];
+    [searchTermsView addSubview:windowDeliveryNoTextField];
     
     UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 134, 290, 20)];
     [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
@@ -69,7 +70,7 @@
     [findButton setTitle:@"FIND" forState:UIControlStateNormal];
     [searchTermsView addSubview:findButton];
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 224, 320, 0.5f)];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 224, contentScrollView.width, 0.5f)];
     [separatorView setBackgroundColor:RGB(196, 197, 200)];
     [searchTermsView addSubview:separatorView];
     
@@ -187,7 +188,13 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:titleCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            UIView *titleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width, 35)];
+            CGFloat width;
+            if (INTERFACE_IS_IPAD)
+                width = 768;
+            else
+                width = 320;
+            
+            UIView *titleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 35)];
             [titleContentView setBackgroundColor:[UIColor whiteColor]];
             [cell.contentView addSubview:titleContentView];
             
@@ -199,13 +206,14 @@
             [titleContentView addSubview:postOfficeLabel];
             
             UILabel *postalCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(232, 9, 75, 16)];
+            postalCodeLabel.right = width - 15;
             [postalCodeLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
             [postalCodeLabel setText:@"Postal Code"];
             [postalCodeLabel setTextColor:RGB(125, 136, 149)];
             [postalCodeLabel setBackgroundColor:[UIColor clearColor]];
             [titleContentView addSubview:postalCodeLabel];
             
-            UIView *headerViewSeparator = [[UIView alloc] initWithFrame:CGRectMake(15, titleContentView.bounds.size.height - 1, titleContentView.bounds.size.width - 30, 0.5f)];
+            UIView *headerViewSeparator = [[UIView alloc] initWithFrame:CGRectMake(15, titleContentView.bounds.size.height - 1, width - 30, 0.5f)];
             [headerViewSeparator setBackgroundColor:RGB(196, 197, 200)];
             [titleContentView addSubview:headerViewSeparator];
         }

@@ -40,37 +40,37 @@
     
     searchTermsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width,235)];
     
-    buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, 290, 44)];
+    buildingBlockHouseNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 20, contentScrollView.width - 30, 44)];
     buildingBlockHouseNumberTextField.delegate = self;
     [buildingBlockHouseNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
     [buildingBlockHouseNumberTextField setPlaceholder:@"Building/block/house number (Min. 1 character)"];
     [searchTermsView addSubview:buildingBlockHouseNumberTextField];
     
-    streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, 290, 44)];
+    streetNameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 75, contentScrollView.width - 30, 44)];
     streetNameTextField.delegate = self;
     [streetNameTextField setPlaceholder:@"Street name (Min. 3 characters)"];
     [searchTermsView addSubview:streetNameTextField];
     
-    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, 290, 20)];
+    UILabel *allFieldMandatoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 125, contentScrollView.width - 30, 20)];
     [allFieldMandatoryLabel setText:@"All fields above are mandatory"];
     [allFieldMandatoryLabel setBackgroundColor:[UIColor clearColor]];
     [allFieldMandatoryLabel setTextColor:RGB(125, 136, 149)];
     [allFieldMandatoryLabel setFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
     [searchTermsView addSubview:allFieldMandatoryLabel];
     
-    FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 165, contentScrollView.bounds.size.width - 30, 48)];
+    FlatBlueButton *findButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, 165, contentScrollView.width - 30, 48)];
     [findButton addTarget:self action:@selector(findButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [findButton setTitle:@"FIND" forState:UIControlStateNormal];
     [searchTermsView addSubview:findButton];
     
-    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 234, 320, 0.5f)];
+    UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 234, contentScrollView.width, 0.5f)];
     [separatorView setBackgroundColor:RGB(196, 197, 200)];
     [searchTermsView addSubview:separatorView];
     
-    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 64)];
+    searchResultsContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.width, contentScrollView.height - 64)];
     [contentScrollView addSubview:searchResultsContainerView];
     
-    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 118) style:UITableViewStylePlain];
+    resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.width, contentScrollView.height - 118) style:UITableViewStylePlain];
     [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [resultsTableView setSeparatorColor:[UIColor clearColor]];
     [resultsTableView setDelegate:self];
@@ -181,7 +181,13 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:titleCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            UIView *titleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.bounds.size.width, 35)];
+            CGFloat width;
+            if (INTERFACE_IS_IPAD)
+                width = 768;
+            else
+                width = 320;
+            
+            UIView *titleContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 35)];
             [titleContentView setBackgroundColor:[UIColor whiteColor]];
             [cell.contentView addSubview:titleContentView];
             
@@ -193,6 +199,7 @@
             [titleContentView addSubview:majorBuildingEstateLabel];
             
             UILabel *postalCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(232, 9, 75, 16)];
+            postalCodeLabel.right = titleContentView.right - 15;
             [postalCodeLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
             [postalCodeLabel setText:@"Postal Code"];
             [postalCodeLabel setTextColor:RGB(125, 136, 149)];

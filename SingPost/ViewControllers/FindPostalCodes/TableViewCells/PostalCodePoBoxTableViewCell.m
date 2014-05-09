@@ -23,7 +23,13 @@
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         [self setBackgroundColor:[UIColor clearColor]];
         
-        UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        CGFloat width;
+        if (INTERFACE_IS_IPAD)
+            width = 768;
+        else
+            width = 320;
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.contentView.bounds.size.height)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 8, LOCATION_LABEL_SIZE.width, LOCATION_LABEL_SIZE.height)];
@@ -34,13 +40,14 @@
         [contentView addSubview:locationLabel];
         
         postalCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(240, 8, 60, 30)];
+        postalCodeLabel.right = contentView.right - 15;
         [postalCodeLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [postalCodeLabel setTextColor:RGB(36, 84, 157)];
         [postalCodeLabel setTextAlignment:NSTextAlignmentRight];
         [postalCodeLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:postalCodeLabel];
         
-        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 43, contentView.bounds.size.width - 30, 0.5f)];
+        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 43, width - 30, 0.5f)];
         [separatorView setBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
         
