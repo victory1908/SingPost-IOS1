@@ -39,7 +39,7 @@
     [backgroundImageView setContentMode:UIViewContentModeScaleToFill];
     [contentView addSubview:backgroundImageView];
     
-    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 275, 290, 20)];
+    UILabel *moduleNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, contentView.height/2, contentView.width - 30, 20)];
     moduleNameLabel.backgroundColor = [UIColor clearColor];
     moduleNameLabel.textColor = RGB(195, 17, 38);
     moduleNameLabel.textAlignment = NSTextAlignmentCenter;
@@ -47,7 +47,7 @@
     moduleNameLabel.font = [UIFont SingPostBoldFontOfSize:16.0f fontKey:kSingPostFontOpenSans];
     [contentView addSubview:moduleNameLabel];
     
-    UILabel *maintananceMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 310, 290, 300)];
+    UILabel *maintananceMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, moduleNameLabel.bottom + 15, contentView.width - 30, 300)];
     maintananceMessageLabel.backgroundColor = [UIColor clearColor];
     maintananceMessageLabel.textColor = RGB(67, 67, 67);
     maintananceMessageLabel.numberOfLines = 0;
@@ -58,7 +58,7 @@
     [contentView addSubview:maintananceMessageLabel];
     
     FlatBlueButton *closeButton = [[FlatBlueButton alloc] initWithFrame:
-                                   CGRectMake(15, 325 + maintananceMessageLabel.frame.size.height, 290 , 48)];
+                                   CGRectMake(15, maintananceMessageLabel.bottom + 15, contentView.width - 30 , 48)];
     [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [closeButton setTitle:@"GO BACK" forState:UIControlStateNormal];
     [contentView addSubview:closeButton];
@@ -66,9 +66,8 @@
     self.view = contentView;
 }
 
-- (IBAction)closeButtonClicked:(id)sender
-{
-    [self dismissModalViewControllerAnimated:YES];
+- (IBAction)closeButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
