@@ -17,7 +17,13 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.bounds.size.width, 30)];
+        CGFloat width;
+        if (INTERFACE_IS_IPAD)
+            width = 768;
+        else
+            width = 320;
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         UILabel *trackingNumbersHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 30)];
@@ -28,6 +34,7 @@
         [contentView addSubview:trackingNumbersHeaderLabel];
         
         UILabel *statusHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 50, 30)];
+        statusHeaderLabel.right = contentView.right - 10;
         [statusHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [statusHeaderLabel setText:@"Status"];
         [statusHeaderLabel setTextColor:RGB(125, 136, 149)];

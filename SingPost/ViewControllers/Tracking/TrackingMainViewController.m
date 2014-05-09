@@ -70,7 +70,7 @@ typedef enum {
     [infoButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [infoButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [infoButton setFrame:CGRectMake(255, 7, 50, 30)];
+    [infoButton setFrame:CGRectMake(contentView.width - 60, 7, 50, 30)];
     [navigationBarView addSubview:infoButton];
     
     trackingItemsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
@@ -178,26 +178,7 @@ typedef enum {
         }];
     }
 }
-/*
- - (void)reloadTrackingItems {
- NSArray *itemsToReload = [self.activeItemsFetchedResultsController fetchedObjects];
- if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO] && itemsToReload.count > 0) {
- __block CGFloat updateProgress = 0.0f;
- [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
- [TrackedItem API_batchUpdateTrackedItems:itemsToReload onCompletion:^(BOOL success, NSError *error) {
- if (error)
- [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
- else {
- [SVProgressHUD dismiss];
- [trackingItemsTableView reloadData];
- }
- } withProgressCompletion:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
- updateProgress = ((float)numberOfFinishedOperations / (float)totalNumberOfOperations);
- [SVProgressHUD showProgress:updateProgress status:@"Updating items.." maskType:SVProgressHUDMaskTypeClear];
- }];
- }
- }
- */
+
 #pragma mark - Actions
 - (IBAction)infoButtonClicked:(id)sender
 {
@@ -362,7 +343,7 @@ typedef enum {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:trackingCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, 290, 44)];
+            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30, 44)];
             [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
             [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
             [trackingNumberTextField setFontSize:16.0f];
@@ -373,11 +354,11 @@ typedef enum {
             
             UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-            [findTrackingNumberButton setFrame:CGRectMake(265, 27, 35, 35)];
+            [findTrackingNumberButton setFrame:CGRectMake(tableView.width - 55, 27, 35, 35)];
             [findTrackingNumberButton addTarget:self action:@selector(onTrackingNumberBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
             
-            UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, 220, 50)];
+            UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 77, tableView.width - 100, 50)];
             [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:11.0f fontKey:kSingPostFontOpenSans]];
             [instructionsLabel setText:@"Turn on to auto-receive latest status updates of item(s) you are currently tracking"];
             [instructionsLabel setNumberOfLines:0];
@@ -389,10 +370,8 @@ typedef enum {
             
             receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
             receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
-            receiveUpdateSwitch.center = CGPointMake(278, 104);
-            
+            receiveUpdateSwitch.center = CGPointMake(tableView.width - 42, 104);
             receiveUpdateSwitch.on = notificationStatus;
-            
             [receiveUpdateSwitch addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
             [cell.contentView addSubview:receiveUpdateSwitch];
         }

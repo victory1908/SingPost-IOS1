@@ -69,10 +69,6 @@
     [statusLabel alignTop];
     
     [separatorView setY:MAX(59, CGRectGetMaxY(statusLabel.frame) + 7)];
-/*
-    if (!_item.isReadValue)
-        [self setTextBold];
- */
 }
 
 - (void)setTextBold {
