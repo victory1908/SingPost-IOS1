@@ -27,7 +27,13 @@
         v.backgroundColor = RGB(240, 240, 240);
         self.selectedBackgroundView = v;
         
-        UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        CGFloat width;
+        if (INTERFACE_IS_IPAD)
+            width = 768;
+        else
+            width = 320;
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.contentView.bounds.size.height)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 150, 30)];
@@ -37,6 +43,8 @@
         [contentView addSubview:trackingNumberLabel];
         
         statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 6, STATUS_LABEL_SIZE.width, STATUS_LABEL_SIZE.height)];
+        if (INTERFACE_IS_IPAD)
+            statusLabel.left = 512;
         [statusLabel setFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [statusLabel setTextColor:RGB(50, 50, 50)];
         [statusLabel setNumberOfLines:0];

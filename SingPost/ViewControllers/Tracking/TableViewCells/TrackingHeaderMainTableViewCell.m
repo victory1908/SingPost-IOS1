@@ -34,7 +34,8 @@
         [contentView addSubview:trackingNumbersHeaderLabel];
         
         UILabel *statusHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 0, 50, 30)];
-        statusHeaderLabel.right = contentView.right - 10;
+        if (INTERFACE_IS_IPAD)
+            statusHeaderLabel.left = 512;
         [statusHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
         [statusHeaderLabel setText:@"Status"];
         [statusHeaderLabel setTextColor:RGB(125, 136, 149)];

@@ -109,21 +109,21 @@
     [instructionsLabel setBackgroundColor:[UIColor clearColor]];
     [contentScrollView addSubview:instructionsLabel];
     
-    CGSize maximumLabelSize = CGSizeMake(290, FLT_MAX);
+    CGSize maximumLabelSize = CGSizeMake(contentView.width - 30, FLT_MAX);
     CGSize expectedLabelSize = [instructionsLabel.text sizeWithFont:instructionsLabel.font constrainedToSize:maximumLabelSize lineBreakMode:instructionsLabel.lineBreakMode];
     CGRect newFrame = instructionsLabel.frame;
     newFrame.size.height = expectedLabelSize.height;
     instructionsLabel.frame = newFrame;
     
     UIImageView *commentsBackgroundImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"trackingTextBox_grayBg"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)]];
-    [commentsBackgroundImageView setFrame:CGRectMake(15, instructionsLabel.frame.origin.y + instructionsLabel.frame.size.height + 10, 290, 150)];
+    [commentsBackgroundImageView setFrame:CGRectMake(15, instructionsLabel.frame.origin.y + instructionsLabel.frame.size.height + 10, contentView.width - 30, 150)];
     [contentScrollView addSubview:commentsBackgroundImageView];
     
     commentsTextView = [[CTextView alloc] initWithFrame:CGRectInset(commentsBackgroundImageView.frame, 5, 5)];
     [commentsTextView setPlaceholder:@"Optional"];
     [contentScrollView addSubview:commentsTextView];
     
-    FlatBlueButton *sendFeedbackButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, commentsBackgroundImageView.frame.origin.y + commentsBackgroundImageView.frame.size.height + 10, 290 , 48)];
+    FlatBlueButton *sendFeedbackButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, commentsBackgroundImageView.frame.origin.y + commentsBackgroundImageView.frame.size.height + 10, contentView.width - 30 , 48)];
     [sendFeedbackButton addTarget:self action:@selector(sendFeedbackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [sendFeedbackButton setTitle:@"SEND" forState:UIControlStateNormal];
     [contentScrollView addSubview:sendFeedbackButton];

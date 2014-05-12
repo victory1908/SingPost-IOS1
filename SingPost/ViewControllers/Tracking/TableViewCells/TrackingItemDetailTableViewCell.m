@@ -22,7 +22,13 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        UIView *contentView = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        CGFloat width;
+        if (INTERFACE_IS_IPAD)
+            width = 768;
+        else
+            width = 320;
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 30)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         trackingDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 60, 70)];
