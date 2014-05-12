@@ -52,6 +52,7 @@
     [infoButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [infoButton addTarget:self action:@selector(infoButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [infoButton setFrame:CGRectMake(255, 7, 50, 30)];
+    infoButton.right = contentView.right - 10;
     [navigationBarView addSubview:infoButton];
     
     //tracking info view
@@ -81,6 +82,7 @@
     [trackingInfoView addSubview:destinationDisplayLabel];
     
     trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 16, 130, 20)];
+    trackingNumberLabel.right = contentView.right - 15;
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
     [trackingNumberLabel setText:_trackedItem.trackingNumber];
@@ -88,6 +90,7 @@
     [trackingInfoView addSubview:trackingNumberLabel];
     
     originLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40, 130, 20)];
+    originLabel.right = contentView.right - 15;
     [originLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [originLabel setTextColor:RGB(51, 51, 51)];
     [originLabel setText:_trackedItem.originalCountry];
@@ -95,6 +98,7 @@
     [trackingInfoView addSubview:originLabel];
     
     destinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 65, 130, 20)];
+    destinationLabel.right = contentView.right - 15;
     [destinationLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [destinationLabel setTextColor:RGB(51, 51, 51)];
     [destinationLabel setText:_trackedItem.destinationCountry];
@@ -129,6 +133,11 @@
     [locationLabel setTextColor:RGB(125, 136, 149)];
     [locationLabel setBackgroundColor:[UIColor clearColor]];
     [headerView addSubview:locationLabel];
+    
+    if (INTERFACE_IS_IPAD) {
+        statusLabel.left = 256;
+        locationLabel.left = 512;
+    }
     
     UIView *headerSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(15, headerView.bounds.size.height - 1, headerView.bounds.size.width - 30, 1)];
     [headerSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -261,7 +270,7 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
             
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 290, 60)];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, tableView.width - 30, 60)];
             [label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
             label.numberOfLines = 0;
             

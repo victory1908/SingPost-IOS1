@@ -78,6 +78,7 @@
     [trackingInfoView addSubview:destinationDisplayLabel];
     
     trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 16, 130, 20)];
+    trackingNumberLabel.right = contentView.width - 15;
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
     [trackingNumberLabel setText:_trackedItem.trackingNumber];
@@ -85,6 +86,7 @@
     [trackingInfoView addSubview:trackingNumberLabel];
     
     originLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40, 130, 20)];
+    originLabel.right = contentView.width - 15;
     [originLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [originLabel setTextColor:RGB(51, 51, 51)];
     [originLabel setText:_trackedItem.originalCountry];
@@ -92,6 +94,7 @@
     [trackingInfoView addSubview:originLabel];
     
     destinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 65, 130, 20)];
+    destinationLabel.right = contentView.width - 15;
     [destinationLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [destinationLabel setTextColor:RGB(51, 51, 51)];
     [destinationLabel setText:_trackedItem.destinationCountry];

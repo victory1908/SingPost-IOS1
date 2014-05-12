@@ -52,6 +52,11 @@
         [locationLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:locationLabel];
         
+        if (INTERFACE_IS_IPAD) {
+            statusLabel.left = 256;
+            locationLabel.left = 512;
+        }
+        
         separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 59, contentView.bounds.size.width - 30, 1)];
         [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [separatorView setBackgroundColor:RGB(196, 197, 200)];
