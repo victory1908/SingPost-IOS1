@@ -149,7 +149,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:headerCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, tableView.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 100 : 125.0f)];
+            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, tableView.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 100.0f)];
             [cellContentView setBackgroundColor:RGB(240, 240, 240)];
             [cell.contentView addSubview:cellContentView];
             

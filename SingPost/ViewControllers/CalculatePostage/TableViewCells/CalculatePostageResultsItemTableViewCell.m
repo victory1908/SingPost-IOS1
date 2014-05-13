@@ -65,7 +65,7 @@
 {
     _item = inItem;
     
-    [serviceTitleLabel setWidth:separatorView.width/2 andHeight:LONG_MAX];
+    [serviceTitleLabel setWidth:190 andHeight:LONG_MAX];
     [serviceTitleLabel setText:_item.deliveryServiceName];
     [serviceTitleLabel sizeToFit];
     [statusLabel setText:[NSString stringWithFormat:@"%@ working days", _item.deliveryTime]];
