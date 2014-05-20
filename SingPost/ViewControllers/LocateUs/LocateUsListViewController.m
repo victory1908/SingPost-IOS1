@@ -154,7 +154,7 @@
     if ((shouldShowSearchTermsView && isSearchTermViewShown) || (!shouldShowSearchTermsView && !isSearchTermViewShown)) {
         return;
     }
-
+    
     if (!isAnimating) {
         isAnimating = YES;
         [self.view endEditing:YES];
@@ -164,7 +164,11 @@
         
         if (shouldShowSearchTermsView) {
             [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-                [indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 345 : 255];
+                if (INTERFACE_IS_IPAD)
+                    indexBar.height = 799;
+                else
+                    [indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 345 : 255];
+                
             }];
             [searchResultsContainerView showOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
                 [locationsTableView setBounces:YES];
@@ -177,7 +181,10 @@
             [typesDropDownList resignFirstResponder];
             [locationsTableView setContentOffset:CGPointZero];
             [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-                [indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 475 : 385];
+                if (INTERFACE_IS_IPAD)
+                    indexBar.height = 929;
+                else
+                    [indexBar setHeight:INTERFACE_IS_4INCHSCREEN ? 475 : 385];
             }];
             [searchResultsContainerView hideOrigamiTransitionWith:searchTermsView NumberOfFolds:1 Duration:ANIMATION_DURATION Direction:XYOrigamiDirectionFromTop completion:^(BOOL finished) {
                 [locationsTableView setBounces:YES];

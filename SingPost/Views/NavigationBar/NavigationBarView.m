@@ -35,7 +35,7 @@
         [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backButton];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 44)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width - 80, 44)];
         [titleLabel setCenter:self.center];
         [titleLabel setNumberOfLines:2];
         [titleLabel setBackgroundColor:[UIColor clearColor]];

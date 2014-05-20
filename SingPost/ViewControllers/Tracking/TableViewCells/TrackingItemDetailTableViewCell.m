@@ -54,7 +54,9 @@
         
         if (INTERFACE_IS_IPAD) {
             statusLabel.left = 256;
+            statusLabel.width = 250 ;
             locationLabel.left = 512;
+            locationLabel.width = LOCATION_LABEL_SIZE.width * 2;
         }
         
         separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 59, contentView.bounds.size.width - 30, 1)];

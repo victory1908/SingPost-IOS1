@@ -93,7 +93,7 @@ typedef enum  {
     [addressImageView setContentMode:UIViewContentModeCenter];
     [contentScrollView addSubview:addressImageView];
     
-    addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 211, 190, 44)];
+    addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 211, contentView.width - 130, 44)];
     [addressLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [addressLabel setTextColor:RGB(51, 51, 51)];
     [addressLabel setNumberOfLines:2];
