@@ -133,18 +133,20 @@
     [contentWebView.scrollView setScrollEnabled:NO];
     [contentScrollView addSubview:contentWebView];
     
-    moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [moreButton.layer setBorderWidth:1.0f];
-    [moreButton.layer setBorderColor:RGB(36, 84, 157).CGColor];
-    [moreButton setBackgroundImage:nil forState:UIControlStateNormal];
-    [moreButton setBackgroundImage:[UIImage imageWithColor:RGB(76, 109, 166)] forState:UIControlStateHighlighted];
-    [moreButton setTitle:@"More" forState:UIControlStateNormal];
-    [moreButton setTitleColor:RGB(36, 84, 157) forState:UIControlStateNormal];
-    [moreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [moreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    [moreButton addTarget:self action:@selector(moreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [moreButton setFrame:CGRectMake(8, contentWebView.bottom + 15, 50, 30)];
-    [contentScrollView addSubview:moreButton];
+    if (!INTERFACE_IS_IPAD) {
+        moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [moreButton.layer setBorderWidth:1.0f];
+        [moreButton.layer setBorderColor:RGB(36, 84, 157).CGColor];
+        [moreButton setBackgroundImage:nil forState:UIControlStateNormal];
+        [moreButton setBackgroundImage:[UIImage imageWithColor:RGB(76, 109, 166)] forState:UIControlStateHighlighted];
+        [moreButton setTitle:@"More" forState:UIControlStateNormal];
+        [moreButton setTitleColor:RGB(36, 84, 157) forState:UIControlStateNormal];
+        [moreButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [moreButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+        [moreButton addTarget:self action:@selector(moreButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [moreButton setFrame:CGRectMake(8, contentWebView.bottom + 15, 50, 30)];
+        [contentScrollView addSubview:moreButton];
+    }
     
     pricingWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, moreButton.bottom + 15, contentScrollView.bounds.size.width, 125)];
     [pricingWebView setBackgroundColor:[UIColor clearColor]];
@@ -286,7 +288,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (webView == contentWebView) {
         self.pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
-        if (self.pageHeight <= 90) {
+        if (self.pageHeight <= 90 || INTERFACE_IS_IPAD) {
             moreButton.hidden = YES;
             contentWebView.height = self.pageHeight + 15;
             pricingWebView.top = contentWebView.bottom + 15;
