@@ -128,8 +128,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *device = [UIDevice currentDevice].model;
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString *urlSchemeString = appsItems[indexPath.row][@"IOSSCHEME"];
@@ -142,7 +140,7 @@
     
     else {
         NSURL *urlToOpen = nil;
-        if ([device hasPrefix:@"iPad"]) {
+        if (INTERFACE_IS_IPAD) {
             NSString *appStoreURL = appsItems[indexPath.row][@"IPADURL"];
             if (![appStoreURL length] < 0 || appStoreURL == nil)
                 return;
