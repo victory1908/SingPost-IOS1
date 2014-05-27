@@ -62,7 +62,7 @@
     [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
     [GAI sharedInstance].dispatchInterval = 15;
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
-    //[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
+    [[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
 }
 
 #pragma mark - Maintanance
@@ -171,8 +171,8 @@
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] set:kGAIScreenName value:screenName];
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createAppView] build]];
     
-    //[[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] set:kGAIScreenName value:screenName];
-    //[[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createAppView] build]];
+    [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] set:kGAIScreenName value:screenName];
+    [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Core data
