@@ -80,7 +80,8 @@
 {
     _stamp = inStamp;
     
-    [titleLabel setText:_stamp.title];
+    NSString *string = [_stamp.title stringByReplacingOccurrencesOfString:@"&#39;" withString:@"'"];
+    [titleLabel setText:string];
     [titleLabel alignTop];
     [issueDateDisplayLabel setY:CGRectGetMaxY(titleLabel.frame) + 9.0f];
     [issueDateDisplayLabel sizeToFit];
