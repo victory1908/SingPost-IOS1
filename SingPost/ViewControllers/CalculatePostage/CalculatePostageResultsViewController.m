@@ -14,6 +14,7 @@
 #import "FlatBlueButton.h"
 #import "LocateUsMainViewController.h"
 #import "CalculatePostageResultItem.h"
+#import "MaintanancePageViewController.h"
 
 @interface CalculatePostageResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -75,6 +76,10 @@
     [calculateAgainButton setTitle:@"CALCULATE AGAIN" forState:UIControlStateNormal];
     [contentView addSubview:calculateAgainButton];
     
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"] && locateUsButton != nil)
+        locateUsButton.alpha = 0.5;
+    
     self.view = contentView;
 }
 
@@ -88,9 +93,16 @@
 
 - (IBAction)locateUsButtonClicked:(id)sender
 {
-    LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.showNavBarBackButton = YES;
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else {
+        LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+        viewController.showNavBarBackButton = YES;
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    }
 }
 
 - (IBAction)calculateAgainButtonClicked:(id)sender

@@ -23,6 +23,7 @@
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "StampCollectibleDetailExpandableView.h"
 #import "UIAlertView+Blocks.h"
+#import "MaintanancePageViewController.h"
 
 @interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate ,UIWebViewDelegate>
 
@@ -162,6 +163,10 @@
     [locateUsButton setTitle:@"FIND OUR LOCATIONS NEAR YOU" forState:UIControlStateNormal];
     [contentScrollView addSubview:locateUsButton];
     
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"] && locateUsButton != nil)
+        locateUsButton.alpha = 0.5;
+    
     [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
     self.view = contentView;
 }
@@ -257,9 +262,16 @@
 
 - (IBAction)locateUsButtonClicked:(id)sender
 {
-    LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.showNavBarBackButton = YES;
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else {
+        LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+        viewController.showNavBarBackButton = YES;
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    }
 }
 
 #pragma mark - StampImageBrowserDelegate

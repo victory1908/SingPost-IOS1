@@ -15,6 +15,7 @@
 #import "Article.h"
 #import "SVProgressHUD.h"
 #import "UIAlertView+Blocks.h"
+#import "MaintanancePageViewController.h"
 
 @interface ArticleContentViewController () <UIWebViewDelegate>
 
@@ -88,6 +89,13 @@
         default:
             break;
     }
+    
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"] && locateUsButton != nil)
+        locateUsButton.alpha = 0.5;
+    if ([maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"] && calculateButton != nil)
+        calculateButton.alpha = 0.5;
+    
     self.view = contentView;
 }
 
@@ -105,16 +113,30 @@
 
 - (IBAction)locateUsButtonClicked:(id)sender
 {
-    LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.showNavBarBackButton = YES;
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else {
+        LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
+        viewController.showNavBarBackButton = YES;
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    }
 }
 
 - (IBAction)calculateButtonClicked:(id)sender
 {
-    CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.showNavBarBackButton = YES;
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
+    if ([maintananceStatuses[@"CalculatePostage"] isEqualToString:@"on"]) {
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Locate Us" andMessage:maintananceStatuses[@"Comment"]];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else {
+        CalculatePostageMainViewController *viewController = [[CalculatePostageMainViewController alloc] initWithNibName:nil bundle:nil];
+        viewController.showNavBarBackButton = YES;
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+    }
 }
 
 #pragma mark - UIWebView Delegates
