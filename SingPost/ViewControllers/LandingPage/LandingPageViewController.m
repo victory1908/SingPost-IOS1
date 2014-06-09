@@ -83,11 +83,15 @@ OffersMenuDelegate
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
-    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"EnvelopeBackground"]];
-    if (INTERFACE_IS_IPAD)
+    UIImageView *envelopBackgroundImageView = [[UIImageView alloc] init];
+    if (INTERFACE_IS_IPAD) {
         envelopBackgroundImageView.frame = CGRectMake(0, 0, 768, 552);
-    else
+        envelopBackgroundImageView.image = [UIImage imageNamed:@"EnvelopeBackground"];
+    }
+    else {
         envelopBackgroundImageView.frame = (INTERFACE_IS_4INCHSCREEN ? CGRectMake(0, 0, 320, 276) : CGRectMake(0, 0, 320, 248));
+        envelopBackgroundImageView.image = (INTERFACE_IS_4INCHSCREEN ? [UIImage imageNamed:@"EnvelopeBackground568"] : [UIImage imageNamed:@"EnvelopeBackground"]);
+    }
     envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
