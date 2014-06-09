@@ -1,11 +1,20 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
       "scale" : "1x"
     },
     {
-      "idiom" : "universal",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "filename" : "SingPost_Images.xcassets_Images_landing_moreServices.imageset_landing_moreServices_Before_447864c87bc01f6adead131ddfd6864c1dda80fd.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "ipad",
       "scale" : "2x",
       "filename" : "07-moreServices.png"
     }

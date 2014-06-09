@@ -10,12 +10,6 @@
       "filename" : "35iphone_background_envelope.png"
     },
     {
-      "idiom" : "iphone",
-      "filename" : "background_envelope.png",
-      "subtype" : "retina4",
-      "scale" : "2x"
-    },
-    {
       "idiom" : "ipad",
       "scale" : "1x"
     },
