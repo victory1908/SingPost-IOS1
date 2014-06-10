@@ -25,8 +25,8 @@ static BOOL isProduction = YES;
 
 //Development
 static NSString *const SINGPOST_UAT_BASE_URL = @"https://uatesb1.singpost.com";
-static NSString *const CMS_UAT_BASE_URL = @"http://27.109.106.170/singpostsystem/";
-static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/singpostsystem/v4/";
+static NSString *const CMS_UAT_BASE_URL = @"http://27.109.106.170/singpost-";
+static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/mobile2/v4/";
 
 //Production
 static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://prdesb1.singpost.com/";
