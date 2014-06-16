@@ -16,6 +16,7 @@
 @property (nonatomic, readonly) NSDictionary *maintenanceStatuses;
 
 + (AppDelegate *)sharedAppDelegate;
+- (void)updateMaintananceStatuses;
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection;
 
 //Google analytics

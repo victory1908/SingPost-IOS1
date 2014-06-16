@@ -264,7 +264,7 @@ OffersMenuDelegate
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self updateMaintananceStatusUIs];
+    [[AppDelegate sharedAppDelegate]updateMaintananceStatuses];
 }
 
 - (void)viewDidAppear:(BOOL)animated
