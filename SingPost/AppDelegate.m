@@ -45,15 +45,13 @@
     [self.window setRootViewController:_rootViewController];
     [self.window makeKeyAndVisible];
     
-    [self updateMaintananceStatuses];
-    
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification)
         [self handleRemoteNotification:remoteNotification shouldPrompt:NO];
     return YES;
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application {
     [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
 }
