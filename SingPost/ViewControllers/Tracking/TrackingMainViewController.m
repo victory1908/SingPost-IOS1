@@ -89,6 +89,19 @@ typedef enum {
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"]) {
+        NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+        if ([trackedArray count] == 0)
+            return;
+        
+        NSMutableArray * numberArray = [NSMutableArray array];
+        for(TrackedItem *trackedItem in trackedArray){
+            [numberArray addObject:trackedItem.trackingNumber];
+        }
+        [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
