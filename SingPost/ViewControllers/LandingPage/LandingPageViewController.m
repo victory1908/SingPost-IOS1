@@ -95,6 +95,17 @@ OffersMenuDelegate
     envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
+    UIButton *announcementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [announcementBtn setImage:[UIImage imageNamed:@"Announcement"] forState:UIControlStateNormal];
+    //[menuCalculatePostageButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (INTERFACE_IS_IPAD)
+        announcementBtn.frame = CGRectMake(contentView.right - 103, 15, 88, 88);
+    else
+        announcementBtn.frame = CGRectMake(contentView.right - 44, 0, 44, 44);
+    
+    [contentView addSubview:announcementBtn];
+    
     if (INTERFACE_IS_IPAD) {
         trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668, 50)];
         trackingNumberTextField.fontSize = 16.0f;
