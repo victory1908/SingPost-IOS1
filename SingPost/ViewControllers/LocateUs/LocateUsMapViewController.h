@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@import CoreLocation;
 
 @interface LocateUsMapViewController : UIViewController
-
+@property (strong, nonatomic) CLLocation *userLocation;
 @property (nonatomic, readonly) NSString *selectedLocationType;
 @property (nonatomic) NSUInteger selectedTypeRowIndex;
 @property (nonatomic) NSString *searchTerm;
@@ -17,5 +18,6 @@
 
 - (void)removeMapAnnotations;
 - (void)showFilteredLocationsOnMap;
+- (void)centerMapAtLocation:(CLLocationCoordinate2D)coordinate;
 
 @end

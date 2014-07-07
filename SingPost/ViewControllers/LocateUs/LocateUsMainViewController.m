@@ -58,6 +58,12 @@ typedef enum {
     [toggleModesButton setFrame:CGRectMake(navigationBarView.right - 44, 0, 44, 44)];
     [navigationBarView addSubview:toggleModesButton];
     
+    UIButton *reloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [reloadButton setImage:[UIImage imageNamed:@"reload_button"] forState:UIControlStateNormal];
+    [reloadButton addTarget:self action:@selector(reloadButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [reloadButton setFrame:CGRectMake(navigationBarView.right - 88, 0, 44, 44)];
+    [navigationBarView addSubview:reloadButton];
+    
     locateUsMapViewController = [[LocateUsMapViewController alloc] initWithNibName:nil bundle:nil];
     locateUsMapViewController.delegate = self;
     locateUsListViewController = [[LocateUsListViewController alloc] initWithNibName:nil bundle:nil];
@@ -176,19 +182,20 @@ typedef enum {
     }
 }
 
-- (IBAction)reloadButtonClicked:(id)sender
-{
-    NSString *selectedType = [self selectedType];
+- (IBAction)reloadButtonClicked:(id)sender {
+    switch (currentMode) {
+        case LOCATEUS_VIEWMODE_LIST: {
+            [locateUsListViewController reloadData];
+            break;
+        }
+        case LOCATEUS_VIEWMODE_MAP: {
+            [locateUsMapViewController centerMapAtLocation:locateUsMapViewController.userLocation.coordinate];
+            break;
+        }
+        default:
+            break;
+    }
     
-    [UIAlertView showWithTitle:@""
-                       message:[NSString stringWithFormat:@"Refreshing the list of %@ may take awhile. Do you wish to proceeed?", selectedType]
-             cancelButtonTitle:@"No"
-             otherButtonTitles:@[@"Yes"]
-                      tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                          if (buttonIndex != [alertView cancelButtonIndex]) {
-                              [self fetchAndReloadLocationsData];
-                          }
-                      }];
 }
 
 - (NSString *)selectedType

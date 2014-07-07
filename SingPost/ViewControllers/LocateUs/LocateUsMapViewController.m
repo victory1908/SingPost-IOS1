@@ -20,7 +20,6 @@
 #import "LocateUsDetailsViewController.h"
 
 @interface LocateUsMapViewController () <MKMapViewDelegate, CDropDownListControlDelegate, UITextFieldDelegate>
-
 @end
 
 @implementation LocateUsMapViewController
@@ -266,6 +265,7 @@
         [self centerMapAtLocation:mapView.userLocation.coordinate];
         initialShouldCenterUserLocation = NO;
     }
+    self.userLocation = mapView.userLocation.location;
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
