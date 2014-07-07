@@ -12,6 +12,7 @@
 #import "SidebarMenuSubRowTableViewCell.h"
 #import "AppDelegate.h"
 #import "RegexKitLite.h"
+#import "ApiClient.h"
 
 #import "CalculatePostageMainViewController.h"
 #import "LandingPageViewController.h"
@@ -25,6 +26,7 @@
 #import "StampCollectiblesMainViewController.h"
 #import "OffersMainViewController.h"
 #import "MoreAppsViewController.h"
+#import "AnnouncementViewController.h"
 
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
@@ -329,6 +331,12 @@
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     if (indexPath.row > SIDEBARMENU_OFFERSMORE) {
         switch ((tSubRowsOffersMore)(indexPath.row - SIDEBARMENU_OFFERSMORE - 1)) {
+            case SUBROWS_OFFERSMORE_ANNOUNCEMENTS:
+            {
+                AnnouncementViewController *viewController = [[AnnouncementViewController alloc] initWithNibName:nil bundle:nil];
+                [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
+                break;
+            }
             case SUBROWS_OFFERSMORE_OFFERS:
             {
                 OffersMainViewController *viewController = [[OffersMainViewController alloc] initWithNibName:nil bundle:nil];

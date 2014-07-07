@@ -53,6 +53,9 @@
     _subrowMenuOffersMore = inSubrowMenuOffersMore;
     
     switch (_subrowMenuOffersMore) {
+        case SUBROWS_OFFERSMORE_ANNOUNCEMENTS:
+            [menuNameLabel setText:@"Announcement"];
+            break;
         case SUBROWS_OFFERSMORE_OFFERS:
             [menuNameLabel setText:@"Offers"];
             break;
