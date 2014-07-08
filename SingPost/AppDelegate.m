@@ -36,8 +36,6 @@
     
     [Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
     
-    [self checkAppAndOSVersion];
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -54,6 +52,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
+    [self checkAppAndOSVersion];
 }
 
 - (void)setupGoogleAnalytics {
