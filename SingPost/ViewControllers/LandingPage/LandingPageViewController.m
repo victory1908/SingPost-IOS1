@@ -30,6 +30,9 @@
 #import "MoreAppsViewController.h"
 #import "FAQViewController.h"
 #import "MaintanancePageViewController.h"
+#import "ApiClient.h"
+#import "NSDictionary+Additions.h"
+#import "AnnouncementViewController.h"
 
 #import "TrackedItem.h"
 #import <SVProgressHUD.h>
@@ -75,6 +78,7 @@ OffersMenuDelegate
 @implementation LandingPageViewController {
     CTextField *trackingNumberTextField;
     OffersMoreMenuView *offersMoreMenuView;
+    UIButton *announcementBtn;
 }
 
 #pragma mark - View lifecycle
@@ -95,15 +99,15 @@ OffersMenuDelegate
     envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
-    UIButton *announcementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    announcementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [announcementBtn setImage:[UIImage imageNamed:@"Announcement"] forState:UIControlStateNormal];
-    //[menuCalculatePostageButton addTarget:self action:@selector(menuButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [announcementBtn addTarget:self action:@selector(onAnnouncementBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     if (INTERFACE_IS_IPAD)
         announcementBtn.frame = CGRectMake(contentView.right - 103, 15, 88, 88);
     else
         announcementBtn.frame = CGRectMake(contentView.right - 44, 0, 44, 44);
-    
+    announcementBtn.hidden = YES;
     [contentView addSubview:announcementBtn];
     
     if (INTERFACE_IS_IPAD) {
@@ -288,6 +292,15 @@ OffersMenuDelegate
 {
     [super viewDidLoad];
     [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
+    
+    [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
+     {
+         if ([responseObject isKindOfClass:[NSDictionary class]]) {
+             if([[responseObject objectForKeyOrNil:@"root"]count] > 0) {
+                 announcementBtn.hidden = NO;
+             }
+         }
+     } failure:^(NSError *error){}];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -633,6 +646,11 @@ OffersMenuDelegate
 - (IBAction)toggleSidebarButtonClicked:(id)sender
 {
     [[AppDelegate sharedAppDelegate].rootViewController toggleSideBarVisiblity];
+}
+
+- (void)onAnnouncementBtn:(id)sender {
+    AnnouncementViewController *vc = [[AnnouncementViewController alloc]init];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
 }
 
 @end

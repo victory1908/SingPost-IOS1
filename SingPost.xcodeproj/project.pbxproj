@@ -127,6 +127,8 @@
 		52F1AF111863CD9200373066 /* _Stamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F1AF101863CD9200373066 /* _Stamp.m */; };
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
+		8706E7C4196BA9130070DD03 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */; };
+		87644986196B8A31000E67C7 /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */; };
 		877966BF196AE2C500C7E514 /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 877966BE196AE2C500C7E514 /* AnnouncementViewController.m */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
 		9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */; };
@@ -364,6 +366,10 @@
 		52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuSubRowTableViewCell.m; sourceTree = "<group>"; };
 		52F8134517FBFE5400516210 /* LocateUsDetailsOpeningHoursView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsOpeningHoursView.h; sourceTree = "<group>"; };
 		52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsOpeningHoursView.m; sourceTree = "<group>"; };
+		8706E7C2196BA9130070DD03 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
+		8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
+		87644984196B8A31000E67C7 /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
+		87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
 		877966BD196AE2C500C7E514 /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
 		877966BE196AE2C500C7E514 /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
 		915E55ED187C128E00790DBC /* LocateUSDetailsDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUSDetailsDetailsView.h; sourceTree = "<group>"; };
@@ -1013,6 +1019,10 @@
 			children = (
 				877966BD196AE2C500C7E514 /* AnnouncementViewController.h */,
 				877966BE196AE2C500C7E514 /* AnnouncementViewController.m */,
+				87644984196B8A31000E67C7 /* AnnouncementTableViewCell.h */,
+				87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */,
+				8706E7C2196BA9130070DD03 /* AnnouncementDetailViewController.h */,
+				8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */,
 			);
 			name = Announcement;
 			sourceTree = "<group>";
@@ -1182,6 +1192,7 @@
 				52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */,
 				52C9091E180491DC0063A026 /* MoreServicesMainViewController.m in Sources */,
 				52024F2F17F719C200AFD239 /* TrackingDetailsViewController.m in Sources */,
+				8706E7C4196BA9130070DD03 /* AnnouncementDetailViewController.m in Sources */,
 				52C90919180491110063A026 /* ShopMainViewController.m in Sources */,
 				521F78681802A5B300B513FA /* LocateUsDetailsServicesView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
@@ -1256,6 +1267,7 @@
 				877966BF196AE2C500C7E514 /* AnnouncementViewController.m in Sources */,
 				5293647B180B01A100B83F6B /* StampCollectiblesMainViewController.m in Sources */,
 				52774F5A184E282500B1E32D /* _StampImage.m in Sources */,
+				87644986196B8A31000E67C7 /* AnnouncementTableViewCell.m in Sources */,
 				521F786518029F5100B513FA /* TermsOfUseViewController.m in Sources */,
 				52A7A27A1871D9DC00253FA2 /* ArticleCategory.m in Sources */,
 				521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */,
