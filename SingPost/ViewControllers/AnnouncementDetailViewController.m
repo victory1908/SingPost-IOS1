@@ -11,6 +11,7 @@
 #import "NSDictionary+Additions.h"
 #import "UIView+Position.h"
 #import "UIFont+SingPost.h"
+#import "UIAlertView+Blocks.h"
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 
 @interface AnnouncementDetailViewController ()
@@ -57,6 +58,23 @@ UIWebViewDelegate
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [webView setHeight:[[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue]];
     [self.scrollView autoAdjustScrollViewContentSize];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *urlScheme = request.URL.scheme;
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        if ([urlScheme hasPrefix:@"http"]) {
+            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
+                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
+                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
+                                  if (buttonIndex == 1) {
+                                      [[UIApplication sharedApplication]openURL:request.URL];
+                                  }
+                              }];
+        }
+        return NO;
+    }
+    return YES;
 }
 
 @end
