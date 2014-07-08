@@ -40,7 +40,7 @@ UIWebViewDelegate
     [imageView setImageWithURL:[NSURL URLWithString:[self.info objectForKeyOrNil:@"Thumbnail"]] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.scrollView addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, imageView.bottom, imageView.width - 15, 20)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, imageView.bottom + 15, imageView.width - 30, 20)];
     label.text = [self.info objectForKeyOrNil:@"Date"];
     label.font = [UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
     label.textColor = RGB(125, 136, 149);
