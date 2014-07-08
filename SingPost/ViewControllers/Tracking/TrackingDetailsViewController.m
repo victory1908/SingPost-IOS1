@@ -164,6 +164,11 @@
     [SVProgressHUD dismiss];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Track Item Details"];
+}
+
 //designated initializer
 - (id)initWithTrackedItem:(TrackedItem *)inTrackedItem
 {
