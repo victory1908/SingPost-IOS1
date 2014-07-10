@@ -324,7 +324,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    [self discardLocationManager];
+    //[self discardLocationManager];
     _cachedUserLocation = newLocation;
     [locationsTableView reloadData];
 }
