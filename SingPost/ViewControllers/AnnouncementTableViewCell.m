@@ -42,7 +42,7 @@
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:titleLabel];
         
-        issueDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right + 15, 0, 100, 20)];
+        issueDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageView.right + 15, 0, 250, 20)];
         [issueDateLabel setBackgroundColor:[UIColor clearColor]];
         [issueDateLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [issueDateLabel setTextColor:RGB(125, 136, 149)];
@@ -67,7 +67,16 @@
     
     [titleLabel setText:[info objectForKeyOrNil:@"Name"]];
     [titleLabel alignTop];
-    [issueDateLabel setText:[info objectForKeyOrNil:@"Date"]];
+    
+    NSString *issueDateString = [info objectForKeyOrNil:@"Date"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDate *issueDate = [dateFormatter dateFromString:issueDateString];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc]init];
+    newDateFormatter.dateFormat = @"dd MMMM yyyy";
+    
+    [issueDateLabel setText:[newDateFormatter stringFromDate:issueDate]];
     issueDateLabel.top = titleLabel.bottom;
     
     [imageView setImageWithURL:[NSURL URLWithString:[info objectForKeyOrNil:@"Thumbnail"]] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];

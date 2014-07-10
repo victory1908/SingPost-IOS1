@@ -41,8 +41,16 @@ UIWebViewDelegate
     [imageView setImageWithURL:[NSURL URLWithString:[self.info objectForKeyOrNil:@"Thumbnail"]] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.scrollView addSubview:imageView];
     
+    NSString *issueDateString = [self.info objectForKeyOrNil:@"Date"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDate *issueDate = [dateFormatter dateFromString:issueDateString];
+    NSDateFormatter *newDateFormatter = [[NSDateFormatter alloc]init];
+    newDateFormatter.dateFormat = @"dd MMMM yyyy";
+    
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, imageView.bottom + 15, imageView.width - 30, 20)];
-    label.text = [self.info objectForKeyOrNil:@"Date"];
+    label.text = [newDateFormatter stringFromDate:issueDate];
     label.font = [UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
     label.textColor = RGB(125, 136, 149);
     [self.scrollView addSubview:label];
