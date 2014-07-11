@@ -54,7 +54,7 @@
     
     switch (_subrowMenuOffersMore) {
         case SUBROWS_OFFERSMORE_ANNOUNCEMENTS:
-            [menuNameLabel setText:@"Announcement"];
+            [menuNameLabel setText:@"Announcements"];
             break;
         case SUBROWS_OFFERSMORE_OFFERS:
             [menuNameLabel setText:@"Offers"];
