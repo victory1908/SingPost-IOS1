@@ -723,7 +723,7 @@ static NSString *const OS = @"ios";
         {
             //Must update
             [UIAlertView showWithTitle:nil
-                               message:responseJSON[@"message"]
+                               message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]
                      cancelButtonTitle:@"Update Now"
                      otherButtonTitles:nil
                               tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -750,7 +750,7 @@ static NSString *const OS = @"ios";
             {
                 //Update available
                 [UIAlertView showWithTitle:nil
-                                   message:responseJSON[@"message"]
+                                   message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]
                          cancelButtonTitle:@"Maybe Later"
                          otherButtonTitles:@[@"Update Now"]
                                   tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
