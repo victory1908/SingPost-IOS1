@@ -38,7 +38,7 @@ UIWebViewDelegate
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, contentView.bounds.size.width, 185)];
     [imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [imageView setImageWithURL:[NSURL URLWithString:[self.info objectForKeyOrNil:@"Thumbnail"]] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [imageView setImageWithURL:[NSURL URLWithString:[self.info objectForKeyOrNil:@"CoverImage"]] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [self.scrollView addSubview:imageView];
     
     NSString *issueDateString = [self.info objectForKeyOrNil:@"Date"];
