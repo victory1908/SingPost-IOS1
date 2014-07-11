@@ -499,18 +499,15 @@ static NSString *const OS = @"ios";
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
         if (success) {
             success(XMLElement);
-            /*
-             [UIAlertView showWithTitle:[NSString stringWithFormat:@"Error code %@",[XMLElement child:@"ErrorCode"].text]
-             message:[XMLElement child:@"ErrorDesc"].text
-             cancelButtonTitle:@"OK"
-             otherButtonTitles:nil
-             tapBlock:nil];
-             */
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure) {
             failure(error);
-            DLog(@"Fail");
+            double delayInSeconds = 30;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                [self registerAPNSToken:apnsToken onSuccess:^(id responseObject){} onFailure:^(NSError *error){}];
+            });
         }
     }];
     
