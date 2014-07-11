@@ -68,22 +68,22 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
             return @"Closed";
         
         BOOL isOpenPM = NO;
-        int openHour = [[openTime substringWithRange:NSMakeRange(0, 2)] integerValue];
-        int openMin = [[openTime substringWithRange:NSMakeRange(2, 2)] integerValue];
+        NSInteger openHour = [[openTime substringWithRange:NSMakeRange(0, 2)] integerValue];
+        NSInteger openMin = [[openTime substringWithRange:NSMakeRange(2, 2)] integerValue];
         
         if(openHour > 12){
             openHour -= 12;
             isOpenPM = YES;
         }
         
-        NSString * openTimeStr = [NSString stringWithFormat:@"%d:%02d %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
+        NSString * openTimeStr = [NSString stringWithFormat:@"%ld:%ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
         
         return openTimeStr;
     }
     
     BOOL isOpenPM = NO;
-    int openHour = [[openTime substringWithRange:NSMakeRange(0, 2)] integerValue];
-    int openMin = [[openTime substringWithRange:NSMakeRange(2, 2)] integerValue];
+    NSInteger openHour = [[openTime substringWithRange:NSMakeRange(0, 2)] integerValue];
+    NSInteger openMin = [[openTime substringWithRange:NSMakeRange(2, 2)] integerValue];
     
     if(openHour > 12){
         openHour -= 12;
@@ -91,16 +91,16 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     }
     
     BOOL isClosePM = NO;
-    int closeHour = [[closeTime substringWithRange:NSMakeRange(0, 2)] integerValue];
-    int closeMin = [[closeTime substringWithRange:NSMakeRange(2, 2)] integerValue];
+    NSInteger closeHour = [[closeTime substringWithRange:NSMakeRange(0, 2)] integerValue];
+    NSInteger closeMin = [[closeTime substringWithRange:NSMakeRange(2, 2)] integerValue];
     
     if(closeHour > 12){
         closeHour -= 12;
         isClosePM = YES;
     }
     
-    NSString * openTimeStr = [NSString stringWithFormat:@"%d:%02d %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
-    NSString * closeTimeStr = [NSString stringWithFormat:@"%d:%02d %@",closeHour,closeMin, (isClosePM?@"pm":@"am")];
+    NSString * openTimeStr = [NSString stringWithFormat:@"%ld:%ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
+    NSString * closeTimeStr = [NSString stringWithFormat:@"%ld:%ld %@",closeHour,closeMin, (isClosePM?@"pm":@"am")];
     
     //return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%04d - %04d", openTime.integerValue, closeTime.integerValue];
     return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", openTimeStr, closeTimeStr];
