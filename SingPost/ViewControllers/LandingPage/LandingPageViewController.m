@@ -78,7 +78,6 @@ OffersMenuDelegate
 @implementation LandingPageViewController {
     CTextField *trackingNumberTextField;
     OffersMoreMenuView *offersMoreMenuView;
-    UIButton *announcementBtn;
 }
 
 #pragma mark - View lifecycle
@@ -99,7 +98,7 @@ OffersMenuDelegate
     envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
-    announcementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *announcementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [announcementBtn setImage:[UIImage imageNamed:@"Announcement"] forState:UIControlStateNormal];
     [announcementBtn addTarget:self action:@selector(onAnnouncementBtn:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -107,7 +106,6 @@ OffersMenuDelegate
         announcementBtn.frame = CGRectMake(contentView.right - 103, 15, 88, 88);
     else
         announcementBtn.frame = CGRectMake(contentView.right - 44, 0, 44, 44);
-    announcementBtn.hidden = YES;
     [contentView addSubview:announcementBtn];
     
     if (INTERFACE_IS_IPAD) {
@@ -288,19 +286,9 @@ OffersMenuDelegate
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Home"];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
-    
-    [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
-     {
-         if ([responseObject isKindOfClass:[NSDictionary class]]) {
-             if([[responseObject objectForKeyOrNil:@"root"]count] > 0) {
-                 announcementBtn.hidden = NO;
-             }
-         }
-     } failure:^(NSError *error){}];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
