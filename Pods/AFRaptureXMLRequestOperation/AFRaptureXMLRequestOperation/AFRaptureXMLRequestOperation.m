@@ -54,7 +54,6 @@ static dispatch_queue_t rapture_xml_request_operation_processing_queue() {
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             success(operation.request, operation.response, responseObject);
-            NSLog(@"%@",operation.responseString);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {

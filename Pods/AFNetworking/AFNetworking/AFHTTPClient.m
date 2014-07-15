@@ -477,7 +477,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
             }
         }
     }
-    request.timeoutInterval = 35;
+
 	return request;
 }
 

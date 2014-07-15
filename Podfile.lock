@@ -12,13 +12,14 @@ PODS:
   - RaptureXML (1.0.1)
   - Reachability (3.1.1)
   - RegexKitLite (4.0)
-  - SDWebImage (3.5.4):
+  - SDWebImage (3.6):
     - SDWebImage/Core
-  - SDWebImage/Core (3.5.4)
+  - SDWebImage/Core (3.6)
   - SevenSwitch (1.3.0)
   - SSKeychain (1.2.1)
   - SVProgressHUD (1.0)
   - TPKeyboardAvoiding (1.2.3)
+  - TTTAttributedLabel (1.10.1)
   - UALogger (0.2.3)
   - UIActivityIndicator-for-SDWebImage (1.0.3):
     - SDWebImage (~> 3.2)
@@ -37,27 +38,29 @@ DEPENDENCIES:
   - SSKeychain (~> 1.2.1)
   - SVProgressHUD (~> 1.0)
   - TPKeyboardAvoiding (~> 1.1)
+  - TTTAttributedLabel
   - UALogger (~> 0.2.3)
   - UIActivityIndicator-for-SDWebImage (~> 1.0.3)
   - UIAlertView+Blocks (~> 0.7)
 
 SPEC CHECKSUMS:
-  AFNetworking: a44069e3c9c89867544f6639482f155c7e5f9b41
-  AFRaptureXMLRequestOperation: 2dedbb46c01724c1ba2ac1f3ec7dad7d8dfca7eb
-  GoogleAnalytics-iOS-SDK: 7b0e55cfe5e70d60478a7b105f15ac71e8bc373e
-  KGModal: d52efa48b6bb232ea5ed002b511cef115c81e4a0
-  MagicalRecord: 95d49d74ef752cd52f6ad87bcb474817fc3978cf
-  MHNatGeoViewControllerTransition: 0c89a2d57333cdce78d011e49fbdf263f8b1a9c8
-  RaptureXML: ef017fda62eb95c60300108366d1f0cd0c28cbd4
-  Reachability: be4883bb93f31e38266ae3365e5600a317aae735
-  RegexKitLite: f7af7b4d2b675cd2ec9a4abab6aad6ae1f6499c0
-  SDWebImage: 1a62010700adbba823b621fc217906739dbf6aa5
-  SevenSwitch: f1ae106a4fcb459829ba5a6a3265e7e9f873f80c
-  SSKeychain: d18926838c2e7cd342e2a49e9f869858e49f035a
-  SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
-  TPKeyboardAvoiding: 17995aaa6db26ac2a9fa8714a86509c5888f0392
-  UALogger: abe2af53cf3a72fd8ed3625ee331c546c4c7bde9
-  UIActivityIndicator-for-SDWebImage: e712b97826395022ce7b4a4b56eb7194090c19d5
-  UIAlertView+Blocks: bac565670861210aff25f574638f0c552648a0a8
+  AFNetworking: 7e82cfea05017c338ae62897f0a09ba1a8ebb479
+  AFRaptureXMLRequestOperation: 694d1b276ca87b6ad82e01cf4cd8f54048bc0782
+  GoogleAnalytics-iOS-SDK: ee5322bf919d731d34ff3c8d891301e8f1e0e873
+  KGModal: 569ba745416a67644906134c8c722e664c60b8f9
+  MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
+  MHNatGeoViewControllerTransition: ca47f7de47396a839b2162dfdc84b78f04604da8
+  RaptureXML: b9b0aca9c68c684c189af73dd5e8f8fdeec74600
+  Reachability: 8e9635e3cb4f98e7f825e51147f677ecc694d0e7
+  RegexKitLite: 761b4944f23cb8fe20697b2e47be0689fd832c09
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  SevenSwitch: 70af67d75bc2e477d45a984cf1f3123564b04eee
+  SSKeychain: 63182d96667ab9ccd72cb6f19ccb06faec605710
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  TPKeyboardAvoiding: ca26afa683d829cb96fe69b887fc8be4178f0b9a
+  TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
+  UALogger: dde45daee52fd16f02e9f596a04b3f3e5794e0c2
+  UIActivityIndicator-for-SDWebImage: fad0a3471de0e5f97771e516f537453eee506103
+  UIAlertView+Blocks: 0b749f1f7bd5131ff2233b30a406c1585a7171b2
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.33.1

@@ -69,14 +69,14 @@
 // SDWebImage
 #define COCOAPODS_POD_AVAILABLE_SDWebImage
 #define COCOAPODS_VERSION_MAJOR_SDWebImage 3
-#define COCOAPODS_VERSION_MINOR_SDWebImage 5
-#define COCOAPODS_VERSION_PATCH_SDWebImage 4
+#define COCOAPODS_VERSION_MINOR_SDWebImage 6
+#define COCOAPODS_VERSION_PATCH_SDWebImage 0
 
 // SDWebImage/Core
 #define COCOAPODS_POD_AVAILABLE_SDWebImage_Core
 #define COCOAPODS_VERSION_MAJOR_SDWebImage_Core 3
-#define COCOAPODS_VERSION_MINOR_SDWebImage_Core 5
-#define COCOAPODS_VERSION_PATCH_SDWebImage_Core 4
+#define COCOAPODS_VERSION_MINOR_SDWebImage_Core 6
+#define COCOAPODS_VERSION_PATCH_SDWebImage_Core 0
 
 // SSKeychain
 #define COCOAPODS_POD_AVAILABLE_SSKeychain
@@ -101,6 +101,12 @@
 #define COCOAPODS_VERSION_MAJOR_TPKeyboardAvoiding 1
 #define COCOAPODS_VERSION_MINOR_TPKeyboardAvoiding 2
 #define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 3
+
+// TTTAttributedLabel
+#define COCOAPODS_POD_AVAILABLE_TTTAttributedLabel
+#define COCOAPODS_VERSION_MAJOR_TTTAttributedLabel 1
+#define COCOAPODS_VERSION_MINOR_TTTAttributedLabel 10
+#define COCOAPODS_VERSION_PATCH_TTTAttributedLabel 1
 
 // UALogger
 #define COCOAPODS_POD_AVAILABLE_UALogger
