@@ -130,6 +130,7 @@
 		8706E7C4196BA9130070DD03 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */; };
 		87644986196B8A31000E67C7 /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */; };
 		877966BF196AE2C500C7E514 /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 877966BE196AE2C500C7E514 /* AnnouncementViewController.m */; };
+		87ACEA141977C4070081A412 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87ACEA131977C4070081A412 /* ShopViewController.m */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
 		9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */; };
 		91692BD818EA868E0079B62D /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
@@ -372,6 +373,8 @@
 		87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
 		877966BD196AE2C500C7E514 /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
 		877966BE196AE2C500C7E514 /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
+		87ACEA121977C4070081A412 /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
+		87ACEA131977C4070081A412 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		915E55ED187C128E00790DBC /* LocateUSDetailsDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUSDetailsDetailsView.h; sourceTree = "<group>"; };
 		915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUSDetailsDetailsView.m; sourceTree = "<group>"; };
 		9160E762189126FE0046FC1E /* LocateUsFSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsFSMapViewController.h; sourceTree = "<group>"; };
@@ -966,6 +969,8 @@
 			children = (
 				52C90917180491110063A026 /* ShopMainViewController.h */,
 				52C90918180491110063A026 /* ShopMainViewController.m */,
+				87ACEA121977C4070081A412 /* ShopViewController.h */,
+				87ACEA131977C4070081A412 /* ShopViewController.m */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -1196,6 +1201,7 @@
 				52C90919180491110063A026 /* ShopMainViewController.m in Sources */,
 				521F78681802A5B300B513FA /* LocateUsDetailsServicesView.m in Sources */,
 				52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */,
+				87ACEA141977C4070081A412 /* ShopViewController.m in Sources */,
 				526E92B7183FDA0200552710 /* PostalCodePoBoxTableViewCell.m in Sources */,
 				52731F70185A72FB007D6001 /* NSString+Extensions.m in Sources */,
 				521F786218029D7100B513FA /* AboutThisAppViewController.m in Sources */,
