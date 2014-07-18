@@ -14,9 +14,13 @@
 #import "SectionToggleButton.h"
 #import "UIView+Position.h"
 #import "ApiClient.h"
+#import "TTTAttributedLabel.h"
+#import "UIAlertView+Blocks.h"
 
 @interface CalculatePostageMainViewController ()
-
+<
+TTTAttributedLabelDelegate
+>
 @end
 
 typedef enum  {
@@ -47,12 +51,19 @@ typedef enum  {
     else
         [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
-
-    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 52, contentView.bounds.size.width - 30, 80)];
+    
+    TTTAttributedLabel *instructionsLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(15, 52, contentView.bounds.size.width - 30, 80)];
     [instructionsLabel setNumberOfLines:0];
-    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcels. Singapore Post covers all addresses within Singapore and 220 countries worldwide"];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:[UIColor clearColor]];
+    instructionsLabel.delegate = self;
+    /*
+    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcels. Singapore Post covers all addresses within Singapore and 220 countries worldwide" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
+     */
+    [instructionsLabel setText:@"Use this tool to find out charges for sending letter or parcel.\nThis is just to show you what 80 letter characters looks like, this is singpost" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
+    NSRange singpost = [instructionsLabel.text rangeOfString:@"singpost"];
+    [instructionsLabel addLinkToURL:[NSURL URLWithString:@"action://SingPost"] withRange:singpost];
+    
     [contentView addSubview:instructionsLabel];
     
     sectionContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 190, contentView.bounds.size.width, contentView.bounds.size.height - 190)];
@@ -117,6 +128,20 @@ typedef enum  {
 {
     [super viewDidLoad];
     [self goToSection:CALCULATEPOSTAGE_SECTION_OVERSEAS];
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    if ([[url scheme]hasPrefix:@"action"]) {
+        if ([[url host]hasPrefix:@"SingPost"]) {
+            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
+                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
+                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
+                                  if (buttonIndex == 1) {
+                                      [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.singpost.com"]];
+                                  }
+                              }];
+        }
+    }
 }
 
 - (void)handleSectionSelectionPanGesture:(UIPanGestureRecognizer *)gestureRecognizer
