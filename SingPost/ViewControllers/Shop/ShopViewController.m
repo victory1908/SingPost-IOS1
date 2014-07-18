@@ -12,8 +12,14 @@
 #import "SVProgressHUD.h"
 #import "UIAlertView+Blocks.h"
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "NSDictionary+Additions.h"
+#import "Article.h"
+#import "UILabel+VerticalAlign.h"
 
 @interface ShopViewController ()
+@property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *subTitleLabel;
 @property (strong, nonatomic) UIImageView *background;
 @end
 
@@ -21,8 +27,10 @@
 
 - (void)loadView {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [contentView setBackgroundColor:RGB(250, 250, 250)];
     
     self.background = [[UIImageView alloc]initWithFrame:contentView.frame];
+    self.background.contentMode = UIViewContentModeScaleAspectFill;
     [contentView addSubview:self.background];
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
@@ -30,28 +38,53 @@
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, navigationBarView.bottom, contentView.width, contentView.height - navigationBarView.height)];
+    [contentView addSubview:self.scrollView];
+    
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, contentView.width - 30, 35)];
+    self.titleLabel.textColor = [UIColor whiteColor];
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.numberOfLines = 0;
+    [self.scrollView addSubview:self.titleLabel];
+    
+    self.subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, self.titleLabel.bottom + 8, contentView.width - 30, 35)];
+    self.subTitleLabel.textColor = [UIColor whiteColor];
+    self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
+    self.subTitleLabel.numberOfLines = 0;
+    [self.scrollView addSubview:self.subTitleLabel];
+    
     self.view = contentView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [SVProgressHUD showWithStatus:@"Please wait.."];
-    [[ApiClient sharedInstance] getShopItemsOnSuccess:^(id responseJSON) {
-        if ([responseJSON isKindOfClass:[NSDictionary class]]) {
+    
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        [SVProgressHUD showWithStatus:@"Please wait.."];
+        [Article API_getShopItemsOnCompletion:^(NSArray *items, NSDictionary *root) {
+            self.titleLabel.text = [root objectForKeyOrNil:@"BackgroundText"];
+            self.subTitleLabel.text = [root objectForKeyOrNil:@"BackgroundSubText"];
             
+            [self relayoutSubviews:root];
             
-        }
-        [SVProgressHUD dismiss];
-    } onFailure:^(NSError *error) {
-        [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                           message:NO_INTERNET_ERROR
-                 cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-        [SVProgressHUD dismiss];
-    }];
+            NSString *backgroundImage = [root objectForKeyOrNil:@"BackgroundImage"];
+            [self.background setImageWithURL:[NSURL URLWithString:backgroundImage]
+                 usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            [SVProgressHUD dismiss];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
 }
+
+- (void)relayoutSubviews:(NSDictionary *)dictionary {
+    [self.titleLabel sizeToFitKeepWidth];
+    [self.subTitleLabel sizeToFitKeepWidth];
+    
+    self.subTitleLabel.top = self.titleLabel.bottom + 8;
+}
+
 @end

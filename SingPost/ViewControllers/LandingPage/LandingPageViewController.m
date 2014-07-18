@@ -33,6 +33,7 @@
 #import "ApiClient.h"
 #import "NSDictionary+Additions.h"
 #import "AnnouncementViewController.h"
+#import "ShopViewController.h"
 
 #import "TrackedItem.h"
 #import <SVProgressHUD.h>
@@ -489,7 +490,7 @@ OffersMenuDelegate
                 [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
-                ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
+                ShopViewController *viewController = [[ShopViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             }
             break;

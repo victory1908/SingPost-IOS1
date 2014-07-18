@@ -4,7 +4,7 @@
 
 //Apis
 + (void)API_getSendReceiveItemsOnCompletion:(void(^)(NSArray *items))completionBlock;
-+ (void)API_getShopItemsOnCompletion:(void(^)(NSArray *items))completionBlock;
++ (void)API_getShopItemsOnCompletion:(void(^)(NSArray *items, NSDictionary *root))completionBlock;
 + (void)API_getPayItemsOnCompletion:(void(^)(NSArray *items))completionBlock;
 + (void)API_getServicesOnCompletion:(void(^)(NSArray *items))completionBlock;
 + (void)API_getAboutThisAppOnCompletion:(void(^)(NSString *aboutThisApp))completionBlock;

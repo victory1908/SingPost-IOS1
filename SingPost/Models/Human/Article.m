@@ -65,18 +65,19 @@
     }];
 }
 
-+ (void)API_getShopItemsOnCompletion:(void(^)(NSArray *items))completionBlock
++ (void)API_getShopItemsOnCompletion:(void(^)(NSArray *items, NSDictionary *root))completionBlock
 {
     [[ApiClient sharedInstance] getShopItemsOnSuccess:^(id responseJSON) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Pay"]);
+                NSDictionary *root = responseJSON[@"root"];
+                completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Pay"],root);
             });
         }
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil);
+                completionBlock(nil,nil);
             });
         }
     }];
