@@ -12,4 +12,7 @@
 
 - (void)alignTop;
 
+- (void)sizeToFitKeepHeight;
+- (void)sizeToFitKeepWidth;
+
 @end

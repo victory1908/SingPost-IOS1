@@ -24,4 +24,20 @@
     [self setNeedsDisplay];
 }
 
+- (void)sizeToFitKeepHeight {
+    CGFloat initialHeight = CGRectGetHeight(self.frame);
+    [self sizeToFit];
+    CGRect frame = self.frame;
+    frame.size.height = initialHeight;
+    self.frame = frame;
+}
+
+- (void)sizeToFitKeepWidth {
+    CGFloat initialWidth = CGRectGetWidth(self.frame);
+    [self sizeToFit];
+    CGRect frame = self.frame;
+    frame.size.width = initialWidth;
+    self.frame = frame;
+}
+
 @end
