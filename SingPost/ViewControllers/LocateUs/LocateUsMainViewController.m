@@ -183,19 +183,7 @@ typedef enum {
 }
 
 - (IBAction)reloadButtonClicked:(id)sender {
-    switch (currentMode) {
-        case LOCATEUS_VIEWMODE_LIST: {
-            [locateUsListViewController reloadData];
-            break;
-        }
-        case LOCATEUS_VIEWMODE_MAP: {
-            [locateUsMapViewController centerMapAtLocation:locateUsMapViewController.userLocation.coordinate];
-            break;
-        }
-        default:
-            break;
-    }
-    
+    [self fetchAndReloadLocationsData];
 }
 
 - (NSString *)selectedType
