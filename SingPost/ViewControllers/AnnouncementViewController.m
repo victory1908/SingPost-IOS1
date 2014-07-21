@@ -54,9 +54,10 @@ UITableViewDataSource
      {
          self.dataArray = [responseObject objectForKeyOrNil:@"root"];
          [self.tableView reloadData];
+         [SVProgressHUD dismiss];
          
      } failure:^(NSError *error)
-    {[SVProgressHUD dismiss];}];
+     {[SVProgressHUD dismiss];}];
     
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Announcements List"];
 }
