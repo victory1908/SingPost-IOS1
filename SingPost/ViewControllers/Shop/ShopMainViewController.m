@@ -23,15 +23,14 @@
     [self setPageTitle:@"Shop"];
     
     __weak ShopMainViewController *weakSelf = self;
-    /*
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
-        [Article API_getShopItemsOnCompletion:^(NSArray *items) {
+        [Article API_getShopItemsOnCompletion:^(NSArray *items, NSDictionary *responseObject) {
             [weakSelf setItems:items];
             [SVProgressHUD dismiss];
         }];
     }
-     */
 }
 
 - (void)viewDidDisappear:(BOOL)animated

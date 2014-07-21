@@ -46,21 +46,18 @@ UITableViewDataSource
     self.view = contentView;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-    [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
-     {
-         if ([responseObject isKindOfClass:[NSDictionary class]]) {
-             self.dataArray = [responseObject objectForKeyOrNil:@"root"];
-             [self.tableView reloadData];
-         }
-         [SVProgressHUD dismiss];
-     } failure:^(NSError *error){}];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+    [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
+     {
+         self.dataArray = [responseObject objectForKeyOrNil:@"root"];
+         [self.tableView reloadData];
+         
+     } failure:^(NSError *error)
+    {[SVProgressHUD dismiss];}];
+    
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Announcements List"];
 }
 

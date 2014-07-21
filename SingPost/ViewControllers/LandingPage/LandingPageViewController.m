@@ -490,7 +490,7 @@ OffersMenuDelegate
                 [self presentViewController:viewController animated:YES completion:nil];
             }
             else {
-                ShopViewController *viewController = [[ShopViewController alloc] initWithNibName:nil bundle:nil];
+                ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
                 [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
             }
             break;
