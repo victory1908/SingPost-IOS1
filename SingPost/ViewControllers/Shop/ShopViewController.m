@@ -15,6 +15,9 @@
 #import "NSDictionary+Additions.h"
 #import "Article.h"
 #import "UILabel+VerticalAlign.h"
+#import "UIFont+SingPost.h"
+#import "NSObject+Addtions.h"
+#import "ShopContentViewController.h"
 
 @interface ShopViewController ()
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -45,12 +48,14 @@
     self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.numberOfLines = 0;
+    self.titleLabel.font = [UIFont SingPostBoldFontOfSize:25.0f fontKey:kSingPostFontOpenSans];
     [self.scrollView addSubview:self.titleLabel];
     
     self.subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, self.titleLabel.bottom + 8, contentView.width - 30, 35)];
     self.subTitleLabel.textColor = [UIColor whiteColor];
     self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
     self.subTitleLabel.numberOfLines = 0;
+    self.subTitleLabel.font = [UIFont SingPostLightFontOfSize:15.0f fontKey:kSingPostFontOpenSans];
     [self.scrollView addSubview:self.subTitleLabel];
     
     self.view = contentView;
@@ -85,6 +90,62 @@
     [self.subTitleLabel sizeToFitKeepWidth];
     
     self.subTitleLabel.top = self.titleLabel.bottom + 8;
+    
+    NSInteger index = 0;
+    NSArray *keysArray = [dictionary objectForKeyOrNil:@"keys"];
+    for (NSString *key in keysArray) {
+        NSDictionary *item = [[dictionary objectForKeyOrNil:key]firstObject];
+        [self createShopBtnIndex:index item:item];
+        index++;
+    }
+}
+
+- (void)createShopBtnIndex:(NSInteger)index item:(NSDictionary *)item {
+    NSInteger padding = (index/2) * 15;
+    NSInteger y = self.subTitleLabel.bottom + 8;
+    NSInteger viewWidth = (self.scrollView.width - 45)/2;
+    NSInteger viewHeight = viewWidth/3*2 + 40;
+    
+    UIView *view = [[UIView alloc]init];
+    view.userInteractionEnabled = YES;
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight - 40)];
+    [imageView setImageWithURL:[NSURL URLWithString:[item objectForKeyOrNil:@"Thumbnail"]]
+   usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [view addSubview:imageView];
+    
+    UIView *background = [[UIView alloc]initWithFrame:CGRectMake(0, imageView.bottom, imageView.width, 40)];
+    background.backgroundColor = RGB(42, 98, 173);
+    background.alpha = 0.8;
+    [view addSubview:background];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, background.width - 30, background.height)];
+    label.text = [item objectForKeyOrNil:@"Name"];
+    label.numberOfLines = 2;
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans];
+    label.textAlignment = NSTextAlignmentCenter;
+    [background addSubview:label];
+    
+    view.backgroundColor = [UIColor whiteColor];
+    [self.scrollView addSubview:view];
+    
+    if (index % 2 == 0)
+        view.frame = CGRectMake(15, (index/2 * viewHeight) + y + padding, viewWidth,viewHeight);
+    else
+        view.frame = CGRectMake(self.scrollView.width/2 + 7.5, (index/2 * viewHeight) + y + padding, viewWidth,viewHeight);
+    
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onItemSelect:)];
+    [recognizer setAssociatedObject:item];
+    [view addGestureRecognizer:recognizer];
+}
+
+- (void)onItemSelect:(UITapGestureRecognizer *)sender {
+    ShopContentViewController *vc = [[ShopContentViewController alloc]init];
+    vc.item = [sender associatedObject];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Shop - %@", [[sender associatedObject]objectForKeyOrNil:@"Category"]]];
 }
 
 @end

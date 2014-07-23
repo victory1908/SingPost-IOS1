@@ -128,6 +128,8 @@
 		52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */; };
 		52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */; };
 		8706E7C4196BA9130070DD03 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */; };
+		8728B00E198011250007853A /* ShopContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B00D198011250007853A /* ShopContentViewController.m */; };
+		8728B011198014A30007853A /* NSObject+Addtions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B010198014A30007853A /* NSObject+Addtions.m */; };
 		87644986196B8A31000E67C7 /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */; };
 		877966BF196AE2C500C7E514 /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 877966BE196AE2C500C7E514 /* AnnouncementViewController.m */; };
 		87ACEA141977C4070081A412 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87ACEA131977C4070081A412 /* ShopViewController.m */; };
@@ -369,6 +371,10 @@
 		52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsOpeningHoursView.m; sourceTree = "<group>"; };
 		8706E7C2196BA9130070DD03 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
 		8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
+		8728B00C198011250007853A /* ShopContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopContentViewController.h; sourceTree = "<group>"; };
+		8728B00D198011250007853A /* ShopContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopContentViewController.m; sourceTree = "<group>"; };
+		8728B00F198014A30007853A /* NSObject+Addtions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Addtions.h"; sourceTree = "<group>"; };
+		8728B010198014A30007853A /* NSObject+Addtions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Addtions.m"; sourceTree = "<group>"; };
 		87644984196B8A31000E67C7 /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
 		87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
 		877966BD196AE2C500C7E514 /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
@@ -667,6 +673,8 @@
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8728B00F198014A30007853A /* NSObject+Addtions.h */,
+				8728B010198014A30007853A /* NSObject+Addtions.m */,
 				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
 				52305F8817F5B20600610A86 /* UIFont+SingPost.m */,
 				527C2F2E184FCC4B00F1FB4F /* NSDictionary+Additions.h */,
@@ -971,6 +979,8 @@
 				52C90918180491110063A026 /* ShopMainViewController.m */,
 				87ACEA121977C4070081A412 /* ShopViewController.h */,
 				87ACEA131977C4070081A412 /* ShopViewController.m */,
+				8728B00C198011250007853A /* ShopContentViewController.h */,
+				8728B00D198011250007853A /* ShopContentViewController.m */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -1193,6 +1203,7 @@
 				52359CDA186137E90068E6B9 /* _TrackedItem.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
 				52C908ED18046BCA0063A026 /* Article.m in Sources */,
+				8728B00E198011250007853A /* ShopContentViewController.m in Sources */,
 				52282FF617FACBA600B2A7B4 /* LocateUsListViewController.m in Sources */,
 				52282FD017FA8FA300B2A7B4 /* CMIndexBar.m in Sources */,
 				52C9091E180491DC0063A026 /* MoreServicesMainViewController.m in Sources */,
@@ -1217,6 +1228,7 @@
 				5237B0BF1833E71B00E9358A /* CalculatePostageResultItem.m in Sources */,
 				5293648B180B1B1500B83F6B /* UILabel+VerticalAlign.m in Sources */,
 				52936499180B254400B83F6B /* StampCollectiblesDetailsViewController.m in Sources */,
+				8728B011198014A30007853A /* NSObject+Addtions.m in Sources */,
 				529090F7180D2A2900D84030 /* OfferImage.m in Sources */,
 				528F26D917F97A35006F7027 /* SingPost.xcdatamodeld in Sources */,
 				528C413D1834122700145E55 /* FindPostalCodeStreetViewController.m in Sources */,
