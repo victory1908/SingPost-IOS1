@@ -76,7 +76,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
             isOpenPM = YES;
         }
         
-        NSString * openTimeStr = [NSString stringWithFormat:@"%ld:%ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
+        NSString * openTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
         
         return openTimeStr;
     }
@@ -99,10 +99,9 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
         isClosePM = YES;
     }
     
-    NSString * openTimeStr = [NSString stringWithFormat:@"%ld:%ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
-    NSString * closeTimeStr = [NSString stringWithFormat:@"%ld:%ld %@",closeHour,closeMin, (isClosePM?@"pm":@"am")];
+    NSString * openTimeStr = [NSString stringWithFormat:@"%ld:%02ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
+    NSString * closeTimeStr = [NSString stringWithFormat:@"%ld:%02ld %@",closeHour,closeMin, (isClosePM?@"pm":@"am")];
     
-    //return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%04d - %04d", openTime.integerValue, closeTime.integerValue];
     return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", openTimeStr, closeTimeStr];
 }
 
