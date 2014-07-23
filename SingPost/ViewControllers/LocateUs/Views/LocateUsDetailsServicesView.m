@@ -21,7 +21,7 @@
         [contentScrollView setBackgroundColor:[UIColor clearColor]];
         [self addSubview:contentScrollView];
         
-        UILabel *naLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, contentScrollView.bounds.size.width - 20, 15)];
+        UILabel *naLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, contentScrollView.bounds.size.width - 20, 20)];
         [naLabel setTextColor:RGB(58, 68, 81)];
         [naLabel setBackgroundColor:[UIColor clearColor]];
         [naLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -37,7 +37,7 @@
             
             CGFloat offsetY = 20.0f;
             for (NSString *service in services) {
-                UILabel *serviceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, contentScrollView.bounds.size.width - 20, 15)];
+                UILabel *serviceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, offsetY, contentScrollView.bounds.size.width - 20, 20)];
                 [serviceLabel setTextColor:RGB(58, 68, 81)];
                 [serviceLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
                 [serviceLabel setBackgroundColor:[UIColor clearColor]];
