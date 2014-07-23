@@ -27,6 +27,7 @@
 #import "OffersMainViewController.h"
 #import "MoreAppsViewController.h"
 #import "AnnouncementViewController.h"
+#import "ShopViewController.h"
 
 #import "FeedbackViewController.h"
 #import "AboutThisAppViewController.h"
@@ -459,7 +460,7 @@
                     [self presentViewController:viewController animated:YES completion:nil];
                 }
                 else {
-                    ShopMainViewController *viewController = [[ShopMainViewController alloc] initWithNibName:nil bundle:nil];
+                    ShopViewController *viewController = [[ShopViewController alloc] initWithNibName:nil bundle:nil];
                     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:viewController];
                 }
                 if (showOffersMoreSubrows)
