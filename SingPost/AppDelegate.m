@@ -31,8 +31,8 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     [self setupGoogleAnalytics];
-    [MagicalRecord setupCoreDataStack];
-    [DatabaseSeeder seedLocationsDataIfRequired];
+    [MagicalRecord setupAutoMigratingCoreDataStack];
+    //[DatabaseSeeder seedLocationsDataIfRequired];
     
     [Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
     
@@ -53,6 +53,10 @@
     [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
     [self checkAppAndOSVersion];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    [MagicalRecord cleanUp];
 }
 
 - (void)setupGoogleAnalytics {
