@@ -17,7 +17,7 @@
 
 @synthesize notificationProfileID = _notificationProfileID;
 
-static BOOL isProduction = YES;
+static BOOL isProduction = NO;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
