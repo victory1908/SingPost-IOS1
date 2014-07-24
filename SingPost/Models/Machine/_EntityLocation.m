@@ -8,6 +8,8 @@ const struct EntityLocationAttributes EntityLocationAttributes = {
 	.contactNumber = @"contactNumber",
 	.fri_closing = @"fri_closing",
 	.fri_opening = @"fri_opening",
+	.identity = @"identity",
+	.last_modified = @"last_modified",
 	.latitude = @"latitude",
 	.longitude = @"longitude",
 	.mon_closing = @"mon_closing",
@@ -94,6 +96,20 @@ const struct EntityLocationFetchedProperties EntityLocationFetchedProperties = {
 
 
 @dynamic fri_opening;
+
+
+
+
+
+
+@dynamic identity;
+
+
+
+
+
+
+@dynamic last_modified;
 
 
 

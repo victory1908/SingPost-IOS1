@@ -9,6 +9,8 @@ extern const struct EntityLocationAttributes {
 	__unsafe_unretained NSString *contactNumber;
 	__unsafe_unretained NSString *fri_closing;
 	__unsafe_unretained NSString *fri_opening;
+	__unsafe_unretained NSString *identity;
+	__unsafe_unretained NSString *last_modified;
 	__unsafe_unretained NSString *latitude;
 	__unsafe_unretained NSString *longitude;
 	__unsafe_unretained NSString *mon_closing;
@@ -39,6 +41,8 @@ extern const struct EntityLocationRelationships {
 
 extern const struct EntityLocationFetchedProperties {
 } EntityLocationFetchedProperties;
+
+
 
 
 
@@ -117,6 +121,26 @@ extern const struct EntityLocationFetchedProperties {
 
 
 //- (BOOL)validateFri_opening:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* identity;
+
+
+
+//- (BOOL)validateIdentity:(id*)value_ error:(NSError**)error_;
+
+
+
+
+
+@property (nonatomic, strong) NSString* last_modified;
+
+
+
+//- (BOOL)validateLast_modified:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -382,6 +406,18 @@ extern const struct EntityLocationFetchedProperties {
 
 - (NSString*)primitiveFri_opening;
 - (void)setPrimitiveFri_opening:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveIdentity;
+- (void)setPrimitiveIdentity:(NSString*)value;
+
+
+
+
+- (NSString*)primitiveLast_modified;
+- (void)setPrimitiveLast_modified:(NSString*)value;
 
 
 

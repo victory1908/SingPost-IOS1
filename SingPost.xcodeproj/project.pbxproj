@@ -379,6 +379,7 @@
 		87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
 		877966BD196AE2C500C7E514 /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
 		877966BE196AE2C500C7E514 /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
+		878B48B81980A40300FF3502 /* SingPost 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 2.xcdatamodel"; sourceTree = "<group>"; };
 		87ACEA121977C4070081A412 /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
 		87ACEA131977C4070081A412 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		915E55ED187C128E00790DBC /* LocateUSDetailsDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUSDetailsDetailsView.h; sourceTree = "<group>"; };
@@ -1475,9 +1476,10 @@
 		528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				878B48B81980A40300FF3502 /* SingPost 2.xcdatamodel */,
 				528F26D817F97A35006F7027 /* SingPost.xcdatamodel */,
 			);
-			currentVersion = 528F26D817F97A35006F7027 /* SingPost.xcdatamodel */;
+			currentVersion = 878B48B81980A40300FF3502 /* SingPost 2.xcdatamodel */;
 			path = SingPost.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
