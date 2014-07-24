@@ -284,68 +284,174 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
 + (void)API_updatePostingBoxLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getPostingBoxLocationsOnSuccess:^(id responseJSON) {
-        [[self class] updateLocationsOfType:LOCATION_TYPE_POSTING_BOX jsonData:responseJSON onCompletion:completionBlock];
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            completionBlock(NO, error);
-        }
-    }];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_POSTING_BOX] == nil) {
+        [[ApiClient sharedInstance] getPostingBoxLocationsOnSuccess:^(id responseJSON) {
+            [[self class] updateLocationsOfType:LOCATION_TYPE_POSTING_BOX jsonData:responseJSON onCompletion:completionBlock];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:LOCATION_TYPE_POSTING_BOX];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else {
+        [[self class] checkForLocationUpdatesCompletion:completionBlock];
+    }
 }
 
 + (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getPostOfficeLocationsOnSuccess:^(id responseJSON) {
-        [[self class] updateLocationsOfType:LOCATION_TYPE_POST_OFFICE jsonData:responseJSON onCompletion:completionBlock];
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            completionBlock(NO, error);
-        }
-    }];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_POST_OFFICE] == nil) {
+        [[ApiClient sharedInstance] getPostOfficeLocationsOnSuccess:^(id responseJSON) {
+            [[self class] updateLocationsOfType:LOCATION_TYPE_POST_OFFICE jsonData:responseJSON onCompletion:completionBlock];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:LOCATION_TYPE_POST_OFFICE];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else {
+        [[self class] checkForLocationUpdatesCompletion:completionBlock];
+    }
 }
 
 + (void)API_updateSamLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getSamLocationsOnSuccess:^(id responseJSON) {
-        [[self class] updateLocationsOfType:LOCATION_TYPE_SAM jsonData:responseJSON onCompletion:completionBlock];
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            completionBlock(NO, error);
-        }
-    }];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_SAM] == nil) {
+        [[ApiClient sharedInstance] getSamLocationsOnSuccess:^(id responseJSON) {
+            [[self class] updateLocationsOfType:LOCATION_TYPE_SAM jsonData:responseJSON onCompletion:completionBlock];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:LOCATION_TYPE_SAM];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else {
+        [[self class] checkForLocationUpdatesCompletion:completionBlock];
+    }
 }
 
 + (void)API_updatePostalAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getPostalAgentLocationsOnSuccess:^(id responseJSON) {
-        [[self class] updateLocationsOfType:LOCATION_TYPE_POSTAL_AGENT jsonData:responseJSON onCompletion:completionBlock];
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            completionBlock(NO, error);
-        }
-    }];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_POSTAL_AGENT] == nil) {
+        [[ApiClient sharedInstance] getPostalAgentLocationsOnSuccess:^(id responseJSON) {
+            [[self class] updateLocationsOfType:LOCATION_TYPE_POSTAL_AGENT jsonData:responseJSON onCompletion:completionBlock];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:LOCATION_TYPE_POSTAL_AGENT];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else {
+        [[self class] checkForLocationUpdatesCompletion:completionBlock];
+    }
 }
 
 + (void)API_updateSingPostAgentLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getSingPostAgentLocationsOnSuccess:^(id responseJSON) {
-        [[self class] updateLocationsOfType:LOCATION_TYPE_SINGPOST_AGENT jsonData:responseJSON onCompletion:completionBlock];
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            completionBlock(NO, error);
-        }
-    }];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_SINGPOST_AGENT] == nil) {
+        [[ApiClient sharedInstance] getSingPostAgentLocationsOnSuccess:^(id responseJSON) {
+            [[self class] updateLocationsOfType:LOCATION_TYPE_SINGPOST_AGENT jsonData:responseJSON onCompletion:completionBlock];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:LOCATION_TYPE_SINGPOST_AGENT];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else {
+        [[self class] checkForLocationUpdatesCompletion:completionBlock];
+    }
 }
 
 + (void)API_updatePopStationLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] getPopStationLocationsOnSuccess:^(id responseJSON) {
-        [[self class] updateLocationsOfType:LOCATION_TYPE_POPSTATION jsonData:responseJSON onCompletion:completionBlock];
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            completionBlock(NO, error);
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_POPSTATION] == nil) {
+        [[ApiClient sharedInstance] getPopStationLocationsOnSuccess:^(id responseJSON) {
+            [[self class] updateLocationsOfType:LOCATION_TYPE_POPSTATION jsonData:responseJSON onCompletion:completionBlock];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:LOCATION_TYPE_POPSTATION];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } onFailure:^(NSError *error) {
+            if (completionBlock) {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    else {
+        [[self class] checkForLocationUpdatesCompletion:completionBlock];
+    }
+}
+
++ (void)checkForLocationUpdatesCompletion:(void (^)(BOOL success, NSError *error))completed {
+    NSMutableArray *itemsToUpdate = [NSMutableArray array];
+    [[ApiClient sharedInstance]getLocationsUpdatesOnSuccess:^(id responseObject) {
+        NSArray *root = [responseObject objectForKeyOrNil:@"root"];
+        
+        [self removeExpiredLocations:root];
+        
+        for (NSDictionary *dic in root) {
+            EntityLocation *location = [EntityLocation MR_findFirstByAttribute:EntityLocationAttributes.identity
+                                                                     withValue:[dic objectForKeyOrNil:@"id"]];
+            if (location == nil) {
+                [itemsToUpdate addObject:[dic objectForKeyOrNil:@"id"]];
+            }
+            else {
+                if (![location.last_modified isEqualToString:[dic objectForKeyOrNil:@"lm"]]) {
+                    [location MR_deleteEntity];
+                    [itemsToUpdate addObject:[dic objectForKeyOrNil:@"id"]];
+                }
+            }
         }
+        if ([itemsToUpdate count] <= 0 && completed)
+            completed (YES,nil);
+        else
+            [[self class]updateLocationDatabase:itemsToUpdate completed:completed];
+    } onFailure:^(NSError *error) {
+        if (completed)
+            completed (NO,error);
     }];
+}
+
++ (void)updateLocationDatabase:(NSArray *)array
+                     completed:(void (^)(BOOL success, NSError *error))completed {
+    [[ApiClient sharedInstance]getLocationsUpdatesDetails:array success:^(id responseObject) {
+        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+        if ([responseObject[@"root"] isKindOfClass:[NSArray class]]) {
+            [responseObject[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                EntityLocation *location = [EntityLocation MR_createInContext:localContext];
+                [location updateWithApiRepresentation:attributes];
+            }];
+        }
+        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+            if (completed) {
+                completed(!error, error);
+            }
+        }];
+    } failure:^(NSError *error) {
+        if (completed)
+            completed (NO,error);
+    }];
+}
+
++ (void)removeExpiredLocations:(NSArray *)array {
+    NSMutableArray *locationArray = [[EntityLocation MR_findAll]mutableCopy];
+    for (NSDictionary *dictionary in array) {
+        EntityLocation *location = [EntityLocation MR_findFirstByAttribute:EntityLocationAttributes.identity
+                                                                 withValue:[dictionary objectForKeyOrNil:@"id"]];
+        [locationArray removeObject:location];
+    }
+    
+    for (EntityLocation *expiryLocation in locationArray) {
+        [expiryLocation MR_deleteEntity];
+    }
 }
 
 @end

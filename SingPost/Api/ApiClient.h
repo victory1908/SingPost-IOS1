@@ -47,6 +47,11 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 - (void)getSingPostAgentLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)getPopStationLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
+- (void)getLocationsUpdatesOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void)getLocationsUpdatesDetails:(NSArray *)array
+                           success:(ApiClientSuccess)success
+                           failure:(ApiClientFailure)failure;
+
 //tracking
 - (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion;
