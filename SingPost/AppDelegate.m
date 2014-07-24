@@ -32,7 +32,7 @@
     
     [self setupGoogleAnalytics];
     [MagicalRecord setupAutoMigratingCoreDataStack];
-    //[DatabaseSeeder seedLocationsDataIfRequired];
+    [DatabaseSeeder seedLocationsDataIfRequired];
     
     [Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
     
