@@ -80,6 +80,11 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Shop"];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
@@ -89,7 +94,7 @@
     [self.titleLabel sizeToFitKeepWidth];
     [self.subTitleLabel sizeToFitKeepWidth];
     
-    self.subTitleLabel.top = self.titleLabel.bottom + 8;
+    self.subTitleLabel.top = self.titleLabel.bottom + 15;
     
     NSInteger index = 0;
     NSArray *keysArray = [dictionary objectForKeyOrNil:@"keys"];
@@ -98,6 +103,7 @@
         [self createShopBtnIndex:index item:item];
         index++;
     }
+    [self.scrollView autoAdjustScrollViewContentSize];
 }
 
 - (void)createShopBtnIndex:(NSInteger)index item:(NSDictionary *)item {
@@ -120,11 +126,11 @@
     background.alpha = 0.8;
     [view addSubview:background];
     
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, background.width - 30, background.height)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 0, background.width - 10, background.height)];
     label.text = [item objectForKeyOrNil:@"Name"];
     label.numberOfLines = 2;
     label.textColor = [UIColor whiteColor];
-    label.font = [UIFont SingPostLightFontOfSize:12.0f fontKey:kSingPostFontOpenSans];
+    label.font = [UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
     label.textAlignment = NSTextAlignmentCenter;
     [background addSubview:label];
     
