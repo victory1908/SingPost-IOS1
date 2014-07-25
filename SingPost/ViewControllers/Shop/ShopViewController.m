@@ -41,7 +41,7 @@
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, navigationBarView.bottom, contentView.width, contentView.height - navigationBarView.height)];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, navigationBarView.bottom, contentView.width, contentView.height - navigationBarView.height - 20)];
     [contentView addSubview:self.scrollView];
     
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, contentView.width - 30, 35)];
@@ -100,13 +100,13 @@
     NSArray *keysArray = [dictionary objectForKeyOrNil:@"keys"];
     for (NSString *key in keysArray) {
         NSDictionary *item = [[dictionary objectForKeyOrNil:key]firstObject];
-        [self createShopBtnIndex:index item:item];
+        [self createShopBtnIndex:index item:item name:key];
         index++;
     }
-    [self.scrollView autoAdjustScrollViewContentSize];
+    [self.scrollView autoAdjustScrollViewContentSizeBottomInset:15];
 }
 
-- (void)createShopBtnIndex:(NSInteger)index item:(NSDictionary *)item {
+- (void)createShopBtnIndex:(NSInteger)index item:(NSDictionary *)item name:(NSString *)name {
     NSInteger padding = (index/2) * 15;
     NSInteger y = self.subTitleLabel.bottom + 8;
     NSInteger viewWidth = (self.scrollView.width - 45)/2;
@@ -127,7 +127,7 @@
     [view addSubview:background];
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(5, 0, background.width - 10, background.height)];
-    label.text = [item objectForKeyOrNil:@"Name"];
+    label.text = name;
     label.numberOfLines = 2;
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans];
