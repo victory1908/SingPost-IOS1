@@ -13,3 +13,10 @@
 - (id)objectForKeyOrNil:(id)key;
 
 @end
+
+
+@interface NSMutableDictionary (Additions)
+
+- (void)setValidObject:(id)object forKey:(id <NSCopying>)key;
+
+@end

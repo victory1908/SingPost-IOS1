@@ -16,3 +16,13 @@
 }
 
 @end
+
+@implementation NSMutableDictionary (Additions)
+
+- (void)setValidObject:(id)object forKey:(id <NSCopying>)key {
+    if (object == nil)
+        return;
+    [self setObject:object forKey:key];
+}
+
+@end
