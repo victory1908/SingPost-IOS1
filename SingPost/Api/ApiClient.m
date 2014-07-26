@@ -85,83 +85,78 @@ static NSString *const OS = @"ios";
 
 #pragma mark - Informations
 
-- (void)getSingpostContentsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-contents.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
+- (void)getSingpostContentsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-contents.php"
+                                                                              relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@singpost-contents.php",CMS_BASE_URL] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)getSendReceiveItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apisendreceive.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+- (void)getSendReceiveItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apisendreceive.php"
+                                                                              relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@apisendreceive.php",CMS_BASE_URL_V4] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)getPayItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apipay.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+- (void)getPayItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apipay.php"
+                                                                              relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@apipay.php",CMS_BASE_URL_V4] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)getShopItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apishoponline.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+- (void)getShopItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apishoponline.php"
+                                                                              relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@apishoponline.php",CMS_BASE_URL_V4] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)getServicesItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiservices.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+- (void)getServicesItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiservices.php"
+                                                                              relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@apiservices.php",CMS_BASE_URL_V4] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)getOffersItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
+- (void)getOffersItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"singpost-updates.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
@@ -169,25 +164,23 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@singpost-updates.php",CMS_BASE_URL] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
 
-- (void)getSingPostAppsItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiapps.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+- (void)getSingPostAppsItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiapps.php"
+                                                                              relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@apiapps.php",CMS_BASE_URL_V4] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
@@ -200,7 +193,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@apiannouncement.php",CMS_BASE_URL_V4] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -208,8 +201,11 @@ static NSString *const OS = @"ios";
 
 #pragma mark - Calculate Postage
 
-- (void)calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode andToPostalCode:(NSString *)toPostalCode andWeight:(NSString *)weightInGrams onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
+- (void)calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode
+                                   andToPostalCode:(NSString *)toPostalCode
+                                         andWeight:(NSString *)weightInGrams
+                                         onSuccess:(ApiClientSuccess)success
+                                         onFailure:(ApiClientFailure)failure {
     NSString *xml = [NSString stringWithFormat:@"<SingaporePostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
                      "<ToPostalCode>%@</ToPostalCode>"
                      "<FromPostalCode>%@</FromPostalCode>"
@@ -228,14 +224,18 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@/ma/FilterSingaporePostalInfo",SINGPOST_BASE_URL] payload:xml message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
+- (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode
+                                     andWeight:(NSString *)weightInGrams
+                               andItemTypeCode:(NSString *)itemTypeCode
+                               andDeliveryCode:(NSString *)deliveryCode
+                                     onSuccess:(ApiClientSuccess)success
+                                     onFailure:(ApiClientFailure)failure {
     if (deliveryCode == nil || [deliveryCode length] <= 0)
         deliveryCode = @"999";
     
@@ -259,16 +259,17 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@/ma/FilterOverseasPostalInfo",SINGPOST_BASE_URL] payload:xml message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
 #pragma mark - Postal Code
 
-- (void)findPostalCodeForBuildingNo:(NSString *)buildingNo andStreetName:(NSString *)streetName onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
+- (void)findPostalCodeForBuildingNo:(NSString *)buildingNo
+                      andStreetName:(NSString *)streetName
+                          onSuccess:(ApiClientSuccess)success
+                          onFailure:(ApiClientFailure)failure {
     NSString *xml = [NSString stringWithFormat:@"<PostalCodeByStreetDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
                      "<BuildingNo>%@</BuildingNo>"
                      "<StreetName>%@</StreetName>"
@@ -285,14 +286,14 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@/ma/PostalCodebyStreet",SINGPOST_BASE_URL] payload:xml message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
-    
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)findPostalCodeForLandmark:(NSString *)landmark onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
+- (void)findPostalCodeForLandmark:(NSString *)landmark
+                        onSuccess:(ApiClientSuccess)success
+                        onFailure:(ApiClientFailure)failure {
     NSString *xml = [NSString stringWithFormat:@"<PostalAddressByLandMarkDetailsRequest  xmlns=\"http://singpost.com/paw/ns\"><BuildingName>%@</BuildingName></PostalAddressByLandMarkDetailsRequest>", landmark];
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/PostalAddressbyLandMark" parameters:nil];
@@ -306,7 +307,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@/ma/PostalAddressbyLandMark",SINGPOST_BASE_URL] payload:xml message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -327,7 +328,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@/ma/PostalCodebyPOBox",SINGPOST_BASE_URL] payload:xml message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -344,7 +345,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@postingbox.php",CMS_BASE_URL] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -359,7 +360,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@postoffice.php",CMS_BASE_URL] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -374,7 +375,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
-        [self reportAPIIssueURL:[NSString stringWithFormat:@"%@sam.php",CMS_BASE_URL] payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -389,6 +390,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -403,6 +405,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -417,6 +420,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -431,6 +435,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -449,6 +454,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:[NSString stringWithFormat:@"%@",array] message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -475,6 +481,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -557,6 +564,7 @@ static NSString *const OS = @"ios";
             dispatch_after(popTime, dispatch_get_main_queue(), ^{
                 [self registerAPNSToken:apnsToken onSuccess:^(id responseObject){} onFailure:^(NSError *error){}];
             });
+            [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
         }
     }];
     
@@ -583,15 +591,14 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    
-    
+- (void)subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray
+                                          onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
     NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
                      "<ProfileID>%@</ProfileID>"
                      "<ItemNumberList>", [self notificationProfileID]];
@@ -613,6 +620,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -636,6 +644,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -664,6 +673,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -681,6 +691,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -695,6 +706,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -709,6 +721,7 @@ static NSString *const OS = @"ios";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (failure)
             failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
@@ -744,6 +757,7 @@ static NSString *const OS = @"ios";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (failure) {
             failure(error);
+            [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
         }
     }];
     [self enqueueHTTPRequestOperation:operation];
@@ -786,7 +800,7 @@ static NSString *const OS = @"ios";
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         [self handleAppUpdateResponse:JSON];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        [self reportAPIIssueURL:fullPath payload:nil message:[error description]];
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
     [self enqueueHTTPRequestOperation:operation];
