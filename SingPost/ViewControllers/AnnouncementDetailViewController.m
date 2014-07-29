@@ -23,6 +23,12 @@ UIWebViewDelegate
 
 @implementation AnnouncementDetailViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Announcement-%@",
+                                                                         [self.info objectForKeyOrNil:@"Name"]]];
+}
+
 - (void)loadView {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
