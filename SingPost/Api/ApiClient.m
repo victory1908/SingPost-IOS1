@@ -37,6 +37,9 @@ static NSString *const CMS_PRODUCTION_BASE_URL_V4 = @"http://mobile.singpost.com
 static NSString *const APP_ID = @"M00002";
 static NSString *const OS = @"ios";
 
+//Tracking testing URL
+static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
+
 #pragma mark - Shared singleton instance
 
 + (ApiClient *)sharedInstance {
@@ -470,7 +473,14 @@ static NSString *const OS = @"ios";
                      "</ItemTrackingNumbers>"
                      "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
     
+#warning TESTING URL
+    /*
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST"
+                                                      path:TRACKING_TEST_URL
+                                                parameters:nil];
+    */
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
+    
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
