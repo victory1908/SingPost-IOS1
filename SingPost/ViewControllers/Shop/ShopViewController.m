@@ -66,11 +66,23 @@
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getShopItemsOnCompletion:^(NSArray *items, NSDictionary *root) {
+            
             self.titleLabel.text = [root objectForKeyOrNil:@"BackgroundText"];
             self.subTitleLabel.text = [root objectForKeyOrNil:@"BackgroundSubText"];
             
-            self.titleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundTextColor"]];
-            self.subTitleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundSubTextColor"]];
+            if ([UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundTextColor"]] != nil) {
+                self.titleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundTextColor"]];
+            }
+            else {
+                self.titleLabel.textColor = [UIColor whiteColor];
+            }
+            
+            if ([UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundSubTextColor"]] != nil) {
+                self.subTitleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundSubTextColor"]];
+            }
+            else {
+                self.subTitleLabel.textColor = [UIColor whiteColor];
+            }
             
             [self relayoutSubviews:root];
             
@@ -102,8 +114,10 @@
     NSArray *keysArray = [dictionary objectForKeyOrNil:@"keys"];
     for (NSString *key in keysArray) {
         NSDictionary *item = [[dictionary objectForKeyOrNil:key]firstObject];
-        [self createShopBtnIndex:index item:item name:key];
-        index++;
+        if (item != nil) {
+            [self createShopBtnIndex:index item:item name:key];
+            index++;
+        }
     }
     [self.scrollView autoAdjustScrollViewContentSizeBottomInset:15];
 }
