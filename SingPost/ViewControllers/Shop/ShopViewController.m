@@ -18,6 +18,7 @@
 #import "UIFont+SingPost.h"
 #import "NSObject+Addtions.h"
 #import "ShopContentViewController.h"
+#import "UIColor+Expanded.h"
 
 @interface ShopViewController ()
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -45,14 +46,12 @@
     [contentView addSubview:self.scrollView];
     
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, contentView.width - 30, 35)];
-    self.titleLabel.textColor = [UIColor whiteColor];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.numberOfLines = 0;
     self.titleLabel.font = [UIFont SingPostBoldFontOfSize:25.0f fontKey:kSingPostFontOpenSans];
     [self.scrollView addSubview:self.titleLabel];
     
     self.subTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, self.titleLabel.bottom + 8, contentView.width - 30, 35)];
-    self.subTitleLabel.textColor = [UIColor whiteColor];
     self.subTitleLabel.textAlignment = NSTextAlignmentCenter;
     self.subTitleLabel.numberOfLines = 0;
     self.subTitleLabel.font = [UIFont SingPostLightFontOfSize:15.0f fontKey:kSingPostFontOpenSans];
@@ -69,6 +68,9 @@
         [Article API_getShopItemsOnCompletion:^(NSArray *items, NSDictionary *root) {
             self.titleLabel.text = [root objectForKeyOrNil:@"BackgroundText"];
             self.subTitleLabel.text = [root objectForKeyOrNil:@"BackgroundSubText"];
+            
+            self.titleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundTextColor"]];
+            self.subTitleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundSubTextColor"]];
             
             [self relayoutSubviews:root];
             
@@ -108,7 +110,7 @@
 
 - (void)createShopBtnIndex:(NSInteger)index item:(NSDictionary *)item name:(NSString *)name {
     NSInteger padding = (index/2) * 15;
-    NSInteger y = self.subTitleLabel.bottom + 8;
+    NSInteger y = self.subTitleLabel.bottom + 15;
     NSInteger viewWidth = (self.scrollView.width - 45)/2;
     NSInteger viewHeight = viewWidth/3*2 + 40;
     

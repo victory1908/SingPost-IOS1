@@ -39,7 +39,7 @@ UIWebViewDelegate
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitleFontSize:14.0f];
-    [navigationBarView setTitle:[self.item objectForKeyOrNil:@"Name"]];
+    [navigationBarView setTitle:[self.item objectForKeyOrNil:@"SubCategoryName"]];
     [navigationBarView setShowBackButton:YES];
     [contentView addSubview:navigationBarView];
     
