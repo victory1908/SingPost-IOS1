@@ -76,6 +76,10 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 //App update checking
 - (void)checkAppUpdateWithAppVer:(NSString *)appVer andOSVer:(NSString *)osVer;
 
+//Ad Banner
+-(void) getAdvertisementWithId : (NSString *)locationMasterId Count:(NSString *)count onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+-(void) incrementClickCountWithId: (NSString *)locationId onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+
 @property (nonatomic, readonly) BOOL hasRegisteredProfileId;
 @property (nonatomic) NSString *notificationProfileID;
 

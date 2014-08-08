@@ -18,6 +18,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <SVProgressHUD.h>
 #import "Article.h"
+#import "ApiClient.h"
+#import "NSDictionary+Additions.h"
 
 @interface TrackingDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -29,6 +31,10 @@
     UITableView *trackingDetailTableView;
     TrackedItem *_trackedItem;
     NSArray *_deliveryStatuses;
+    
+    UIImageView * adBanner;
+    NSString * redirectUrl;
+    NSString * locationId;
 }
 
 - (void)loadView
@@ -154,6 +160,13 @@
     [trackingDetailTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingDetailTableView setSeparatorColor:[UIColor clearColor]];
     [contentView addSubview:trackingDetailTableView];
+    
+    //[self getAdvertisementWithId:@"1" Count:@"5"];
+    
+    /*int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
+    adBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - height - 20, contentView.bounds.size.width, height)];
+    [adBanner setImage:[UIImage imageNamed:@"icon-agents"]];
+    [contentView addSubview:adBanner];*/
     
     self.view = contentView;
 }
@@ -300,6 +313,40 @@
     vc.deliveryStatusArray = _deliveryStatuses;
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Ad Banner
+
+- (void)getAdvertisementWithId : (NSString *)locationMasterId Count:(NSString *)count {
+    
+    [[ApiClient sharedInstance] getAdvertisementWithId:locationMasterId Count:count onSuccess:^(id responseObject)
+     {
+         NSArray * adArray = responseObject;
+         
+         NSDictionary * dic = [adArray objectAtIndex:0];
+         [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
+         
+         UIButton * btn = [[UIButton alloc] initWithFrame:adBanner.frame];
+         [btn addTarget:self action:@selector(onClickAd:) forControlEvents:UIControlEventTouchUpInside];
+         redirectUrl = [dic objectForKey:@"redirectUrl"];
+         locationId = [dic objectForKey:@"locationId"];
+         
+         [self.view addSubview:btn];
+         
+     } onFailure:^(NSError *error)
+     {[SVProgressHUD dismiss];}];
+     
+    
+}
+
+- (void)onClickAd :(id)sender{
+    [[ApiClient sharedInstance] incrementClickCountWithId:locationId onSuccess:^(id responseObject)
+     {
+         NSLog(@"incrementClickCountWithId success");
+     } onFailure:^(NSError *error)
+      {[SVProgressHUD dismiss];}];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:redirectUrl]];
 }
 
 @end

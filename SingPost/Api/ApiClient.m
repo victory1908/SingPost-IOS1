@@ -39,6 +39,7 @@ static NSString *const OS = @"ios";
 
 //Tracking testing URL
 static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
+//static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
 
 #pragma mark - Shared singleton instance
 
@@ -474,11 +475,11 @@ static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/Ge
                      "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
     
 #warning TESTING URL
-    /*
-    NSMutableURLRequest *request = [self requestWithMethod:@"POST"
+    
+    /*NSMutableURLRequest *request = [self requestWithMethod:@"POST"
                                                       path:TRACKING_TEST_URL
-                                                parameters:nil];
-    */
+                                                parameters:nil];*/
+    
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
     
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -880,5 +881,46 @@ static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/Ge
             break;
     }
 }
+
+#pragma mark - Ad Banner
+
+-(void ) getAdvertisementWithId : (NSString *)locationMasterId Count:(NSString *)count onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    
+    
+    NSString * url = [NSString stringWithFormat:@"https://uat.vbox.com.sg:8083/restful-services/advertisementServices/getAdvertisement/%@/%@",locationMasterId,count];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+
+
+}
+
+-(void) incrementClickCountWithId: (NSString *)locationId onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+    NSString * url = [NSString stringWithFormat:@"https://uat.vbox.com.sg:8083/restful-services/advertisementServices/incrementClickCount/%@",locationId];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 
 @end
