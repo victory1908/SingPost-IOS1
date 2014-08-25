@@ -432,7 +432,7 @@ static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/Ge
 
 - (void)getLocationsUpdatesOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apilocationversion.php" relativeToURL:[NSURL URLWithString:CMS_UAT_BASE_URL_V4]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apilocationversion.php" relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -450,7 +450,7 @@ static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/Ge
                            failure:(ApiClientFailure)failure
 {
     NSMutableURLRequest *request = [self requestWithMethod:@"POST"
-                                                      path:[NSString stringWithFormat:@"%@apilocationdetails.php",CMS_UAT_BASE_URL_V4]
+                                                      path:[NSString stringWithFormat:@"%@apilocationdetails.php",CMS_BASE_URL_V4]
                                                 parameters:@{@"ids":array}];
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
@@ -791,7 +791,7 @@ static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/Ge
     [params setValidObject:date forKey:@"Timestamp"];
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST"
-                                                      path:[NSString stringWithFormat:@"%@apisavelogs.php",CMS_UAT_BASE_URL_V4]
+                                                      path:[NSString stringWithFormat:@"%@apisavelogs.php",CMS_BASE_URL_V4]
                                                 parameters:params];
     AFJSONRequestOperation *operation =
     [AFJSONRequestOperation JSONRequestOperationWithRequest:request
