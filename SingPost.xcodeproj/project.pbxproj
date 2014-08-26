@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24B62FEE19AC62D700040E0A /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */; };
+		24B62FF019AC62F900040E0A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B62FEF19AC62F900040E0A /* ImageIO.framework */; };
 		52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */; };
 		52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */; };
 		52024F1F17F6860800AFD239 /* CalculatePostageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1E17F6860800AFD239 /* CalculatePostageMainViewController.m */; };
@@ -147,6 +149,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
+		24B62FEF19AC62F900040E0A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		52024F0D17F5EEC800AFD239 /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
@@ -407,6 +412,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24B62FF019AC62F900040E0A /* ImageIO.framework in Frameworks */,
 				528F26CF17F946B0006F7027 /* MapKit.framework in Frameworks */,
 				521B172317F1633000FEB6FD /* CoreGraphics.framework in Frameworks */,
 				521B172517F1633000FEB6FD /* UIKit.framework in Frameworks */,
@@ -505,6 +511,7 @@
 		521B171F17F1633000FEB6FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24B62FEF19AC62F900040E0A /* ImageIO.framework */,
 				91BAA22618ED0082000C1034 /* Crashlytics.framework */,
 				528F26CE17F946B0006F7027 /* MapKit.framework */,
 				521B172017F1633000FEB6FD /* Foundation.framework */,
@@ -920,6 +927,8 @@
 		52936490180B209F00B83F6B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */,
+				24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */,
 				52936491180B20B700B83F6B /* PersistentBackgroundLabel.h */,
 				52936492180B20B700B83F6B /* PersistentBackgroundLabel.m */,
 				52936494180B20EF00B83F6B /* PersistentBackgroundView.h */,
@@ -1265,6 +1274,7 @@
 				87B6A74A199099B600BC93B7 /* UIColor+Expanded.m in Sources */,
 				524CEA3E17F2830400E0EAC3 /* UIView+Position.m in Sources */,
 				52E752F61870A24D00D853B3 /* OffersMainViewController.m in Sources */,
+				24B62FEE19AC62D700040E0A /* UIImage+animatedGIF.m in Sources */,
 				529090F1180D2A1F00D84030 /* _OfferImage.m in Sources */,
 				52F8134717FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m in Sources */,
 				52A7A27D1871DF0D00253FA2 /* _ArticleCategory.m in Sources */,
