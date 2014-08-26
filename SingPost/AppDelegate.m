@@ -17,6 +17,7 @@
 #import "ApiClient.h"
 #import "TrackingMainViewController.h"
 #import "TrackingDetailsViewController.h"
+#import "AnnouncementViewController.h"
 #import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
@@ -117,12 +118,50 @@
     });
 }
 
+
+- (void)goToAnnouncementView
+{
+    if ([self.rootViewController isSideBarVisible])
+        [self.rootViewController toggleSideBarVisiblity];
+    
+    AnnouncementViewController *announcementViewController = [[AnnouncementViewController alloc] initWithNibName:nil bundle:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:announcementViewController];
+    
+    
+}
+
 #pragma mark - APNS
 
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt
 {
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
     NSDictionary *data = [payloadInfo objectForKey:@"data"];
+    
+    /////////////////////////
+    NSString *alert = data[@"alert"];
+    
+    if (alert.length > 0) {
+        if (shouldPrompt) {
+            [UIAlertView showWithTitle:@"SingPost"
+                               message:aps[@"alert"]
+                     cancelButtonTitle:@"Cancel"
+                     otherButtonTitles:@[@"View"]
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                  if (buttonIndex != [alertView cancelButtonIndex]) {
+                                      [self goToAnnouncementView];
+                                  }
+                              }];
+        } else {
+            [self goToAnnouncementView];
+            
+        }
+        return;
+    }
+    
+    /////////////////////////
+    
+    
+    
     NSString *trackingNumber = data[@"i"];
     if (trackingNumber.length > 0) {
         //it's a tracking item apns
@@ -160,11 +199,17 @@
     [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
         //do nothing
     }];
+    
+    //UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"deviceToken" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    //[view show];
+    
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@",sanitizedDeviceToken]]];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
 	NSLog(@"Failed to get token, error: %@", error);
+    //[self goToAnnouncementView];
 }
 
 #pragma mark - Google Analytics

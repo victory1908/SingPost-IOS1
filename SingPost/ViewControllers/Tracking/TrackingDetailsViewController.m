@@ -161,12 +161,12 @@
     [trackingDetailTableView setSeparatorColor:[UIColor clearColor]];
     [contentView addSubview:trackingDetailTableView];
     
-    //[self getAdvertisementWithId:@"1" Count:@"5"];
+    [self getAdvertisementWithId:@"20" Count:@"5"];
     
-    /*int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
+    int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
     adBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - height - 20, contentView.bounds.size.width, height)];
-    [adBanner setImage:[UIImage imageNamed:@"icon-agents"]];
-    [contentView addSubview:adBanner];*/
+    //[adBanner setImage:[UIImage imageNamed:@"icon-agents"]];
+    [contentView addSubview:adBanner];
     
     self.view = contentView;
 }
@@ -346,6 +346,9 @@
      } onFailure:^(NSError *error)
       {[SVProgressHUD dismiss];}];
     
+    if([redirectUrl isKindOfClass:[NSNull class]] || redirectUrl == NULL) {
+        redirectUrl = @"http://www.singpost.com";
+    }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:redirectUrl]];
 }
 
