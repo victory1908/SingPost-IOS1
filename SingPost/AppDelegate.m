@@ -64,7 +64,6 @@
     [[GAI sharedInstance] setTrackUncaughtExceptions:YES];
     [GAI sharedInstance].dispatchInterval = 15;
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
-#warning MAKE SURE UNCOMMENT WHEN SUBMITTING!
     [[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
 }
 

@@ -101,8 +101,8 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
         isClosePM = YES;
     }
     
-    NSString * openTimeStr = [NSString stringWithFormat:@"%ld:%02ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
-    NSString * closeTimeStr = [NSString stringWithFormat:@"%ld:%02ld %@",closeHour,closeMin, (isClosePM?@"pm":@"am")];
+    NSString * openTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
+    NSString * closeTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",closeHour,closeMin, (isClosePM?@"pm":@"am")];
     
     return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", openTimeStr, closeTimeStr];
 }
