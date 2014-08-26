@@ -329,15 +329,17 @@
          
         
          //NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://static.tumblr.com/ohhnpat/cC6lh5oxm/piece.gif"]];
-         NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
+         /*NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
          
          if([self isGifFomat:imageData]){
              UIImage * gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
              [adBanner setImage:gifImage];
          } else {
              [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
-         }
+         }*/
          
+         UIImage * gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
+         [adBanner setImage:gifImage];
          
          
          UIButton * btn = [[UIButton alloc] initWithFrame:adBanner.frame];
@@ -353,7 +355,7 @@
     
 }
      
-- (BOOL)isGifFomat:(NSData *)data {
+/*- (BOOL)isGifFomat:(NSData *)data {
     uint8_t c;
     [data getBytes:&c length:1];
     
@@ -369,7 +371,7 @@
             return NO;
     }
     return NO;
-}
+}*/
 
 - (void)onClickAd :(id)sender{
     [[ApiClient sharedInstance] incrementClickCountWithId:locationId onSuccess:^(id responseObject)
