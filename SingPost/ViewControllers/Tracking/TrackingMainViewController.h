@@ -18,4 +18,7 @@
 
 - (void)addTrackingNumber:(NSString *)trackingNumber;
 
+- (void)refreshTableView;
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up;
+
 @end

@@ -38,8 +38,8 @@ static NSString *const APP_ID = @"M00002";
 static NSString *const OS = @"ios";
 
 //Tracking testing URL
-static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
-//static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
+//static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
+static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
 
 #pragma mark - Shared singleton instance
 

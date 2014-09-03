@@ -102,6 +102,12 @@ typedef enum {
         [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
         }];
     }
+    
+    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.trackingMainViewController = self;
+    
+
+    //[FBSession.activeSession closeAndClearTokenInformation];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -254,7 +260,7 @@ typedef enum {
     
     CGSize statusLabelSize = [trackedItem.status sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
     
-    return MAX(60, statusLabelSize.height + 14);
+    return MAX(60 + 30, statusLabelSize.height + 14 + 30);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -414,7 +420,7 @@ typedef enum {
     }
     else {
         TrackingItemMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
-        if (!cell)
+        //if (!cell)
             cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
         
         [self configureCell:cell atIndexPath:indexPath];
@@ -694,6 +700,28 @@ typedef enum {
             [SVProgressHUD dismiss];
         }];
     }
+}
+
+#pragma mark - Facebook signin handler
+- (void) refreshTableView {
+    [trackingItemsTableView reloadData];
+    
+    
+}
+
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+    const int movementDistance = 160; // tweak as needed
+    const float movementDuration = 0.3f; // tweak as needed
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
 }
 
 @end

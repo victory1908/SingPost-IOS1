@@ -8,12 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "RootViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
+
+#import "TrackingMainViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, readonly) RootViewController *rootViewController;
 @property (nonatomic, readonly) NSDictionary *maintenanceStatuses;
+
+@property (nonatomic, retain) TrackingMainViewController * trackingMainViewController;
 
 + (AppDelegate *)sharedAppDelegate;
 - (void)updateMaintananceStatuses;
@@ -24,4 +29,5 @@
 
 - (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
 
+- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
 @end

@@ -12,7 +12,7 @@
 
 @class TrackedItem;
 
-@interface TrackingItemMainTableViewCell : UITableViewCell
+@interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate>
 
 @property (nonatomic) TrackedItem *item;
 @property (nonatomic, assign) BOOL hideSeparatorView;

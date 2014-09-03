@@ -74,6 +74,25 @@
         case SUBROWS_OFFERSMORE_RATEOURAPP:
             [menuNameLabel setText:@"Rate our app"];
             break;
+        case SUBROWS_OFFERSMORE_SIGNOFF:
+            if (FBSession.activeSession.state == FBSessionStateOpen
+                || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+                [menuNameLabel setText:@"Sign Out"];
+             
+                [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                    if (!error) {
+                        // Success! Include your code to handle the results here
+                        NSLog(@"user info: %@", result);
+                    } else {
+                        // An error occurred, we need to handle the error
+                        // See: https://developers.facebook.com/docs/ios/errors
+                    }
+                }];
+            }
+            
+            else
+                [menuNameLabel setText:@"Sign In"];
+            break;
         default:
             NSAssert(NO, @"unknown type in subrowMenuOffersMore");
             break;
