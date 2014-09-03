@@ -58,7 +58,7 @@ typedef enum  {
     [instructionsLabel setBackgroundColor:[UIColor clearColor]];
     instructionsLabel.delegate = self;
     
-    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcels. Singapore Post covers all addresses within Singapore and 220 countries worldwide. New postage rates from 1 October 2014.  For more information, please tap here" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
+    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcels. Singapore Post covers all addresses within Singapore and 220 countries worldwide. New postage rates from 1 October 2014. For more information, please tap here." afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
     NSRange singpost = [instructionsLabel.text rangeOfString:@"here"];
     [instructionsLabel addLinkToURL:[NSURL URLWithString:@"action://SingPost"] withRange:singpost];
      /*
