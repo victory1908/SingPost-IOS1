@@ -134,11 +134,8 @@
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt
 {
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
-    NSDictionary *data = [payloadInfo objectForKey:@"data"];
     
-    /////////////////////////
-    NSString *alert = data[@"alert"];
-    
+    NSString *alert = aps[@"alert"];
     if (alert.length > 0) {
         if (shouldPrompt) {
             [UIAlertView showWithTitle:@"SingPost"
@@ -157,10 +154,7 @@
         return;
     }
     
-    /////////////////////////
-    
-    
-    
+    NSDictionary *data = [payloadInfo objectForKey:@"data"];
     NSString *trackingNumber = data[@"i"];
     if (trackingNumber.length > 0) {
         //it's a tracking item apns
