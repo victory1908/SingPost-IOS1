@@ -17,4 +17,11 @@
 @property (nonatomic) TrackedItem *item;
 @property (nonatomic, assign) BOOL hideSeparatorView;
 
+@property (nonatomic,retain) UITextField * signIn2Label;
+
+
+@property (nonatomic,retain) TrackingMainViewController * delegate;
+
+- (void) updateLabel : (NSString *)label;
+
 @end

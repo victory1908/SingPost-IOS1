@@ -190,6 +190,22 @@
             if (!error) {
                 // Success! Include your code to handle the results here
                 NSLog(@"user info: %@", result);
+                
+                [ApiClient sharedInstance].fbToken = [FBSession.activeSession.accessTokenData accessToken];
+                
+                [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
+                 {
+                     NSLog(@"FacebookLogin success");
+                     NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
+                     
+                     if(temp != nil && ![temp isKindOfClass:[NSNull class]])
+                         [ApiClient sharedInstance].serverToken = temp;
+                     
+                     
+                 } onFailure:^(NSError *error)
+                 {
+                     
+                 }];
             } else {
                 // An error occurred, we need to handle the error
                 // See: https://developers.facebook.com/docs/ios/errors

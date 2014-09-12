@@ -324,8 +324,15 @@
     [[ApiClient sharedInstance] getAdvertisementWithId:locationMasterId Count:count onSuccess:^(id responseObject)
      {
          NSArray * adArray = responseObject;
+         //adArray = nil;
+         NSDictionary * dic;
+         if(adArray && [adArray count] > 0)
+             dic = [adArray objectAtIndex:0];
+         else
+             return ;
          
-         NSDictionary * dic = [adArray objectAtIndex:0];
+         
+         
          
         
          //NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://static.tumblr.com/ohhnpat/cC6lh5oxm/piece.gif"]];

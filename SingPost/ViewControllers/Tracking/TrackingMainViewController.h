@@ -16,9 +16,13 @@
 
 @property BOOL isPushNotification;
 
+@property (nonatomic,retain)NSDictionary * labelDic;
+
 - (void)addTrackingNumber:(NSString *)trackingNumber;
 
 - (void)refreshTableView;
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up;
 
+
+- (void) submitAllTrackingItemWithLabel;
 @end

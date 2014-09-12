@@ -12,6 +12,7 @@
 #import "PersistentBackgroundView.h"
 #import "UILabel+VerticalAlign.h"
 #import "UIView+Position.h"
+#import "ApiClient.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -20,9 +21,11 @@
     UILabel *trackingNumberLabel, *statusLabel;
     PersistentBackgroundView *separatorView;
     
-    UITextField * signIn2Label;
     
 }
+@synthesize signIn2Label;
+@synthesize delegate;
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -78,12 +81,21 @@
             [signIn2Label setTextColor:RGB(50, 50, 50)];
             [signIn2Label setUserInteractionEnabled:NO];
             
+            UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 14, 14)];
+            [icon setImage:[UIImage imageNamed:@"labelIcon.png"]];
+            
+            
+            
             UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
             [button addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
             [contentView addSubview: button];
+            
+            [signIn2Label addSubview:icon];
         } else {
             [signIn2Label setText:@"Enter a label"];
             [signIn2Label setClearsOnBeginEditing:YES];
+            
+            [signIn2Label setAutocorrectionType:UITextAutocorrectionTypeNo];
             
         }
         [contentView addSubview:signIn2Label];
@@ -115,6 +127,21 @@
     [statusLabel alignTop];
     
     [separatorView setY:MAX(59 + 30, CGRectGetMaxY(statusLabel.frame) + 7 + 30)];
+    
+    NSString * label = [delegate.labelDic objectForKey:_item.trackingNumber];
+    
+    if(label && ![label isEqualToString:@""]) {
+        [signIn2Label removeFromSuperview];
+        
+        UILabel * itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
+        [itemLabel setText:label ];
+        [itemLabel setTextColor:RGB(36, 84, 157)];
+        [itemLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+        
+        [self.contentView addSubview:itemLabel ];
+        
+        //signIn2Label.text = label;
+    }
 }
 
 - (void)setTextBold {
@@ -197,6 +224,14 @@
     [itemLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     
     [self.contentView addSubview:itemLabel ];
+    
+    [delegate submitAllTrackingItemWithLabel];
+    
+    
+}
+
+- (void) updateLabel : (NSString *)label {
+    signIn2Label.text = label;
 }
 
 

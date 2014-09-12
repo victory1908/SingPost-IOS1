@@ -80,6 +80,14 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 -(void) getAdvertisementWithId : (NSString *)locationMasterId Count:(NSString *)count onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 -(void) incrementClickCountWithId: (NSString *)locationId onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 
+//Tracking Labeling
+- (void) facebookLoginOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void) registerTrackingNunmbers: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void) getAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+@property (nonatomic) NSString * serverToken;
+@property (nonatomic,retain) NSArray * allTrackingItem;
+@property (nonatomic,retain) NSString * fbToken;
+
 @property (nonatomic, readonly) BOOL hasRegisteredProfileId;
 @property (nonatomic) NSString *notificationProfileID;
 

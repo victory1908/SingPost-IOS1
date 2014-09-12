@@ -13,10 +13,16 @@
 #import <SSKeychain.h>
 #import "UIAlertView+Blocks.h"
 #import "NSDictionary+Additions.h"
+#import <sys/sysctl.h>
+#import "DeliveryStatus.h"
 
 @implementation ApiClient
+@synthesize serverToken;
+@synthesize fbToken;
+@synthesize allTrackingItem;
 
 @synthesize notificationProfileID = _notificationProfileID;
+
 
 static BOOL isProduction = NO;
 
@@ -920,6 +926,197 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     [self enqueueHTTPRequestOperation:operation];
+}
+
+#pragma mark - Tracking labeling
+
+//CAAUvvzfCKB8BAOEmKK1qULoNzZBQUm87XZCVILlZCXEbnojy138U3EeeOFc0BWT4MXQhk4zGc9elxZAuTJ5wjqZBDahoQWZCLecjidMurZBfqjCUcDdNGtlX59CqeSdPE6PW4D79ifcWt84xDt901Y6TGEFNgeZAnqn06zD0QX0XZCLXTJbKwD7vX6hVvAZC0Duiw4Q7pcC6BpZCm3Ix92i5riH
+
+#define TEST_FB_TOKEN @"CAAUvvzfCKB8BABZBlEv7uvEwHk6WmImULD6NgzwhZBBCxZAdpvbmVHKqbKNx7YyWogbHY5KPGE3ZAh3I6SUdeDqZCjXDThNEQut3e8JBXtwjk3vZBPwjgTI2kfSMRitoA4P0uhHfdga66ZC3MCFDQw8ngvysZB4KltFq5f7IqkYSisF17aMuszTi4QXynWGTLYQMirtUTcjQ36eiB8hI4b71m5vOwzyZBKvAZD"
+
+
+
+- (void) facebookLoginOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
+    NSString * url = @"http://27.109.106.170/singpost3/api/login/k3y15k3y";
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    [request setHTTPMethod:@"POST"];
+    
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
+    NSString * postString = [NSString stringWithFormat:@"fb_token=%@&device=iPhone&model=%@",fbToken,[self platformType:platform]];
+    
+    
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
+- (void) registerTrackingNunmbers: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
+    NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
+    
+    NSString * str = [self getNumberAndLabelString:numbers WithLabels:labels];
+    NSString * payload = [self getTrackingDetailString:details];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    [request setHTTPMethod:@"POST"];
+    NSString * postString = [NSString stringWithFormat:@"server_token=%@%@%@",serverToken,str,payload];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+    
+}
+
+- (NSString *) getNumberAndLabelString : (NSArray *)numbers WithLabels : (NSArray *)labels {
+    NSMutableString * str = [[NSMutableString alloc] init];
+    
+    int i = 0;
+    for(NSString * num in numbers) {
+        [str appendString:[NSString stringWithFormat:@"&tracking[%d]=%@",i,num]];
+        
+        NSString * label = [labels objectAtIndex:i];
+        if(![label isEqualToString:@""]) {
+            [str appendString:[NSString stringWithFormat:@"||%@",label]];
+        }
+        i++;
+    }
+    return str;
+}
+
+- (NSString *) getTrackingDetailString : (NSArray *)itemArr {
+    NSMutableString * finalStr = [[NSMutableString alloc] init];
+    
+   // NSMutableArray * arr = [[NSMutableArray alloc] init];
+    
+    int i = 0;
+    for(TrackedItem * item in itemArr) {
+        
+        NSMutableDictionary * dic1 = [[NSMutableDictionary alloc] init];
+        
+        
+        NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
+        
+        [dic2 setValue:item.originalCountry forKey:@"OriginalCountry"];
+        [dic2 setValue:item.trackingNumber forKey:@"TrackingNumber"];
+        [dic2 setValue:(item.isFoundValue?@"true":@"false") forKey:@"TrackingNumberFound"];
+        [dic2 setValue:item.destinationCountry forKey:@"DestinationCountry"];
+        [dic2 setValue:item.isActive forKey:@"TrackingNumberActive"];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"dd-MM-yy"];
+        
+        for(DeliveryStatus * deliveryStatus in item.deliveryStatuses.array) {
+            NSMutableDictionary * dic3 = [[NSMutableDictionary alloc] init];
+            //[trackingDateLabel setText:[dateFormatter stringFromDate:_deliveryStatus.date]];
+            
+            [dic3 setValue:deliveryStatus.location forKey:@"Location"];
+            //[dic3 setValue:deliveryStatus.date forKey:@"Date"];
+            [dic3 setValue:deliveryStatus.statusDescription forKey:@"StatusDescription"];
+            
+            [dic2 setValue:dic3 forKey:@"DeliveryStatusDetails"];
+        }
+        
+        [dic1 setValue:dic2 forKey:@"ItemsTrackingDetailList"];
+        
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic1
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error];
+        NSString * str;
+        if (! jsonData) {
+            NSLog(@"Got an error: %@", error);
+        } else {
+            str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+        
+        [finalStr appendFormat:[NSString stringWithFormat:@"&tracking_detail[%d]=%@",i,str]];
+        
+        
+        i++;
+    }
+    
+    //[dic1 setValue:arr forKey:@"ItemsTrackingDetailList"];
+    
+   
+
+    return finalStr;
+}
+
+- (void) getAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
+    NSString * url = @"http://27.109.106.170/singpost3/api/gettrackings/k3y15k3y";
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    [request setHTTPMethod:@"POST"];
+    NSString * postString = [NSString stringWithFormat:@"server_token=%@",serverToken];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+    
+}
+
+- (NSString *) platformType:(NSString *)platform
+{
+    if ([platform isEqualToString:@"iPhone1,1"])    return @"iPhone 1G";
+    if ([platform isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
+    if ([platform isEqualToString:@"iPhone2,1"])    return @"iPhone 3GS";
+    if ([platform isEqualToString:@"iPhone3,1"])    return @"iPhone 4";
+    if ([platform isEqualToString:@"iPhone3,3"])    return @"Verizon iPhone 4";
+    if ([platform isEqualToString:@"iPhone4,1"])    return @"iPhone 4S";
+    if ([platform isEqualToString:@"iPhone5,1"])    return @"iPhone 5 (GSM)";
+    if ([platform isEqualToString:@"iPhone5,2"])    return @"iPhone 5 (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPhone5,3"])    return @"iPhone 5c (GSM)";
+    if ([platform isEqualToString:@"iPhone5,4"])    return @"iPhone 5c (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPhone6,1"])    return @"iPhone 5s (GSM)";
+    if ([platform isEqualToString:@"iPhone6,2"])    return @"iPhone 5s (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPod1,1"])      return @"iPod Touch 1G";
+    if ([platform isEqualToString:@"iPod2,1"])      return @"iPod Touch 2G";
+    if ([platform isEqualToString:@"iPod3,1"])      return @"iPod Touch 3G";
+    if ([platform isEqualToString:@"iPod4,1"])      return @"iPod Touch 4G";
+    if ([platform isEqualToString:@"iPod5,1"])      return @"iPod Touch 5G";
+    if ([platform isEqualToString:@"iPad1,1"])      return @"iPad";
+    if ([platform isEqualToString:@"iPad2,1"])      return @"iPad 2 (WiFi)";
+    if ([platform isEqualToString:@"iPad2,2"])      return @"iPad 2 (GSM)";
+    if ([platform isEqualToString:@"iPad2,3"])      return @"iPad 2 (CDMA)";
+    if ([platform isEqualToString:@"iPad2,4"])      return @"iPad 2 (WiFi)";
+    if ([platform isEqualToString:@"iPad2,5"])      return @"iPad Mini (WiFi)";
+    if ([platform isEqualToString:@"iPad2,6"])      return @"iPad Mini (GSM)";
+    if ([platform isEqualToString:@"iPad2,7"])      return @"iPad Mini (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPad3,1"])      return @"iPad 3 (WiFi)";
+    if ([platform isEqualToString:@"iPad3,2"])      return @"iPad 3 (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPad3,3"])      return @"iPad 3 (GSM)";
+    if ([platform isEqualToString:@"iPad3,4"])      return @"iPad 4 (WiFi)";
+    if ([platform isEqualToString:@"iPad3,5"])      return @"iPad 4 (GSM)";
+    if ([platform isEqualToString:@"iPad3,6"])      return @"iPad 4 (GSM+CDMA)";
+    if ([platform isEqualToString:@"i386"])         return @"Simulator";
+    if ([platform isEqualToString:@"x86_64"])       return @"Simulator";
+    return platform;
 }
 
 

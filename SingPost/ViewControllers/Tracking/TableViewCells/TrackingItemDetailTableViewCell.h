@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TrackingMainViewController.h"
 
 #define STATUS_LABEL_SIZE CGSizeMake(130, 500)
 #define LOCATION_LABEL_SIZE CGSizeMake(75, 500)
@@ -16,5 +17,6 @@
 @interface TrackingItemDetailTableViewCell : UITableViewCell
 
 @property (nonatomic) DeliveryStatus *deliveryStatus;
+
 
 @end

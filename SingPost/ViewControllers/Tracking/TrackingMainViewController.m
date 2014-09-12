@@ -25,6 +25,7 @@
 #import "TrackedItem.h"
 #import "Article.h"
 #import "PushNotification.h"
+#import "ApiClient.h"
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
@@ -37,6 +38,7 @@ typedef enum {
 
 @interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
+@property (nonatomic) NSFetchedResultsController *allItemsFetchedResultsController;
 @property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
 @property (nonatomic) NSFetchedResultsController *completedItemsFetchedResultsController;
 @property (nonatomic) NSFetchedResultsController *unsortedItemsFetchedResultsController;
@@ -48,7 +50,11 @@ typedef enum {
     CTextField *trackingNumberTextField;
     UITableView *trackingItemsTableView;
     SevenSwitch *receiveUpdateSwitch;
+    
+    
 }
+
+@synthesize labelDic;
 
 - (void)loadView
 {
@@ -83,6 +89,12 @@ typedef enum {
     [contentView addSubview:trackingItemsTableView];
     
     self.view = contentView;
+    
+    
+   
+    
+    
+    labelDic = [[NSDictionary alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -103,10 +115,13 @@ typedef enum {
         }];
     }
     
+    NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+    [ApiClient sharedInstance].allTrackingItem = arr;
+    
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.trackingMainViewController = self;
     
-
+    [self syncLabelsWithTrackingNumbers];
     //[FBSession.activeSession closeAndClearTokenInformation];
 }
 
@@ -423,7 +438,9 @@ typedef enum {
         //if (!cell)
             cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
         
+        cell.delegate = self;
         [self configureCell:cell atIndexPath:indexPath];
+        
         
         return cell;
     }
@@ -545,6 +562,15 @@ typedef enum {
 }
 
 #pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)allItemsFetchedResultsController
+{
+    if (!_allItemsFetchedResultsController) {
+        _allItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+    }
+    
+    return _allItemsFetchedResultsController;
+}
 
 - (NSFetchedResultsController *)activeItemsFetchedResultsController
 {
@@ -705,10 +731,160 @@ typedef enum {
 #pragma mark - Facebook signin handler
 - (void) refreshTableView {
     [trackingItemsTableView reloadData];
-    
-    
 }
 
+
+#pragma mark - Tracking Labelling
+- (NSArray *) getLocalLabels {
+    NSMutableArray * arr = [NSMutableArray array];
+    
+    NSMutableArray *cells = [[NSMutableArray alloc] init];
+    for (NSInteger j = 0; j < [trackingItemsTableView numberOfSections]; ++j)
+    {
+        for (NSInteger i = 0; i < [trackingItemsTableView numberOfRowsInSection:j]; ++i)
+        {
+            id cell = [trackingItemsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
+            if(cell)
+                [cells addObject:cell];
+        }
+    }
+    
+    for (id cell in cells)
+    {
+        if([cell isKindOfClass:[TrackingItemMainTableViewCell class]]) {
+            TrackingItemMainTableViewCell * tempCell = (TrackingItemMainTableViewCell *)cell;
+            
+            if(![tempCell.signIn2Label.text isEqualToString:@"Sign in to label"] && ![tempCell.signIn2Label.text isEqualToString:@"Enter a label"])
+                [arr addObject:tempCell.signIn2Label.text];
+            else
+                [arr addObject:@""];
+        }
+    }
+    
+    return arr;
+}
+
+- (void) submitAllTrackingItemWithLabel {
+    
+    if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
+        
+        NSMutableArray * numbers = [NSMutableArray array];
+        NSMutableArray * labels = [NSMutableArray array];
+        
+        NSArray * labelArray = [self getLocalLabels];
+        
+        int i = 0;
+        NSArray * trackItemArray = [self.allItemsFetchedResultsController fetchedObjects];
+        for(TrackedItem * item in trackItemArray) {
+            [numbers addObject:item.trackingNumber];
+            
+            [labels addObject:[labelArray objectAtIndex:i]];
+            
+            i++;
+        }
+        
+        [[ApiClient sharedInstance] registerTrackingNunmbers:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
+         {
+             NSLog(@"registerTrackingNunmbers success");
+         } onFailure:^(NSError *error)
+         {
+             //NSLog([error localizedDescription]);
+         }];
+        
+    }
+}
+
+- (void) syncLabelsWithTrackingNumbers {
+    [self getAllLabel];
+}
+
+- (void) getAllLabel {
+    [[ApiClient sharedInstance] getAllTrackingNunmbersOnSuccess:^(id responseObject)
+     {
+         NSLog(@"getAllTrackingNunmbersOnSuccess success");
+         
+         NSArray * dataArray = (NSArray *)[responseObject objectForKey:@"data"];
+         
+         if(dataArray == nil)
+             return;
+         
+         NSMutableDictionary * tempDic2 = [NSMutableDictionary dictionary];
+         
+         for(NSDictionary * dic in dataArray) {
+             NSString * trackingDetailsStr = [dic objectForKey:@"tracking_details"];
+             NSError * e;
+             NSDictionary * trackingJson = [NSJSONSerialization JSONObjectWithData: [trackingDetailsStr dataUsingEncoding:NSUTF8StringEncoding]
+                                                                           options: NSJSONReadingMutableContainers
+                                                                             error: &e];
+             NSDictionary * tempDic = [trackingJson objectForKey:@"ItemsTrackingDetailList"];
+             NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
+                 
+            [self updateTrackItemInfo:trackingNum Info:tempDic];
+             
+             
+             [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
+         }
+         
+         labelDic = tempDic2;
+         
+         
+         [self refreshTableView];
+     } onFailure:^(NSError *error)
+     {
+         
+     }];
+}
+
+
+- (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic {
+    //NSManagedObjectContext * context = [NSManagedObjectContext new];
+    
+    TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
+    
+    if(item && ![item isKindOfClass:[NSNull class]]) {
+        return;
+        
+        item.originalCountry = [dic objectForKey:@"OriginalCountry"];
+        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
+        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        
+    } else {
+        item = [TrackedItem MR_createEntity];
+        item.trackingNumber = num;
+        item.originalCountry = [dic objectForKey:@"OriginalCountry"];
+        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
+        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        
+        item.addedOn = [NSDate date];
+        item.isRead = false;
+        item.lastUpdatedOn = [NSDate date];
+        item.deliveryStatuses = [[NSOrderedSet alloc] init];
+    }
+    
+    
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    
+    [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        if(success) {
+            //[self refreshTableView];
+            //[self performSelector:@selector(refreshTableView) withObject:nil afterDelay:1.0];
+            NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+            [ApiClient sharedInstance].allTrackingItem = arr;
+        }
+        else
+            NSLog(error.description);
+        
+        //NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+        //[ApiClient sharedInstance].allTrackingItem = arr;
+    }];
+    
+//    [self refreshTableView];
+//
+//    NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+//    [ApiClient sharedInstance].allTrackingItem = arr;
+}
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
