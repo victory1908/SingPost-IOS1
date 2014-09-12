@@ -162,14 +162,14 @@
     [trackingDetailTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingDetailTableView setSeparatorColor:[UIColor clearColor]];
     [contentView addSubview:trackingDetailTableView];
-    
-    [self getAdvertisementWithId:@"20" Count:@"5"];
-    
-    int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
-    adBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - height - 20, contentView.bounds.size.width, height)];
-    //[adBanner setImage:[UIImage imageNamed:@"icon-agents"]];
-    [contentView addSubview:adBanner];
-    
+    /*
+     [self getAdvertisementWithId:@"20" Count:@"5"];
+     
+     int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
+     adBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - height - 20, contentView.bounds.size.width, height)];
+     //[adBanner setImage:[UIImage imageNamed:@"icon-agents"]];
+     [contentView addSubview:adBanner];
+     */
     self.view = contentView;
 }
 
@@ -334,16 +334,16 @@
          
          
          
-        
+         
          //NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://static.tumblr.com/ohhnpat/cC6lh5oxm/piece.gif"]];
          /*NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
-         
-         if([self isGifFomat:imageData]){
-             UIImage * gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
-             [adBanner setImage:gifImage];
-         } else {
-             [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
-         }*/
+          
+          if([self isGifFomat:imageData]){
+          UIImage * gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
+          [adBanner setImage:gifImage];
+          } else {
+          [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
+          }*/
          
          UIImage * gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
          [adBanner setImage:gifImage];
@@ -358,34 +358,34 @@
          
      } onFailure:^(NSError *error)
      {[SVProgressHUD dismiss];}];
-     
+    
     
 }
-     
+
 /*- (BOOL)isGifFomat:(NSData *)data {
-    uint8_t c;
-    [data getBytes:&c length:1];
-    
-    switch (c) {
-        case 0xFF:
-            return NO;
-        case 0x89:
-            return NO;
-        case 0x47:
-            return YES;
-        case 0x49:
-        case 0x4D:
-            return NO;
-    }
-    return NO;
-}*/
+ uint8_t c;
+ [data getBytes:&c length:1];
+ 
+ switch (c) {
+ case 0xFF:
+ return NO;
+ case 0x89:
+ return NO;
+ case 0x47:
+ return YES;
+ case 0x49:
+ case 0x4D:
+ return NO;
+ }
+ return NO;
+ }*/
 
 - (void)onClickAd :(id)sender{
     [[ApiClient sharedInstance] incrementClickCountWithId:locationId onSuccess:^(id responseObject)
      {
          NSLog(@"incrementClickCountWithId success");
      } onFailure:^(NSError *error)
-      {[SVProgressHUD dismiss];}];
+     {[SVProgressHUD dismiss];}];
     
     if([redirectUrl isKindOfClass:[NSNull class]] || redirectUrl == NULL) {
         redirectUrl = @"http://www.singpost.com";

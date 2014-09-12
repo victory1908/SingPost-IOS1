@@ -58,14 +58,9 @@ typedef enum  {
     [instructionsLabel setBackgroundColor:[UIColor clearColor]];
     instructionsLabel.delegate = self;
     
-    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcels. Singapore Post covers all addresses within Singapore and 220 countries worldwide. New postage rates from 1 October 2014.  For more information, please tap here" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
+    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcel.\nNew postage rates from 1st October 2014.  For more information, please tap here" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
     NSRange singpost = [instructionsLabel.text rangeOfString:@"here"];
     [instructionsLabel addLinkToURL:[NSURL URLWithString:@"action://SingPost"] withRange:singpost];
-     /*
-    [instructionsLabel setText:@"Use this tool to find out charges for sending letter or parcel.\nThis is just to show you what 80 letter characters looks like, this is singpost" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
-    NSRange singpost = [instructionsLabel.text rangeOfString:@"singpost"];
-    [instructionsLabel addLinkToURL:[NSURL URLWithString:@"action://SingPost"] withRange:singpost];
-    */
     [contentView addSubview:instructionsLabel];
     
     sectionContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 190, contentView.bounds.size.width, contentView.bounds.size.height - 190)];
