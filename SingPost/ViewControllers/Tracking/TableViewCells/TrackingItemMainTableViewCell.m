@@ -27,6 +27,7 @@
 @synthesize delegate;
 
 
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
@@ -140,7 +141,7 @@
         
         [self.contentView addSubview:itemLabel ];
         
-        //signIn2Label.text = label;
+        signIn2Label.text = label;
     }
 }
 

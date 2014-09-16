@@ -14,7 +14,7 @@
 
 @interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate>
 
-@property (nonatomic) TrackedItem *item;
+@property (nonatomic,retain) TrackedItem *item;
 @property (nonatomic, assign) BOOL hideSeparatorView;
 
 @property (nonatomic,retain) UITextField * signIn2Label;

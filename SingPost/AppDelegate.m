@@ -271,7 +271,7 @@
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt
 {
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
-    /*
+    
     NSString *alert = aps[@"alert"];
     if (alert.length > 0) {
         if (shouldPrompt) {
@@ -290,7 +290,7 @@
         }
         return;
     }
-    */
+    
     NSDictionary *data = [payloadInfo objectForKey:@"data"];
     NSString *trackingNumber = data[@"i"];
     if (trackingNumber.length > 0) {

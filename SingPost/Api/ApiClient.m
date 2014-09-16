@@ -24,7 +24,7 @@
 @synthesize notificationProfileID = _notificationProfileID;
 
 
-static BOOL isProduction = NO;
+static BOOL isProduction = YES;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
@@ -1011,8 +1011,6 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     for(TrackedItem * item in itemArr) {
         
         NSMutableDictionary * dic1 = [[NSMutableDictionary alloc] init];
-        
-        
         NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
         
         [dic2 setValue:item.originalCountry forKey:@"OriginalCountry"];
@@ -1022,19 +1020,21 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         [dic2 setValue:item.isActive forKey:@"TrackingNumberActive"];
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"dd-MM-yy"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
         
+        NSMutableArray * statusArray = [NSMutableArray array];
         for(DeliveryStatus * deliveryStatus in item.deliveryStatuses.array) {
             NSMutableDictionary * dic3 = [[NSMutableDictionary alloc] init];
-            //[trackingDateLabel setText:[dateFormatter stringFromDate:_deliveryStatus.date]];
             
             [dic3 setValue:deliveryStatus.location forKey:@"Location"];
-            //[dic3 setValue:deliveryStatus.date forKey:@"Date"];
+
             [dic3 setValue:deliveryStatus.statusDescription forKey:@"StatusDescription"];
+
+            [dic3 setValue:[dateFormatter stringFromDate:deliveryStatus.date] forKey:@"Date"];
             
-            [dic2 setValue:dic3 forKey:@"DeliveryStatusDetails"];
+            [statusArray addObject:dic3];
         }
-        
+        [dic2 setValue:statusArray forKey:@"DeliveryStatusDetails"];
         [dic1 setValue:dic2 forKey:@"ItemsTrackingDetailList"];
         
         NSError *error;

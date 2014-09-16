@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TrackingMainViewController : UIViewController
+@interface TrackingMainViewController : UIViewController {
+    UITableView *trackingItemsTableView;
+}
 
 @property (nonatomic) NSString *trackingNumber;
 
@@ -17,6 +19,8 @@
 @property BOOL isPushNotification;
 
 @property (nonatomic,retain)NSDictionary * labelDic;
+
+@property (nonatomic,retain)UITableView *trackingItemsTableView;
 
 - (void)addTrackingNumber:(NSString *)trackingNumber;
 

@@ -26,6 +26,7 @@
 #import "Article.h"
 #import "PushNotification.h"
 #import "ApiClient.h"
+#import "DeliveryStatus.h"
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
@@ -48,13 +49,14 @@ typedef enum {
 @implementation TrackingMainViewController
 {
     CTextField *trackingNumberTextField;
-    UITableView *trackingItemsTableView;
+    
     SevenSwitch *receiveUpdateSwitch;
     
     
 }
 
 @synthesize labelDic;
+@synthesize trackingItemsTableView;
 
 - (void)loadView
 {
@@ -90,10 +92,6 @@ typedef enum {
     
     self.view = contentView;
     
-    
-   
-    
-    
     labelDic = [[NSDictionary alloc] init];
 }
 
@@ -102,7 +100,7 @@ typedef enum {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"]) {
+    /*if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"]) {
         NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
         if ([trackedArray count] == 0)
             return;
@@ -113,7 +111,7 @@ typedef enum {
         }
         [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
         }];
-    }
+    }*/
     
     NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
     [ApiClient sharedInstance].allTrackingItem = arr;
@@ -121,8 +119,8 @@ typedef enum {
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.trackingMainViewController = self;
     
-    [self syncLabelsWithTrackingNumbers];
-    //[FBSession.activeSession closeAndClearTokenInformation];
+    [self performSelector:@selector(syncLabelsWithTrackingNumbers) withObject:nil afterDelay:0.1f];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -436,7 +434,7 @@ typedef enum {
     else {
         TrackingItemMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
         //if (!cell)
-            cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+        cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
         
         cell.delegate = self;
         [self configureCell:cell atIndexPath:indexPath];
@@ -626,6 +624,10 @@ typedef enum {
 {
     NSInteger section = TRACKINGITEMS_SECTION_HEADER;
     NSInteger rowCount = 0;
+    if(controller == self.allItemsFetchedResultsController) {
+        return;
+    }
+    
     if (controller == self.activeItemsFetchedResultsController) {
         section = TRACKINGITEMS_SECTION_ACTIVE;
         rowCount = self.activeItemsFetchedResultsController.fetchedObjects.count;
@@ -646,6 +648,7 @@ typedef enum {
             if (rowCount == 1)
                 [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
             break;
         }
         case NSFetchedResultsChangeDelete:
@@ -668,7 +671,8 @@ typedef enum {
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [trackingItemsTableView endUpdates];
+    [self.trackingItemsTableView endUpdates];
+    
 }
 
 #pragma mark - Notification switch
@@ -730,13 +734,14 @@ typedef enum {
 
 #pragma mark - Facebook signin handler
 - (void) refreshTableView {
-    [trackingItemsTableView reloadData];
+    
+    [self.trackingItemsTableView reloadData];
 }
 
 
 #pragma mark - Tracking Labelling
-- (NSArray *) getLocalLabels {
-    NSMutableArray * arr = [NSMutableArray array];
+- (NSDictionary *) getLocalLabels {
+    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     
     NSMutableArray *cells = [[NSMutableArray alloc] init];
     for (NSInteger j = 0; j < [trackingItemsTableView numberOfSections]; ++j)
@@ -754,31 +759,37 @@ typedef enum {
         if([cell isKindOfClass:[TrackingItemMainTableViewCell class]]) {
             TrackingItemMainTableViewCell * tempCell = (TrackingItemMainTableViewCell *)cell;
             
-            if(![tempCell.signIn2Label.text isEqualToString:@"Sign in to label"] && ![tempCell.signIn2Label.text isEqualToString:@"Enter a label"])
-                [arr addObject:tempCell.signIn2Label.text];
+            if(![tempCell.signIn2Label.text isEqualToString:@"Sign in to label"] && ![tempCell.signIn2Label.text isEqualToString:@"Enter a label"]) {
+                //NSDictionary * dic = [NSDictionary dictionaryWithObject:tempCell.signIn2Label.text forKey:tempCell.item.trackingNumber];
+                [dic setObject:tempCell.signIn2Label.text forKey:tempCell.item.trackingNumber];
+                //[arr addObject:dic];
+                
+            }
             else
-                [arr addObject:@""];
+                [dic setObject:@"" forKey:tempCell.item.trackingNumber];
         }
     }
     
-    return arr;
+    return dic;
 }
 
 - (void) submitAllTrackingItemWithLabel {
+    NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+    [ApiClient sharedInstance].allTrackingItem = arr;
     
     if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
         
         NSMutableArray * numbers = [NSMutableArray array];
         NSMutableArray * labels = [NSMutableArray array];
         
-        NSArray * labelArray = [self getLocalLabels];
+        NSDictionary * labelDic = [self getLocalLabels];
         
         int i = 0;
         NSArray * trackItemArray = [self.allItemsFetchedResultsController fetchedObjects];
         for(TrackedItem * item in trackItemArray) {
             [numbers addObject:item.trackingNumber];
             
-            [labels addObject:[labelArray objectAtIndex:i]];
+            [labels addObject:[labelDic objectForKey:item.trackingNumber]];
             
             i++;
         }
@@ -827,8 +838,24 @@ typedef enum {
          
          labelDic = tempDic2;
          
+         NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+         [ApiClient sharedInstance].allTrackingItem = arr;
+         [self performSelectorOnMainThread:@selector(refreshTableView) withObject:nil waitUntilDone:YES];
          
-         [self refreshTableView];
+         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"]) {
+             NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+             if ([trackedArray count] == 0)
+                 return;
+             
+             NSMutableArray * numberArray = [NSMutableArray array];
+             for(TrackedItem *trackedItem in trackedArray){
+                 [numberArray addObject:trackedItem.trackingNumber];
+             }
+             [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+             }];
+         }
+         
+         
      } onFailure:^(NSError *error)
      {
          
@@ -836,11 +863,13 @@ typedef enum {
 }
 
 
+
+
 - (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic {
     //NSManagedObjectContext * context = [NSManagedObjectContext new];
     
     TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
-    
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     if(item && ![item isKindOfClass:[NSNull class]]) {
         return;
         
@@ -860,36 +889,26 @@ typedef enum {
         item.addedOn = [NSDate date];
         item.isRead = false;
         item.lastUpdatedOn = [NSDate date];
-        item.deliveryStatuses = [[NSOrderedSet alloc] init];
+
+        NSArray * statusArray = [dic objectForKey:@"DeliveryStatusDetails"];
+        NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
+        for(NSDictionary * dic in statusArray) {
+            [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        }
+        
+        
+        item.deliveryStatuses = newStatus;
     }
     
+    [localContext MR_saveToPersistentStoreAndWait];
     
-    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-    
-    [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-        if(success) {
-            //[self refreshTableView];
-            //[self performSelector:@selector(refreshTableView) withObject:nil afterDelay:1.0];
-            NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
-            [ApiClient sharedInstance].allTrackingItem = arr;
-        }
-        else
-            NSLog(error.description);
-        
-        //NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
-        //[ApiClient sharedInstance].allTrackingItem = arr;
-    }];
-    
-//    [self refreshTableView];
-//
-//    NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
-//    [ApiClient sharedInstance].allTrackingItem = arr;
+
 }
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
     const int movementDistance = 160; // tweak as needed
-    const float movementDuration = 0.3f; // tweak as needed
+    const float movementDuration = 0.1f; // tweak as needed
     
     int movement = (up ? -movementDistance : movementDistance);
     
