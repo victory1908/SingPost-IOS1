@@ -162,14 +162,14 @@
     [trackingDetailTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingDetailTableView setSeparatorColor:[UIColor clearColor]];
     [contentView addSubview:trackingDetailTableView];
-    
+    /*
      [self getAdvertisementWithId:@"20" Count:@"5"];
      
      int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
      adBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - height - 20, contentView.bounds.size.width, height)];
      //[adBanner setImage:[UIImage imageNamed:@"icon-agents"]];
      [contentView addSubview:adBanner];
-     
+     */
     self.view = contentView;
 }
 
@@ -257,7 +257,7 @@
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     NSString *status = maintananceStatuses[@"ReportThis"];
     
-    if (![status isEqualToString:@"on"] || [_trackedItem.isActive isEqualToString:@"false"])
+    if ([status isEqualToString:@"on"] || [_trackedItem.isActive isEqualToString:@"false"])
         return _deliveryStatuses.count;
     else
         return _deliveryStatuses.count + 1;
@@ -290,7 +290,7 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithFrame:CGRectZero];
             
-            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, tableView.width - 30, 0)];
+            UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, tableView.width - 30, 60)];
             [label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
             label.numberOfLines = 0;
             
@@ -324,15 +324,8 @@
     [[ApiClient sharedInstance] getAdvertisementWithId:locationMasterId Count:count onSuccess:^(id responseObject)
      {
          NSArray * adArray = responseObject;
-         //adArray = nil;
-         NSDictionary * dic;
-         if(adArray && [adArray count] > 0)
-             dic = [adArray objectAtIndex:0];
-         else
-             return ;
          
-         
-         
+         NSDictionary * dic = [adArray objectAtIndex:0];
          
          
          //NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://static.tumblr.com/ohhnpat/cC6lh5oxm/piece.gif"]];

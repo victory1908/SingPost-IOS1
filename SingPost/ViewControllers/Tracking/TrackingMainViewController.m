@@ -186,8 +186,10 @@ typedef enum {
                 [SVProgressHUD dismiss];
                 NSString *capsTrackingNumber = [trackingNumberTextField.text uppercaseString]; //Making sure tracking number is in caps
                 TrackedItem *trackedItem = [[TrackedItem MR_findByAttribute:TrackedItemAttributes.trackingNumber withValue:capsTrackingNumber]firstObject];
-                if (trackedItem.isFoundValue)
+                if (trackedItem.isFoundValue) {
+                    [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
                     [self goToDetailPageWithTrackedItem:trackedItem];
+                }
                 else {
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:NEW_TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
                                                          cancelButtonTitle:@"OK" otherButtonTitles:nil];
