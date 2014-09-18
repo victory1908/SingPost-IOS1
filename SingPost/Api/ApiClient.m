@@ -20,11 +20,12 @@
 @synthesize serverToken;
 @synthesize fbToken;
 @synthesize allTrackingItem;
+@synthesize fbID;
 
 @synthesize notificationProfileID = _notificationProfileID;
 
 
-static BOOL isProduction = YES;
+static BOOL isProduction = NO;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
@@ -947,7 +948,7 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     char *machine = malloc(size);
     sysctlbyname("hw.machine", machine, &size, NULL, 0);
     NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
-    NSString * postString = [NSString stringWithFormat:@"fb_token=%@&device=iPhone&model=%@",fbToken,[self platformType:platform]];
+    NSString * postString = [NSString stringWithFormat:@"fb_token=%@&device=iPhone&model=%@&privacy_policy=1&pdpa=0",fbToken,[self platformType:platform]];
     
     
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
@@ -972,6 +973,28 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
     NSString * postString = [NSString stringWithFormat:@"server_token=%@%@%@",serverToken,str,payload];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+    
+}
+
+- (void) deleteAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
+    NSString * url = @"http://27.109.106.170/singpost3/api/removealltrackings/k3y15k3y";
+    
+    
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    [request setHTTPMethod:@"POST"];
+    NSString * postString = [NSString stringWithFormat:@"server_token=%@",serverToken];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

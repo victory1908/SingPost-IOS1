@@ -387,6 +387,8 @@
                     
                     [FBSession.activeSession closeAndClearTokenInformation];
                     
+                    [ApiClient sharedInstance].serverToken = @"";
+                    
                     // If the session state is not any of the two "open" states when the button is clicked
                 } else {
                     // Open a session showing the user the login UI

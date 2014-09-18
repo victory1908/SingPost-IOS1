@@ -658,6 +658,9 @@ typedef enum {
             if (rowCount == 0)
                 [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             [trackingItemsTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
+            
+            //update cms tracking status
+            [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:2.0f];
             break;
         }
         case NSFetchedResultsChangeUpdate:
@@ -784,14 +787,14 @@ typedef enum {
         NSMutableArray * numbers = [NSMutableArray array];
         NSMutableArray * labels = [NSMutableArray array];
         
-        NSDictionary * labelDic = [self getLocalLabels];
+        NSDictionary * locaLabelDic = [self getLocalLabels];
         
         int i = 0;
         NSArray * trackItemArray = [self.allItemsFetchedResultsController fetchedObjects];
         for(TrackedItem * item in trackItemArray) {
             [numbers addObject:item.trackingNumber];
             
-            [labels addObject:[labelDic objectForKey:item.trackingNumber]];
+            [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
             
             i++;
         }
@@ -799,6 +802,16 @@ typedef enum {
         [[ApiClient sharedInstance] registerTrackingNunmbers:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
          {
              NSLog(@"registerTrackingNunmbers success");
+         } onFailure:^(NSError *error)
+         {
+             //NSLog([error localizedDescription]);
+         }];
+        
+    } else {
+        
+        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
+         {
+             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
          } onFailure:^(NSError *error)
          {
              //NSLog([error localizedDescription]);

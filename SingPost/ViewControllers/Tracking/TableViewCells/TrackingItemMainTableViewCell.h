@@ -18,6 +18,8 @@
 @property (nonatomic, assign) BOOL hideSeparatorView;
 
 @property (nonatomic,retain) UITextField * signIn2Label;
+@property (nonatomic,retain) UILabel * itemLabel;
+@property (nonatomic,retain) UIButton * editBtn;
 
 
 @property (nonatomic,retain) TrackingMainViewController * delegate;

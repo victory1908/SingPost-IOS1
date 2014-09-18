@@ -19,6 +19,7 @@
 #import "TrackingDetailsViewController.h"
 #import "AnnouncementViewController.h"
 #import <Crashlytics/Crashlytics.h>
+#import "ProceedViewController.h"
 
 
 
@@ -196,12 +197,12 @@
         [self.trackingMainViewController refreshTableView];
         
         
-        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error) {
                 // Success! Include your code to handle the results here
-                NSLog(@"user info: %@", result);
                 
                 [ApiClient sharedInstance].fbToken = [FBSession.activeSession.accessTokenData accessToken];
+                [ApiClient sharedInstance].fbID = user.objectID;
                 
                 [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
                  {
@@ -210,6 +211,21 @@
                      
                      if(temp != nil && ![temp isKindOfClass:[NSNull class]])
                          [ApiClient sharedInstance].serverToken = temp;
+                     
+                     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+                     NSString * lastUser = [defaults valueForKey:@"LAST_USER"];
+                     
+                     if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser])
+                         [TrackedItem MR_truncateAll];
+                     
+                     [defaults setValue:[ApiClient sharedInstance].fbID forKey:@"LAST_USER"];
+                     [defaults synchronize];
+                     
+                     if ([self.rootViewController isSideBarVisible])
+                         [self.rootViewController toggleSideBarVisiblity];
+                     
+                     ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+                     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
                      
                      
                  } onFailure:^(NSError *error)

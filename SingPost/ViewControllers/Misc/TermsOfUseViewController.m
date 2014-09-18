@@ -32,7 +32,7 @@
     [contentView setBackgroundColor:RGB(250, 250, 250)];
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
-    [navigationBarView setTitle:@"Terms Of Use"];
+    [navigationBarView setTitle:@"Terms of Use"];
     
     if (!self.isFirstLaunch)
         [navigationBarView setShowSidebarToggleButton:YES];
@@ -46,7 +46,7 @@
     if (self.isFirstLaunch) {
         [termsOfUseWebView setHeight:termsOfUseWebView.frame.size.height - 78];
         agreeButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15,termsOfUseWebView.frame.size.height + 59,contentView.bounds.size.width - 30,48)];
-        [agreeButton setTitle:@"AGREE" forState:UIControlStateNormal];
+        [agreeButton setTitle:@"Agree" forState:UIControlStateNormal];
         [agreeButton addTarget:self action:@selector(agreeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [contentView addSubview:agreeButton];
     }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2435355C19CAC4A50045B2D2 /* ProceedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2435355A19CAC4A50045B2D2 /* ProceedViewController.m */; };
+		2435355F19CAD26D0045B2D2 /* ProceedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */; };
 		24B62FEE19AC62D700040E0A /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */; };
 		24B62FF019AC62F900040E0A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B62FEF19AC62F900040E0A /* ImageIO.framework */; };
 		24C26A1719AF1457008F4F01 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C26A1619AF1457008F4F01 /* FacebookSDK.framework */; };
@@ -151,6 +153,9 @@
 
 /* Begin PBXFileReference section */
 		2432ABF719C18F1E00F08BEB /* SingPost 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 3.xcdatamodel"; sourceTree = "<group>"; };
+		2435355919CAC4A50045B2D2 /* ProceedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProceedViewController.h; sourceTree = "<group>"; };
+		2435355A19CAC4A50045B2D2 /* ProceedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProceedViewController.m; sourceTree = "<group>"; };
+		2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProceedViewController.xib; sourceTree = "<group>"; };
 		24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		24B62FEF19AC62F900040E0A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -619,6 +624,9 @@
 				52A8B6AD180F9F31002BC431 /* FAQViewController.m */,
 				527C2F311850055100F1FB4F /* MaintanancePageViewController.h */,
 				527C2F321850055100F1FB4F /* MaintanancePageViewController.m */,
+				2435355919CAC4A50045B2D2 /* ProceedViewController.h */,
+				2435355A19CAC4A50045B2D2 /* ProceedViewController.m */,
+				2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -1139,6 +1147,7 @@
 				528F268A17F864C6006F7027 /* CalculatePostage_Countries.plist in Resources */,
 				528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */,
 				528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */,
+				2435355F19CAD26D0045B2D2 /* ProceedViewController.xib in Resources */,
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
 				52731F79185AB21D007D6001 /* Postal Agent.json in Resources */,
 				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
@@ -1271,6 +1280,7 @@
 				52305F8917F5B20600610A86 /* UIFont+SingPost.m in Sources */,
 				528C41401834129200145E55 /* FindPostalCodeLandmarkViewController.m in Sources */,
 				52A8B68C180F0098002BC431 /* ArticleViewController.m in Sources */,
+				2435355C19CAC4A50045B2D2 /* ProceedViewController.m in Sources */,
 				52A8B6AE180F9F31002BC431 /* FAQViewController.m in Sources */,
 				52A8B686180F007E002BC431 /* ArticleTableViewCell.m in Sources */,
 				528F26C517F936F0006F7027 /* FlatBlueButton.m in Sources */,

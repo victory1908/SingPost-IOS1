@@ -135,6 +135,7 @@
         if (success) {
             [trackedItemToDelete.managedObjectContext deleteObject:trackedItemToDelete];
             [trackedItemToDelete.managedObjectContext save:nil];
+            
         }
         completionBlock(success, error);
     }];
