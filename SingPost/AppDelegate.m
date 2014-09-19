@@ -334,18 +334,39 @@
     TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     if(item && ![item isKindOfClass:[NSNull class]]) {
-        return;
+        //return;
         
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
-        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        
+        NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
+        if([isFound isEqualToString:@"true"] || [isFound isEqualToString:@"false"])
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        else
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"1"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        
+        item.addedOn = [NSDate date];
+        item.isRead = false;
+        item.lastUpdatedOn = [NSDate date];
+        
+        NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
+        NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
+        for(NSDictionary * dic in statusArray) {
+            [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        }
+        
+        item.deliveryStatuses = newStatus;
         
     } else {
         item = [TrackedItem MR_createEntity];
         item.trackingNumber = num;
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
-        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] intValue] == 1?true:false;
+        NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
+        if([isFound isEqualToString:@"true"] || [isFound isEqualToString:@"false"])
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        else
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"1"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         item.isActive = [dic objectForKey:@"TrackingNumberActive"];
         
@@ -367,6 +388,7 @@
     
     
 }
+
 
 #pragma mark - APNS
 

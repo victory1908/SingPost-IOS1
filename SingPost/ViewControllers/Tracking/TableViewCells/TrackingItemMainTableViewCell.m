@@ -81,7 +81,6 @@
             signIn2Label.leftView = paddingView;
             signIn2Label.leftViewMode = UITextFieldViewModeAlways;
             
-            
             if (FBSession.activeSession.state != FBSessionStateOpen
                 && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
                 
@@ -123,6 +122,7 @@
     }
     return self;
 }
+
 
 - (void)editClicked {
     [editBtn setHidden:YES];
@@ -237,6 +237,12 @@
     }
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return (newLength > 20) ? NO : YES;
+}
+
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
@@ -255,6 +261,11 @@
      AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     [appDelegate.trackingMainViewController animateTextField: textField up: NO];
     [self endEditing:YES];
+    
+    if([textField.text isEqualToString:@""]) {
+        textField.text = @"Enter a label";
+        return;
+    }
     
     [self setItemLabel2:textField.text];
     [editBtn setHidden:NO];

@@ -25,7 +25,7 @@
 @synthesize notificationProfileID = _notificationProfileID;
 
 
-static BOOL isProduction = YES;
+static BOOL isProduction = NO;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
@@ -973,6 +973,8 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
     NSString * postString = [NSString stringWithFormat:@"server_token=%@%@%@",serverToken,str,payload];
+    postString = [postString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -1039,12 +1041,27 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         
         [dic2 setValue:item.originalCountry forKey:@"OriginalCountry"];
         [dic2 setValue:item.trackingNumber forKey:@"TrackingNumber"];
-        [dic2 setValue:(item.isFoundValue?@"1":@"0") forKey:@"TrackingNumberFound"];
+        [dic2 setValue:(item.isFoundValue?@"true":@"false") forKey:@"TrackingNumberFound"];
         [dic2 setValue:item.destinationCountry forKey:@"DestinationCountry"];
         [dic2 setValue:item.isActive forKey:@"TrackingNumberActive"];
         
+        [dic2 setValue:@"" forKey:@"AlternativeTrackingNumber"];
+        [dic2 setValue:@"" forKey:@"InsuredSDR"];
+        [dic2 setValue:@"" forKey:@"ExpressInd"];
+        [dic2 setValue:@"" forKey:@"ReceptacleID"];
+        [dic2 setValue:@"" forKey:@"PostingDate"];
+        [dic2 setValue:@"" forKey:@"Weight"];
+        [dic2 setValue:@"" forKey:@"ItemCategory"];
+        [dic2 setValue:@"" forKey:@"InsuredValue"];
+        [dic2 setValue:@"" forKey:@"PreadviceDate"];
+        [dic2 setValue:@"" forKey:@"Content"];
+        
+        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        
+        NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+        [dateFormatter2 setDateFormat:@"yyyyMMdd' 'HHmmss"];
         
         NSMutableArray * statusArray = [NSMutableArray array];
         
@@ -1058,6 +1075,10 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
             [dic3 setValue:deliveryStatus.statusDescription forKey:@"StatusDescription"];
 
             [dic3 setValue:[dateFormatter stringFromDate:deliveryStatus.date] forKey:@"Date"];
+            
+            [dic3 setValue:[dateFormatter2 stringFromDate:deliveryStatus.date] forKey:@"AceDate"];
+            
+            [dic3 setValue:@"" forKey:@"BeatNo"];
             
             [statusArray addObject:dic3];
             
