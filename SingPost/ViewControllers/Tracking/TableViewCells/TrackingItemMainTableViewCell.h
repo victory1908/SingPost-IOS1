@@ -25,5 +25,6 @@
 @property (nonatomic,retain) TrackingMainViewController * delegate;
 
 - (void) updateLabel : (NSString *)label;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier IsActive : (BOOL)isActive;
 
 @end

@@ -21,7 +21,7 @@
     UILabel *trackingNumberLabel, *statusLabel;
     PersistentBackgroundView *separatorView;
     
-    
+    BOOL isActiveOrUnknown;
 }
 @synthesize signIn2Label;
 @synthesize delegate;
@@ -30,7 +30,7 @@
 
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier IsActive : (BOOL)isActive
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         [self setBackgroundColor:[UIColor whiteColor]];
@@ -44,10 +44,12 @@
         else
             width = 320;
         
+        isActiveOrUnknown = isActive;
+        
         UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, self.contentView.bounds.size.height)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
-        trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 56, 150, 30)];
+        trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6 + (isActive ? 50: 0), 150, 30)];
         [trackingNumberLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [trackingNumberLabel setTextColor:RGB(58, 68, 61)];
         [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
@@ -68,50 +70,54 @@
         
         
         //Facebook sign in
-        signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
-        [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
-        //[signIn2Label setPlaceholder:@"Enter a label"];
-        [signIn2Label setTextColor:RGB(36, 84, 157)];
-        [signIn2Label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
-        signIn2Label.leftView = paddingView;
-        signIn2Label.leftViewMode = UITextFieldViewModeAlways;
-        
-        
-        if (FBSession.activeSession.state != FBSessionStateOpen
-            && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
+        if(isActive) {
             
-            [signIn2Label setPlaceholder:@"Sign in to label"];
-            [signIn2Label setTextColor:RGB(50, 50, 50)];
-            [signIn2Label setUserInteractionEnabled:NO];
-            
-            UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 14, 14)];
-            [icon setImage:[UIImage imageNamed:@"labelIcon.png"]];
+            signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
+            [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
+            //[signIn2Label setPlaceholder:@"Enter a label"];
+            [signIn2Label setTextColor:RGB(36, 84, 157)];
+            [signIn2Label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+            UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
+            signIn2Label.leftView = paddingView;
+            signIn2Label.leftViewMode = UITextFieldViewModeAlways;
             
             
+            if (FBSession.activeSession.state != FBSessionStateOpen
+                && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
+                
+                [signIn2Label setPlaceholder:@"Sign in to label"];
+                [signIn2Label setTextColor:RGB(50, 50, 50)];
+                [signIn2Label setUserInteractionEnabled:NO];
+                
+                UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 14, 14)];
+                [icon setImage:[UIImage imageNamed:@"labelIcon.png"]];
+                
+                
+                
+                UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
+                [button addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
+                [contentView addSubview: button];
+                
+                [signIn2Label addSubview:icon];
+            } else {
+                [signIn2Label setText:@"Enter a label"];
+                [signIn2Label setClearsOnBeginEditing:YES];
+                
+                [signIn2Label setAutocorrectionType:UITextAutocorrectionTypeNo];
+                
+            }
+            [contentView addSubview:signIn2Label];
+            signIn2Label.delegate = self;
             
-            UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
-            [button addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
-            [contentView addSubview: button];
-            
-            [signIn2Label addSubview:icon];
-        } else {
-            [signIn2Label setText:@"Enter a label"];
-            [signIn2Label setClearsOnBeginEditing:YES];
-            
-            [signIn2Label setAutocorrectionType:UITextAutocorrectionTypeNo];
+            //Label Edit Button
+            editBtn = [[UIButton alloc] initWithFrame:CGRectMake(130, 6, 20, 20)];
+            [editBtn setImage:[UIImage imageNamed:@"wocaonimagebi"] forState:UIControlStateNormal];
+            [editBtn addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside];
+            [editBtn setHidden:YES];
+            [self.contentView addSubview:editBtn];
+            [self.contentView bringSubviewToFront:editBtn];
             
         }
-        [contentView addSubview:signIn2Label];
-        signIn2Label.delegate = self;
-        
-        //Label Edit Button
-        editBtn = [[UIButton alloc] initWithFrame:CGRectMake(130, 20, 20, 20)];
-        [editBtn setImage:[UIImage imageNamed:@"wocaonimagebi"] forState:UIControlStateNormal];
-        [editBtn addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside];
-        [editBtn setHidden:YES];
-        [self.contentView addSubview:editBtn];
-        [self.contentView bringSubviewToFront:editBtn];
         
         [self.contentView addSubview:contentView];
     }
@@ -121,7 +127,7 @@
 - (void)editClicked {
     [editBtn setHidden:YES];
     
-    signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
+    signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
     [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
     //[signIn2Label setPlaceholder:@"Enter a label"];
     [signIn2Label setTextColor:RGB(36, 84, 157)];
@@ -159,14 +165,16 @@
     
     NSString * label = [delegate.labelDic objectForKey:_item.trackingNumber];
     
-    if(label && ![label isEqualToString:@""]) {
+    
+    
+    if(isActiveOrUnknown && label && ![label isEqualToString:@""]) {
         [signIn2Label removeFromSuperview];
         
-        itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
+        itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
         [itemLabel setText:label ];
         [itemLabel setTextColor:RGB(36, 84, 157)];
         [itemLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-        
+        [itemLabel sizeToFit];
         [self.contentView addSubview:itemLabel ];
         
         signIn2Label.text = label;
@@ -256,16 +264,16 @@
 - (void) setItemLabel2 : (NSString *)text {
     [signIn2Label removeFromSuperview];
     
-    itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
+    itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
     [itemLabel setText:text ];
     [itemLabel setTextColor:RGB(36, 84, 157)];
     [itemLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    
+    [itemLabel sizeToFit];
     [self.contentView addSubview:itemLabel ];
     
     [delegate submitAllTrackingItemWithLabel];
     
-    
+    [delegate.labelDic setValue:text forKey:_item.trackingNumber];
 }
 
 - (void) updateLabel : (NSString *)label {

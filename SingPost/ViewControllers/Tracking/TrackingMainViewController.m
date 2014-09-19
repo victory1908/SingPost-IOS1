@@ -233,6 +233,10 @@ typedef enum {
 - (void)goToDetailPageWithTrackedItem:(TrackedItem *)trackedItem {
     TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
     trackedItem.isReadValue = YES;
+    
+    NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
+    if(title && ![title isEqualToString:@""])
+        trackingDetailsViewController.title = title;
     [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
 }
@@ -436,7 +440,8 @@ typedef enum {
     else {
         TrackingItemMainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itemCellIdentifier];
         //if (!cell)
-        cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier];
+        
+        cell = [[TrackingItemMainTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itemCellIdentifier IsActive: (indexPath.section != TRACKINGITEMS_SECTION_COMPLETED) ? YES : NO];
         
         cell.delegate = self;
         [self configureCell:cell atIndexPath:indexPath];
@@ -766,7 +771,11 @@ typedef enum {
             
             if(![tempCell.signIn2Label.text isEqualToString:@"Sign in to label"] && ![tempCell.signIn2Label.text isEqualToString:@"Enter a label"]) {
                 //NSDictionary * dic = [NSDictionary dictionaryWithObject:tempCell.signIn2Label.text forKey:tempCell.item.trackingNumber];
-                [dic setObject:tempCell.signIn2Label.text forKey:tempCell.item.trackingNumber];
+                
+                NSString * str = tempCell.signIn2Label.text;
+                if(str == nil)
+                    str = @"";
+                [dic setObject:str forKey:tempCell.item.trackingNumber];
                 //[arr addObject:dic];
                 
             }
@@ -794,7 +803,11 @@ typedef enum {
         for(TrackedItem * item in trackItemArray) {
             [numbers addObject:item.trackingNumber];
             
-            [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
+            NSString * label = [locaLabelDic objectForKey:item.trackingNumber];
+            if(label != nil)
+                [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
+            else
+                [labels addObject:@""];
             
             i++;
         }
@@ -842,7 +855,8 @@ typedef enum {
              NSDictionary * trackingJson = [NSJSONSerialization JSONObjectWithData: [trackingDetailsStr dataUsingEncoding:NSUTF8StringEncoding]
                                                                            options: NSJSONReadingMutableContainers
                                                                              error: &e];
-             NSDictionary * tempDic = [trackingJson objectForKey:@"ItemsTrackingDetailList"];
+             NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+             
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
                  
             [self updateTrackItemInfo:trackingNum Info:tempDic];
@@ -869,6 +883,8 @@ typedef enum {
              [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
              }];
          }
+         
+         [self submitAllTrackingItemWithLabel];
          
          
      } onFailure:^(NSError *error)
@@ -897,7 +913,7 @@ typedef enum {
         item = [TrackedItem MR_createEntity];
         item.trackingNumber = num;
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
-        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] intValue] == 1?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         item.isActive = [dic objectForKey:@"TrackingNumberActive"];
         
@@ -905,7 +921,7 @@ typedef enum {
         item.isRead = false;
         item.lastUpdatedOn = [NSDate date];
 
-        NSArray * statusArray = [dic objectForKey:@"DeliveryStatusDetails"];
+        NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
         for(NSDictionary * dic in statusArray) {
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];

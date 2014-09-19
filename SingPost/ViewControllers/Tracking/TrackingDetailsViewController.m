@@ -39,6 +39,8 @@
     NSString * locationId;
 }
 
+@synthesize title;
+
 - (void)loadView
 {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -47,7 +49,11 @@
     //navigation bar
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setShowBackButton:YES];
-    [navigationBarView setTitle:@"Parcel Information"];
+    
+    if(title)
+        [navigationBarView setTitle:title];
+    else
+        [navigationBarView setTitle:@"Parcel Information"];
     [contentView addSubview:navigationBarView];
     
     UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -20,7 +20,7 @@
 #import "AnnouncementViewController.h"
 #import <Crashlytics/Crashlytics.h>
 #import "ProceedViewController.h"
-
+#import "DeliveryStatus.h"
 
 
 @implementation AppDelegate
@@ -221,11 +221,13 @@
                      [defaults setValue:[ApiClient sharedInstance].fbID forKey:@"LAST_USER"];
                      [defaults synchronize];
                      
-                     if ([self.rootViewController isSideBarVisible])
+                     [self getAllLabel];
+                     
+                     /*if ([self.rootViewController isSideBarVisible])
                          [self.rootViewController toggleSideBarVisiblity];
                      
                      ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-                     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+                     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];*/
                      
                      
                  } onFailure:^(NSError *error)
@@ -291,6 +293,80 @@
     }
 }
 
+- (void) getAllLabel {
+    [[ApiClient sharedInstance] getAllTrackingNunmbersOnSuccess:^(id responseObject)
+     {
+         NSLog(@"getAllTrackingNunmbersOnSuccess success");
+         
+         NSArray * dataArray = (NSArray *)[responseObject objectForKey:@"data"];
+         
+         if(dataArray == nil)
+             return;
+         
+         NSMutableDictionary * tempDic2 = [NSMutableDictionary dictionary];
+         
+         for(NSDictionary * dic in dataArray) {
+             NSString * trackingDetailsStr = [dic objectForKey:@"tracking_details"];
+             NSError * e;
+             NSDictionary * trackingJson = [NSJSONSerialization JSONObjectWithData: [trackingDetailsStr dataUsingEncoding:NSUTF8StringEncoding]
+                                                                           options: NSJSONReadingMutableContainers
+                                                                             error: &e];
+             NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+             
+             NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
+             
+             [self updateTrackItemInfo:trackingNum Info:tempDic];
+             
+             
+             [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
+         }
+         
+         
+     } onFailure:^(NSError *error)
+     {
+         
+     }];
+}
+
+- (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic {
+    //NSManagedObjectContext * context = [NSManagedObjectContext new];
+    
+    TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    if(item && ![item isKindOfClass:[NSNull class]]) {
+        return;
+        
+        item.originalCountry = [dic objectForKey:@"OriginalCountry"];
+        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
+        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        
+    } else {
+        item = [TrackedItem MR_createEntity];
+        item.trackingNumber = num;
+        item.originalCountry = [dic objectForKey:@"OriginalCountry"];
+        item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] intValue] == 1?true:false;
+        item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
+        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        
+        item.addedOn = [NSDate date];
+        item.isRead = false;
+        item.lastUpdatedOn = [NSDate date];
+        
+        NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
+        NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
+        for(NSDictionary * dic in statusArray) {
+            [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        }
+        
+        
+        item.deliveryStatuses = newStatus;
+    }
+    
+    [localContext MR_saveToPersistentStoreAndWait];
+    
+    
+}
 
 #pragma mark - APNS
 

@@ -25,7 +25,7 @@
 @synthesize notificationProfileID = _notificationProfileID;
 
 
-static BOOL isProduction = NO;
+static BOOL isProduction = YES;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
@@ -1035,10 +1035,11 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         
         NSMutableDictionary * dic1 = [[NSMutableDictionary alloc] init];
         NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary * dicX = [[NSMutableDictionary alloc] init];
         
         [dic2 setValue:item.originalCountry forKey:@"OriginalCountry"];
         [dic2 setValue:item.trackingNumber forKey:@"TrackingNumber"];
-        [dic2 setValue:(item.isFoundValue?@"true":@"false") forKey:@"TrackingNumberFound"];
+        [dic2 setValue:(item.isFoundValue?@"1":@"0") forKey:@"TrackingNumberFound"];
         [dic2 setValue:item.destinationCountry forKey:@"DestinationCountry"];
         [dic2 setValue:item.isActive forKey:@"TrackingNumberActive"];
         
@@ -1046,7 +1047,10 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
         
         NSMutableArray * statusArray = [NSMutableArray array];
+        
+        NSMutableDictionary * dicY = [[NSMutableDictionary alloc] init];
         for(DeliveryStatus * deliveryStatus in item.deliveryStatuses.array) {
+            
             NSMutableDictionary * dic3 = [[NSMutableDictionary alloc] init];
             
             [dic3 setValue:deliveryStatus.location forKey:@"Location"];
@@ -1056,9 +1060,13 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
             [dic3 setValue:[dateFormatter stringFromDate:deliveryStatus.date] forKey:@"Date"];
             
             [statusArray addObject:dic3];
+            
+            [dicY setValue:statusArray forKey:@"DeliveryStatusDetail"];
         }
-        [dic2 setValue:statusArray forKey:@"DeliveryStatusDetails"];
-        [dic1 setValue:dic2 forKey:@"ItemsTrackingDetailList"];
+        
+        [dic2 setValue:dicY forKey:@"DeliveryStatusDetails"];
+        [dicX setValue:dic2 forKey:@"ItemTrackingDetail"];
+        [dic1 setValue:dicX forKey:@"ItemsTrackingDetailList"];
         
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic1

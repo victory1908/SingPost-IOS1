@@ -14,4 +14,6 @@
 
 - (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 
+@property (nonatomic,retain) NSString * title;
+
 @end
