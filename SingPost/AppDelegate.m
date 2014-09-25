@@ -24,6 +24,8 @@
 
 
 @implementation AppDelegate
+@synthesize activeItemsFetchedResultsController = _activeItemsFetchedResultsController;
+
 
 + (AppDelegate *)sharedAppDelegate {
 	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -71,6 +73,8 @@
 }
 
 - (void)test1 {
+    
+    return;
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = YES;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
@@ -215,8 +219,13 @@
                      NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
                      NSString * lastUser = [defaults valueForKey:@"LAST_USER"];
                      
-                     if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser])
-                         [TrackedItem MR_truncateAll];
+                     //If is not the lastuser
+                     if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser]) {
+                         //1.Unsubscribe all lastuser's tracking ID
+                         //2.Clear local database
+                         [self unSubscribeAllActiveItem];
+                         
+                     }
                      
                      [defaults setValue:[ApiClient sharedInstance].fbID forKey:@"LAST_USER"];
                      [defaults synchronize];
@@ -293,15 +302,64 @@
     }
 }
 
+- (NSFetchedResultsController *)activeItemsFetchedResultsController
+{
+    if (!_activeItemsFetchedResultsController) {
+        _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'true'"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+    }
+    
+    return _activeItemsFetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+}
+
+- (void) unSubscribeAllActiveItem {
+    NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+    if ([trackedArray count] == 0)
+        return;
+    
+    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    
+    NSMutableArray * numberArray = [NSMutableArray array];
+    for(TrackedItem *trackedItem in trackedArray){
+        [numberArray addObject:trackedItem.trackingNumber];
+    }
+    
+    [PushNotificationManager API_unsubscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+        [TrackedItem MR_truncateAll];
+        
+        [SVProgressHUD dismiss];
+    }];
+}
+
+
 - (void) getAllLabel {
+    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    
     [[ApiClient sharedInstance] getAllTrackingNunmbersOnSuccess:^(id responseObject)
      {
          NSLog(@"getAllTrackingNunmbersOnSuccess success");
          
          NSArray * dataArray = (NSArray *)[responseObject objectForKey:@"data"];
          
-         if(dataArray == nil)
+         if(dataArray == nil) {
+            [SVProgressHUD dismiss];
              return;
+         }
          
          NSMutableDictionary * tempDic2 = [NSMutableDictionary dictionary];
          
@@ -319,12 +377,14 @@
              
              
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
+             
+             
          }
-         
+         [SVProgressHUD dismiss];
          
      } onFailure:^(NSError *error)
      {
-         
+         [SVProgressHUD dismiss];
      }];
 }
 
@@ -339,10 +399,13 @@
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
         
         NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
-        if([isFound isEqualToString:@"true"] || [isFound isEqualToString:@"false"])
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        if(![isFound isKindOfClass:[NSString class]]) {
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
+        }
+        
         else
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"1"]?true:false;
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         item.isActive = [dic objectForKey:@"TrackingNumberActive"];
         
@@ -363,10 +426,12 @@
         item.trackingNumber = num;
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
         NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
-        if([isFound isEqualToString:@"true"] || [isFound isEqualToString:@"false"])
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        if(![isFound isKindOfClass:[NSString class]]) {
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
+        }
+        
         else
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"1"]?true:false;
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         item.isActive = [dic objectForKey:@"TrackingNumberActive"];
         

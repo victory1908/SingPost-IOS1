@@ -28,6 +28,8 @@
 #import "ApiClient.h"
 #import "DeliveryStatus.h"
 
+#import "TrackingSelectViewController.h"
+
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
     TRACKINGITEMS_SECTION_ACTIVE,
@@ -36,6 +38,21 @@ typedef enum {
     
     TRACKINGITEMS_SECTION_TOTAL
 } tTrackingItemsSections;
+
+@interface UITableView(ReloadBlock)
+-(void)reloadDataAndWait:(void(^)(void))waitBlock;
+@end
+
+@implementation UITableView (ReloadBlock)
+
+-(void)reloadDataAndWait:(void(^)(void))waitBlock {
+    [self reloadData];//if subclassed then super. else use [self.tableView
+    if(waitBlock){
+        waitBlock();
+    }
+}
+
+@end
 
 @interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
@@ -52,7 +69,8 @@ typedef enum {
     
     SevenSwitch *receiveUpdateSwitch;
     
-    
+    BOOL isViewDidAppear;
+    TrackingSelectViewController * vc;
 }
 
 @synthesize labelDic;
@@ -119,7 +137,10 @@ typedef enum {
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
     appDelegate.trackingMainViewController = self;
     
-    [self performSelector:@selector(syncLabelsWithTrackingNumbers) withObject:nil afterDelay:0.1f];
+    if(!isViewDidAppear) {
+        [self performSelector:@selector(syncLabelsWithTrackingNumbers) withObject:nil afterDelay:0.1f];
+        isViewDidAppear = true;
+    }
 
 }
 
@@ -662,10 +683,11 @@ typedef enum {
         {
             if (rowCount == 0)
                 [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
+            
             [trackingItemsTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             
             //update cms tracking status
-            [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:2.0f];
+            //[self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:2.0f];
             break;
         }
         case NSFetchedResultsChangeUpdate:
@@ -855,6 +877,10 @@ typedef enum {
              NSDictionary * trackingJson = [NSJSONSerialization JSONObjectWithData: [trackingDetailsStr dataUsingEncoding:NSUTF8StringEncoding]
                                                                            options: NSJSONReadingMutableContainers
                                                                              error: &e];
+             
+             if(trackingJson == nil){
+                 continue;
+             }
              NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
              
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
@@ -863,6 +889,22 @@ typedef enum {
              
              
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
+         }
+         
+         NSArray * newLocalItem = [self checkNewLocalItem:dataArray];
+         
+         //Got new local items which haven't been sync to the cms.
+         //Ask User if he want to sync.
+         if([newLocalItem count] > 0) {
+             /*TrackingSelectViewController * vc = [[TrackingSelectViewController alloc] init];
+             vc.trackItems = newLocalItem;
+             vc.modalPresentationStyle = UIModalPresentationCurrentContext;
+             vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+   
+            [self presentViewController:vc animated:YES completion:^{ }];*/
+             
+             [self performSelector:@selector(showSelectView:) withObject:newLocalItem afterDelay:1.0f];
+             return;
          }
          
          labelDic = tempDic2;
@@ -894,10 +936,41 @@ typedef enum {
 }
 
 
+- (void) showSelectView : (NSArray *)newLocalItems{
+    vc = [[TrackingSelectViewController alloc] init];
+    vc.trackItems = newLocalItems;
+
+    [self.view addSubview:vc.view];
+    vc.view.frame = CGRectMake(10, 30, 300, 500);
+    vc.view.alpha = 0;
+    vc.delegate = self;
+    //[self presentViewController:vc animated:YES completion:^{ }];
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^
+     {
+         vc.view.alpha = 1;
+     } completion:nil];
+}
+
+- (void) updateSelectItem : (NSArray *) items2Delete {
+    for(TrackedItem * item in items2Delete) {
+        [item MR_deleteEntity];
+    }
+    
+    [self.trackingItemsTableView reloadDataAndWait:^{
+        //call the required method here
+        [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.2f];
+    }];
+    //[self refreshTableView];
+
+    //[self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
+    
+    [vc.view removeFromSuperview];
+}
+
+
 
 
 - (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic {
-    //NSManagedObjectContext * context = [NSManagedObjectContext new];
     
     TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
@@ -907,10 +980,12 @@ typedef enum {
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
         
         NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
-        if([isFound isEqualToString:@"true"] || [isFound isEqualToString:@"false"])
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        if(![isFound isKindOfClass:[NSString class]]) {
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
+        }
+        
         else
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"1"]?true:false;
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         item.isActive = [dic objectForKey:@"TrackingNumberActive"];
         
@@ -931,10 +1006,12 @@ typedef enum {
         item.trackingNumber = num;
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
         NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
-        if([isFound isEqualToString:@"true"] || [isFound isEqualToString:@"false"])
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        if(![isFound isKindOfClass:[NSString class]]) {
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
+        }
+        
         else
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"1"]?true:false;
+            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         item.isActive = [dic objectForKey:@"TrackingNumberActive"];
         
@@ -948,13 +1025,46 @@ typedef enum {
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
         }
         
-        
         item.deliveryStatuses = newStatus;
     }
     
     [localContext MR_saveToPersistentStoreAndWait];
     
 
+}
+
+- (NSArray *) checkNewLocalItem : (NSArray *) remoteDataArray{
+    NSMutableArray * newItems = [NSMutableArray array];
+    
+    NSArray * allLocalItems = [_allItemsFetchedResultsController fetchedObjects];
+    
+    for(TrackedItem * localItem in allLocalItems) {
+        BOOL isFound = false;
+        
+        for(NSDictionary * remoteItemDic in remoteDataArray) {
+            NSString * trackingDetailsStr = [remoteItemDic objectForKey:@"tracking_details"];
+            NSError * e;
+            NSDictionary * trackingJson = [NSJSONSerialization JSONObjectWithData: [trackingDetailsStr dataUsingEncoding:NSUTF8StringEncoding]
+                                                                          options: NSJSONReadingMutableContainers
+                                                                            error: &e];
+            if(trackingJson == nil){
+                continue;
+            }
+            NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+            NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
+            
+            if([localItem.trackingNumber isEqualToString:trackingNum]) {
+                isFound = true;
+                break;
+            }
+        }
+        
+        if(!isFound) {
+            [newItems addObject:localItem];
+        }
+    }
+    
+    return newItems;
 }
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up

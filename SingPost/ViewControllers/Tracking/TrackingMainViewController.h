@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TrackingMainViewController : UIViewController {
+@interface TrackingMainViewController : UIViewController{
     UITableView *trackingItemsTableView;
 }
 
@@ -29,4 +29,5 @@
 
 
 - (void) submitAllTrackingItemWithLabel;
+- (void) updateSelectItem : (NSArray *) items2Delete;
 @end

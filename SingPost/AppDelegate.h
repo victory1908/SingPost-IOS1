@@ -12,11 +12,12 @@
 
 #import "TrackingMainViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, readonly) RootViewController *rootViewController;
 @property (nonatomic, readonly) NSDictionary *maintenanceStatuses;
+@property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
 
 @property (nonatomic, retain) TrackingMainViewController * trackingMainViewController;
 

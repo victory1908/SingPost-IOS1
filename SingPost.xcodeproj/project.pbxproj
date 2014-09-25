@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		240A231E19D2772300EEAB7D /* TrackingSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 240A231C19D2772300EEAB7D /* TrackingSelectViewController.m */; };
+		240A231F19D2772300EEAB7D /* TrackingSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240A231D19D2772300EEAB7D /* TrackingSelectViewController.xib */; };
+		240A232319D277D000EEAB7D /* TrackingSelectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 240A232119D277D000EEAB7D /* TrackingSelectTableViewCell.m */; };
+		240A232419D277D000EEAB7D /* TrackingSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240A232219D277D000EEAB7D /* TrackingSelectTableViewCell.xib */; };
 		2435355C19CAC4A50045B2D2 /* ProceedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2435355A19CAC4A50045B2D2 /* ProceedViewController.m */; };
 		2435355F19CAD26D0045B2D2 /* ProceedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */; };
 		24B62FEE19AC62D700040E0A /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */; };
@@ -152,6 +156,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		240A231B19D2772300EEAB7D /* TrackingSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingSelectViewController.h; sourceTree = "<group>"; };
+		240A231C19D2772300EEAB7D /* TrackingSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingSelectViewController.m; sourceTree = "<group>"; };
+		240A231D19D2772300EEAB7D /* TrackingSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackingSelectViewController.xib; sourceTree = "<group>"; };
+		240A232019D277D000EEAB7D /* TrackingSelectTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingSelectTableViewCell.h; sourceTree = "<group>"; };
+		240A232119D277D000EEAB7D /* TrackingSelectTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingSelectTableViewCell.m; sourceTree = "<group>"; };
+		240A232219D277D000EEAB7D /* TrackingSelectTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackingSelectTableViewCell.xib; sourceTree = "<group>"; };
 		2432ABF719C18F1E00F08BEB /* SingPost 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 3.xcdatamodel"; sourceTree = "<group>"; };
 		2435355919CAC4A50045B2D2 /* ProceedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProceedViewController.h; sourceTree = "<group>"; };
 		2435355A19CAC4A50045B2D2 /* ProceedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProceedViewController.m; sourceTree = "<group>"; };
@@ -453,6 +463,9 @@
 				52024F2E17F719C200AFD239 /* TrackingDetailsViewController.m */,
 				91B58F9418753A40005469DA /* TrackingFeedbackViewController.h */,
 				91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */,
+				240A231B19D2772300EEAB7D /* TrackingSelectViewController.h */,
+				240A231C19D2772300EEAB7D /* TrackingSelectViewController.m */,
+				240A231D19D2772300EEAB7D /* TrackingSelectViewController.xib */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -494,6 +507,9 @@
 				52024F2517F6F1CF00AFD239 /* TrackingItemMainTableViewCell.m */,
 				52024F3217F7301B00AFD239 /* TrackingItemDetailTableViewCell.h */,
 				52024F3317F7301B00AFD239 /* TrackingItemDetailTableViewCell.m */,
+				240A232019D277D000EEAB7D /* TrackingSelectTableViewCell.h */,
+				240A232119D277D000EEAB7D /* TrackingSelectTableViewCell.m */,
+				240A232219D277D000EEAB7D /* TrackingSelectTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -1146,6 +1162,7 @@
 				521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */,
 				528F268A17F864C6006F7027 /* CalculatePostage_Countries.plist in Resources */,
 				528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */,
+				240A232419D277D000EEAB7D /* TrackingSelectTableViewCell.xib in Resources */,
 				528F268C17F86706006F7027 /* CalculatePostage_ExpectedDeliveryTimeDays.plist in Resources */,
 				2435355F19CAD26D0045B2D2 /* ProceedViewController.xib in Resources */,
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
@@ -1160,6 +1177,7 @@
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
 				52731F7D185AB239007D6001 /* POPStation.json in Resources */,
 				528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */,
+				240A231F19D2772300EEAB7D /* TrackingSelectViewController.xib in Resources */,
 				528F26C217F92F6C006F7027 /* FindPostalCodes_Types.plist in Resources */,
 				91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */,
 				52731F73185AB1B4007D6001 /* SAM.json in Resources */,
@@ -1246,6 +1264,7 @@
 				52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */,
 				52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */,
 				52F8134317FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m in Sources */,
+				240A231E19D2772300EEAB7D /* TrackingSelectViewController.m in Sources */,
 				528F26C917F9441A006F7027 /* LocateUsMainViewController.m in Sources */,
 				528C413A1834103700145E55 /* PostalCode.m in Sources */,
 				52936470180AC54C00B83F6B /* OffersMoreMenuView.m in Sources */,
@@ -1301,6 +1320,7 @@
 				52DDA48417FEB2BA00C8BF1C /* UIView+Shadow.m in Sources */,
 				528F26A317F8B822006F7027 /* CTextField.m in Sources */,
 				9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */,
+				240A232319D277D000EEAB7D /* TrackingSelectTableViewCell.m in Sources */,
 				5237B0B91833DE5B00E9358A /* CalculatePostageOverseasViewController.m in Sources */,
 				52024F2917F6F56B00AFD239 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				52A7A2761871D9D100253FA2 /* _Article.m in Sources */,
