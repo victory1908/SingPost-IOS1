@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController : UIViewController
+@interface RootViewController : UIViewController {
+    UIViewController *activeViewController;
+}
+
+@property (nonatomic,retain)UIViewController *activeViewController;
 
 - (void)toggleSideBarVisiblity;
 - (void)updateMaintananceStatusUIs;

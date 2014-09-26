@@ -18,8 +18,9 @@
 @property (nonatomic, readonly) RootViewController *rootViewController;
 @property (nonatomic, readonly) NSDictionary *maintenanceStatuses;
 @property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
-
 @property (nonatomic, retain) TrackingMainViewController * trackingMainViewController;
+
+@property (nonatomic, assign) BOOL isFirstTime;
 
 + (AppDelegate *)sharedAppDelegate;
 - (void)updateMaintananceStatuses;

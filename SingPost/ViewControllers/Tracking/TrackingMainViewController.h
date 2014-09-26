@@ -18,7 +18,7 @@
 
 @property BOOL isPushNotification;
 
-@property (nonatomic,retain)NSDictionary * labelDic;
+@property (nonatomic,retain)NSMutableDictionary * labelDic;
 
 @property (nonatomic,retain)UITableView *trackingItemsTableView;
 
@@ -30,4 +30,5 @@
 
 - (void) submitAllTrackingItemWithLabel;
 - (void) updateSelectItem : (NSArray *) items2Delete;
+- (void) syncLabelsWithTrackingNumbers;
 @end

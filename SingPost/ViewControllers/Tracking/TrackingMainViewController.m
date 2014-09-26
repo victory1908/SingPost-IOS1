@@ -110,7 +110,7 @@ typedef enum {
     
     self.view = contentView;
     
-    labelDic = [[NSDictionary alloc] init];
+    labelDic = [[NSMutableDictionary alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -138,7 +138,8 @@ typedef enum {
     appDelegate.trackingMainViewController = self;
     
     if(!isViewDidAppear) {
-        [self performSelector:@selector(syncLabelsWithTrackingNumbers) withObject:nil afterDelay:0.1f];
+        //[self performSelector:@selector(syncLabelsWithTrackingNumbers) withObject:nil afterDelay:0.1f];
+        [self syncLabelsWithTrackingNumbers];
         isViewDidAppear = true;
     }
 
@@ -687,7 +688,7 @@ typedef enum {
             [trackingItemsTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             
             //update cms tracking status
-            //[self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:2.0f];
+            [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:2.0f];
             break;
         }
         case NSFetchedResultsChangeUpdate:
@@ -869,6 +870,9 @@ typedef enum {
          if(dataArray == nil)
              return;
          
+         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+         
          NSMutableDictionary * tempDic2 = [NSMutableDictionary dictionary];
          
          for(NSDictionary * dic in dataArray) {
@@ -884,8 +888,14 @@ typedef enum {
              NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
              
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
+             
+             NSString * str = [dic objectForKey:@"tracking_last_modified"];
+             NSDate * lastModifiedDate = [NSDate date];
+             
+             if(str != nil)
+                 lastModifiedDate = [formatter dateFromString:str];
                  
-            [self updateTrackItemInfo:trackingNum Info:tempDic];
+            [self updateTrackItemInfo:trackingNum Info:tempDic Date:lastModifiedDate];
              
              
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
@@ -893,21 +903,18 @@ typedef enum {
          
          NSArray * newLocalItem = [self checkNewLocalItem:dataArray];
          
+         labelDic = tempDic2;
          //Got new local items which haven't been sync to the cms.
          //Ask User if he want to sync.
          if([newLocalItem count] > 0) {
-             /*TrackingSelectViewController * vc = [[TrackingSelectViewController alloc] init];
-             vc.trackItems = newLocalItem;
-             vc.modalPresentationStyle = UIModalPresentationCurrentContext;
-             vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-   
-            [self presentViewController:vc animated:YES completion:^{ }];*/
              
              [self performSelector:@selector(showSelectView:) withObject:newLocalItem afterDelay:1.0f];
+             
+             [self refreshTableView];
              return;
          }
          
-         labelDic = tempDic2;
+         
          
          NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
          [ApiClient sharedInstance].allTrackingItem = arr;
@@ -970,12 +977,16 @@ typedef enum {
 
 
 
-- (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic {
+- (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate {
     
     TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     if(item && ![item isKindOfClass:[NSNull class]]) {
         return;
+        
+        /*if ([item.lastUpdatedOn compare:lastModifiedDate] == NSOrderedDescending) {
+            return;
+        }
         
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
         
@@ -999,7 +1010,7 @@ typedef enum {
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
         }
         
-        item.deliveryStatuses = newStatus;
+        item.deliveryStatuses = newStatus;*/
         
     } else {
         item = [TrackedItem MR_createEntity];

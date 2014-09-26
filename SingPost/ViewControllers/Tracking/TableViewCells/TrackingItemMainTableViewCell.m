@@ -239,7 +239,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
-    return (newLength > 20) ? NO : YES;
+    return (newLength > 30) ? NO : YES;
 }
 
 
@@ -284,7 +284,8 @@
     
     [delegate submitAllTrackingItemWithLabel];
     
-    [delegate.labelDic setValue:text forKey:_item.trackingNumber];
+    NSString * num = _item.trackingNumber;
+    [delegate.labelDic setValue:text forKey:num];
 }
 
 - (void) updateLabel : (NSString *)label {

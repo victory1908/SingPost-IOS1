@@ -15,6 +15,7 @@
 		2435355F19CAD26D0045B2D2 /* ProceedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */; };
 		24B62FEE19AC62D700040E0A /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */; };
 		24B62FF019AC62F900040E0A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B62FEF19AC62F900040E0A /* ImageIO.framework */; };
+		24BAEB6619D4FC62001D74F3 /* TrackingID in Resources */ = {isa = PBXBuildFile; fileRef = 24BAEB6519D4FC62001D74F3 /* TrackingID */; };
 		24C26A1719AF1457008F4F01 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C26A1619AF1457008F4F01 /* FacebookSDK.framework */; };
 		52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */; };
 		52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */; };
@@ -169,6 +170,7 @@
 		24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		24B62FEF19AC62F900040E0A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		24BAEB6519D4FC62001D74F3 /* TrackingID */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrackingID; sourceTree = "<group>"; };
 		24C26A1619AF1457008F4F01 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -575,6 +577,7 @@
 				521B172917F1633000FEB6FD /* InfoPlist.strings */,
 				521B172C17F1633000FEB6FD /* main.m */,
 				521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */,
+				24BAEB6519D4FC62001D74F3 /* TrackingID */,
 			);
 			name = "Supporting Files";
 			path = SingPost;
@@ -1160,6 +1163,7 @@
 			files = (
 				91692BD818EA868E0079B62D /* AppIcon.png in Resources */,
 				521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */,
+				24BAEB6619D4FC62001D74F3 /* TrackingID in Resources */,
 				528F268A17F864C6006F7027 /* CalculatePostage_Countries.plist in Resources */,
 				528F268517F85B20006F7027 /* CalculatePostage_WeightUnits.plist in Resources */,
 				240A232419D277D000EEAB7D /* TrackingSelectTableViewCell.xib in Resources */,

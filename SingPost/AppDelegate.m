@@ -69,6 +69,8 @@
     }
     
     //[self performSelector:@selector(test1) withObject:nil afterDelay:16.0f];
+    
+    self.isFirstTime = true;
     return YES;
 }
 
@@ -94,6 +96,20 @@
     // Handle the user leaving the app while the Facebook login dialog is being shown
     // For example: when the user presses the iOS "home" button while the login dialog is active
     [FBAppCall handleDidBecomeActive];
+    
+    if(self.isFirstTime) {
+        self.isFirstTime = false;
+    } else {
+        //[self getAllLabel];
+        
+    
+        //[AppDelegate sharedAppDelegate].rootViewController.navigationController.topViewController = self.trackingMainViewController
+        if([AppDelegate sharedAppDelegate].rootViewController.activeViewController == self.trackingMainViewController) {
+            [self.trackingMainViewController syncLabelsWithTrackingNumbers];
+        } else {
+             [self getAllLabel];
+        }
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -220,7 +236,7 @@
                      NSString * lastUser = [defaults valueForKey:@"LAST_USER"];
                      
                      //If is not the lastuser
-                     if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser]) {
+                     if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser] && lastUser != nil) {
                          //1.Unsubscribe all lastuser's tracking ID
                          //2.Clear local database
                          [self unSubscribeAllActiveItem];
@@ -361,6 +377,9 @@
              return;
          }
          
+         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+         
          NSMutableDictionary * tempDic2 = [NSMutableDictionary dictionary];
          
          for(NSDictionary * dic in dataArray) {
@@ -373,7 +392,13 @@
              
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
              
-             [self updateTrackItemInfo:trackingNum Info:tempDic];
+             NSString * str = [dic objectForKey:@"tracking_last_modified"];
+             NSDate * lastModifiedDate = [NSDate date];
+             
+             if(str != nil)
+                 lastModifiedDate = [formatter dateFromString:str];
+             
+             [self updateTrackItemInfo:trackingNum Info:tempDic Date:lastModifiedDate];
              
              
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
@@ -388,13 +413,17 @@
      }];
 }
 
-- (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic {
+- (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate{
     //NSManagedObjectContext * context = [NSManagedObjectContext new];
     
     TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     if(item && ![item isKindOfClass:[NSNull class]]) {
         //return;
+        
+        if ([item.lastUpdatedOn compare:lastModifiedDate] == NSOrderedDescending) {
+            return;
+        }
         
         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
         
@@ -417,6 +446,11 @@
         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
         for(NSDictionary * dic in statusArray) {
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        }
+        
+        
+        for(DeliveryStatus * oldStatus in item.deliveryStatuses) {
+            [oldStatus MR_deleteEntity];
         }
         
         item.deliveryStatuses = newStatus;
@@ -484,6 +518,7 @@
     NSString *trackingNumber = data[@"i"];
     if (trackingNumber.length > 0) {
         //it's a tracking item apns
+        [self getAllLabel];
         if (shouldPrompt) {
             [UIAlertView showWithTitle:@"SingPost"
                                message:aps[@"alert"]

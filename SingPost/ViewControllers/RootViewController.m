@@ -28,13 +28,14 @@
     SidebarMenuViewController *sideBarMenuViewController;
     UIView *appContentView, *activeViewControllerContainerView;
     UIButton *closeSidebarButton;
-    UIViewController *activeViewController;
+    
     
     UIPanGestureRecognizer *sideBarPanGesture;
     
     CATransform3D originalTransformation;
 }
 
+@synthesize activeViewController;
 #pragma mark - View lifecycle
 
 - (void)loadView
