@@ -290,6 +290,8 @@
         
         [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
         [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
+        
+        [self endEditing:YES];
     }
 }
 
@@ -366,6 +368,8 @@
         
         NSString * num = _item.trackingNumber;
         [delegate.labelDic setValue:@"" forKey:num];
+        
+        [delegate submitAllTrackingItemWithLabel];
         return;
     }
     //[self showSignInButton];
