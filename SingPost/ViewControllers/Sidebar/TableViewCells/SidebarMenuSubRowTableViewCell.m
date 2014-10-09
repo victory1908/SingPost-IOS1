@@ -74,7 +74,7 @@
         case SUBROWS_OFFERSMORE_RATEOURAPP:
             [menuNameLabel setText:@"Rate our app"];
             break;
-        case SUBROWS_OFFERSMORE_SIGNOFF:
+        /*case SUBROWS_OFFERSMORE_SIGNOFF:
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
                 [menuNameLabel setText:@"Sign Out"];
@@ -92,7 +92,7 @@
             
             else
                 [menuNameLabel setText:@"Sign In"];
-            break;
+            break;*/
         default:
             NSAssert(NO, @"unknown type in subrowMenuOffersMore");
             break;

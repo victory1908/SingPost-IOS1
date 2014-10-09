@@ -18,4 +18,6 @@
 @property (nonatomic,retain) TrackingSelectViewController * delegate;
 
 -(void) initConetent;
+-(void)onSelected;
+-(void)onUnSelected;
 @end

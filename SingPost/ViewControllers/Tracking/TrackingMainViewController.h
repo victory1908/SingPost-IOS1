@@ -31,4 +31,6 @@
 - (void) submitAllTrackingItemWithLabel;
 - (void) updateSelectItem : (NSArray *) items2Delete;
 - (void) syncLabelsWithTrackingNumbers;
+
+- (void) enableSideBar;
 @end

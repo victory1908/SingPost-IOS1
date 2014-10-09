@@ -82,6 +82,7 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 
 //Tracking Labeling
 - (void) facebookLoginOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+- (void) isFirstTime:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void) registerTrackingNunmbers: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void) getAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void) deleteAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;

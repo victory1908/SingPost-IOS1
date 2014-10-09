@@ -71,6 +71,9 @@ typedef enum {
     
     BOOL isViewDidAppear;
     TrackingSelectViewController * vc;
+    
+    NavigationBarView *navigationBarView;
+    UIButton *infoButton;
 }
 
 @synthesize labelDic;
@@ -82,12 +85,12 @@ typedef enum {
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     //navigation bar
-    NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
+    navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setShowSidebarToggleButton:YES];
     [navigationBarView setTitle:@"Track"];
     [contentView addSubview:navigationBarView];
     
-    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    infoButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [infoButton.layer setBorderWidth:1.0f];
     [infoButton.layer setBorderColor:[UIColor whiteColor].CGColor];
     [infoButton setBackgroundImage:nil forState:UIControlStateNormal];
@@ -480,6 +483,9 @@ typedef enum {
     else {
         TrackedItem *trackedItem;
         if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
+            if(indexPath.row - 1 < 0)
+                return;
+            
             trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
             
             [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
@@ -507,10 +513,16 @@ typedef enum {
             }];
         }
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
+            if(indexPath.row - 1 < 0)
+                return;
+            
             trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
             [self goToDetailPageWithTrackedItem:trackedItem];
         }
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED) {
+            if(indexPath.row - 1 < 0)
+                return;
+            
             trackedItem = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
             
             [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
@@ -688,7 +700,10 @@ typedef enum {
             [trackingItemsTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             
             //update cms tracking status
-            [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:2.0f];
+            
+            AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+            if(!appDelegate.isLoginFromSideBar)
+                [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.5f];
             break;
         }
         case NSFetchedResultsChangeUpdate:
@@ -793,17 +808,19 @@ typedef enum {
             TrackingItemMainTableViewCell * tempCell = (TrackingItemMainTableViewCell *)cell;
             
             if(![tempCell.signIn2Label.text isEqualToString:@"Sign in to label"] && ![tempCell.signIn2Label.text isEqualToString:@"Enter a label"]) {
-                //NSDictionary * dic = [NSDictionary dictionaryWithObject:tempCell.signIn2Label.text forKey:tempCell.item.trackingNumber];
                 
                 NSString * str = tempCell.signIn2Label.text;
                 if(str == nil)
                     str = @"";
-                [dic setObject:str forKey:tempCell.item.trackingNumber];
-                //[arr addObject:dic];
+                if(tempCell.item.trackingNumber != nil)
+                    [dic setObject:str forKey:tempCell.item.trackingNumber];
+
                 
             }
-            else
-                [dic setObject:@"" forKey:tempCell.item.trackingNumber];
+            else {
+                if(tempCell.item.trackingNumber != nil)
+                    [dic setObject:@"" forKey:tempCell.item.trackingNumber];
+            }
         }
     }
     
@@ -885,7 +902,8 @@ typedef enum {
              if(trackingJson == nil){
                  continue;
              }
-             NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+             //NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+             NSDictionary * tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
              
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
              
@@ -944,11 +962,15 @@ typedef enum {
 
 
 - (void) showSelectView : (NSArray *)newLocalItems{
+    
+    if(vc != nil)
+        [vc.view removeFromSuperview];
+    
     vc = [[TrackingSelectViewController alloc] init];
     vc.trackItems = newLocalItems;
 
     [self.view addSubview:vc.view];
-    vc.view.frame = CGRectMake(10, 30, 300, 500);
+    vc.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height);
     vc.view.alpha = 0;
     vc.delegate = self;
     //[self presentViewController:vc animated:YES completion:^{ }];
@@ -956,25 +978,60 @@ typedef enum {
      {
          vc.view.alpha = 1;
      } completion:nil];
+    
+    [self disableSideBar];
+}
+
+- (void) disableSideBar {
+    [navigationBarView setToggleButtonEnable:NO];
+    [infoButton setEnabled:NO];
+}
+
+- (void)enableSideBar {
+    [navigationBarView setToggleButtonEnable:YES];
+    [infoButton setEnabled:YES];
 }
 
 - (void) updateSelectItem : (NSArray *) items2Delete {
+    
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     for(TrackedItem * item in items2Delete) {
+         //TrackedItem * item2Delete = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:item.trackingNumber] firstObject];
+        
         [item MR_deleteEntity];
     }
     
-    [self.trackingItemsTableView reloadDataAndWait:^{
-        //call the required method here
-        [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.2f];
+    [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            [self.trackingItemsTableView reloadDataAndWait:^{
+                //call the required method here
+                [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.5f];
+            }];
+            
+            [vc.view removeFromSuperview];
+            
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"]) {
+                NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+                if ([trackedArray count] == 0)
+                    return;
+                
+                NSMutableArray * numberArray = [NSMutableArray array];
+                for(TrackedItem *trackedItem in trackedArray){
+                    [numberArray addObject:trackedItem.trackingNumber];
+                }
+                [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+                }];
+            }
+            
+            [self enableSideBar];
+        } else {
+            [vc.view removeFromSuperview];
+            [self enableSideBar];
+        }
     }];
-    //[self refreshTableView];
-
-    //[self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
+    [self enableSideBar];
     
-    [vc.view removeFromSuperview];
 }
-
-
 
 
 - (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate {
@@ -997,8 +1054,11 @@ typedef enum {
         
         else
             item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+        
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        
+        
+        item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"1" : @"0");
         
         item.addedOn = [NSDate date];
         item.isRead = false;
@@ -1008,6 +1068,11 @@ typedef enum {
         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
         for(NSDictionary * dic in statusArray) {
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        }
+        
+        
+        for(DeliveryStatus * oldStatus in item.deliveryStatuses) {
+            [oldStatus MR_deleteEntity];
         }
         
         item.deliveryStatuses = newStatus;*/
@@ -1024,7 +1089,8 @@ typedef enum {
         else
             item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        //item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+         item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
         
         item.addedOn = [NSDate date];
         item.isRead = false;
@@ -1061,7 +1127,10 @@ typedef enum {
             if(trackingJson == nil){
                 continue;
             }
-            NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+            //NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+            
+            NSDictionary * tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
+            
             NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
             
             if([localItem.trackingNumber isEqualToString:trackingNum]) {

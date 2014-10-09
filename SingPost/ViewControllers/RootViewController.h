@@ -21,4 +21,6 @@
 - (void)cPopViewController;
 - (BOOL)isSideBarVisible;
 
+- (void) checkSignStatus;
+
 @end

@@ -21,6 +21,7 @@
 @property (nonatomic, retain) TrackingMainViewController * trackingMainViewController;
 
 @property (nonatomic, assign) BOOL isFirstTime;
+@property (nonatomic, assign) BOOL isLoginFromSideBar;
 
 + (AppDelegate *)sharedAppDelegate;
 - (void)updateMaintananceStatuses;
@@ -32,4 +33,6 @@
 - (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
 
 - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
+
+- (void)LoginFacebook;
 @end

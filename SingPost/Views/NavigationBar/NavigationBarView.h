@@ -17,4 +17,6 @@
 @property (nonatomic) NSString *title;
 @property (nonatomic, assign) CGFloat titleFontSize;
 
+- (void)setToggleButtonEnable:(BOOL)isEnable;
+
 @end

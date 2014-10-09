@@ -50,8 +50,9 @@
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setShowBackButton:YES];
     
-    if(title)
+    if(title) {
         [navigationBarView setTitle:title];
+    }
     else
         [navigationBarView setTitle:@"Parcel Information"];
     [contentView addSubview:navigationBarView];

@@ -38,9 +38,25 @@
 }
 
 - (void) initConetent {
+    
     _trackingLabel.text = item.trackingNumber;
     [_trackingLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     
+    if([self isSelected])
+        checkBox.selected = true;
+    else
+        checkBox.selected = false;
+}
+
+- (BOOL) isSelected {
+    NSArray * arr = delegate.trackItems2Delete;
+    
+    for(TrackedItem * tid in arr) {
+        if([item.trackingNumber isEqualToString:tid.trackingNumber])
+            return false;
+    }
+    
+    return true;
 }
 
 - (IBAction)onClicked:(UIButton *)sender {
@@ -52,6 +68,18 @@
         sender.selected = true;
         [delegate removeFromDeleteItem:item];
     }
+}
+
+- (void)onSelected {
+    checkBox.selected = true;
+    [delegate removeFromDeleteItem:item];
+    
+}
+
+- (void)onUnSelected {
+    checkBox.selected = false;
+    [delegate add2DeleteItem:item];
+    
 }
 
 

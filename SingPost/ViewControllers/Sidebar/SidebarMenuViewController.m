@@ -41,6 +41,7 @@
 #import <SVProgressHUD.h>
 
 #import <FacebookSDK/FacebookSDK.h>
+#import "ProceedViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -94,6 +95,8 @@
     UIButton *trackingListButton;
     UIButton *findTrackingNumberButton;
     
+    UIButton *logButton;
+    
     BOOL showOffersMoreSubrows;
 }
 
@@ -114,6 +117,24 @@
     [landingPageButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, offsetY + 2, 44, 44)];
     [contentView addSubview:landingPageButton];
     
+    logButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    NSString * str = @"Log In";
+    
+    if (FBSession.activeSession.state == FBSessionStateOpen
+        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        str = @"Log Out";
+    }
+    
+    [self performSelector:@selector(checkLoginStatus) withObject:nil afterDelay:1.0f];
+    
+    [logButton setTitle:str forState:UIControlStateNormal];
+    [logButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
+    [logButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [logButton addTarget:self action:@selector(onClickLogButton) forControlEvents:UIControlEventTouchUpInside];
+    [logButton setFrame:CGRectMake(SIDEBAR_WIDTH - 110, offsetY + 2, 60, 44)];
+    [contentView addSubview:logButton];
+    
+    
     offsetY += 55.0f;
     
     menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStylePlain];
@@ -131,6 +152,8 @@
     [contentView addSubview:dropShadowImageView];
     
     self.view = contentView;
+    
+    [contentView bringSubviewToFront:logButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -376,7 +399,7 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/sg/app/singpost-mobile/id647986630"]];
                 break;
             }
-            case SUBROWS_OFFERSMORE_SIGNOFF:
+           /* case SUBROWS_OFFERSMORE_SIGNOFF:
             {
                 if (FBSession.activeSession.state == FBSessionStateOpen
                     || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -386,30 +409,43 @@
                     
                     
                     [FBSession.activeSession closeAndClearTokenInformation];
+                    [FBSession.activeSession close];
+                    //[FBSession setActiveSession:nil];
+                    
+                    [self fbDidLogout];
                     
                     [ApiClient sharedInstance].serverToken = @"";
                     
+                    //ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+                    
+                    
+                    //[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]
+                    
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]];
+                    
+                    
+                    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Signed Out" message:@"You have signed out from Facebook account successfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                    
+                    [alert show];
+                    
+                    [self checkLoginStatus];
                     // If the session state is not any of the two "open" states when the button is clicked
                 } else {
-                    // Open a session showing the user the login UI
-                    // You must ALWAYS ask for public_profile permissions when opening a session
-                    [FBSession openActiveSessionWithReadPermissions:@[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"]
-                                                       allowLoginUI:YES
-                                                  completionHandler:
-                     ^(FBSession *session, FBSessionState state, NSError *error) {
-                         
-                         // Retrieve the app delegate
-                         AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-                         // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
-                         [appDelegate sessionStateChanged:session state:state error:error];
-                     }];
+                    
+                    
+
+                    
+                    ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+                    
+                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
+                    //[[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
                 }
                 
                 
             
                 //[FBSession.activeSession closeAndClearTokenInformation];
                 break;
-            }
+            }*/
             default:
             {
                 break;
@@ -601,6 +637,100 @@
     [self.view endEditing:YES];
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+}
+
+-(void) checkLoginStatus {
+    NSString * str = @"Log In";
+    
+    if (FBSession.activeSession.state == FBSessionStateOpen
+        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        str = @"Log Out";
+    }
+    
+    [logButton setTitle:str forState:UIControlStateNormal];
+}
+
+-(void) onClickLogButton {
+    if (FBSession.activeSession.state == FBSessionStateOpen
+        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        
+        // Close the session and remove the access token from the cache
+        // The session state handler (in the app delegate) will be called automatically
+        
+        
+        [FBSession.activeSession closeAndClearTokenInformation];
+        [FBSession.activeSession close];
+        //[FBSession setActiveSession:nil];
+        
+        [self fbDidLogout];
+        
+        [ApiClient sharedInstance].serverToken = @"";
+        
+        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]];
+        
+        
+        /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Logged Out" message:@"You have logged out from Facebook account successfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alert show];*/
+        
+        [self checkLoginStatus];
+        // If the session state is not any of the two "open" states when the button is clicked
+    } else {
+        
+        /*ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+        
+        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];*/
+        
+        if (FBSession.activeSession.state == FBSessionStateOpen
+            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+            
+            // Close the session and remove the access token from the cache
+            // The session state handler (in the app delegate) will be called automatically
+            
+            
+            [FBSession.activeSession closeAndClearTokenInformation];
+            [FBSession.activeSession close];
+            //[FBSession setActiveSession:nil];
+            
+            [self fbDidLogout];
+            
+            [ApiClient sharedInstance].serverToken = @"";
+            
+            // If the session state is not any of the two "open" states when the button is clicked
+        } else {
+            // Open a session showing the user the login UI
+            // You must ALWAYS ask for public_profile permissions when opening a session
+            [FBSession openActiveSessionWithReadPermissions:@[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"]
+             allowLoginUI:YES
+             completionHandler:
+             ^(FBSession *session, FBSessionState state, NSError *error) {
+             
+             // Retrieve the app delegate
+             AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+             
+             appDelegate.isLoginFromSideBar = YES;
+             // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+             [appDelegate sessionStateChanged:session state:state error:error];
+             }];
+            
+            //[[AppDelegate sharedAppDelegate] LoginFacebook];
+        }
+
+    }
+}
+
+-(void) fbDidLogout
+{
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for(NSHTTPCookie *cookie in [storage cookies])
+    {
+        NSString *domainName = [cookie domain];
+        NSRange domainRange = [domainName rangeOfString:@"facebook"];
+        if(domainRange.length > 0)
+        {
+            [storage deleteCookie:cookie];
+        }
+    }
 }
 
 @end

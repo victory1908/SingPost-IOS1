@@ -12,6 +12,8 @@
 
 - (void)updateMaintananceStatusUIs;
 
+-(void) checkLoginStatus;
+
 @property (nonatomic, assign) BOOL isVisible;
 
 @end

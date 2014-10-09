@@ -15,8 +15,12 @@
 #import "LandingPageViewController.h"
 #import "UIView+Position.h"
 #import "UIAlertView+Blocks.h"
+#import "ApiClient.h"
 
-@interface ProceedViewController ()
+@interface ProceedViewController () {
+    UIButton * btn1;
+    UIButton * sendBtn;
+}
 
 @end
 
@@ -44,7 +48,7 @@
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
-    UIButton * btn1 = [[UIButton alloc] initWithFrame:CGRectMake(20, 70, contentView.bounds.size.width/16, contentView.bounds.size.width/16)];
+    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(20, 70, contentView.bounds.size.width/16, contentView.bounds.size.width/16)];
     [btn1 setImage:[UIImage imageNamed:@"checkbox-0"] forState:UIControlStateNormal];
     [btn1 setImage:[UIImage imageNamed:@"checkbox-1"] forState:UIControlStateSelected];
     [btn1 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -72,12 +76,13 @@
     [pd sizeToFit];
     [contentView addSubview:pd];
     
-    UIButton * sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, pd.frame.origin.y + pd.frame.size.height + (20 * contentView.bounds.size.width /320), contentView.bounds.size.width - 40, contentView.bounds.size.width * 2 /16)];
+    sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, pd.frame.origin.y + pd.frame.size.height + (20 * contentView.bounds.size.width /320), contentView.bounds.size.width - 40, contentView.bounds.size.width * 2 /16)];
     [sendBtn setBackgroundImage:[UIImage imageNamed:@"blue_bg_pressed_button"] forState:UIControlStateNormal];
     [sendBtn addTarget:self action:@selector(sendClicked) forControlEvents:UIControlEventTouchUpInside];
     [sendBtn setTitle:@"DONE" forState:UIControlStateNormal];
     [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [contentView addSubview:sendBtn];
+    [sendBtn setEnabled:false];
     
     self.view = contentView;
     
@@ -85,11 +90,71 @@
 
 - (IBAction)buttonClicked:(UIButton *)sender {
     sender.selected = !sender.selected;
+    
+    if(sender == btn1 && sender.isSelected == false) {
+        [sendBtn setEnabled:false];
+    } else if (sender == btn1 && sender.isSelected == true) {
+        [sendBtn setEnabled:true];
+    }
 }
 
 - (void)sendClicked {
-    [[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
+    
+    if (FBSession.activeSession.state == FBSessionStateOpen
+        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+        
+        // Close the session and remove the access token from the cache
+        // The session state handler (in the app delegate) will be called automatically
+        
+        
+        [FBSession.activeSession closeAndClearTokenInformation];
+        [FBSession.activeSession close];
+        //[FBSession setActiveSession:nil];
+        
+        [self fbDidLogout];
+        
+        [ApiClient sharedInstance].serverToken = @"";
+        
+        // If the session state is not any of the two "open" states when the button is clicked
+    } else {
+        // Open a session showing the user the login UI
+        // You must ALWAYS ask for public_profile permissions when opening a session
+        /*[FBSession openActiveSessionWithReadPermissions:@[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"]
+                                           allowLoginUI:YES
+                                      completionHandler:
+         ^(FBSession *session, FBSessionState state, NSError *error) {
+             
+             // Retrieve the app delegate
+             AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+             
+             appDelegate.isLoginFromSideBar = YES;
+             // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+             [appDelegate sessionStateChanged:session state:state error:error];
+         }];*/
+        
+        [[AppDelegate sharedAppDelegate] LoginFacebook];
+    }
+    
+    //[[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
 }
+
+
+
+-(void) fbDidLogout
+{
+    NSLog(@"Logged out of facebook");
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies])
+    {
+        NSString* domainName = [cookie domain];
+        NSRange domainRange = [domainName rangeOfString:@"facebook"];
+        if(domainRange.length > 0)
+        {
+            [storage deleteCookie:cookie];
+        }
+    }
+}//
 
 - (void)didReceiveMemoryWarning
 {

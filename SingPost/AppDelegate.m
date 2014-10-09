@@ -25,6 +25,7 @@
 
 @implementation AppDelegate
 @synthesize activeItemsFetchedResultsController = _activeItemsFetchedResultsController;
+@synthesize isLoginFromSideBar;
 
 
 + (AppDelegate *)sharedAppDelegate {
@@ -100,13 +101,10 @@
     if(self.isFirstTime) {
         self.isFirstTime = false;
     } else {
-        //[self getAllLabel];
-        
-    
-        //[AppDelegate sharedAppDelegate].rootViewController.navigationController.topViewController = self.trackingMainViewController
         if([AppDelegate sharedAppDelegate].rootViewController.activeViewController == self.trackingMainViewController) {
             [self.trackingMainViewController syncLabelsWithTrackingNumbers];
         } else {
+            if(!isLoginFromSideBar)
              [self getAllLabel];
         }
     }
@@ -200,10 +198,57 @@
          
          // Retrieve the app delegate
          AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+         
+          appDelegate.isLoginFromSideBar = YES;
          // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
          [appDelegate sessionStateChanged:session state:state error:error];
      }];
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+- (void)LoginFacebook {
+    [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
+     {
+         NSLog(@"FacebookLogin success");
+         NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
+         
+         if(temp != nil && ![temp isKindOfClass:[NSNull class]])
+             [ApiClient sharedInstance].serverToken = temp;
+         
+         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+         NSString * lastUser = [defaults valueForKey:@"LAST_USER"];
+         
+         //If is not the lastuser
+         if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser] && lastUser != nil) {
+             //1.Unsubscribe all lastuser's tracking ID
+             //2.Clear local database
+             [self unSubscribeAllActiveItem];
+             
+         }
+         
+         [defaults setValue:[ApiClient sharedInstance].fbID forKey:@"LAST_USER"];
+         [defaults synchronize];
+         
+         [self getAllLabel];
+         
+         /*if(isLoginFromSideBar) {
+          if ([self.rootViewController isSideBarVisible])
+          [self.rootViewController toggleSideBarVisiblity];
+          
+          ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+          [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+          }*/
+         
+         [self.rootViewController checkSignStatus];
+         
+         
+     } onFailure:^(NSError *error)
+     {
+         [self.rootViewController checkSignStatus];
+         [SVProgressHUD dismiss];
+     }];
+
+
 }
 
 // This method will handle ALL the session state changes in the app
@@ -213,7 +258,6 @@
     if (!error && state == FBSessionStateOpen){
         NSLog(@"Session opened");
         // Show the user the logged-in UI
-        //[self userLoggedIn];
         [self.trackingMainViewController refreshTableView];
         
         
@@ -224,7 +268,33 @@
                 [ApiClient sharedInstance].fbToken = [FBSession.activeSession.accessTokenData accessToken];
                 [ApiClient sharedInstance].fbID = user.objectID;
                 
-                [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
+                [[ApiClient sharedInstance] isFirstTime:^(id responseObject){
+                    int i = [[[responseObject objectForKey:@"data"] objectForKey:@"first_timer"] intValue];
+                    
+                    //New User
+                    if(i == 1) {
+                        //if(isLoginFromSideBar) {
+                        if ([self.rootViewController isSideBarVisible])
+                            [self.rootViewController toggleSideBarVisiblity];
+                        
+                        ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+                        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+                        //}
+                        
+                        return;
+                    }
+                    //Existing User
+                    else {
+                        [self LoginFacebook];
+                    }
+                    
+                }onFailure:^(NSError *error)
+                 {
+                     [self.rootViewController checkSignStatus];
+                     [SVProgressHUD dismiss];
+                 }];
+                
+                /*[[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
                  {
                      NSLog(@"FacebookLogin success");
                      NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
@@ -248,17 +318,22 @@
                      
                      [self getAllLabel];
                      
-                     /*if ([self.rootViewController isSideBarVisible])
-                         [self.rootViewController toggleSideBarVisiblity];
+//                     if(isLoginFromSideBar) {
+//                         if ([self.rootViewController isSideBarVisible])
+//                             [self.rootViewController toggleSideBarVisiblity];
+//                     
+//                         ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+//                         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+//                     }
                      
-                     ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-                     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];*/
+                     [self.rootViewController checkSignStatus];
                      
                      
                  } onFailure:^(NSError *error)
                  {
-                     
-                 }];
+                     [self.rootViewController checkSignStatus];
+                     [SVProgressHUD dismiss];
+                 }];*/
             } else {
                 // An error occurred, we need to handle the error
                 // See: https://developers.facebook.com/docs/ios/errors
@@ -274,6 +349,15 @@
         //[self userLoggedOut];
         
         [self.trackingMainViewController refreshTableView];
+        
+        [self.rootViewController checkSignStatus];
+        //Go to tracking list page.
+        /*if ([self.rootViewController isSideBarVisible])
+            [self.rootViewController toggleSideBarVisiblity];
+        
+        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+        trackingMainViewController.isPushNotification = YES;
+        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];*/
     }
     
     // Handle errors
@@ -356,9 +440,9 @@
     }
     
     [PushNotificationManager API_unsubscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
-        [TrackedItem MR_truncateAll];
+        //[TrackedItem MR_truncateAll];
         
-        [SVProgressHUD dismiss];
+        //[SVProgressHUD dismiss];
     }];
 }
 
@@ -389,6 +473,9 @@
                                                                            options: NSJSONReadingMutableContainers
                                                                              error: &e];
              NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+             if(tempDic == nil)
+             
+                 tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
              
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
              
@@ -405,12 +492,33 @@
              
              
          }
-         [SVProgressHUD dismiss];
+         //[SVProgressHUD dismiss];
+         
+         //Go to tracking list page.
+         
+         if(isLoginFromSideBar) {
+             [self performSelector:@selector(GotoTrackingMain) withObject:nil afterDelay:2.0f];
+             
+         } else {
+             [SVProgressHUD dismiss];
+         }
          
      } onFailure:^(NSError *error)
      {
          [SVProgressHUD dismiss];
      }];
+}
+
+- (void) GotoTrackingMain {
+    [SVProgressHUD dismiss];
+    
+    isLoginFromSideBar = false;
+    if ([self.rootViewController isSideBarVisible])
+        [self.rootViewController toggleSideBarVisiblity];
+    
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = YES;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
 }
 
 - (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate{
@@ -436,7 +544,9 @@
             item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
         
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        
+        
+        item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
         
         item.addedOn = [NSDate date];
         item.isRead = false;
@@ -444,8 +554,14 @@
         
         NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
-        for(NSDictionary * dic in statusArray) {
+        if([statusArray isKindOfClass:[NSDictionary class]]) {
+            NSDictionary * dic = (NSDictionary *)statusArray;
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        } else {
+            
+            for(NSDictionary * dic in statusArray) {
+                [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+            }
         }
         
         
@@ -467,16 +583,24 @@
         else
             item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-        item.isActive = [dic objectForKey:@"TrackingNumberActive"];
+        item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
         
         item.addedOn = [NSDate date];
         item.isRead = false;
         item.lastUpdatedOn = [NSDate date];
         
         NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
+        
+        
         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
-        for(NSDictionary * dic in statusArray) {
+        if([statusArray isKindOfClass:[NSDictionary class]]) {
+            NSDictionary * dic = (NSDictionary *)statusArray;
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        } else {
+        
+            for(NSDictionary * dic in statusArray) {
+                [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+            }
         }
         
         

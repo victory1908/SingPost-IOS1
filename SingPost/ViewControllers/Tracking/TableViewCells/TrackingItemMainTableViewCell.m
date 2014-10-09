@@ -22,6 +22,9 @@
     PersistentBackgroundView *separatorView;
     
     BOOL isActiveOrUnknown;
+    
+    UIButton * button;
+    UIButton * icon;
 }
 @synthesize signIn2Label;
 @synthesize delegate;
@@ -50,6 +53,7 @@
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6 + (isActive ? 50: 0), 150, 30)];
+        [trackingNumberLabel setNumberOfLines:2];
         [trackingNumberLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [trackingNumberLabel setTextColor:RGB(58, 68, 61)];
         [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
@@ -72,49 +76,74 @@
         //Facebook sign in
         if(isActive) {
             
-            signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
+            signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 160, 40)];
             [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
             //[signIn2Label setPlaceholder:@"Enter a label"];
             [signIn2Label setTextColor:RGB(36, 84, 157)];
-            [signIn2Label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-            UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
+            [signIn2Label setFont:[UIFont SingPostRegularFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
+            UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, signIn2Label.frame.size.height)];
             signIn2Label.leftView = paddingView;
             signIn2Label.leftViewMode = UITextFieldViewModeAlways;
             
+    
+            
+            UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
+            signIn2Label.rightView = paddingView2;
+            signIn2Label.rightViewMode = UITextFieldViewModeAlways;
+            
+            [contentView addSubview:signIn2Label];
             if (FBSession.activeSession.state != FBSessionStateOpen
                 && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
                 
                 [signIn2Label setPlaceholder:@"Sign in to label"];
+                //[signIn2Label setText:@"Sign in to label"];
+                [signIn2Label setTextAlignment:NSTextAlignmentLeft];
                 [signIn2Label setTextColor:RGB(50, 50, 50)];
                 [signIn2Label setUserInteractionEnabled:NO];
                 
-                UIImageView * icon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 14, 14)];
-                [icon setImage:[UIImage imageNamed:@"labelIcon.png"]];
+                icon = [[UIButton alloc] initWithFrame:CGRectMake(140, 6, 30, 30)];
+                //[icon setImage:[UIImage imageNamed:@"editLabel.png"]];
+                [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon2.png"] forState:UIControlStateNormal];
+                [icon addTarget:self action:@selector(showSignInButton) forControlEvents:UIControlEventTouchUpInside];
                 
-                
-                
-                UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
+                button = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
                 [button addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
                 [contentView addSubview: button];
+                [button setHidden:YES];
                 
-                [signIn2Label addSubview:icon];
+                [signIn2Label setHidden:YES];
+                //[signIn2Label addSubview:icon];
+                [self.contentView addSubview: icon];
+                
+                [trackingNumberLabel setFrame:CGRectMake(15, 6, 150, 30)];
             } else {
                 [signIn2Label setText:@"Enter a label"];
                 [signIn2Label setClearsOnBeginEditing:YES];
                 
                 [signIn2Label setAutocorrectionType:UITextAutocorrectionTypeNo];
                 
+                icon = [[UIButton alloc] initWithFrame:CGRectMake(140, 6, 30, 30)];
+                //[icon setImage:[UIImage imageNamed:@"editLabel.png"]];
+                [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
+                [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
+                [icon addTarget:self action:@selector(showSignInButton) forControlEvents:UIControlEventTouchUpInside];
+                [self.contentView addSubview: icon];
+                
+                [signIn2Label setHidden:YES];
+                
             }
-            [contentView addSubview:signIn2Label];
+            
             signIn2Label.delegate = self;
             
             //Label Edit Button
-            editBtn = [[UIButton alloc] initWithFrame:CGRectMake(130, 6, 20, 20)];
+            /*editBtn = [[UIButton alloc] initWithFrame:CGRectMake(130, 6, 20, 20)];
             [editBtn setImage:[UIImage imageNamed:@"wocaonimagebi"] forState:UIControlStateNormal];
             [editBtn addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside];
             [editBtn setHidden:YES];
             [self.contentView addSubview:editBtn];
-            [self.contentView bringSubviewToFront:editBtn];
+            [self.contentView bringSubviewToFront:editBtn];*/
+            
+            [self.contentView bringSubviewToFront:icon];
             
         }
         
@@ -125,21 +154,34 @@
 
 
 - (void)editClicked {
-    [editBtn setHidden:YES];
+    //[editBtn setHidden:YES];
     
-    signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
+    [signIn2Label removeFromSuperview];
+    signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 160, 40)];
     [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
     //[signIn2Label setPlaceholder:@"Enter a label"];
     [signIn2Label setTextColor:RGB(36, 84, 157)];
     [signIn2Label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, signIn2Label.frame.size.height)];
     signIn2Label.leftView = paddingView;
     signIn2Label.leftViewMode = UITextFieldViewModeAlways;
-    [signIn2Label setText:@"Enter a label"];
-    [signIn2Label setClearsOnBeginEditing:YES];
+    UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
+    signIn2Label.rightView = paddingView2;
+    signIn2Label.rightViewMode = UITextFieldViewModeAlways;
+    
+    if(itemLabel.text != nil && ![itemLabel.text isEqualToString:@""]) {
+        [signIn2Label setText:itemLabel.text];
+        [signIn2Label setClearsOnBeginEditing:NO];
+    } else {
+        [signIn2Label setText:@"Enter a label"];
+        [signIn2Label setClearsOnBeginEditing:YES];
+    }
+    //[signIn2Label setClearsOnBeginEditing:YES];
     [signIn2Label setAutocorrectionType:UITextAutocorrectionTypeNo];
     [self.contentView addSubview:signIn2Label];
     signIn2Label.delegate = self;
+    
+    [self.contentView bringSubviewToFront:icon];
     
     [itemLabel removeFromSuperview];
 }
@@ -156,6 +198,8 @@
     _item = inItem;
     [trackingNumberLabel setText:_item.trackingNumber];
     [trackingNumberLabel alignTop];
+    [trackingNumberLabel setNumberOfLines:0];
+    [trackingNumberLabel sizeToFit];
     
     [statusLabel setHeight:STATUS_LABEL_SIZE.height];
     [statusLabel setText:_item.status];
@@ -170,20 +214,33 @@
     if(isActiveOrUnknown && label && ![label isEqualToString:@""]) {
         [signIn2Label removeFromSuperview];
         
-        itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
+        itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 130, 40)];
         [itemLabel setText:label ];
         [itemLabel setTextColor:RGB(36, 84, 157)];
-        [itemLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+        [itemLabel setFont:[UIFont SingPostBoldFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
+        [itemLabel setNumberOfLines:0];
         [itemLabel sizeToFit];
         [self.contentView addSubview:itemLabel ];
         
         signIn2Label.text = label;
         [editBtn setHidden:NO];
         
+        
+        
         [self.contentView bringSubviewToFront:editBtn];
+        
+        [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
+        [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
+        
+        //[self.contentView bringSubviewToFront:icon];
     } else {
-        [editBtn setHidden:YES];
+        //[editBtn setHidden:YES];
+        //trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6 + (isActive ? 50: 0), 150, 30)];
+        [trackingNumberLabel setFrame:CGRectMake(15, 6, 150, 30)];
+        [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon2.png"] forState:UIControlStateNormal];
     }
+    
+    [self.contentView bringSubviewToFront:icon];
     
     
 }
@@ -193,7 +250,48 @@
     [statusLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
 }
 
+- (void)showSignInButton {
+    if (FBSession.activeSession.state != FBSessionStateOpen
+        && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
+        [signIn2Label setHidden:NO];
+        [button setHidden:NO];
+        [icon setFrame:CGRectMake(140, 10, 30, 30)];
+        [trackingNumberLabel setFrame:CGRectMake(15,56, 150, 30)];
+        
+        [self.contentView addSubview: icon];
+    } else {
+        if(icon.isSelected) {
+            
+            [icon setSelected:NO];
+            [icon setY:6];
+            [signIn2Label setHidden:YES];
+            
+            if(signIn2Label.text != nil && ![signIn2Label.text isEqualToString:@""] && ![signIn2Label.text isEqualToString:@"Enter a label"]) {
+                [trackingNumberLabel setFrame:CGRectMake(15,56, 150, 30)];
 
+                [self setItemLabel2:signIn2Label.text];
+                [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
+                [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
+                [icon setSelected:NO];
+            }
+            else {
+                [trackingNumberLabel setFrame:CGRectMake(15,6, 150, 30)];
+                NSString * num = _item.trackingNumber;
+                [delegate.labelDic setValue:@"" forKey:num];
+                
+            }
+        } else {
+            [icon setSelected:YES];
+            [icon setY:11];
+            [signIn2Label setHidden:NO];
+            [trackingNumberLabel setFrame:CGRectMake(15,56, 150, 30)];
+            [self editClicked];
+        }
+        
+        [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
+        [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
+    }
+}
 
 - (void)signIn {
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Register / Sign In" message:@"To enjoy this new feature of labelling all your packages for easy reference, you need to register with us via a simple Facebook sign in. Shall we proceed?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
@@ -264,28 +362,48 @@
     
     if([textField.text isEqualToString:@""]) {
         textField.text = @"Enter a label";
+        itemLabel.text = @"";
+        
+        NSString * num = _item.trackingNumber;
+        [delegate.labelDic setValue:@"" forKey:num];
         return;
     }
+    //[self showSignInButton];
     
     [self setItemLabel2:textField.text];
-    [editBtn setHidden:NO];
-    [self.contentView bringSubviewToFront:editBtn];
+    [signIn2Label setHidden:YES];
+    
+    [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
+    [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
+    if(icon.isSelected) {
+        
+        [icon setSelected:NO];
+    } else {
+        [icon setSelected:YES];
+    }
 }
 
 - (void) setItemLabel2 : (NSString *)text {
     [signIn2Label removeFromSuperview];
     
-    itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 6, 150, 40)];
+    [itemLabel removeFromSuperview];
+    itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 130, 40)];
     [itemLabel setText:text ];
     [itemLabel setTextColor:RGB(36, 84, 157)];
-    [itemLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [itemLabel setFont:[UIFont SingPostBoldFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
+    [itemLabel setNumberOfLines:0];
     [itemLabel sizeToFit];
     [self.contentView addSubview:itemLabel ];
     
-    [delegate submitAllTrackingItemWithLabel];
+    [self.contentView bringSubviewToFront:icon];
     
     NSString * num = _item.trackingNumber;
     [delegate.labelDic setValue:text forKey:num];
+    
+    [delegate submitAllTrackingItemWithLabel];
+    
+    //NSString * num = _item.trackingNumber;
+   // [delegate.labelDic setValue:text forKey:num];
 }
 
 - (void) updateLabel : (NSString *)label {

@@ -25,7 +25,7 @@
 @synthesize notificationProfileID = _notificationProfileID;
 
 
-static BOOL isProduction = YES;
+static BOOL isProduction = NO;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
@@ -964,6 +964,29 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     [self enqueueHTTPRequestOperation:operation];
 }
 
+- (void) isFirstTime:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
+    NSString * url = @"http://27.109.106.170/singpost3/api/isfirsttimer/k3y15k3y";
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    [request setHTTPMethod:@"POST"];
+    
+    
+    NSString * postString = [NSString stringWithFormat:@"fb_token=%@",fbToken];
+    
+    
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+}
+
 - (void) registerTrackingNunmbers: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
     
@@ -1087,10 +1110,10 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         
         [dic2 setValue:dicY forKey:@"DeliveryStatusDetails"];
         [dicX setValue:dic2 forKey:@"ItemTrackingDetail"];
-        [dic1 setValue:dicX forKey:@"ItemsTrackingDetailList"];
+        //[dic1 setValue:dicX forKey:@"ItemsTrackingDetailList"];
         
         NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic1
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dicX
                                                            options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
                                                              error:&error];
         NSString * str;

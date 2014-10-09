@@ -296,4 +296,10 @@
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
 }
 
+#pragma mark - Sign in 
+
+- (void) checkSignStatus {
+    [sideBarMenuViewController checkLoginStatus];
+}
+
 @end

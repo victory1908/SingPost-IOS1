@@ -35,12 +35,12 @@
         [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backButton];
         
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width - 80, 44)];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width - 100, 44)];
         [titleLabel setCenter:self.center];
         [titleLabel setNumberOfLines:2];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [titleLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+        [titleLabel setFont:[UIFont SingPostLightFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
         [titleLabel setTextColor:[UIColor whiteColor]];
         [self addSubview:titleLabel];
     }
@@ -54,6 +54,11 @@
     [toggleSidebarButton setHidden:!showSidebarToggleButton];
 }
 
+- (void)setToggleButtonEnable:(BOOL)isEnable
+{
+    [toggleSidebarButton setEnabled:isEnable];
+}
+
 - (void)setShowBackButton:(BOOL)showBackButton
 {
     [backButton setHidden:!showBackButton];
@@ -62,6 +67,7 @@
 - (void)setTitle:(NSString *)title
 {
     [titleLabel setText:title];
+    //[titleLabel sizeToFit];
 }
 
 - (void)setTitleFontSize:(CGFloat)titleFontSize

@@ -14,6 +14,7 @@
 @property (nonatomic,retain)NSArray * trackItems;
 @property (nonatomic,retain)NSMutableArray * trackItems2Delete;
 @property (nonatomic,retain)TrackingMainViewController * delegate;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 -(void) add2DeleteItem : (TrackedItem *)item;
 -(void) removeFromDeleteItem : (TrackedItem *)item;
