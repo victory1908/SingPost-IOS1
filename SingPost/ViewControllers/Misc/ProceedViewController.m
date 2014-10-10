@@ -20,6 +20,7 @@
 @interface ProceedViewController () {
     UIButton * btn1;
     UIButton * sendBtn;
+    __weak IBOutlet UIButton *doneBtn;
 }
 
 @end
@@ -84,6 +85,8 @@
     [contentView addSubview:sendBtn];
     [sendBtn setEnabled:false];
     
+    [doneBtn.titleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    
     self.view = contentView;
     
 }
@@ -123,7 +126,7 @@
                                            allowLoginUI:YES
                                       completionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
-             
+         
              // Retrieve the app delegate
              AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
              

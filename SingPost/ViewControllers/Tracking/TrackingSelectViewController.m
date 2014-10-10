@@ -11,6 +11,7 @@
 
 @interface TrackingSelectViewController () {
     //NSMutableArray * selectedArray;
+    __weak IBOutlet UIButton *checkBox;
 }
 
 @end
@@ -56,6 +57,10 @@
     }
 }
 
+- (void)removeAll2Delete {
+    [trackItems2Delete removeAllObjects];
+}
+
 #pragma mark - TableView
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -79,16 +84,20 @@
         NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"TrackingSelectTableViewCell" owner:self options:nil];
         
         cell = [topLevelObjects objectAtIndex:0];
-        cell.item = [trackItems objectAtIndex:indexPath.row];
-        cell.delegate = self;
+        
         
     }
+    
+    cell.item = [trackItems objectAtIndex:indexPath.row];
+    cell.delegate = self;
     [cell initConetent];
     return cell;
 }
 
 #pragma mark Sync 
 -(void) add2DeleteItem : (TrackedItem *)item {
+    [checkBox setSelected:NO];
+    
     if([trackItems2Delete containsObject:item])
         return;
     
@@ -97,6 +106,9 @@
 
 -(void) removeFromDeleteItem : (TrackedItem *)item {
     [trackItems2Delete removeObject:item];
+    
+    if([trackItems2Delete count] == 0)
+        [checkBox setSelected:YES];
 }
 
 - (IBAction)onOKClicked:(id)sender {
@@ -155,7 +167,7 @@
 - (NSDictionary *) selectAll {
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     
-    NSMutableArray *cells = [[NSMutableArray alloc] init];
+    /*NSMutableArray *cells = [[NSMutableArray alloc] init];
     for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j)
     {
         for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i)
@@ -163,6 +175,7 @@
             id cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
             if(cell)
                 [cells addObject:cell];
+            
         }
     }
     
@@ -172,7 +185,10 @@
             [cell onSelected];
             
         }
-    }
+    }*/
+    
+    [self removeAll2Delete];
+    [self.tableView reloadData];
     
     return dic;
 }
@@ -180,7 +196,7 @@
 - (NSDictionary *) unSelectAll {
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     
-    NSMutableArray *cells = [[NSMutableArray alloc] init];
+    /*NSMutableArray *cells = [[NSMutableArray alloc] init];
     for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j)
     {
         for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i)
@@ -197,8 +213,10 @@
             [cell onUnSelected];
             
         }
-    }
+    }*/
     
+    [self addAll2Delete];
+    [self.tableView reloadData];
     return dic;
 }
 

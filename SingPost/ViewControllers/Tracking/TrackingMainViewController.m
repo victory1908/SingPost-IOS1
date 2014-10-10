@@ -116,6 +116,7 @@ typedef enum {
     labelDic = [[NSMutableDictionary alloc] init];
 }
 
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -141,10 +142,11 @@ typedef enum {
     appDelegate.trackingMainViewController = self;
     
     if(!isViewDidAppear) {
-        //[self performSelector:@selector(syncLabelsWithTrackingNumbers) withObject:nil afterDelay:0.1f];
         [self syncLabelsWithTrackingNumbers];
         isViewDidAppear = true;
     }
+    
+    //[self refreshTableView];
 
 }
 
@@ -556,7 +558,14 @@ typedef enum {
             }];
         }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        //[tableView reloadData];
+        [self performSelector:@selector(stupidRequirementFromSingpost) withObject:nil afterDelay:1];
     }
+}
+
+- (void) stupidRequirementFromSingpost {
+    [self refreshTableView];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -970,7 +979,7 @@ typedef enum {
     vc.trackItems = newLocalItems;
 
     [self.view addSubview:vc.view];
-    vc.view.frame = CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height);
+    vc.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     vc.view.alpha = 0;
     vc.delegate = self;
     //[self presentViewController:vc animated:YES completion:^{ }];
@@ -1025,6 +1034,7 @@ typedef enum {
             
             [self enableSideBar];
         } else {
+            [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.2f];
             [vc.view removeFromSuperview];
             [self enableSideBar];
         }
@@ -1097,9 +1107,17 @@ typedef enum {
         item.lastUpdatedOn = [NSDate date];
 
         NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
+        
+        
         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
-        for(NSDictionary * dic in statusArray) {
+        if([statusArray isKindOfClass:[NSDictionary class]]) {
+            NSDictionary * dic = (NSDictionary *)statusArray;
             [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+        } else {
+            
+            for(NSDictionary * dic in statusArray) {
+                [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+            }
         }
         
         item.deliveryStatuses = newStatus;

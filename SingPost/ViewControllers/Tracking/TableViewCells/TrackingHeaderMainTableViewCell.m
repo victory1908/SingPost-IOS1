@@ -28,7 +28,7 @@
         
         UILabel *trackingNumbersHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 30)];
         [trackingNumbersHeaderLabel setFont:[UIFont SingPostBoldFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
-        [trackingNumbersHeaderLabel setText:@"Tracking numbers"];
+        [trackingNumbersHeaderLabel setText:@"My Items"];
         [trackingNumbersHeaderLabel setTextColor:RGB(125, 136, 149)];
         [trackingNumbersHeaderLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:trackingNumbersHeaderLabel];

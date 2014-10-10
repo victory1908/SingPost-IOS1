@@ -42,10 +42,15 @@
     _trackingLabel.text = item.trackingNumber;
     [_trackingLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     
+    
     if([self isSelected])
         checkBox.selected = true;
     else
         checkBox.selected = false;
+    
+    if([UIScreen mainScreen].bounds.size.width > 700) {
+        [_trackingLabel setTextColor:[UIColor blueColor]];
+    }
 }
 
 - (BOOL) isSelected {

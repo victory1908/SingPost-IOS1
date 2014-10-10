@@ -207,9 +207,22 @@
 }
 
 - (void)LoginFacebook {
+    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    
     [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
      {
          NSLog(@"FacebookLogin success");
+         
+         int status = [[responseObject objectForKey:@"status"] intValue];
+         
+         if(status != 200) {
+             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Log in failed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+             
+             [alert show];
+             
+             return;
+         }
+        
          NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
          
          if(temp != nil && ![temp isKindOfClass:[NSNull class]])
@@ -268,6 +281,7 @@
                 [ApiClient sharedInstance].fbToken = [FBSession.activeSession.accessTokenData accessToken];
                 [ApiClient sharedInstance].fbID = user.objectID;
                 
+                [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
                 [[ApiClient sharedInstance] isFirstTime:^(id responseObject){
                     int i = [[[responseObject objectForKey:@"data"] objectForKey:@"first_timer"] intValue];
                     
@@ -280,7 +294,7 @@
                         ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
                         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
                         //}
-                        
+                        [SVProgressHUD dismiss];
                         return;
                     }
                     //Existing User
