@@ -216,6 +216,9 @@ typedef enum {
                 if (trackedItem.isFoundValue) {
                     [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
                     [self goToDetailPageWithTrackedItem:trackedItem];
+                    
+                    
+                    [self performSelector:@selector(stupidRequirementFromSingpost) withObject:nil afterDelay:1];
                 }
                 else {
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:NEW_TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
