@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface MaintanancePageViewController : UIViewController
+@interface MaintanancePageViewController : SwipeViewController
 
 - (id)initWithModuleName:(NSString *)moduleName andMessage:(NSString *)message;
 

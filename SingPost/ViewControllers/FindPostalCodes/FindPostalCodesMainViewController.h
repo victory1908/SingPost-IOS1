@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface FindPostalCodesMainViewController : UIViewController
+@interface FindPostalCodesMainViewController : SwipeViewController
 
 @end

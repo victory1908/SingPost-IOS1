@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface FeedbackViewController : UIViewController <UITextFieldDelegate>
+@interface FeedbackViewController : SwipeViewController <UITextFieldDelegate>
 
 @end

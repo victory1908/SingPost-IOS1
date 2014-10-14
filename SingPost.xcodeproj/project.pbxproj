@@ -313,6 +313,8 @@
 		24F43CF419EBF1A300F28F21 /* FindPostalCodes_Types.plist in Resources */ = {isa = PBXBuildFile; fileRef = 528F26C117F92F6C006F7027 /* FindPostalCodes_Types.plist */; };
 		24F43CF519EBF1A300F28F21 /* Speedpost Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 91B49BC0187AC76200C7FE62 /* Speedpost Agent.json */; };
 		24F43CF619EBF1A300F28F21 /* SAM.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F72185AB1B4007D6001 /* SAM.json */; };
+		24F43D0119ECC7A900F28F21 /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F43D0019ECC7A900F28F21 /* SwipeViewController.m */; };
+		24F43D0219ECC9ED00F28F21 /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F43D0019ECC7A900F28F21 /* SwipeViewController.m */; };
 		52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */; };
 		52024F1417F5F67E00AFD239 /* TrackingMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1317F5F67E00AFD239 /* TrackingMainViewController.m */; };
 		52024F1F17F6860800AFD239 /* CalculatePostageMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F1E17F6860800AFD239 /* CalculatePostageMainViewController.m */; };
@@ -475,6 +477,8 @@
 		24F43C5D19EBAD1E00F28F21 /* SingPost_SIT copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SingPost_SIT copy-Info.plist"; path = "/Users/temp/Desktop/Singpost.git/SingPost_SIT copy-Info.plist"; sourceTree = "<absolute>"; };
 		24F43CFC19EBF1A300F28F21 /* SingPost_SIT copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SingPost_SIT copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F43CFD19EBF1A300F28F21 /* SingPost_SIT copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SingPost_SIT copy2-Info.plist"; path = "/Users/temp/Desktop/Singpost.git/SingPost_SIT copy2-Info.plist"; sourceTree = "<absolute>"; };
+		24F43CFF19ECC7A900F28F21 /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeViewController.h; sourceTree = "<group>"; };
+		24F43D0019ECC7A900F28F21 /* SwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeViewController.m; sourceTree = "<group>"; };
 		2A1B15C570D541FB9281EEC5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		52024F0D17F5EEC800AFD239 /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
 		52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingPageViewController.m; sourceTree = "<group>"; };
@@ -778,6 +782,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24F43CFE19ECC77500F28F21 /* SwipeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				24F43CFF19ECC7A900F28F21 /* SwipeViewController.h */,
+				24F43D0019ECC7A900F28F21 /* SwipeViewController.m */,
+			);
+			name = SwipeViewController;
+			sourceTree = "<group>";
+		};
 		52024F0C17F5EEA500AFD239 /* LandingPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,6 +935,7 @@
 		521B174F17F1653E00FEB6FD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				24F43CFE19ECC77500F28F21 /* SwipeViewController */,
 				87DCFD7B191A1D4900E9B0DD /* RootViewController */,
 				52A8B682180F004B002BC431 /* Article */,
 				52AF5B2317FB48AF002D6798 /* Common */,
@@ -1915,6 +1929,7 @@
 				24F43C7619EBF1A300F28F21 /* AboutThisAppViewController.m in Sources */,
 				24F43C7719EBF1A300F28F21 /* LocateUsLocationTableViewCell.m in Sources */,
 				24F43C7819EBF1A300F28F21 /* UIView+Additions.m in Sources */,
+				24F43D0219ECC9ED00F28F21 /* SwipeViewController.m in Sources */,
 				24F43C7919EBF1A300F28F21 /* ColoredPageControl.m in Sources */,
 				24F43C7A19EBF1A300F28F21 /* UIView+Origami.m in Sources */,
 				24F43C7B19EBF1A300F28F21 /* UIImage+Extensions.m in Sources */,
@@ -2038,6 +2053,7 @@
 				521F786218029D7100B513FA /* AboutThisAppViewController.m in Sources */,
 				528F270317F9BBFC006F7027 /* LocateUsLocationTableViewCell.m in Sources */,
 				9192B4FB18B450EF004EB15A /* UIView+Additions.m in Sources */,
+				24F43D0119ECC7A900F28F21 /* SwipeViewController.m in Sources */,
 				521F785C180285DE00B513FA /* ColoredPageControl.m in Sources */,
 				52DDA47B17FE7F4700C8BF1C /* UIView+Origami.m in Sources */,
 				52DDA48117FEA6F000C8BF1C /* UIImage+Extensions.m in Sources */,

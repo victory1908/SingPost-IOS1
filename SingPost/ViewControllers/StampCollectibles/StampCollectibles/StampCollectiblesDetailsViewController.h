@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
 @class Stamp;
 
-@interface StampCollectiblesDetailsViewController : UIViewController
+@interface StampCollectiblesDetailsViewController : SwipeViewController
 
 - (id)initWithStamp:(Stamp *)stamp;
 

@@ -7,10 +7,11 @@
 //
 
 #import "ArticleViewController.h"
+#import "SwipeViewController.h"
 
 @class ArticleCategory;
 
-@interface ArticleSubViewController : UIViewController
+@interface ArticleSubViewController : SwipeViewController
 
 {
 @protected

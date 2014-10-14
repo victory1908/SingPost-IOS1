@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface TermsOfUseViewController : UIViewController
+@interface TermsOfUseViewController : SwipeViewController
 
 @property BOOL isFirstLaunch;
 

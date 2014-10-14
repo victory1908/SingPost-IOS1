@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface TrackingMainViewController : UIViewController{
+@interface TrackingMainViewController : SwipeViewController{
     UITableView *trackingItemsTableView;
 }
 

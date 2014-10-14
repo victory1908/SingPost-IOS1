@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
 typedef enum {
     CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS,
     CALCULATEPOSTAGE_RESULT_TYPE_SINGAPORE
 } tCalculatePostageResultTypes;
 
-@interface CalculatePostageResultsViewController : UIViewController
+@interface CalculatePostageResultsViewController : SwipeViewController
 
 - (id)initWithResultItems:(NSArray *)resultItems andResultType:(tCalculatePostageResultTypes)resultType;
 

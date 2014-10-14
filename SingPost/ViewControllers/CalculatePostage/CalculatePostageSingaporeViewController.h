@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface CalculatePostageSingaporeViewController : UIViewController
+@interface CalculatePostageSingaporeViewController : SwipeViewController
 
 @end

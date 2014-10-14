@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
 @class TrackedItem;
 
-@interface TrackingDetailsViewController : UIViewController
+@interface TrackingDetailsViewController : SwipeViewController
 
 - (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 

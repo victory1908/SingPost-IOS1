@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
 @protocol StampImageBrowserDelegate;
 
-@interface StampImagesBrowserViewController : UIViewController
+@interface StampImagesBrowserViewController : SwipeViewController
 
 - (id)initWithStampImages:(NSArray *)stampImages;
 

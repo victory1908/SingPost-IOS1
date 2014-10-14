@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface ShopViewController : UIViewController
+
+@interface ShopViewController : SwipeViewController
 
 @end

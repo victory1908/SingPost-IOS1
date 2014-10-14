@@ -8,6 +8,7 @@
 
 #import "ArticleViewController.h"
 
+
 @interface SendReceiveMainViewController : ArticleViewController
 
 @end

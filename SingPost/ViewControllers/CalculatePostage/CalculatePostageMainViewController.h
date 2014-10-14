@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface CalculatePostageMainViewController : UIViewController
+@interface CalculatePostageMainViewController : SwipeViewController
 
 @property (nonatomic, assign) BOOL showNavBarBackButton;
 

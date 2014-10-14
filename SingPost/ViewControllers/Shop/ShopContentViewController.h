@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface ShopContentViewController : UIViewController
+@interface ShopContentViewController : SwipeViewController
 
 @property (strong, nonatomic) NSDictionary *item;
 

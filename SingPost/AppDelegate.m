@@ -119,6 +119,7 @@
     [GAI sharedInstance].dispatchInterval = 15;
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
     [[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
+    
 }
 
 #pragma mark - Maintanance

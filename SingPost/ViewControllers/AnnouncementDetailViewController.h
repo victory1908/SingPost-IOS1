@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface AnnouncementDetailViewController : UIViewController
+@interface AnnouncementDetailViewController : SwipeViewController
 
 @property (strong, nonatomic) NSDictionary *info;
 

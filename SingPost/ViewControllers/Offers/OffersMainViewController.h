@@ -7,7 +7,8 @@
 //
 
 #import "ArticleSubViewController.h"
+#import "SwipeViewController.h"
 
-@interface OffersMainViewController : UIViewController
+@interface OffersMainViewController : SwipeViewController
 
 @end

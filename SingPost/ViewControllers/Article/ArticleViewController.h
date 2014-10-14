@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "NavigationBarView.h"
+#import "SwipeViewController.h"
 
-@interface ArticleViewController : UIViewController
+@interface ArticleViewController : SwipeViewController
 {
 @protected
     NavigationBarView *navigationBarView;

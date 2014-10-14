@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface FindPostalCodeLandmarkViewController : UIViewController
+@interface FindPostalCodeLandmarkViewController : SwipeViewController
 
 - (void)showSearchTermsView:(BOOL)shouldShowSearchTermsView;
 

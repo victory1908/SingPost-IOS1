@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
-@interface StampCollectiblesMainViewController : UIViewController {
+@interface StampCollectiblesMainViewController : SwipeViewController {
     BOOL isAnimating;
     BOOL isSearchTermViewShown;
 }

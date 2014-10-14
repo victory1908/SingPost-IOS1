@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TrackedItem.h"
 #import "TrackingMainViewController.h"
+#import "SwipeViewController.h"
 
-@interface TrackingSelectViewController : UIViewController
+@interface TrackingSelectViewController : SwipeViewController
 @property (nonatomic,retain)NSArray * trackItems;
 @property (nonatomic,retain)NSMutableArray * trackItems2Delete;
 @property (nonatomic,retain)TrackingMainViewController * delegate;

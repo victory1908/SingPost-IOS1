@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SwipeViewController.h"
 
 @class Article;
 
-@interface ArticleContentViewController : UIViewController
+@interface ArticleContentViewController : SwipeViewController
 
 @property (nonatomic) Article *article;
 
