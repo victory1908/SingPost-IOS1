@@ -39,12 +39,12 @@
     [instructionsLabelBackgroundView setBackgroundColor:RGB(240, 240, 240)];
     [contentView addSubview:instructionsLabelBackgroundView];
     
-    instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
+    instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 44, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
     [instructionsLabel setNumberOfLines:0];
     [instructionsLabel setTextColor:RGB(58, 68, 81)];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
-    [instructionsLabelBackgroundView addSubview:instructionsLabel];
+    [contentView addSubview:instructionsLabel];
     
     contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164, contentView.bounds.size.width, contentView.bounds.size.height - 164 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [contentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -54,6 +54,9 @@
     [contentsTableView setDataSource:self];
     [contentsTableView setBackgroundColor:[UIColor whiteColor]];
     [contentView addSubview:contentsTableView];
+
+    [instructionsLabel setTextColor:[UIColor blackColor]];
+    
     
     self.view = contentView;
 }

@@ -74,6 +74,7 @@ typedef enum {
     
     NavigationBarView *navigationBarView;
     UIButton *infoButton;
+    
 }
 
 @synthesize labelDic;
@@ -801,7 +802,8 @@ typedef enum {
 
 #pragma mark - Tracking Labelling
 - (NSDictionary *) getLocalLabels {
-    NSMutableDictionary * dic = [NSMutableDictionary dictionary];
+    NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:labelDic];
+    
     
     NSMutableArray *cells = [[NSMutableArray alloc] init];
     for (NSInteger j = 0; j < [trackingItemsTableView numberOfSections]; ++j)
@@ -864,9 +866,10 @@ typedef enum {
             i++;
         }
         
-        [[ApiClient sharedInstance] registerTrackingNunmbers:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
+        [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
          {
              NSLog(@"registerTrackingNunmbers success");
+             [self refreshTableView];
          } onFailure:^(NSError *error)
          {
              //NSLog([error localizedDescription]);
@@ -962,8 +965,9 @@ typedef enum {
              [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
              }];
          }
-         
+         //[self refreshTableView];
          [self submitAllTrackingItemWithLabel];
+         //[self performSelectorOnMainThread:@selector(submitAllTrackingItemWithLabel) withObject:nil waitUntilDone:1.5f];
          
          
      } onFailure:^(NSError *error)

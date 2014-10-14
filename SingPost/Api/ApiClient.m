@@ -16,6 +16,8 @@
 #import <sys/sysctl.h>
 #import "DeliveryStatus.h"
 
+#import <AFNetworking/AFNetworking.h>
+
 @implementation ApiClient
 @synthesize serverToken;
 @synthesize fbToken;
@@ -995,10 +997,34 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
-    NSString * postString = [NSString stringWithFormat:@"server_token=%@%@%@",serverToken,str,payload];
+    NSString * postString = [NSString stringWithFormat:@"server_token=%@&%@%@",serverToken,str,payload];
     postString = [postString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        if (success)
+            success(JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (failure)
+            failure(error);
+        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    }];
+    [self enqueueHTTPRequestOperation:operation];
+    
+}
+
+- (void) registerTrackingNunmbersNew: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
+    
+    NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:url]];
+    
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithDictionary:[self getNumberAndLabelStringNew:numbers WithLabels:labels]];
+    [params setValuesForKeysWithDictionary:[self getTrackingDetailStringNew:details]];
+    [params setValue:serverToken forKey:@"server_token"];
+    
+    NSMutableURLRequest *request  = [httpClient requestWithMethod:@"POST" path:@"" parameters:params];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
@@ -1048,6 +1074,29 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         i++;
     }
     return str;
+}
+
+- (NSDictionary *) getNumberAndLabelStringNew : (NSArray *)numbers WithLabels : (NSArray *)labels {
+    NSMutableDictionary *results = [NSMutableDictionary dictionary];
+    
+    int i = 0;
+    for(NSString * num in numbers) {
+        NSMutableString *str = [[NSMutableString alloc] init];
+        
+        [str appendString:[NSString stringWithFormat:@"%@",num]];
+        
+        NSString * label = [labels objectAtIndex:i];
+        if(![label isEqualToString:@""]) {
+            [str appendString:[NSString stringWithFormat:@"||%@",label]];
+        }
+        
+        
+        [results setObject:str forKey:[NSString stringWithFormat:@"tracking[%d]",i]];
+        i++;
+    }
+    
+    
+    return results;
 }
 
 - (NSString *) getTrackingDetailString : (NSArray *)itemArr {
@@ -1134,6 +1183,91 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
    
 
     return finalStr;
+}
+
+- (NSDictionary *) getTrackingDetailStringNew : (NSArray *)itemArr {
+    NSMutableDictionary * finalDic = [[NSMutableDictionary alloc] init];
+    
+    // NSMutableArray * arr = [[NSMutableArray alloc] init];
+    
+    int i = 0;
+    for(TrackedItem * item in itemArr) {
+        
+        NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary * dicX = [[NSMutableDictionary alloc] init];
+        
+        [dic2 setValue:item.originalCountry forKey:@"OriginalCountry"];
+        [dic2 setValue:item.trackingNumber forKey:@"TrackingNumber"];
+        [dic2 setValue:(item.isFoundValue?@"true":@"false") forKey:@"TrackingNumberFound"];
+        [dic2 setValue:item.destinationCountry forKey:@"DestinationCountry"];
+        [dic2 setValue:item.isActive forKey:@"TrackingNumberActive"];
+        
+        [dic2 setValue:@"" forKey:@"AlternativeTrackingNumber"];
+        [dic2 setValue:@"" forKey:@"InsuredSDR"];
+        [dic2 setValue:@"" forKey:@"ExpressInd"];
+        [dic2 setValue:@"" forKey:@"ReceptacleID"];
+        [dic2 setValue:@"" forKey:@"PostingDate"];
+        [dic2 setValue:@"" forKey:@"Weight"];
+        [dic2 setValue:@"" forKey:@"ItemCategory"];
+        [dic2 setValue:@"" forKey:@"InsuredValue"];
+        [dic2 setValue:@"" forKey:@"PreadviceDate"];
+        [dic2 setValue:@"" forKey:@"Content"];
+        
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        
+        NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+        [dateFormatter2 setDateFormat:@"yyyyMMdd' 'HHmmss"];
+        
+        NSMutableArray * statusArray = [NSMutableArray array];
+        
+        NSMutableDictionary * dicY = [[NSMutableDictionary alloc] init];
+        for(DeliveryStatus * deliveryStatus in item.deliveryStatuses.array) {
+            
+            NSMutableDictionary * dic3 = [[NSMutableDictionary alloc] init];
+            
+            [dic3 setValue:deliveryStatus.location forKey:@"Location"];
+            
+            [dic3 setValue:deliveryStatus.statusDescription forKey:@"StatusDescription"];
+            
+            [dic3 setValue:[dateFormatter stringFromDate:deliveryStatus.date] forKey:@"Date"];
+            
+            [dic3 setValue:[dateFormatter2 stringFromDate:deliveryStatus.date] forKey:@"AceDate"];
+            
+            [dic3 setValue:@"" forKey:@"BeatNo"];
+            
+            [statusArray addObject:dic3];
+            
+            [dicY setValue:statusArray forKey:@"DeliveryStatusDetail"];
+        }
+        
+        [dic2 setValue:dicY forKey:@"DeliveryStatusDetails"];
+        [dicX setValue:dic2 forKey:@"ItemTrackingDetail"];
+        
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dicX
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error];
+        NSString * str;
+        if (! jsonData) {
+            NSLog(@"Got an error: %@", error);
+        } else {
+            str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        }
+        
+        
+        //[finalStr appendFormat:[NSString stringWithFormat:@"&tracking_detail[%d]=%@",i,str]];
+        [finalDic setObject:str forKey:[NSString stringWithFormat:@"tracking_detail[%d]",i]];
+        
+        i++;
+    }
+    
+    //[dic1 setValue:arr forKey:@"ItemsTrackingDetailList"];
+    
+    
+    
+    return finalDic;
 }
 
 - (void) getAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{

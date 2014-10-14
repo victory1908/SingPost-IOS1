@@ -66,11 +66,11 @@
 		<key>code</key>
 		<string>AWARA</string>
 		<key>value</key>
-		<string>Aruba (Netherlands Antilles)</string>
+		<string>Aruba</string>
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>SHASC</string>
+		<string>00ASC</string>
 		<key>value</key>
 		<string>Ascension (British)</string>
 	</dict>
@@ -94,12 +94,6 @@
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>ACAZO</string>
-		<key>value</key>
-		<string>Azores (Portuguese)</string>
-	</dict>
-	<dict>
-		<key>code</key>
 		<string>BSBHS</string>
 		<key>value</key>
 		<string>Bahamas</string>
@@ -109,12 +103,6 @@
 		<string>BHBHN</string>
 		<key>value</key>
 		<string>Bahrain</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>ESBLI</string>
-		<key>value</key>
-		<string>Balearic Island</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -232,33 +220,15 @@
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>EYES2</string>
-		<key>value</key>
-		<string>Canary Is</string>
-	</dict>
-	<dict>
-		<key>code</key>
 		<string>ESCNY</string>
 		<key>value</key>
-		<string>Canary Island</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>ICCN1</string>
-		<key>value</key>
-		<string>Canary Island (SPX)</string>
+		<string>Canary Islands</string>
 	</dict>
 	<dict>
 		<key>code</key>
 		<string>CVCVE</string>
 		<key>value</key>
 		<string>Cape Verde</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>USCAR</string>
-		<key>value</key>
-		<string>Caroline Islands</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -288,19 +258,7 @@
 		<key>code</key>
 		<string>CNCNA</string>
 		<key>value</key>
-		<string>China</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>CXXMI</string>
-		<key>value</key>
-		<string>Christmas Is.(Indian Ocean)</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>CCCOC</string>
-		<key>value</key>
-		<string>Cocos Is. (Aust. Ext. Ter.)</string>
+		<string>China (People&apos;s Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -324,19 +282,19 @@
 		<key>code</key>
 		<string>CKCOI</string>
 		<key>value</key>
-		<string>Cook Island (N-Zealand Is.Ter)</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>FRCOR</string>
-		<key>value</key>
-		<string>Corcisa</string>
+		<string>Cook Islands</string>
 	</dict>
 	<dict>
 		<key>code</key>
 		<string>CRCRI</string>
 		<key>value</key>
 		<string>Costa Rica</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>CI000</string>
+		<key>value</key>
+		<string>Cote d Ivoire</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -352,6 +310,12 @@
 	</dict>
 	<dict>
 		<key>code</key>
+		<string>CW000</string>
+		<key>value</key>
+		<string>Curacao</string>
+	</dict>
+	<dict>
+		<key>code</key>
 		<string>CYCYP</string>
 		<key>value</key>
 		<string>Cyprus</string>
@@ -361,6 +325,12 @@
 		<string>CZCZE</string>
 		<key>value</key>
 		<string>Czech Republic</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>CDZAI</string>
+		<key>value</key>
+		<string>Democratic Republic of Congo</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -432,7 +402,7 @@
 		<key>code</key>
 		<string>FKFAL</string>
 		<key>value</key>
-		<string>Falkland Islands (Malvinas)</string>
+		<string>Falkland Islands</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -469,12 +439,6 @@
 		<string>PFFPO</string>
 		<key>value</key>
 		<string>French Polynesia</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>MQFWI</string>
-		<key>value</key>
-		<string>French West Indies</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -532,6 +496,12 @@
 	</dict>
 	<dict>
 		<key>code</key>
+		<string>GP000</string>
+		<key>value</key>
+		<string>Guadeloupe</string>
+	</dict>
+	<dict>
+		<key>code</key>
 		<string>GUGUA</string>
 		<key>value</key>
 		<string>Guam</string>
@@ -546,7 +516,7 @@
 		<key>code</key>
 		<string>GGGU1</string>
 		<key>value</key>
-		<string>Guernsey Island (SPX)</string>
+		<string>Guernsey</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -576,7 +546,7 @@
 		<key>code</key>
 		<string>VAVAT</string>
 		<key>value</key>
-		<string>Holy See (Vatican City State)</string>
+		<string>Vatican</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -618,11 +588,11 @@
 		<key>code</key>
 		<string>IRIRN</string>
 		<key>value</key>
-		<string>Iran</string>
+		<string>Iran (the Islamic Republic of)</string>
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>IQIRQ</string>
+		<string>00IRQ</string>
 		<key>value</key>
 		<string>Iraq</string>
 	</dict>
@@ -646,12 +616,6 @@
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>CIICO</string>
-		<key>value</key>
-		<string>Ivory Coast, Rep. Of</string>
-	</dict>
-	<dict>
-		<key>code</key>
 		<string>JMJAM</string>
 		<key>value</key>
 		<string>Jamaica</string>
@@ -666,7 +630,7 @@
 		<key>code</key>
 		<string>JEJE1</string>
 		<key>value</key>
-		<string>Jersey Island (SPX)</string>
+		<string>Jersey Island</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -696,13 +660,13 @@
 		<key>code</key>
 		<string>KPKON</string>
 		<key>value</key>
-		<string>Korea,Dem. People Reo</string>
+		<string>North Korea (Dem People&apos;s Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
 		<string>KRKOS</string>
 		<key>value</key>
-		<string>Korea,Rep. Of (South)</string>
+		<string>South Korea (Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -720,7 +684,7 @@
 		<key>code</key>
 		<string>LALAO</string>
 		<key>value</key>
-		<string>Lao</string>
+		<string>Lao (People Dem Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -792,7 +756,7 @@
 		<key>code</key>
 		<string>PTMDE</string>
 		<key>value</key>
-		<string>Madeira Is. (Portuguese)</string>
+		<string>Madeira Island</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -826,9 +790,21 @@
 	</dict>
 	<dict>
 		<key>code</key>
+		<string>MP000</string>
+		<key>value</key>
+		<string>Mariana Islands</string>
+	</dict>
+	<dict>
+		<key>code</key>
 		<string>MHMSL</string>
 		<key>value</key>
 		<string>Marshall Islands</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>MQ000</string>
+		<key>value</key>
+		<string>Martinique</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -844,9 +820,21 @@
 	</dict>
 	<dict>
 		<key>code</key>
+		<string>YT000</string>
+		<key>value</key>
+		<string>Mayotte</string>
+	</dict>
+	<dict>
+		<key>code</key>
 		<string>MXMEX</string>
 		<key>value</key>
 		<string>Mexico</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>FM000</string>
+		<key>value</key>
+		<string>Micronesia</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -865,6 +853,12 @@
 		<string>MNMON</string>
 		<key>value</key>
 		<string>Mongolia</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>MEMTG</string>
+		<key>value</key>
+		<string>Montenegro</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -928,12 +922,6 @@
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>NZNZI</string>
-		<key>value</key>
-		<string>New Zealand Island Territories</string>
-	</dict>
-	<dict>
-		<key>code</key>
 		<string>NINIC</string>
 		<key>value</key>
 		<string>Nicaragua</string>
@@ -954,17 +942,17 @@
 		<key>code</key>
 		<string>NUNIU</string>
 		<key>value</key>
-		<string>Niue Is. (New Zealand Is. Ter)</string>
+		<string>Niue</string>
 	</dict>
 	<dict>
 		<key>code</key>
 		<string>NFNFK</string>
 		<key>value</key>
-		<string>Norfolk Is. (Aust. Ext. Ter.)</string>
+		<string>Norfolk Island</string>
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>MPMNA</string>
+		<string>00MNA</string>
 		<key>value</key>
 		<string>Northern Mariana Islands</string>
 	</dict>
@@ -985,6 +973,12 @@
 		<string>PKPAK</string>
 		<key>value</key>
 		<string>Pakistan</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>PW000</string>
+		<key>value</key>
+		<string>Palau</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1072,15 +1066,51 @@
 	</dict>
 	<dict>
 		<key>code</key>
+		<string>BQ000</string>
+		<key>value</key>
+		<string>Saint Eustatius</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>SHSHE</string>
+		<key>value</key>
+		<string>Saint Helena</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>LCSLU</string>
+		<key>value</key>
+		<string>Saint Lucia</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>KNSCN</string>
+		<key>value</key>
+		<string>Saint Kitts and Nevis</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>PMSPM</string>
+		<key>value</key>
+		<string>Saint Pierre and Miquelon</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>VCSVG</string>
+		<key>value</key>
+		<string>Saint Vincent and Grenadines</string>
+	</dict>
+	<dict>
+		<key>code</key>
 		<string>WSSAW</string>
 		<key>value</key>
 		<string>Samoa</string>
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>SBSCZ</string>
+		<string>SM000</string>
 		<key>value</key>
-		<string>Santa Cruz Islands</string>
+		<string>San Marino</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1104,7 +1134,7 @@
 		<key>code</key>
 		<string>CSSEM</string>
 		<key>value</key>
-		<string>Serbia and Montenegro</string>
+		<string>Serbia (Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1117,6 +1147,12 @@
 		<string>SLSLE</string>
 		<key>value</key>
 		<string>Sierra Leone</string>
+	</dict>
+	<dict>
+		<key>code</key>
+		<string>SX000</string>
+		<key>value</key>
+		<string>Sint Maarten</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1156,45 +1192,9 @@
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>ESSNA</string>
-		<key>value</key>
-		<string>Spanish Terr. of N. Africa</string>
-	</dict>
-	<dict>
-		<key>code</key>
 		<string>LKSRI</string>
 		<key>value</key>
 		<string>Sri Lanka</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>SHSHE</string>
-		<key>value</key>
-		<string>St. Helena</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>KNSCN</string>
-		<key>value</key>
-		<string>St. KITTS and Nevis</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>LCSLU</string>
-		<key>value</key>
-		<string>St. Lucia</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>PMSPM</string>
-		<key>value</key>
-		<string>St. Pierre and Miquelon</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>VCSVG</string>
-		<key>value</key>
-		<string>St. Vincent and The Grenadines</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1230,7 +1230,7 @@
 		<key>code</key>
 		<string>SYSYR</string>
 		<key>value</key>
-		<string>Syria</string>
+		<string>Syrian Arab Republic</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1248,7 +1248,7 @@
 		<key>code</key>
 		<string>TZTAN</string>
 		<key>value</key>
-		<string>Tanzania</string>
+		<string>Tanzania (United Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1260,7 +1260,7 @@
 		<key>code</key>
 		<string>TLETM</string>
 		<key>value</key>
-		<string>Timor-Leste</string>
+		<string>Timor-Leste (Dem Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1272,7 +1272,7 @@
 		<key>code</key>
 		<string>TKTKL</string>
 		<key>value</key>
-		<string>Tokelau Is (N-Zealand Is. Ter)</string>
+		<string>Tokelau</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1284,7 +1284,7 @@
 		<key>code</key>
 		<string>VGTOR</string>
 		<key>value</key>
-		<string>Tortola (British Virgin Isle)</string>
+		<string>Tortola (British Virgin Islands)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1296,7 +1296,7 @@
 		<key>code</key>
 		<string>SHTDC</string>
 		<key>value</key>
-		<string>Tristan da Cunha (British)</string>
+		<string>Tristan da Cunha</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1344,7 +1344,7 @@
 		<key>code</key>
 		<string>AEUAE</string>
 		<key>value</key>
-		<string>United Arab Emirates</string>
+		<string>UAE (United Arab Emirates)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1386,7 +1386,7 @@
 		<key>code</key>
 		<string>VNVIE</string>
 		<key>value</key>
-		<string>Vietnam</string>
+		<string>Viet Nam</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1396,13 +1396,13 @@
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>USWAK</string>
+		<string>00WAK</string>
 		<key>value</key>
 		<string>Wake Islands (USA)</string>
 	</dict>
 	<dict>
 		<key>code</key>
-		<string>WFWFU</string>
+		<string>00WFU</string>
 		<key>value</key>
 		<string>Wallis and Futuna</string>
 	</dict>
@@ -1411,18 +1411,6 @@
 		<string>YEYAR</string>
 		<key>value</key>
 		<string>Yemen</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>CSYUG</string>
-		<key>value</key>
-		<string>Yugoslavia, Soc. Fed. Rep. Of</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>CDZAI</string>
-		<key>value</key>
-		<string>Zaire Democratic Rep of Congo</string>
 	</dict>
 	<dict>
 		<key>code</key>

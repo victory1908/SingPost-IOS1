@@ -10,6 +10,7 @@
 #import "UIFont+SingPost.h"
 #import "UIView+Position.h"
 #import "UIImage+Extensions.h"
+#import "CUIActionSheet.h"
 
 @interface CDropDownListControl () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIPopoverControllerDelegate>
 
@@ -19,7 +20,8 @@
 {
     UIPickerView *pickerView;
     UIPopoverController *pickerPopover;
-    UIActionSheet *pickerViewActionSheet;
+//    UIActionSheet *pickerViewActionSheet;
+    CUIActionSheet *pickerViewActionSheet;
     UILabel *selectedValueLabel;
 }
 
@@ -54,36 +56,31 @@
 - (void)showActionSheet
 {
     if (!INTERFACE_IS_IPAD) {
-    pickerViewActionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                        delegate:nil
-                                               cancelButtonTitle:nil
-                                          destructiveButtonTitle:nil
-                                               otherButtonTitles:nil];
-    
-    [pickerViewActionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    UIBarButtonItem *fixed1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissActionSheet)];
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        UIImage *toolbarBackgroundImage = [[UIImage imageWithColor:RGB(200, 200, 200)] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
-        [toolbar setBackgroundImage:toolbarBackgroundImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-        [doneButton setTitleTextAttributes:@{
-                                               UITextAttributeFont: [UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans],
-                                               UITextAttributeTextColor: [UIColor blackColor]
-                                               } forState:UIControlStateNormal];
-    }
-    else {
-        [toolbar setBarStyle:UIBarStyleBlackOpaque];
-    }
-    
-    [toolbar setItems:@[fixed1, doneButton]];
-    
-    [pickerViewActionSheet addSubview:pickerView];
-    [pickerViewActionSheet addSubview:toolbar];
-    [pickerViewActionSheet showInView:self];
-    [pickerViewActionSheet setBounds:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGRectMake(0, 0, 320, 430) : CGRectMake(0, 0, 320, 420)];
+        
+        pickerViewActionSheet = [[CUIActionSheet alloc] init];
+
+        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        UIBarButtonItem *fixed1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissActionSheet)];
+        
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+            UIImage *toolbarBackgroundImage = [[UIImage imageWithColor:RGB(200, 200, 200)] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+            [toolbar setBackgroundImage:toolbarBackgroundImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+            [doneButton setTitleTextAttributes:@{
+                                                   UITextAttributeFont: [UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans],
+                                                   UITextAttributeTextColor: [UIColor blackColor]
+                                                   } forState:UIControlStateNormal];
+        }
+        else {
+            [toolbar setBarStyle:UIBarStyleBlackOpaque];
+        }
+        
+        [toolbar setItems:@[fixed1, doneButton]];
+        
+        [pickerViewActionSheet addSubview:pickerView];
+        [pickerViewActionSheet addSubview:toolbar];
+        [pickerViewActionSheet setBounds:SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? CGRectMake(0, 0, 320, 430) : CGRectMake(0, 0, 320, 420)];
+        [pickerViewActionSheet showInView:self];
     }
     else
     {
@@ -122,7 +119,8 @@
     if ([_delegate respondsToSelector:@selector(CDropDownListControlDismissed:)]) {
         [_delegate CDropDownListControlDismissed:self];
     }
-    if(!INTERFACE_IS_IPAD)[pickerViewActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+//    if(!INTERFACE_IS_IPAD)[pickerViewActionSheet dismissWithClickedButtonIndex:0 animated:YES];
+    if(!INTERFACE_IS_IPAD)[pickerViewActionSheet dismissView];
     else [pickerPopover dismissPopoverAnimated:YES];
 }
 

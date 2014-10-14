@@ -633,25 +633,6 @@
 {
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
     
-    NSString *alert = aps[@"alert"];
-    if (alert.length > 0) {
-        if (shouldPrompt) {
-            [UIAlertView showWithTitle:@"SingPost"
-                               message:aps[@"alert"]
-                     cancelButtonTitle:@"Cancel"
-                     otherButtonTitles:@[@"View"]
-                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                  if (buttonIndex != [alertView cancelButtonIndex]) {
-                                      [self goToAnnouncementView];
-                                  }
-                              }];
-        } else {
-            [self goToAnnouncementView];
-            
-        }
-        return;
-    }
-    
     NSDictionary *data = [payloadInfo objectForKey:@"data"];
     NSString *trackingNumber = data[@"i"];
     if (trackingNumber.length > 0) {
@@ -671,8 +652,32 @@
         else {
             [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
         }
+        
+        return;
     }
-}
+
+    
+    
+    NSString *alert = aps[@"alert"];
+    if (alert.length > 0) {
+        if (shouldPrompt) {
+            [UIAlertView showWithTitle:@"SingPost"
+                               message:aps[@"alert"]
+                     cancelButtonTitle:@"Cancel"
+                     otherButtonTitles:@[@"View"]
+                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                  if (buttonIndex != [alertView cancelButtonIndex]) {
+                                      [self goToAnnouncementView];
+                                  }
+                              }];
+        } else {
+            [self goToAnnouncementView];
+            
+        }
+        return;
+    }
+    
+   }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -692,8 +697,8 @@
         //do nothing
     }];
     
-    //UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"deviceToken" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    //[view show];
+    /*UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"deviceToken" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [view show];*/
     
     //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@",sanitizedDeviceToken]]];
 }
