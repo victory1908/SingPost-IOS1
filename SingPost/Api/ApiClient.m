@@ -1020,9 +1020,11 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:url]];
     
-    NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithDictionary:[self getNumberAndLabelStringNew:numbers WithLabels:labels]];
+    //NSMutableDictionary * params = [[NSMutableDictionary alloc] initWithDictionary:[self getNumberAndLabelStringNew:numbers WithLabels:labels]];
+    NSMutableDictionary * params = [self getNumberAndLabelStringNew:numbers WithLabels:labels];
     [params setValuesForKeysWithDictionary:[self getTrackingDetailStringNew:details]];
     [params setValue:serverToken forKey:@"server_token"];
+    
     
     NSMutableURLRequest *request  = [httpClient requestWithMethod:@"POST" path:@"" parameters:params];
     
@@ -1076,7 +1078,7 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     return str;
 }
 
-- (NSDictionary *) getNumberAndLabelStringNew : (NSArray *)numbers WithLabels : (NSArray *)labels {
+- (NSMutableDictionary *) getNumberAndLabelStringNew : (NSArray *)numbers WithLabels : (NSArray *)labels {
     NSMutableDictionary *results = [NSMutableDictionary dictionary];
     
     int i = 0;
@@ -1091,7 +1093,7 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         }
         
         
-        [results setObject:str forKey:[NSString stringWithFormat:@"tracking[%d]",i]];
+        [results setObject:str forKey:[NSString stringWithFormat:@"tracking[%02d]",i]];
         i++;
     }
     
@@ -1107,7 +1109,6 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     int i = 0;
     for(TrackedItem * item in itemArr) {
         
-        NSMutableDictionary * dic1 = [[NSMutableDictionary alloc] init];
         NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
         NSMutableDictionary * dicX = [[NSMutableDictionary alloc] init];
         
@@ -1159,7 +1160,6 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         
         [dic2 setValue:dicY forKey:@"DeliveryStatusDetails"];
         [dicX setValue:dic2 forKey:@"ItemTrackingDetail"];
-        //[dic1 setValue:dicX forKey:@"ItemsTrackingDetailList"];
         
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dicX
@@ -1172,7 +1172,7 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
             str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         }
         
-        [finalStr appendFormat:[NSString stringWithFormat:@"&tracking_detail[%d]=%@",i,str]];
+        [finalStr appendString:[NSString stringWithFormat:@"&tracking_detail[%02d]=%@",i,str]];
         
         
         i++;
@@ -1255,17 +1255,11 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
         } else {
             str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         }
-        
-        
-        //[finalStr appendFormat:[NSString stringWithFormat:@"&tracking_detail[%d]=%@",i,str]];
+
         [finalDic setObject:str forKey:[NSString stringWithFormat:@"tracking_detail[%d]",i]];
         
         i++;
     }
-    
-    //[dic1 setValue:arr forKey:@"ItemsTrackingDetailList"];
-    
-    
     
     return finalDic;
 }

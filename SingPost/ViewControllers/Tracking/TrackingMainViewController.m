@@ -805,7 +805,7 @@ typedef enum {
     NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:labelDic];
     
     
-    NSMutableArray *cells = [[NSMutableArray alloc] init];
+   NSMutableArray *cells = [[NSMutableArray alloc] init];
     for (NSInteger j = 0; j < [trackingItemsTableView numberOfSections]; ++j)
     {
         for (NSInteger i = 0; i < [trackingItemsTableView numberOfRowsInSection:j]; ++i)
@@ -852,7 +852,7 @@ typedef enum {
         
         NSDictionary * locaLabelDic = [self getLocalLabels];
         
-        int i = 0;
+        
         NSArray * trackItemArray = [self.allItemsFetchedResultsController fetchedObjects];
         for(TrackedItem * item in trackItemArray) {
             [numbers addObject:item.trackingNumber];
@@ -863,8 +863,17 @@ typedef enum {
             else
                 [labels addObject:@""];
             
-            i++;
         }
+        
+        /*for(NSString * num in [locaLabelDic allKeys]) {
+            [numbers addObject:num];
+            
+            NSString * label = [locaLabelDic objectForKey:num];
+            if(label != nil)
+                [labels addObject:[locaLabelDic objectForKey:num]];
+            else
+                [labels addObject:@""];
+        }*/
         
         [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
          {
@@ -1019,6 +1028,7 @@ typedef enum {
     
     [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
         if (success) {
+            
             [self.trackingItemsTableView reloadDataAndWait:^{
                 //call the required method here
                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.5f];

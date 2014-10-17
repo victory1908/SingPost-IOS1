@@ -120,6 +120,9 @@
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
     [[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
     
+    [[[GAI sharedInstance] defaultTracker] setAllowIDFACollection:YES];
+    
+    
 }
 
 #pragma mark - Maintanance
@@ -567,6 +570,9 @@
         item.isRead = false;
         item.lastUpdatedOn = [NSDate date];
         
+        NSDictionary * tempDic = [dic objectForKey:@"DeliveryStatusDetails"];
+        if(tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
+        
         NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
         if([statusArray isKindOfClass:[NSDictionary class]]) {
@@ -585,6 +591,8 @@
         }
         
         item.deliveryStatuses = newStatus;
+            
+        }
         
     } else {
         item = [TrackedItem MR_createEntity];
@@ -604,6 +612,9 @@
         item.isRead = false;
         item.lastUpdatedOn = [NSDate date];
         
+        NSDictionary * tempDic = [dic objectForKey:@"DeliveryStatusDetails"];
+        if(tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
+        
         NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
         
         
@@ -617,9 +628,12 @@
                 [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
             }
         }
+            
         
         
         item.deliveryStatuses = newStatus;
+            
+        }
     }
     
     [localContext MR_saveToPersistentStoreAndWait];

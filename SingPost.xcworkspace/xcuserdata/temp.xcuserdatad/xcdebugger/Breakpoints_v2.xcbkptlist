@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/AppDelegate.m"
-            timestampString = "434538991.259953"
+            timestampString = "434970017.22383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "369"
+            endingLineNumber = "369"
             landmarkName = "-sessionStateChanged:state:error:"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/AppDelegate.m"
-            timestampString = "434538991.259953"
+            timestampString = "434970017.22383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "563"
-            endingLineNumber = "563"
+            startingLineNumber = "566"
+            endingLineNumber = "566"
             landmarkName = "-updateTrackItemInfo:Info:Date:"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/AppDelegate.m"
-            timestampString = "434538991.259953"
+            timestampString = "435142556.473681"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "624"
-            endingLineNumber = "624"
+            startingLineNumber = "638"
+            endingLineNumber = "638"
             landmarkName = "-updateTrackItemInfo:Info:Date:"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/AppDelegate.m"
-            timestampString = "434426445.943835"
+            timestampString = "434970017.22383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "-application:openURL:sourceApplication:annotation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/AppDelegate.m"
-            timestampString = "434538991.259953"
+            timestampString = "434970017.22383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
+            startingLineNumber = "544"
+            endingLineNumber = "544"
             landmarkName = "-updateTrackItemInfo:Info:Date:"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/AppDelegate.m"
-            timestampString = "434538868.231764"
+            timestampString = "434970017.22383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
             landmarkName = "-LoginFacebook"
             landmarkType = "5">
          </BreakpointContent>
@@ -345,13 +345,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SingPost/Api/ApiClient.m"
-            timestampString = "434889124.365554"
+            filePath = "SingPost/AppDelegate.m"
+            timestampString = "435145638.396658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1099"
-            endingLineNumber = "1099"
-            landmarkName = "-getNumberAndLabelStringNew:WithLabels:"
+            startingLineNumber = "609"
+            endingLineNumber = "609"
+            landmarkName = "-updateTrackItemInfo:Info:Date:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

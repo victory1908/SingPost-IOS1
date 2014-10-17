@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E97E275E94F4E11BF731251"
+               BlueprintIdentifier = "827706E764544E9937C263D8"
                BuildableName = "libPods-AFRaptureXMLRequestOperation.a"
                BlueprintName = "Pods-AFRaptureXMLRequestOperation"
                ReferencedContainer = "container:Pods.xcodeproj">

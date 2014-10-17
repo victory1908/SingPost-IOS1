@@ -542,12 +542,7 @@
 		<key>value</key>
 		<string>Haiti</string>
 	</dict>
-	<dict>
-		<key>code</key>
-		<string>VAVAT</string>
-		<key>value</key>
-		<string>Vatican</string>
-	</dict>
+	
 	<dict>
 		<key>code</key>
 		<string>HNHON</string>
@@ -656,18 +651,8 @@
 		<key>value</key>
 		<string>Kiribati</string>
 	</dict>
-	<dict>
-		<key>code</key>
-		<string>KPKON</string>
-		<key>value</key>
-		<string>North Korea (Dem People&apos;s Rep)</string>
-	</dict>
-	<dict>
-		<key>code</key>
-		<string>KRKOS</string>
-		<key>value</key>
-		<string>South Korea (Rep)</string>
-	</dict>
+	
+	
 	<dict>
 		<key>code</key>
 		<string>KWKUW</string>
@@ -950,6 +935,12 @@
 		<key>value</key>
 		<string>Norfolk Island</string>
 	</dict>
+    <dict>
+		<key>code</key>
+		<string>KPKON</string>
+		<key>value</key>
+		<string>North Korea (Dem People&apos;s Rep)</string>
+	</dict>
 	<dict>
 		<key>code</key>
 		<string>00MNA</string>
@@ -1076,17 +1067,18 @@
 		<key>value</key>
 		<string>Saint Helena</string>
 	</dict>
-	<dict>
-		<key>code</key>
-		<string>LCSLU</string>
-		<key>value</key>
-		<string>Saint Lucia</string>
-	</dict>
+	
 	<dict>
 		<key>code</key>
 		<string>KNSCN</string>
 		<key>value</key>
 		<string>Saint Kitts and Nevis</string>
+	</dict>
+    <dict>
+		<key>code</key>
+		<string>LCSLU</string>
+		<key>value</key>
+		<string>Saint Lucia</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1183,6 +1175,12 @@
 		<string>ZASAF</string>
 		<key>value</key>
 		<string>South Africa</string>
+	</dict>
+    <dict>
+		<key>code</key>
+		<string>KRKOS</string>
+		<key>value</key>
+		<string>South Korea (Rep)</string>
 	</dict>
 	<dict>
 		<key>code</key>
@@ -1328,6 +1326,12 @@
 		<key>value</key>
 		<string>Tuvalu</string>
 	</dict>
+    <dict>
+		<key>code</key>
+		<string>AEUAE</string>
+		<key>value</key>
+		<string>UAE (United Arab Emirates)</string>
+	</dict>
 	<dict>
 		<key>code</key>
 		<string>UGUGA</string>
@@ -1340,12 +1344,7 @@
 		<key>value</key>
 		<string>Ukraine</string>
 	</dict>
-	<dict>
-		<key>code</key>
-		<string>AEUAE</string>
-		<key>value</key>
-		<string>UAE (United Arab Emirates)</string>
-	</dict>
+	
 	<dict>
 		<key>code</key>
 		<string>GBUKI</string>
@@ -1376,6 +1375,12 @@
 		<key>value</key>
 		<string>Vanuatu</string>
 	</dict>
+    <dict>
+		<key>code</key>
+		<string>VAVAT</string>
+		<key>value</key>
+		<string>Vatican</string>
+	</dict>
 	<dict>
 		<key>code</key>
 		<string>VEVEN</string>
@@ -1392,7 +1397,7 @@
 		<key>code</key>
 		<string>VIVIA</string>
 		<key>value</key>
-		<string>Virgin Islands, U.S</string>
+		<string>Virgin Islands (USA)</string>
 	</dict>
 	<dict>
 		<key>code</key>

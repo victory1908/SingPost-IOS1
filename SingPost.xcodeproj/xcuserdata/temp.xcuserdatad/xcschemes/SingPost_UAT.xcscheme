@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "24F43C5E19EBF1A300F28F21"
+               BlueprintIdentifier = "244DEA2519ED28A300F07A76"
                BuildableName = "SingPost_SIT copy.app"
                BlueprintName = "SingPost_UAT"
                ReferencedContainer = "container:SingPost.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "24F43C5E19EBF1A300F28F21"
+            BlueprintIdentifier = "244DEA2519ED28A300F07A76"
             BuildableName = "SingPost_SIT copy.app"
             BlueprintName = "SingPost_UAT"
             ReferencedContainer = "container:SingPost.xcodeproj">
@@ -51,7 +51,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "24F43C5E19EBF1A300F28F21"
+            BlueprintIdentifier = "244DEA2519ED28A300F07A76"
             BuildableName = "SingPost_SIT copy.app"
             BlueprintName = "SingPost_UAT"
             ReferencedContainer = "container:SingPost.xcodeproj">
@@ -69,7 +69,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "24F43C5E19EBF1A300F28F21"
+            BlueprintIdentifier = "244DEA2519ED28A300F07A76"
             BuildableName = "SingPost_SIT copy.app"
             BlueprintName = "SingPost_UAT"
             ReferencedContainer = "container:SingPost.xcodeproj">

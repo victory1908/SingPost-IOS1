@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A365E0A9195544329799853D"
+               BlueprintIdentifier = "0A8CA21AF50669E0805E1893"
                BuildableName = "libPods-UALogger.a"
                BlueprintName = "Pods-UALogger"
                ReferencedContainer = "container:Pods.xcodeproj">

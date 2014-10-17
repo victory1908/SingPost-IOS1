@@ -7,7 +7,7 @@
 		<key>Mogernrator.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>2</integer>
 		</dict>
 		<key>SingPost_SIT.xcscheme</key>
 		<dict>
@@ -17,11 +17,16 @@
 		<key>SingPost_UAT.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>244DEA2519ED28A300F07A76</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>24F43BBE19EBAD1E00F28F21</key>
 		<dict>
 			<key>primary</key>

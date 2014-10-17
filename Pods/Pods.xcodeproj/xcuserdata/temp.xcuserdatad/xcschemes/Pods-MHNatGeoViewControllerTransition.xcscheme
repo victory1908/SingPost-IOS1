@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6F93487AD42B4E3E9E99D257"
+               BlueprintIdentifier = "2CE349AA9D5CE63EB46E9EE6"
                BuildableName = "libPods-MHNatGeoViewControllerTransition.a"
                BlueprintName = "Pods-MHNatGeoViewControllerTransition"
                ReferencedContainer = "container:Pods.xcodeproj">
