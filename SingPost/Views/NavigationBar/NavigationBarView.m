@@ -30,9 +30,9 @@
         
         backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton setHidden:YES];
-        [backButton setImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
+        [backButton setImage:[UIImage imageNamed:@"sidebar_button"] forState:UIControlStateNormal];
         [backButton setFrame:CGRectMake(0, 0, 44, 44)];
-        [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [backButton addTarget:self action:@selector(toggleSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backButton];
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width - 100, 44)];

@@ -1,4 +1,4 @@
-platform :ios, '5.0'
+platform :ios, '6.0'
 
 pod 'AFNetworking', '1.2.1'
 pod 'AFRaptureXMLRequestOperation', '1.0.2'
@@ -16,4 +16,5 @@ pod 'TPKeyboardAvoiding', '~> 1.1'
 pod 'UIAlertView+Blocks', '~> 0.7'
 pod 'UIActivityIndicator-for-SDWebImage', '~> 1.0.3'
 pod 'SevenSwitch', '~> 1.3.0'
+pod 'ZXingObjC', '~> 3.0'
 

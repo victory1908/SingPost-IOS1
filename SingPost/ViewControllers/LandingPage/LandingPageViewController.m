@@ -79,9 +79,36 @@ OffersMenuDelegate
 @implementation LandingPageViewController {
     CTextField *trackingNumberTextField;
     OffersMoreMenuView *offersMoreMenuView;
+    
+    UILabel * newLabel;
+    UIImageView * badge;
+    UIButton *announcementBtn;
 }
 
 #pragma mark - View lifecycle
+
+- (void)setBadgeView:(BOOL)hasNew{
+    if(hasNew) {
+        [newLabel setHidden:NO];
+        [badge setHidden:NO];
+        [announcementBtn setImage:[UIImage imageNamed:@"NewAnnouncement"] forState:UIControlStateNormal];
+    } else {
+        [newLabel setHidden:YES];
+        [badge setHidden:YES];
+        [announcementBtn setImage:[UIImage imageNamed:@"Announcement"] forState:UIControlStateNormal];
+    }
+    
+}
+
+-(NSString *)getUTCFormateDate:(NSDate *)localDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:localDate];
+    return dateString;
+}
 
 - (void)loadView {
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -99,15 +126,76 @@ OffersMenuDelegate
     envelopBackgroundImageView.userInteractionEnabled = YES;
     [contentView addSubview:envelopBackgroundImageView];
     
-    UIButton *announcementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    announcementBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [announcementBtn setImage:[UIImage imageNamed:@"Announcement"] forState:UIControlStateNormal];
     [announcementBtn addTarget:self action:@selector(onAnnouncementBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     if (INTERFACE_IS_IPAD)
         announcementBtn.frame = CGRectMake(contentView.right - 103, 15, 88, 88);
     else
         announcementBtn.frame = CGRectMake(contentView.right - 44, 0, 44, 44);
     [contentView addSubview:announcementBtn];
+    
+    //Badge start
+    badge = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_badge"]];
+    if (INTERFACE_IS_IPAD)
+        badge.frame = CGRectMake(contentView.right - 60, 18,50, 26);
+    else
+        badge.frame = CGRectMake(contentView.right - 27, 2,24, 13);
+    
+    [badge setHidden:YES];
+    
+    if (INTERFACE_IS_IPAD) {
+        newLabel = [[UILabel alloc] initWithFrame:CGRectMake(contentView.right - 52, 18,44, 25)];
+        [newLabel setFont:[UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
+    }
+    else {
+        newLabel = [[UILabel alloc] initWithFrame:CGRectMake(contentView.right - 25, 4,22, 11)];
+        [newLabel setFont:[UIFont SingPostRegularFontOfSize:9.0f fontKey:kSingPostFontOpenSans]];
+    }
+    [newLabel setNumberOfLines:1];
+    [newLabel setTextColor:RGB(255, 255, 255)];
+    [newLabel setText:@"NEW"];
+    
+    
+    [newLabel setHidden:YES];
+    
+    [contentView addSubview:badge];
+    [contentView addSubview:newLabel];
+    
+    [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
+     {
+         NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
+         if(arr == nil) {
+             arr = [responseObject objectForKeyOrNil:@"root"];
+             
+         } else {
+         
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             NSString * dateStr = [defaults stringForKey:@"ANNOUNCEMENT_LAST_DATE"];
+             if(dateStr == nil)
+                 [self setBadgeView:YES];
+             else {
+                 NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+                 [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                 
+                 NSDate * localDate = [formatter dateFromString:dateStr];
+                 NSDate * remoteDate = [formatter dateFromString:[[responseObject objectForKeyOrNil:@"root"] objectForKey:@"last_modified"]];
+                 
+                 if ([localDate compare:remoteDate] == NSOrderedDescending) {
+                     [self setBadgeView:NO];
+                 } else {
+                     [self setBadgeView:YES];
+                 }
+             }
+         }
+         
+         
+     } failure:^(NSError *error)
+     {}];
+    
+    //Badge end
     
     if (INTERFACE_IS_IPAD) {
         trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668, 50)];

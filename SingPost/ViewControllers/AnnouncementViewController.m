@@ -52,7 +52,11 @@ UITableViewDataSource
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
      {
-         self.dataArray = [responseObject objectForKeyOrNil:@"root"];
+         NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
+         if(arr == nil) {
+            arr = [responseObject objectForKeyOrNil:@"root"];
+         }
+         self.dataArray = arr;
          [self.tableView reloadData];
          [SVProgressHUD dismiss];
          
@@ -60,6 +64,20 @@ UITableViewDataSource
      {[SVProgressHUD dismiss];}];
     
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Announcements List"];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
+    [defaults synchronize];
+}
+
+-(NSString *)getUTCFormateDate:(NSDate *)localDate
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:localDate];
+    return dateString;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

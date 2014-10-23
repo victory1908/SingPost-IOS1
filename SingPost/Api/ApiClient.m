@@ -28,15 +28,18 @@
 
 
 static BOOL isProduction = NO;
+static BOOL isSIT = YES;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
-#define CMS_BASE_URL_V4     (isProduction ? CMS_PRODUCTION_BASE_URL_V4:CMS_UAT_BASE_URL_V4)
+#define CMS_BASE_URL_V4     (isProduction ? CMS_PRODUCTION_BASE_URL_V4:(isSIT ? CMS_UAT_BASE_URL_V4_SIT:CMS_UAT_BASE_URL_V4))
 
 //Development
 static NSString *const SINGPOST_UAT_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_UAT_BASE_URL = @"http://27.109.106.170/mobile2/";
 static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/mobile2/v4/";
+
+static NSString *const CMS_UAT_BASE_URL_V4_SIT = @"http://128.199.253.131/mobile2/v4/";
 
 //Production
 static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://prdesb1.singpost.com";
