@@ -34,6 +34,7 @@
 #import "NSDictionary+Additions.h"
 #import "AnnouncementViewController.h"
 #import "ShopViewController.h"
+#import "BarScannerViewController.h"
 
 #import "TrackedItem.h"
 #import <SVProgressHUD.h>
@@ -216,6 +217,21 @@ OffersMenuDelegate
     trackingNumberTextField.delegate = self;
     [contentView addSubview:trackingNumberTextField];
     
+    //Add Scan Button
+    UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGFloat findTrackingBtnX;
+    if (INTERFACE_IS_IPAD) {
+        findTrackingBtnX = trackingNumberTextField.right - 120;
+        scanBtn.frame = CGRectMake(findTrackingBtnX, trackingNumberTextField.center.y - 35/2, 35, 35);
+    }
+    else {
+        findTrackingBtnX = trackingNumberTextField.width - 45;
+        scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 87, 35, 35) : CGRectMake(findTrackingBtnX, 71, 29, 29);
+    }
+    [scanBtn setImage:[UIImage imageNamed:@"btn_scan"] forState:UIControlStateNormal];
+    [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
+    [contentView addSubview:scanBtn];
+    
     LandingPageButton *trackingListButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon"] forState:UIControlStateNormal];
     [trackingListButton addTarget:self action:@selector(trackingListButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -228,7 +244,7 @@ OffersMenuDelegate
     [contentView addSubview:trackingListButton];
     
     LandingPageButton *findTrackingNumberButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
-    CGFloat findTrackingBtnX;
+    //CGFloat findTrackingBtnX;
     if (INTERFACE_IS_IPAD) {
         findTrackingBtnX = trackingNumberTextField.right - 40;
         findTrackingNumberButton.frame = CGRectMake(findTrackingBtnX, trackingNumberTextField.center.y - 35/2, 35, 35);
@@ -373,6 +389,8 @@ OffersMenuDelegate
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Home"];
+    
+    //[self OnGoToScan];
 }
 
 - (void)viewDidLoad {
@@ -728,6 +746,12 @@ OffersMenuDelegate
 - (void)onAnnouncementBtn:(id)sender {
     AnnouncementViewController *vc = [[AnnouncementViewController alloc]init];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+}
+
+- (void)OnGoToScan {
+    BarScannerViewController * vc = [[BarScannerViewController alloc] init];
+    vc.landingVC = self;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
 }
 
 @end

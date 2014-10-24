@@ -20,7 +20,7 @@
 @interface ProceedViewController () {
     UIButton * btn1;
     UIButton * sendBtn;
-    __weak IBOutlet UIButton *doneBtn;
+    __weak IBOutlet FlatBlueButton *doneBtn;
 }
 
 @end
@@ -77,15 +77,15 @@
     [pd sizeToFit];
     [contentView addSubview:pd];
     
-    sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, pd.frame.origin.y + pd.frame.size.height + (20 * contentView.bounds.size.width /320), contentView.bounds.size.width - 40, contentView.bounds.size.width * 2 /16)];
-    [sendBtn setBackgroundImage:[UIImage imageNamed:@"blue_bg_pressed_button"] forState:UIControlStateNormal];
+    sendBtn = [[FlatBlueButton alloc] initWithFrame:CGRectMake(20, pd.frame.origin.y + pd.frame.size.height + (20 * contentView.bounds.size.width /320), contentView.bounds.size.width - 40, contentView.bounds.size.width * 2 /16)];
+    //[sendBtn setBackgroundImage:[UIImage imageNamed:@"blue_bg_pressed_button"] forState:UIControlStateNormal];
     [sendBtn addTarget:self action:@selector(sendClicked) forControlEvents:UIControlEventTouchUpInside];
     [sendBtn setTitle:@"DONE" forState:UIControlStateNormal];
     [sendBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [contentView addSubview:sendBtn];
     [sendBtn setEnabled:false];
     
-    [doneBtn.titleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+    //[doneBtn.titleLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     
     self.view = contentView;
     

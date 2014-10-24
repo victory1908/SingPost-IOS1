@@ -8,6 +8,7 @@
 
 #import "SwipeViewController.h"
 #import "AppDelegate.h"
+#import "LandingPageViewController.h"
 
 @interface SwipeViewController () {
     BOOL isSwipeEnable;
@@ -57,7 +58,9 @@
     
     if (swipe.direction == UISwipeGestureRecognizerDirectionRight) {
         NSLog(@"Right Swipe");
-        [[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
+        LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+        
+        [[AppDelegate sharedAppDelegate].rootViewController cPopViewControllerOrSwitch:landingPageViewController];
     }
     
 }

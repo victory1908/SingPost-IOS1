@@ -17,8 +17,10 @@
 - (void)toggleSideBarVisiblity;
 - (void)updateMaintananceStatusUIs;
 - (void)switchToViewController:(UIViewController *)viewController;
+- (void)newSwitchToViewController2:(UIViewController *)viewController;
 - (void)cPushViewController:(UIViewController *)viewController;
 - (void)cPopViewController;
+- (void)cPopViewControllerOrSwitch :(UIViewController *)viewController;
 - (BOOL)isSideBarVisible;
 
 - (void)cInteractivePopViewController : (double)offsetX;
