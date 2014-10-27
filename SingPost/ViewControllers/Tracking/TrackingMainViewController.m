@@ -56,10 +56,7 @@ typedef enum {
 
 @interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
 
-@property (nonatomic) NSFetchedResultsController *allItemsFetchedResultsController;
-@property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
-@property (nonatomic) NSFetchedResultsController *completedItemsFetchedResultsController;
-@property (nonatomic) NSFetchedResultsController *unsortedItemsFetchedResultsController;
+
 
 @end
 
@@ -123,23 +120,10 @@ typedef enum {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
     
-    /*if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"]) {
-        NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
-        if ([trackedArray count] == 0)
-            return;
-        
-        NSMutableArray * numberArray = [NSMutableArray array];
-        for(TrackedItem *trackedItem in trackedArray){
-            [numberArray addObject:trackedItem.trackingNumber];
-        }
-        [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
-        }];
-    }*/
-    
     NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
     [ApiClient sharedInstance].allTrackingItem = arr;
     
-    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     appDelegate.trackingMainViewController = self;
     
     if(!isViewDidAppear) {
@@ -264,6 +248,7 @@ typedef enum {
 - (void)goToDetailPageWithTrackedItem:(TrackedItem *)trackedItem {
     TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
     trackedItem.isReadValue = YES;
+    trackingDetailsViewController.delegate = self;
     
     NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
     if(title && ![title isEqualToString:@""])
@@ -714,7 +699,7 @@ typedef enum {
             
             //update cms tracking status
             
-            AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+            AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
             if(!appDelegate.isLoginFromSideBar)
                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.5f];
             break;
@@ -864,16 +849,6 @@ typedef enum {
                 [labels addObject:@""];
             
         }
-        
-        /*for(NSString * num in [locaLabelDic allKeys]) {
-            [numbers addObject:num];
-            
-            NSString * label = [locaLabelDic objectForKey:num];
-            if(label != nil)
-                [labels addObject:[locaLabelDic objectForKey:num]];
-            else
-                [labels addObject:@""];
-        }*/
         
         [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
          {
@@ -1181,6 +1156,12 @@ typedef enum {
     
     return newItems;
 }
+
+- (void)setItem:(NSString *)number WithLabel:(NSString *)label {
+    [labelDic setObject:label forKey:number];
+    [self refreshTableView];
+}
+
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {

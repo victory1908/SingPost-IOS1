@@ -708,29 +708,13 @@
             [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                 
                 // Retrieve the app delegate
-                AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+                AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 
                 appDelegate.isLoginFromSideBar = YES;
                 // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
                 [appDelegate sessionStateChanged:session state:state error:error];
             }];
             
-            /*
-            
-            [FBSession openActiveSessionWithReadPermissions:@[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"]
-             allowLoginUI:YES
-             completionHandler:
-             ^(FBSession *session, FBSessionState state, NSError *error) {
-             
-             // Retrieve the app delegate
-             AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-             
-             appDelegate.isLoginFromSideBar = YES;
-             // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
-             [appDelegate sessionStateChanged:session state:state error:error];
-             }];*/
-            
-            //[[AppDelegate sharedAppDelegate] LoginFacebook];
         }
 
     }

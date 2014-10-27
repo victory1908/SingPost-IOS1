@@ -253,12 +253,13 @@
 - (void)showSignInButton {
     if (FBSession.activeSession.state != FBSessionStateOpen
         && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
-        [signIn2Label setHidden:NO];
+        /*[signIn2Label setHidden:NO];
         [button setHidden:NO];
         [icon setFrame:CGRectMake(140, 10, 30, 30)];
         [trackingNumberLabel setFrame:CGRectMake(15,56, 150, 30)];
         
-        [self.contentView addSubview: icon];
+        [self.contentView addSubview: icon];*/
+        [self signIn];
     } else {
         if(icon.isSelected) {
             
@@ -281,11 +282,16 @@
                 
             }
         } else {
-            [icon setSelected:YES];
+            /*[icon setSelected:YES];
             [icon setY:11];
             [signIn2Label setHidden:NO];
             [trackingNumberLabel setFrame:CGRectMake(15,56, 150, 30)];
-            [self editClicked];
+            [self editClicked];*/
+            
+            UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:@"Enter a label for your item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+            labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
+            labelEnterview.tag = 101;
+            [labelEnterview show];
         }
         
         [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
@@ -303,37 +309,44 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    
-    if (buttonIndex == 0) {
-        
-    } else {
-        // If the session state is any of the two "open" states when the button is clicked
-        if (FBSession.activeSession.state == FBSessionStateOpen
-            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+    if(alertView.tag == 101) {
+        if (buttonIndex == 0) {
             
-            // Close the session and remove the access token from the cache
-            // The session state handler (in the app delegate) will be called automatically
-            
-            
-            [FBSession.activeSession closeAndClearTokenInformation];
-            
-            // If the session state is not any of the two "open" states when the button is clicked
         } else {
-            // Open a session showing the user the login UI
-            // You must ALWAYS ask for public_profile permissions when opening a session
-            [FBSession openActiveSessionWithReadPermissions:@[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"]
-                                               allowLoginUI:YES
-                                          completionHandler:
-             ^(FBSession *session, FBSessionState state, NSError *error) {
-                 
-                 // Retrieve the app delegate
-                 AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-                 // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
-                 [appDelegate sessionStateChanged:session state:state error:error];
-             }];
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            [self textFieldDidEndEditing:textField];
+            
         }
         
+    } else {
+        
+        if (buttonIndex == 0) {
+            
+        } else {
+            if (FBSession.activeSession.state == FBSessionStateOpen
+                || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+                
+                
+                [FBSession.activeSession closeAndClearTokenInformation];
 
+            } else {
+
+                NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
+                FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
+                [FBSession setActiveSession:session];
+                
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+
+                    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                    
+                    appDelegate.isLoginFromSideBar = YES;
+  
+                    [appDelegate sessionStateChanged:session state:state error:error];
+                }];
+            }
+            
+            
+        }
     }
 }
 
@@ -345,7 +358,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     [appDelegate.trackingMainViewController animateTextField: textField up: YES];
 }
 
@@ -358,9 +371,8 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate.trackingMainViewController animateTextField: textField up: NO];
-    [self endEditing:YES];
+
+   [self endEditing:YES];
     
     if([textField.text isEqualToString:@""]) {
         textField.text = @"Enter a label";
@@ -372,7 +384,6 @@
         [delegate submitAllTrackingItemWithLabel];
         return;
     }
-    //[self showSignInButton];
     
     [self setItemLabel2:textField.text];
     [signIn2Label setHidden:YES];
@@ -403,11 +414,10 @@
     
     NSString * num = _item.trackingNumber;
     [delegate.labelDic setValue:text forKey:num];
+    [signIn2Label setText:text];
     
     [delegate submitAllTrackingItemWithLabel];
-    
-    //NSString * num = _item.trackingNumber;
-   // [delegate.labelDic setValue:text forKey:num];
+
 }
 
 - (void) updateLabel : (NSString *)label {

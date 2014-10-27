@@ -12,6 +12,7 @@
 @interface TrackingSelectViewController () {
     //NSMutableArray * selectedArray;
     __weak IBOutlet UIButton *checkBox;
+    __weak IBOutlet UIImageView *blurImage;
 }
 
 @end
@@ -37,6 +38,8 @@
     // Do any additional setup after loading the view from its nib.
     trackItems2Delete = [NSMutableArray array];
     [self addAll2Delete];
+    
+    [self setupBlurredImage];
 }
 
 - (void)didReceiveMemoryWarning
@@ -167,26 +170,6 @@
 - (NSDictionary *) selectAll {
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     
-    /*NSMutableArray *cells = [[NSMutableArray alloc] init];
-    for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j)
-    {
-        for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i)
-        {
-            id cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
-            if(cell)
-                [cells addObject:cell];
-            
-        }
-    }
-    
-    for (id cell in cells)
-    {
-        if([cell isKindOfClass:[TrackingSelectTableViewCell class]]) {
-            [cell onSelected];
-            
-        }
-    }*/
-    
     [self removeAll2Delete];
     [self.tableView reloadData];
     
@@ -196,28 +179,30 @@
 - (NSDictionary *) unSelectAll {
     NSMutableDictionary * dic = [NSMutableDictionary dictionary];
     
-    /*NSMutableArray *cells = [[NSMutableArray alloc] init];
-    for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j)
-    {
-        for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i)
-        {
-            id cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
-            if(cell)
-                [cells addObject:cell];
-        }
-    }
-    
-    for (id cell in cells)
-    {
-        if([cell isKindOfClass:[TrackingSelectTableViewCell class]]) {
-            [cell onUnSelected];
-            
-        }
-    }*/
-    
     [self addAll2Delete];
     [self.tableView reloadData];
     return dic;
+}
+
+- (void)setupBlurredImage
+{
+    UIImage *theImage = [UIImage imageNamed:@"blur"];
+    
+    //create our blurred image
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CIImage *inputImage = [CIImage imageWithCGImage:theImage.CGImage];
+    
+    //setting up Gaussian Blur (we could use one of many filters offered by Core Image)
+    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [filter setValue:inputImage forKey:kCIInputImageKey];
+    [filter setValue:[NSNumber numberWithFloat:35] forKey:@"inputRadius"];
+    CIImage *result = [filter valueForKey:kCIOutputImageKey];
+    //CIGaussianBlur has a tendency to shrink the image a little, this ensures it matches up exactly to the bounds of our original image
+    CGImageRef cgImage = [context createCGImage:result fromRect:[inputImage extent]];
+    
+    //add our blurred image to the scrollview
+    blurImage.image = [UIImage imageWithCGImage:cgImage];
+    //blurImage.alpha = 0.7;
 }
 
 @end

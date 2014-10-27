@@ -201,7 +201,7 @@
      ^(FBSession *session, FBSessionState state, NSError *error) {
          
          // Retrieve the app delegate
-         AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+         AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
          
           appDelegate.isLoginFromSideBar = YES;
          // Call the app delegate's sessionStateChanged:state:error method to handle session state changes

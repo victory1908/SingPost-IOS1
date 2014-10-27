@@ -33,11 +33,13 @@ static BOOL isSIT = YES;
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
 #define CMS_BASE_URL_V4     (isProduction ? CMS_PRODUCTION_BASE_URL_V4:(isSIT ? CMS_UAT_BASE_URL_V4_SIT:CMS_UAT_BASE_URL_V4))
+#define AD_BASE_URL         (isProduction ? AD_PRODUCTION_BASE_URL : AD_UAT_BASE_URL)
 
 //Development
 static NSString *const SINGPOST_UAT_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_UAT_BASE_URL = @"http://27.109.106.170/mobile2/";
 static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/mobile2/v4/";
+static NSString *const AD_UAT_BASE_URL = @"https://uat.mysam.sg/restful-services/advertisementServices/";
 
 static NSString *const CMS_UAT_BASE_URL_V4_SIT = @"http://128.199.253.131/mobile2/v4/";
 
@@ -45,6 +47,7 @@ static NSString *const CMS_UAT_BASE_URL_V4_SIT = @"http://128.199.253.131/mobile
 static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://prdesb1.singpost.com";
 static NSString *const CMS_PRODUCTION_BASE_URL = @"http://mobile.singpost.com/mobile2/";
 static NSString *const CMS_PRODUCTION_BASE_URL_V4 = @"http://mobile.singpost.com/mobile2/v4/";
+static NSString *const AD_PRODUCTION_BASE_URL = @"https://www.mysam.sg/restful-services/advertisementServices/";
 
 static NSString *const APP_ID = @"M00002";
 static NSString *const OS = @"ios";
@@ -918,9 +921,15 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 }
 
 -(void) incrementClickCountWithId: (NSString *)locationId onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
-    NSString * url = [NSString stringWithFormat:@"https://uat.vbox.com.sg:8083/restful-services/advertisementServices/incrementClickCount/%@",locationId];
+    NSString * url = [NSString stringWithFormat:@"%@incrementClickCount/%@",AD_BASE_URL,locationId];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
+    
+    AFHTTPClient * httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:url]];
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
+                                                            path:@""
+                                                      parameters:nil];
+    
+    //NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
