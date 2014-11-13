@@ -16,6 +16,7 @@
 - (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 
 @property (nonatomic,retain) NSString * title;
+@property (nonatomic,assign) BOOL isActiveItem;
 @property (nonatomic,retain) TrackingMainViewController * delegate;
 
 @end

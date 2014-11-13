@@ -16,6 +16,7 @@
 #import "UIView+Position.h"
 #import "UIAlertView+Blocks.h"
 #import "ApiClient.h"
+#import "CustomIOS7AlertView.h"
 
 @interface ProceedViewController () {
     UIButton * btn1;
@@ -46,7 +47,8 @@
     
     NavigationBarView *navigationBarView = [[NavigationBarView alloc] initWithFrame:NAVIGATIONBAR_FRAME];
     [navigationBarView setTitle:@"Before we proceed..."];
-    [navigationBarView setShowSidebarToggleButton:YES];
+    //[navigationBarView setShowSidebarToggleButton:YES];
+    [navigationBarView setShowPDPABackButton];
     [contentView addSubview:navigationBarView];
     
     btn1 = [[UIButton alloc] initWithFrame:CGRectMake(20, 70, contentView.bounds.size.width/16, contentView.bounds.size.width/16)];
@@ -102,26 +104,9 @@
 }
 
 - (void)sendClicked {
-    
-    if (FBSession.activeSession.state == FBSessionStateOpen
-        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
 
-        
-        [FBSession.activeSession closeAndClearTokenInformation];
-        [FBSession.activeSession close];
-        //[FBSession setActiveSession:nil];
-        
-        [self fbDidLogout];
-        
-        [ApiClient sharedInstance].serverToken = @"";
-        
-        // If the session state is not any of the two "open" states when the button is clicked
-    } else {
-        
-        [[AppDelegate sharedAppDelegate] LoginFacebook];
-    }
-    
-    //[[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
+    [[AppDelegate sharedAppDelegate] firstTimeLoginFacebook];
+
 }
 
 

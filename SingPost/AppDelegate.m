@@ -21,11 +21,15 @@
 #import <Crashlytics/Crashlytics.h>
 #import "ProceedViewController.h"
 #import "DeliveryStatus.h"
+#import "CustomIOS7AlertView.h"
+#import "UIFont+SingPost.h"
 
 
 @implementation AppDelegate
 @synthesize activeItemsFetchedResultsController = _activeItemsFetchedResultsController;
 @synthesize isLoginFromSideBar;
+@synthesize isLoginFromDetailPage;
+@synthesize detailPageTrackNum;
 
 
 + (AppDelegate *)sharedAppDelegate {
@@ -35,7 +39,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     application.applicationIconBadgeNumber = 0;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    //IOS 8 broke the registerForRemoteNotifications, as Apple always does.
+    
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        // use registerUserNotificationSettings
+        [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    } else {
+        // use registerForRemoteNotifications
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    }
+    
+    
     
     [self setupGoogleAnalytics];
     [MagicalRecord setupAutoMigratingCoreDataStack];
@@ -166,6 +181,8 @@
     
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = YES;
+    trackingMainViewController.isFirstTimeUser = self.isNewUser;
+    self.isNewUser = false;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
     
     double delayInSeconds = 0.5;
@@ -248,15 +265,11 @@
          
          [self getAllLabel];
          
-         /*if(isLoginFromSideBar) {
-          if ([self.rootViewController isSideBarVisible])
-          [self.rootViewController toggleSideBarVisiblity];
-          
-          ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-          [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
-          }*/
-         
          [self.rootViewController checkSignStatus];
+         
+         /*if(proceedVC != nil) {
+             [[AppDelegate sharedAppDelegate].rootViewController cPopViewController ];
+         }*/
          
          
      } onFailure:^(NSError *error)
@@ -266,6 +279,60 @@
      }];
 
 
+}
+
+- (void)firstTimeLoginFacebook {
+    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    
+    [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
+     {
+         NSLog(@"FacebookLogin success");
+         
+         int status = [[responseObject objectForKey:@"status"] intValue];
+         
+         if(status != 200) {
+             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Log in failed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+             
+             [alert show];
+             
+             return;
+         }
+         
+         NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
+         
+         if(temp != nil && ![temp isKindOfClass:[NSNull class]])
+         [ApiClient sharedInstance].serverToken = temp;
+         
+         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+         NSString * lastUser = [defaults valueForKey:@"LAST_USER"];
+         
+         //If is not the lastuser
+         if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser] && lastUser != nil) {
+             //1.Unsubscribe all lastuser's tracking ID
+             //2.Clear local database
+             [self unSubscribeAllActiveItem];
+             
+         }
+         
+         [defaults setValue:[ApiClient sharedInstance].fbID forKey:@"LAST_USER"];
+         [defaults synchronize];
+         
+         [self getAllLabel];
+         
+         [self.rootViewController checkSignStatus];
+         
+         /*if(proceedVC != nil) {
+          [[AppDelegate sharedAppDelegate].rootViewController cPopViewController ];
+          }*/
+         
+         
+     } onFailure:^(NSError *error)
+     {
+         [self.rootViewController checkSignStatus];
+         [SVProgressHUD dismiss];
+     }];
+    
+    
 }
 
 // This method will handle ALL the session state changes in the app
@@ -291,13 +358,13 @@
                     
                     //New User
                     if(i == 1) {
-                        //if(isLoginFromSideBar) {
+                        self.isNewUser = true;
                         if ([self.rootViewController isSideBarVisible])
                             [self.rootViewController toggleSideBarVisiblity];
                         
-                        ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-                        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
-                        //}
+                        proceedVC = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+                        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:proceedVC];
+                        
                         [SVProgressHUD dismiss];
                         return;
                     }
@@ -312,47 +379,7 @@
                      [SVProgressHUD dismiss];
                  }];
                 
-                /*[[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
-                 {
-                     NSLog(@"FacebookLogin success");
-                     NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
-                     
-                     if(temp != nil && ![temp isKindOfClass:[NSNull class]])
-                         [ApiClient sharedInstance].serverToken = temp;
-                     
-                     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-                     NSString * lastUser = [defaults valueForKey:@"LAST_USER"];
-                     
-                     //If is not the lastuser
-                     if(![[ApiClient sharedInstance].fbID isEqualToString:lastUser] && lastUser != nil) {
-                         //1.Unsubscribe all lastuser's tracking ID
-                         //2.Clear local database
-                         [self unSubscribeAllActiveItem];
-                         
-                     }
-                     
-                     [defaults setValue:[ApiClient sharedInstance].fbID forKey:@"LAST_USER"];
-                     [defaults synchronize];
-                     
-                     [self getAllLabel];
-                     
-//                     if(isLoginFromSideBar) {
-//                         if ([self.rootViewController isSideBarVisible])
-//                             [self.rootViewController toggleSideBarVisiblity];
-//                     
-//                         ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-//                         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
-//                     }
-                     
-                     [self.rootViewController checkSignStatus];
-                     
-                     
-                 } onFailure:^(NSError *error)
-                 {
-                     [self.rootViewController checkSignStatus];
-                     [SVProgressHUD dismiss];
-                 }];*/
-            } else {
+                            } else {
                 // An error occurred, we need to handle the error
                 // See: https://developers.facebook.com/docs/ios/errors
             }
@@ -369,13 +396,7 @@
         [self.trackingMainViewController refreshTableView];
         
         [self.rootViewController checkSignStatus];
-        //Go to tracking list page.
-        /*if ([self.rootViewController isSideBarVisible])
-            [self.rootViewController toggleSideBarVisiblity];
-        
-        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-        trackingMainViewController.isPushNotification = YES;
-        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];*/
+ 
     }
     
     // Handle errors
@@ -514,9 +535,10 @@
          
          //Go to tracking list page.
          
-         if(isLoginFromSideBar) {
+         if(isLoginFromDetailPage) {
+             [self performSelector:@selector(GotoTrackingDetail) withObject:nil afterDelay:2.0f];
+         } else if(isLoginFromSideBar) {
              [self performSelector:@selector(GotoTrackingMain) withObject:nil afterDelay:2.0f];
-             
          } else {
              [SVProgressHUD dismiss];
          }
@@ -530,13 +552,30 @@
 - (void) GotoTrackingMain {
     [SVProgressHUD dismiss];
     
-    isLoginFromSideBar = false;
+    isLoginFromDetailPage = false;
     if ([self.rootViewController isSideBarVisible])
         [self.rootViewController toggleSideBarVisiblity];
     
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = YES;
+    trackingMainViewController.isFirstTimeUser = self.isNewUser;
+    self.isNewUser = false;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+}
+
+- (void) GotoTrackingDetail {
+    [SVProgressHUD dismiss];
+    
+    //isLoginFromSideBar = false;
+    if ([self.rootViewController isSideBarVisible])
+        [self.rootViewController toggleSideBarVisiblity];
+    
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = YES;
+    trackingMainViewController.isFirstTimeUser = self.isNewUser;
+    self.isNewUser = false;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    
 }
 
 - (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate{

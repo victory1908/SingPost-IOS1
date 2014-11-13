@@ -10,6 +10,10 @@
       "filename" : "SingPost_Images.xcassets_Images_landing_stampCollectibles.imageset_landing_stampCollectibles_Before_447864c87bc01f6adead131ddfd6864c1dda80fd.png"
     },
     {
+      "idiom" : "iphone",
+      "scale" : "3x"
+    },
+    {
       "idiom" : "ipad",
       "scale" : "1x"
     },

@@ -18,6 +18,7 @@
 @property (nonatomic,assign) BOOL isOn;
 
 @property BOOL isPushNotification;
+@property BOOL isFirstTimeUser;
 
 @property (nonatomic,retain)NSMutableDictionary * labelDic;
 
@@ -40,4 +41,6 @@
 - (void) syncLabelsWithTrackingNumbers;
 
 - (void) enableSideBar;
+
+- (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum;
 @end

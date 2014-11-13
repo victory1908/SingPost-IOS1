@@ -42,6 +42,7 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 #import "ProceedViewController.h"
+#import "PersistentBackgroundView.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -125,6 +126,8 @@
         str = @"Log Out";
     }
     
+   
+    
     [self performSelector:@selector(checkLoginStatus) withObject:nil afterDelay:1.0f];
     
     [logButton setTitle:str forState:UIControlStateNormal];
@@ -134,6 +137,9 @@
     [logButton setFrame:CGRectMake(SIDEBAR_WIDTH - 110, offsetY + 2, 60, 44)];
     [contentView addSubview:logButton];
     
+    PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 10, 1, 25)];
+    [separatorView2 setPersistentBackgroundColor:RGB(196, 197, 200)];
+    [contentView addSubview:separatorView2];
     
     offsetY += 55.0f;
     

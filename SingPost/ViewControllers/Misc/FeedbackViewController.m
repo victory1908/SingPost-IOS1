@@ -86,12 +86,13 @@
     offsetY += 45.0f;
     nameTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.width - 30, 44)];
     [nameTextField setPlaceholder:@"Name"];
+    [nameTextField setKeyboardType:UIKeyboardTypeNamePhonePad];
     [contentScrollView addSubview:nameTextField];
     
     offsetY += 56.0f;
     contactNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, offsetY, contentScrollView.width - 30, 44)];
     [contactNumberTextField setPlaceholder:@"Contact number"];
-    [contactNumberTextField setKeyboardType:UIKeyboardTypeNumbersAndPunctuation];
+    [contactNumberTextField setKeyboardType:UIKeyboardTypePhonePad];
     [contentScrollView addSubview:contactNumberTextField];
     
     offsetY += 56.0f;
@@ -149,6 +150,26 @@
         [alertView show];
         return;
     }
+    
+    if([emailAddressTextField.text rangeOfString:@"@"].location == NSNotFound) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
+    if([emailAddressTextField.text rangeOfString:@"."].location == NSNotFound) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
+    if([contactNumberTextField.text length] < 7) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [self.view endEditing:YES];
         NSString *feedbackMessage = [NSString stringWithFormat:@"Name: %@\nContact: %@\nEmail: %@\nMessage: %@", nameTextField.text, contactNumberTextField.text, emailAddressTextField.text, commentsTextView.text];

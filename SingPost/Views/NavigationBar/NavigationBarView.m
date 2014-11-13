@@ -9,10 +9,11 @@
 #import "NavigationBarView.h"
 #import "AppDelegate.h"
 #import "UIFont+SingPost.h"
+#import "ApiClient.h"
 
 @implementation NavigationBarView
 {
-    UIButton *toggleSidebarButton, *backButton;
+    UIButton *toggleSidebarButton, *backButton,*PDPABackButton;
     UILabel *titleLabel;
 }
 
@@ -30,10 +31,18 @@
         
         backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton setHidden:YES];
-        [backButton setImage:[UIImage imageNamed:@"sidebar_button"] forState:UIControlStateNormal];
+        [backButton setImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
         [backButton setFrame:CGRectMake(0, 0, 44, 44)];
-        [backButton addTarget:self action:@selector(toggleSidebarButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backButton];
+        
+        
+        PDPABackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [PDPABackButton setHidden:YES];
+        [PDPABackButton setImage:[UIImage imageNamed:@"back_button"] forState:UIControlStateNormal];
+        [PDPABackButton setFrame:CGRectMake(0, 0, 44, 44)];
+        [PDPABackButton addTarget:self action:@selector(PDPABackButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:PDPABackButton];
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width - 100, 44)];
         [titleLabel setCenter:self.center];
@@ -64,6 +73,10 @@
     [backButton setHidden:!showBackButton];
 }
 
+- (void)setShowPDPABackButton{
+    [PDPABackButton setHidden:NO];
+}
+
 - (void)setTitle:(NSString *)title
 {
     [titleLabel setText:title];
@@ -84,6 +97,16 @@
 
 - (IBAction)backButtonClicked:(id)sender
 {
+    [[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
+}
+
+- (IBAction)PDPABackButtonClicked:(id)sender
+{
+    [FBSession.activeSession closeAndClearTokenInformation];
+    [FBSession.activeSession close];
+ 
+    
+    [ApiClient sharedInstance].serverToken = @"";
     [[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
 }
 

@@ -29,6 +29,8 @@
 #import "DeliveryStatus.h"
 
 #import "TrackingSelectViewController.h"
+#import "CustomIOS7AlertView.h"
+
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
@@ -54,7 +56,7 @@ typedef enum {
 
 @end
 
-@interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate>
+@interface TrackingMainViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate,CustomIOS7AlertViewDelegate>
 
 
 
@@ -249,6 +251,22 @@ typedef enum {
     TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
     trackedItem.isReadValue = YES;
     trackingDetailsViewController.delegate = self;
+    trackingDetailsViewController.isActiveItem = [trackedItem.isActive isEqualToString:@"true"]?YES:NO;
+    
+    NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
+    if(title && ![title isEqualToString:@""])
+        trackingDetailsViewController.title = title;
+    [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+}
+
+- (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum {
+    TrackedItem * trackedItem = [TrackedItem  MR_findFirstByAttribute:@"trackingNumber" withValue:trackNum];
+    
+    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+    trackedItem.isReadValue = YES;
+    trackingDetailsViewController.delegate = self;
+    trackingDetailsViewController.isActiveItem = [trackedItem.isActive isEqualToString:@"true"]?YES:NO;
     
     NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
     if(title && ![title isEqualToString:@""])
@@ -295,7 +313,7 @@ typedef enum {
     
     CGSize statusLabelSize = [trackedItem.status sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
     
-    return MAX(60 + 30, statusLabelSize.height + 14 + 30);
+    return MAX(60 + 20, statusLabelSize.height + 14 + 20);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -603,7 +621,7 @@ typedef enum {
 - (NSFetchedResultsController *)allItemsFetchedResultsController
 {
     if (!_allItemsFetchedResultsController) {
-        _allItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+        _allItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
     }
     
     return _allItemsFetchedResultsController;
@@ -612,7 +630,7 @@ typedef enum {
 - (NSFetchedResultsController *)activeItemsFetchedResultsController
 {
     if (!_activeItemsFetchedResultsController) {
-        _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'true'"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+        _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'true'"] sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
     }
     
     return _activeItemsFetchedResultsController;
@@ -621,7 +639,7 @@ typedef enum {
 - (NSFetchedResultsController *)completedItemsFetchedResultsController
 {
     if (!_completedItemsFetchedResultsController) {
-        _completedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'false'"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+        _completedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'false'"] sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
     }
     
     return _completedItemsFetchedResultsController;
@@ -630,7 +648,7 @@ typedef enum {
 - (NSFetchedResultsController *)unsortedItemsFetchedResultsController
 {
     if (!_unsortedItemsFetchedResultsController) {
-        _unsortedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isFound == 0"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
+        _unsortedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isFound == 0"] sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
     }
     
     return _unsortedItemsFetchedResultsController;
@@ -695,12 +713,20 @@ typedef enum {
             if (rowCount == 0)
                 [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             
+            //Delete from localDic first
+            TrackingItemMainTableViewCell * cell = (TrackingItemMainTableViewCell * )[trackingItemsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]];
+            
+            NSString * trackingNum = cell.item.trackingNumber;
+            if([labelDic objectForKey:trackingNum] != nil)
+                [labelDic removeObjectForKey:trackingNum];
+            
             [trackingItemsTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
             
-            //update cms tracking status
             
+            
+            //update cms tracking status
             AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-            if(!appDelegate.isLoginFromSideBar)
+           // if(!appDelegate.isLoginFromSideBar)
                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.5f];
             break;
         }
@@ -723,9 +749,18 @@ typedef enum {
 
 #pragma mark - Notification switch
 
+#define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 - (void)switchChanged:(UIControl *)sender {
-    UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-    BOOL notificationStatus = types != UIRemoteNotificationTypeNone;
+    NSUInteger rntypes;
+    if (!SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+        rntypes = [[[UIApplication sharedApplication] currentUserNotificationSettings] types];
+    }else{
+        rntypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+    }
+    
+    //UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+    BOOL notificationStatus = rntypes != UIRemoteNotificationTypeNone;
     
     if (receiveUpdateSwitch.isOn) {
         if (notificationStatus) {
@@ -873,7 +908,38 @@ typedef enum {
 }
 
 - (void) syncLabelsWithTrackingNumbers {
+    if(self.isFirstTimeUser) {
+        CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+        UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 100)];
+        
+        UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"editLabel"]];
+        [imageView setFrame:CGRectMake(200, 15, 30, 30)];
+        
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 260, 50)];
+        label.numberOfLines = 0;
+        label.text = @"Thanks for signing up. Tap       \nto label your tracking numbers";
+        [label setFont:[UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
+        [contentView addSubview:imageView];
+        [contentView addSubview:label];
+        
+        [alertView setContainerView:contentView];
+        [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"OK", nil]];
+        alertView.delegate = self;
+        [alertView show];
+    
+        self.isFirstTimeUser = false;
+        
+        return;
+        
+    }
     [self getAllLabel];
+}
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    [self getAllLabel];
+    [alertView close];
+    NSLog(@"Button at position %d is clicked on alertView %d.", buttonIndex, [alertView tag]);
 }
 
 - (void) getAllLabel {
@@ -901,7 +967,7 @@ typedef enum {
              if(trackingJson == nil){
                  continue;
              }
-             //NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+
              NSDictionary * tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
              
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
@@ -931,6 +997,26 @@ typedef enum {
              return;
          }
          
+         /*if(self.isFirstTimeUser) {
+             CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+             UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 100)];
+             
+             UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"editLabel"]];
+             [imageView setFrame:CGRectMake(200, 15, 30, 30)];
+             
+             UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 260, 50)];
+             label.numberOfLines = 0;
+             label.text = @"Thanks for signing up. Tap       \nto label your tracking numbers";
+             [label setFont:[UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
+             [contentView addSubview:imageView];
+             [contentView addSubview:label];
+             
+             [alertView setContainerView:contentView];
+             [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"OK", nil]];
+             [alertView show];
+             
+         }*/
+         
          
          
          NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
@@ -951,8 +1037,12 @@ typedef enum {
          }
          //[self refreshTableView];
          [self submitAllTrackingItemWithLabel];
-         //[self performSelectorOnMainThread:@selector(submitAllTrackingItemWithLabel) withObject:nil waitUntilDone:1.5f];
          
+         AppDelegate * appDelegate = (AppDelegate*)[AppDelegate sharedAppDelegate];
+         if(appDelegate.isLoginFromDetailPage) {
+             appDelegate.isLoginFromDetailPage = false;
+             [self forwardToDetailPageWithTrackedItem:appDelegate.detailPageTrackNum];
+         }
          
      } onFailure:^(NSError *error)
      {
@@ -968,19 +1058,22 @@ typedef enum {
     
     vc = [[TrackingSelectViewController alloc] init];
     vc.trackItems = newLocalItems;
-
+    vc.delegate = self;
     [self.view addSubview:vc.view];
     vc.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     vc.view.alpha = 0;
-    vc.delegate = self;
-    //[self presentViewController:vc animated:YES completion:^{ }];
+    
     [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^
      {
          vc.view.alpha = 1;
      } completion:nil];
     
     [self disableSideBar];
+    
+    
 }
+
+
 
 - (void) disableSideBar {
     [navigationBarView setToggleButtonEnable:NO];
@@ -996,13 +1089,15 @@ typedef enum {
     
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     for(TrackedItem * item in items2Delete) {
-         //TrackedItem * item2Delete = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:item.trackingNumber] firstObject];
-        
         [item MR_deleteEntity];
     }
     
     [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
         if (success) {
+            for(TrackedItem * item in items2Delete) {
+                if([labelDic objectForKey:item.trackingNumber] != nil)
+                    [labelDic removeObjectForKey:item.trackingNumber];
+            }
             
             [self.trackingItemsTableView reloadDataAndWait:^{
                 //call the required method here
@@ -1025,6 +1120,11 @@ typedef enum {
             }
             
             [self enableSideBar];
+            AppDelegate * appDelegate = (AppDelegate *)[AppDelegate sharedAppDelegate];
+            appDelegate.isLoginFromSideBar = false;
+            
+            //[(AppDelegate *)[AppDelegate sharedAppDelegate]  performSelector:@selector(GotoTrackingMain) withObject:nil afterDelay:0.5f];
+            //[(AppDelegate *)[AppDelegate sharedAppDelegate] GotoTrackingMain];
         } else {
             [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.2f];
             [vc.view removeFromSuperview];
@@ -1032,6 +1132,26 @@ typedef enum {
         }
     }];
     [self enableSideBar];
+    
+    if(self.isFirstTimeUser) {
+        CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+        UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 100)];
+        
+        UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"editLabel"]];
+        [imageView setFrame:CGRectMake(200, 15, 30, 30)];
+        
+        UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 260, 50)];
+        label.numberOfLines = 0;
+        label.text = @"Thanks for signing up. Tap       \nto label your tracking numbers";
+        [label setFont:[UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
+        [contentView addSubview:imageView];
+        [contentView addSubview:label];
+        
+        [alertView setContainerView:contentView];
+        [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"OK", nil]];
+        [alertView show];
+        
+    }
     
 }
 
@@ -1091,8 +1211,7 @@ typedef enum {
         else
             item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-        //item.isActive = [dic objectForKey:@"TrackingNumberActive"];
-         item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
+        item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
         
         item.addedOn = [NSDate date];
         item.isRead = false;
@@ -1137,7 +1256,6 @@ typedef enum {
             if(trackingJson == nil){
                 continue;
             }
-            //NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
             
             NSDictionary * tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
             

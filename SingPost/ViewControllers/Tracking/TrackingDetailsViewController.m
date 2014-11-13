@@ -20,12 +20,29 @@
 #import "Article.h"
 #import "ApiClient.h"
 #import "NSDictionary+Additions.h"
+#import "UIView+Position.h"
 
 #import "UIImage+animatedGIF.h"
 
 #define NEW_LAYOUT_OFFSET_Y 45
 
-@interface TrackingDetailsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface UITextField (LiLeAwesome)
+- (CGRect)clearButtonRectForBounds:(CGRect)bounds;
+@end
+
+@implementation UITextField (LiLeAwesome)
+
+- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
+    return CGRectMake(self.frame.size.width-30, 0, 35, 35);
+    
+}
+@end
+
+
+
+
+
+@interface TrackingDetailsViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
 @end
 
@@ -42,12 +59,18 @@
     
     UILabel * labelLabel;
     UIButton * icon;
+    
+    UIButton * stupidChiragShah;
 }
 
 @synthesize title;
 
 - (void)loadView
 {
+    int offsetY = 0;
+    if(self.isActiveItem)
+        offsetY = NEW_LAYOUT_OFFSET_Y;
+    
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
@@ -76,55 +99,66 @@
     [navigationBarView addSubview:infoButton];
     
     //tracking info view
-    UIView *trackingInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(navigationBarView.frame), contentView.bounds.size.width, 100 + NEW_LAYOUT_OFFSET_Y)];
+    UIView *trackingInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(navigationBarView.frame), contentView.bounds.size.width, 100 + offsetY)];
     [trackingInfoView setBackgroundColor:RGB(240, 240, 240)];
     [contentView addSubview:trackingInfoView];
     
-    labelLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 130, 20)];
-    [labelLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
-    if(title) {
-        [labelLabel setText:title];
-        [labelLabel setTextColor:RGB(36, 84, 157)];
+    if(self.isActiveItem) {
+        labelLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 280, 20)];
+        [labelLabel setFont:[UIFont SingPostSemiboldFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
+        if(title) {
+            [labelLabel setText:title];
+            [labelLabel setTextColor:RGB(36, 84, 157)];
+        }
+        else{
+            [labelLabel setText:@"Add a label"];
+            [labelLabel setTextColor:[UIColor orangeColor]];
+            stupidChiragShah = [[UIButton alloc] initWithFrame:labelLabel.frame];
+            [stupidChiragShah addTarget:self action:@selector(onEditClicked) forControlEvents:UIControlEventTouchUpInside];
+            [trackingInfoView addSubview: stupidChiragShah];
+        }
+        [trackingInfoView addSubview: labelLabel];
+        
+        icon = [[UIButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width - 48, 2, 46, 46)];
+        [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon2.png"] forState:UIControlStateNormal];
+        [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon3.png"] forState:UIControlStateSelected];
+        
+        if(!title) {
+            icon.selected = YES;
+        }
+        
+        [icon addTarget:self action:@selector(onEditClicked) forControlEvents:UIControlEventTouchUpInside];
+        
+        [trackingInfoView addSubview: icon];
+        
+        UIView * labelSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(15, offsetY+4, contentView.bounds.size.width-30, 1)];
+        [labelSeparatorView setBackgroundColor:RGB(196, 197, 200)];
+        [trackingInfoView addSubview:labelSeparatorView];
     }
-    else{
-        [labelLabel setText:@"Add a label"];
-        [labelLabel setTextColor:[UIColor orangeColor]];
-    }
-    [trackingInfoView addSubview: labelLabel];
-    
-    icon = [[UIButton alloc] initWithFrame:CGRectMake(280, 10, 30, 30)];
-    [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
-    [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
-    [icon addTarget:self action:@selector(onEditClicked) forControlEvents:UIControlEventTouchUpInside];
-    [trackingInfoView addSubview: icon];
-    
-    UIView * labelSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(15, NEW_LAYOUT_OFFSET_Y+4, contentView.bounds.size.width-30, 1)];
-    [labelSeparatorView setBackgroundColor:RGB(196, 197, 200)];
-    [trackingInfoView addSubview:labelSeparatorView];
     
     
-    UILabel *trackingNumberDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15 + NEW_LAYOUT_OFFSET_Y , 130, 20)];
+    UILabel *trackingNumberDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15 + offsetY , 130, 20)];
     [trackingNumberDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberDisplayLabel setText:@"Tracking number"];
     [trackingNumberDisplayLabel setBackgroundColor:[UIColor clearColor]];
     [trackingNumberDisplayLabel setTextColor:RGB(168, 173, 180)];
     [trackingInfoView addSubview:trackingNumberDisplayLabel];
     
-    UILabel *originDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 40 + NEW_LAYOUT_OFFSET_Y, 130, 20)];
+    UILabel *originDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 40 + offsetY, 130, 20)];
     [originDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [originDisplayLabel setText:@"Origin"];
     [originDisplayLabel setBackgroundColor:[UIColor clearColor]];
     [originDisplayLabel setTextColor:RGB(168, 173, 180)];
     [trackingInfoView addSubview:originDisplayLabel];
     
-    UILabel *destinationDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 65 + NEW_LAYOUT_OFFSET_Y, 130, 20)];
+    UILabel *destinationDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 65 + offsetY, 130, 20)];
     [destinationDisplayLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [destinationDisplayLabel setText:@"Destination"];
     [destinationDisplayLabel setBackgroundColor:[UIColor clearColor]];
     [destinationDisplayLabel setTextColor:RGB(168, 173, 180)];
     [trackingInfoView addSubview:destinationDisplayLabel];
     
-    trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 16 + NEW_LAYOUT_OFFSET_Y, 130, 20)];
+    trackingNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 16 + offsetY, 130, 20)];
     trackingNumberLabel.right = contentView.right - 15;
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
@@ -132,7 +166,7 @@
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:trackingNumberLabel];
     
-    originLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40 + NEW_LAYOUT_OFFSET_Y, 130, 20)];
+    originLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 40 + offsetY, 130, 20)];
     originLabel.right = contentView.right - 15;
     [originLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [originLabel setTextColor:RGB(51, 51, 51)];
@@ -140,7 +174,7 @@
     [originLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:originLabel];
     
-    destinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 65 + NEW_LAYOUT_OFFSET_Y, 130, 20)];
+    destinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(180, 65 + offsetY, 130, 20)];
     destinationLabel.right = contentView.right - 15;
     [destinationLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [destinationLabel setTextColor:RGB(51, 51, 51)];
@@ -153,7 +187,7 @@
     [trackingInfoView addSubview:bottomTrackingInfoSeparatorView];
     
     //header view
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 144 + NEW_LAYOUT_OFFSET_Y, contentView.bounds.size.width, 30)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 144 + offsetY, contentView.bounds.size.width, 30)];
     [headerView setBackgroundColor:[UIColor whiteColor]];
     
     UILabel *dateHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 50, 16)];
@@ -189,7 +223,7 @@
     [contentView addSubview:headerView];
     
     //content
-    trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174 + NEW_LAYOUT_OFFSET_Y, contentView.bounds.size.width, contentView.bounds.size.height - 194) style:UITableViewStylePlain];
+    trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174 + offsetY, contentView.bounds.size.width, contentView.bounds.size.height - 194) style:UITableViewStylePlain];
     [trackingDetailTableView setDelegate:self];
     [trackingDetailTableView setDataSource:self];
     [trackingDetailTableView setBackgroundColor:[UIColor clearColor]];
@@ -255,11 +289,35 @@
 
 - (void)onEditClicked
 {
-    UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:@"Enter a label for your item" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
-    labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
-    labelEnterview.tag = 101;
-    [labelEnterview show];
+    if (FBSession.activeSession.state != FBSessionStateOpen
+        && FBSession.activeSession.state != FBSessionStateOpenTokenExtended){
+        [self signIn];
+    } else {
+        
+        UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+        labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
+        labelEnterview.tag = 101;
+        UITextField *textField = [labelEnterview textFieldAtIndex:0];
+        textField.placeholder = @"Not more than 30 characters";
+        textField.text = title;
+        textField.delegate = self;
+        textField.clearButtonMode = UITextFieldViewModeAlways;
+        [labelEnterview show];
+    }
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return (newLength > 30) ? NO : YES;
+}
+
+- (void)signIn {
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Label Your Items" message:@"Don’t know which tracking number belongs to which package?\nNow you can label tracking numbers to easily identify your items.\nCreate an account with us to enjoy this feature. Sign Up with Facebook to get started!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign Up/Login", nil];
+    
+    [alert show];
+}
+
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
@@ -272,10 +330,51 @@
             
             labelLabel.text = textField.text;
             [labelLabel setTextColor:RGB(36, 84, 157)];
+            title = textField.text;
+            
+            if([textField.text isEqualToString:@""]) {
+                labelLabel.text = @"Add a label";
+                [labelLabel setTextColor:[UIColor orangeColor]];
+                [stupidChiragShah setEnabled:YES];
+                title = @"";
+                icon.selected = YES;
+            } else {
+                [stupidChiragShah setEnabled:NO];
+                icon.selected = NO;
+            }
         }
         
+    }else {
+        
+        if (buttonIndex == 0) {
+            
+        } else {
+            if (FBSession.activeSession.state == FBSessionStateOpen
+                || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+                
+                [FBSession.activeSession closeAndClearTokenInformation];
+                
+            } else {
+                
+                NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
+                FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
+                [FBSession setActiveSession:session];
+                
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                    
+                    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                    appDelegate.isLoginFromDetailPage = YES;
+                    appDelegate.detailPageTrackNum = _trackedItem.trackingNumber;
+                    [appDelegate sessionStateChanged:session state:state error:error];
+                    
+                    
+                }];
+            }
+        }
     }
 }
+
+
 
 
 - (void) submitAllTrackingItemWithLabel:(NSString *)editedLabel {
@@ -439,7 +538,10 @@
          
          NSDictionary * dic = [adArray objectAtIndex:0];
          UIImage * gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
-         [adBanner setImage:gifImage];
+         if(gifImage != nil)
+             [adBanner setImage:gifImage];
+         else
+             [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
          
          
          UIButton * btn = [[UIButton alloc] initWithFrame:adBanner.frame];
@@ -488,6 +590,20 @@
         redirectUrl = @"http://www.singpost.com";
     }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:redirectUrl]];
+}
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+    const int movementDistance = 160; // tweak as needed
+    const float movementDuration = 0.1f; // tweak as needed
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
 }
 
 @end

@@ -18,5 +18,6 @@
 @property (nonatomic, assign) CGFloat titleFontSize;
 
 - (void)setToggleButtonEnable:(BOOL)isEnable;
+- (void)setShowPDPABackButton;
 
 @end

@@ -13,6 +13,7 @@
 		240A232419D277D000EEAB7D /* TrackingSelectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 240A232219D277D000EEAB7D /* TrackingSelectTableViewCell.xib */; };
 		2435355C19CAC4A50045B2D2 /* ProceedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2435355A19CAC4A50045B2D2 /* ProceedViewController.m */; };
 		2435355F19CAD26D0045B2D2 /* ProceedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */; };
+		244B80201A01DCE000E66C33 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 244B801F1A01DCE000E66C33 /* UIView+Screenshot.m */; };
 		244DEA1F19ED1C2D00F07A76 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DEA1E19ED1C2D00F07A76 /* AdSupport.framework */; };
 		244DEA2319ED1E0800F07A76 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DEA2019ED1C3500F07A76 /* libAdIdAccess.a */; };
 		244DEA2819ED28A300F07A76 /* StampCollectiblesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */; };
@@ -193,6 +194,8 @@
 		24B62FEE19AC62D700040E0A /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */; };
 		24B62FF019AC62F900040E0A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B62FEF19AC62F900040E0A /* ImageIO.framework */; };
 		24BAEB6619D4FC62001D74F3 /* TrackingID in Resources */ = {isa = PBXBuildFile; fileRef = 24BAEB6519D4FC62001D74F3 /* TrackingID */; };
+		24BDC0AA1A0B5AEB0023C0AC /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */; };
+		24BDC0AB1A0B5AEB0023C0AC /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */; };
 		24C26A1719AF1457008F4F01 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C26A1619AF1457008F4F01 /* FacebookSDK.framework */; };
 		24F43BBB19EB81B800F28F21 /* CUIActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F43BBA19EB81B800F28F21 /* CUIActionSheet.m */; };
 		24F43D0119ECC7A900F28F21 /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F43D0019ECC7A900F28F21 /* SwipeViewController.m */; };
@@ -347,6 +350,8 @@
 		2435355919CAC4A50045B2D2 /* ProceedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProceedViewController.h; sourceTree = "<group>"; };
 		2435355A19CAC4A50045B2D2 /* ProceedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProceedViewController.m; sourceTree = "<group>"; };
 		2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProceedViewController.xib; sourceTree = "<group>"; };
+		244B801E1A01DCE000E66C33 /* UIView+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Screenshot.h"; sourceTree = "<group>"; };
+		244B801F1A01DCE000E66C33 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		244DEA1E19ED1C2D00F07A76 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		244DEA2019ED1C3500F07A76 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccess.a; path = "Pods/GoogleAnalytics-iOS-SDK/libAdIdAccess.a"; sourceTree = "<group>"; };
 		244DEAC619ED28A300F07A76 /* SingPost_SIT copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SingPost_SIT copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -388,6 +393,8 @@
 		24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		24B62FEF19AC62F900040E0A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		24BAEB6519D4FC62001D74F3 /* TrackingID */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrackingID; sourceTree = "<group>"; };
+		24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
+		24BDC0A91A0B5AEB0023C0AC /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
 		24C26A1619AF1457008F4F01 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F43BB919EB81B800F28F21 /* CUIActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUIActionSheet.h; sourceTree = "<group>"; };
@@ -1101,6 +1108,8 @@
 				9192B4FA18B450EF004EB15A /* UIView+Additions.m */,
 				9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */,
 				9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */,
+				244B801E1A01DCE000E66C33 /* UIView+Screenshot.h */,
+				244B801F1A01DCE000E66C33 /* UIView+Screenshot.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1322,6 +1331,8 @@
 		52936490180B209F00B83F6B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */,
+				24BDC0A91A0B5AEB0023C0AC /* CustomIOS7AlertView.h */,
 				24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */,
 				24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */,
 				52936491180B20B700B83F6B /* PersistentBackgroundLabel.h */,
@@ -1826,6 +1837,7 @@
 				244DEA9919ED28A300F07A76 /* OffersTableViewCell.m in Sources */,
 				244DEA9A19ED28A300F07A76 /* StampCollectibleDetailExpandableView.m in Sources */,
 				244DEA9B19ED28A300F07A76 /* TrackingFeedbackViewController.m in Sources */,
+				24BDC0AB1A0B5AEB0023C0AC /* CustomIOS7AlertView.m in Sources */,
 				244DEA9C19ED28A300F07A76 /* ApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1835,6 +1847,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52936485180B124300B83F6B /* StampCollectiblesTableViewCell.m in Sources */,
+				244B80201A01DCE000E66C33 /* UIView+Screenshot.m in Sources */,
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */,
@@ -1881,6 +1894,7 @@
 				527C2F331850055100F1FB4F /* MaintanancePageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
+				24BDC0AA1A0B5AEB0023C0AC /* CustomIOS7AlertView.m in Sources */,
 				527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */,
 				529090F0180D2A1F00D84030 /* _Offer.m in Sources */,
 				52518A28184C841100F4F104 /* ArticleSubViewController.m in Sources */,
@@ -2135,7 +2149,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "48f56352-dc97-4195-931d-0c9515d710f4";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2166,7 +2180,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1526FFBA-493B-4482-A31B-4120C82BF857";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

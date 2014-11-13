@@ -10,6 +10,10 @@
       "filename" : "35iphone_background_envelope.png"
     },
     {
+      "idiom" : "iphone",
+      "scale" : "3x"
+    },
+    {
       "idiom" : "ipad",
       "scale" : "1x"
     },

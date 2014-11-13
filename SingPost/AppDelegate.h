@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "RootViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "ProceedViewController.h"
 
 #import "TrackingMainViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate> {
+    ProceedViewController *proceedVC;
+}
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, readonly) RootViewController *rootViewController;
@@ -21,7 +24,10 @@
 @property (nonatomic, retain) TrackingMainViewController * trackingMainViewController;
 
 @property (nonatomic, assign) BOOL isFirstTime;
+@property (nonatomic, assign) BOOL isNewUser;
 @property (nonatomic, assign) BOOL isLoginFromSideBar;
+@property (nonatomic, assign) BOOL isLoginFromDetailPage;
+@property (nonatomic, assign) NSString * detailPageTrackNum;
 
 + (AppDelegate *)sharedAppDelegate;
 - (void)updateMaintananceStatuses;
@@ -35,4 +41,9 @@
 - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
 
 - (void)LoginFacebook;
+- (void)firstTimeLoginFacebook;
+
+- (void)GotoTrackingDetail;
+
+- (void) GotoTrackingMain;
 @end

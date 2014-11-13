@@ -8,11 +8,14 @@
 
 #import "TrackingSelectViewController.h"
 #import "TrackingSelectTableViewCell.h"
+#import "UIView+Screenshot.h"
+
 
 @interface TrackingSelectViewController () {
     //NSMutableArray * selectedArray;
     __weak IBOutlet UIButton *checkBox;
     __weak IBOutlet UIImageView *blurImage;
+
 }
 
 @end
@@ -39,7 +42,7 @@
     trackItems2Delete = [NSMutableArray array];
     [self addAll2Delete];
     
-    [self setupBlurredImage];
+    [self captureBlur];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,7 +59,8 @@
 
 - (void)addAll2Delete {
     for(TrackedItem * item in trackItems) {
-        [trackItems2Delete addObject:item];
+        if(![trackItems2Delete containsObject:item])
+            [trackItems2Delete addObject:item];
     }
 }
 
@@ -184,25 +188,30 @@
     return dic;
 }
 
-- (void)setupBlurredImage
-{
-    UIImage *theImage = [UIImage imageNamed:@"blur"];
+- (void) captureBlur {
+    //Get a UIImage from the UIView
+    NSLog(@"blur capture");
+    UIGraphicsBeginImageContext(delegate.view.bounds.size);
+    [delegate.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
-    //create our blurred image
-    CIContext *context = [CIContext contextWithOptions:nil];
-    CIImage *inputImage = [CIImage imageWithCGImage:theImage.CGImage];
+    //Blur the UIImage
+    CIImage *imageToBlur = [CIImage imageWithCGImage:viewImage.CGImage];
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName: @"CIGaussianBlur"];
+    [gaussianBlurFilter setValue:imageToBlur forKey: @"inputImage"];
+    [gaussianBlurFilter setValue:[NSNumber numberWithFloat: 5] forKey: @"inputRadius"]; //change number to increase/decrease blur
+    CIImage *resultImage = [gaussianBlurFilter valueForKey: @"outputImage"];
     
-    //setting up Gaussian Blur (we could use one of many filters offered by Core Image)
-    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
-    [filter setValue:inputImage forKey:kCIInputImageKey];
-    [filter setValue:[NSNumber numberWithFloat:35] forKey:@"inputRadius"];
-    CIImage *result = [filter valueForKey:kCIOutputImageKey];
-    //CIGaussianBlur has a tendency to shrink the image a little, this ensures it matches up exactly to the bounds of our original image
-    CGImageRef cgImage = [context createCGImage:result fromRect:[inputImage extent]];
+    //create UIImage from filtered image
+    UIImage * blurrredImage = [[UIImage alloc] initWithCIImage:resultImage];
     
-    //add our blurred image to the scrollview
-    blurImage.image = [UIImage imageWithCGImage:cgImage];
-    //blurImage.alpha = 0.7;
+    //Place the UIImage in a UIImageView
+    blurImage.image = blurrredImage;
+    
+    //insert blur UIImageView below transparent view inside the blur image container
+    //[blurContainerView insertSubview:newView belowSubview:transparentView];
 }
+
 
 @end

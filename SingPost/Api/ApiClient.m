@@ -953,6 +953,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 
 - (void) facebookLoginOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/login/k3y15k3y";
+    if(isSIT) {
+        url = @"http://128.199.253.131/singpost3/api/login/k3y15k3y";
+    }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
@@ -981,6 +984,10 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 - (void) isFirstTime:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/isfirsttimer/k3y15k3y";
     
+    if(isSIT) {
+        url = @"http://128.199.253.131/singpost3/api/isfirsttimer/k3y15k3y";
+    }
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
     
@@ -1003,6 +1010,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 
 - (void) registerTrackingNunmbers: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
+    if(isSIT) {
+        url = @"http://128.199.253.131/singpost3/api/registertracking/k3y15k3y";
+    }
     
     NSString * str = [self getNumberAndLabelString:numbers WithLabels:labels];
     NSString * payload = [self getTrackingDetailString:details];
@@ -1029,6 +1039,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 - (void) registerTrackingNunmbersNew: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     
     NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
+    if(isSIT) {
+        url = @"http://128.199.253.131/singpost3/api/registertracking/k3y15k3y";
+    }
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:url]];
     
@@ -1055,7 +1068,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 - (void) deleteAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/removealltrackings/k3y15k3y";
     
-    
+    if(isSIT) {
+        url = @"http://128.199.253.131/singpost3/api/removealltrackings/k3y15k3y";
+    }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
@@ -1278,6 +1293,10 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 
 - (void) getAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/gettrackings/k3y15k3y";
+    
+    if(isSIT) {
+        url = @"http://128.199.253.131/singpost3/api/gettrackings/k3y15k3y";
+    }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];

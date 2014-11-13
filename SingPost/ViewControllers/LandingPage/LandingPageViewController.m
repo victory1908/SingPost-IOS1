@@ -167,11 +167,12 @@ OffersMenuDelegate
     
     [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
      {
-         NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
-         if(arr == nil) {
-             arr = [responseObject objectForKeyOrNil:@"root"];
-             
+         NSArray * arr = nil;
+         NSObject * obj = [responseObject objectForKeyOrNil:@"root"];
+         if([obj isKindOfClass:[NSArray class]]) {
+             arr = (NSArray *)obj;
          } else {
+             arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
          
              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
              NSString * dateStr = [defaults stringForKey:@"ANNOUNCEMENT_LAST_DATE"];
@@ -217,9 +218,10 @@ OffersMenuDelegate
     trackingNumberTextField.delegate = self;
     [contentView addSubview:trackingNumberTextField];
     
-    //Add Scan Button
-    UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGFloat findTrackingBtnX;
+    //Add Scan Button
+    /*UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
     if (INTERFACE_IS_IPAD) {
         findTrackingBtnX = trackingNumberTextField.right - 120;
         scanBtn.frame = CGRectMake(findTrackingBtnX, trackingNumberTextField.center.y - 35/2, 35, 35);
@@ -230,7 +232,7 @@ OffersMenuDelegate
     }
     [scanBtn setImage:[UIImage imageNamed:@"btn_scan"] forState:UIControlStateNormal];
     [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
-    [contentView addSubview:scanBtn];
+    [contentView addSubview:scanBtn];*/
     
     LandingPageButton *trackingListButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon"] forState:UIControlStateNormal];
