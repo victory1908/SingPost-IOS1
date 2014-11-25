@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
+#import "CustomIOS7AlertView.h"
 
-@interface TrackingMainViewController : SwipeViewController{
+@interface TrackingMainViewController : SwipeViewController <CustomIOS7AlertViewDelegate>{
     UITableView *trackingItemsTableView;
 }
 
 @property (nonatomic) NSString *trackingNumber;
 
 @property (nonatomic,assign) BOOL isOn;
+@property (nonatomic,assign) BOOL isDeleteAll;
 
 @property BOOL isPushNotification;
 @property BOOL isFirstTimeUser;

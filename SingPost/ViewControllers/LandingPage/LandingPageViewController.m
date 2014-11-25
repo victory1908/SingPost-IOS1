@@ -165,6 +165,8 @@ OffersMenuDelegate
     [contentView addSubview:badge];
     [contentView addSubview:newLabel];
     
+    [self setBadgeView:[AppDelegate sharedAppDelegate].isPrevAnnouncementNew];
+    
     [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
      {
          NSArray * arr = nil;
@@ -176,8 +178,13 @@ OffersMenuDelegate
          
              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
              NSString * dateStr = [defaults stringForKey:@"ANNOUNCEMENT_LAST_DATE"];
-             if(dateStr == nil)
-                 [self setBadgeView:YES];
+             if(dateStr == nil) {
+                 [self setBadgeView:NO];
+                 [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                 [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
+                 [defaults synchronize];
+             }
              else {
                  NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
                  [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -187,8 +194,10 @@ OffersMenuDelegate
                  
                  if ([localDate compare:remoteDate] == NSOrderedDescending) {
                      [self setBadgeView:NO];
+                     [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
                  } else {
                      [self setBadgeView:YES];
+                     [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = YES;
                  }
              }
          }

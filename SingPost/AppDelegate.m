@@ -30,6 +30,7 @@
 @synthesize isLoginFromSideBar;
 @synthesize isLoginFromDetailPage;
 @synthesize detailPageTrackNum;
+@synthesize trackingNumberTappedBeforeSignin;
 
 
 + (AppDelegate *)sharedAppDelegate {
@@ -87,6 +88,7 @@
     //[self performSelector:@selector(test1) withObject:nil afterDelay:16.0f];
     
     self.isFirstTime = true;
+    self.isJustForRefresh = 0;
     return YES;
 }
 

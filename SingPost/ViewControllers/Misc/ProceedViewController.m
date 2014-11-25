@@ -59,7 +59,7 @@
     
     UILabel * pp = [[UILabel alloc] initWithFrame:CGRectMake(20+btn1.frame.size.width + 20, 65, contentView.bounds.size.width * 12 / 16, contentView.bounds.size.width * 2 / 16)];
     [pp setNumberOfLines:0];
-    [pp setText:@"I acknowledge and accept the Privacy Policy SingPost Group"];
+    [pp setText:@"I acknowledge and accept the Privacy Policy of SingPost Group"];
     [pp setTextColor:[UIColor blackColor]];
     [pp setFont:[UIFont SingPostLightFontOfSize:(14.0f * contentView.bounds.size.width /320) fontKey:kSingPostFontOpenSans]];
     [pp sizeToFit];

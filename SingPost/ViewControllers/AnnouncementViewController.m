@@ -68,6 +68,7 @@ UITableViewDataSource
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
     [defaults synchronize];
+    [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
 }
 
 -(NSString *)getUTCFormateDate:(NSDate *)localDate

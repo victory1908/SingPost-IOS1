@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomIOS7AlertView.h"
 
 #define STATUS_LABEL_SIZE CGSizeMake(120, 500)
 
 @class TrackedItem;
 
-@interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate>
+@interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate,CustomIOS7AlertViewDelegate>
 
 @property (nonatomic,retain) TrackedItem *item;
 @property (nonatomic, assign) BOOL hideSeparatorView;
@@ -26,5 +27,6 @@
 
 - (void) updateLabel : (NSString *)label;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier IsActive : (BOOL)isActive;
+- (void)showSignInButton;
 
 @end

@@ -15,6 +15,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate> {
     ProceedViewController *proceedVC;
+    //NSString * trackingNumberTappedBeforeSignin;
 }
 
 @property (nonatomic, strong) UIWindow *window;
@@ -27,7 +28,11 @@
 @property (nonatomic, assign) BOOL isNewUser;
 @property (nonatomic, assign) BOOL isLoginFromSideBar;
 @property (nonatomic, assign) BOOL isLoginFromDetailPage;
+@property (nonatomic, assign) int isJustForRefresh;
+@property (nonatomic, assign) BOOL isPrevAnnouncementNew;
 @property (nonatomic, assign) NSString * detailPageTrackNum;
+
+@property (nonatomic, assign) NSString * trackingNumberTappedBeforeSignin;
 
 + (AppDelegate *)sharedAppDelegate;
 - (void)updateMaintananceStatuses;

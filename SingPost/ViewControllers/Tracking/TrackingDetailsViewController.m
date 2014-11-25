@@ -21,7 +21,7 @@
 #import "ApiClient.h"
 #import "NSDictionary+Additions.h"
 #import "UIView+Position.h"
-
+#import "PersistentBackgroundView.h"
 #import "UIImage+animatedGIF.h"
 
 #define NEW_LAYOUT_OFFSET_Y 45
@@ -61,6 +61,8 @@
     UIButton * icon;
     
     UIButton * stupidChiragShah;
+
+    UITextField * customTextfield;
 }
 
 @synthesize title;
@@ -121,10 +123,12 @@
         
         icon = [[UIButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width - 48, 2, 46, 46)];
         [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon2.png"] forState:UIControlStateNormal];
+        [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon2.png"] forState:UIControlStateHighlighted];
         [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon3.png"] forState:UIControlStateSelected];
         
         if(!title) {
             icon.selected = YES;
+            [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon3.png"] forState:UIControlStateHighlighted];
         }
         
         [icon addTarget:self action:@selector(onEditClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -240,6 +244,8 @@
      [contentView addSubview:adBanner];
      
     self.view = contentView;
+    
+   
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -251,6 +257,11 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Track Item Details"];
+    
+    if([AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin != nil) {
+        [self onEditClicked];
+        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+    }
 }
 
 //designated initializer
@@ -293,16 +304,48 @@
         && FBSession.activeSession.state != FBSessionStateOpenTokenExtended){
         [self signIn];
     } else {
-        
-        UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
-        labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
-        labelEnterview.tag = 101;
-        UITextField *textField = [labelEnterview textFieldAtIndex:0];
-        textField.placeholder = @"Not more than 30 characters";
-        textField.text = title;
-        textField.delegate = self;
-        textField.clearButtonMode = UITextFieldViewModeAlways;
-        [labelEnterview show];
+        if(_trackedItem != nil && _trackedItem.trackingNumber != nil) {
+            
+            /*UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+            labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
+            labelEnterview.tag = 101;
+            UITextField *textField = [labelEnterview textFieldAtIndex:0];
+            textField.placeholder = @"Not more than 30 characters";
+            textField.text = title;
+            textField.delegate = self;
+            textField.clearButtonMode = UITextFieldViewModeAlways;
+            [labelEnterview show];*/
+            
+            CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+            UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 150)];
+            
+            UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 240, 60)];
+            label.numberOfLines = 0;
+            label.text = [NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber];
+            [label setTextAlignment:NSTextAlignmentCenter];
+            
+            [label setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
+            [contentView addSubview:label];
+            
+            PersistentBackgroundView * separator = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(120, 140, 1, 50)];
+            [separator setPersistentBackgroundColor:RGB(196, 197, 200)];
+            [contentView addSubview:separator];
+            
+            customTextfield = [[UITextField alloc] initWithFrame:CGRectMake(0, 75, 240, 40)];
+            [customTextfield setBorderStyle:UITextBorderStyleRoundedRect];
+            customTextfield.placeholder = @"Not more than 30 characters";
+            customTextfield.text = title;
+            customTextfield.delegate = self;
+            customTextfield.clearButtonMode = UITextFieldViewModeAlways;
+            [contentView addSubview:customTextfield];
+            
+            alertView.delegate = self;
+            alertView.tag = 111;
+            
+            [alertView setContainerView:contentView];
+            [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Done", nil]];
+            [alertView show];
+        }
     }
 }
 
@@ -312,11 +355,101 @@
 }
 
 - (void)signIn {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Label Your Items" message:@"Don’t know which tracking number belongs to which package?\nNow you can label tracking numbers to easily identify your items.\nCreate an account with us to enjoy this feature. Sign Up with Facebook to get started!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign Up/Login", nil];
+    /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Label Your Items" message:@"Don’t know which tracking number belongs to which package?\nNow you can label tracking numbers to easily identify your items.\nCreate an account with us to enjoy this feature. Sign Up with Facebook to get started!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign Up/Login", nil];
     
-    [alert show];
+    [alert show];*/
+    
+    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
+    
+    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 240, 30)];
+    title.text = @"Sign Up/Log In";
+    [title setTextAlignment:NSTextAlignmentCenter];
+    [title setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kFontBoldKey]];
+    [contentView addSubview:title];
+    
+    
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 240, 200)];
+    label.numberOfLines = 0;
+    label.text = @"Don’t know which tracking number belongs to which package?\n\nNow you can label tracking numbers to easily identify your items.\n\nCreate an account with us to enjoy this feature. Sign Up using your Facebook account to get started!";
+    [label setTextAlignment:NSTextAlignmentLeft];
+    
+    [label setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
+    [contentView addSubview:label];
+    
+    PersistentBackgroundView * separator = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(120, 240, 1, 50)];
+    [separator setPersistentBackgroundColor:RGB(196, 197, 200)];
+    [contentView addSubview:separator];
+    
+    alertView.delegate = self;
+    
+    [alertView setContainerView:contentView];
+    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Sign Up/Login", nil]];
+    [alertView show];
 }
 
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    if(alertView.tag == 111) {
+        if (buttonIndex == 0) {
+        
+        } else {
+            UITextField *textField = customTextfield;
+            [self submitAllTrackingItemWithLabel:textField.text];
+            
+            labelLabel.text = textField.text;
+            [labelLabel setTextColor:RGB(36, 84, 157)];
+            title = textField.text;
+            
+            if([textField.text isEqualToString:@""]) {
+                labelLabel.text = @"Add a label";
+                [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon3.png"] forState:UIControlStateHighlighted];
+                [labelLabel setTextColor:[UIColor orangeColor]];
+                [stupidChiragShah setEnabled:YES];
+                title = @"";
+                icon.selected = YES;
+            } else {
+                [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon2.png"] forState:UIControlStateHighlighted];
+                [stupidChiragShah setEnabled:NO];
+                icon.selected = NO;
+            }
+        }
+        
+        [alertView close];
+        
+        return;
+    }
+    
+    if (buttonIndex == 0) {
+        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
+    } else {
+        if (FBSession.activeSession.state == FBSessionStateOpen
+            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+            
+            [FBSession.activeSession closeAndClearTokenInformation];
+            
+        } else {
+            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _trackedItem.trackingNumber;
+            
+            NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
+            FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
+            [FBSession setActiveSession:session];
+            
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                
+                AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+                appDelegate.isLoginFromDetailPage = YES;
+                appDelegate.detailPageTrackNum = _trackedItem.trackingNumber;
+                [appDelegate sessionStateChanged:session state:state error:error];
+                
+                
+            }];
+        }
+        
+        
+    }
+    [alertView close];
+}
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -347,7 +480,7 @@
     }else {
         
         if (buttonIndex == 0) {
-            
+             [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -355,6 +488,7 @@
                 [FBSession.activeSession closeAndClearTokenInformation];
                 
             } else {
+                [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _trackedItem.trackingNumber;
                 
                 NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];

@@ -86,7 +86,7 @@
         shortDescription = @"Use SingPost postal and courier services to send letters/parcels within Singapore or to 220 countries worldwide. We also offer a variety of services for receiving letters/parcels within Singapore. Check them out below.";
     }
     else if ([_pageTitle isEqualToString:@"Pay"]) {
-        shortDescription = @"Use our network of Post Offices, Self-service Automated Machines (SAM) and our online portal Vbox to pay various types of bills.";
+        shortDescription = @"Use our network of Post Offices, and our multi-channel offering SAM (online & kiosks) to pay various types of bills.";
     }
     else if ([_pageTitle isEqualToString:@"Shop"]) {
         shortDescription = @"Whether you are shopping overseas or within Singapore, we offer services for all your shopping needs.";

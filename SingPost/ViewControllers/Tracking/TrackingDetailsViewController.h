@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
+#import "CustomIOS7AlertView.h"
 
 @class TrackedItem;
 
-@interface TrackingDetailsViewController : SwipeViewController
+@interface TrackingDetailsViewController : SwipeViewController <CustomIOS7AlertViewDelegate>
 
 - (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 

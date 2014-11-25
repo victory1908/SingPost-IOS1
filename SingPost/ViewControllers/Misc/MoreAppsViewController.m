@@ -40,13 +40,13 @@
     [instructionsLabelBackgroundView setBackgroundColor:RGB(240, 240, 240)];
     [contentView addSubview:instructionsLabelBackgroundView];
     
-    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
+    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 44, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
     [instructionsLabel setNumberOfLines:0];
     [instructionsLabel setText:@"Redeem an offer, send a postcard full of memories, receive digital mail - all from the comfort of your smartphone. Go ahead, download our apps and enjoy these services today!"];
     [instructionsLabel setTextColor:RGB(58, 68, 81)];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
-    [instructionsLabelBackgroundView addSubview:instructionsLabel];
+    [contentView addSubview:instructionsLabel];
     
     moreAppsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 164, contentView.bounds.size.width, contentView.bounds.size.height - 144 - [UIApplication sharedApplication].statusBarFrame.size.height) style:UITableViewStylePlain];
     [moreAppsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];

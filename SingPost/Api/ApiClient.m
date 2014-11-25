@@ -206,6 +206,10 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 - (void)getSingpostAnnouncementSuccess:(ApiClientSuccess)success failure:(ApiClientFailure)failure {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiannouncement.php"
                                                                               relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+    if(isSIT) {
+        request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiannouncement.php"
+                                                             relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
+    }
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
