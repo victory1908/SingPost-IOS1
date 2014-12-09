@@ -189,6 +189,12 @@
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Stamp Collectibles - %@", self.stamp.title]];
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
@@ -246,6 +252,9 @@
     StampImagesBrowserViewController *imageBrowserViewController = [[StampImagesBrowserViewController alloc] initWithStampImages:[_stamp.images array]];
     imageBrowserViewController.currentIndex = pageControl.currentPage;
     [imageBrowserViewController setDelegate:self];
+    
+    imageBrowserViewController.title = self.stamp.title;
+    
     imageBrowserViewController.view.center = [imagesScrollerBackgroundImageView convertPoint:imagesScrollView.center toView:self.view];
     [imageBrowserViewController.view.layer setAffineTransform:CGAffineTransformMakeScale(0.25, 0.25)];
     [self addChildViewController:imageBrowserViewController];

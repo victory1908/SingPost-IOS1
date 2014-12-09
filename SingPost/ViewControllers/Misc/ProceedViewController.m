@@ -51,9 +51,9 @@
     [navigationBarView setShowPDPABackButton];
     [contentView addSubview:navigationBarView];
     
-    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(20, 70, contentView.bounds.size.width/16, contentView.bounds.size.width/16)];
-    [btn1 setImage:[UIImage imageNamed:@"checkbox-0"] forState:UIControlStateNormal];
-    [btn1 setImage:[UIImage imageNamed:@"checkbox-1"] forState:UIControlStateSelected];
+    btn1 = [[UIButton alloc] initWithFrame:CGRectMake(15, 70 - 10, contentView.bounds.size.width/8, contentView.bounds.size.width/8)];
+    [btn1 setImage:[UIImage imageNamed:@"checkbox_small_01"] forState:UIControlStateNormal];
+    [btn1 setImage:[UIImage imageNamed:@"checkbox_small_02"] forState:UIControlStateSelected];
     [btn1 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:btn1];
     
@@ -65,9 +65,9 @@
     [pp sizeToFit];
     [contentView addSubview:pp];
     
-    UIButton * btn2 = [[UIButton alloc] initWithFrame:CGRectMake(20, pp.frame.origin.y + pp.frame.size.height + (20 * contentView.bounds.size.width /320) , contentView.bounds.size.width/16, contentView.bounds.size.width/16)];
-    [btn2 setImage:[UIImage imageNamed:@"checkbox-0"] forState:UIControlStateNormal];
-    [btn2 setImage:[UIImage imageNamed:@"checkbox-1"] forState:UIControlStateSelected];
+    UIButton * btn2 = [[UIButton alloc] initWithFrame:CGRectMake(15, pp.frame.origin.y + pp.frame.size.height - 10 + (20 * contentView.bounds.size.width /320) , contentView.bounds.size.width/8, contentView.bounds.size.width/8)];
+    [btn2 setImage:[UIImage imageNamed:@"checkbox_small_01"] forState:UIControlStateNormal];
+    [btn2 setImage:[UIImage imageNamed:@"checkbox_small_02"] forState:UIControlStateSelected];
     [btn2 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:btn2];
     

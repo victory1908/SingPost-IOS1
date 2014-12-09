@@ -126,7 +126,7 @@
 - (IBAction)onCancelClicked:(id)sender {
     [sender setSelected:NO];
     [self unSelectAll];
-    [delegate updateSelectItem:trackItems2Delete];
+    [delegate deleteAllItems:trackItems2Delete];
     
 }
 

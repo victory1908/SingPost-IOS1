@@ -46,12 +46,17 @@
     mapRegion.center = CLLocationCoordinate2DMake(_entityLocation.latitude.floatValue, _entityLocation.longitude.floatValue);
     mapRegion.span = MKCoordinateSpanMake(0.016, 0.016);
     [mapView setRegion:mapRegion animated:YES];
+    mapView.delegate = self;
     
     EntityLocationMapAnnotation *locationAnnotation = [[EntityLocationMapAnnotation alloc] initWithEntityLocation:_entityLocation];
     [mapView addAnnotation:locationAnnotation];
     
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Locations - %@ - Direction", _entityLocation.type]];
     
+    //[self drawRouting];
+}
+
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     [self drawRouting];
 }
 

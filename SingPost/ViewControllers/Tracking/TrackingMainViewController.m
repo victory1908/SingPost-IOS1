@@ -32,6 +32,7 @@
 #import "CustomIOS7AlertView.h"
 #import "AppDelegate.h"
 #import "PersistentBackgroundView.h"
+#import "BarScannerViewController.h"
 
 
 typedef enum {
@@ -540,6 +541,13 @@ typedef enum {
     }
 }
 
+- (void)OnGoToScan {
+    BarScannerViewController * vc = [[BarScannerViewController alloc] init];
+    vc.landingVC = self;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *const headerCellIdentifier = @"TrackingHeaderMainTableViewCell";
@@ -552,8 +560,8 @@ typedef enum {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:trackingCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30, 44)];
-            [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
+            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30 - 50, 44)];
+            [trackingNumberTextField setPlaceholder:@"Enter tracking number"];
             [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
             [trackingNumberTextField setFontSize:16.0f];
             [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
@@ -561,9 +569,27 @@ typedef enum {
             [trackingNumberTextField setDelegate:self];
             [cell.contentView addSubview:trackingNumberTextField];
             
+            CGFloat findTrackingBtnX;
+            //Add Scan Button
+            UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            
+            if (INTERFACE_IS_IPAD) {
+                findTrackingBtnX = [[UIScreen mainScreen] bounds].size.width - 60;
+                scanBtn.frame = CGRectMake(findTrackingBtnX, 21, 44, 44);
+            }
+            else {
+                findTrackingBtnX = cell.contentView.width - 60;
+                scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 21, 44, 44) : CGRectMake(findTrackingBtnX, 21, 44, 44);
+            }
+            [scanBtn setImage:[UIImage imageNamed:@"scanBtn2"] forState:UIControlStateNormal];
+            [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
+            [cell.contentView addSubview:scanBtn];
+            
+            
+            
             UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-            [findTrackingNumberButton setFrame:CGRectMake(tableView.width - 55, 27, 35, 35)];
+            [findTrackingNumberButton setFrame:CGRectMake(tableView.width - 55 - 50, 27, 35, 35)];
             [findTrackingNumberButton addTarget:self action:@selector(onTrackingNumberBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
             
@@ -1328,6 +1354,56 @@ typedef enum {
         
     }*/
     
+}
+
+- (void) deleteAllItems : (NSArray *) items2Delete {
+    
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    for(TrackedItem * item in items2Delete) {
+        [item MR_deleteEntity];
+    }
+    
+    [AppDelegate sharedAppDelegate].isJustForRefresh = 0;
+    
+    [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            for(TrackedItem * item in items2Delete) {
+                if([labelDic objectForKey:item.trackingNumber] != nil)
+                    [labelDic removeObjectForKey:item.trackingNumber];
+            }
+            
+            [self.trackingItemsTableView reloadDataAndWait:^{
+                //call the required method here
+                [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.5f];
+            }];
+            
+            [vc.view removeFromSuperview];
+            
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"]) {
+                NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
+                if ([trackedArray count] == 0)
+                    return;
+                
+                NSMutableArray * numberArray = [NSMutableArray array];
+                for(TrackedItem *trackedItem in trackedArray){
+                    [numberArray addObject:trackedItem.trackingNumber];
+                }
+                [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+                }];
+            }
+            
+            [self enableSideBar];
+            AppDelegate * appDelegate = (AppDelegate *)[AppDelegate sharedAppDelegate];
+            appDelegate.isLoginFromSideBar = false;
+
+        } else {
+            [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.2f];
+            [vc.view removeFromSuperview];
+            [self enableSideBar];
+        }
+    }];
+    [self enableSideBar];
+
 }
 
 

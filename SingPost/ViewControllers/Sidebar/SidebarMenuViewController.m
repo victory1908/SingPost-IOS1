@@ -43,6 +43,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "ProceedViewController.h"
 #import "PersistentBackgroundView.h"
+#import "BarScannerViewController.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -279,14 +280,30 @@
     [trackLabel setBackgroundColor:[UIColor clearColor]];
     [headerView addSubview:trackLabel];
     
-    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, SIDEBAR_WIDTH - 35, 30)];
+    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, SIDEBAR_WIDTH - 35 - 35, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setDelegate:self];
-    [trackingNumberTextField setPlaceholder:@"Please enter tracking number"];
+    [trackingNumberTextField setPlaceholder:@"Enter tracking number"];
     [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
     [headerView addSubview:trackingNumberTextField];
+    
+    CGFloat findTrackingBtnX;
+    //Add Scan Button
+    UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    if (INTERFACE_IS_IPAD) {
+        findTrackingBtnX = headerView.width - 45;
+        scanBtn.frame = CGRectMake(findTrackingBtnX, 35, 30, 30);
+    }
+    else {
+        findTrackingBtnX = headerView.width - 45;
+        scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 35, 30, 30) : CGRectMake(findTrackingBtnX, 35, 30, 30);
+    }
+    [scanBtn setImage:[UIImage imageNamed:@"scanSidebarBtn"] forState:UIControlStateNormal];
+    [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:scanBtn];
     
     trackingListButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon_small"] forState:UIControlStateNormal];
@@ -296,7 +313,7 @@
     
     findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, 39, 25, 25)];
+    [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50 - 35, 39, 25, 25)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
     
@@ -304,6 +321,13 @@
     [headerView addGestureRecognizer:resignRespondersTapRecognizer];
 	
 	return headerView;
+}
+
+- (void)OnGoToScan {
+    BarScannerViewController * vc = [[BarScannerViewController alloc] init];
+    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+    vc.landingVC = landingPageViewController;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

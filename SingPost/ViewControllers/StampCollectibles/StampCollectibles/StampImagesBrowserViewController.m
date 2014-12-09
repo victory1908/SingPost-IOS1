@@ -23,6 +23,7 @@
     
     BOOL isZooming;
 }
+@synthesize title;
 
 //designated initializer
 - (id)initWithStampImages:(NSArray *)inStampImages
@@ -108,6 +109,13 @@
     
     [self populateImagesScrollView];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Stamp Collectibles - %@ - Gallery", self.title]];
+}
+
 
 #pragma mark - IBActions
 

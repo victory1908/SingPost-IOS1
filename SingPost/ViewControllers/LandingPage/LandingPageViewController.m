@@ -35,6 +35,7 @@
 #import "AnnouncementViewController.h"
 #import "ShopViewController.h"
 #import "BarScannerViewController.h"
+#import "ScanTutorialViewController.h"
 
 #import "TrackedItem.h"
 #import <SVProgressHUD.h>
@@ -174,7 +175,31 @@ OffersMenuDelegate
          if([obj isKindOfClass:[NSArray class]]) {
              arr = (NSArray *)obj;
          } else {
-             arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
+             NSString * rand = [[responseObject objectForKey:@"root"] objectForKey:@"rand"];
+             
+             if(rand == nil) {
+                 return;
+             }
+             
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             NSString * lastRand = [defaults stringForKey:@"LAST_RAND"];
+             
+             if(lastRand == nil) {
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                 [defaults setObject:rand forKey:@"LAST_RAND"];
+                 [defaults synchronize];
+                 return;
+             }
+             
+             if([lastRand isEqualToString:rand]) {
+                 [self setBadgeView:NO];
+                 [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
+             } else {
+                 [self setBadgeView:YES];
+                 [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = YES;
+             }
+             
+             /*arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
          
              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
              NSString * dateStr = [defaults stringForKey:@"ANNOUNCEMENT_LAST_DATE"];
@@ -199,7 +224,7 @@ OffersMenuDelegate
                      [self setBadgeView:YES];
                      [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = YES;
                  }
-             }
+             }*/
          }
          
          
@@ -209,39 +234,39 @@ OffersMenuDelegate
     //Badge end
     
     if (INTERFACE_IS_IPAD) {
-        trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668, 50)];
-        trackingNumberTextField.fontSize = 16.0f;
+        trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668 - 57, 50)];
+        trackingNumberTextField.fontSize = 15.0f;
         trackingNumberTextField.placeholderFontSize = 16.0f;
         trackingNumberTextField.insetBoundsSize = CGSizeMake(50, 7);
     }
     else {
-        trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40, 47) : CGRectMake(20, 70, contentView.width - 40, 30)];
+        trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40 - 53 , 47) : CGRectMake(20, 70, contentView.width - 40 - 53, 30)];
         trackingNumberTextField.fontSize = INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f;
-        trackingNumberTextField.placeholderFontSize = INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f;
+        trackingNumberTextField.placeholderFontSize = INTERFACE_IS_4INCHSCREEN ? 12.0f : 12.0f;
         trackingNumberTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 8) : CGSizeMake(40, 3)) : (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 6) : CGSizeMake(40, 5));
     }
     trackingNumberTextField.background = [UIImage imageNamed:@"trackingTextBox"];
     trackingNumberTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-    trackingNumberTextField.placeholder = @"Please enter tracking number";
+    trackingNumberTextField.placeholder = @"Enter tracking number";
     trackingNumberTextField.returnKeyType = UIReturnKeySend;
     trackingNumberTextField.delegate = self;
     [contentView addSubview:trackingNumberTextField];
     
     CGFloat findTrackingBtnX;
     //Add Scan Button
-    /*UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
     if (INTERFACE_IS_IPAD) {
-        findTrackingBtnX = trackingNumberTextField.right - 120;
-        scanBtn.frame = CGRectMake(findTrackingBtnX, trackingNumberTextField.center.y - 35/2, 35, 35);
+        findTrackingBtnX = contentView.width - 90;
+        scanBtn.frame = CGRectMake(findTrackingBtnX, 240, 50, 50);
     }
     else {
-        findTrackingBtnX = trackingNumberTextField.width - 45;
-        scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 87, 35, 35) : CGRectMake(findTrackingBtnX, 71, 29, 29);
+        findTrackingBtnX = contentView.width - 65;
+        scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 80, 47, 47) : CGRectMake(findTrackingBtnX, 70, 30, 30);
     }
-    [scanBtn setImage:[UIImage imageNamed:@"btn_scan"] forState:UIControlStateNormal];
+    [scanBtn setImage:[UIImage imageNamed:@"scanBtn"] forState:UIControlStateNormal];
     [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
-    [contentView addSubview:scanBtn];*/
+    [contentView addSubview:scanBtn];
     
     LandingPageButton *trackingListButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon"] forState:UIControlStateNormal];
@@ -402,6 +427,70 @@ OffersMenuDelegate
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Home"];
     
     //[self OnGoToScan];
+    
+    bool b = [[NSUserDefaults standardUserDefaults] boolForKey:@"12121"];
+    if(b == false)
+        [self performSelector:@selector(showTutorial) withObject:nil afterDelay:1.0f];
+}
+
+- (void) showTutorial {
+    vc = [[ScanTutorialViewController alloc] initWithNibName:@"ScanTutorialViewController" bundle:nil];
+    [self.view addSubview:vc.view];
+    [vc.nextBtn addTarget:self action:@selector(onNextClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.PrevBtn addTarget:self action:@selector(onPrevClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.closeBtn addTarget:self action:@selector(onCloseClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+}
+
+- (IBAction)onCloseClicked:(id)sender {
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"12121"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    [vc.view removeFromSuperview];
+}
+
+- (IBAction)onNextClicked:(id)sender {
+    [vc.nextBtn setHidden:YES];
+    [vc.PrevBtn setHidden:NO];
+    
+    [vc.imageView setAlpha:0.5f];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         vc.imageView.alpha = 0.5f;
+                     } completion:^(BOOL finished) {
+                         [vc.imageView setImage:[UIImage imageNamed:@"tutorial02.png"]];
+                         
+                         [UIView animateWithDuration:0.5
+                                          animations:^{
+                                              vc.imageView.alpha = 1.0f;
+                                          } completion:^(BOOL finished) {
+                                              
+                                          }];
+                     }];
+    
+    
+}
+
+
+- (IBAction)onPrevClicked:(id)sender {
+    [vc.nextBtn setHidden:NO];
+    [vc.PrevBtn setHidden:YES];
+   
+    
+    [vc.imageView setAlpha:0.5f];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         vc.imageView.alpha = 0.5f;
+                     } completion:^(BOOL finished) {
+                          [vc.imageView setImage:[UIImage imageNamed:@"tutorial01.png"]];
+                         
+                         [UIView animateWithDuration:0.5
+                                          animations:^{
+                                              vc.imageView.alpha = 1.0f;
+                                          } completion:^(BOOL finished) {
+                                              
+                                          }];
+                     }];
 }
 
 - (void)viewDidLoad {

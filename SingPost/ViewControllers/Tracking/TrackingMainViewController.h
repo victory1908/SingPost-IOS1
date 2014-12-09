@@ -40,6 +40,7 @@
 
 - (void) submitAllTrackingItemWithLabel;
 - (void) updateSelectItem : (NSArray *) items2Delete;
+- (void) deleteAllItems : (NSArray *) items2Delete;
 - (void) syncLabelsWithTrackingNumbers;
 
 - (void) enableSideBar;

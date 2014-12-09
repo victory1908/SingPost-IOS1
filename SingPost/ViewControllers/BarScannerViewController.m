@@ -8,11 +8,14 @@
 
 #import "BarScannerViewController.h"
 #import "TrackingMainViewController.h"
+#import "ScanTutorialViewController.h"
 
 
 @interface BarScannerViewController () {
     ZBarReaderViewController *reader;
     __weak IBOutlet UIView *redLine;
+    
+    ScanTutorialViewController * vc;
 }
 
 @end
@@ -119,6 +122,70 @@
     
     
 }
+
+- (IBAction)onHelpClicked:(id)sender {
+    [self showTutorial];
+}
+
+- (void) showTutorial {
+    vc = [[ScanTutorialViewController alloc] initWithNibName:@"ScanTutorialViewController" bundle:nil];
+    [self.contentView addSubview:vc.view];
+    [vc.nextBtn addTarget:self action:@selector(onNextClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.PrevBtn addTarget:self action:@selector(onPrevClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [vc.closeBtn addTarget:self action:@selector(onCloseHelpClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:@"YES" forKey:@"STUPID_CHIRAG"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
+
+- (IBAction)onCloseHelpClicked:(id)sender {
+    [vc.view removeFromSuperview];
+}
+
+- (IBAction)onNextClicked:(id)sender {
+    [vc.nextBtn setHidden:YES];
+    [vc.PrevBtn setHidden:NO];
+    
+    [vc.imageView setAlpha:0.5f];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         vc.imageView.alpha = 0.5f;
+                     } completion:^(BOOL finished) {
+                         [vc.imageView setImage:[UIImage imageNamed:@"tutorial02.png"]];
+                         
+                         [UIView animateWithDuration:0.5
+                                          animations:^{
+                                              vc.imageView.alpha = 1.0f;
+                                          } completion:^(BOOL finished) {
+                                              
+                                          }];
+                     }];
+    
+    
+}
+
+
+- (IBAction)onPrevClicked:(id)sender {
+    [vc.nextBtn setHidden:NO];
+    [vc.PrevBtn setHidden:YES];
+    
+    
+    [vc.imageView setAlpha:0.5f];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         vc.imageView.alpha = 0.5f;
+                     } completion:^(BOOL finished) {
+                         [vc.imageView setImage:[UIImage imageNamed:@"tutorial01.png"]];
+                         
+                         [UIView animateWithDuration:0.5
+                                          animations:^{
+                                              vc.imageView.alpha = 1.0f;
+                                          } completion:^(BOOL finished) {
+                                              
+                                          }];
+                     }];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

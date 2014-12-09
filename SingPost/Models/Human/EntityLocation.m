@@ -200,12 +200,15 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 - (BOOL)isOpenedRelativeToTimeDigits:(NSInteger)timeDigits andOpeningHours:(NSString *)openingHours andClosingHours:(NSString *)closingHours
 {
     if ([self.type isEqualToString:LOCATION_TYPE_POSTING_BOX])
-        return ![self isNullOpeningHours:openingHours];
+    return ![self isNullOpeningHours:openingHours];
     else if ([self.type isEqualToString:LOCATION_TYPE_SAM]) {
         if ([self isNullOpeningHours:openingHours])
-            return YES;
+        return YES;
     }
-    return (timeDigits < [closingHours integerValue] && timeDigits > [openingHours integerValue]);
+    if([closingHours integerValue] > [openingHours integerValue])
+        return (timeDigits < [closingHours integerValue] && timeDigits > [openingHours integerValue]);
+    else
+        return (timeDigits < [closingHours integerValue]+2400 && timeDigits > [openingHours integerValue]);
 }
 
 - (CGFloat)distanceInKmToLocation:(CLLocation *)toLocation

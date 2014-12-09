@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    isSwipeEnable = false;
+    isSwipeEnable = true;
     
     if(isSwipeEnable) {
     

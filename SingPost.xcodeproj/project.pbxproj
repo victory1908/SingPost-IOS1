@@ -197,6 +197,10 @@
 		24BDC0AA1A0B5AEB0023C0AC /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */; };
 		24BDC0AB1A0B5AEB0023C0AC /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */; };
 		24C26A1719AF1457008F4F01 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C26A1619AF1457008F4F01 /* FacebookSDK.framework */; };
+		24D88CD51A258170007265F7 /* ScanTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D88CD31A258170007265F7 /* ScanTutorialViewController.m */; };
+		24D88CD61A258170007265F7 /* ScanTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D88CD41A258170007265F7 /* ScanTutorialViewController.xib */; };
+		24D88CD71A25E61E007265F7 /* ScanTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D88CD41A258170007265F7 /* ScanTutorialViewController.xib */; };
+		24D88CD81A25E640007265F7 /* ScanTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24D88CD31A258170007265F7 /* ScanTutorialViewController.m */; };
 		24F43BBB19EB81B800F28F21 /* CUIActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F43BBA19EB81B800F28F21 /* CUIActionSheet.m */; };
 		24F43D0119ECC7A900F28F21 /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24F43D0019ECC7A900F28F21 /* SwipeViewController.m */; };
 		52024F0F17F5EEC800AFD239 /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */; };
@@ -396,6 +400,10 @@
 		24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		24BDC0A91A0B5AEB0023C0AC /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
 		24C26A1619AF1457008F4F01 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		24C69C581A30390C000A47C0 /* Singapore.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Singapore.gpx; sourceTree = "<group>"; };
+		24D88CD21A258170007265F7 /* ScanTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanTutorialViewController.h; sourceTree = "<group>"; };
+		24D88CD31A258170007265F7 /* ScanTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanTutorialViewController.m; sourceTree = "<group>"; };
+		24D88CD41A258170007265F7 /* ScanTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanTutorialViewController.xib; sourceTree = "<group>"; };
 		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F43BB919EB81B800F28F21 /* CUIActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUIActionSheet.h; sourceTree = "<group>"; };
 		24F43BBA19EB81B800F28F21 /* CUIActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUIActionSheet.m; sourceTree = "<group>"; };
@@ -787,6 +795,9 @@
 				246F8D4419F8FBCA00EF4114 /* BarScannerViewController.h */,
 				246F8D4519F8FBCA00EF4114 /* BarScannerViewController.m */,
 				246F8D4619F8FBCA00EF4114 /* BarScannerViewController.xib */,
+				24D88CD21A258170007265F7 /* ScanTutorialViewController.h */,
+				24D88CD31A258170007265F7 /* ScanTutorialViewController.m */,
+				24D88CD41A258170007265F7 /* ScanTutorialViewController.xib */,
 			);
 			name = BarScanner;
 			sourceTree = "<group>";
@@ -873,6 +884,7 @@
 		521B171417F1633000FEB6FD = {
 			isa = PBXGroup;
 			children = (
+				24C69C581A30390C000A47C0 /* Singapore.gpx */,
 				521B172617F1633000FEB6FD /* SingPost */,
 				521B172717F1633000FEB6FD /* Supporting Files */,
 				521B171F17F1633000FEB6FD /* Frameworks */,
@@ -1585,6 +1597,7 @@
 				244DEABF19ED28A300F07A76 /* Speedpost Agent.json in Resources */,
 				246F8D3E19F8FA4300EF4114 /* zbar-help.html in Resources */,
 				244DEAC019ED28A300F07A76 /* SAM.json in Resources */,
+				24D88CD71A25E61E007265F7 /* ScanTutorialViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1621,6 +1634,7 @@
 				91B49BC1187AC76200C7FE62 /* Speedpost Agent.json in Resources */,
 				246F8D3D19F8FA4300EF4114 /* zbar-help.html in Resources */,
 				52731F73185AB1B4007D6001 /* SAM.json in Resources */,
+				24D88CD61A258170007265F7 /* ScanTutorialViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1807,6 +1821,7 @@
 				244DEA7C19ED28A300F07A76 /* LocateUsFSMapViewController.m in Sources */,
 				244DEA7D19ED28A300F07A76 /* TrackingSelectTableViewCell.m in Sources */,
 				244DEA7E19ED28A300F07A76 /* CalculatePostageOverseasViewController.m in Sources */,
+				24D88CD81A25E640007265F7 /* ScanTutorialViewController.m in Sources */,
 				246F8D4819F8FBCA00EF4114 /* BarScannerViewController.m in Sources */,
 				244DEA7F19ED28A300F07A76 /* TrackingHeaderMainTableViewCell.m in Sources */,
 				244DEA8019ED28A300F07A76 /* _Article.m in Sources */,
@@ -1851,6 +1866,7 @@
 				521B173117F1633000FEB6FD /* AppDelegate.m in Sources */,
 				528F269217F8B725006F7027 /* CalculatePostageResultsViewController.m in Sources */,
 				52B402A7183BCA8E00D14D43 /* _DeliveryStatus.m in Sources */,
+				24D88CD51A258170007265F7 /* ScanTutorialViewController.m in Sources */,
 				528F26AE17F8C575006F7027 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
 				52359CDA186137E90068E6B9 /* _TrackedItem.m in Sources */,
 				528F270917F9C18C006F7027 /* EntityLocation.m in Sources */,
@@ -1990,8 +2006,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_UAT;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Codigo Private Limited";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Codigo Private Limited";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2008,7 +2024,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "SingPost_SIT copy";
-				PROVISIONING_PROFILE = "48f56352-dc97-4195-931d-0c9515d710f4";
+				PROVISIONING_PROFILE = "F547805E-A001-4E38-9C58-81D151B6E44F";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;

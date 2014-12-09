@@ -58,6 +58,12 @@ UITableViewDataSource
          }
          self.dataArray = arr;
          [self.tableView reloadData];
+         
+         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+         
+         NSString * rand = [[responseObject objectForKey:@"root"] objectForKey:@"rand"];
+         [defaults setObject:rand forKey:@"LAST_RAND"];
+         [defaults synchronize];
          [SVProgressHUD dismiss];
          
      } failure:^(NSError *error)

@@ -132,6 +132,11 @@
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    
+    if ([locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [locationManager requestWhenInUseAuthorization];
+    }
+    
     [locationManager startUpdatingLocation];
     
     [self showSearchTermsView:YES];
@@ -199,6 +204,9 @@
 
 - (void)reloadData
 {
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    [timeFormatter setDateFormat:@"HHmm"];
+    _cachedCurrentTimeDigits = [[timeFormatter stringFromDate:[NSDate date]] integerValue];
     [self loadLocationsDataForSelectedType];
     [self filterContentForSearchText:[self searchTerm]];
 }

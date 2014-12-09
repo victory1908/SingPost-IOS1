@@ -121,6 +121,12 @@
     [self showSearchTermsView:YES];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Stamp Collectibles"];
+}
+
 #pragma mark - UITableView DataSource & Delegate
 
 - (void)configureCell:(StampCollectiblesTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath

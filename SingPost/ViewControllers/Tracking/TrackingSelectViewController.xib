@@ -28,7 +28,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3Yy-Hq-961">
-                            <rect key="frame" x="182.99999927944594" y="480" width="117" height="30"/>
+                            <rect key="frame" x="183" y="480" width="116.99999931116736" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="Add" backgroundImage="blue_bg_button">
@@ -48,17 +48,6 @@
                             </state>
                             <connections>
                                 <action selector="onCancelClicked:" destination="-1" eventType="touchUpInside" id="T3T-5Y-0xN"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kcI-w1-gJ2">
-                            <rect key="frame" x="30" y="446" width="20" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <state key="normal" backgroundImage="checkbox-0">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="selected" backgroundImage="checkbox-1"/>
-                            <connections>
-                                <action selector="onSelectAll:" destination="-1" eventType="touchUpInside" id="lMn-VX-Trj"/>
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="TrackingSelectTableViewCell" text="Select All" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xL2-lQ-ULa">
@@ -101,6 +90,17 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kcI-w1-gJ2">
+                            <rect key="frame" x="10" y="425" width="300" height="59"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <state key="normal" backgroundImage="checkbox-0">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="selected" backgroundImage="checkbox-1"/>
+                            <connections>
+                                <action selector="onSelectAll:" destination="-1" eventType="touchUpInside" id="lMn-VX-Trj"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -113,8 +113,8 @@
     <resources>
         <image name="0" width="30" height="30"/>
         <image name="blue_bg_button" width="62" height="48"/>
-        <image name="checkbox-0" width="30" height="30"/>
-        <image name="checkbox-1" width="30" height="30"/>
+        <image name="checkbox-0" width="600" height="118"/>
+        <image name="checkbox-1" width="600" height="118"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
