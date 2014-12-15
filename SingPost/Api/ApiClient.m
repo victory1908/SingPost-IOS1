@@ -28,7 +28,11 @@
 
 
 static BOOL isProduction = NO;
-static BOOL isSIT = YES;
+static BOOL isSIT = NO;
+
++(BOOL)isSIT {
+    return  isSIT;
+}
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
@@ -584,6 +588,8 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
         if (success) {
+            //UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"Success" message:XMLElement.text delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            //[view show];
             success(XMLElement);
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
@@ -640,13 +646,18 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/add" parameters:nil];
+    //UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"" message:[request.URL absoluteString] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    //[alert show];
+    
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-        if (success)
+        if (success) {
+            //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@",XMLElement.text]]];
             success(XMLElement);
+        }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
         if (failure)
             failure(error);

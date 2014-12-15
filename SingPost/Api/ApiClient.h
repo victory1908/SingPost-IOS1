@@ -14,6 +14,8 @@
 
 @interface ApiClient : AFHTTPClient
 
++(BOOL)isSIT;
+
 typedef void (^ApiClientSuccess)(id responseObject);
 typedef void (^ApiClientFailure)(NSError *error);
 typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations);

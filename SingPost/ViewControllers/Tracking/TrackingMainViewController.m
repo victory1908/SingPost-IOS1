@@ -560,7 +560,12 @@ typedef enum {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:trackingCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30 - 50, 44)];
+            int whySoManyDifferentBuilds = 0;
+            if(![ApiClient isSIT]) {
+                whySoManyDifferentBuilds = 50;
+            }
+            
+            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30 - 50 + whySoManyDifferentBuilds, 44)];
             [trackingNumberTextField setPlaceholder:@"Enter tracking number"];
             [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
             [trackingNumberTextField setFontSize:16.0f];
@@ -570,26 +575,30 @@ typedef enum {
             [cell.contentView addSubview:trackingNumberTextField];
             
             CGFloat findTrackingBtnX;
-            //Add Scan Button
-            UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             
-            if (INTERFACE_IS_IPAD) {
-                findTrackingBtnX = [[UIScreen mainScreen] bounds].size.width - 60;
-                scanBtn.frame = CGRectMake(findTrackingBtnX, 21, 44, 44);
+            if([ApiClient isSIT]) {
+                //Add Scan Button
+                UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                
+                if (INTERFACE_IS_IPAD) {
+                    findTrackingBtnX = [[UIScreen mainScreen] bounds].size.width - 60;
+                    scanBtn.frame = CGRectMake(findTrackingBtnX, 21, 44, 44);
+                }
+                else {
+                    findTrackingBtnX = cell.contentView.width - 60;
+                    scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 21, 44, 44) : CGRectMake(findTrackingBtnX, 21, 44, 44);
+                }
+                [scanBtn setImage:[UIImage imageNamed:@"scanBtn2"] forState:UIControlStateNormal];
+                [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:scanBtn];
+                
             }
-            else {
-                findTrackingBtnX = cell.contentView.width - 60;
-                scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 21, 44, 44) : CGRectMake(findTrackingBtnX, 21, 44, 44);
-            }
-            [scanBtn setImage:[UIImage imageNamed:@"scanBtn2"] forState:UIControlStateNormal];
-            [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
-            [cell.contentView addSubview:scanBtn];
             
             
             
             UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-            [findTrackingNumberButton setFrame:CGRectMake(tableView.width - 55 - 50, 27, 35, 35)];
+            [findTrackingNumberButton setFrame:CGRectMake(tableView.width - 55 - 50 + whySoManyDifferentBuilds, 27, 35, 35)];
             [findTrackingNumberButton addTarget:self action:@selector(onTrackingNumberBtn:) forControlEvents:UIControlEventTouchUpInside];
             [cell.contentView addSubview:findTrackingNumberButton];
             
@@ -943,6 +952,10 @@ typedef enum {
             }
             
             [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+                if(success) {
+                    //UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Subscribe Success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                    //[alert show];
+                }
                 [SVProgressHUD dismiss];
             }];
         }

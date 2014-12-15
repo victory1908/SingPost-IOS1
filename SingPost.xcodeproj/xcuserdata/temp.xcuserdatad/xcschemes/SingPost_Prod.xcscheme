@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0610"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "244DEA2519ED28A300F07A76"
-               BuildableName = "SingPost_SIT copy.app"
-               BlueprintName = "SingPost_UAT"
+               BlueprintIdentifier = "24AD38A21A399D180088F6A6"
+               BuildableName = "SingPost_UAT copy.app"
+               BlueprintName = "SingPost_Prod"
                ReferencedContainer = "container:SingPost.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "244DEA2519ED28A300F07A76"
-            BuildableName = "SingPost_SIT copy.app"
-            BlueprintName = "SingPost_UAT"
+            BlueprintIdentifier = "24AD38A21A399D180088F6A6"
+            BuildableName = "SingPost_UAT copy.app"
+            BlueprintName = "SingPost_Prod"
             ReferencedContainer = "container:SingPost.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "244DEA2519ED28A300F07A76"
-            BuildableName = "SingPost_SIT copy.app"
-            BlueprintName = "SingPost_UAT"
+            BlueprintIdentifier = "24AD38A21A399D180088F6A6"
+            BuildableName = "SingPost_UAT copy.app"
+            BlueprintName = "SingPost_Prod"
             ReferencedContainer = "container:SingPost.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "244DEA2519ED28A300F07A76"
-            BuildableName = "SingPost_SIT copy.app"
-            BlueprintName = "SingPost_UAT"
+            BlueprintIdentifier = "24AD38A21A399D180088F6A6"
+            BuildableName = "SingPost_UAT copy.app"
+            BlueprintName = "SingPost_Prod"
             ReferencedContainer = "container:SingPost.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/ViewControllers/Tracking/TrackingMainViewController.m"
-            timestampString = "438687787.425453"
+            timestampString = "439797534.22694"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864"
+            startingLineNumber = "873"
+            endingLineNumber = "873"
             landmarkName = "-controller:didChangeObject:atIndexPath:forChangeType:newIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -278,43 +278,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/Api/ApiClient.m"
-            timestampString = "438150486.254371"
+            timestampString = "440044661.184419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1006"
-            endingLineNumber = "1006"
-            landmarkName = "-isFirstTime:onFailure:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SingPost/Api/ApiClient.m"
-            timestampString = "438150486.254371"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1009"
-            endingLineNumber = "1009"
-            landmarkName = "-isFirstTime:onFailure:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SingPost/Api/ApiClient.m"
-            timestampString = "438150486.254371"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "959"
-            endingLineNumber = "959"
+            startingLineNumber = "966"
+            endingLineNumber = "966"
             landmarkName = "-facebookLoginOnSuccess:onFailure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -326,11 +294,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/ViewControllers/Tracking/TrackingMainViewController.m"
-            timestampString = "438687787.425453"
+            timestampString = "440044661.184419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1257"
-            endingLineNumber = "1257"
+            startingLineNumber = "1270"
+            endingLineNumber = "1270"
             landmarkName = "-showSelectView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -342,11 +310,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/ViewControllers/Tracking/TrackingMainViewController.m"
-            timestampString = "438687787.425453"
+            timestampString = "440044661.184419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1141"
-            endingLineNumber = "1141"
+            startingLineNumber = "1154"
+            endingLineNumber = "1154"
             landmarkName = "@implementation TrackingMainViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -390,11 +358,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/Api/ApiClient.m"
-            timestampString = "438606444.24719"
+            timestampString = "439797148.315518"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "-getSingpostAnnouncementSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -406,11 +374,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/ViewControllers/Tracking/TrackingMainViewController.m"
-            timestampString = "438687787.425453"
+            timestampString = "440044661.184419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "991"
-            endingLineNumber = "991"
+            startingLineNumber = "1004"
+            endingLineNumber = "1004"
             landmarkName = "-getLocalLabels"
             landmarkType = "5">
          </BreakpointContent>
@@ -422,12 +390,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/ViewControllers/Tracking/TrackingMainViewController.m"
-            timestampString = "438687787.425453"
+            timestampString = "440044661.184419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1087"
-            endingLineNumber = "1087"
+            startingLineNumber = "1100"
+            endingLineNumber = "1100"
             landmarkName = "-justDoItDontCare"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SingPost/ViewControllers/Tracking/TrackingMainViewController.m"
+            timestampString = "440044661.184419"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "955"
+            endingLineNumber = "955"
+            landmarkName = "-switchChanged:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SingPost/Models/PushNotification.m"
+            timestampString = "440043358.826125"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "+API_subscribeNotificationForTrackingNumberArray:onCompletion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SingPost/Models/PushNotification.m"
+            timestampString = "440043361.064973"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "+API_subscribeNotificationForTrackingNumberArray:onCompletion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SingPost/Models/PushNotification.m"
+            timestampString = "440043367.774063"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "+API_subscribeNotificationForTrackingNumberArray:onCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

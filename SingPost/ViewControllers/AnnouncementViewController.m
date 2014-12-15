@@ -52,7 +52,9 @@ UITableViewDataSource
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
      {
-         NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
+         NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"announcements"];
+         
+         
          if(arr == nil) {
             arr = [responseObject objectForKeyOrNil:@"root"];
          }
@@ -61,9 +63,12 @@ UITableViewDataSource
          
          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
          
-         NSString * rand = [[responseObject objectForKey:@"root"] objectForKey:@"rand"];
-         [defaults setObject:rand forKey:@"LAST_RAND"];
-         [defaults synchronize];
+         NSString * rand = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"rand"];
+         
+         if(rand!= nil) {
+             [defaults setObject:rand forKey:@"LAST_RAND"];
+             [defaults synchronize];
+         }
          [SVProgressHUD dismiss];
          
      } failure:^(NSError *error)

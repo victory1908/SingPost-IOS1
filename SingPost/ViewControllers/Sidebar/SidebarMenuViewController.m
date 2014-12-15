@@ -280,7 +280,13 @@
     [trackLabel setBackgroundColor:[UIColor clearColor]];
     [headerView addSubview:trackLabel];
     
-    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, SIDEBAR_WIDTH - 35 - 35, 30)];
+    
+    int whySoManyDifferentBuilds = 0;
+    if(![ApiClient isSIT]) {
+        whySoManyDifferentBuilds = 35;
+    }
+    
+    trackingNumberTextField = [[SidebarTrackingNumberTextField alloc] initWithFrame:CGRectMake(15, 35, SIDEBAR_WIDTH - 35 - 35 + whySoManyDifferentBuilds, 30)];
     [trackingNumberTextField setBackgroundColor:[UIColor clearColor]];
     [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
@@ -290,20 +296,23 @@
     [headerView addSubview:trackingNumberTextField];
     
     CGFloat findTrackingBtnX;
-    //Add Scan Button
-    UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    if (INTERFACE_IS_IPAD) {
-        findTrackingBtnX = headerView.width - 45;
-        scanBtn.frame = CGRectMake(findTrackingBtnX, 35, 30, 30);
+    if([ApiClient isSIT]) {
+        //Add Scan Button
+        UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        if (INTERFACE_IS_IPAD) {
+            findTrackingBtnX = headerView.width - 45;
+            scanBtn.frame = CGRectMake(findTrackingBtnX, 35, 30, 30);
+        }
+        else {
+            findTrackingBtnX = headerView.width - 45;
+            scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 35, 30, 30) : CGRectMake(findTrackingBtnX, 35, 30, 30);
+        }
+        [scanBtn setImage:[UIImage imageNamed:@"scanSidebarBtn"] forState:UIControlStateNormal];
+        [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:scanBtn];
     }
-    else {
-        findTrackingBtnX = headerView.width - 45;
-        scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 35, 30, 30) : CGRectMake(findTrackingBtnX, 35, 30, 30);
-    }
-    [scanBtn setImage:[UIImage imageNamed:@"scanSidebarBtn"] forState:UIControlStateNormal];
-    [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:scanBtn];
     
     trackingListButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon_small"] forState:UIControlStateNormal];
@@ -313,7 +322,7 @@
     
     findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
-    [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50 - 35, 39, 25, 25)];
+    [findTrackingNumberButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50 - 35 + whySoManyDifferentBuilds, 39, 25, 25)];
     [findTrackingNumberButton addTarget:self action:@selector(findTrackingNumberButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:findTrackingNumberButton];
     

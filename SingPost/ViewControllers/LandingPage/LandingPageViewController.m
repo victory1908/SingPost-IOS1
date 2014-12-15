@@ -175,7 +175,7 @@ OffersMenuDelegate
          if([obj isKindOfClass:[NSArray class]]) {
              arr = (NSArray *)obj;
          } else {
-             NSString * rand = [[responseObject objectForKey:@"root"] objectForKey:@"rand"];
+             NSString * rand = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"rand"];
              
              if(rand == nil) {
                  return;
@@ -233,14 +233,19 @@ OffersMenuDelegate
     
     //Badge end
     
+    int whySoManyDifferentBuilds = 0;
+    if(![ApiClient isSIT]) {
+        whySoManyDifferentBuilds = 53;
+    }
+    
     if (INTERFACE_IS_IPAD) {
-        trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668 - 57, 50)];
+        trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668 - 57 + whySoManyDifferentBuilds, 50)];
         trackingNumberTextField.fontSize = 15.0f;
         trackingNumberTextField.placeholderFontSize = 16.0f;
         trackingNumberTextField.insetBoundsSize = CGSizeMake(50, 7);
     }
     else {
-        trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40 - 53 , 47) : CGRectMake(20, 70, contentView.width - 40 - 53, 30)];
+        trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40 - 53 +whySoManyDifferentBuilds , 47) : CGRectMake(20, 70, contentView.width - 40 - 53 + whySoManyDifferentBuilds, 30)];
         trackingNumberTextField.fontSize = INTERFACE_IS_4INCHSCREEN ? 14.0f : 14.0f;
         trackingNumberTextField.placeholderFontSize = INTERFACE_IS_4INCHSCREEN ? 12.0f : 12.0f;
         trackingNumberTextField.insetBoundsSize = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 8) : CGSizeMake(40, 3)) : (INTERFACE_IS_4INCHSCREEN ? CGSizeMake(50, 6) : CGSizeMake(40, 5));
@@ -253,20 +258,25 @@ OffersMenuDelegate
     [contentView addSubview:trackingNumberTextField];
     
     CGFloat findTrackingBtnX;
-    //Add Scan Button
-    UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    if (INTERFACE_IS_IPAD) {
-        findTrackingBtnX = contentView.width - 90;
-        scanBtn.frame = CGRectMake(findTrackingBtnX, 240, 50, 50);
+    
+    //Add Scan Button
+    
+    if([ApiClient isSIT]) {
+        UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        if (INTERFACE_IS_IPAD) {
+            findTrackingBtnX = contentView.width - 90;
+            scanBtn.frame = CGRectMake(findTrackingBtnX, 240, 50, 50);
+        }
+        else {
+            findTrackingBtnX = contentView.width - 65;
+            scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 80, 47, 47) : CGRectMake(findTrackingBtnX, 70, 30, 30);
+        }
+        [scanBtn setImage:[UIImage imageNamed:@"scanBtn"] forState:UIControlStateNormal];
+        [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
+        [contentView addSubview:scanBtn];
     }
-    else {
-        findTrackingBtnX = contentView.width - 65;
-        scanBtn.frame = INTERFACE_IS_4INCHSCREEN ? CGRectMake(findTrackingBtnX, 80, 47, 47) : CGRectMake(findTrackingBtnX, 70, 30, 30);
-    }
-    [scanBtn setImage:[UIImage imageNamed:@"scanBtn"] forState:UIControlStateNormal];
-    [scanBtn addTarget:self action:@selector(OnGoToScan) forControlEvents:UIControlEventTouchUpInside];
-    [contentView addSubview:scanBtn];
     
     LandingPageButton *trackingListButton = [LandingPageButton buttonWithType:UIButtonTypeCustom];
     [trackingListButton setImage:[UIImage imageNamed:@"tracking_list_icon"] forState:UIControlStateNormal];
@@ -434,6 +444,9 @@ OffersMenuDelegate
 }
 
 - (void) showTutorial {
+    if(![ApiClient isSIT]) {
+        return;
+    }
     vc = [[ScanTutorialViewController alloc] initWithNibName:@"ScanTutorialViewController" bundle:nil];
     [self.view addSubview:vc.view];
     [vc.nextBtn addTarget:self action:@selector(onNextClicked:) forControlEvents:UIControlEventTouchUpInside];

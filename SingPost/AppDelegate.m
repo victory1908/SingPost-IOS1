@@ -711,7 +711,7 @@
         
         return;
     }
-
+    
     
     
     NSString *alert = aps[@"alert"];
@@ -733,7 +733,7 @@
         return;
     }
     
-   }
+}
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
@@ -751,6 +751,13 @@
     NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
     [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
         //do nothing
+        /*if(success) {
+            UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"Success" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [view show];
+        } else {
+            UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"Failed" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [view show];
+        }*/
     }];
     
     /*UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"deviceToken" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
