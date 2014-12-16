@@ -86,6 +86,7 @@
         [separatorView3 setPersistentBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView3];
         
+        if(![ApiClient isWithoutFacebook]) {
         //Facebook sign in
         if(isActive) {
             
@@ -144,6 +145,7 @@
             
             [self.contentView bringSubviewToFront:icon];
             
+        }
         }
         
         [self.contentView addSubview:contentView];

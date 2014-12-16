@@ -2491,8 +2491,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Prod;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Singapore Post Limited (KCJFL9TSEY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Singapore Post Limited (KCJFL9TSEY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: adrian Ng Chee Wei (4CCNTSMBR3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2509,7 +2509,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "SingPost_UAT copy";
-				PROVISIONING_PROFILE = "af15006e-3d27-41ac-9b11-4ef7f09d7c72";
+				PROVISIONING_PROFILE = "48f56352-dc97-4195-931d-0c9515d710f4";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;

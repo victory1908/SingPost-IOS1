@@ -138,11 +138,12 @@ typedef enum {
         return;
     }
     
+    if(![ApiClient isWithoutFacebook]) {
     if(!isViewDidAppear) {
         [self syncLabelsWithTrackingNumbers];
         isViewDidAppear = true;
     }
-    
+    }
     //[self refreshTableView];
 
 }
@@ -229,6 +230,11 @@ typedef enum {
                     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
                                        message:ERRORCODE1001_MESSAGE
                              cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                } else if (error.code == 1560) {
+                    [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                       message:ITEM_NUMBER_NOT_FOUND
+                             cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    
                 }
                 else {
                     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
@@ -387,6 +393,7 @@ typedef enum {
             [activeItemsLabel setFont:[UIFont SingPostLightFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
             [sectionHeaderView addSubview:activeItemsLabel];
             
+            if(![ApiClient isWithoutFacebook]) {
             if (FBSession.activeSession.state != FBSessionStateOpen
                 && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
                 stupidFadly = [[UIButton alloc] initWithFrame:CGRectMake(120, 3, 200, 44)];
@@ -401,6 +408,7 @@ typedef enum {
                 } else {
                     [stupidFadly setHidden:NO];
                 }
+            }
             }
             break;
         }
@@ -684,6 +692,11 @@ typedef enum {
                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
                                            message:ERRORCODE1001_MESSAGE
                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    }else if (error.code == 1560) {
+                        [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                           message:ITEM_NUMBER_NOT_FOUND
+                                 cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                        
                     }
                     else {
                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
@@ -727,6 +740,12 @@ typedef enum {
                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
                                            message:ERRORCODE1001_MESSAGE
                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                    }
+                    else if (error.code == 1560) {
+                        [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                           message:ITEM_NUMBER_NOT_FOUND
+                                 cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                        
                     }
                     else {
                     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE

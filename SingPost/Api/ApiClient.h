@@ -15,6 +15,7 @@
 @interface ApiClient : AFHTTPClient
 
 +(BOOL)isSIT;
++(BOOL)isWithoutFacebook;
 
 typedef void (^ApiClientSuccess)(id responseObject);
 typedef void (^ApiClientFailure)(NSError *error);

@@ -119,6 +119,7 @@
     [landingPageButton setFrame:CGRectMake(SIDEBAR_WIDTH - 50, offsetY + 2, 44, 44)];
     [contentView addSubview:landingPageButton];
     
+    if(![ApiClient isWithoutFacebook]) {
     logButton = [UIButton buttonWithType:UIButtonTypeCustom];
     NSString * str = @"Log In";
     
@@ -137,6 +138,8 @@
     [logButton addTarget:self action:@selector(onClickLogButton) forControlEvents:UIControlEventTouchUpInside];
     [logButton setFrame:CGRectMake(SIDEBAR_WIDTH - 110, offsetY + 2, 60, 44)];
     [contentView addSubview:logButton];
+        
+    }
     
     PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 10, 1, 25)];
     [separatorView2 setPersistentBackgroundColor:RGB(196, 197, 200)];

@@ -29,9 +29,14 @@
 
 static BOOL isProduction = NO;
 static BOOL isSIT = NO;
+static BOOL isWithoutFacebook = YES;
 
 +(BOOL)isSIT {
     return  isSIT;
+}
+
++(BOOL)isWithoutFacebook {
+    return  isWithoutFacebook;
 }
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)

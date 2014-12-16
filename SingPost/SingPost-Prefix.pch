@@ -17,6 +17,7 @@
 #define TRACKED_ITEM_NOT_FOUND_ERROR        @"Item number incorrect or tracking status for this item is not yet updated. Please try again later."
 #define NEW_TRACKED_ITEM_NOT_FOUND_ERROR    @"Item number incorrect or tracking status for this item is not yet updated. Please try again later. This number will be stored for your easy reference later."
 #define ERRORCODE1001_MESSAGE               @"We are now encountering very high traffic in our system, please try again later."
+#define ITEM_NUMBER_NOT_FOUND @"Item number not found. Please check the number."
 
 #import <Availability.h>
 

@@ -70,7 +70,7 @@
 - (void)loadView
 {
     int offsetY = 0;
-    if(self.isActiveItem)
+    if(self.isActiveItem && ![ApiClient isWithoutFacebook])
         offsetY = NEW_LAYOUT_OFFSET_Y;
     
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -105,7 +105,7 @@
     [trackingInfoView setBackgroundColor:RGB(240, 240, 240)];
     [contentView addSubview:trackingInfoView];
     
-    if(self.isActiveItem) {
+    if(self.isActiveItem && ![ApiClient isWithoutFacebook]) {
         labelLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 280, 20)];
         [labelLabel setFont:[UIFont SingPostSemiboldFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
         if(title) {
