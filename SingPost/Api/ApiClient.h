@@ -15,6 +15,7 @@
 @interface ApiClient : AFHTTPClient
 
 +(BOOL)isSIT;
++(BOOL)isScanner;
 +(BOOL)isWithoutFacebook;
 
 typedef void (^ApiClientSuccess)(id responseObject);

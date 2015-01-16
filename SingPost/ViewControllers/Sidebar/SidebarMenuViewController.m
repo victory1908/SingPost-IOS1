@@ -285,7 +285,7 @@
     
     
     int whySoManyDifferentBuilds = 0;
-    if(![ApiClient isSIT]) {
+    if(![ApiClient isScanner]) {
         whySoManyDifferentBuilds = 35;
     }
     
@@ -300,7 +300,7 @@
     
     CGFloat findTrackingBtnX;
     
-    if([ApiClient isSIT]) {
+    if([ApiClient isScanner]) {
         //Add Scan Button
         UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         

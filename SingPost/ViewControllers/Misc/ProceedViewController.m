@@ -57,6 +57,16 @@
     [btn1 addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [contentView addSubview:btn1];
     
+    
+    ///Star
+    UILabel * star = [[UILabel alloc] initWithFrame:CGRectMake(btn1.frame.size.width + 24, 65, 10, 10)];
+    [star setNumberOfLines:0];
+    [star setText:@"*"];
+    [star setTextColor:[UIColor blackColor]];
+    [star setFont:[UIFont SingPostLightFontOfSize:(16.0f * contentView.bounds.size.width /320) fontKey:kSingPostFontOpenSans]];
+    [star sizeToFit];
+    [contentView addSubview:star];
+    
     UILabel * pp = [[UILabel alloc] initWithFrame:CGRectMake(20+btn1.frame.size.width + 20, 65, contentView.bounds.size.width * 12 / 16, contentView.bounds.size.width * 2 / 16)];
     [pp setNumberOfLines:0];
     [pp setText:@"I acknowledge and accept the Privacy Policy of SingPost Group"];

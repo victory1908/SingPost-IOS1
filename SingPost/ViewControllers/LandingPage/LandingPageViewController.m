@@ -234,7 +234,7 @@ OffersMenuDelegate
     //Badge end
     
     int whySoManyDifferentBuilds = 0;
-    if(![ApiClient isSIT]) {
+    if(![ApiClient isScanner]) {
         whySoManyDifferentBuilds = 53;
     }
     
@@ -262,7 +262,7 @@ OffersMenuDelegate
     
     //Add Scan Button
     
-    if([ApiClient isSIT]) {
+    if([ApiClient isScanner]) {
         UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         
         if (INTERFACE_IS_IPAD) {
@@ -444,7 +444,7 @@ OffersMenuDelegate
 }
 
 - (void) showTutorial {
-    if(![ApiClient isSIT]) {
+    if(![ApiClient isScanner]) {
         return;
     }
     vc = [[ScanTutorialViewController alloc] initWithNibName:@"ScanTutorialViewController" bundle:nil];

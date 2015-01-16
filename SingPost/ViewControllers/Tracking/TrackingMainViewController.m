@@ -569,7 +569,7 @@ typedef enum {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             int whySoManyDifferentBuilds = 0;
-            if(![ApiClient isSIT]) {
+            if(![ApiClient isScanner]) {
                 whySoManyDifferentBuilds = 50;
             }
             
@@ -584,7 +584,7 @@ typedef enum {
             
             CGFloat findTrackingBtnX;
             
-            if([ApiClient isSIT]) {
+            if([ApiClient isScanner]) {
                 //Add Scan Button
                 UIButton * scanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 
