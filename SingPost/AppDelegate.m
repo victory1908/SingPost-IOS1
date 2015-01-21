@@ -242,7 +242,7 @@
              UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Log in failed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
              
              [alert show];
-             
+             [SVProgressHUD dismiss];
              return;
          }
         

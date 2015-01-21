@@ -52,15 +52,17 @@ static BOOL isWithoutFacebook = NO;
 //Development
 static NSString *const SINGPOST_UAT_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_UAT_BASE_URL = @"http://27.109.106.170/mobile2/";
-static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/mobile2/v4/";
+static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/mobile2/v5/";
 static NSString *const AD_UAT_BASE_URL = @"https://uat.mysam.sg/restful-services/advertisementServices/";
 
-static NSString *const CMS_UAT_BASE_URL_V4_SIT = @"http://128.199.253.131/mobile2/v4/";
+
+//SIT
+static NSString *const CMS_UAT_BASE_URL_V4_SIT = @"http://128.199.253.131/mobile2/v5/";
 
 //Production
 static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://prdesb1.singpost.com";
 static NSString *const CMS_PRODUCTION_BASE_URL = @"http://mobile.singpost.com/mobile2/";
-static NSString *const CMS_PRODUCTION_BASE_URL_V4 = @"http://mobile.singpost.com/mobile2/v4/";
+static NSString *const CMS_PRODUCTION_BASE_URL_V4 = @"http://mobile.singpost.com/mobile2/v5/";
 static NSString *const AD_PRODUCTION_BASE_URL = @"https://www.mysam.sg/restful-services/advertisementServices/";
 
 static NSString *const APP_ID = @"M00002";
@@ -68,7 +70,7 @@ static NSString *const OS = @"ios";
 
 //Tracking testing URL
 //static NSString * const TRACKING_TEST_URL = @"https://prdesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
-static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
+//static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/GetItemTrackingDetailsCentralTnT";
 
 #pragma mark - Shared singleton instance
 
@@ -927,7 +929,7 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
 -(void ) getAdvertisementWithId : (NSString *)locationMasterId Count:(NSString *)count onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
     
     
-    NSString * url = [NSString stringWithFormat:@"https://uat.vbox.com.sg:8083/restful-services/advertisementServices/getAdvertisement/%@/%@",locationMasterId,count];
+    NSString * url = [NSString stringWithFormat:@"%@getAdvertisement/%@/%@",AD_BASE_URL,locationMasterId,count];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     
@@ -981,6 +983,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     if(isSIT) {
         url = @"http://128.199.253.131/singpost3/api/login/k3y15k3y";
     }
+    if(isProduction) {
+        url = @"http://mobile.singpost.com/singpost3/api/login/k3y15k3y";
+    }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
@@ -1012,6 +1017,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     if(isSIT) {
         url = @"http://128.199.253.131/singpost3/api/isfirsttimer/k3y15k3y";
     }
+    if(isProduction) {
+        url = @"http://mobile.singpost.com/singpost3/api/isfirsttimer/k3y15k3y";
+    }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];
@@ -1037,6 +1045,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
     if(isSIT) {
         url = @"http://128.199.253.131/singpost3/api/registertracking/k3y15k3y";
+    }
+    if(isProduction) {
+        url = @"http://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
     }
     
     NSString * str = [self getNumberAndLabelString:numbers WithLabels:labels];
@@ -1067,6 +1078,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     if(isSIT) {
         url = @"http://128.199.253.131/singpost3/api/registertracking/k3y15k3y";
     }
+    if(isProduction) {
+        url = @"http://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
+    }
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:url]];
     
@@ -1095,6 +1109,9 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     
     if(isSIT) {
         url = @"http://128.199.253.131/singpost3/api/removealltrackings/k3y15k3y";
+    }
+    if(isProduction) {
+        url = @"http://mobile.singpost.com/singpost3/api/removealltrackings/k3y15k3y";
     }
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
@@ -1322,6 +1339,10 @@ static NSString * const TRACKING_TEST_URL = @"https://uatesb1.singpost.com/ma/Ge
     if(isSIT) {
         url = @"http://128.199.253.131/singpost3/api/gettrackings/k3y15k3y";
     }
+    if(isProduction) {
+        url = @"http://mobile.singpost.com/singpost3/api/gettrackings/k3y15k3y";
+    }
+    
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];

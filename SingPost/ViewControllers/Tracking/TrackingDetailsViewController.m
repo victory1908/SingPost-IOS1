@@ -227,7 +227,12 @@
     [contentView addSubview:headerView];
     
     //content
-    trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174 + offsetY, contentView.bounds.size.width, contentView.bounds.size.height - 194) style:UITableViewStylePlain];
+    
+    if(self.isActiveItem && ![ApiClient isWithoutFacebook]) {
+        trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174 + offsetY, contentView.bounds.size.width, contentView.bounds.size.height - 300) style:UITableViewStylePlain];
+    } else {
+        trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174 + offsetY, contentView.bounds.size.width, contentView.bounds.size.height - 194) style:UITableViewStylePlain];
+    }
     [trackingDetailTableView setDelegate:self];
     [trackingDetailTableView setDataSource:self];
     [trackingDetailTableView setBackgroundColor:[UIColor clearColor]];

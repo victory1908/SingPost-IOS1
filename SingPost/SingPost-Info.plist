@@ -39,6 +39,10 @@
 	<string>Singpost</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>    </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>    </string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Regular.ttf</string>
@@ -61,9 +65,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>    </string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>    </string>
 </dict>
 </plist>
