@@ -19,6 +19,8 @@
 @property (nonatomic) NSString *deliveryServiceName;
 @property (nonatomic) NSString *netPostageCharges;
 @property (nonatomic) NSString *deliveryTime;
+@property (nonatomic) NSString *deliveryServiceType;
+@property (nonatomic) NSString *postageCharges;
 
 + (void)API_calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode andToPostalCode:(NSString *)toPostalCode andWeight:(NSString *)weightInGrams onCompletion:(void(^)(NSArray *items, NSError *error))completionBlock;
 

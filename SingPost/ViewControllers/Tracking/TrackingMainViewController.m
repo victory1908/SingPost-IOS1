@@ -232,7 +232,7 @@ typedef enum {
                              cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                 } else if (error.code == 1560) {
                     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                       message:ITEM_NUMBER_NOT_FOUND
+                                       message:TRACKED_ITEM_NOT_FOUND_ERROR
                              cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                     
                 }
@@ -694,7 +694,7 @@ typedef enum {
                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                     }else if (error.code == 1560) {
                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                           message:ITEM_NUMBER_NOT_FOUND
+                                           message:TRACKED_ITEM_NOT_FOUND_ERROR
                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                         
                     }
@@ -743,7 +743,7 @@ typedef enum {
                     }
                     else if (error.code == 1560) {
                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                           message:ITEM_NUMBER_NOT_FOUND
+                                           message:TRACKED_ITEM_NOT_FOUND_ERROR
                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                         
                     }

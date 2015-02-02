@@ -17,6 +17,9 @@
     [item setDeliveryServiceName:[el child:@"DeliveryServiceName"].text];
     [item setNetPostageCharges:[el child:@"NetPostageCharges"].text];
     [item setDeliveryTime:[el child:@"DeliveryTime"].text];
+    
+    [item setDeliveryServiceType:[el child:@"DeliveryServiceType"].text];
+    [item setPostageCharges:[el child:@"PostageCharges"].text];
     return item;
 }
 

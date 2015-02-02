@@ -72,7 +72,11 @@
     [statusLabel setText:[NSString stringWithFormat:@"%@ working days", _item.deliveryTime]];
     [statusLabel setY:CGRectGetMaxY(serviceTitleLabel.frame)];
     [separatorView setY:CGRectGetMaxY(serviceTitleLabel.frame) + 40.0f];
-    [costLabel setText:_item.netPostageCharges];
+    
+    if([_item.deliveryServiceType isEqual:@"Mail"])
+        [costLabel setText:_item.netPostageCharges];
+    else
+        [costLabel setText:_item.postageCharges];
     [costLabel setCenter:CGPointMake(costLabel.center.x, serviceTitleLabel.bounds.size.height / 2.0f + 23.0f)];
 }
 
