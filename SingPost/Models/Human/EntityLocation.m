@@ -305,7 +305,8 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
 + (void)API_updatePostOfficeLocationsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_POST_OFFICE] == nil) {
+    //if ([[NSUserDefaults standardUserDefaults] objectForKey:LOCATION_TYPE_POST_OFFICE] == nil) {
+    if (false) {
         [[ApiClient sharedInstance] getPostOfficeLocationsOnSuccess:^(id responseJSON) {
             [[self class] updateLocationsOfType:LOCATION_TYPE_POST_OFFICE jsonData:responseJSON onCompletion:completionBlock];
             [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:LOCATION_TYPE_POST_OFFICE];

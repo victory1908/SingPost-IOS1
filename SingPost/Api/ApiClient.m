@@ -29,7 +29,7 @@
 
 static BOOL isProduction = YES;
 static BOOL isSIT = NO;
-static BOOL isScanner = NO;
+static BOOL isScanner = YES;
 static BOOL isWithoutFacebook = NO;
 
 +(BOOL)isSIT {
