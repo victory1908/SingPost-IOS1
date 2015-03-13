@@ -27,7 +27,7 @@
 @synthesize notificationProfileID = _notificationProfileID;
 
 
-static BOOL isProduction = YES;
+static BOOL isProduction = NO;
 static BOOL isSIT = NO;
 static BOOL isScanner = YES;
 static BOOL isWithoutFacebook = NO;
@@ -1375,6 +1375,8 @@ static NSString *const OS = @"ios";
     if ([platform isEqualToString:@"iPhone5,4"])    return @"iPhone 5c (GSM+CDMA)";
     if ([platform isEqualToString:@"iPhone6,1"])    return @"iPhone 5s (GSM)";
     if ([platform isEqualToString:@"iPhone6,2"])    return @"iPhone 5s (GSM+CDMA)";
+    if ([platform isEqualToString:@"iPhone7,2"])    return @"iPhone 6";
+    if ([platform isEqualToString:@"iPhone7,1"])    return @"iPhone 6 Plus";
     if ([platform isEqualToString:@"iPod1,1"])      return @"iPod Touch 1G";
     if ([platform isEqualToString:@"iPod2,1"])      return @"iPod Touch 2G";
     if ([platform isEqualToString:@"iPod3,1"])      return @"iPod Touch 3G";
