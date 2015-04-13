@@ -54,13 +54,13 @@
     [instructionsLabelBackgroundView setBackgroundColor:RGB(240, 240, 240)];
     [contentScrollView addSubview:instructionsLabelBackgroundView];
     
-    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, instructionsLabelBackgroundView.bounds.size.width - 30, instructionsLabelBackgroundView.bounds.size.height)];
+    UILabel *instructionsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, instructionsLabelBackgroundView.bounds.size.width - 30 , instructionsLabelBackgroundView.bounds.size.height- 25)];
     [instructionsLabel setNumberOfLines:0];
     [instructionsLabel setText:@"At SingPost, we are always looking to improve your customer experience. If you have any feedback or ideas for us, we would love to hear from you."];
     [instructionsLabel setTextColor:RGB(58, 68, 81)];
     [instructionsLabel setFont:[UIFont SingPostRegularFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [instructionsLabel setBackgroundColor:RGB(240, 240, 240)];
-    [instructionsLabelBackgroundView addSubview:instructionsLabel];
+    [contentScrollView addSubview:instructionsLabel];
     
     UIView *bottomInstructionsSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 130, contentView.bounds.size.width, 1)];
     [bottomInstructionsSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];

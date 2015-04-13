@@ -27,7 +27,7 @@
 @synthesize notificationProfileID = _notificationProfileID;
 
 
-static BOOL isProduction = NO;
+static BOOL isProduction = YES;
 static BOOL isSIT = NO;
 static BOOL isScanner = YES;
 static BOOL isWithoutFacebook = NO;
