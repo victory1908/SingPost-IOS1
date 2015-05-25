@@ -99,19 +99,6 @@
     }
 }
 
-- (void)performWithPercent:(float)percent Complete:(void (^)(BOOL finished))completion {
-    
-            // Change anchor point and reposition it.
-        CGRect oldFrame = [[_sourceView layer]frame];
-        [[_sourceView layer]setAnchorPoint:CGPointMake(0.0,0.5f)];
-        [[_sourceView layer] setFrame:oldFrame];
-        
-        // Reset to initial transform
-        sourceDeltaTransform([_sourceView layer],percent);
-        destinationDeltaTransform([_destinationView layer],percent);
-    
-}
-
 
 #pragma mark - Required 3d Transform
 void sourceFirstTransform(CALayer *layer) {
@@ -120,14 +107,6 @@ void sourceFirstTransform(CALayer *layer) {
     t = CATransform3DTranslate(t, 0.0f, 0.0f,  0.0f);
     layer.transform = t;
 }
-
-void sourceDeltaTransform(CALayer *layer ,float delta) {
-    CATransform3D t = CATransform3DIdentity;
-    t.m34 = 1.0/ -500;
-    t = CATransform3DTranslate(t, 320.0f - (320.0f * delta), 0.0f,  0.0f);
-    layer.transform = t;
-}
-
 
 void sourceLastTransform(CALayer *layer) {
     CATransform3D t = CATransform3DIdentity;
@@ -149,20 +128,6 @@ void destinationFirstTransform(CALayer * layer) {
     t = CATransform3DRotate(t, radianFromDegree(-45), 0.0f,1.0f, 0.0f);
     // Rotate it 10 degrees within thee x axis
     t = CATransform3DRotate(t, radianFromDegree(10), 1.0f,0.0f, 0.0f);
-    layer.transform = t;
-}
-
-void destinationDeltaTransform(CALayer * layer,float delta) {
-    CATransform3D t = CATransform3DIdentity;
-    t.m34 = 1.0/ -500;
-    // Rotate 5 degrees within the axis of z axis
-    t = CATransform3DRotate(t, radianFromDegree(delta * 5.0f), 0.0f,0.0f, 1.0f);
-    // Reposition toward to the left where it initialized
-    t = CATransform3DTranslate(t, delta*320.0f, -40.0f * delta,  150.0f * delta);
-    // Rotate it -45 degrees within the y axis
-    t = CATransform3DRotate(t, radianFromDegree(-45 * delta), 0.0f,1.0f, 0.0f);
-    // Rotate it 10 degrees within thee x axis
-    t = CATransform3DRotate(t, radianFromDegree(delta*10), 1.0f,0.0f, 0.0f);
     layer.transform = t;
 }
 

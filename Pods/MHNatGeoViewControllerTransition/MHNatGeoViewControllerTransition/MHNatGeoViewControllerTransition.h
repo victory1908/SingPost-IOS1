@@ -37,7 +37,6 @@
 - (void)perform;
 - (void)perform:(void (^)(BOOL finished))completion;
 + (void) presentViewControllerTransition:(UIViewController*)destination source:(UIViewController*)source duration:(NSTimeInterval) duration completion:(void (^)(BOOL finished))completion;
-- (void)performWithPercent:(float)percent Complete:(void (^)(BOOL finished))completion;
 + (void)dismissViewController:(UIViewController *)viewController duration:(NSTimeInterval)duration completion:(void (^)(BOOL finished))completion;
 
 @end

@@ -17,4 +17,3 @@ pod 'UIAlertView+Blocks', '~> 0.7'
 pod 'UIActivityIndicator-for-SDWebImage', '~> 1.0.3'
 pod 'SevenSwitch', '~> 1.3.0'
 pod 'ZXingObjC', '~> 3.0'
-
