@@ -153,7 +153,6 @@
 		244DEAB019ED28A300F07A76 /* ProceedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */; };
 		244DEAB119ED28A300F07A76 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */; };
 		244DEAB219ED28A300F07A76 /* Postal Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F78185AB21D007D6001 /* Postal Agent.json */; };
-		244DEAB319ED28A300F07A76 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
 		244DEAB419ED28A300F07A76 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
 		244DEAB519ED28A300F07A76 /* Posting Box.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F74185AB1DC007D6001 /* Posting Box.json */; };
 		244DEAB619ED28A300F07A76 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F3017F72D2000AFD239 /* OpenSans-Semibold.ttf */; };
@@ -340,7 +339,6 @@
 		24AD39391A399D180088F6A6 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F2A17F6F76E00AFD239 /* OpenSans-Bold.ttf */; };
 		24AD393A1A399D180088F6A6 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 246F8D3519F8FA4300EF4114 /* zbar-back.png */; };
 		24AD393B1A399D180088F6A6 /* Postal Agent.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F78185AB21D007D6001 /* Postal Agent.json */; };
-		24AD393C1A399D180088F6A6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
 		24AD393D1A399D180088F6A6 /* SidebarMenus.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52305F9D17F5D44800610A86 /* SidebarMenus.plist */; };
 		24AD393E1A399D180088F6A6 /* Posting Box.json in Resources */ = {isa = PBXBuildFile; fileRef = 52731F74185AB1DC007D6001 /* Posting Box.json */; };
 		24AD393F1A399D180088F6A6 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52024F3017F72D2000AFD239 /* OpenSans-Semibold.ttf */; };
@@ -384,7 +382,6 @@
 		521B172B17F1633000FEB6FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 521B172917F1633000FEB6FD /* InfoPlist.strings */; };
 		521B172D17F1633000FEB6FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B172C17F1633000FEB6FD /* main.m */; };
 		521B173117F1633000FEB6FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B173017F1633000FEB6FD /* AppDelegate.m */; };
-		521B173317F1633000FEB6FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
 		521B175517F1678100FEB6FD /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175417F1678100FEB6FD /* RootViewController.m */; };
 		521B175917F1961100FEB6FD /* SidebarMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B175817F1961100FEB6FD /* SidebarMenuViewController.m */; };
 		521F784E1802641100B513FA /* SendReceiveMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521F784D1802641100B513FA /* SendReceiveMainViewController.m */; };
@@ -493,6 +490,9 @@
 		8728B00E198011250007853A /* ShopContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B00D198011250007853A /* ShopContentViewController.m */; };
 		8728B011198014A30007853A /* NSObject+Addtions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B010198014A30007853A /* NSObject+Addtions.m */; };
 		87644986196B8A31000E67C7 /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */; };
+		87688A131B12FD2F0006FD56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
+		87688A141B12FD700006FD56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
+		87688A151B12FD710006FD56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
 		877966BF196AE2C500C7E514 /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 877966BE196AE2C500C7E514 /* AnnouncementViewController.m */; };
 		87ACEA141977C4070081A412 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87ACEA131977C4070081A412 /* ShopViewController.m */; };
 		87B6A74A199099B600BC93B7 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B6A749199099B600BC93B7 /* UIColor+Expanded.m */; };
@@ -524,8 +524,7 @@
 		244B801F1A01DCE000E66C33 /* UIView+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Screenshot.m"; sourceTree = "<group>"; };
 		244DEA1E19ED1C2D00F07A76 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		244DEA2019ED1C3500F07A76 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccess.a; path = "Pods/GoogleAnalytics-iOS-SDK/libAdIdAccess.a"; sourceTree = "<group>"; };
-		244DEAC619ED28A300F07A76 /* SingPost_SIT copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SingPost_SIT copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		244DEAC719ED28A300F07A76 /* SingPost_SIT copy3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SingPost_SIT copy3-Info.plist"; path = "/Users/temp/Desktop/Singpost.git/SingPost_SIT copy3-Info.plist"; sourceTree = "<absolute>"; };
+		244DEAC619ED28A300F07A76 /* SingPost_UAT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost_UAT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		246F8D1F19F8FA4300EF4114 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
 		246F8D2019F8FA4300EF4114 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		246F8D2119F8FA4300EF4114 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -559,8 +558,7 @@
 		246F8D4F19F8FD4E00EF4114 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		246F8D5119F8FD5C00EF4114 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		246F8D5319F8FD6A00EF4114 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
-		24AD39521A399D180088F6A6 /* SingPost_UAT copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SingPost_UAT copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		24AD39531A399D180088F6A6 /* SingPost_UAT copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SingPost_UAT copy-Info.plist"; path = "/Users/temp/Desktop/Singpost.git/SingPost_UAT copy-Info.plist"; sourceTree = "<absolute>"; };
+		24AD39521A399D180088F6A6 /* SingPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		24B62FEF19AC62F900040E0A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -575,8 +573,6 @@
 		24E5076D0450478DBB8D331B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F43BB919EB81B800F28F21 /* CUIActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUIActionSheet.h; sourceTree = "<group>"; };
 		24F43BBA19EB81B800F28F21 /* CUIActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUIActionSheet.m; sourceTree = "<group>"; };
-		24F43C5D19EBAD1E00F28F21 /* SingPost_SIT copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SingPost_SIT copy-Info.plist"; path = "/Users/temp/Desktop/Singpost.git/SingPost_SIT copy-Info.plist"; sourceTree = "<absolute>"; };
-		24F43CFD19EBF1A300F28F21 /* SingPost_SIT copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SingPost_SIT copy2-Info.plist"; path = "/Users/temp/Desktop/Singpost.git/SingPost_SIT copy2-Info.plist"; sourceTree = "<absolute>"; };
 		24F43CFF19ECC7A900F28F21 /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeViewController.h; sourceTree = "<group>"; };
 		24F43D0019ECC7A900F28F21 /* SwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeViewController.m; sourceTree = "<group>"; };
 		52024F0D17F5EEC800AFD239 /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
@@ -600,7 +596,7 @@
 		521B172017F1633000FEB6FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		521B172217F1633000FEB6FD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		521B172417F1633000FEB6FD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		521B172817F1633000FEB6FD /* SingPost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPost-Info.plist"; sourceTree = "<group>"; };
+		521B172817F1633000FEB6FD /* SingPost-Info_SIT.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPost-Info_SIT.plist"; sourceTree = "<group>"; };
 		521B172A17F1633000FEB6FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		521B172C17F1633000FEB6FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SingPost-Prefix.pch"; sourceTree = "<group>"; };
@@ -808,6 +804,8 @@
 		8728B010198014A30007853A /* NSObject+Addtions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Addtions.m"; sourceTree = "<group>"; };
 		87644984196B8A31000E67C7 /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
 		87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
+		87688A101B12FA520006FD56 /* SingPost-Info_UAT.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPost-Info_UAT.plist"; sourceTree = SOURCE_ROOT; };
+		87688A111B12FA520006FD56 /* SingPost-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPost-Info.plist"; sourceTree = SOURCE_ROOT; };
 		877966BD196AE2C500C7E514 /* AnnouncementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementViewController.h; sourceTree = "<group>"; };
 		877966BE196AE2C500C7E514 /* AnnouncementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementViewController.m; sourceTree = "<group>"; };
 		878B48B81980A40300FF3502 /* SingPost 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -1080,11 +1078,7 @@
 				521B172717F1633000FEB6FD /* Supporting Files */,
 				521B171F17F1633000FEB6FD /* Frameworks */,
 				521B171E17F1633000FEB6FD /* Products */,
-				24F43C5D19EBAD1E00F28F21 /* SingPost_SIT copy-Info.plist */,
-				24F43CFD19EBF1A300F28F21 /* SingPost_SIT copy2-Info.plist */,
 				092E41392534559E4CAF9C42 /* Pods */,
-				244DEAC719ED28A300F07A76 /* SingPost_SIT copy3-Info.plist */,
-				24AD39531A399D180088F6A6 /* SingPost_UAT copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1092,8 +1086,8 @@
 			isa = PBXGroup;
 			children = (
 				521B171D17F1633000FEB6FD /* SingPost_SIT.app */,
-				244DEAC619ED28A300F07A76 /* SingPost_SIT copy.app */,
-				24AD39521A399D180088F6A6 /* SingPost_UAT copy.app */,
+				244DEAC619ED28A300F07A76 /* SingPost_UAT.app */,
+				24AD39521A399D180088F6A6 /* SingPost.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1144,7 +1138,9 @@
 				91692BD718EA868E0079B62D /* AppIcon.png */,
 				521B173217F1633000FEB6FD /* Images.xcassets */,
 				52024F1517F67B7800AFD239 /* Constants.h */,
-				521B172817F1633000FEB6FD /* SingPost-Info.plist */,
+				521B172817F1633000FEB6FD /* SingPost-Info_SIT.plist */,
+				87688A101B12FA520006FD56 /* SingPost-Info_UAT.plist */,
+				87688A111B12FA520006FD56 /* SingPost-Info.plist */,
 				521B172917F1633000FEB6FD /* InfoPlist.strings */,
 				521B172C17F1633000FEB6FD /* main.m */,
 				521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */,
@@ -1706,7 +1702,7 @@
 			);
 			name = SingPost_UAT;
 			productName = SingPost;
-			productReference = 244DEAC619ED28A300F07A76 /* SingPost_SIT copy.app */;
+			productReference = 244DEAC619ED28A300F07A76 /* SingPost_UAT.app */;
 			productType = "com.apple.product-type.application";
 		};
 		24AD38A21A399D180088F6A6 /* SingPost_Prod */ = {
@@ -1726,7 +1722,7 @@
 			);
 			name = SingPost_Prod;
 			productName = SingPost;
-			productReference = 24AD39521A399D180088F6A6 /* SingPost_UAT copy.app */;
+			productReference = 24AD39521A399D180088F6A6 /* SingPost.app */;
 			productType = "com.apple.product-type.application";
 		};
 		521B171C17F1633000FEB6FD /* SingPost_SIT */ = {
@@ -1755,7 +1751,7 @@
 		521B171517F1633000FEB6FD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Codigo;
 			};
 			buildConfigurationList = 521B171817F1633000FEB6FD /* Build configuration list for PBXProject "SingPost" */;
@@ -1795,7 +1791,6 @@
 				244DEAB119ED28A300F07A76 /* OpenSans-Bold.ttf in Resources */,
 				246F8D3C19F8FA4300EF4114 /* zbar-back.png in Resources */,
 				244DEAB219ED28A300F07A76 /* Postal Agent.json in Resources */,
-				244DEAB319ED28A300F07A76 /* Images.xcassets in Resources */,
 				244DEAB419ED28A300F07A76 /* SidebarMenus.plist in Resources */,
 				244DEAB519ED28A300F07A76 /* Posting Box.json in Resources */,
 				244DEAB619ED28A300F07A76 /* OpenSans-Semibold.ttf in Resources */,
@@ -1804,6 +1799,7 @@
 				244DEAB819ED28A300F07A76 /* OpenSans-Regular.ttf in Resources */,
 				244DEAB919ED28A300F07A76 /* OpenSans-Light.ttf in Resources */,
 				244DEABA19ED28A300F07A76 /* OpenSans-LightItalic.ttf in Resources */,
+				87688A131B12FD2F0006FD56 /* Images.xcassets in Resources */,
 				244DEABB19ED28A300F07A76 /* POPStation.json in Resources */,
 				244DEABC19ED28A300F07A76 /* LocateUs_Types.plist in Resources */,
 				244DEABD19ED28A300F07A76 /* TrackingSelectViewController.xib in Resources */,
@@ -1832,7 +1828,6 @@
 				24AD39391A399D180088F6A6 /* OpenSans-Bold.ttf in Resources */,
 				24AD393A1A399D180088F6A6 /* zbar-back.png in Resources */,
 				24AD393B1A399D180088F6A6 /* Postal Agent.json in Resources */,
-				24AD393C1A399D180088F6A6 /* Images.xcassets in Resources */,
 				24AD393D1A399D180088F6A6 /* SidebarMenus.plist in Resources */,
 				24AD393E1A399D180088F6A6 /* Posting Box.json in Resources */,
 				24AD393F1A399D180088F6A6 /* OpenSans-Semibold.ttf in Resources */,
@@ -1841,6 +1836,7 @@
 				24AD39421A399D180088F6A6 /* OpenSans-Regular.ttf in Resources */,
 				24AD39431A399D180088F6A6 /* OpenSans-Light.ttf in Resources */,
 				24AD39441A399D180088F6A6 /* OpenSans-LightItalic.ttf in Resources */,
+				87688A151B12FD710006FD56 /* Images.xcassets in Resources */,
 				24AD39451A399D180088F6A6 /* POPStation.json in Resources */,
 				24AD39461A399D180088F6A6 /* LocateUs_Types.plist in Resources */,
 				24AD39471A399D180088F6A6 /* TrackingSelectViewController.xib in Resources */,
@@ -1869,7 +1865,6 @@
 				52024F2B17F6F76E00AFD239 /* OpenSans-Bold.ttf in Resources */,
 				246F8D3B19F8FA4300EF4114 /* zbar-back.png in Resources */,
 				52731F79185AB21D007D6001 /* Postal Agent.json in Resources */,
-				521B173317F1633000FEB6FD /* Images.xcassets in Resources */,
 				52305F9E17F5D44800610A86 /* SidebarMenus.plist in Resources */,
 				52731F75185AB1DC007D6001 /* Posting Box.json in Resources */,
 				52024F3117F72D2000AFD239 /* OpenSans-Semibold.ttf in Resources */,
@@ -1878,6 +1873,7 @@
 				52305F9017F5B4CA00610A86 /* OpenSans-Regular.ttf in Resources */,
 				52305F9C17F5C47100610A86 /* OpenSans-Light.ttf in Resources */,
 				52305F8E17F5B4C100610A86 /* OpenSans-LightItalic.ttf in Resources */,
+				87688A141B12FD700006FD56 /* Images.xcassets in Resources */,
 				52731F7D185AB239007D6001 /* POPStation.json in Resources */,
 				528F26D117F9561D006F7027 /* LocateUs_Types.plist in Resources */,
 				240A231F19D2772300EEAB7D /* TrackingSelectViewController.xib in Resources */,
@@ -2424,7 +2420,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CD061070E870049A5A300631 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_UAT;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2435,7 +2430,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				INFOPLIST_FILE = "SingPost_SIT copy3-Info.plist";
+				INFOPLIST_FILE = "SingPost-Info_UAT.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2444,7 +2439,7 @@
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "SingPost_SIT copy";
+				PRODUCT_NAME = SingPost_UAT;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -2456,10 +2451,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05BCEFED8283C9FD084693EC /* Pods.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_UAT;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2467,7 +2461,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				INFOPLIST_FILE = "SingPost_SIT copy3-Info.plist";
+				INFOPLIST_FILE = "SingPost-Info_UAT.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2476,7 +2470,7 @@
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "SingPost_SIT copy";
+				PRODUCT_NAME = SingPost_UAT;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -2488,7 +2482,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CD061070E870049A5A300631 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Prod;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -2499,7 +2492,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				INFOPLIST_FILE = "SingPost_UAT copy-Info.plist";
+				INFOPLIST_FILE = "SingPost-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2508,7 +2501,7 @@
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "SingPost_UAT copy";
+				PRODUCT_NAME = SingPost;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -2520,7 +2513,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 05BCEFED8283C9FD084693EC /* Pods.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Prod;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -2531,7 +2523,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				INFOPLIST_FILE = "SingPost_UAT copy-Info.plist";
+				INFOPLIST_FILE = "SingPost-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2540,7 +2532,7 @@
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "SingPost_UAT copy";
+				PRODUCT_NAME = SingPost;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -2564,6 +2556,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2583,7 +2576,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2605,7 +2598,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2617,7 +2611,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = NO;
-				PROVISIONING_PROFILE = "3EDBEB83-884F-4CDC-A726-5FE0D7E22B7E";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2638,7 +2632,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
+				INFOPLIST_FILE = "SingPost/SingPost-Info_SIT.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2670,7 +2664,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SingPost/SingPost-Prefix.pch";
-				INFOPLIST_FILE = "SingPost/SingPost-Info.plist";
+				INFOPLIST_FILE = "SingPost/SingPost-Info_SIT.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
