@@ -496,6 +496,30 @@
 		877966BF196AE2C500C7E514 /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 877966BE196AE2C500C7E514 /* AnnouncementViewController.m */; };
 		87ACEA141977C4070081A412 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87ACEA131977C4070081A412 /* ShopViewController.m */; };
 		87B6A74A199099B600BC93B7 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B6A749199099B600BC93B7 /* UIColor+Expanded.m */; };
+		87BDF6891B13032400EFADDD /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF6881B13032400EFADDD /* InterfaceController.m */; };
+		87BDF68C1B13032400EFADDD /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68B1B13032400EFADDD /* NotificationController.m */; };
+		87BDF68F1B13032400EFADDD /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68E1B13032400EFADDD /* GlanceController.m */; };
+		87BDF6911B13032400EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6901B13032400EFADDD /* Images.xcassets */; };
+		87BDF6951B13032400EFADDD /* SingPost WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6941B13032400EFADDD /* SingPost WatchKit App.app */; };
+		87BDF69D1B13032400EFADDD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69B1B13032400EFADDD /* Interface.storyboard */; };
+		87BDF69F1B13032400EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69E1B13032400EFADDD /* Images.xcassets */; };
+		87BDF6A21B13032400EFADDD /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		87BDF6C11B13033600EFADDD /* SingPost_SIT WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6C01B13033600EFADDD /* SingPost_SIT WatchKit App.app */; };
+		87BDF6CE1B13033600EFADDD /* SingPost_SIT WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6AE1B13033600EFADDD /* SingPost_SIT WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		87BDF6ED1B13034400EFADDD /* SingPost_UAT WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6EC1B13034400EFADDD /* SingPost_UAT WatchKit App.app */; };
+		87BDF6FA1B13034400EFADDD /* SingPost_UAT WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6DA1B13034400EFADDD /* SingPost_UAT WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		87BDF7021B1303F400EFADDD /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF6881B13032400EFADDD /* InterfaceController.m */; };
+		87BDF7031B1303F500EFADDD /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF6881B13032400EFADDD /* InterfaceController.m */; };
+		87BDF7041B1303FF00EFADDD /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68B1B13032400EFADDD /* NotificationController.m */; };
+		87BDF7051B1303FF00EFADDD /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68B1B13032400EFADDD /* NotificationController.m */; };
+		87BDF7061B13040500EFADDD /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68E1B13032400EFADDD /* GlanceController.m */; };
+		87BDF7071B13040600EFADDD /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68E1B13032400EFADDD /* GlanceController.m */; };
+		87BDF7081B13040A00EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6901B13032400EFADDD /* Images.xcassets */; };
+		87BDF7091B13040B00EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6901B13032400EFADDD /* Images.xcassets */; };
+		87BDF70A1B13041900EFADDD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69B1B13032400EFADDD /* Interface.storyboard */; };
+		87BDF70B1B13041A00EFADDD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69B1B13032400EFADDD /* Interface.storyboard */; };
+		87BDF70C1B13041E00EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69E1B13032400EFADDD /* Images.xcassets */; };
+		87BDF70D1B13041E00EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69E1B13032400EFADDD /* Images.xcassets */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
 		9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */; };
 		91692BD818EA868E0079B62D /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
@@ -507,6 +531,87 @@
 		91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */; };
 		9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		87BDF6961B13032400EFADDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87BDF6931B13032400EFADDD;
+			remoteInfo = "SingPost WatchKit App";
+		};
+		87BDF6A01B13032400EFADDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87BDF6811B13032400EFADDD;
+			remoteInfo = "SingPost WatchKit Extension";
+		};
+		87BDF6C21B13033600EFADDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87BDF6BF1B13033600EFADDD;
+			remoteInfo = "SingPost_SIT WatchKit App";
+		};
+		87BDF6CC1B13033600EFADDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87BDF6AD1B13033600EFADDD;
+			remoteInfo = "SingPost_SIT WatchKit Extension";
+		};
+		87BDF6EE1B13034400EFADDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87BDF6EB1B13034400EFADDD;
+			remoteInfo = "SingPost_UAT WatchKit App";
+		};
+		87BDF6F81B13034400EFADDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 87BDF6D91B13034400EFADDD;
+			remoteInfo = "SingPost_UAT WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		87BDF6A91B13032400EFADDD /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				87BDF6A21B13032400EFADDD /* SingPost WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6D51B13033600EFADDD /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				87BDF6CE1B13033600EFADDD /* SingPost_SIT WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF7011B13034400EFADDD /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				87BDF6FA1B13034400EFADDD /* SingPost_UAT WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		05BCEFED8283C9FD084693EC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -813,6 +918,28 @@
 		87ACEA131977C4070081A412 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		87B6A748199099B600BC93B7 /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
 		87B6A749199099B600BC93B7 /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
+		87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SingPost WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87BDF6851B13032400EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87BDF6861B13032400EFADDD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		87BDF6871B13032400EFADDD /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		87BDF6881B13032400EFADDD /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		87BDF68A1B13032400EFADDD /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		87BDF68B1B13032400EFADDD /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		87BDF68D1B13032400EFADDD /* GlanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlanceController.h; sourceTree = "<group>"; };
+		87BDF68E1B13032400EFADDD /* GlanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlanceController.m; sourceTree = "<group>"; };
+		87BDF6901B13032400EFADDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		87BDF6941B13032400EFADDD /* SingPost WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SingPost WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87BDF69A1B13032400EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87BDF69C1B13032400EFADDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		87BDF69E1B13032400EFADDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		87BDF6AE1B13033600EFADDD /* SingPost_SIT WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SingPost_SIT WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87BDF6B11B13033600EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87BDF6C01B13033600EFADDD /* SingPost_SIT WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SingPost_SIT WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87BDF6C61B13033600EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87BDF6DA1B13034400EFADDD /* SingPost_UAT WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SingPost_UAT WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87BDF6DD1B13034400EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87BDF6EC1B13034400EFADDD /* SingPost_UAT WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SingPost_UAT WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87BDF6F21B13034400EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		915E55ED187C128E00790DBC /* LocateUSDetailsDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUSDetailsDetailsView.h; sourceTree = "<group>"; };
 		915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUSDetailsDetailsView.m; sourceTree = "<group>"; };
 		9160E762189126FE0046FC1E /* LocateUsFSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsFSMapViewController.h; sourceTree = "<group>"; };
@@ -898,6 +1025,27 @@
 				244DEA2319ED1E0800F07A76 /* libAdIdAccess.a in Frameworks */,
 				246F8D3919F8FA4300EF4114 /* libzbar.a in Frameworks */,
 				9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF67F1B13032400EFADDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6AB1B13033600EFADDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6D71B13034400EFADDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,6 +1236,12 @@
 				521B171D17F1633000FEB6FD /* SingPost_SIT.app */,
 				244DEAC619ED28A300F07A76 /* SingPost_UAT.app */,
 				24AD39521A399D180088F6A6 /* SingPost.app */,
+				87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */,
+				87BDF6941B13032400EFADDD /* SingPost WatchKit App.app */,
+				87BDF6AE1B13033600EFADDD /* SingPost_SIT WatchKit Extension.appex */,
+				87BDF6C01B13033600EFADDD /* SingPost_SIT WatchKit App.app */,
+				87BDF6DA1B13034400EFADDD /* SingPost_UAT WatchKit Extension.appex */,
+				87BDF6EC1B13034400EFADDD /* SingPost_UAT WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1127,6 +1281,8 @@
 				524CEA3B17F282B800E0EAC3 /* Categories */,
 				528F26D517F97991006F7027 /* Models */,
 				521B174F17F1653E00FEB6FD /* ViewControllers */,
+				87BDF6831B13032400EFADDD /* SingPost WatchKit Extension */,
+				87BDF6981B13032400EFADDD /* SingPost WatchKit App */,
 			);
 			path = SingPost;
 			sourceTree = "<group>";
@@ -1134,6 +1290,10 @@
 		521B172717F1633000FEB6FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				87BDF6AF1B13033600EFADDD /* SingPost_SIT WatchKit Extension */,
+				87BDF6C41B13033600EFADDD /* SingPost_SIT WatchKit App */,
+				87BDF6DB1B13034400EFADDD /* SingPost_UAT WatchKit Extension */,
+				87BDF6F01B13034400EFADDD /* SingPost_UAT WatchKit App */,
 				52305F8C17F5B4AF00610A86 /* Fonts */,
 				91692BD718EA868E0079B62D /* AppIcon.png */,
 				521B173217F1633000FEB6FD /* Images.xcassets */,
@@ -1664,6 +1824,112 @@
 			name = Announcement;
 			sourceTree = "<group>";
 		};
+		87BDF6831B13032400EFADDD /* SingPost WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6871B13032400EFADDD /* InterfaceController.h */,
+				87BDF6881B13032400EFADDD /* InterfaceController.m */,
+				87BDF68A1B13032400EFADDD /* NotificationController.h */,
+				87BDF68B1B13032400EFADDD /* NotificationController.m */,
+				87BDF68D1B13032400EFADDD /* GlanceController.h */,
+				87BDF68E1B13032400EFADDD /* GlanceController.m */,
+				87BDF6901B13032400EFADDD /* Images.xcassets */,
+				87BDF6841B13032400EFADDD /* Supporting Files */,
+			);
+			path = "SingPost WatchKit Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+		87BDF6841B13032400EFADDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6851B13032400EFADDD /* Info.plist */,
+				87BDF6861B13032400EFADDD /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		87BDF6981B13032400EFADDD /* SingPost WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF69B1B13032400EFADDD /* Interface.storyboard */,
+				87BDF69E1B13032400EFADDD /* Images.xcassets */,
+				87BDF6991B13032400EFADDD /* Supporting Files */,
+			);
+			path = "SingPost WatchKit App";
+			sourceTree = SOURCE_ROOT;
+		};
+		87BDF6991B13032400EFADDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF69A1B13032400EFADDD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		87BDF6AF1B13033600EFADDD /* SingPost_SIT WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6B01B13033600EFADDD /* Supporting Files */,
+			);
+			path = "SingPost_SIT WatchKit Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+		87BDF6B01B13033600EFADDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6B11B13033600EFADDD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		87BDF6C41B13033600EFADDD /* SingPost_SIT WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6C51B13033600EFADDD /* Supporting Files */,
+			);
+			path = "SingPost_SIT WatchKit App";
+			sourceTree = SOURCE_ROOT;
+		};
+		87BDF6C51B13033600EFADDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6C61B13033600EFADDD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		87BDF6DB1B13034400EFADDD /* SingPost_UAT WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6DC1B13034400EFADDD /* Supporting Files */,
+			);
+			path = "SingPost_UAT WatchKit Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+		87BDF6DC1B13034400EFADDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6DD1B13034400EFADDD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		87BDF6F01B13034400EFADDD /* SingPost_UAT WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6F11B13034400EFADDD /* Supporting Files */,
+			);
+			path = "SingPost_UAT WatchKit App";
+			sourceTree = SOURCE_ROOT;
+		};
+		87BDF6F11B13034400EFADDD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6F21B13034400EFADDD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		87DCFD7A191A1B4F00E9B0DD /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1695,10 +1961,12 @@
 				244DEAA819ED28A300F07A76 /* Resources */,
 				244DEAC119ED28A300F07A76 /* Copy Pods Resources */,
 				244DEAC219ED28A300F07A76 /* ShellScript */,
+				87BDF7011B13034400EFADDD /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				87BDF6F91B13034400EFADDD /* PBXTargetDependency */,
 			);
 			name = SingPost_UAT;
 			productName = SingPost;
@@ -1715,10 +1983,12 @@
 				24AD392E1A399D180088F6A6 /* Resources */,
 				24AD394D1A399D180088F6A6 /* Copy Pods Resources */,
 				24AD394E1A399D180088F6A6 /* ShellScript */,
+				87BDF6A91B13032400EFADDD /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				87BDF6A11B13032400EFADDD /* PBXTargetDependency */,
 			);
 			name = SingPost_Prod;
 			productName = SingPost;
@@ -1735,15 +2005,116 @@
 				521B171B17F1633000FEB6FD /* Resources */,
 				C1AFE0B1476C4E51948DC15C /* Copy Pods Resources */,
 				91BAA22518ED0072000C1034 /* ShellScript */,
+				87BDF6D51B13033600EFADDD /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				87BDF6CD1B13033600EFADDD /* PBXTargetDependency */,
 			);
 			name = SingPost_SIT;
 			productName = SingPost;
 			productReference = 521B171D17F1633000FEB6FD /* SingPost_SIT.app */;
 			productType = "com.apple.product-type.application";
+		};
+		87BDF6811B13032400EFADDD /* SingPost WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87BDF6A81B13032400EFADDD /* Build configuration list for PBXNativeTarget "SingPost WatchKit Extension" */;
+			buildPhases = (
+				87BDF67E1B13032400EFADDD /* Sources */,
+				87BDF67F1B13032400EFADDD /* Frameworks */,
+				87BDF6801B13032400EFADDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87BDF6971B13032400EFADDD /* PBXTargetDependency */,
+			);
+			name = "SingPost WatchKit Extension";
+			productName = "SingPost WatchKit Extension";
+			productReference = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		87BDF6931B13032400EFADDD /* SingPost WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87BDF6A71B13032400EFADDD /* Build configuration list for PBXNativeTarget "SingPost WatchKit App" */;
+			buildPhases = (
+				87BDF6921B13032400EFADDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SingPost WatchKit App";
+			productName = "SingPost WatchKit App";
+			productReference = 87BDF6941B13032400EFADDD /* SingPost WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
+		87BDF6AD1B13033600EFADDD /* SingPost_SIT WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87BDF6D21B13033600EFADDD /* Build configuration list for PBXNativeTarget "SingPost_SIT WatchKit Extension" */;
+			buildPhases = (
+				87BDF6AA1B13033600EFADDD /* Sources */,
+				87BDF6AB1B13033600EFADDD /* Frameworks */,
+				87BDF6AC1B13033600EFADDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87BDF6C31B13033600EFADDD /* PBXTargetDependency */,
+			);
+			name = "SingPost_SIT WatchKit Extension";
+			productName = "SingPost_SIT WatchKit Extension";
+			productReference = 87BDF6AE1B13033600EFADDD /* SingPost_SIT WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		87BDF6BF1B13033600EFADDD /* SingPost_SIT WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87BDF6CF1B13033600EFADDD /* Build configuration list for PBXNativeTarget "SingPost_SIT WatchKit App" */;
+			buildPhases = (
+				87BDF6BE1B13033600EFADDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SingPost_SIT WatchKit App";
+			productName = "SingPost_SIT WatchKit App";
+			productReference = 87BDF6C01B13033600EFADDD /* SingPost_SIT WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
+		87BDF6D91B13034400EFADDD /* SingPost_UAT WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87BDF6FE1B13034400EFADDD /* Build configuration list for PBXNativeTarget "SingPost_UAT WatchKit Extension" */;
+			buildPhases = (
+				87BDF6D61B13034400EFADDD /* Sources */,
+				87BDF6D71B13034400EFADDD /* Frameworks */,
+				87BDF6D81B13034400EFADDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				87BDF6EF1B13034400EFADDD /* PBXTargetDependency */,
+			);
+			name = "SingPost_UAT WatchKit Extension";
+			productName = "SingPost_UAT WatchKit Extension";
+			productReference = 87BDF6DA1B13034400EFADDD /* SingPost_UAT WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		87BDF6EB1B13034400EFADDD /* SingPost_UAT WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87BDF6FB1B13034400EFADDD /* Build configuration list for PBXNativeTarget "SingPost_UAT WatchKit App" */;
+			buildPhases = (
+				87BDF6EA1B13034400EFADDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SingPost_UAT WatchKit App";
+			productName = "SingPost_UAT WatchKit App";
+			productReference = 87BDF6EC1B13034400EFADDD /* SingPost_UAT WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
 		};
 /* End PBXNativeTarget section */
 
@@ -1753,6 +2124,26 @@
 			attributes = {
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Codigo;
+				TargetAttributes = {
+					87BDF6811B13032400EFADDD = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					87BDF6931B13032400EFADDD = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					87BDF6AD1B13033600EFADDD = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					87BDF6BF1B13033600EFADDD = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					87BDF6D91B13034400EFADDD = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					87BDF6EB1B13034400EFADDD = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+				};
 			};
 			buildConfigurationList = 521B171817F1633000FEB6FD /* Build configuration list for PBXProject "SingPost" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1760,6 +2151,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 521B171417F1633000FEB6FD;
 			productRefGroup = 521B171E17F1633000FEB6FD /* Products */;
@@ -1769,6 +2161,12 @@
 				521B171C17F1633000FEB6FD /* SingPost_SIT */,
 				244DEA2519ED28A300F07A76 /* SingPost_UAT */,
 				24AD38A21A399D180088F6A6 /* SingPost_Prod */,
+				87BDF6811B13032400EFADDD /* SingPost WatchKit Extension */,
+				87BDF6931B13032400EFADDD /* SingPost WatchKit App */,
+				87BDF6AD1B13033600EFADDD /* SingPost_SIT WatchKit Extension */,
+				87BDF6BF1B13033600EFADDD /* SingPost_SIT WatchKit App */,
+				87BDF6D91B13034400EFADDD /* SingPost_UAT WatchKit Extension */,
+				87BDF6EB1B13034400EFADDD /* SingPost_UAT WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -1882,6 +2280,60 @@
 				246F8D3D19F8FA4300EF4114 /* zbar-help.html in Resources */,
 				52731F73185AB1B4007D6001 /* SAM.json in Resources */,
 				24D88CD61A258170007265F7 /* ScanTutorialViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6801B13032400EFADDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF6911B13032400EFADDD /* Images.xcassets in Resources */,
+				87BDF6951B13032400EFADDD /* SingPost WatchKit App.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6921B13032400EFADDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF69D1B13032400EFADDD /* Interface.storyboard in Resources */,
+				87BDF69F1B13032400EFADDD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6AC1B13033600EFADDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF6C11B13033600EFADDD /* SingPost_SIT WatchKit App.app in Resources */,
+				87BDF7081B13040A00EFADDD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6BE1B13033600EFADDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF70A1B13041900EFADDD /* Interface.storyboard in Resources */,
+				87BDF70C1B13041E00EFADDD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6D81B13034400EFADDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF6ED1B13034400EFADDD /* SingPost_UAT WatchKit App.app in Resources */,
+				87BDF7091B13040B00EFADDD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6EA1B13034400EFADDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF70B1B13041A00EFADDD /* Interface.storyboard in Resources */,
+				87BDF70D1B13041E00EFADDD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2402,7 +2854,70 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		87BDF67E1B13032400EFADDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF68C1B13032400EFADDD /* NotificationController.m in Sources */,
+				87BDF6891B13032400EFADDD /* InterfaceController.m in Sources */,
+				87BDF68F1B13032400EFADDD /* GlanceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6AA1B13033600EFADDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF7041B1303FF00EFADDD /* NotificationController.m in Sources */,
+				87BDF7021B1303F400EFADDD /* InterfaceController.m in Sources */,
+				87BDF7061B13040500EFADDD /* GlanceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		87BDF6D61B13034400EFADDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87BDF7051B1303FF00EFADDD /* NotificationController.m in Sources */,
+				87BDF7031B1303F500EFADDD /* InterfaceController.m in Sources */,
+				87BDF7071B13040600EFADDD /* GlanceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		87BDF6971B13032400EFADDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87BDF6931B13032400EFADDD /* SingPost WatchKit App */;
+			targetProxy = 87BDF6961B13032400EFADDD /* PBXContainerItemProxy */;
+		};
+		87BDF6A11B13032400EFADDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87BDF6811B13032400EFADDD /* SingPost WatchKit Extension */;
+			targetProxy = 87BDF6A01B13032400EFADDD /* PBXContainerItemProxy */;
+		};
+		87BDF6C31B13033600EFADDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87BDF6BF1B13033600EFADDD /* SingPost_SIT WatchKit App */;
+			targetProxy = 87BDF6C21B13033600EFADDD /* PBXContainerItemProxy */;
+		};
+		87BDF6CD1B13033600EFADDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87BDF6AD1B13033600EFADDD /* SingPost_SIT WatchKit Extension */;
+			targetProxy = 87BDF6CC1B13033600EFADDD /* PBXContainerItemProxy */;
+		};
+		87BDF6EF1B13034400EFADDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87BDF6EB1B13034400EFADDD /* SingPost_UAT WatchKit App */;
+			targetProxy = 87BDF6EE1B13034400EFADDD /* PBXContainerItemProxy */;
+		};
+		87BDF6F91B13034400EFADDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 87BDF6D91B13034400EFADDD /* SingPost_UAT WatchKit Extension */;
+			targetProxy = 87BDF6F81B13034400EFADDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		521B172917F1633000FEB6FD /* InfoPlist.strings */ = {
@@ -2411,6 +2926,14 @@
 				521B172A17F1633000FEB6FD /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		87BDF69B1B13032400EFADDD /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87BDF69C1B13032400EFADDD /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -2681,6 +3204,270 @@
 			};
 			name = Release;
 		};
+		87BDF6A31B13032400EFADDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SingPost WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		87BDF6A41B13032400EFADDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SingPost WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		87BDF6A51B13032400EFADDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = SingPost_WatchKit_Extension;
+				INFOPLIST_FILE = "SingPost WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		87BDF6A61B13032400EFADDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = SingPost_WatchKit_Extension;
+				INFOPLIST_FILE = "SingPost WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		87BDF6D01B13033600EFADDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = SingPost_SIT_WatchKit_Extension;
+				INFOPLIST_FILE = "SingPost_SIT WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		87BDF6D11B13033600EFADDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = SingPost_SIT_WatchKit_Extension;
+				INFOPLIST_FILE = "SingPost_SIT WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		87BDF6D31B13033600EFADDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SingPost_SIT WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		87BDF6D41B13033600EFADDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SingPost_SIT WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		87BDF6FC1B13034400EFADDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = SingPost_UAT_WatchKit_Extension;
+				INFOPLIST_FILE = "SingPost_UAT WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		87BDF6FD1B13034400EFADDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = SingPost_UAT_WatchKit_Extension;
+				INFOPLIST_FILE = "SingPost_UAT WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		87BDF6FF1B13034400EFADDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SingPost_UAT WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		87BDF7001B13034400EFADDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SingPost_UAT WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2719,6 +3506,54 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		87BDF6A71B13032400EFADDD /* Build configuration list for PBXNativeTarget "SingPost WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87BDF6A51B13032400EFADDD /* Debug */,
+				87BDF6A61B13032400EFADDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		87BDF6A81B13032400EFADDD /* Build configuration list for PBXNativeTarget "SingPost WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87BDF6A31B13032400EFADDD /* Debug */,
+				87BDF6A41B13032400EFADDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		87BDF6CF1B13033600EFADDD /* Build configuration list for PBXNativeTarget "SingPost_SIT WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87BDF6D01B13033600EFADDD /* Debug */,
+				87BDF6D11B13033600EFADDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		87BDF6D21B13033600EFADDD /* Build configuration list for PBXNativeTarget "SingPost_SIT WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87BDF6D31B13033600EFADDD /* Debug */,
+				87BDF6D41B13033600EFADDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		87BDF6FB1B13034400EFADDD /* Build configuration list for PBXNativeTarget "SingPost_UAT WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87BDF6FC1B13034400EFADDD /* Debug */,
+				87BDF6FD1B13034400EFADDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		87BDF6FE1B13034400EFADDD /* Build configuration list for PBXNativeTarget "SingPost_UAT WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87BDF6FF1B13034400EFADDD /* Debug */,
+				87BDF7001B13034400EFADDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 
