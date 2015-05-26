@@ -15,7 +15,6 @@
 		2435355F19CAD26D0045B2D2 /* ProceedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2435355E19CAD26D0045B2D2 /* ProceedViewController.xib */; };
 		244B80201A01DCE000E66C33 /* UIView+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 244B801F1A01DCE000E66C33 /* UIView+Screenshot.m */; };
 		244DEA1F19ED1C2D00F07A76 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DEA1E19ED1C2D00F07A76 /* AdSupport.framework */; };
-		244DEA2319ED1E0800F07A76 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DEA2019ED1C3500F07A76 /* libAdIdAccess.a */; };
 		244DEA2819ED28A300F07A76 /* StampCollectiblesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */; };
 		244DEA2919ED28A300F07A76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B173017F1633000FEB6FD /* AppDelegate.m */; };
 		244DEA2A19ED28A300F07A76 /* CalculatePostageResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F269117F8B725006F7027 /* CalculatePostageResultsViewController.m */; };
@@ -141,7 +140,6 @@
 		244DEAA319ED28A300F07A76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		244DEAA419ED28A300F07A76 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C26A1619AF1457008F4F01 /* FacebookSDK.framework */; };
 		244DEAA519ED28A300F07A76 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BAA22618ED0082000C1034 /* Crashlytics.framework */; };
-		244DEAA619ED28A300F07A76 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DEA2019ED1C3500F07A76 /* libAdIdAccess.a */; };
 		244DEAA719ED28A300F07A76 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 		244DEAA919ED28A300F07A76 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
 		244DEAAA19ED28A300F07A76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 521B172917F1633000FEB6FD /* InfoPlist.strings */; };
@@ -323,7 +321,6 @@
 		24AD39281A399D180088F6A6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		24AD39291A399D180088F6A6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C26A1619AF1457008F4F01 /* FacebookSDK.framework */; };
 		24AD392A1A399D180088F6A6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BAA22618ED0082000C1034 /* Crashlytics.framework */; };
-		24AD392B1A399D180088F6A6 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DEA2019ED1C3500F07A76 /* libAdIdAccess.a */; };
 		24AD392C1A399D180088F6A6 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F8D3319F8FA4300EF4114 /* libzbar.a */; };
 		24AD392D1A399D180088F6A6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E5076D0450478DBB8D331B /* libPods.a */; };
 		24AD392F1A399D180088F6A6 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
@@ -976,7 +973,6 @@
 				244DEAA019ED28A300F07A76 /* MapKit.framework in Frameworks */,
 				244DEAA419ED28A300F07A76 /* FacebookSDK.framework in Frameworks */,
 				244DEAA519ED28A300F07A76 /* Crashlytics.framework in Frameworks */,
-				244DEAA619ED28A300F07A76 /* libAdIdAccess.a in Frameworks */,
 				246F8D3A19F8FA4300EF4114 /* libzbar.a in Frameworks */,
 				244DEAA719ED28A300F07A76 /* libPods.a in Frameworks */,
 			);
@@ -999,7 +995,6 @@
 				24AD39281A399D180088F6A6 /* MapKit.framework in Frameworks */,
 				24AD39291A399D180088F6A6 /* FacebookSDK.framework in Frameworks */,
 				24AD392A1A399D180088F6A6 /* Crashlytics.framework in Frameworks */,
-				24AD392B1A399D180088F6A6 /* libAdIdAccess.a in Frameworks */,
 				24AD392C1A399D180088F6A6 /* libzbar.a in Frameworks */,
 				24AD392D1A399D180088F6A6 /* libPods.a in Frameworks */,
 			);
@@ -1022,7 +1017,6 @@
 				521B172117F1633000FEB6FD /* Foundation.framework in Frameworks */,
 				24C26A1719AF1457008F4F01 /* FacebookSDK.framework in Frameworks */,
 				91BAA22718ED0082000C1034 /* Crashlytics.framework in Frameworks */,
-				244DEA2319ED1E0800F07A76 /* libAdIdAccess.a in Frameworks */,
 				246F8D3919F8FA4300EF4114 /* libzbar.a in Frameworks */,
 				9D008B6B680A411EB3B552BB /* libPods.a in Frameworks */,
 			);
@@ -3514,6 +3508,7 @@
 				87BDF6A61B13032400EFADDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		87BDF6A81B13032400EFADDD /* Build configuration list for PBXNativeTarget "SingPost WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -3522,6 +3517,7 @@
 				87BDF6A41B13032400EFADDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		87BDF6CF1B13033600EFADDD /* Build configuration list for PBXNativeTarget "SingPost_SIT WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -3530,6 +3526,7 @@
 				87BDF6D11B13033600EFADDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		87BDF6D21B13033600EFADDD /* Build configuration list for PBXNativeTarget "SingPost_SIT WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -3538,6 +3535,7 @@
 				87BDF6D41B13033600EFADDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		87BDF6FB1B13034400EFADDD /* Build configuration list for PBXNativeTarget "SingPost_UAT WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -3546,6 +3544,7 @@
 				87BDF6FD1B13034400EFADDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		87BDF6FE1B13034400EFADDD /* Build configuration list for PBXNativeTarget "SingPost_UAT WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -3554,6 +3553,7 @@
 				87BDF7001B13034400EFADDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

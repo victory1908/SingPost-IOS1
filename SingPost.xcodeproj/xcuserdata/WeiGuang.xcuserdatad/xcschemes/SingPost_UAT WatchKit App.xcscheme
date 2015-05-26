@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0630"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "87BDF6EB1B13034400EFADDD"
+               BuildableName = "SingPost_UAT WatchKit App.app"
+               BlueprintName = "SingPost_UAT WatchKit App"
+               ReferencedContainer = "container:SingPost.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "87BDF6D91B13034400EFADDD"
+               BuildableName = "SingPost_UAT WatchKit Extension.appex"
+               BlueprintName = "SingPost_UAT WatchKit Extension"
+               ReferencedContainer = "container:SingPost.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "244DEA2519ED28A300F07A76"
+               BuildableName = "SingPost_UAT.app"
+               BlueprintName = "SingPost_UAT"
+               ReferencedContainer = "container:SingPost.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      buildConfiguration = "Debug">
+      <Testables>
+      </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "87BDF6EB1B13034400EFADDD"
+            BuildableName = "SingPost_UAT WatchKit App.app"
+            BlueprintName = "SingPost_UAT WatchKit App"
+            ReferencedContainer = "container:SingPost.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard"
+         RemotePath = "/SingPost_UAT">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "87BDF6EB1B13034400EFADDD"
+            BuildableName = "SingPost_UAT WatchKit App.app"
+            BlueprintName = "SingPost_UAT WatchKit App"
+            ReferencedContainer = "container:SingPost.xcodeproj">
+         </BuildableReference>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "87BDF6EB1B13034400EFADDD"
+            BuildableName = "SingPost_UAT WatchKit App.app"
+            BlueprintName = "SingPost_UAT WatchKit App"
+            ReferencedContainer = "container:SingPost.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.springboard"
+         RemotePath = "/SingPost_UAT">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "87BDF6EB1B13034400EFADDD"
+            BuildableName = "SingPost_UAT WatchKit App.app"
+            BlueprintName = "SingPost_UAT WatchKit App"
+            ReferencedContainer = "container:SingPost.xcodeproj">
+         </BuildableReference>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "87BDF6EB1B13034400EFADDD"
+            BuildableName = "SingPost_UAT WatchKit App.app"
+            BlueprintName = "SingPost_UAT WatchKit App"
+            ReferencedContainer = "container:SingPost.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
