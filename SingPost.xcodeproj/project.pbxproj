@@ -487,10 +487,10 @@
 		8706E7C4196BA9130070DD03 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */; };
 		8728B00E198011250007853A /* ShopContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B00D198011250007853A /* ShopContentViewController.m */; };
 		8728B011198014A30007853A /* NSObject+Addtions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B010198014A30007853A /* NSObject+Addtions.m */; };
-		875543291B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailInterfaceController.m */; };
-		8755432A1B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailInterfaceController.m */; };
-		8755432B1B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailInterfaceController.m */; };
-		8755432C1B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailInterfaceController.m */; };
+		875543291B4662F40080FFC4 /* ParcelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailController.m */; };
+		8755432A1B4662F40080FFC4 /* ParcelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailController.m */; };
+		8755432B1B4662F40080FFC4 /* ParcelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailController.m */; };
+		8755432C1B4662F40080FFC4 /* ParcelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailController.m */; };
 		8755432F1B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */; };
 		875543301B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */; };
 		875543311B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */; };
@@ -503,7 +503,7 @@
 		877966BF196AE2C500C7E514 /* AnnouncementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 877966BE196AE2C500C7E514 /* AnnouncementViewController.m */; };
 		87ACEA141977C4070081A412 /* ShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87ACEA131977C4070081A412 /* ShopViewController.m */; };
 		87B6A74A199099B600BC93B7 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B6A749199099B600BC93B7 /* UIColor+Expanded.m */; };
-		87BDF6891B13032400EFADDD /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF6881B13032400EFADDD /* InterfaceController.m */; };
+		87BDF6891B13032400EFADDD /* ParcelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF6881B13032400EFADDD /* ParcelController.m */; };
 		87BDF68C1B13032400EFADDD /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68B1B13032400EFADDD /* NotificationController.m */; };
 		87BDF68F1B13032400EFADDD /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68E1B13032400EFADDD /* GlanceController.m */; };
 		87BDF6911B13032400EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6901B13032400EFADDD /* Images.xcassets */; };
@@ -881,8 +881,8 @@
 		8744DE4C1B4622F000AC53C5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		8755431F1B4646390080FFC4 /* SingPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = SingPost.entitlements; path = ../SingPost.entitlements; sourceTree = "<group>"; };
 		875543201B46464A0080FFC4 /* SingPost WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "SingPost WatchKit Extension.entitlements"; path = "../SingPost WatchKit Extension/SingPost WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		875543271B4662F40080FFC4 /* ParcelDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParcelDetailInterfaceController.h; sourceTree = "<group>"; };
-		875543281B4662F40080FFC4 /* ParcelDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParcelDetailInterfaceController.m; sourceTree = "<group>"; };
+		875543271B4662F40080FFC4 /* ParcelDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParcelDetailController.h; sourceTree = "<group>"; };
+		875543281B4662F40080FFC4 /* ParcelDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParcelDetailController.m; sourceTree = "<group>"; };
 		8755432D1B46649E0080FFC4 /* ParcelDetailRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParcelDetailRowController.h; sourceTree = "<group>"; };
 		8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParcelDetailRowController.m; sourceTree = "<group>"; };
 		87644984196B8A31000E67C7 /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
@@ -903,8 +903,8 @@
 		87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SingPost WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87BDF6851B13032400EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87BDF6861B13032400EFADDD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		87BDF6871B13032400EFADDD /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
-		87BDF6881B13032400EFADDD /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		87BDF6871B13032400EFADDD /* ParcelController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParcelController.h; sourceTree = "<group>"; };
+		87BDF6881B13032400EFADDD /* ParcelController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParcelController.m; sourceTree = "<group>"; };
 		87BDF68A1B13032400EFADDD /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		87BDF68B1B13032400EFADDD /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		87BDF68D1B13032400EFADDD /* GlanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlanceController.h; sourceTree = "<group>"; };
@@ -1787,6 +1787,39 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		875CE2B11B4BA4EF00C09BB3 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF6871B13032400EFADDD /* ParcelController.h */,
+				87BDF6881B13032400EFADDD /* ParcelController.m */,
+				876AC3431B29670100867E1B /* ParcelRowController.h */,
+				876AC3441B29670100867E1B /* ParcelRowController.m */,
+				875543271B4662F40080FFC4 /* ParcelDetailController.h */,
+				875543281B4662F40080FFC4 /* ParcelDetailController.m */,
+				8755432D1B46649E0080FFC4 /* ParcelDetailRowController.h */,
+				8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		875CE2B31B4BA51600C09BB3 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF68A1B13032400EFADDD /* NotificationController.h */,
+				87BDF68B1B13032400EFADDD /* NotificationController.m */,
+			);
+			name = Notification;
+			sourceTree = "<group>";
+		};
+		875CE2B41B4BA52600C09BB3 /* Glance */ = {
+			isa = PBXGroup;
+			children = (
+				87BDF68D1B13032400EFADDD /* GlanceController.h */,
+				87BDF68E1B13032400EFADDD /* GlanceController.m */,
+			);
+			name = Glance;
+			sourceTree = "<group>";
+		};
 		877966BC196AE25E00C7E514 /* Announcement */ = {
 			isa = PBXGroup;
 			children = (
@@ -1813,19 +1846,9 @@
 		87BDF6831B13032400EFADDD /* SingPost WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				87BDF6871B13032400EFADDD /* InterfaceController.h */,
-				87BDF6881B13032400EFADDD /* InterfaceController.m */,
-				876AC3431B29670100867E1B /* ParcelRowController.h */,
-				876AC3441B29670100867E1B /* ParcelRowController.m */,
-				875543271B4662F40080FFC4 /* ParcelDetailInterfaceController.h */,
-				875543281B4662F40080FFC4 /* ParcelDetailInterfaceController.m */,
-				8755432D1B46649E0080FFC4 /* ParcelDetailRowController.h */,
-				8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */,
-				87BDF68A1B13032400EFADDD /* NotificationController.h */,
-				87BDF68B1B13032400EFADDD /* NotificationController.m */,
-				87BDF68D1B13032400EFADDD /* GlanceController.h */,
-				87BDF68E1B13032400EFADDD /* GlanceController.m */,
-				87BDF6901B13032400EFADDD /* Images.xcassets */,
+				875CE2B11B4BA4EF00C09BB3 /* Interface */,
+				875CE2B31B4BA51600C09BB3 /* Notification */,
+				875CE2B41B4BA52600C09BB3 /* Glance */,
 				87BDF6841B13032400EFADDD /* Supporting Files */,
 			);
 			path = "SingPost WatchKit Extension";
@@ -1834,6 +1857,7 @@
 		87BDF6841B13032400EFADDD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				87BDF6901B13032400EFADDD /* Images.xcassets */,
 				87BDF6851B13032400EFADDD /* Info.plist */,
 				87BDF6861B13032400EFADDD /* PushNotificationPayload.apns */,
 			);
@@ -2490,7 +2514,7 @@
 				244DEA7619ED28A300F07A76 /* NavigationBarView.m in Sources */,
 				244DEA7719ED28A300F07A76 /* CalculatePostageSingaporeViewController.m in Sources */,
 				244DEA7819ED28A300F07A76 /* LocateUsDetailsPostingBoxView.m in Sources */,
-				8755432A1B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */,
+				8755432A1B4662F40080FFC4 /* ParcelDetailController.m in Sources */,
 				244DEA7919ED28A300F07A76 /* LocateUSDetailsDetailsView.m in Sources */,
 				244DEA7A19ED28A300F07A76 /* UIView+Shadow.m in Sources */,
 				244DEA7B19ED28A300F07A76 /* CTextField.m in Sources */,
@@ -2619,7 +2643,7 @@
 				24AD38F31A399D180088F6A6 /* NavigationBarView.m in Sources */,
 				24AD38F41A399D180088F6A6 /* CalculatePostageSingaporeViewController.m in Sources */,
 				24AD38F51A399D180088F6A6 /* LocateUsDetailsPostingBoxView.m in Sources */,
-				8755432B1B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */,
+				8755432B1B4662F40080FFC4 /* ParcelDetailController.m in Sources */,
 				24AD38F61A399D180088F6A6 /* LocateUSDetailsDetailsView.m in Sources */,
 				24AD38F71A399D180088F6A6 /* UIView+Shadow.m in Sources */,
 				24AD38F81A399D180088F6A6 /* CTextField.m in Sources */,
@@ -2712,7 +2736,7 @@
 				52936481180B0FEE00B83F6B /* Stamp.m in Sources */,
 				52F1AF111863CD9200373066 /* _Stamp.m in Sources */,
 				52B4029B183B88D100D14D43 /* DeliveryStatus.m in Sources */,
-				875543291B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */,
+				875543291B4662F40080FFC4 /* ParcelDetailController.m in Sources */,
 				527C2F331850055100F1FB4F /* MaintanancePageViewController.m in Sources */,
 				528F26A217F8B822006F7027 /* CDropDownListControl.m in Sources */,
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
@@ -2797,8 +2821,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				87BDF68C1B13032400EFADDD /* NotificationController.m in Sources */,
-				8755432C1B4662F40080FFC4 /* ParcelDetailInterfaceController.m in Sources */,
-				87BDF6891B13032400EFADDD /* InterfaceController.m in Sources */,
+				8755432C1B4662F40080FFC4 /* ParcelDetailController.m in Sources */,
+				87BDF6891B13032400EFADDD /* ParcelController.m in Sources */,
 				87BDF68F1B13032400EFADDD /* GlanceController.m in Sources */,
 				876AC3481B29671400867E1B /* ParcelRowController.m in Sources */,
 				875543321B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */,

@@ -23,6 +23,7 @@
 #import "DeliveryStatus.h"
 #import "CustomIOS7AlertView.h"
 #import "UIFont+SingPost.h"
+#import "EntityLocation.h"
 
 
 @implementation AppDelegate
@@ -34,27 +35,25 @@
 
 
 + (AppDelegate *)sharedAppDelegate {
-	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     application.applicationIconBadgeNumber = 0;
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
-    //IOS 8 broke the registerForRemoteNotifications, as Apple always does.
-    
+#warning To-do
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         // use registerUserNotificationSettings
-        [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+        //[self registerNotificationCategories];
     } else {
         // use registerForRemoteNotifications
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
-    
+    [MagicalRecord setupAutoMigratingCoreDataStack];
     
     [self setupGoogleAnalytics];
-    [MagicalRecord setupAutoMigratingCoreDataStack];
     [DatabaseSeeder seedLocationsDataIfRequired];
     
     [Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
@@ -70,10 +69,8 @@
     if (remoteNotification)
         [self handleRemoteNotification:remoteNotification shouldPrompt:NO];
     
-    //[FBLoginView class];
     //Facebook
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        
         // If there's one, just open the session silently, without showing the user the login UI
         [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
                                            allowLoginUI:NO
@@ -84,7 +81,6 @@
                                           [self sessionStateChanged:session state:state error:error];
                                       }];
     }
-    
     //[self performSelector:@selector(test1) withObject:nil afterDelay:16.0f];
     
     self.isFirstTime = true;
@@ -93,8 +89,6 @@
 }
 
 - (void)test1 {
-    
-    return;
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = YES;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
@@ -115,14 +109,14 @@
     // For example: when the user presses the iOS "home" button while the login dialog is active
     [FBAppCall handleDidBecomeActive];
     
-    if(self.isFirstTime) {
+    if (self.isFirstTime) {
         self.isFirstTime = false;
     } else {
         if([AppDelegate sharedAppDelegate].rootViewController.activeViewController == self.trackingMainViewController) {
             [self.trackingMainViewController syncLabelsWithTrackingNumbers];
         } else {
             if(!isLoginFromSideBar)
-             [self getAllLabel];
+                [self getAllLabel];
         }
     }
 }
@@ -136,16 +130,11 @@
     [GAI sharedInstance].dispatchInterval = 15;
     [[GAI sharedInstance] trackerWithTrackingId:GAI_ID];
     [[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID];
-    
     [[[GAI sharedInstance] defaultTracker] setAllowIDFACollection:YES];
-    
-    
 }
 
 #pragma mark - Maintanance
-
-- (void)updateMaintananceStatuses
-{
+- (void)updateMaintananceStatuses {
     [[ApiClient sharedInstance] getMaintananceStatusOnSuccess:^(id responseJSON) {
         _maintenanceStatuses = responseJSON[@"root"];
         [_rootViewController updateMaintananceStatusUIs];
@@ -155,15 +144,12 @@
 }
 
 #pragma mark - Utilities
-
-- (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection
-{
+- (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection {
     BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
     if (!hasInternetConnection && warnIfNoConnection) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
     }
-    
     return hasInternetConnection;
 }
 
@@ -175,9 +161,7 @@
 }
 
 #pragma mark - Tracking
-
-- (void)goToTrackingDetailsPageForTrackingNumber:(NSString *)trackingNumber
-{
+- (void)goToTrackingDetailsPageForTrackingNumber:(NSString *)trackingNumber {
     if ([self.rootViewController isSideBarVisible])
         [self.rootViewController toggleSideBarVisiblity];
     
@@ -195,34 +179,29 @@
 }
 
 
-- (void)goToAnnouncementView
-{
+- (void)goToAnnouncementView {
     if ([self.rootViewController isSideBarVisible])
         [self.rootViewController toggleSideBarVisiblity];
     
     AnnouncementViewController *announcementViewController = [[AnnouncementViewController alloc] initWithNibName:nil bundle:nil];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:announcementViewController];
-    
-    
 }
 
 #pragma mark - Facebook
-
 // During the Facebook login flow, your app passes control to the Facebook iOS app or Facebook in a mobile browser.
 // After authentication, your app will be called back with the session information.
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
-    // Note this handler block should be the exact same as   handler passed to any open calls.
+         annotation:(id)annotation {
+    // Note this handler block should be the exact same as handler passed to any open calls.
     [FBSession.activeSession setStateChangeHandler:
      ^(FBSession *session, FBSessionState state, NSError *error) {
          
          // Retrieve the app delegate
          AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
          
-          appDelegate.isLoginFromSideBar = YES;
+         appDelegate.isLoginFromSideBar = YES;
          // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
          [appDelegate sessionStateChanged:session state:state error:error];
      }];
@@ -245,7 +224,7 @@
              [SVProgressHUD dismiss];
              return;
          }
-        
+         
          NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
          
          if(temp != nil && ![temp isKindOfClass:[NSNull class]])
@@ -268,19 +247,11 @@
          [self getAllLabel];
          
          [self.rootViewController checkSignStatus];
-         
-         /*if(proceedVC != nil) {
-             [[AppDelegate sharedAppDelegate].rootViewController cPopViewController ];
-         }*/
-         
-         
      } onFailure:^(NSError *error)
      {
          [self.rootViewController checkSignStatus];
          [SVProgressHUD dismiss];
      }];
-
-
 }
 
 - (void)firstTimeLoginFacebook {
@@ -288,22 +259,20 @@
     
     [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
      {
-         NSLog(@"FacebookLogin success");
+         DLog(@"FacebookLogin success");
          
          int status = [[responseObject objectForKey:@"status"] intValue];
          
-         if(status != 200) {
-             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Log in failed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-             
-             [alert show];
-             
+         if (status != 200) {
+             [UIAlertView showWithTitle:@"Alert" message:@"Log in failed"
+                      cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
              return;
          }
          
          NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
          
          if(temp != nil && ![temp isKindOfClass:[NSNull class]])
-         [ApiClient sharedInstance].serverToken = temp;
+             [ApiClient sharedInstance].serverToken = temp;
          
          NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
          NSString * lastUser = [defaults valueForKey:@"LAST_USER"];
@@ -313,7 +282,6 @@
              //1.Unsubscribe all lastuser's tracking ID
              //2.Clear local database
              [self unSubscribeAllActiveItem];
-             
          }
          
          [defaults setValue:[ApiClient sharedInstance].fbID forKey:@"LAST_USER"];
@@ -322,30 +290,20 @@
          [self getAllLabel];
          
          [self.rootViewController checkSignStatus];
-         
-         /*if(proceedVC != nil) {
-          [[AppDelegate sharedAppDelegate].rootViewController cPopViewController ];
-          }*/
-         
-         
      } onFailure:^(NSError *error)
      {
          [self.rootViewController checkSignStatus];
          [SVProgressHUD dismiss];
      }];
-    
-    
 }
 
 // This method will handle ALL the session state changes in the app
-- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error
-{
+- (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error {
     // If the session was opened successfully
     if (!error && state == FBSessionStateOpen){
         NSLog(@"Session opened");
         // Show the user the logged-in UI
         [self.trackingMainViewController refreshTableView];
-        
         
         [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
             if (!error) {
@@ -381,7 +339,7 @@
                      [SVProgressHUD dismiss];
                  }];
                 
-                            } else {
+            } else {
                 // An error occurred, we need to handle the error
                 // See: https://developers.facebook.com/docs/ios/errors
             }
@@ -398,7 +356,7 @@
         [self.trackingMainViewController refreshTableView];
         
         [self.rootViewController checkSignStatus];
- 
+        
     }
     
     // Handle errors
@@ -443,12 +401,10 @@
     }
 }
 
-- (NSFetchedResultsController *)activeItemsFetchedResultsController
-{
+- (NSFetchedResultsController *)activeItemsFetchedResultsController {
     if (!_activeItemsFetchedResultsController) {
         _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'true'"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
     }
-    
     return _activeItemsFetchedResultsController;
 }
 
@@ -498,7 +454,7 @@
          NSArray * dataArray = (NSArray *)[responseObject objectForKey:@"data"];
          
          if(dataArray == nil) {
-            [SVProgressHUD dismiss];
+             [SVProgressHUD dismiss];
              return;
          }
          
@@ -515,7 +471,7 @@
                                                                              error: &e];
              NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
              if(tempDic == nil)
-             
+                 
                  tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
              
              NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
@@ -533,8 +489,6 @@
              
              
          }
-         //[SVProgressHUD dismiss];
-         
          //Go to tracking list page.
          
          if(isLoginFromDetailPage) {
@@ -580,14 +534,10 @@
     
 }
 
-- (void) updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate{
-    //NSManagedObjectContext * context = [NSManagedObjectContext new];
-    
+- (void)updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate{
     TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
     if(item && ![item isKindOfClass:[NSNull class]]) {
-        //return;
-        
         if ([item.lastUpdatedOn compare:lastModifiedDate] == NSOrderedDescending) {
             return;
         }
@@ -613,25 +563,25 @@
         
         NSDictionary * tempDic = [dic objectForKey:@"DeliveryStatusDetails"];
         if(tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
-        
-        NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
-        NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
-        if([statusArray isKindOfClass:[NSDictionary class]]) {
-            NSDictionary * dic = (NSDictionary *)statusArray;
-            [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
-        } else {
             
-            for(NSDictionary * dic in statusArray) {
+            NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
+            NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
+            if([statusArray isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * dic = (NSDictionary *)statusArray;
                 [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+            } else {
+                
+                for(NSDictionary * dic in statusArray) {
+                    [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+                }
             }
-        }
-        
-        
-        for(DeliveryStatus * oldStatus in item.deliveryStatuses) {
-            [oldStatus MR_deleteEntity];
-        }
-        
-        item.deliveryStatuses = newStatus;
+            
+            
+            for(DeliveryStatus * oldStatus in item.deliveryStatuses) {
+                [oldStatus MR_deleteEntity];
+            }
+            
+            item.deliveryStatuses = newStatus;
             
         }
         
@@ -655,42 +605,34 @@
         
         NSDictionary * tempDic = [dic objectForKey:@"DeliveryStatusDetails"];
         if(tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
-        
-        NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
-        
-        
-        NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
-        if([statusArray isKindOfClass:[NSDictionary class]]) {
-            NSDictionary * dic = (NSDictionary *)statusArray;
-            [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
-        } else {
-        
-            for(NSDictionary * dic in statusArray) {
+            
+            NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
+            
+            
+            NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
+            if([statusArray isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * dic = (NSDictionary *)statusArray;
                 [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+            } else {
+                
+                for(NSDictionary * dic in statusArray) {
+                    [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+                }
             }
-        }
-            
-        
-        
-        item.deliveryStatuses = newStatus;
-            
+            item.deliveryStatuses = newStatus;
         }
     }
-    
     [localContext MR_saveToPersistentStoreAndWait];
-    
-    
 }
 
 
 #pragma mark - APNS
-
-- (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt
-{
+- (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt {
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
-    
     NSDictionary *data = [payloadInfo objectForKey:@"data"];
     NSString *trackingNumber = data[@"i"];
+    
+    //Tracking alert
     if (trackingNumber.length > 0) {
         //it's a tracking item apns
         [self getAllLabel];
@@ -708,12 +650,10 @@
         else {
             [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
         }
-        
         return;
     }
     
-    
-    
+    //Announcement alert
     NSString *alert = aps[@"alert"];
     if (alert.length > 0) {
         if (shouldPrompt) {
@@ -728,52 +668,29 @@
                               }];
         } else {
             [self goToAnnouncementView];
-            
         }
         return;
     }
-    
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateActive)];
 }
 
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
-{
-    NSLog(@"device push token %@",[deviceToken description]);
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
     NSString *sanitizedDeviceToken = [[[[deviceToken description]
-                                        stringByReplacingOccurrencesOfString: @"<" withString: @""]
-                                       stringByReplacingOccurrencesOfString: @">" withString: @""]
-                                      stringByReplacingOccurrencesOfString: @" " withString: @""];
+                                        stringByReplacingOccurrencesOfString:@"<" withString:@""]
+                                       stringByReplacingOccurrencesOfString:@">" withString:@""]
+                                      stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    NSLog(@"sanitized device token: %@", sanitizedDeviceToken);
-    [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken onCompletion:^(BOOL success, NSError *error) {
-        //do nothing
-        /*if(success) {
-            UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"Success" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [view show];
-        } else {
-            UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"Failed" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [view show];
-        }*/
-    }];
-    
-    /*UIAlertView * view = [[UIAlertView alloc] initWithTitle:@"deviceToken" message:sanitizedDeviceToken delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [view show];*/
-    
-    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@",sanitizedDeviceToken]]];
-}
-
-- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
-{
-	NSLog(@"Failed to get token, error: %@", error);
-    //[self goToAnnouncementView];
+    DLog(@"sanitized device token: %@", sanitizedDeviceToken);
+    [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken
+                                      onCompletion:^(BOOL success, NSError *error) {
+                                          
+                                      }];
 }
 
 #pragma mark - Google Analytics
-
 - (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName {
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] set:kGAIScreenName value:screenName];
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createAppView] build]];
@@ -783,9 +700,7 @@
 }
 
 #pragma mark - Core data
-
-- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion
-{
+- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion {
     [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
         if(!success)
             DLog(@"%@", error);
@@ -793,5 +708,36 @@
             completion(success, error);
     }];
 }
+
+#pragma mark - Apple watch request
+- (void)application:(UIApplication *)application
+handleWatchKitExtensionRequest:(NSDictionary *)userInfo
+              reply:(void (^)(NSDictionary *))reply {
+    
+}
+/*
+ #pragma mark - Register notifications actions
+ - (void)registerNotificationCategories {
+ NSMutableSet *categories = [NSMutableSet set];
+ 
+ UIMutableUserNotificationAction *snoozeFive = [[UIMutableUserNotificationAction alloc]init];
+ snoozeFive.title = @"Snoozed 5 mins";
+ snoozeFive.identifier = @"five";
+ snoozeFive.activationMode = UIUserNotificationActivationModeBackground;
+ 
+ UIMutableUserNotificationCategory *notificationCategory = [[UIMutableUserNotificationCategory alloc]init];
+ [notificationCategory setActions:@[snoozeFive] forContext:UIUserNotificationActionContextDefault];
+ [categories addObject:notificationCategory];
+ 
+ UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:notificationCategory];
+ 
+ [[UIApplication sharedApplication]registerUserNotificationSettings:notificationSettings];
+ }
+ 
+ #pragma mark - Handling notifications actions
+ - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+ DLog(@"%@",identifier);
+ }
+ */
 
 @end

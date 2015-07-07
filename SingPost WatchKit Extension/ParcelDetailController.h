@@ -9,6 +9,6 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 
-@interface ParcelDetailInterfaceController : WKInterfaceController
+@interface ParcelDetailController : WKInterfaceController
 
 @end

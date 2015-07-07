@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Codigo. All rights reserved.
 //
 
-#import "ParcelDetailInterfaceController.h"
+#import "ParcelDetailController.h"
 #import "ParcelDetailRowController.h"
 
-@interface ParcelDetailInterfaceController ()
+@interface ParcelDetailController ()
 @property (strong, nonatomic) NSArray *dataArray;
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *tableView;
 @end
 
-@implementation ParcelDetailInterfaceController
+@implementation ParcelDetailController
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
