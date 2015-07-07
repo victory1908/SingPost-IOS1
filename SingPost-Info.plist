@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>sg.com.codigo.singpost</string>
+	<string>sg.codigo.singpost</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -39,6 +39,10 @@
 	<string>Singpost</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>    </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>    </string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Regular.ttf</string>
@@ -46,6 +50,11 @@
 		<string>OpenSans-Semibold.ttf</string>
 		<string>OpenSans-Light.ttf</string>
 		<string>OpenSans-LightItalic.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
@@ -61,9 +70,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>    </string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>    </string>
 </dict>
 </plist>
