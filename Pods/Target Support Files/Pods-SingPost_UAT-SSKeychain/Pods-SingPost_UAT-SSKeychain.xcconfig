@@ -1,0 +1,1 @@
+PODS_SINGPOST_UAT_SSKEYCHAIN_OTHER_LDFLAGS = -framework "Foundation" -framework "Security"

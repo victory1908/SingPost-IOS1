@@ -33,7 +33,7 @@
 #endif
 
 #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
-#import "CoreData+MagicalRecord.h"
+#import "MagicalRecord.h"
 #import <UALogger.h>
 #import "GAI.h"
 #import "GAIFields.h"

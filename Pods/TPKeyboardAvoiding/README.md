@@ -2,11 +2,6 @@ TPKeyboardAvoiding
 ==================
 
 A drop-in universal solution for moving text fields out of the way of the keyboard in iOS.
-<!-- MacBuildServer Install Button -->
-<div class="macbuildserver-block">
-    <a class="macbuildserver-button" href="http://macbuildserver.com/project/github/build/?xcode_project=TPKeyboardAvoidingSample.xcodeproj&amp;target=TPKeyboardAvoidingSample&amp;repo_url=https%3A%2F%2Fgithub.com%2Fmichaeltyson%2FTPKeyboardAvoiding&amp;build_conf=Release" target="_blank"><img src="http://com.macbuildserver.github.s3-website-us-east-1.amazonaws.com/button_up.png"/></a><br/><sup><a href="http://macbuildserver.com/github/opensource/" target="_blank">by MacBuildServer</a></sup>
-</div>
-<!-- MacBuildServer Install Button -->
 
 Introduction
 ------------
@@ -27,6 +22,8 @@ Usage
 For use with `UITableViewController` classes, drop `TPKeyboardAvoidingTableView.m` and `TPKeyboardAvoidingTableView.h` into your project, and make your UITableView a `TPKeyboardAvoidingTableView` in the xib.  If you're not using a xib with your controller, I know of no easy way to make its UITableView a custom class: The path of least resistance is to create a xib for it.
 
 For non-UITableViewControllers, drop the `TPKeyboardAvoidingScrollView.m` and `TPKeyboardAvoidingScrollView.h` source files into your project, pop a `UIScrollView` into your view controller's xib, set the scroll view's class to `TPKeyboardAvoidingScrollView`, and put all your controls within that scroll view.  You can also create it programmatically, without using a xib - just use the TPKeyboardAvoidingScrollView as your top-level view.
+
+To disable the automatic "Next" button functionality, change the UITextField's return key type to anything but UIReturnKeyDefault.
 
 Notes
 -----
