@@ -60,7 +60,7 @@
     UILabel * labelLabel;
     UIButton * icon;
     
-    UIButton * stupidChiragShah;
+    UIButton * btnDetail2;
 
     UITextField * customTextfield;
 }
@@ -115,9 +115,9 @@
         else{
             [labelLabel setText:@"Add a label"];
             [labelLabel setTextColor:[UIColor orangeColor]];
-            stupidChiragShah = [[UIButton alloc] initWithFrame:labelLabel.frame];
-            [stupidChiragShah addTarget:self action:@selector(onEditClicked) forControlEvents:UIControlEventTouchUpInside];
-            [trackingInfoView addSubview: stupidChiragShah];
+            btnDetail2 = [[UIButton alloc] initWithFrame:labelLabel.frame];
+            [btnDetail2 addTarget:self action:@selector(onEditClicked) forControlEvents:UIControlEventTouchUpInside];
+            [trackingInfoView addSubview: btnDetail2];
         }
         [trackingInfoView addSubview: labelLabel];
         
@@ -410,12 +410,12 @@
                 labelLabel.text = @"Add a label";
                 [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon3.png"] forState:UIControlStateHighlighted];
                 [labelLabel setTextColor:[UIColor orangeColor]];
-                [stupidChiragShah setEnabled:YES];
+                [btnDetail2 setEnabled:YES];
                 title = @"";
                 icon.selected = YES;
             } else {
                 [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon2.png"] forState:UIControlStateHighlighted];
-                [stupidChiragShah setEnabled:NO];
+                [btnDetail2 setEnabled:NO];
                 icon.selected = NO;
             }
         }
@@ -473,11 +473,11 @@
             if([textField.text isEqualToString:@""]) {
                 labelLabel.text = @"Add a label";
                 [labelLabel setTextColor:[UIColor orangeColor]];
-                [stupidChiragShah setEnabled:YES];
+                [btnDetail2 setEnabled:YES];
                 title = @"";
                 icon.selected = YES;
             } else {
-                [stupidChiragShah setEnabled:NO];
+                [btnDetail2 setEnabled:NO];
                 icon.selected = NO;
             }
         }

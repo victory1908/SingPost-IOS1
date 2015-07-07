@@ -29,7 +29,7 @@
     UIButton * button;
     UIButton * icon;
     
-    BOOL whythenameissolongisbecausethestupidgayfromsingpostcalledchiragforceustodohisfuckingway;
+    BOOL flag2;
     UITextField * textfield;
 }
 @synthesize signIn2Label;
@@ -314,7 +314,7 @@
             [alertView setContainerView:contentView];
             [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Done", nil]];
             
-            whythenameissolongisbecausethestupidgayfromsingpostcalledchiragforceustodohisfuckingway = false;
+            flag2 = false;
             [alertView show];
         }
         
@@ -370,7 +370,7 @@
                 [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon2.png"] forState:UIControlStateNormal];
             else
                 [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
-            whythenameissolongisbecausethestupidgayfromsingpostcalledchiragforceustodohisfuckingway = true;
+            flag2 = true;
         } else {
             
         }
@@ -477,8 +477,8 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-    if(whythenameissolongisbecausethestupidgayfromsingpostcalledchiragforceustodohisfuckingway) {
-        whythenameissolongisbecausethestupidgayfromsingpostcalledchiragforceustodohisfuckingway = false;
+    if(flag2) {
+        flag2 = false;
         [appDelegate.trackingMainViewController animateTextField: textField up: NO];
         [self endEditing:YES];
         return;

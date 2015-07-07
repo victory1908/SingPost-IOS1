@@ -134,7 +134,7 @@
     [vc.PrevBtn addTarget:self action:@selector(onPrevClicked:) forControlEvents:UIControlEventTouchUpInside];
     [vc.closeBtn addTarget:self action:@selector(onCloseHelpClicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    [[NSUserDefaults standardUserDefaults]setObject:@"YES" forKey:@"STUPID_CHIRAG"];
+    [[NSUserDefaults standardUserDefaults]setObject:@"YES" forKey:@"SHOW_TUTORIAL"];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
