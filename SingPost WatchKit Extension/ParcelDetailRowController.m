@@ -16,12 +16,12 @@
 
 @implementation ParcelDetailRowController
 
-- (void)setCellWithDetail:(NSDictionary *)dictionary {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+- (void)setCellWithDetail:(ParcelStatus *)status {
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"dd-MM-yy"];
     
-    self.dateLabel.text = [dateFormatter stringFromDate:[dictionary objectForKey:@"date"]];
-    self.statusLabel.text = [dictionary objectForKey:@"description"];
+    self.dateLabel.text = [dateFormatter stringFromDate:status.date];
+    self.statusLabel.text = status.statusDescription;
 }
 
 @end

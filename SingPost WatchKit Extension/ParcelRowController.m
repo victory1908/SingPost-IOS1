@@ -9,14 +9,20 @@
 #import "ParcelRowController.h"
 
 @interface ParcelRowController()
-@property (weak, nonatomic) IBOutlet WKInterfaceImage *parcelLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *statusIndicator;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *parcelLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceImage *statusIndicator;
 @end
 
 @implementation ParcelRowController
 
-- (void)setLabel:(NSString *)label status:(NSString *)status {
-    self.statusIndicator.text = label;
+- (void)setLabel:(NSString *)label isActive:(BOOL)active {
+    self.parcelLabel.text = label;
+    
+    if (active) {
+        [self.statusIndicator setImageNamed:@"ActiveStatus"];
+    } else {
+        [self.statusIndicator setImageNamed:@"CompletedStatus"];
+    }
 }
 
 @end

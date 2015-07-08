@@ -13,18 +13,18 @@
                         <table alignment="left" id="v3Y-Kb-acd">
                             <items>
                                 <tableRow identifier="ParcelRowController" id="nXq-Yj-8HA" customClass="ParcelRowController">
-                                    <group key="rootItem" width="1" height="50" alignment="left" id="Uyd-fa-tnq">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="Uyd-fa-tnq">
                                         <items>
-                                            <imageView width="3" height="30" alignment="left" verticalAlignment="center" image="SelectedStatusIndicator" id="LFx-px-I4T"/>
-                                            <label width="1" height="1" alignment="left" verticalAlignment="center" text="123456789012345678901234567" numberOfLines="2" id="IuK-BY-CW1"/>
+                                            <imageView width="3" height="30" alignment="left" verticalAlignment="center" id="LFx-px-I4T"/>
+                                            <label alignment="left" verticalAlignment="center" text="123456789012345678901234567" numberOfLines="0" id="IuK-BY-CW1"/>
                                         </items>
                                         <connections>
                                             <segue destination="bWo-13-WvY" kind="push" id="Vwx-FZ-ENP"/>
                                         </connections>
                                     </group>
                                     <connections>
-                                        <outlet property="parcelLabel" destination="LFx-px-I4T" id="YJM-rK-0ZH"/>
-                                        <outlet property="statusIndicator" destination="IuK-BY-CW1" id="aGD-8R-We4"/>
+                                        <outlet property="parcelLabel" destination="IuK-BY-CW1" id="52k-Yc-bjP"/>
+                                        <outlet property="statusIndicator" destination="LFx-px-I4T" id="ZEr-he-2AT"/>
                                     </connections>
                                 </tableRow>
                             </items>
@@ -45,24 +45,36 @@
             <objects>
                 <controller title="My Parcel" id="bWo-13-WvY" customClass="ParcelDetailController">
                     <items>
-                        <label width="1" alignment="left" text="12345678901234567890123456789012345678" numberOfLines="2" id="3w1-2V-MKD">
+                        <label width="1" alignment="left" text="12345678901234567890123456789012345678" numberOfLines="2" id="3w1-2V-MKD" userLabel="Tip">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
+                        <separator alignment="left" id="1Mt-mM-Mq9">
+                            <color key="color" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                        </separator>
                         <table alignment="left" id="Qzm-Xx-tup">
                             <items>
                                 <tableRow identifier="ParcelDetailRowController" id="rMb-6I-nHb" customClass="ParcelDetailRowController">
-                                    <group key="rootItem" width="1" height="65" alignment="left" id="7sN-As-9Su">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="7sN-As-9Su">
                                         <items>
-                                            <imageView width="10" height="10" alignment="left" verticalAlignment="center" id="grm-Th-Xqv"/>
-                                            <group width="1" alignment="left" layout="vertical" id="tLU-Ab-suo">
+                                            <group alignment="left" id="tLU-Ab-suo">
                                                 <items>
-                                                    <label width="1" alignment="left" text="Label" id="0dW-VO-ag1">
-                                                        <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
-                                                    </label>
-                                                    <label width="1" alignment="left" text="Label" numberOfLines="2" id="IhU-IC-s7k"/>
+                                                    <imageView width="10" height="10" alignment="left" verticalAlignment="center" id="grm-Th-Xqv"/>
+                                                    <group width="1" alignment="left" layout="vertical" id="wbx-iH-UiO">
+                                                        <items>
+                                                            <label width="1" alignment="left" text="Date" id="0dW-VO-ag1">
+                                                                <color key="textColor" red="0.69803921568627447" green="0.69803921568627447" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
+                                                            </label>
+                                                            <label width="1" alignment="left" text="Status" numberOfLines="3" id="IhU-IC-s7k"/>
+                                                        </items>
+                                                    </group>
                                                 </items>
                                             </group>
+                                            <separator alignment="center" verticalAlignment="bottom" id="rGg-9p-UHQ">
+                                                <color key="color" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                            </separator>
                                         </items>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </group>
                                     <connections>
                                         <outlet property="dateLabel" destination="0dW-VO-ag1" id="fCX-px-4dr"/>
@@ -72,6 +84,20 @@
                             </items>
                         </table>
                     </items>
+                    <menu key="menu" id="tn7-EE-l1o">
+                        <items>
+                            <menuItem title="Show in Glance" icon="add" id="2eF-O1-AJr">
+                                <connections>
+                                    <action selector="showInGlance" destination="bWo-13-WvY" id="YqN-7H-Om9"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete" icon="trash" id="MA9-Wx-8vG">
+                                <connections>
+                                    <action selector="deleteParcel" destination="bWo-13-WvY" id="kac-C8-gJZ"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="tableView" destination="Qzm-Xx-tup" id="tdP-Ne-kX5"/>
                     </connections>
@@ -82,25 +108,25 @@
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
             <objects>
-                <glanceController spacing="0.0" topTemplateType="body1Medium" id="0uZ-2p-rRc" customClass="GlanceController">
+                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController">
                     <items>
-                        <label alignment="left" text="SingPost" id="E15-el-Ts3"/>
-                        <label alignment="left" text="6 parcels" id="CdD-2c-Cn3"/>
-                        <group alignment="left" backgroundImage="ProgressSphere" contentMode="scaleAspectFit" layout="vertical" id="uCw-4Q-Ouw">
+                        <group alignment="left" backgroundImage="Logo" id="C2J-Au-xgo"/>
+                        <group alignment="left" contentMode="scaleAspectFit" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
-                                <label alignment="center" verticalAlignment="center" text="5" id="u93-xM-DgZ">
-                                    <color key="textColor" red="0.21568627450980393" green="0.78431372549019607" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
-                                    <fontDescription key="font" type="system" pointSize="30"/>
+                                <label width="1" alignment="center" text="Parcel in transit" numberOfLines="2" id="QiV-bk-dJF">
+                                    <fontDescription key="font" type="system" pointSize="25"/>
                                 </label>
-                                <label alignment="center" verticalAlignment="center" text="Arrived" id="vKO-yb-g2R">
-                                    <color key="textColor" red="0.50588235294117645" green="0.50588235294117645" blue="0.50588235294117645" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label width="1" alignment="center" verticalAlignment="bottom" numberOfLines="2" id="Kvy-be-O3v">
+                                    <string key="text">XC00006314929
+XC00006314929</string>
                                 </label>
                             </items>
                         </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
                     <connections>
-                        <outlet property="progressIndicator" destination="uCw-4Q-Ouw" id="Ssy-bR-QKG"/>
+                        <outlet property="statusLabel" destination="QiV-bk-dJF" id="TR3-kc-mt6"/>
+                        <outlet property="trackingLabel" destination="Kvy-be-O3v" id="wBY-SE-Mxt"/>
                     </connections>
                 </glanceController>
             </objects>

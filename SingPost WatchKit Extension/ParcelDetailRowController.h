@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParcelStatus.h"
 
 @interface ParcelDetailRowController : NSObject
-- (void)setCellWithDetail:(NSDictionary *)dictionary;
+- (void)setCellWithDetail:(ParcelStatus *)status;
 @end

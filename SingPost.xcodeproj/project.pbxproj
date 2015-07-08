@@ -487,6 +487,10 @@
 		8706E7C4196BA9130070DD03 /* AnnouncementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */; };
 		8728B00E198011250007853A /* ShopContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B00D198011250007853A /* ShopContentViewController.m */; };
 		8728B011198014A30007853A /* NSObject+Addtions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8728B010198014A30007853A /* NSObject+Addtions.m */; };
+		8735EC7F1B4BE6BB00614478 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */; };
+		8735EC801B4BE6BB00614478 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */; };
+		8735EC811B4BE6BB00614478 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */; };
+		8735EC821B4BE77D00614478 /* Parcel.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2BC1B4BC09B00C09BB3 /* Parcel.m */; };
 		875543291B4662F40080FFC4 /* ParcelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailController.m */; };
 		8755432A1B4662F40080FFC4 /* ParcelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailController.m */; };
 		8755432B1B4662F40080FFC4 /* ParcelDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 875543281B4662F40080FFC4 /* ParcelDetailController.m */; };
@@ -495,6 +499,16 @@
 		875543301B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */; };
 		875543311B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */; };
 		875543321B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */; };
+		875CE2B71B4BBC4100C09BB3 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2B61B4BBC4100C09BB3 /* APIManager.m */; };
+		875CE2B81B4BBC4100C09BB3 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2B61B4BBC4100C09BB3 /* APIManager.m */; };
+		875CE2B91B4BBC4100C09BB3 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2B61B4BBC4100C09BB3 /* APIManager.m */; };
+		875CE2BD1B4BC09B00C09BB3 /* Parcel.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2BC1B4BC09B00C09BB3 /* Parcel.m */; };
+		875CE2BE1B4BC09B00C09BB3 /* Parcel.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2BC1B4BC09B00C09BB3 /* Parcel.m */; };
+		875CE2BF1B4BC09B00C09BB3 /* Parcel.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2BC1B4BC09B00C09BB3 /* Parcel.m */; };
+		875CE2C21B4BC62B00C09BB3 /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
+		875CE2C31B4BC62B00C09BB3 /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
+		875CE2C41B4BC62B00C09BB3 /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
+		87639F801B4CBF840047A028 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */; };
 		87644986196B8A31000E67C7 /* AnnouncementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */; };
 		87688A131B12FD2F0006FD56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
 		87688A141B12FD700006FD56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
@@ -511,6 +525,7 @@
 		87BDF69D1B13032400EFADDD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69B1B13032400EFADDD /* Interface.storyboard */; };
 		87BDF69F1B13032400EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69E1B13032400EFADDD /* Images.xcassets */; };
 		87BDF6A21B13032400EFADDD /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		87E45FA11B4C104E0063BC5A /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
 		915E55EF187C128E00790DBC /* LocateUSDetailsDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 915E55EE187C128E00790DBC /* LocateUSDetailsDetailsView.m */; };
 		9160E764189126FE0046FC1E /* LocateUsFSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9160E763189126FE0046FC1E /* LocateUsFSMapViewController.m */; };
 		91692BD818EA868E0079B62D /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
@@ -878,6 +893,8 @@
 		8728B00D198011250007853A /* ShopContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopContentViewController.m; sourceTree = "<group>"; };
 		8728B00F198014A30007853A /* NSObject+Addtions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Addtions.h"; sourceTree = "<group>"; };
 		8728B010198014A30007853A /* NSObject+Addtions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Addtions.m"; sourceTree = "<group>"; };
+		8735EC7D1B4BE6BB00614478 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
+		8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		8744DE4C1B4622F000AC53C5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		8755431F1B4646390080FFC4 /* SingPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = SingPost.entitlements; path = ../SingPost.entitlements; sourceTree = "<group>"; };
 		875543201B46464A0080FFC4 /* SingPost WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "SingPost WatchKit Extension.entitlements"; path = "../SingPost WatchKit Extension/SingPost WatchKit Extension.entitlements"; sourceTree = "<group>"; };
@@ -885,6 +902,12 @@
 		875543281B4662F40080FFC4 /* ParcelDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParcelDetailController.m; sourceTree = "<group>"; };
 		8755432D1B46649E0080FFC4 /* ParcelDetailRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParcelDetailRowController.h; sourceTree = "<group>"; };
 		8755432E1B46649E0080FFC4 /* ParcelDetailRowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParcelDetailRowController.m; sourceTree = "<group>"; };
+		875CE2B51B4BBC4100C09BB3 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		875CE2B61B4BBC4100C09BB3 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
+		875CE2BB1B4BC09B00C09BB3 /* Parcel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parcel.h; sourceTree = "<group>"; };
+		875CE2BC1B4BC09B00C09BB3 /* Parcel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parcel.m; sourceTree = "<group>"; };
+		875CE2C01B4BC62B00C09BB3 /* ParcelStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParcelStatus.h; sourceTree = "<group>"; };
+		875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParcelStatus.m; sourceTree = "<group>"; };
 		87644984196B8A31000E67C7 /* AnnouncementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementTableViewCell.h; sourceTree = "<group>"; };
 		87644985196B8A31000E67C7 /* AnnouncementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementTableViewCell.m; sourceTree = "<group>"; };
 		87688A101B12FA520006FD56 /* SingPost-Info_UAT.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingPost-Info_UAT.plist"; sourceTree = SOURCE_ROOT; };
@@ -1252,10 +1275,11 @@
 			children = (
 				87DCFD7A191A1B4F00E9B0DD /* AppDelegate */,
 				52024F1817F6836800AFD239 /* Views */,
-				52C908E718045F210063A026 /* API */,
+				52C908E718045F210063A026 /* Managers */,
 				52305F8617F5B1DC00610A86 /* Database */,
 				524CEA3B17F282B800E0EAC3 /* Categories */,
 				528F26D517F97991006F7027 /* Models */,
+				875CE2BA1B4BC05B00C09BB3 /* Realm */,
 				521B174F17F1653E00FEB6FD /* ViewControllers */,
 			);
 			path = SingPost;
@@ -1711,14 +1735,17 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		52C908E718045F210063A026 /* API */ = {
+		52C908E718045F210063A026 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				52C908E818045F3F0063A026 /* ApiClient.h */,
 				52C908E918045F3F0063A026 /* ApiClient.m */,
+				875CE2B51B4BBC4100C09BB3 /* APIManager.h */,
+				875CE2B61B4BBC4100C09BB3 /* APIManager.m */,
+				8735EC7D1B4BE6BB00614478 /* DatabaseManager.h */,
+				8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */,
 			);
-			name = API;
-			path = Api;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		52C909121804901B0063A026 /* Payment */ = {
@@ -1818,6 +1845,17 @@
 				87BDF68E1B13032400EFADDD /* GlanceController.m */,
 			);
 			name = Glance;
+			sourceTree = "<group>";
+		};
+		875CE2BA1B4BC05B00C09BB3 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				875CE2BB1B4BC09B00C09BB3 /* Parcel.h */,
+				875CE2BC1B4BC09B00C09BB3 /* Parcel.m */,
+				875CE2C01B4BC62B00C09BB3 /* ParcelStatus.h */,
+				875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		877966BC196AE25E00C7E514 /* Announcement */ = {
@@ -2440,12 +2478,14 @@
 				244DEA2D19ED28A300F07A76 /* _TrackedItem.m in Sources */,
 				244DEA2E19ED28A300F07A76 /* EntityLocation.m in Sources */,
 				244DEA2F19ED28A300F07A76 /* CUIActionSheet.m in Sources */,
+				875CE2C31B4BC62B00C09BB3 /* ParcelStatus.m in Sources */,
 				244DEA3019ED28A300F07A76 /* Article.m in Sources */,
 				244DEA3119ED28A300F07A76 /* ShopContentViewController.m in Sources */,
 				244DEA3219ED28A300F07A76 /* LocateUsListViewController.m in Sources */,
 				244DEA3319ED28A300F07A76 /* CMIndexBar.m in Sources */,
 				244DEA3419ED28A300F07A76 /* MoreServicesMainViewController.m in Sources */,
 				244DEA3519ED28A300F07A76 /* TrackingDetailsViewController.m in Sources */,
+				875CE2BE1B4BC09B00C09BB3 /* Parcel.m in Sources */,
 				244DEA3619ED28A300F07A76 /* AnnouncementDetailViewController.m in Sources */,
 				244DEA3719ED28A300F07A76 /* ShopMainViewController.m in Sources */,
 				244DEA3819ED28A300F07A76 /* LocateUsDetailsServicesView.m in Sources */,
@@ -2485,6 +2525,7 @@
 				244DEA5A19ED28A300F07A76 /* FindPostalCodePOBoxViewController.m in Sources */,
 				244DEA5B19ED28A300F07A76 /* NSDate+Extensions.m in Sources */,
 				244DEA5C19ED28A300F07A76 /* UIScrollView+Additions.m in Sources */,
+				875CE2B81B4BBC4100C09BB3 /* APIManager.m in Sources */,
 				244DEA5D19ED28A300F07A76 /* EntityLocationMapAnnotation.m in Sources */,
 				244DEA5E19ED28A300F07A76 /* StampImage.m in Sources */,
 				244DEA5F19ED28A300F07A76 /* StampImagesBrowserViewController.m in Sources */,
@@ -2493,6 +2534,7 @@
 				244DEA6219ED28A300F07A76 /* CTextView.m in Sources */,
 				244DEA6319ED28A300F07A76 /* _EntityLocation.m in Sources */,
 				244DEA6419ED28A300F07A76 /* FeedbackViewController.m in Sources */,
+				8735EC801B4BE6BB00614478 /* DatabaseManager.m in Sources */,
 				244DEA6519ED28A300F07A76 /* UIFont+SingPost.m in Sources */,
 				244DEA6619ED28A300F07A76 /* FindPostalCodeLandmarkViewController.m in Sources */,
 				244DEA6719ED28A300F07A76 /* ArticleViewController.m in Sources */,
@@ -2569,12 +2611,14 @@
 				24AD38AA1A399D180088F6A6 /* _TrackedItem.m in Sources */,
 				24AD38AB1A399D180088F6A6 /* EntityLocation.m in Sources */,
 				24AD38AC1A399D180088F6A6 /* CUIActionSheet.m in Sources */,
+				875CE2C41B4BC62B00C09BB3 /* ParcelStatus.m in Sources */,
 				24AD38AD1A399D180088F6A6 /* Article.m in Sources */,
 				24AD38AE1A399D180088F6A6 /* ShopContentViewController.m in Sources */,
 				24AD38AF1A399D180088F6A6 /* LocateUsListViewController.m in Sources */,
 				24AD38B01A399D180088F6A6 /* CMIndexBar.m in Sources */,
 				24AD38B11A399D180088F6A6 /* MoreServicesMainViewController.m in Sources */,
 				24AD38B21A399D180088F6A6 /* TrackingDetailsViewController.m in Sources */,
+				875CE2BF1B4BC09B00C09BB3 /* Parcel.m in Sources */,
 				24AD38B31A399D180088F6A6 /* AnnouncementDetailViewController.m in Sources */,
 				24AD38B41A399D180088F6A6 /* ShopMainViewController.m in Sources */,
 				24AD38B51A399D180088F6A6 /* LocateUsDetailsServicesView.m in Sources */,
@@ -2614,6 +2658,7 @@
 				24AD38D71A399D180088F6A6 /* FindPostalCodePOBoxViewController.m in Sources */,
 				24AD38D81A399D180088F6A6 /* NSDate+Extensions.m in Sources */,
 				24AD38D91A399D180088F6A6 /* UIScrollView+Additions.m in Sources */,
+				875CE2B91B4BBC4100C09BB3 /* APIManager.m in Sources */,
 				24AD38DA1A399D180088F6A6 /* EntityLocationMapAnnotation.m in Sources */,
 				24AD38DB1A399D180088F6A6 /* StampImage.m in Sources */,
 				24AD38DC1A399D180088F6A6 /* StampImagesBrowserViewController.m in Sources */,
@@ -2622,6 +2667,7 @@
 				24AD38DF1A399D180088F6A6 /* CTextView.m in Sources */,
 				24AD38E01A399D180088F6A6 /* _EntityLocation.m in Sources */,
 				24AD38E11A399D180088F6A6 /* FeedbackViewController.m in Sources */,
+				8735EC811B4BE6BB00614478 /* DatabaseManager.m in Sources */,
 				24AD38E21A399D180088F6A6 /* UIFont+SingPost.m in Sources */,
 				24AD38E31A399D180088F6A6 /* FindPostalCodeLandmarkViewController.m in Sources */,
 				24AD38E41A399D180088F6A6 /* ArticleViewController.m in Sources */,
@@ -2742,9 +2788,12 @@
 				521B175517F1678100FEB6FD /* RootViewController.m in Sources */,
 				24BDC0AA1A0B5AEB0023C0AC /* CustomIOS7AlertView.m in Sources */,
 				527C2F30184FCC4B00F1FB4F /* NSDictionary+Additions.m in Sources */,
+				875CE2B71B4BBC4100C09BB3 /* APIManager.m in Sources */,
 				529090F0180D2A1F00D84030 /* _Offer.m in Sources */,
 				52518A28184C841100F4F104 /* ArticleSubViewController.m in Sources */,
 				528C4143183412DF00145E55 /* FindPostalCodePOBoxViewController.m in Sources */,
+				8735EC7F1B4BE6BB00614478 /* DatabaseManager.m in Sources */,
+				875CE2C21B4BC62B00C09BB3 /* ParcelStatus.m in Sources */,
 				5293648E180B1C9900B83F6B /* NSDate+Extensions.m in Sources */,
 				9192B4FE18B45126004EB15A /* UIScrollView+Additions.m in Sources */,
 				52282FE817FAA8C300B2A7B4 /* EntityLocationMapAnnotation.m in Sources */,
@@ -2810,6 +2859,7 @@
 				526E92B4183FBD8000552710 /* PostalCodeLandmarkResultTableViewCell.m in Sources */,
 				52282FD317FA982100B2A7B4 /* LocateUsDetailsViewController.m in Sources */,
 				91FD0025187BEDBE00DE1765 /* OffersTableViewCell.m in Sources */,
+				875CE2BD1B4BC09B00C09BB3 /* Parcel.m in Sources */,
 				5249518818574D3E00055555 /* StampCollectibleDetailExpandableView.m in Sources */,
 				91B58F9618753A40005469DA /* TrackingFeedbackViewController.m in Sources */,
 				52C908EA18045F3F0063A026 /* ApiClient.m in Sources */,
@@ -2821,8 +2871,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				87BDF68C1B13032400EFADDD /* NotificationController.m in Sources */,
+				87639F801B4CBF840047A028 /* DatabaseManager.m in Sources */,
 				8755432C1B4662F40080FFC4 /* ParcelDetailController.m in Sources */,
 				87BDF6891B13032400EFADDD /* ParcelController.m in Sources */,
+				8735EC821B4BE77D00614478 /* Parcel.m in Sources */,
+				87E45FA11B4C104E0063BC5A /* ParcelStatus.m in Sources */,
 				87BDF68F1B13032400EFADDD /* GlanceController.m in Sources */,
 				876AC3481B29671400867E1B /* ParcelRowController.m in Sources */,
 				875543321B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */,

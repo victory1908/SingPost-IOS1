@@ -10,5 +10,5 @@
 @import WatchKit;
 
 @interface ParcelRowController : NSObject
-- (void)setLabel:(NSString *)label status:(NSString *)status;
+- (void)setLabel:(NSString *)label isActive:(BOOL)active;
 @end
