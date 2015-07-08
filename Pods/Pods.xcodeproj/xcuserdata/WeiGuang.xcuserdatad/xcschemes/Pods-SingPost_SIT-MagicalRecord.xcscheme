@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EE52A78F5EC1301B4644F876"
+               BlueprintIdentifier = "FCA81ABA13B5B339745836FF"
                BuildableName = "libPods-SingPost_SIT-MagicalRecord.a"
                BlueprintName = "Pods-SingPost_SIT-MagicalRecord"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DB97B68D8424620A6D68F76C"
+               BlueprintIdentifier = "1D55135CBB93906A8316D2EB"
                BuildableName = "libPods-SingPost_SIT-Reachability.a"
                BlueprintName = "Pods-SingPost_SIT-Reachability"
                ReferencedContainer = "container:Pods.xcodeproj">

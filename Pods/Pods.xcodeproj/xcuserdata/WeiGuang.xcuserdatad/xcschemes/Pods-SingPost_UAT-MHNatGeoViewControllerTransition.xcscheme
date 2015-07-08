@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "75F866854D952C0952678DCF"
+               BlueprintIdentifier = "39873D3C116756756D6ED09C"
                BuildableName = "libPods-SingPost_UAT-MHNatGeoViewControllerTransition.a"
                BlueprintName = "Pods-SingPost_UAT-MHNatGeoViewControllerTransition"
                ReferencedContainer = "container:Pods.xcodeproj">

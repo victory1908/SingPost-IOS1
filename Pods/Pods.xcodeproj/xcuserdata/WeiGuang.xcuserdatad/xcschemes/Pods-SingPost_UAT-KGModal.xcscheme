@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7A9B9D9B789FBF247C155C77"
+               BlueprintIdentifier = "98AE6B9D2BE24673E4EF36B7"
                BuildableName = "libPods-SingPost_UAT-KGModal.a"
                BlueprintName = "Pods-SingPost_UAT-KGModal"
                ReferencedContainer = "container:Pods.xcodeproj">

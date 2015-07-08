@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "902F8D35C8E7EA04996AB020"
+               BlueprintIdentifier = "7E94730855B0A72AE7E7A332"
                BuildableName = "libPods-SingPost_UAT-RaptureXML.a"
                BlueprintName = "Pods-SingPost_UAT-RaptureXML"
                ReferencedContainer = "container:Pods.xcodeproj">

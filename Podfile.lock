@@ -36,6 +36,7 @@ DEPENDENCIES:
   - KGModal (~> 0.0.1)
   - MagicalRecord
   - MHNatGeoViewControllerTransition (~> 1.0)
+  - RaptureXML
   - Reachability (~> 3.1.1)
   - Realm
   - RegexKitLite (~> 4.0)

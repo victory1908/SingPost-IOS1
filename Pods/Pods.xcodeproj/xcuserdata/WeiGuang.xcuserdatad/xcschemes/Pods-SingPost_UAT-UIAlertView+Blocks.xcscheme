@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9F8AE326CB3E036569EE68A6"
+               BlueprintIdentifier = "F44E7A22A7601B73D814E418"
                BuildableName = "libPods-SingPost_UAT-UIAlertView+Blocks.a"
                BlueprintName = "Pods-SingPost_UAT-UIAlertView+Blocks"
                ReferencedContainer = "container:Pods.xcodeproj">

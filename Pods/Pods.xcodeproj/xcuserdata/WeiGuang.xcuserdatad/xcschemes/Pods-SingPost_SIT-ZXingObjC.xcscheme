@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "72C2C15CEB8C52E69F981D1B"
+               BlueprintIdentifier = "261B0EC9BD4E5622C840DB44"
                BuildableName = "libPods-SingPost_SIT-ZXingObjC.a"
                BlueprintName = "Pods-SingPost_SIT-ZXingObjC"
                ReferencedContainer = "container:Pods.xcodeproj">

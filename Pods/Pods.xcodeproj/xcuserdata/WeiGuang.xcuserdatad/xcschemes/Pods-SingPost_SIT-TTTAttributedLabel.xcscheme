@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EB7E6B2D6ED0F3CAA93D0F79"
+               BlueprintIdentifier = "C714D54ED7850D4180E3B85F"
                BuildableName = "libPods-SingPost_SIT-TTTAttributedLabel.a"
                BlueprintName = "Pods-SingPost_SIT-TTTAttributedLabel"
                ReferencedContainer = "container:Pods.xcodeproj">

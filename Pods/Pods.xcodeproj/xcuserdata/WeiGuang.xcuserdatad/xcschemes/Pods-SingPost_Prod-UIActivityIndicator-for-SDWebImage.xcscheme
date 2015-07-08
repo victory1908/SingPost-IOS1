@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "528C912E35728607FE4F6FD8"
+               BlueprintIdentifier = "B94D8BF92D5AFFD6E1766DD6"
                BuildableName = "libPods-SingPost_Prod-UIActivityIndicator-for-SDWebImage.a"
                BlueprintName = "Pods-SingPost_Prod-UIActivityIndicator-for-SDWebImage"
                ReferencedContainer = "container:Pods.xcodeproj">

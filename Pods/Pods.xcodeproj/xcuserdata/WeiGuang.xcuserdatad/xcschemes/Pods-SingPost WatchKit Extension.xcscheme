@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00763640BCB2C35FDF8D9CA8"
+               BlueprintIdentifier = "3AE624FDD2389CD0EB20B33B"
                BuildableName = "libPods-SingPost WatchKit Extension.a"
                BlueprintName = "Pods-SingPost WatchKit Extension"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -2,6 +2,7 @@
 platform :ios, '7.0'
 
 def shared_pods
+    pod 'RaptureXML'
     pod 'Realm'
 end
 
@@ -53,24 +54,3 @@ target 'SingPost WatchKit App' do
     shared_pods
     watch_pods
 end
-
-target 'SingPost_SIT WatchKit Extension' do
-    shared_pods
-    watch_pods
-end
-
-target 'SingPost_SIT WatchKit App' do
-    shared_pods
-    watch_pods
-end
-
-target 'SingPost_UAT WatchKit Extension' do
-    shared_pods
-    watch_pods
-end
-
-target 'SingPost_UAT WatchKit App' do
-    shared_pods
-    watch_pods
-end
-

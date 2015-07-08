@@ -6,6 +6,12 @@
 // project.
 
 
+// RaptureXML
+#define COCOAPODS_POD_AVAILABLE_RaptureXML
+#define COCOAPODS_VERSION_MAJOR_RaptureXML 1
+#define COCOAPODS_VERSION_MINOR_RaptureXML 0
+#define COCOAPODS_VERSION_PATCH_RaptureXML 1
+
 // Realm
 #define COCOAPODS_POD_AVAILABLE_Realm
 #define COCOAPODS_VERSION_MAJOR_Realm 0

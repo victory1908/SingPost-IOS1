@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "263D8A82DCBE1E44B7473DA4"
+               BlueprintIdentifier = "140C2E9A89B1AA22CD2BA00F"
                BuildableName = "libPods-SingPost_Prod-UALogger.a"
                BlueprintName = "Pods-SingPost_Prod-UALogger"
                ReferencedContainer = "container:Pods.xcodeproj">
