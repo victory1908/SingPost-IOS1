@@ -184,6 +184,8 @@
 		87639F801B4CBF840047A028 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */; };
 		87688A151B12FD710006FD56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521B173217F1633000FEB6FD /* Images.xcassets */; };
 		876AC3481B29671400867E1B /* ParcelRowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 876AC3441B29670100867E1B /* ParcelRowController.m */; };
+		87B414B51B4E5758007BA9CA /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B414B41B4E5758007BA9CA /* UserDefaultsManager.m */; };
+		87B414B71B4E6999007BA9CA /* UserDefaultsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B414B41B4E5758007BA9CA /* UserDefaultsManager.m */; };
 		87BDF6891B13032400EFADDD /* ParcelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF6881B13032400EFADDD /* ParcelController.m */; };
 		87BDF68C1B13032400EFADDD /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68B1B13032400EFADDD /* NotificationController.m */; };
 		87BDF68F1B13032400EFADDD /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87BDF68E1B13032400EFADDD /* GlanceController.m */; };
@@ -553,6 +555,8 @@
 		878B48B81980A40300FF3502 /* SingPost 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 2.xcdatamodel"; sourceTree = "<group>"; };
 		87ACEA121977C4070081A412 /* ShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopViewController.h; sourceTree = "<group>"; };
 		87ACEA131977C4070081A412 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
+		87B414B31B4E5758007BA9CA /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
+		87B414B41B4E5758007BA9CA /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
 		87B6A748199099B600BC93B7 /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
 		87B6A749199099B600BC93B7 /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
 		87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SingPost WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1327,6 +1331,8 @@
 				875CE2B61B4BBC4100C09BB3 /* APIManager.m */,
 				8735EC7D1B4BE6BB00614478 /* DatabaseManager.h */,
 				8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */,
+				87B414B31B4E5758007BA9CA /* UserDefaultsManager.h */,
+				87B414B41B4E5758007BA9CA /* UserDefaultsManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1918,6 +1924,7 @@
 				875543311B46649E0080FFC4 /* ParcelDetailRowController.m in Sources */,
 				24AD38F31A399D180088F6A6 /* NavigationBarView.m in Sources */,
 				24AD38F41A399D180088F6A6 /* CalculatePostageSingaporeViewController.m in Sources */,
+				87B414B51B4E5758007BA9CA /* UserDefaultsManager.m in Sources */,
 				24AD38F51A399D180088F6A6 /* LocateUsDetailsPostingBoxView.m in Sources */,
 				8755432B1B4662F40080FFC4 /* ParcelDetailController.m in Sources */,
 				24AD38F61A399D180088F6A6 /* LocateUSDetailsDetailsView.m in Sources */,
@@ -1968,6 +1975,7 @@
 			files = (
 				87BDF68C1B13032400EFADDD /* NotificationController.m in Sources */,
 				87639F801B4CBF840047A028 /* DatabaseManager.m in Sources */,
+				87B414B71B4E6999007BA9CA /* UserDefaultsManager.m in Sources */,
 				8755432C1B4662F40080FFC4 /* ParcelDetailController.m in Sources */,
 				87BDF6891B13032400EFADDD /* ParcelController.m in Sources */,
 				8735EC821B4BE77D00614478 /* Parcel.m in Sources */,
