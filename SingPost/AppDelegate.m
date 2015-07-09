@@ -24,7 +24,7 @@
 #import "CustomIOS7AlertView.h"
 #import "UIFont+SingPost.h"
 #import "EntityLocation.h"
-
+#import "DatabaseManager.h"
 
 @implementation AppDelegate
 @synthesize activeItemsFetchedResultsController = _activeItemsFetchedResultsController;
@@ -40,7 +40,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     application.applicationIconBadgeNumber = 0;
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
 #warning To-do
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -52,6 +51,7 @@
     }
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
+    [DatabaseManager setupRealm];
     
     [self setupGoogleAnalytics];
     [DatabaseSeeder seedLocationsDataIfRequired];
@@ -81,23 +81,9 @@
                                           [self sessionStateChanged:session state:state error:error];
                                       }];
     }
-    //[self performSelector:@selector(test1) withObject:nil afterDelay:16.0f];
-    
     self.isFirstTime = true;
     self.isJustForRefresh = 0;
     return YES;
-}
-
-- (void)test1 {
-    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    trackingMainViewController.isPushNotification = YES;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
-    
-    double delayInSeconds = 0.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [trackingMainViewController addTrackingNumber:@"XZ00000043674"];
-    });
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -713,31 +699,8 @@
 - (void)application:(UIApplication *)application
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
               reply:(void (^)(NSDictionary *))reply {
-    
+#warning need to update parcel item
+#warning unsubscribe parcel
 }
-/*
- #pragma mark - Register notifications actions
- - (void)registerNotificationCategories {
- NSMutableSet *categories = [NSMutableSet set];
- 
- UIMutableUserNotificationAction *snoozeFive = [[UIMutableUserNotificationAction alloc]init];
- snoozeFive.title = @"Snoozed 5 mins";
- snoozeFive.identifier = @"five";
- snoozeFive.activationMode = UIUserNotificationActivationModeBackground;
- 
- UIMutableUserNotificationCategory *notificationCategory = [[UIMutableUserNotificationCategory alloc]init];
- [notificationCategory setActions:@[snoozeFive] forContext:UIUserNotificationActionContextDefault];
- [categories addObject:notificationCategory];
- 
- UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:notificationCategory];
- 
- [[UIApplication sharedApplication]registerUserNotificationSettings:notificationSettings];
- }
- 
- #pragma mark - Handling notifications actions
- - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
- DLog(@"%@",identifier);
- }
- */
 
 @end
