@@ -51,11 +51,6 @@
 		<string>OpenSans-Light.ttf</string>
 		<string>OpenSans-LightItalic.ttf</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
