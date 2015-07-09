@@ -87,65 +87,65 @@
         [contentView addSubview:separatorView3];
         
         if(![ApiClient isWithoutFacebook]) {
-        //Facebook sign in
-        if(isActive) {
-            
-            signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 160, 40)];
-            [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
-            //[signIn2Label setPlaceholder:@"Enter a label"];
-            [signIn2Label setTextColor:RGB(36, 84, 157)];
-            [signIn2Label setFont:[UIFont SingPostRegularFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
-            UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, signIn2Label.frame.size.height)];
-            signIn2Label.leftView = paddingView;
-            signIn2Label.leftViewMode = UITextFieldViewModeAlways;
-            
-            UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
-            signIn2Label.rightView = paddingView2;
-            signIn2Label.rightViewMode = UITextFieldViewModeAlways;
-            
-            [contentView addSubview:signIn2Label];
-            if (FBSession.activeSession.state != FBSessionStateOpen
-                && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
+            //Facebook sign in
+            if(isActive) {
                 
-                [signIn2Label setPlaceholder:@"Sign in to label"];
-                [signIn2Label setTextAlignment:NSTextAlignmentLeft];
-                [signIn2Label setTextColor:RGB(50, 50, 50)];
-                [signIn2Label setUserInteractionEnabled:NO];
+                signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 160, 40)];
+                [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
+                //[signIn2Label setPlaceholder:@"Enter a label"];
+                [signIn2Label setTextColor:RGB(36, 84, 157)];
+                [signIn2Label setFont:[UIFont SingPostRegularFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
+                UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, signIn2Label.frame.size.height)];
+                signIn2Label.leftView = paddingView;
+                signIn2Label.leftViewMode = UITextFieldViewModeAlways;
                 
-                icon = [[UIButton alloc] initWithFrame:CGRectMake(140, 6, 30, 30)];
-                [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon2.png"] forState:UIControlStateNormal];
-                [icon addTarget:self action:@selector(showSignInButton) forControlEvents:UIControlEventTouchUpInside];
+                UIView *paddingView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, signIn2Label.frame.size.height)];
+                signIn2Label.rightView = paddingView2;
+                signIn2Label.rightViewMode = UITextFieldViewModeAlways;
                 
-                button = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
-                [button addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
-                [contentView addSubview: button];
-                [button setHidden:YES];
+                [contentView addSubview:signIn2Label];
+                if (FBSession.activeSession.state != FBSessionStateOpen
+                    && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
+                    
+                    [signIn2Label setPlaceholder:@"Sign in to label"];
+                    [signIn2Label setTextAlignment:NSTextAlignmentLeft];
+                    [signIn2Label setTextColor:RGB(50, 50, 50)];
+                    [signIn2Label setUserInteractionEnabled:NO];
+                    
+                    icon = [[UIButton alloc] initWithFrame:CGRectMake(140, 6, 30, 30)];
+                    [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon2.png"] forState:UIControlStateNormal];
+                    [icon addTarget:self action:@selector(showSignInButton) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    button = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 150, 40)];
+                    [button addTarget:self action:@selector(signIn) forControlEvents:UIControlEventTouchUpInside];
+                    [contentView addSubview: button];
+                    [button setHidden:YES];
+                    
+                    [signIn2Label setHidden:YES];
+                    [self.contentView addSubview: icon];
+                    
+                    [trackingNumberLabel setFrame:CGRectMake(15, 6, 150, 30)];
+                } else {
+                    [signIn2Label setText:@"Enter a label"];
+                    [signIn2Label setClearsOnBeginEditing:YES];
+                    
+                    [signIn2Label setAutocorrectionType:UITextAutocorrectionTypeNo];
+                    
+                    icon = [[UIButton alloc] initWithFrame:CGRectMake(140, 6, 30, 30)];
+                    [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
+                    [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
+                    [icon addTarget:self action:@selector(showSignInButton) forControlEvents:UIControlEventTouchUpInside];
+                    [self.contentView addSubview: icon];
+                    
+                    [signIn2Label setHidden:YES];
+                    
+                }
                 
-                [signIn2Label setHidden:YES];
-                [self.contentView addSubview: icon];
+                signIn2Label.delegate = self;
                 
-                [trackingNumberLabel setFrame:CGRectMake(15, 6, 150, 30)];
-            } else {
-                [signIn2Label setText:@"Enter a label"];
-                [signIn2Label setClearsOnBeginEditing:YES];
-                
-                [signIn2Label setAutocorrectionType:UITextAutocorrectionTypeNo];
-                
-                icon = [[UIButton alloc] initWithFrame:CGRectMake(140, 6, 30, 30)];
-                [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
-                [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
-                [icon addTarget:self action:@selector(showSignInButton) forControlEvents:UIControlEventTouchUpInside];
-                [self.contentView addSubview: icon];
-                
-                [signIn2Label setHidden:YES];
+                [self.contentView bringSubviewToFront:icon];
                 
             }
-            
-            signIn2Label.delegate = self;
-            
-            [self.contentView bringSubviewToFront:icon];
-            
-        }
         }
         
         [self.contentView addSubview:contentView];
@@ -155,7 +155,7 @@
 
 
 - (void)editClicked {
-
+    
     [signIn2Label removeFromSuperview];
     signIn2Label = [[UITextField alloc] initWithFrame:CGRectMake(15, 6, 160, 40)];
     [signIn2Label setBackgroundColor:RGB(240, 240, 240)];
@@ -191,29 +191,28 @@
     [separatorView setHidden:_hideSeparatorView];
 }
 
-- (void)setItem:(TrackedItem *)inItem
+- (void)setParcel:(Parcel *)parcel
 {
-    _item = inItem;
-    [trackingNumberLabel setText:_item.trackingNumber];
+    _parcel = parcel;
+    [trackingNumberLabel setText:_parcel.trackingNumber];
     [trackingNumberLabel alignTop];
     [trackingNumberLabel setNumberOfLines:0];
     [trackingNumberLabel sizeToFit];
     
     [statusLabel setHeight:STATUS_LABEL_SIZE.height];
-    [statusLabel setText:_item.status];
+    [statusLabel setText:[_parcel latestStatus]];
     [statusLabel alignTop];
     
     [separatorView setY:MAX(59 + 20, CGRectGetMaxY(statusLabel.frame) + 7 + 20)];
     [separatorView2 setHeight:MAX(59 + 20, CGRectGetMaxY(statusLabel.frame) + 7 + 20)];
     [separatorView3 setY:MAX(59 + 20, CGRectGetMaxY(statusLabel.frame) + 7 + 20)];
     
-    NSString * label = [delegate.labelDic objectForKey:_item.trackingNumber];
-    
+    NSString * label = [delegate.labelDic objectForKey:_parcel.trackingNumber];
     if(isActiveOrUnknown && label && ![label isEqualToString:@""]) {
         [signIn2Label removeFromSuperview];
         
         itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 130, 40)];
-        [itemLabel setText:label ];
+        [itemLabel setText:label];
         [itemLabel setTextColor:RGB(36, 84, 157)];
         [itemLabel setFont:[UIFont SingPostBoldFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
         [itemLabel setNumberOfLines:0];
@@ -229,15 +228,12 @@
         [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
         
         [trackingNumberLabel setFrame:CGRectMake(15, itemLabel.frame.origin.y + itemLabel.frame.size.height + 5, 150, 30)];
-
+        
     } else {
         [trackingNumberLabel setFrame:CGRectMake(15, 6, 150, 30)];
         [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon2.png"] forState:UIControlStateNormal];
     }
-    
     [self.contentView bringSubviewToFront:icon];
-    
-    
 }
 
 - (void)setTextBold {
@@ -249,7 +245,7 @@
     if (FBSession.activeSession.state != FBSessionStateOpen
         && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
         [self signIn];
-        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _item.trackingNumber;
+        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _parcel.trackingNumber;
     } else {
         if(icon.isSelected) {
             
@@ -261,7 +257,7 @@
                 
                 
                 [trackingNumberLabel setFrame:CGRectMake(15,56, 150, 30)];
-
+                
                 [self setItemLabel2:signIn2Label.text];
                 [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
                 [icon setBackgroundImage:[UIImage imageNamed:@"tickIcon.png"] forState:UIControlStateSelected];
@@ -269,28 +265,16 @@
             }
             else {
                 [trackingNumberLabel setFrame:CGRectMake(15,6, 150, 30)];
-                NSString * num = _item.trackingNumber;
+                NSString * num = _parcel.trackingNumber;
                 [delegate.labelDic setValue:@"" forKey:num];
-                
             }
         } else {
-            
-            /*UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Enter a label for your item %@",self.item.trackingNumber] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
-            labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
-            labelEnterview.tag = 101;
-            UITextField *textField = [labelEnterview textFieldAtIndex:0];
-            textField.placeholder = @"Not more than 30 characters";
-            textField.text = itemLabel.text;
-            textField.delegate = self;
-            textField.clearButtonMode = UITextFieldViewModeAlways;
-            [labelEnterview show];*/
-            
             CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
             UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 150)];
             
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 240, 60)];
             label.numberOfLines = 0;
-            label.text = [NSString stringWithFormat:@"Enter a label for your item %@",self.item.trackingNumber];
+            label.text = [NSString stringWithFormat:@"Enter a label for your item %@",_parcel.trackingNumber];
             [label setTextAlignment:NSTextAlignmentCenter];
             
             [label setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
@@ -326,11 +310,6 @@
 }
 
 - (void)signIn {
-    /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Label Your Items" message:@"Don’t know which tracking number belongs to which package?\nNow you can label tracking numbers to easily identify your items.\nCreate an account with us to enjoy this feature. Sign Up with Facebook to get started!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign Up/Login", nil];
- 
-    
-    [alert show];*/
-    
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
     
@@ -339,7 +318,7 @@
     [title setTextAlignment:NSTextAlignmentCenter];
     [title setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kFontBoldKey]];
     [contentView addSubview:title];
-
+    
     
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 240, 200)];
     label.numberOfLines = 0;
@@ -380,7 +359,7 @@
         
         if (buttonIndex == 0) {
             
-             [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
+            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -412,12 +391,11 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
     if(alertView.tag == 101) {
         if (buttonIndex == 0) {
             
         } else {
-           // UITextField *textField = [alertView textFieldAtIndex:0];
+            // UITextField *textField = [alertView textFieldAtIndex:0];
             //[self textFieldDidEndEditing:textField];
             
         }
@@ -425,26 +403,26 @@
     } else {
         
         if (buttonIndex == 0) {
-             [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
+            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
                 
                 
                 [FBSession.activeSession closeAndClearTokenInformation];
-
+                
             } else {
-
+                
                 NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
                 
                 [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-
+                    
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     
                     appDelegate.isLoginFromSideBar = YES;
-  
+                    
                     [appDelegate sessionStateChanged:session state:state error:error];
                     
                 }];
@@ -471,31 +449,30 @@
     
     [textField resignFirstResponder];
     return YES;
-   
+    
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDelegate = [AppDelegate sharedAppDelegate];
     if(flag2) {
         flag2 = false;
         [appDelegate.trackingMainViewController animateTextField: textField up: NO];
         [self endEditing:YES];
         return;
     }
-   
+    
     [appDelegate.trackingMainViewController animateTextField: textField up: NO];
-
-   [self endEditing:YES];
+    
+    [self endEditing:YES];
     
     if([textField.text isEqualToString:@""]) {
         textField.text = @"Enter a label";
         itemLabel.text = @"";
         signIn2Label.text = @"Enter a label";
         
-        NSString * num = _item.trackingNumber;
+        NSString * num = _parcel.trackingNumber;
         [delegate.labelDic setValue:@"" forKey:num];
-        
         [delegate submitAllTrackingItemWithLabel];
         return;
     }
@@ -527,13 +504,13 @@
     
     [self.contentView bringSubviewToFront:icon];
     
-    NSString * num = _item.trackingNumber;
+    NSString * num = _parcel.trackingNumber;
     [delegate.labelDic setValue:text forKey:num];
     [signIn2Label setText:text];
     
     [trackingNumberLabel setFrame:CGRectMake(15,56, 150, 30)];
     [delegate submitAllTrackingItemWithLabel];
-
+    
 }
 
 - (void) updateLabel : (NSString *)label {

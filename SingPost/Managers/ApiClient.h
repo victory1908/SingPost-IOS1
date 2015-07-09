@@ -24,6 +24,8 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 
 + (ApiClient *)sharedInstance;
 
+- (void)reportAPIIssueURL:(NSString *)url payload:(NSString *)payload message:(NSString *)message;
+
 //informations
 - (void)getSingpostContentsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 - (void)getSendReceiveItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;

@@ -38,12 +38,12 @@
 }
 @end
 
-
-
-
-
-@interface TrackingDetailsViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
-
+@interface TrackingDetailsViewController()
+<
+UITableViewDataSource,
+UITableViewDelegate,
+UITextFieldDelegate
+>
 @end
 
 @implementation TrackingDetailsViewController
@@ -61,14 +61,13 @@
     UIButton * icon;
     
     UIButton * btnDetail2;
-
+    
     UITextField * customTextfield;
 }
 
 @synthesize title;
 
-- (void)loadView
-{
+- (void)loadView {
     int offsetY = 0;
     if(self.isActiveItem && ![ApiClient isWithoutFacebook])
         offsetY = NEW_LAYOUT_OFFSET_Y;
@@ -227,7 +226,6 @@
     [contentView addSubview:headerView];
     
     //content
-    
     if(self.isActiveItem && ![ApiClient isWithoutFacebook]) {
         trackingDetailTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 174 + offsetY, contentView.bounds.size.width, contentView.bounds.size.height - 300) style:UITableViewStylePlain];
     } else {
@@ -243,18 +241,15 @@
     
     
     //Ad banner
-     [self getAdvertisementWithId:@"20" Count:@"5"];
-     int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
-     adBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - height - 20, contentView.bounds.size.width, height)];
-     [contentView addSubview:adBanner];
-     
-    self.view = contentView;
+    [self getAdvertisementWithId:@"20" Count:@"5"];
+    int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
+    adBanner = [[UIImageView alloc] initWithFrame:CGRectMake(0, contentView.bounds.size.height - height - 20, contentView.bounds.size.width, height)];
+    [contentView addSubview:adBanner];
     
-   
+    self.view = contentView;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
 }
@@ -270,8 +265,7 @@
 }
 
 //designated initializer
-- (id)initWithTrackedItem:(TrackedItem *)inTrackedItem
-{
+- (id)initWithTrackedItem:(TrackedItem *)inTrackedItem {
     NSParameterAssert(inTrackedItem);
     if ((self = [super initWithNibName:nil bundle:nil])) {
         _trackedItem = inTrackedItem;
@@ -281,15 +275,12 @@
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     return [self initWithTrackedItem:nil];
 }
 
 #pragma mark - IBActions
-
-- (IBAction)infoButtonClicked:(id)sender
-{
+- (IBAction)infoButtonClicked:(id)sender {
     [SVProgressHUD showWithStatus:@"Please wait.."];
     [Article API_getTrackIIOnCompletion:^(NSString *trackII) {
         [SVProgressHUD dismiss];
@@ -303,8 +294,7 @@
     }];
 }
 
-- (void)onEditClicked
-{
+- (void)onEditClicked {
     if (FBSession.activeSession.state != FBSessionStateOpen
         && FBSession.activeSession.state != FBSessionStateOpenTokenExtended){
         [self signIn];
@@ -312,14 +302,14 @@
         if(_trackedItem != nil && _trackedItem.trackingNumber != nil) {
             
             /*UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
-            labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
-            labelEnterview.tag = 101;
-            UITextField *textField = [labelEnterview textFieldAtIndex:0];
-            textField.placeholder = @"Not more than 30 characters";
-            textField.text = title;
-            textField.delegate = self;
-            textField.clearButtonMode = UITextFieldViewModeAlways;
-            [labelEnterview show];*/
+             labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
+             labelEnterview.tag = 101;
+             UITextField *textField = [labelEnterview textFieldAtIndex:0];
+             textField.placeholder = @"Not more than 30 characters";
+             textField.text = title;
+             textField.delegate = self;
+             textField.clearButtonMode = UITextFieldViewModeAlways;
+             [labelEnterview show];*/
             
             CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
             UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 150)];
@@ -361,8 +351,8 @@
 
 - (void)signIn {
     /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Label Your Items" message:@"Don’t know which tracking number belongs to which package?\nNow you can label tracking numbers to easily identify your items.\nCreate an account with us to enjoy this feature. Sign Up with Facebook to get started!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign Up/Login", nil];
-    
-    [alert show];*/
+     
+     [alert show];*/
     
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
@@ -397,7 +387,7 @@
 {
     if(alertView.tag == 111) {
         if (buttonIndex == 0) {
-        
+            
         } else {
             UITextField *textField = customTextfield;
             [self submitAllTrackingItemWithLabel:textField.text];
@@ -485,7 +475,7 @@
     }else {
         
         if (buttonIndex == 0) {
-             [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
+            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -522,7 +512,7 @@
         
         NSMutableDictionary * labelDic = [NSMutableDictionary dictionaryWithDictionary:self.delegate.labelDic];
         [labelDic setObject:editedLabel forKey:_trackedItem.trackingNumber];
-
+        
         
         NSMutableArray * numbers = [NSMutableArray array];
         NSMutableArray * labels = [NSMutableArray array];
@@ -699,24 +689,6 @@
     
     
 }
-
-/*- (BOOL)isGifFomat:(NSData *)data {
- uint8_t c;
- [data getBytes:&c length:1];
- 
- switch (c) {
- case 0xFF:
- return NO;
- case 0x89:
- return NO;
- case 0x47:
- return YES;
- case 0x49:
- case 0x4D:
- return NO;
- }
- return NO;
- }*/
 
 - (void)onClickAd :(id)sender{
     [[ApiClient sharedInstance] incrementClickCountWithId:locationId onSuccess:^(id responseObject)

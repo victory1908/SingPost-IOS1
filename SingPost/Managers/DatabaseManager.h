@@ -15,7 +15,7 @@
 + (void)setupRealm;
 + (void)migrateDatabase;
 
-+ (void)createParcel:(RXMLElement *)element;
++ (Parcel *)createOrUpdateParcel:(RXMLElement *)element;
 + (void)removeParcel:(Parcel *)parcel;
 + (void)setShowInGlance:(Parcel *)newParcel;
 

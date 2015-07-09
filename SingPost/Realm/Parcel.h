@@ -25,6 +25,12 @@
 
 + (Parcel *)getGlanceParcel;
 - (NSString *)getLabelText;
+- (NSString *)latestStatus;
+
++ (RLMResults *)getAllParcels;
++ (RLMResults *)getActiveParcels;
++ (RLMResults *)getUnsortedParcels;
++ (RLMResults *)getCompletedParcels;
 
 @end
 

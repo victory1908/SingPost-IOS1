@@ -25,7 +25,7 @@
     
 }
 
-+ (void)createParcel:(RXMLElement *)element {
++ (Parcel *)createOrUpdateParcel:(RXMLElement *)element {
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     
@@ -70,6 +70,7 @@
     }
     [realm addObject:parcel];
     [realm commitWriteTransaction];
+    return parcel;
 }
 
 + (void)removeParcel:(Parcel *)parcel {

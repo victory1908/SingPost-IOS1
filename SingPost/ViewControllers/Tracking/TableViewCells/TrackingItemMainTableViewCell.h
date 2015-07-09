@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Parcel.h"
 #import "CustomIOS7AlertView.h"
 
 #define STATUS_LABEL_SIZE CGSizeMake(120, 500)
 
-@class TrackedItem;
+//@class TrackedItem;
 
 @interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate,CustomIOS7AlertViewDelegate>
 
-@property (nonatomic,retain) TrackedItem *item;
+//@property (nonatomic,retain) TrackedItem *item;
+@property (strong, nonatomic) Parcel *parcel;
 @property (nonatomic, assign) BOOL hideSeparatorView;
 
 @property (nonatomic,retain) UITextField * signIn2Label;

@@ -26,12 +26,42 @@
     }
 }
 
+- (NSString *)latestStatus {
+    ParcelStatus *status = [self.deliveryStatus firstObject];
+    return status ? status.statusDescription : @"-";
+}
+
 - (NSString *)getLabelText {
     if (![self.labelAlias isEqualToString:@""]) {
         return self.labelAlias;
     } else {
         return self.trackingNumber;
     }
+}
+
++ (RLMResults *)getAllParcels {
+    return [Parcel allObjects];
+}
+
++ (RLMResults *)getActiveParcels {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isActive == 'true'"];
+    RLMResults *activeResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber"
+                                                                                          ascending:YES];
+    return activeResults;
+}
+
++ (RLMResults *)getUnsortedParcels {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFound == 0"];
+    RLMResults *unsortedResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber"
+                                                                                            ascending:YES];
+    return unsortedResults;
+}
+
++ (RLMResults *)getCompletedParcels {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isActive == 'false'"];
+    RLMResults *completedResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber"
+                                                                                             ascending:YES];
+    return completedResults;
 }
 
 @end

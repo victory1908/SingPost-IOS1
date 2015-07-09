@@ -27,9 +27,6 @@
 @property (nonatomic,retain)UITableView *trackingItemsTableView;
 
 @property (nonatomic) NSFetchedResultsController *allItemsFetchedResultsController;
-@property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
-@property (nonatomic) NSFetchedResultsController *completedItemsFetchedResultsController;
-@property (nonatomic) NSFetchedResultsController *unsortedItemsFetchedResultsController;
 
 - (void)addTrackingNumber:(NSString *)trackingNumber;
 
