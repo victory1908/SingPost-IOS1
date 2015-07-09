@@ -31,9 +31,13 @@
                         </table>
                         <switch width="1" alignment="left" value="YES" title="Notify on parcel arrival" id="ebD-eN-bb1">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                            <connections>
+                                <action selector="toggleNotificationSwitch:" destination="AgC-eL-Hgc" id="wKT-kY-IdK"/>
+                            </connections>
                         </switch>
                     </items>
                     <connections>
+                        <outlet property="notificationSwitch" destination="ebD-eN-bb1" id="Nw2-CR-4P5"/>
                         <outlet property="tableView" destination="v3Y-Kb-acd" id="HUf-c8-eBI"/>
                     </connections>
                 </controller>

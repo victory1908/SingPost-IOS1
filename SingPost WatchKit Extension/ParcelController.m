@@ -9,10 +9,13 @@
 #import "ParcelController.h"
 #import "ParcelRowController.h"
 #import "DatabaseManager.h"
+#import "UserDefaultsManager.h"
 
 @interface ParcelController()
+@property (weak, nonatomic) IBOutlet WKInterfaceSwitch *notificationSwitch;
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *tableView;
 @property (strong, nonatomic) NSMutableArray *trackedItems;
+@property (strong, nonatomic) RLMNotificationToken *notificationToken;
 @end
 
 @implementation ParcelController
@@ -21,7 +24,20 @@
     [super willActivate];
     
     [DatabaseManager setupRealm];
+    [self loadTrackingItems];
+    [self.notificationSwitch setOn:[[UserDefaultsManager sharedInstance] getNotificationStatus]];
     
+    self.notificationToken = [[RLMRealm defaultRealm] addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
+        [self loadTrackingItems];
+    }];
+}
+
+- (void)didDeactivate {
+    [super didDeactivate];
+    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
+}
+
+- (void)loadTrackingItems {
     //Separate the parcels by status
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isActive == 'true'"];
     RLMResults *activeResults = [Parcel objectsWithPredicate:predicate];
@@ -56,6 +72,10 @@
             [self.trackedItems addObject:parcel];
         }
     }
+}
+
+- (IBAction)toggleNotificationSwitch:(BOOL)value {
+    [[UserDefaultsManager sharedInstance] setNotificationStatus:value];
 }
 
 - (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier
