@@ -25,6 +25,7 @@
 #import "UIFont+SingPost.h"
 #import "EntityLocation.h"
 #import "DatabaseManager.h"
+#import "APIManager.h"
 
 @implementation AppDelegate
 @synthesize activeItemsFetchedResultsController = _activeItemsFetchedResultsController;
@@ -698,9 +699,17 @@
 #pragma mark - Apple watch request
 - (void)application:(UIApplication *)application
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
-              reply:(void (^)(NSDictionary *))reply {
+              reply:(void (^)(NSDictionary *response))reply {
 #warning need to update parcel item
 #warning unsubscribe parcel
+    if ([userInfo objectForKey:@"update"] != nil) {
+        NSString *trackingNumber = [userInfo objectForKey:@"update"];
+        [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumber
+                                                   completed:^(Parcel *parcel, NSError *error)
+         {
+             reply(nil);
+         }];
+    }
 }
 
 @end
