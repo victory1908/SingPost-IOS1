@@ -232,11 +232,6 @@ CustomIOS7AlertViewDelegate
                  [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
                                     message:ERRORCODE1001_MESSAGE
                           cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-             } else if (error.code == 1560) {
-                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                    message:TRACKED_ITEM_NOT_FOUND_ERROR
-                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-                 
              }
              else {
                  [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE

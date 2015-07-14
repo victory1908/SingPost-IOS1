@@ -12,6 +12,7 @@
 #import "DatabaseManager.h"
 #import "PushNotification.h"
 #import "UserDefaultsManager.h"
+#import "UIAlertView+Blocks.h"
 
 static BOOL isProduction = YES;
 
@@ -104,7 +105,14 @@ SINGLETON_MACRO
         //Save XML to database
         RXMLElement *itemsTrackingDetailList = [responseObject child:@"ItemsTrackingDetailList"];
         RXMLElement *itemTrackingDetail = [[itemsTrackingDetailList children:@"ItemTrackingDetail"] firstObject];
-        completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
+        if (itemTrackingDetail != nil)
+            completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
+        else {
+            [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                               message:TRACKED_ITEM_NOT_FOUND_ERROR
+                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+            completed(nil,nil);
+        }
     } failure:^(NSError *error) {
         [[ApiClient sharedInstance]reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
         completed(nil,error);
