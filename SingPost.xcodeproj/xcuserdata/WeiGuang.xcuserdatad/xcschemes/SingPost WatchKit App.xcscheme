@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "87BDF6811B13032400EFADDD"
-               BuildableName = "SingPost WatchKit Extension.appex"
-               BlueprintName = "SingPost WatchKit Extension"
+               BlueprintIdentifier = "24AD38A21A399D180088F6A6"
+               BuildableName = "SingPost.app"
+               BlueprintName = "SingPost"
                ReferencedContainer = "container:SingPost.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +42,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "24AD38A21A399D180088F6A6"
-               BuildableName = "SingPost.app"
-               BlueprintName = "SingPost"
+               BlueprintIdentifier = "87BDF6811B13032400EFADDD"
+               BuildableName = "SingPost WatchKit Extension.appex"
+               BlueprintName = "SingPost WatchKit Extension"
                ReferencedContainer = "container:SingPost.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

@@ -524,6 +524,8 @@
 		68B25C00E3E4A68FAABD336E /* libPods-SingPost WatchKit Extension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SingPost WatchKit Extension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8706E7C2196BA9130070DD03 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
 		8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
+		871697EF1B5509A1006DFF64 /* SingPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SingPost.entitlements; sourceTree = "<group>"; };
+		871697F01B5509AA006DFF64 /* SingPost WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "SingPost WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		8728B00C198011250007853A /* ShopContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopContentViewController.h; sourceTree = "<group>"; };
 		8728B00D198011250007853A /* ShopContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopContentViewController.m; sourceTree = "<group>"; };
 		8728B00F198014A30007853A /* NSObject+Addtions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Addtions.h"; sourceTree = "<group>"; };
@@ -531,8 +533,6 @@
 		8735EC7D1B4BE6BB00614478 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		8735EC7E1B4BE6BB00614478 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		8744DE4C1B4622F000AC53C5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		8755431F1B4646390080FFC4 /* SingPost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = SingPost.entitlements; path = ../SingPost.entitlements; sourceTree = "<group>"; };
-		875543201B46464A0080FFC4 /* SingPost WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "SingPost WatchKit Extension.entitlements"; path = "../SingPost WatchKit Extension/SingPost WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		875543271B4662F40080FFC4 /* ParcelDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParcelDetailController.h; sourceTree = "<group>"; };
 		875543281B4662F40080FFC4 /* ParcelDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParcelDetailController.m; sourceTree = "<group>"; };
 		8755432D1B46649E0080FFC4 /* ParcelDetailRowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParcelDetailRowController.h; sourceTree = "<group>"; };
@@ -863,6 +863,7 @@
 		521B172617F1633000FEB6FD /* SingPost */ = {
 			isa = PBXGroup;
 			children = (
+				871697EF1B5509A1006DFF64 /* SingPost.entitlements */,
 				87DCFD7A191A1B4F00E9B0DD /* AppDelegate */,
 				52024F1817F6836800AFD239 /* Views */,
 				52C908E718045F210063A026 /* Managers */,
@@ -878,7 +879,6 @@
 		521B172717F1633000FEB6FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8793D0381B4B6D6D003FB04B /* Entitlements */,
 				52282FCC17FA8F7C00B2A7B4 /* Libraries */,
 				52305F8C17F5B4AF00610A86 /* Fonts */,
 				91692BD718EA868E0079B62D /* AppIcon.png */,
@@ -1460,19 +1460,10 @@
 			name = Announcement;
 			sourceTree = "<group>";
 		};
-		8793D0381B4B6D6D003FB04B /* Entitlements */ = {
-			isa = PBXGroup;
-			children = (
-				875543201B46464A0080FFC4 /* SingPost WatchKit Extension.entitlements */,
-				8755431F1B4646390080FFC4 /* SingPost.entitlements */,
-			);
-			name = Entitlements;
-			path = ../Entitlements;
-			sourceTree = "<group>";
-		};
 		87BDF6831B13032400EFADDD /* SingPost WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				871697F01B5509AA006DFF64 /* SingPost WatchKit Extension.entitlements */,
 				875CE2B11B4BA4EF00C09BB3 /* Interface */,
 				875CE2B31B4BA51600C09BB3 /* Notification */,
 				875CE2B41B4BA52600C09BB3 /* Glance */,
@@ -2027,7 +2018,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Prod;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = SingPost.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SingPost/SingPost.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2046,7 +2037,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = SingPost;
-				PROVISIONING_PROFILE = "42325f83-daf8-4bd7-b070-ba9bd998aef2";
+				PROVISIONING_PROFILE = "2089b0d7-19a9-4b95-a4d5-bc100de4631e";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2059,7 +2050,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Prod;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = SingPost.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SingPost/SingPost.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Codigo Private Limited";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Codigo Private Limited";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2078,7 +2069,7 @@
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = SingPost;
-				PROVISIONING_PROFILE = "c7a1cb92-8cb0-4e30-b9c1-81dc980fbc8e";
+				PROVISIONING_PROFILE = "c38ed738-9b19-4348-9f3d-57f7e79aafd7";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2184,7 +2175,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "0ea54b42-0b28-40e2-9755-d31566e3f111";
+				PROVISIONING_PROFILE = "618ee1dd-a748-499e-9d60-8e6f716233b9";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2232,7 +2223,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "493107bd-f611-4c05-93d1-28892c4c8961";
+				PROVISIONING_PROFILE = "f5392e3b-fb1a-4c27-b0cb-394e7076cdeb";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
