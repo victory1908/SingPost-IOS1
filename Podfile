@@ -30,17 +30,7 @@ def watch_pods
     
 end
 
-target 'SingPost_SIT' do
-    shared_pods
-    ios_pods
-end
-
-target 'SingPost_UAT' do
-    shared_pods
-    ios_pods
-end
-
-target 'SingPost_Prod' do
+target 'SingPost' do
     shared_pods
     ios_pods
 end
