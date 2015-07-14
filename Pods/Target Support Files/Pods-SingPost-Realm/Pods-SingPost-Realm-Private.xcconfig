@@ -1,0 +1,9 @@
+#include "Pods-SingPost-Realm.xcconfig"
+CLANG_CXX_LANGUAGE_STANDARD = ${PODS_SINGPOST_REALM_CLANG_CXX_LANGUAGE_STANDARD}
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/Realm" "${PODS_ROOT}/Headers/Private/Realm/realm" "${PODS_ROOT}/Headers/Private/Realm/realm/impl" "${PODS_ROOT}/Headers/Private/Realm/realm/util" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AFRaptureXMLRequestOperation" "${PODS_ROOT}/Headers/Public/GoogleAnalytics-iOS-SDK" "${PODS_ROOT}/Headers/Public/KGModal" "${PODS_ROOT}/Headers/Public/MHNatGeoViewControllerTransition" "${PODS_ROOT}/Headers/Public/MagicalRecord" "${PODS_ROOT}/Headers/Public/MagicalRecord/MagicalRecord" "${PODS_ROOT}/Headers/Public/RaptureXML" "${PODS_ROOT}/Headers/Public/Reachability" "${PODS_ROOT}/Headers/Public/Realm" "${PODS_ROOT}/Headers/Public/Realm/realm" "${PODS_ROOT}/Headers/Public/RegexKitLite" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/SSKeychain" "${PODS_ROOT}/Headers/Public/SVProgressHUD" "${PODS_ROOT}/Headers/Public/SevenSwitch" "${PODS_ROOT}/Headers/Public/TPKeyboardAvoiding" "${PODS_ROOT}/Headers/Public/TTTAttributedLabel" "${PODS_ROOT}/Headers/Public/UALogger" "${PODS_ROOT}/Headers/Public/UIActivityIndicator-for-SDWebImage" "${PODS_ROOT}/Headers/Public/UIAlertView+Blocks" "${PODS_ROOT}/Headers/Public/ZXingObjC"
+LIBRARY_SEARCH_PATHS = ${PODS_SINGPOST_REALM_LIBRARY_SEARCH_PATHS}
+OTHER_CPLUSPLUSFLAGS = ${PODS_SINGPOST_REALM_OTHER_CPLUSPLUSFLAGS}
+OTHER_LDFLAGS = ${PODS_SINGPOST_REALM_OTHER_LDFLAGS} -ObjC
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

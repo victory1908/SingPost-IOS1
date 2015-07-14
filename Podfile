@@ -1,4 +1,3 @@
-# Uncomment this line to define a global platform for your project
 platform :ios, '7.0'
 
 def shared_pods
@@ -7,8 +6,8 @@ def shared_pods
 end
 
 def ios_pods
-    pod 'AFNetworking'
-    pod 'AFRaptureXMLRequestOperation'
+    pod 'AFNetworking', '1.2.1'
+    pod 'AFRaptureXMLRequestOperation', '1.0.2'
     pod 'GoogleAnalytics-iOS-SDK', '~> 3.0.9'
     pod 'KGModal', '~> 0.0.1'
     pod 'MagicalRecord'
