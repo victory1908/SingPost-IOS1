@@ -27,8 +27,10 @@
 - (void)unsubscribeTrackingNumberNotification:(NSString *)trackingNumber
                                     completed:(void (^)(NSError *error))completed;
 
-- (void)subscribeActiveTrackingNotifications:(void (^)(NSError *error))completed;
-- (void)unsubscribeActiveTrackingNotifications:(void (^)(NSError *error))completed;
+- (void)subscribeActiveTrackingNotifications:(NSArray *)trackingNumbers
+                                   completed:(void (^)(NSError *error))completed;
+- (void)unsubscribeActiveTrackingNotifications:(NSArray *)trackingNumbers
+                                     completed:(void (^)(NSError *error))completed;
 
 //Labels
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
 #import "CustomIOS7AlertView.h"
+#import "Parcel.h"
 
 @class TrackedItem;
 
@@ -19,5 +20,7 @@
 @property (nonatomic,retain) NSString * title;
 @property (nonatomic,assign) BOOL isActiveItem;
 @property (nonatomic,retain) TrackingMainViewController * delegate;
+
+@property (strong, nonatomic) Parcel *selectedParcel;
 
 @end

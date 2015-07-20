@@ -266,6 +266,8 @@ CustomIOS7AlertViewDelegate
     trackingDetailsViewController.delegate = self;
     trackingDetailsViewController.isActiveItem = [trackedItem.isActive isEqualToString:@"true"]?YES:NO;
     
+    //trackingDetailsViewController.selectedParcel = self.
+    
     NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
     if(title && ![title isEqualToString:@""])
         trackingDetailsViewController.title = title;
@@ -342,17 +344,14 @@ CustomIOS7AlertViewDelegate
     NSInteger HEADER_COUNT = 1;
     
     if (section == TRACKINGITEMS_SECTION_ACTIVE) {
-        //id <NSFetchedResultsSectionInfo> sectionInfo = [self.activeItemsFetchedResultsController.sections objectAtIndex:0];
         return HEADER_COUNT + [self.activeResults count];
     }
     
     if (section == TRACKINGITEMS_SECTION_COMPLETED) {
-        //id <NSFetchedResultsSectionInfo> sectionInfo = [self.completedItemsFetchedResultsController.sections objectAtIndex:0];
         return HEADER_COUNT + [self.completedResults count];
     }
     
     if (section == TRACKINGITEMS_SECTION_UNSORTED) {
-        //id <NSFetchedResultsSectionInfo> sectionInfo = [self.unsortedItemsFetchedResultsController.sections objectAtIndex:0];
         return HEADER_COUNT + [self.unsortedResults count];
     }
     return 0;
@@ -458,19 +457,15 @@ CustomIOS7AlertViewDelegate
     [alertView show];
 }
 
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
-{
+- (void)customIOS7dialogButtonTouchUpInside:(CustomIOS7AlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         
     } else {
         if (FBSession.activeSession.state == FBSessionStateOpen
             || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
             
-            
             [FBSession.activeSession closeAndClearTokenInformation];
-            
         } else {
-            
             NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
             [FBSession setActiveSession:session];
@@ -482,11 +477,8 @@ CustomIOS7AlertViewDelegate
                 appDelegate.isLoginFromSideBar = YES;
                 
                 [appDelegate sessionStateChanged:session state:state error:error];
-                
             }];
         }
-        
-        
     }
     [alertView close];
 }
@@ -536,14 +528,13 @@ CustomIOS7AlertViewDelegate
 }
 
 - (void)OnGoToScan {
-    BarScannerViewController * vc = [[BarScannerViewController alloc] init];
-    vc.landingVC = self;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
+    BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
+    barCodeVC.landingVC = self;
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *const headerCellIdentifier = @"TrackingHeaderMainTableViewCell";
     static NSString *const itemCellIdentifier = @"TrackingItemMainTableViewCell";
     static NSString *const trackingCellIdentifier = @"TrackingCell";
@@ -651,139 +642,138 @@ CustomIOS7AlertViewDelegate
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    /*
-     if (indexPath.section == TRACKINGITEMS_SECTION_HEADER)
-     [self.view endEditing:YES];
-     else {
-     TrackedItem *trackedItem;
-     if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
-     if(indexPath.row - 1 < 0)
-     return;
-     
-     trackedItem = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-     
-     [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-     
-     BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
-     
-     [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
-     if (success) {
-     [SVProgressHUD dismiss];
-     [self goToDetailPageWithTrackedItem:trackedItem];
-     }
-     else {
-     [SVProgressHUD dismiss];
-     if (error.code == 1001) {
-     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-     message:ERRORCODE1001_MESSAGE
-     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-     }else if (error.code == 1560) {
-     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-     message:TRACKED_ITEM_NOT_FOUND_ERROR
-     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-     
-     }
-     else {
-     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-     message:NO_INTERNET_ERROR
-     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-     }
-     }
-     }];
-     }
-     else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
-     if(indexPath.row - 1 < 0)
-     return;
-     
-     trackedItem = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-     [self goToDetailPageWithTrackedItem:trackedItem];
-     }
-     else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED) {
-     if(indexPath.row - 1 < 0)
-     return;
-     
-     trackedItem = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-     
-     [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-     
-     BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
-     
-     [TrackedItem API_getItemTrackingDetailsForTrackingNumber:trackedItem.trackingNumber notification:notificationStatus onCompletion:^(BOOL success, NSError *error) {
-     if (success) {
-     [SVProgressHUD dismiss];
-     if (trackedItem.isFoundValue)
-     [self goToDetailPageWithTrackedItem:trackedItem];
-     else {
-     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
-     cancelButtonTitle:@"OK" otherButtonTitles:nil];
-     [alert show];
-     }
-     }
-     else {
-     [SVProgressHUD dismiss];
-     if (error.code == 1001) {
-     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-     message:ERRORCODE1001_MESSAGE
-     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-     }
-     else if (error.code == 1560) {
-     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-     message:TRACKED_ITEM_NOT_FOUND_ERROR
-     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-     
-     }
-     else {
-     [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-     message:NO_INTERNET_ERROR
-     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-     }
-     }
-     }];
-     }
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-     
-     //[tableView reloadData];
-     [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
-     }
-     */
+    if (indexPath.section == TRACKINGITEMS_SECTION_HEADER)
+        [self.view endEditing:YES];
+    else {
+        Parcel *selectedParcel;
+        if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE) {
+            if(indexPath.row - 1 < 0)
+                return;
+            
+            selectedParcel = [self.activeResults objectAtIndex:indexPath.row - 1];
+            
+            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+            
+            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
+                                                       completed:^(Parcel *parcel, NSError *error)
+             {
+                 if (error == nil) {
+                     //[self goToDetailPageWithTrackedItem:nil];
+                 } else {
+                     if (error.code == 1001) {
+                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                            message:ERRORCODE1001_MESSAGE
+                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                     } else {
+                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                            message:NO_INTERNET_ERROR
+                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                     }
+                 }
+                 [SVProgressHUD dismiss];
+             }];
+        }
+        else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
+            if(indexPath.row - 1 < 0)
+                return;
+            
+            selectedParcel = [self.completedResults objectAtIndex:indexPath.row - 1];
+            //[self goToDetailPageWithTrackedItem:trackedItem];
+        }
+        else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED) {
+            if(indexPath.row - 1 < 0)
+                return;
+            
+            selectedParcel = [self.unsortedResults objectAtIndex:indexPath.row - 1];
+            
+            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+            
+            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
+                                                       completed:^(Parcel *parcel, NSError *error)
+             {
+                 if (error == nil) {
+                     if (selectedParcel.isFound) {
+                         //[self goToDetailPageWithTrackedItem:trackedItem];
+                     }
+                     else {
+                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                                        message:TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
+                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                         [alert show];
+                     }
+                 } else {
+                     if (error.code == 1001) {
+                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                            message:ERRORCODE1001_MESSAGE
+                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                     } else {
+                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+                                            message:NO_INTERNET_ERROR
+                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                     }
+                 }
+                 [SVProgressHUD dismiss];
+             }];
+        }
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
+    }
 }
 
 - (void)newRequirementFromSingpost {
     [self refreshTableView];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath.section != TRACKINGITEMS_SECTION_HEADER && indexPath.row > 0;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    /*
-     if (editingStyle == UITableViewCellEditingStyleDelete) {
-     TrackedItem *trackedItemToDelete = nil;
-     if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
-     trackedItemToDelete = [self.activeItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-     else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
-     trackedItemToDelete = [self.completedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-     else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
-     trackedItemToDelete = [self.unsortedItemsFetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:0]];
-     
-     [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
-     [TrackedItem deleteTrackedItem:trackedItemToDelete onCompletion:^(BOOL success, NSError *error) {
-     if (!success)
-     [SVProgressHUD showErrorWithStatus:@"Delete fail."];
-     else {
-     [SVProgressHUD dismiss];
-     [tableView setEditing:NO animated:YES];
-     }
-     }];
-     }
-     */
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Parcel *parcelToDelete;
+        if (indexPath.section == TRACKINGITEMS_SECTION_ACTIVE)
+            parcelToDelete = [self.activeResults objectAtIndex:indexPath.row - 1];
+        else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED)
+            parcelToDelete = [self.completedResults objectAtIndex:indexPath.row - 1];
+        else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
+            parcelToDelete = [self.unsortedResults objectAtIndex:indexPath.row - 1];
+        
+        [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
+        
+        [[APIManager sharedInstance] unsubscribeTrackingNumberNotification:parcelToDelete.trackingNumber
+                                                                 completed:^(NSError *error)
+         {
+             //if (error == nil) {
+             [SVProgressHUD dismiss];
+             [self removeParcel:parcelToDelete
+              forRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section]];
+             [tableView setEditing:NO animated:YES];
+             //} else {
+             //[SVProgressHUD showErrorWithStatus:@"Delete fail."];
+             // }
+         }];
+    }
+}
+
+- (void)removeParcel:(Parcel *)parcel forRowAtIndexPath:(NSIndexPath *)indexPath {
+    DLog(@"%lu",(unsigned long)[self.completedResults count]);
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    [realm deleteObject:parcel];
+    [realm commitWriteTransaction];
+    
+    //[self loadTrackingItems];
+    DLog(@"%lu",(unsigned long)[self.completedResults count]);
+    
+    [trackingItemsTableView beginUpdates];
+    [trackingItemsTableView deleteRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    [trackingItemsTableView endUpdates];
 }
 
 #pragma mark - UIScrollView Delegate
@@ -793,42 +783,6 @@ CustomIOS7AlertViewDelegate
 
 #pragma mark - Fetched results controller
 /*
- - (NSFetchedResultsController *)allItemsFetchedResultsController
- {
- if (!_allItemsFetchedResultsController) {
- _allItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:nil sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
- }
- 
- return _allItemsFetchedResultsController;
- }
- 
- - (NSFetchedResultsController *)activeItemsFetchedResultsController
- {
- if (!_activeItemsFetchedResultsController) {
- _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'true'"] sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
- }
- 
- return _activeItemsFetchedResultsController;
- }
- 
- - (NSFetchedResultsController *)completedItemsFetchedResultsController
- {
- if (!_completedItemsFetchedResultsController) {
- _completedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'false'"] sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
- }
- 
- return _completedItemsFetchedResultsController;
- }
- 
- - (NSFetchedResultsController *)unsortedItemsFetchedResultsController
- {
- if (!_unsortedItemsFetchedResultsController) {
- _unsortedItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isFound == 0"] sortedBy:TrackedItemAttributes.trackingNumber ascending:YES delegate:self];
- }
- 
- return _unsortedItemsFetchedResultsController;
- }
- 
  - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
  {
  [trackingItemsTableView beginUpdates];
@@ -933,6 +887,10 @@ CustomIOS7AlertViewDelegate
     }
     BOOL notificationStatus = notificationTypes != UIRemoteNotificationTypeNone;
     
+    NSMutableArray *trackingNumbers = [NSMutableArray array];
+    for(Parcel *parcel in self.activeResults)
+        [trackingNumbers addObject:parcel.trackingNumber];
+    
     if (receiveUpdateSwitch.isOn) {
         if (notificationStatus) {
             //Register for notification
@@ -943,16 +901,9 @@ CustomIOS7AlertViewDelegate
             
             [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             
-            NSMutableArray *numberArray = [NSMutableArray array];
-            for(Parcel *parcel in self.activeResults) {
-                [numberArray addObject:parcel.trackingNumber];
-            }
-#warning Rewrite notification manager
-            [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray
-                                                                        onCompletion:^(BOOL success, NSError *error)
-             {
-                 [SVProgressHUD dismiss];
-             }];
+            [[APIManager sharedInstance] subscribeActiveTrackingNotifications:trackingNumbers completed:^(NSError *error) {
+                [SVProgressHUD dismiss];
+            }];
         }
         else {
             [[UserDefaultsManager sharedInstance] setNotificationStatus:NO];
@@ -972,15 +923,9 @@ CustomIOS7AlertViewDelegate
         
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         
-        NSMutableArray *numberArray = [NSMutableArray array];
-        for(Parcel *parcel in self.activeResults)
-            [numberArray addObject:parcel.trackingNumber];
-        
-        [PushNotificationManager API_unsubscribeNotificationForTrackingNumberArray:numberArray
-                                                                      onCompletion:^(BOOL success, NSError *error)
-         {
-             [SVProgressHUD dismiss];
-         }];
+        [[APIManager sharedInstance]subscribeActiveTrackingNotifications:trackingNumbers completed:^(NSError *error) {
+            [SVProgressHUD dismiss];
+        }];
     }
 }
 
@@ -988,7 +933,6 @@ CustomIOS7AlertViewDelegate
 - (void) refreshTableView {
     [self.trackingItemsTableView reloadData];
 }
-
 
 #pragma mark - Tracking Labelling
 - (NSDictionary *) getLocalLabels {
