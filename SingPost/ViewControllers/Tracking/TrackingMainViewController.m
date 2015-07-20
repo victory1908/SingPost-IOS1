@@ -88,7 +88,6 @@ CustomIOS7AlertViewDelegate
     NavigationBarView *navigationBarView;
     UIButton *infoButton;
     UIButton * btnMain2;
-    
 }
 
 @synthesize labelDic;
@@ -141,23 +140,24 @@ CustomIOS7AlertViewDelegate
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
     
-    NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
-    [ApiClient sharedInstance].allTrackingItem = arr;
+    //NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+    //[ApiClient sharedInstance].allTrackingItem = arr;
     
-    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    AppDelegate* appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     appDelegate.trackingMainViewController = self;
-    
-    if([AppDelegate sharedAppDelegate].isJustForRefresh == 2) {
-        [AppDelegate sharedAppDelegate].isJustForRefresh = 1;
-        return;
-    }
-    
-    if(![ApiClient isWithoutFacebook]) {
-        if(!isViewDidAppear) {
-            [self syncLabelsWithTrackingNumbers];
-            isViewDidAppear = true;
-        }
-    }
+    /*
+     if([AppDelegate sharedAppDelegate].isJustForRefresh == 2) {
+     [AppDelegate sharedAppDelegate].isJustForRefresh = 1;
+     return;
+     }
+     
+     if(![ApiClient isWithoutFacebook]) {
+     if(!isViewDidAppear) {
+     [self syncLabelsWithTrackingNumbers];
+     isViewDidAppear = true;
+     }
+     }
+     */
     [self loadTrackingItems];
     
     self.notificationToken = [[RLMRealm defaultRealm] addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
@@ -198,16 +198,16 @@ CustomIOS7AlertViewDelegate
     
     if (!self.isPushNotification) {
         if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
-                                                 cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            [UIAlertView showWithTitle:nil
+                               message:INVALID_TRACKING_NUMBER_ERROR
+                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
             return;
         }
         
         if (trackingNumberTextField.text.length == 0) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil
-                                                      cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alertView show];
+            [UIAlertView showWithTitle:nil
+                               message:NO_TRACKING_NUMBER_ERROR
+                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
             return;
         }
     }
@@ -223,7 +223,7 @@ CustomIOS7AlertViewDelegate
          if (error == nil) {
              if (parcel.isFound) {
 #warning WIP
-                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
+                 //[self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
                  //[self goToDetailPageWithTrackedItem:trackedItem];
                  [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
              }
@@ -260,24 +260,21 @@ CustomIOS7AlertViewDelegate
 }
 
 #pragma mark - Navigation
+- (void)goToDetailPageWithParcel:(Parcel *)parcel {
+    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc]init];
+    trackingDetailsViewController.selectedParcel = parcel;
+    
+    [[RLMRealm defaultRealm] beginWriteTransaction];
+    parcel.isRead = YES;
+    [[RLMRealm defaultRealm] commitWriteTransaction];
+    
+    trackingDetailsViewController.delegate = self;
+    trackingDetailsViewController.isActiveItem = [parcel.isActive isEqualToString:@"true"] ? YES:NO;
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+}
+
 - (void)goToDetailPageWithTrackedItem:(TrackedItem *)trackedItem {
-    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-    trackedItem.isReadValue = YES;
-    trackingDetailsViewController.delegate = self;
-    trackingDetailsViewController.isActiveItem = [trackedItem.isActive isEqualToString:@"true"]?YES:NO;
-    
-    //trackingDetailsViewController.selectedParcel = self.
-    
-    NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
-    if(title && ![title isEqualToString:@""])
-        trackingDetailsViewController.title = title;
-    [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
-}
-
-- (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum {
-    TrackedItem * trackedItem = [TrackedItem  MR_findFirstByAttribute:@"trackingNumber" withValue:trackNum];
-    
+    /*
     TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
     trackedItem.isReadValue = YES;
     trackingDetailsViewController.delegate = self;
@@ -288,8 +285,24 @@ CustomIOS7AlertViewDelegate
         trackingDetailsViewController.title = title;
     [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+     */
 }
-
+/*
+ - (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum {
+ TrackedItem * trackedItem = [TrackedItem  MR_findFirstByAttribute:@"trackingNumber" withValue:trackNum];
+ 
+ TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
+ trackedItem.isReadValue = YES;
+ trackingDetailsViewController.delegate = self;
+ trackingDetailsViewController.isActiveItem = [trackedItem.isActive isEqualToString:@"true"]?YES:NO;
+ 
+ NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
+ if(title && ![title isEqualToString:@""])
+ trackingDetailsViewController.title = title;
+ [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
+ [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
+ }
+ */
 - (void)onTrackingNumberBtn:(id)sender {
     [self addTrackingNumber:trackingNumberTextField.text];
     self.isPushNotification = NO;
@@ -484,7 +497,7 @@ CustomIOS7AlertViewDelegate
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
+#warning Do we need this?
     if(alertView.tag == 101) {
         if (buttonIndex == 0) {
             
@@ -579,8 +592,6 @@ CustomIOS7AlertViewDelegate
                 
             }
             
-            
-            
             UIButton *findTrackingNumberButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [findTrackingNumberButton setImage:[UIImage imageNamed:@"tracking_button"] forState:UIControlStateNormal];
             [findTrackingNumberButton setFrame:CGRectMake(tableView.width - 55 - 50 + whySoManyDifferentBuilds, 27, 35, 35)];
@@ -595,7 +606,7 @@ CustomIOS7AlertViewDelegate
             [instructionsLabel setBackgroundColor:[UIColor clearColor]];
             [cell.contentView addSubview:instructionsLabel];
             
-            BOOL notificationStatus = [[NSUserDefaults standardUserDefaults] boolForKey:@"NOTIFICATION_KEY"];
+            BOOL notificationStatus = [[UserDefaultsManager sharedInstance]getNotificationStatus];
             
             receiveUpdateSwitch = [[SevenSwitch alloc] initWithFrame:CGRectZero];
             receiveUpdateSwitch.inactiveColor = [UIColor lightGrayColor];
@@ -658,7 +669,7 @@ CustomIOS7AlertViewDelegate
                                                        completed:^(Parcel *parcel, NSError *error)
              {
                  if (error == nil) {
-                     //[self goToDetailPageWithTrackedItem:nil];
+                     [self goToDetailPageWithParcel:parcel];
                  } else {
                      if (error.code == 1001) {
                          [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
@@ -678,7 +689,7 @@ CustomIOS7AlertViewDelegate
                 return;
             
             selectedParcel = [self.completedResults objectAtIndex:indexPath.row - 1];
-            //[self goToDetailPageWithTrackedItem:trackedItem];
+            [self goToDetailPageWithParcel:selectedParcel];
         }
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED) {
             if(indexPath.row - 1 < 0)
@@ -693,13 +704,12 @@ CustomIOS7AlertViewDelegate
              {
                  if (error == nil) {
                      if (selectedParcel.isFound) {
-                         //[self goToDetailPageWithTrackedItem:trackedItem];
+                         [self goToDetailPageWithParcel:selectedParcel];
                      }
                      else {
-                         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
-                                                                        message:TRACKED_ITEM_NOT_FOUND_ERROR delegate:nil
-                                                              cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                         [alert show];
+                         [UIAlertView showWithTitle:nil
+                                            message:TRACKED_ITEM_NOT_FOUND_ERROR
+                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                      }
                  } else {
                      if (error.code == 1001) {
@@ -750,8 +760,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
          {
              //if (error == nil) {
              [SVProgressHUD dismiss];
-             [self removeParcel:parcelToDelete
-              forRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section]];
+             [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
              [tableView setEditing:NO animated:YES];
              //} else {
              //[SVProgressHUD showErrorWithStatus:@"Delete fail."];
@@ -761,18 +770,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)removeParcel:(Parcel *)parcel forRowAtIndexPath:(NSIndexPath *)indexPath {
-    DLog(@"%lu",(unsigned long)[self.completedResults count]);
+    [trackingItemsTableView beginUpdates];
+    
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     [realm deleteObject:parcel];
     [realm commitWriteTransaction];
-    
-    //[self loadTrackingItems];
-    DLog(@"%lu",(unsigned long)[self.completedResults count]);
-    
-    [trackingItemsTableView beginUpdates];
     [trackingItemsTableView deleteRowsAtIndexPaths:@[indexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
+    
     [trackingItemsTableView endUpdates];
 }
 
@@ -781,102 +787,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.view endEditing:YES];
 }
 
-#pragma mark - Fetched results controller
-/*
- - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
- {
- [trackingItemsTableView beginUpdates];
- }
- 
- - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
- atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
- {
- switch (type) {
- case NSFetchedResultsChangeInsert:
- [trackingItemsTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
- break;
- 
- case NSFetchedResultsChangeDelete:
- [trackingItemsTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
- break;
- }
- }
- */
-/*
- - (void)controller:(NSFetchedResultsController *)controller
- didChangeObject:(id)anObject
- atIndexPath:(NSIndexPath *)indexPath
- forChangeType:(NSFetchedResultsChangeType)type
- newIndexPath:(NSIndexPath *)newIndexPath
- {
- NSInteger section = TRACKINGITEMS_SECTION_HEADER;
- NSInteger rowCount = 0;
- if(controller == self.allItemsFetchedResultsController) {
- return;
- }
- 
- if (controller == self.activeItemsFetchedResultsController) {
- section = TRACKINGITEMS_SECTION_ACTIVE;
- rowCount = self.activeItemsFetchedResultsController.fetchedObjects.count;
- }
- else if (controller == self.completedItemsFetchedResultsController) {
- section = TRACKINGITEMS_SECTION_COMPLETED;
- rowCount = self.completedItemsFetchedResultsController.fetchedObjects.count;
- }
- else if (controller == self.unsortedItemsFetchedResultsController) {
- section = TRACKINGITEMS_SECTION_UNSORTED;
- rowCount = self.unsortedItemsFetchedResultsController.fetchedObjects.count;
- }
- 
- NSIndexPath *dataIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row + 1 inSection:section];
- switch (type) {
- case NSFetchedResultsChangeInsert:
- {
- if (rowCount == 1)
- [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
- [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
- 
- break;
- }
- case NSFetchedResultsChangeDelete:
- {
- if (rowCount == 0)
- [trackingItemsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
- 
- //Delete from localDic first
- TrackingItemMainTableViewCell * cell = (TrackingItemMainTableViewCell * )[trackingItemsTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]];
- 
- NSString * trackingNum = cell.parcel.trackingNumber;
- if([labelDic objectForKey:trackingNum] != nil)
- [labelDic removeObjectForKey:trackingNum];
- 
- [trackingItemsTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:section]] withRowAnimation:UITableViewRowAnimationFade];
- 
- 
- 
- //update cms tracking status
- AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
- // if(!appDelegate.isLoginFromSideBar)
- [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.5f];
- break;
- }
- case NSFetchedResultsChangeUpdate:
- [self configureCell:(TrackingItemMainTableViewCell *)[trackingItemsTableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
- break;
- 
- case NSFetchedResultsChangeMove:
- [trackingItemsTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:dataIndexPath] withRowAnimation:UITableViewRowAnimationFade];
- [trackingItemsTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
- break;
- }
- }
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
- {
- [self.trackingItemsTableView endUpdates];
- 
- }
- */
 #pragma mark - Notification switch
 - (void)switchChanged:(UIControl *)sender {
     NSUInteger notificationTypes;
@@ -978,62 +888,64 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void) submitAllTrackingItemWithLabel {
 #warning TODO!
-    NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
-    [ApiClient sharedInstance].allTrackingItem = arr;
-    
-    if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
-        
-        NSMutableArray * numbers = [NSMutableArray array];
-        NSMutableArray * labels = [NSMutableArray array];
-        
-        NSDictionary * locaLabelDic = [self getLocalLabels];
-        
-        
-        NSArray * trackItemArray = [self.allItemsFetchedResultsController fetchedObjects];
-        for(TrackedItem * item in trackItemArray) {
-            [numbers addObject:item.trackingNumber];
-            
-            NSString * label = [locaLabelDic objectForKey:item.trackingNumber];
-            if(label != nil)
-                [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
-            else
-                [labels addObject:@""];
-            
-        }
-        
-        [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
-         {
-             NSLog(@"registerTrackingNunmbers success");
-             [self refreshTableView];
-             
-             if([AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin != nil) {
-                 NSLog(@"Pre tap detected!");
-                 [self move2TheCellAndEdit:[AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin];
-                 [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
-                 
-             }
-         } onFailure:^(NSError *error)
-         {
-             //NSLog([error localizedDescription]);
-         }];
-        
-    } else {
-        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
-         {
-             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
-             [btnMain2 setHidden:YES];
-             if([AppDelegate sharedAppDelegate].isJustForRefresh == 1) {
-                 return ;
-             }
-             
-             [AppDelegate sharedAppDelegate].isJustForRefresh = 2;
-             [self justDoItDontCare];
-         } onFailure:^(NSError *error)
-         {
-             //NSLog([error localizedDescription]);
-         }];
-        
-    }
+    /*
+     NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+     [ApiClient sharedInstance].allTrackingItem = arr;
+     
+     if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
+     
+     NSMutableArray * numbers = [NSMutableArray array];
+     NSMutableArray * labels = [NSMutableArray array];
+     
+     NSDictionary * locaLabelDic = [self getLocalLabels];
+     
+     
+     NSArray * trackItemArray = [self.allItemsFetchedResultsController fetchedObjects];
+     for(TrackedItem * item in trackItemArray) {
+     [numbers addObject:item.trackingNumber];
+     
+     NSString * label = [locaLabelDic objectForKey:item.trackingNumber];
+     if(label != nil)
+     [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
+     else
+     [labels addObject:@""];
+     
+     }
+     
+     [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
+     {
+     NSLog(@"registerTrackingNunmbers success");
+     [self refreshTableView];
+     
+     if([AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin != nil) {
+     NSLog(@"Pre tap detected!");
+     [self move2TheCellAndEdit:[AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin];
+     [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+     
+     }
+     } onFailure:^(NSError *error)
+     {
+     //NSLog([error localizedDescription]);
+     }];
+     
+     } else {
+     [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
+     {
+     NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
+     [btnMain2 setHidden:YES];
+     if([AppDelegate sharedAppDelegate].isJustForRefresh == 1) {
+     return ;
+     }
+     
+     [AppDelegate sharedAppDelegate].isJustForRefresh = 2;
+     [self justDoItDontCare];
+     } onFailure:^(NSError *error)
+     {
+     //NSLog([error localizedDescription]);
+     }];
+     
+     }
+     */
 }
 
 - (void) justDoItDontCare {
@@ -1063,39 +975,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void) syncLabelsWithTrackingNumbers {
-    /*if(self.isFirstTimeUser) {
-     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
-     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 100)];
-     
-     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"editLabel"]];
-     [imageView setFrame:CGRectMake(200, 15, 30, 30)];
-     
-     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 260, 50)];
-     label.numberOfLines = 0;
-     label.text = @"Thanks for signing up. Tap       \nto label your tracking numbers";
-     [label setFont:[UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
-     [contentView addSubview:imageView];
-     [contentView addSubview:label];
-     
-     [alertView setContainerView:contentView];
-     [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"OK", nil]];
-     alertView.delegate = self;
-     [alertView show];
-     
-     self.isFirstTimeUser = false;
-     
-     return;
-     
-     }*/
     [self getAllLabel];
 }
-
-/*- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
- {
- [self getAllLabel];
- [alertView close];
- NSLog(@"Button at position %d is clicked on alertView %d.", buttonIndex, [alertView tag]);
- }*/
 
 - (void) getAllLabel {
     [[ApiClient sharedInstance] getAllTrackingNunmbersOnSuccess:^(id responseObject)
@@ -1151,53 +1032,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
              [self refreshTableView];
              return;
          }
-         
-         /*if(self.isFirstTimeUser) {
-          CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
-          UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 100)];
+         /*
+          NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
+          [ApiClient sharedInstance].allTrackingItem = arr;
+          [self performSelectorOnMainThread:@selector(refreshTableView) withObject:nil waitUntilDone:YES];
           
-          UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"editLabel"]];
-          [imageView setFrame:CGRectMake(200, 15, 30, 30)];
+          if ([[UserDefaultsManager sharedInstance] getNotificationStatus]) {
+          if ([self.activeResults count] == 0)
+          return;
           
-          UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 260, 50)];
-          label.numberOfLines = 0;
-          label.text = @"Thanks for signing up. Tap       \nto label your tracking numbers";
-          [label setFont:[UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
-          [contentView addSubview:imageView];
-          [contentView addSubview:label];
+          NSMutableArray * numberArray = [NSMutableArray array];
+          for(Parcel *parcel in self.activeResults) {
+          [numberArray addObject:parcel.trackingNumber];
+          }
+          [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
+          }];
+          }
+          [self submitAllTrackingItemWithLabel];
           
-          [alertView setContainerView:contentView];
-          [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"OK", nil]];
-          [alertView show];
-          
-          }*/
-         
-         
-         
-         NSArray * arr = [self.allItemsFetchedResultsController fetchedObjects];
-         [ApiClient sharedInstance].allTrackingItem = arr;
-         [self performSelectorOnMainThread:@selector(refreshTableView) withObject:nil waitUntilDone:YES];
-         
-         if ([[UserDefaultsManager sharedInstance] getNotificationStatus]) {
-             if ([self.activeResults count] == 0)
-                 return;
-             
-             NSMutableArray * numberArray = [NSMutableArray array];
-             for(Parcel *parcel in self.activeResults) {
-                 [numberArray addObject:parcel.trackingNumber];
-             }
-             [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
-             }];
-         }
-         //[self refreshTableView];
-         [self submitAllTrackingItemWithLabel];
-         
-         AppDelegate * appDelegate = (AppDelegate*)[AppDelegate sharedAppDelegate];
-         if(appDelegate.isLoginFromDetailPage) {
-             appDelegate.isLoginFromDetailPage = false;
-             [self forwardToDetailPageWithTrackedItem:appDelegate.detailPageTrackNum];
-         }
-         
+          AppDelegate * appDelegate = (AppDelegate*)[AppDelegate sharedAppDelegate];
+          if(appDelegate.isLoginFromDetailPage) {
+          appDelegate.isLoginFromDetailPage = false;
+          [self forwardToDetailPageWithTrackedItem:appDelegate.detailPageTrackNum];
+          }
+          */
      } onFailure:^(NSError *error)
      {
          
@@ -1205,7 +1063,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 
-- (void) showSelectView : (NSArray *)newLocalItems{
+- (void)showSelectView:(NSArray *)newLocalItems {
     
     if(vc != nil)
         [vc.view removeFromSuperview];
@@ -1275,9 +1133,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             [self enableSideBar];
             AppDelegate * appDelegate = (AppDelegate *)[AppDelegate sharedAppDelegate];
             appDelegate.isLoginFromSideBar = false;
-            
-            //[(AppDelegate *)[AppDelegate sharedAppDelegate]  performSelector:@selector(GotoTrackingMain) withObject:nil afterDelay:0.5f];
-            //[(AppDelegate *)[AppDelegate sharedAppDelegate] GotoTrackingMain];
         } else {
             [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:0.2f];
             [vc.view removeFromSuperview];
@@ -1285,27 +1140,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         }
     }];
     [self enableSideBar];
-    
-    /*if(self.isFirstTimeUser) {
-     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
-     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 100)];
-     
-     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"editLabel"]];
-     [imageView setFrame:CGRectMake(200, 15, 30, 30)];
-     
-     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 260, 50)];
-     label.numberOfLines = 0;
-     label.text = @"Thanks for signing up. Tap       \nto label your tracking numbers";
-     [label setFont:[UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
-     [contentView addSubview:imageView];
-     [contentView addSubview:label];
-     
-     [alertView setContainerView:contentView];
-     [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"OK", nil]];
-     [alertView show];
-     
-     }*/
-    
 }
 
 - (void) deleteAllItems : (NSArray *) items2Delete {
@@ -1365,42 +1199,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(item && ![item isKindOfClass:[NSNull class]]) {
         return;
         
-        /*if ([item.lastUpdatedOn compare:lastModifiedDate] == NSOrderedDescending) {
-         return;
-         }
-         
-         item.originalCountry = [dic objectForKey:@"OriginalCountry"];
-         
-         NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
-         if(![isFound isKindOfClass:[NSString class]]) {
-         item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
-         }
-         
-         else
-         item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
-         
-         item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-         
-         
-         item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"1" : @"0");
-         
-         item.addedOn = [NSDate date];
-         item.isRead = false;
-         item.lastUpdatedOn = [NSDate date];
-         
-         NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
-         NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
-         for(NSDictionary * dic in statusArray) {
-         [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
-         }
-         
-         
-         for(DeliveryStatus * oldStatus in item.deliveryStatuses) {
-         [oldStatus MR_deleteEntity];
-         }
-         
-         item.deliveryStatuses = newStatus;*/
-        
     } else {
         item = [TrackedItem MR_createEntity];
         item.trackingNumber = num;
@@ -1443,37 +1241,37 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (NSArray *) checkNewLocalItem : (NSArray *) remoteDataArray{
     NSMutableArray * newItems = [NSMutableArray array];
-    
-    NSArray * allLocalItems = [_allItemsFetchedResultsController fetchedObjects];
-    
-    for(TrackedItem * localItem in allLocalItems) {
-        BOOL isFound = false;
-        
-        for(NSDictionary * remoteItemDic in remoteDataArray) {
-            NSString * trackingDetailsStr = [remoteItemDic objectForKey:@"tracking_details"];
-            NSError * e;
-            NSDictionary * trackingJson = [NSJSONSerialization JSONObjectWithData: [trackingDetailsStr dataUsingEncoding:NSUTF8StringEncoding]
-                                                                          options: NSJSONReadingMutableContainers
-                                                                            error: &e];
-            if(trackingJson == nil){
-                continue;
-            }
-            
-            NSDictionary * tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
-            
-            NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
-            
-            if([localItem.trackingNumber isEqualToString:trackingNum]) {
-                isFound = true;
-                break;
-            }
-        }
-        
-        if(!isFound) {
-            [newItems addObject:localItem];
-        }
-    }
-    
+    /*
+     NSArray * allLocalItems = [_allItemsFetchedResultsController fetchedObjects];
+     
+     for(TrackedItem * localItem in allLocalItems) {
+     BOOL isFound = false;
+     
+     for(NSDictionary * remoteItemDic in remoteDataArray) {
+     NSString * trackingDetailsStr = [remoteItemDic objectForKey:@"tracking_details"];
+     NSError * e;
+     NSDictionary * trackingJson = [NSJSONSerialization JSONObjectWithData: [trackingDetailsStr dataUsingEncoding:NSUTF8StringEncoding]
+     options: NSJSONReadingMutableContainers
+     error: &e];
+     if(trackingJson == nil){
+     continue;
+     }
+     
+     NSDictionary * tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];
+     
+     NSString * trackingNum = [tempDic objectForKey:@"TrackingNumber"];
+     
+     if([localItem.trackingNumber isEqualToString:trackingNum]) {
+     isFound = true;
+     break;
+     }
+     }
+     
+     if(!isFound) {
+     [newItems addObject:localItem];
+     }
+     }
+     */
     return newItems;
 }
 

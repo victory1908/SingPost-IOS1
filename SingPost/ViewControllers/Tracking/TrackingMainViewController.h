@@ -26,8 +26,6 @@
 
 @property (nonatomic,retain)UITableView *trackingItemsTableView;
 
-@property (nonatomic) NSFetchedResultsController *allItemsFetchedResultsController;
-
 - (void)addTrackingNumber:(NSString *)trackingNumber;
 
 - (void)refreshTableView;
@@ -42,5 +40,5 @@
 
 - (void) enableSideBar;
 
-- (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum;
+//- (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum;
 @end

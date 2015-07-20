@@ -44,6 +44,7 @@ UITableViewDataSource,
 UITableViewDelegate,
 UITextFieldDelegate
 >
+@property (strong, nonatomic) RLMArray *deliveryStatus;
 @end
 
 @implementation TrackingDetailsViewController
@@ -51,7 +52,7 @@ UITextFieldDelegate
     UILabel *trackingNumberLabel, *originLabel, *destinationLabel;
     UITableView *trackingDetailTableView;
     TrackedItem *_trackedItem;
-    NSArray *_deliveryStatuses;
+    //NSArray *_deliveryStatuses;
     
     UIImageView * adBanner;
     NSString * redirectUrl;
@@ -262,23 +263,25 @@ UITextFieldDelegate
         [self onEditClicked];
         [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
     }
+    self.deliveryStatus = self.selectedParcel.deliveryStatus;
 }
 
 //designated initializer
-- (id)initWithTrackedItem:(TrackedItem *)inTrackedItem {
-    NSParameterAssert(inTrackedItem);
-    if ((self = [super initWithNibName:nil bundle:nil])) {
-        _trackedItem = inTrackedItem;
-        _deliveryStatuses = _trackedItem.deliveryStatuses.array;
-    }
-    
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    return [self initWithTrackedItem:nil];
-}
-
+/*
+ - (id)initWithTrackedItem:(TrackedItem *)inTrackedItem {
+ NSParameterAssert(inTrackedItem);
+ if ((self = [super initWithNibName:nil bundle:nil])) {
+ _trackedItem = inTrackedItem;
+ _deliveryStatuses = _trackedItem.deliveryStatuses.array;
+ }
+ 
+ return self;
+ }
+ 
+ - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+ return [self initWithTrackedItem:nil];
+ }
+ */
 #pragma mark - IBActions
 - (IBAction)infoButtonClicked:(id)sender {
     [SVProgressHUD showWithStatus:@"Please wait.."];
@@ -357,11 +360,11 @@ UITextFieldDelegate
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
     
-    UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 240, 30)];
-    title.text = @"Sign Up/Log In";
-    [title setTextAlignment:NSTextAlignmentCenter];
-    [title setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kFontBoldKey]];
-    [contentView addSubview:title];
+    UILabel *signInTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 240, 30)];
+    signInTitle.text = @"Sign Up/Log In";
+    [signInTitle setTextAlignment:NSTextAlignmentCenter];
+    [signInTitle setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kFontBoldKey]];
+    [contentView addSubview:signInTitle];
     
     
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 240, 200)];
@@ -383,8 +386,7 @@ UITextFieldDelegate
     [alertView show];
 }
 
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
-{
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
     if(alertView.tag == 111) {
         if (buttonIndex == 0) {
             
@@ -507,62 +509,66 @@ UITextFieldDelegate
 
 
 - (void) submitAllTrackingItemWithLabel:(NSString *)editedLabel {
-    
-    if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
-        
-        NSMutableDictionary * labelDic = [NSMutableDictionary dictionaryWithDictionary:self.delegate.labelDic];
-        [labelDic setObject:editedLabel forKey:_trackedItem.trackingNumber];
-        
-        
-        NSMutableArray * numbers = [NSMutableArray array];
-        NSMutableArray * labels = [NSMutableArray array];
-        
-        NSDictionary * locaLabelDic = labelDic;
-        
-        
-        NSArray * trackItemArray = [self.delegate.allItemsFetchedResultsController fetchedObjects];
-        for(TrackedItem * item in trackItemArray) {
-            [numbers addObject:item.trackingNumber];
-            
-            NSString * label = [locaLabelDic objectForKey:item.trackingNumber];
-            if(label != nil)
-                [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
-            else
-                [labels addObject:@""];
-            
-        }
-        
-        [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
-         {
-             NSLog(@"registerTrackingNunmbers success");
-             [self.delegate setItem:_trackedItem.trackingNumber WithLabel:editedLabel];
-         } onFailure:^(NSError *error)
-         {
-             //NSLog([error localizedDescription]);
-         }];
-        
-    } else {
-        
-        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
-         {
-             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
-         } onFailure:^(NSError *error)
-         {
-             //NSLog([error localizedDescription]);
-         }];
-        
-    }
+    /*
+     if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
+     
+     NSMutableDictionary * labelDic = [NSMutableDictionary dictionaryWithDictionary:self.delegate.labelDic];
+     [labelDic setObject:editedLabel forKey:_trackedItem.trackingNumber];
+     
+     
+     NSMutableArray * numbers = [NSMutableArray array];
+     NSMutableArray * labels = [NSMutableArray array];
+     
+     NSDictionary * locaLabelDic = labelDic;
+     
+     
+     NSArray * trackItemArray = [self.delegate.allItemsFetchedResultsController fetchedObjects];
+     for(TrackedItem * item in trackItemArray) {
+     [numbers addObject:item.trackingNumber];
+     
+     NSString * label = [locaLabelDic objectForKey:item.trackingNumber];
+     if(label != nil)
+     [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
+     else
+     [labels addObject:@""];
+     
+     }
+     
+     [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
+     {
+     NSLog(@"registerTrackingNunmbers success");
+     [self.delegate setItem:_trackedItem.trackingNumber WithLabel:editedLabel];
+     } onFailure:^(NSError *error)
+     {
+     //NSLog([error localizedDescription]);
+     }];
+     
+     } else {
+     
+     [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
+     {
+     NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
+     } onFailure:^(NSError *error)
+     {
+     //NSLog([error localizedDescription]);
+     }];
+     
+     }
+     */
 }
 
 #pragma mark - UITableView DataSource & Delegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row < _deliveryStatuses.count) {
-        DeliveryStatus *deliveryStatus = _deliveryStatuses[indexPath.row];
-        CGSize statusLabelSize = [deliveryStatus.statusDescription sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:STATUS_LABEL_SIZE];
-        CGSize locationLabelSize = [deliveryStatus.location sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < [self.deliveryStatus count]) {
+        ParcelStatus *parcelStatus = [self.deliveryStatus objectAtIndex:indexPath.row];
+        CGSize statusLabelSize = [parcelStatus.statusDescription boundingRectWithSize:STATUS_LABEL_SIZE
+                                                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                                                           attributes:nil context:nil].size;
         
+        CGSize locationLabelSize = [parcelStatus.location boundingRectWithSize:STATUS_LABEL_SIZE
+                                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                                    attributes:nil context:nil].size;
         return MAX(61.0f, MAX(statusLabelSize.height + 12.0f, locationLabelSize.height + 12.0f));
     }
     return 60;
@@ -588,25 +594,22 @@ UITextFieldDelegate
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     NSString *status = maintananceStatuses[@"ReportThis"];
     
-    if ([status isEqualToString:@"on"] || [_trackedItem.isActive isEqualToString:@"false"])
-        return _deliveryStatuses.count;
+    if ([status isEqualToString:@"on"] || [self.selectedParcel.isActive isEqualToString:@"false"])
+        return [self.deliveryStatus count];
     else
-        return _deliveryStatuses.count + 1;
+        return [self.deliveryStatus count] + 1;
 }
 
-- (void)configureCell:(TrackingItemDetailTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    cell.deliveryStatus = _deliveryStatuses[indexPath.row];
+- (void)configureCell:(TrackingItemDetailTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    [cell configureCellWithStatus:[self.deliveryStatus objectAtIndex:indexPath.row]];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.row < _deliveryStatuses.count) {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row < [self.deliveryStatus count]) {
         static NSString *const cellIdentifier = @"TrackingItemMainTableViewCell";
         
         TrackingItemDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -645,10 +648,10 @@ UITextFieldDelegate
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < _deliveryStatuses.count)
+    if (indexPath.row < [self.deliveryStatus count])
         return;
     TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] initWithTrackedItem:_trackedItem];
-    vc.deliveryStatusArray = _deliveryStatuses;
+    vc.deliveryStatusArray = self.deliveryStatus;
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

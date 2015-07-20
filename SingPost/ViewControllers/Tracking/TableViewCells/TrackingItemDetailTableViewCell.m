@@ -13,15 +13,13 @@
 #import "UILabel+VerticalAlign.h"
 #import "UIView+Position.h"
 
-@implementation TrackingItemDetailTableViewCell
-{
+@implementation TrackingItemDetailTableViewCell {
     UILabel *trackingDateLabel, *statusLabel, *locationLabel;
     UIView *separatorView;
 }
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         CGFloat width;
         if (INTERFACE_IS_IPAD)
@@ -70,22 +68,19 @@
     return self;
 }
 
-- (void)setDeliveryStatus:(DeliveryStatus *)inDeliveryStatus
-{
-    _deliveryStatus = inDeliveryStatus;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+- (void)configureCellWithStatus:(ParcelStatus *)status {
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"dd-MM-yy"];
     [trackingDateLabel setHeight:70];
-    [trackingDateLabel setText:[dateFormatter stringFromDate:_deliveryStatus.date]];
+    [trackingDateLabel setText:[dateFormatter stringFromDate:status.date]];
     [trackingDateLabel alignTop];
     
     [statusLabel setHeight:STATUS_LABEL_SIZE.height];
-    [statusLabel setText:_deliveryStatus.statusDescription];
+    [statusLabel setText:status.statusDescription];
     [statusLabel alignTop];
     
     [locationLabel setHeight:LOCATION_LABEL_SIZE.height];
-    [locationLabel setText:_deliveryStatus.location];
+    [locationLabel setText:status.location];
     [locationLabel alignTop];
     
     [separatorView setY:MAX(60, MAX(CGRectGetMaxY(statusLabel.frame) + 5, CGRectGetMaxY(locationLabel.frame) + 5))];

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Realm.h"
 #import "SwipeViewController.h"
 
 @class TrackedItem;
@@ -15,6 +16,6 @@
 
 - (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 
-@property (strong, nonatomic) NSArray *deliveryStatusArray;
+@property (strong, nonatomic) RLMArray *deliveryStatusArray;
 
 @end
