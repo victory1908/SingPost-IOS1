@@ -82,7 +82,7 @@ SINGLETON_MACRO
     [self.httpManager.operationQueue addOperation:operation];
 }
 
-#pragma mark - Public methods
+#pragma mark - Tracking number
 - (void)getTrackingNumberDetails:(NSString *)trackingNumber
                        completed:(void (^)(Parcel *parcel, NSError *error))completed {
     NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
@@ -121,6 +121,7 @@ SINGLETON_MACRO
     }];
 }
 
+#pragma mark - Subscriptions
 - (void)subscribeTrackingNumberNotification:(NSString *)trackingNumber
                                   completed:(void (^)(NSError *error))completed {
     if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
@@ -173,6 +174,70 @@ SINGLETON_MACRO
         }];
     }
     else {
+        completed([NSError errorWithDomain:ERROR_DOMAIN
+                                      code:1
+                                  userInfo:@{NSLocalizedDescriptionKey:@"Profile ID not found"}]);
+    }
+}
+
+- (void)subscribeActiveTrackingNotifications:(NSArray *)trackingNumbers
+                                   completed:(void (^)(NSError *error))completed {
+    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
+        NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
+                         "<ProfileID>%@</ProfileID>"
+                         "<ItemNumberList>", [[ApiClient sharedInstance] notificationProfileID]];
+        
+        for(NSString *itemNumber in trackingNumbers) {
+            xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
+        }
+        xml = [xml stringByAppendingString:@"</ItemNumberList>""</SubscribeRequest>"];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:UnsubscribeTrackingNumber
+                                                                                  relativeToURL:[NSURL URLWithString:SINGPOST_BASE_URL]]];
+        [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
+        request.HTTPBody = [xml dataUsingEncoding:NSUTF8StringEncoding];
+        request.HTTPMethod = POST_METHOD;
+        
+        [self sendXMLRequest:request success:^(NSHTTPURLResponse *response, RXMLElement *responseObject) {
+            completed(nil);
+        } failure:^(NSError *error) {
+            [[ApiClient sharedInstance]reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+            completed(error);
+        }];
+    } else {
+        completed([NSError errorWithDomain:ERROR_DOMAIN
+                                      code:1
+                                  userInfo:@{NSLocalizedDescriptionKey:@"Profile ID not found"}]);
+    }
+}
+
+- (void)unsubscribeActiveTrackingNotifications:(NSArray *)trackingNumbers
+                                     completed:(void (^)(NSError *error))completed {
+    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
+        NSString *xml = [NSString stringWithFormat: @"<UnsubscribeRequest>"
+                         "<ProfileID>%@</ProfileID>"
+                         "<ItemNumberList>", [[ApiClient sharedInstance] notificationProfileID]];
+        
+        for (NSString *itemNumber in trackingNumbers) {
+            xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
+        }
+        xml = [xml stringByAppendingString:@"</ItemNumberList>""</UnsubscribeRequest>"];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:UnsubscribeTrackingNumber
+                                                                                  relativeToURL:[NSURL URLWithString:SINGPOST_BASE_URL]]];
+        [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
+        request.HTTPBody = [xml dataUsingEncoding:NSUTF8StringEncoding];
+        request.HTTPMethod = POST_METHOD;
+        
+        [self sendXMLRequest:request success:^(NSHTTPURLResponse *response, RXMLElement *responseObject) {
+            completed(nil);
+        } failure:^(NSError *error) {
+            [[ApiClient sharedInstance]reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+            completed(error);
+        }];
+    } else {
         completed([NSError errorWithDomain:ERROR_DOMAIN
                                       code:1
                                   userInfo:@{NSLocalizedDescriptionKey:@"Profile ID not found"}]);
