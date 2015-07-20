@@ -175,7 +175,7 @@ CustomIOS7AlertViewDelegate
 - (void)setTrackingNumber:(NSString *)inTrackingNumber {
     _trackingNumber = inTrackingNumber;
     [trackingNumberTextField setText:_trackingNumber];
-    [TrackedItem saveLastEnteredTrackingNumber:_trackingNumber];
+    [[UserDefaultsManager sharedInstance] setLastTrackingNumber:inTrackingNumber];
 }
 
 #pragma mark - UITextField events
@@ -224,7 +224,7 @@ CustomIOS7AlertViewDelegate
              if (parcel.isFound) {
 #warning WIP
                  //[self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
-                 //[self goToDetailPageWithTrackedItem:trackedItem];
+                 [self goToDetailPageWithParcel:parcel];
                  [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
              }
          } else {
@@ -273,36 +273,6 @@ CustomIOS7AlertViewDelegate
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
 }
 
-- (void)goToDetailPageWithTrackedItem:(TrackedItem *)trackedItem {
-    /*
-    TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
-    trackedItem.isReadValue = YES;
-    trackingDetailsViewController.delegate = self;
-    trackingDetailsViewController.isActiveItem = [trackedItem.isActive isEqualToString:@"true"]?YES:NO;
-    
-    NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
-    if(title && ![title isEqualToString:@""])
-        trackingDetailsViewController.title = title;
-    [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
-     */
-}
-/*
- - (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum {
- TrackedItem * trackedItem = [TrackedItem  MR_findFirstByAttribute:@"trackingNumber" withValue:trackNum];
- 
- TrackingDetailsViewController *trackingDetailsViewController = [[TrackingDetailsViewController alloc] initWithTrackedItem:trackedItem];
- trackedItem.isReadValue = YES;
- trackingDetailsViewController.delegate = self;
- trackingDetailsViewController.isActiveItem = [trackedItem.isActive isEqualToString:@"true"]?YES:NO;
- 
- NSString * title = [labelDic objectForKey:trackedItem.trackingNumber];
- if(title && ![title isEqualToString:@""])
- trackingDetailsViewController.title = title;
- [[AppDelegate sharedAppDelegate]saveToPersistentStoreWithCompletion:nil];
- [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingDetailsViewController];
- }
- */
 - (void)onTrackingNumberBtn:(id)sender {
     [self addTrackingNumber:trackingNumberTextField.text];
     self.isPushNotification = NO;
@@ -758,13 +728,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         [[APIManager sharedInstance] unsubscribeTrackingNumberNotification:parcelToDelete.trackingNumber
                                                                  completed:^(NSError *error)
          {
-             //if (error == nil) {
-             [SVProgressHUD dismiss];
-             [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
-             [tableView setEditing:NO animated:YES];
-             //} else {
-             //[SVProgressHUD showErrorWithStatus:@"Delete fail."];
-             // }
+             if (error == nil) {
+                 [SVProgressHUD dismiss];
+                 [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
+                 [tableView setEditing:NO animated:YES];
+             } else {
+                 [SVProgressHUD showErrorWithStatus:@"Delete fail."];
+             }
          }];
     }
 }
@@ -833,18 +803,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         
-        [[APIManager sharedInstance]subscribeActiveTrackingNotifications:trackingNumbers completed:^(NSError *error) {
+        [[APIManager sharedInstance]unsubscribeActiveTrackingNotifications:trackingNumbers completed:^(NSError *error) {
             [SVProgressHUD dismiss];
         }];
     }
 }
 
-#pragma mark - Facebook signin handler
 - (void) refreshTableView {
     [self.trackingItemsTableView reloadData];
 }
 
-#pragma mark - Tracking Labelling
 - (NSDictionary *) getLocalLabels {
     NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:labelDic];
     
@@ -1062,10 +1030,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
      }];
 }
 
-
 - (void)showSelectView:(NSArray *)newLocalItems {
-    
-    if(vc != nil)
+    if (vc != nil)
         [vc.view removeFromSuperview];
     
     vc = [[TrackingSelectViewController alloc] init];
@@ -1079,13 +1045,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
      {
          vc.view.alpha = 1;
      } completion:nil];
-    
     [self disableSideBar];
-    
-    
 }
-
-
 
 - (void) disableSideBar {
     [navigationBarView setToggleButtonEnable:NO];
@@ -1233,10 +1194,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         item.deliveryStatuses = newStatus;
     }
-    
     [localContext MR_saveToPersistentStoreAndWait];
-    
-    
 }
 
 - (NSArray *) checkNewLocalItem : (NSArray *) remoteDataArray{
@@ -1281,8 +1239,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up
-{
+- (void) animateTextField:(UITextField *) textField up:(BOOL)up {
     const int movementDistance = 160; // tweak as needed
     const float movementDuration = 0.1f; // tweak as needed
     

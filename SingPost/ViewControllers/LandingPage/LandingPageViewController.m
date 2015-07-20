@@ -36,6 +36,7 @@
 #import "ShopViewController.h"
 #import "BarScannerViewController.h"
 #import "ScanTutorialViewController.h"
+#import "UserDefaultsManager.h"
 
 #import "TrackedItem.h"
 #import <SVProgressHUD.h>
@@ -200,31 +201,31 @@ OffersMenuDelegate
              }
              
              /*arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
-         
-             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-             NSString * dateStr = [defaults stringForKey:@"ANNOUNCEMENT_LAST_DATE"];
-             if(dateStr == nil) {
-                 [self setBadgeView:NO];
-                 [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
-                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                 [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
-                 [defaults synchronize];
-             }
-             else {
-                 NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-                 [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                 
-                 NSDate * localDate = [formatter dateFromString:dateStr];
-                 NSDate * remoteDate = [formatter dateFromString:[[responseObject objectForKeyOrNil:@"root"] objectForKey:@"last_modified"]];
-                 
-                 if ([localDate compare:remoteDate] == NSOrderedDescending) {
-                     [self setBadgeView:NO];
-                     [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
-                 } else {
-                     [self setBadgeView:YES];
-                     [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = YES;
-                 }
-             }*/
+              
+              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+              NSString * dateStr = [defaults stringForKey:@"ANNOUNCEMENT_LAST_DATE"];
+              if(dateStr == nil) {
+              [self setBadgeView:NO];
+              [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
+              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+              [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
+              [defaults synchronize];
+              }
+              else {
+              NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+              [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+              
+              NSDate * localDate = [formatter dateFromString:dateStr];
+              NSDate * remoteDate = [formatter dateFromString:[[responseObject objectForKeyOrNil:@"root"] objectForKey:@"last_modified"]];
+              
+              if ([localDate compare:remoteDate] == NSOrderedDescending) {
+              [self setBadgeView:NO];
+              [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
+              } else {
+              [self setBadgeView:YES];
+              [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = YES;
+              }
+              }*/
          }
          
          
@@ -488,14 +489,14 @@ OffersMenuDelegate
 - (IBAction)onPrevClicked:(id)sender {
     [vc.nextBtn setHidden:NO];
     [vc.PrevBtn setHidden:YES];
-   
+    
     
     [vc.imageView setAlpha:0.5f];
     [UIView animateWithDuration:0.1
                      animations:^{
                          vc.imageView.alpha = 0.5f;
                      } completion:^(BOOL finished) {
-                          [vc.imageView setImage:[UIImage imageNamed:@"tutorial01.png"]];
+                         [vc.imageView setImage:[UIImage imageNamed:@"tutorial01.png"]];
                          
                          [UIView animateWithDuration:0.5
                                           animations:^{
@@ -508,7 +509,7 @@ OffersMenuDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
+    [trackingNumberTextField setText:[[UserDefaultsManager sharedInstance] getLastTrackingNumber]];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

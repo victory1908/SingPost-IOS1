@@ -40,5 +40,4 @@
 
 - (void) enableSideBar;
 
-//- (void)forwardToDetailPageWithTrackedItem:(NSString *)trackNum;
 @end

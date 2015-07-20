@@ -44,6 +44,7 @@
 #import "ProceedViewController.h"
 #import "PersistentBackgroundView.h"
 #import "BarScannerViewController.h"
+#import "UserDefaultsManager.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -120,24 +121,24 @@
     [contentView addSubview:landingPageButton];
     
     if(![ApiClient isWithoutFacebook]) {
-    logButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSString * str = @"Log In";
-    
-    if (FBSession.activeSession.state == FBSessionStateOpen
-        || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-        str = @"Log Out";
-    }
-    
-   
-    
-    [self performSelector:@selector(checkLoginStatus) withObject:nil afterDelay:1.0f];
-    
-    [logButton setTitle:str forState:UIControlStateNormal];
-    [logButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
-    [logButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [logButton addTarget:self action:@selector(onClickLogButton) forControlEvents:UIControlEventTouchUpInside];
-    [logButton setFrame:CGRectMake(SIDEBAR_WIDTH - 110, offsetY + 2, 60, 44)];
-    [contentView addSubview:logButton];
+        logButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        NSString * str = @"Log In";
+        
+        if (FBSession.activeSession.state == FBSessionStateOpen
+            || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+            str = @"Log Out";
+        }
+        
+        
+        
+        [self performSelector:@selector(checkLoginStatus) withObject:nil afterDelay:1.0f];
+        
+        [logButton setTitle:str forState:UIControlStateNormal];
+        [logButton.titleLabel setFont:[UIFont SingPostLightFontOfSize:13.0f fontKey:kSingPostFontOpenSans]];
+        [logButton setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+        [logButton addTarget:self action:@selector(onClickLogButton) forControlEvents:UIControlEventTouchUpInside];
+        [logButton setFrame:CGRectMake(SIDEBAR_WIDTH - 110, offsetY + 2, 60, 44)];
+        [contentView addSubview:logButton];
         
     }
     
@@ -268,7 +269,7 @@
 #pragma mark - UITableView DataSource & Delegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
     [headerView setBackgroundColor:RGB(238, 238, 238)];
     
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerView.bounds.size.width, 1)];
@@ -295,7 +296,7 @@
     [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
     [trackingNumberTextField setDelegate:self];
     [trackingNumberTextField setPlaceholder:@"Enter tracking number"];
-    [trackingNumberTextField setText:[TrackedItem lastEnteredTrackingNumber]];
+    [trackingNumberTextField setText:[[UserDefaultsManager sharedInstance] getLastTrackingNumber]];
     [headerView addSubview:trackingNumberTextField];
     
     CGFloat findTrackingBtnX;
@@ -331,8 +332,8 @@
     
     UITapGestureRecognizer *resignRespondersTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleResignRespondersTapped:)];
     [headerView addGestureRecognizer:resignRespondersTapRecognizer];
-	
-	return headerView;
+    
+    return headerView;
 }
 
 - (void)OnGoToScan {
@@ -441,53 +442,53 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/sg/app/singpost-mobile/id647986630"]];
                 break;
             }
-           /* case SUBROWS_OFFERSMORE_SIGNOFF:
-            {
-                if (FBSession.activeSession.state == FBSessionStateOpen
-                    || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-                    
-                    // Close the session and remove the access token from the cache
-                    // The session state handler (in the app delegate) will be called automatically
-                    
-                    
-                    [FBSession.activeSession closeAndClearTokenInformation];
-                    [FBSession.activeSession close];
-                    //[FBSession setActiveSession:nil];
-                    
-                    [self fbDidLogout];
-                    
-                    [ApiClient sharedInstance].serverToken = @"";
-                    
-                    //ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-                    
-                    
-                    //[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]
-                    
-                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]];
-                    
-                    
-                    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Signed Out" message:@"You have signed out from Facebook account successfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                    
-                    [alert show];
-                    
-                    [self checkLoginStatus];
-                    // If the session state is not any of the two "open" states when the button is clicked
-                } else {
-                    
-                    
-
-                    
-                    ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-                    
-                    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
-                    //[[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
-                }
-                
-                
-            
-                //[FBSession.activeSession closeAndClearTokenInformation];
-                break;
-            }*/
+                /* case SUBROWS_OFFERSMORE_SIGNOFF:
+                 {
+                 if (FBSession.activeSession.state == FBSessionStateOpen
+                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+                 
+                 // Close the session and remove the access token from the cache
+                 // The session state handler (in the app delegate) will be called automatically
+                 
+                 
+                 [FBSession.activeSession closeAndClearTokenInformation];
+                 [FBSession.activeSession close];
+                 //[FBSession setActiveSession:nil];
+                 
+                 [self fbDidLogout];
+                 
+                 [ApiClient sharedInstance].serverToken = @"";
+                 
+                 //ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+                 
+                 
+                 //[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]
+                 
+                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]];
+                 
+                 
+                 UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Signed Out" message:@"You have signed out from Facebook account successfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 
+                 [alert show];
+                 
+                 [self checkLoginStatus];
+                 // If the session state is not any of the two "open" states when the button is clicked
+                 } else {
+                 
+                 
+                 
+                 
+                 ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
+                 
+                 [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
+                 //[[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+                 }
+                 
+                 
+                 
+                 //[FBSession.activeSession closeAndClearTokenInformation];
+                 break;
+                 }*/
             default:
             {
                 break;
@@ -712,16 +713,16 @@
         
         
         /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Logged Out" message:@"You have logged out from Facebook account successfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-        
-        [alert show];*/
+         
+         [alert show];*/
         
         [self checkLoginStatus];
         // If the session state is not any of the two "open" states when the button is clicked
     } else {
         
         /*ProceedViewController *vc = [[ProceedViewController alloc] initWithNibName:nil bundle:nil];
-        
-        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];*/
+         
+         [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];*/
         
         if (FBSession.activeSession.state == FBSessionStateOpen
             || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -758,7 +759,7 @@
             }];
             
         }
-
+        
     }
 }
 
