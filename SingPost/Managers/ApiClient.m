@@ -26,15 +26,9 @@
 
 @synthesize notificationProfileID = _notificationProfileID;
 
-
 static BOOL isProduction = YES;
-static BOOL isSIT = NO;
 static BOOL isScanner = YES;
 static BOOL isWithoutFacebook = NO;
-
-+(BOOL)isSIT {
-    return  isSIT;
-}
 
 +(BOOL)isScanner {
     return  isScanner;
@@ -46,7 +40,7 @@ static BOOL isWithoutFacebook = NO;
 
 #define SINGPOST_BASE_URL   (isProduction ? SINGPOST_PRODUCTION_BASE_URL:SINGPOST_UAT_BASE_URL)
 #define CMS_BASE_URL        (isProduction ? CMS_PRODUCTION_BASE_URL:CMS_UAT_BASE_URL)
-#define CMS_BASE_URL_V4     (isProduction ? CMS_PRODUCTION_BASE_URL_V4:(isSIT ? CMS_UAT_BASE_URL_V4_SIT:CMS_UAT_BASE_URL_V4))
+#define CMS_BASE_URL_V4     (isProduction ? CMS_PRODUCTION_BASE_URL_V4:CMS_UAT_BASE_URL_V4)
 #define AD_BASE_URL         (isProduction ? AD_PRODUCTION_BASE_URL : AD_UAT_BASE_URL)
 
 //Development
@@ -54,10 +48,6 @@ static NSString *const SINGPOST_UAT_BASE_URL = @"https://uatesb1.singpost.com";
 static NSString *const CMS_UAT_BASE_URL = @"http://27.109.106.170/mobile2/";
 static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/mobile2/v5/";
 static NSString *const AD_UAT_BASE_URL = @"https://uat.mysam.sg/restful-services/advertisementServices/";
-
-
-//SIT
-static NSString *const CMS_UAT_BASE_URL_V4_SIT = @"http://128.199.253.131/mobile2/v5/";
 
 //Production
 static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://prdesb1.singpost.com";
@@ -222,10 +212,7 @@ static NSString *const OS = @"ios";
 - (void)getSingpostAnnouncementSuccess:(ApiClientSuccess)success failure:(ApiClientFailure)failure {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiannouncement.php"
                                                                               relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
-    if(isSIT) {
-        request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"apiannouncement.php"
-                                                             relativeToURL:[NSURL URLWithString:CMS_BASE_URL_V4]]];
-    }
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if (success)
             success(JSON);
@@ -512,8 +499,8 @@ static NSString *const OS = @"ios";
 #warning TESTING URL
     
     /*NSMutableURLRequest *request = [self requestWithMethod:@"POST"
-                                                      path:TRACKING_TEST_URL
-                                                parameters:nil];*/
+     path:TRACKING_TEST_URL
+     parameters:nil];*/
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
     
@@ -943,8 +930,8 @@ static NSString *const OS = @"ios";
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     [self enqueueHTTPRequestOperation:operation];
-
-
+    
+    
 }
 
 -(void) incrementClickCountWithId: (NSString *)locationId onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
@@ -980,9 +967,7 @@ static NSString *const OS = @"ios";
 
 - (void) facebookLoginOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/login/k3y15k3y";
-    if(isSIT) {
-        url = @"http://128.199.253.131/singpost3/api/login/k3y15k3y";
-    }
+    
     if(isProduction) {
         url = @"http://mobile.singpost.com/singpost3/api/login/k3y15k3y";
     }
@@ -1014,9 +999,6 @@ static NSString *const OS = @"ios";
 - (void) isFirstTime:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/isfirsttimer/k3y15k3y";
     
-    if(isSIT) {
-        url = @"http://128.199.253.131/singpost3/api/isfirsttimer/k3y15k3y";
-    }
     if(isProduction) {
         url = @"http://mobile.singpost.com/singpost3/api/isfirsttimer/k3y15k3y";
     }
@@ -1043,9 +1025,7 @@ static NSString *const OS = @"ios";
 
 - (void) registerTrackingNunmbers: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
-    if(isSIT) {
-        url = @"http://128.199.253.131/singpost3/api/registertracking/k3y15k3y";
-    }
+    
     if(isProduction) {
         url = @"http://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
     }
@@ -1075,9 +1055,7 @@ static NSString *const OS = @"ios";
 - (void) registerTrackingNunmbersNew: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     
     NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
-    if(isSIT) {
-        url = @"http://128.199.253.131/singpost3/api/registertracking/k3y15k3y";
-    }
+    
     if(isProduction) {
         url = @"http://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
     }
@@ -1107,9 +1085,6 @@ static NSString *const OS = @"ios";
 - (void) deleteAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/removealltrackings/k3y15k3y";
     
-    if(isSIT) {
-        url = @"http://128.199.253.131/singpost3/api/removealltrackings/k3y15k3y";
-    }
     if(isProduction) {
         url = @"http://mobile.singpost.com/singpost3/api/removealltrackings/k3y15k3y";
     }
@@ -1173,7 +1148,7 @@ static NSString *const OS = @"ios";
 - (NSString *) getTrackingDetailString : (NSArray *)itemArr {
     NSMutableString * finalStr = [[NSMutableString alloc] init];
     
-   // NSMutableArray * arr = [[NSMutableArray alloc] init];
+    // NSMutableArray * arr = [[NSMutableArray alloc] init];
     
     int i = 0;
     for(TrackedItem * item in itemArr) {
@@ -1213,9 +1188,9 @@ static NSString *const OS = @"ios";
             NSMutableDictionary * dic3 = [[NSMutableDictionary alloc] init];
             
             [dic3 setValue:deliveryStatus.location forKey:@"Location"];
-
+            
             [dic3 setValue:deliveryStatus.statusDescription forKey:@"StatusDescription"];
-
+            
             [dic3 setValue:[dateFormatter stringFromDate:deliveryStatus.date] forKey:@"Date"];
             
             [dic3 setValue:[dateFormatter2 stringFromDate:deliveryStatus.date] forKey:@"AceDate"];
@@ -1249,8 +1224,8 @@ static NSString *const OS = @"ios";
     
     //[dic1 setValue:arr forKey:@"ItemsTrackingDetailList"];
     
-   
-
+    
+    
     return finalStr;
 }
 
@@ -1324,7 +1299,7 @@ static NSString *const OS = @"ios";
         } else {
             str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         }
-
+        
         [finalDic setObject:str forKey:[NSString stringWithFormat:@"tracking_detail[%d]",i]];
         
         i++;
@@ -1336,13 +1311,9 @@ static NSString *const OS = @"ios";
 - (void) getAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     NSString * url = @"http://27.109.106.170/singpost3/api/gettrackings/k3y15k3y";
     
-    if(isSIT) {
-        url = @"http://128.199.253.131/singpost3/api/gettrackings/k3y15k3y";
-    }
     if(isProduction) {
         url = @"http://mobile.singpost.com/singpost3/api/gettrackings/k3y15k3y";
     }
-    
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url ]];
     [request setHTTPMethod:@"POST"];

@@ -14,7 +14,6 @@
 
 @interface ApiClient : AFHTTPClient
 
-+(BOOL)isSIT;
 +(BOOL)isScanner;
 +(BOOL)isWithoutFacebook;
 
