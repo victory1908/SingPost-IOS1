@@ -935,9 +935,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
          
          NSMutableDictionary * tempDic2 = [NSMutableDictionary dictionary];
          
-         RLMRealm *realm = [RLMRealm defaultRealm];
-         [realm beginWriteTransaction];
-         
          for(NSDictionary * dic in dataArray) {
              NSString * trackingDetailsStr = [dic objectForKey:@"tracking_details"];
              NSError * e;
@@ -967,11 +964,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
              NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",trackingNum];
              Parcel *parcel = [[Parcel objectsWithPredicate:predicate]firstObject];
              if (parcel != nil && [dic objectForKey:@"label"] != nil) {
+                 RLMRealm *realm = [RLMRealm defaultRealm];
+                 [realm beginWriteTransaction];
                  parcel.labelAlias = [dic objectForKey:@"label"];
+                 [realm commitWriteTransaction];
              }
          }
-         [realm commitWriteTransaction];
-         
          NSArray * newLocalItem = [self checkNewLocalItem:dataArray];
          
          labelDic = tempDic2;
