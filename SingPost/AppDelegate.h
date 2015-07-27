@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, readonly) RootViewController *rootViewController;
 @property (nonatomic, readonly) NSDictionary *maintenanceStatuses;
-@property (nonatomic) NSFetchedResultsController *activeItemsFetchedResultsController;
 @property (nonatomic, retain) TrackingMainViewController * trackingMainViewController;
 
 @property (nonatomic, assign) BOOL isFirstTime;
@@ -49,6 +48,6 @@
 - (void)firstTimeLoginFacebook;
 
 - (void)GotoTrackingDetail;
+- (void)GotoTrackingMain;
 
-- (void) GotoTrackingMain;
 @end

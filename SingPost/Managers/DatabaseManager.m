@@ -9,8 +9,7 @@
 #import "DatabaseManager.h"
 #import "ParcelStatus.h"
 #import <Realm/Realm.h>
-#import "TrackedItem.h"
-#import <MagicalRecord/MagicalRecord.h>
+#import "PushNotification.h"
 
 #define APP_GROUP_ID @"group.sg.codigo.singpost"
 

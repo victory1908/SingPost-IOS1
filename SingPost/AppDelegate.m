@@ -26,9 +26,9 @@
 #import "EntityLocation.h"
 #import "DatabaseManager.h"
 #import "APIManager.h"
+#import "Parcel.h"
 
 @implementation AppDelegate
-@synthesize activeItemsFetchedResultsController = _activeItemsFetchedResultsController;
 @synthesize isLoginFromSideBar;
 @synthesize isLoginFromDetailPage;
 @synthesize detailPageTrackNum;
@@ -338,12 +338,8 @@
         // If the session is closed
         NSLog(@"Session closed");
         // Show the user the logged-out UI
-        //[self userLoggedOut];
-        
         [self.trackingMainViewController refreshTableView];
-        
         [self.rootViewController checkSignStatus];
-        
     }
     
     // Handle errors
@@ -355,7 +351,6 @@
         if ([FBErrorUtility shouldNotifyUserForError:error] == YES){
             alertTitle = @"Something went wrong";
             alertText = [FBErrorUtility userMessageForError:error];
-            //[self showMessage:alertText withTitle:alertTitle];
         } else {
             
             // If the user cancelled login, do nothing
@@ -366,7 +361,6 @@
             } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession){
                 alertTitle = @"Session Error";
                 alertText = @"Your current session is no longer valid. Please log in again.";
-                //[self showMessage:alertText withTitle:alertTitle];
                 
                 // Here we will handle all other errors with a generic error message.
                 // We recommend you check our Handling Errors guide for more information
@@ -378,56 +372,27 @@
                 // Show the user an error message
                 alertTitle = @"Something went wrong";
                 alertText = [NSString stringWithFormat:@"Please retry. \n\n If the problem persists contact us and mention this error code: %@", [errorInformation objectForKey:@"message"]];
-                //[self showMessage:alertText withTitle:alertTitle];
             }
         }
         // Clear this token
         [FBSession.activeSession closeAndClearTokenInformation];
-        // Show the user the logged-out UI
-        //[self userLoggedOut];
     }
-}
-
-- (NSFetchedResultsController *)activeItemsFetchedResultsController {
-    if (!_activeItemsFetchedResultsController) {
-        _activeItemsFetchedResultsController = [TrackedItem MR_fetchAllGroupedBy:nil withPredicate:[NSPredicate predicateWithFormat:@"isActive == 'true'"] sortedBy:TrackedItemAttributes.addedOn ascending:NO delegate:self];
-    }
-    return _activeItemsFetchedResultsController;
-}
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 }
 
 - (void) unSubscribeAllActiveItem {
-    NSArray * trackedArray = [self.activeItemsFetchedResultsController fetchedObjects];
-    if ([trackedArray count] == 0)
+    RLMResults *parcelArray = [Parcel allObjects];
+    if ([parcelArray count] == 0)
         return;
     
     [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
     NSMutableArray * numberArray = [NSMutableArray array];
-    for(TrackedItem *trackedItem in trackedArray){
-        [numberArray addObject:trackedItem.trackingNumber];
+    for (Parcel *parcel in parcelArray) {
+        [numberArray addObject:parcel.trackingNumber];
     }
     
-    [PushNotificationManager API_unsubscribeNotificationForTrackingNumberArray:numberArray onCompletion:^(BOOL success, NSError *error) {
-        //[TrackedItem MR_truncateAll];
-        
-        //[SVProgressHUD dismiss];
-    }];
+    [PushNotificationManager API_unsubscribeNotificationForTrackingNumberArray:numberArray
+                                                                  onCompletion:^(BOOL success, NSError *error) {}];
 }
 
 
@@ -506,10 +471,9 @@
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
 }
 
-- (void) GotoTrackingDetail {
+- (void)GotoTrackingDetail {
     [SVProgressHUD dismiss];
     
-    //isLoginFromSideBar = false;
     if ([self.rootViewController isSideBarVisible])
         [self.rootViewController toggleSideBarVisiblity];
     
