@@ -45,7 +45,7 @@
 #warning To-do
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         // use registerUserNotificationSettings
-        //[self registerNotificationCategories];
+        [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     } else {
         // use registerForRemoteNotifications
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -672,9 +672,7 @@
     
     DLog(@"sanitized device token: %@", sanitizedDeviceToken);
     [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken
-                                      onCompletion:^(BOOL success, NSError *error) {
-                                          
-                                      }];
+                                      onCompletion:^(BOOL success, NSError *error){}];
 }
 
 #pragma mark - Google Analytics

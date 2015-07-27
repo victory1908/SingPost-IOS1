@@ -17,21 +17,4 @@
 //Tracking numbers
 - (void)getTrackingNumberDetails:(NSString *)trackingNumber
                        completed:(void (^)(Parcel *parcel, NSError *error))completed;
-
-//Push notifications
-- (void)registerAPNSToken:(NSString *)token
-                completed:(void (^)(NSError *error))completed;
-
-- (void)subscribeTrackingNumberNotification:(NSString *)trackingNumber
-                                  completed:(void (^)(NSError *error))completed;
-- (void)unsubscribeTrackingNumberNotification:(NSString *)trackingNumber
-                                    completed:(void (^)(NSError *error))completed;
-
-- (void)subscribeActiveTrackingNotifications:(NSArray *)trackingNumbers
-                                   completed:(void (^)(NSError *error))completed;
-- (void)unsubscribeActiveTrackingNotifications:(NSArray *)trackingNumbers
-                                     completed:(void (^)(NSError *error))completed;
-
-//Labels
-
 @end

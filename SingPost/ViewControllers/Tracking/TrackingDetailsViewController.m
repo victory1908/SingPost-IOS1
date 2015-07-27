@@ -44,15 +44,12 @@ UITableViewDataSource,
 UITableViewDelegate,
 UITextFieldDelegate
 >
-@property (strong, nonatomic) RLMArray *deliveryStatus;
 @end
 
 @implementation TrackingDetailsViewController
 {
     UILabel *trackingNumberLabel, *originLabel, *destinationLabel;
     UITableView *trackingDetailTableView;
-    TrackedItem *_trackedItem;
-    //NSArray *_deliveryStatuses;
     
     UIImageView * adBanner;
     NSString * redirectUrl;
@@ -166,7 +163,7 @@ UITextFieldDelegate
     trackingNumberLabel.right = contentView.right - 15;
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
-    [trackingNumberLabel setText:_trackedItem.trackingNumber];
+    [trackingNumberLabel setText:self.selectedParcel.trackingNumber];
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:trackingNumberLabel];
     
@@ -174,7 +171,7 @@ UITextFieldDelegate
     originLabel.right = contentView.right - 15;
     [originLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [originLabel setTextColor:RGB(51, 51, 51)];
-    [originLabel setText:_trackedItem.originalCountry];
+    [originLabel setText:self.selectedParcel.originalCountry];
     [originLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:originLabel];
     
@@ -182,7 +179,7 @@ UITextFieldDelegate
     destinationLabel.right = contentView.right - 15;
     [destinationLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [destinationLabel setTextColor:RGB(51, 51, 51)];
-    [destinationLabel setText:_trackedItem.destinationCountry];
+    [destinationLabel setText:self.selectedParcel.destinationCountry];
     [destinationLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:destinationLabel];
     
@@ -240,7 +237,6 @@ UITextFieldDelegate
     [trackingDetailTableView setSeparatorColor:[UIColor clearColor]];
     [contentView addSubview:trackingDetailTableView];
     
-    
     //Ad banner
     [self getAdvertisementWithId:@"20" Count:@"5"];
     int height = (int)((50.0f / 320.0f) * contentView.bounds.size.width);
@@ -263,25 +259,8 @@ UITextFieldDelegate
         [self onEditClicked];
         [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
     }
-    self.deliveryStatus = self.selectedParcel.deliveryStatus;
 }
 
-//designated initializer
-/*
- - (id)initWithTrackedItem:(TrackedItem *)inTrackedItem {
- NSParameterAssert(inTrackedItem);
- if ((self = [super initWithNibName:nil bundle:nil])) {
- _trackedItem = inTrackedItem;
- _deliveryStatuses = _trackedItem.deliveryStatuses.array;
- }
- 
- return self;
- }
- 
- - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
- return [self initWithTrackedItem:nil];
- }
- */
 #pragma mark - IBActions
 - (IBAction)infoButtonClicked:(id)sender {
     [SVProgressHUD showWithStatus:@"Please wait.."];
@@ -302,7 +281,7 @@ UITextFieldDelegate
         && FBSession.activeSession.state != FBSessionStateOpenTokenExtended){
         [self signIn];
     } else {
-        if(_trackedItem != nil && _trackedItem.trackingNumber != nil) {
+        if(self.selectedParcel != nil && self.selectedParcel.trackingNumber != nil) {
             
             /*UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
              labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -319,7 +298,7 @@ UITextFieldDelegate
             
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 240, 60)];
             label.numberOfLines = 0;
-            label.text = [NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber];
+            label.text = [NSString stringWithFormat:@"Enter a label for your item %@",self.selectedParcel.trackingNumber];
             [label setTextAlignment:NSTextAlignmentCenter];
             
             [label setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
@@ -426,7 +405,7 @@ UITextFieldDelegate
             [FBSession.activeSession closeAndClearTokenInformation];
             
         } else {
-            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _trackedItem.trackingNumber;
+            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = self.selectedParcel.trackingNumber;
             
             NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
@@ -436,7 +415,7 @@ UITextFieldDelegate
                 
                 AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 appDelegate.isLoginFromDetailPage = YES;
-                appDelegate.detailPageTrackNum = _trackedItem.trackingNumber;
+                appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
                 [appDelegate sessionStateChanged:session state:state error:error];
                 
                 
@@ -485,7 +464,7 @@ UITextFieldDelegate
                 [FBSession.activeSession closeAndClearTokenInformation];
                 
             } else {
-                [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _trackedItem.trackingNumber;
+                [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = self.selectedParcel.trackingNumber;
                 
                 NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
@@ -495,7 +474,7 @@ UITextFieldDelegate
                     
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     appDelegate.isLoginFromDetailPage = YES;
-                    appDelegate.detailPageTrackNum = _trackedItem.trackingNumber;
+                    appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
                     [appDelegate sessionStateChanged:session state:state error:error];
                     
                     
@@ -560,8 +539,8 @@ UITextFieldDelegate
 #pragma mark - UITableView DataSource & Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < [self.deliveryStatus count]) {
-        ParcelStatus *parcelStatus = [self.deliveryStatus objectAtIndex:indexPath.row];
+    if (indexPath.row < [self.selectedParcel.deliveryStatus count]) {
+        ParcelStatus *parcelStatus = [self.selectedParcel.deliveryStatus objectAtIndex:indexPath.row];
         CGSize statusLabelSize = [parcelStatus.statusDescription boundingRectWithSize:STATUS_LABEL_SIZE
                                                                               options:NSStringDrawingUsesLineFragmentOrigin
                                                                            attributes:nil context:nil].size;
@@ -599,17 +578,17 @@ UITextFieldDelegate
     NSString *status = maintananceStatuses[@"ReportThis"];
     
     if ([status isEqualToString:@"on"] || [self.selectedParcel.isActive isEqualToString:@"false"])
-        return [self.deliveryStatus count];
+        return [self.selectedParcel.deliveryStatus count];
     else
-        return [self.deliveryStatus count] + 1;
+        return [self.selectedParcel.deliveryStatus count] + 1;
 }
 
 - (void)configureCell:(TrackingItemDetailTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    [cell configureCellWithStatus:[self.deliveryStatus objectAtIndex:indexPath.row]];
+    [cell configureCellWithStatus:[self.selectedParcel.deliveryStatus objectAtIndex:indexPath.row]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < [self.deliveryStatus count]) {
+    if (indexPath.row < [self.selectedParcel.deliveryStatus count]) {
         static NSString *const cellIdentifier = @"TrackingItemMainTableViewCell";
         
         TrackingItemDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -648,12 +627,15 @@ UITextFieldDelegate
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row < [self.deliveryStatus count])
+    if (indexPath.row < [self.selectedParcel.deliveryStatus count])
         return;
-    TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] initWithTrackedItem:_trackedItem];
-    vc.deliveryStatusArray = self.deliveryStatus;
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+#warning TO-DO!
+    /*
+     TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] initWithTrackedItem:_trackedItem];
+     vc.deliveryStatusArray = self.deliveryStatus;
+     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+     */
 }
 
 #pragma mark - Ad Banner

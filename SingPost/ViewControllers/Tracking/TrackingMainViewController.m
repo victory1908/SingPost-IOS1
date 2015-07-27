@@ -441,9 +441,7 @@ CustomIOS7AlertViewDelegate
 }
 
 - (void)customIOS7dialogButtonTouchUpInside:(CustomIOS7AlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        
-    } else {
+    if (buttonIndex != 0) {
         if (FBSession.activeSession.state == FBSessionStateOpen
             || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
             
@@ -725,17 +723,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         
-        [[APIManager sharedInstance] unsubscribeTrackingNumberNotification:parcelToDelete.trackingNumber
-                                                                 completed:^(NSError *error)
-         {
-             if (error == nil) {
-                 [SVProgressHUD dismiss];
-                 [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
-                 [tableView setEditing:NO animated:YES];
-             } else {
-                 [SVProgressHUD showErrorWithStatus:@"Delete fail."];
-             }
-         }];
+        [PushNotificationManager API_unsubscribeNotificationForTrackingNumber:parcelToDelete.trackingNumber onCompletion:^(BOOL success, NSError *error) {
+            if (success) {
+                [SVProgressHUD dismiss];
+                [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
+                [tableView setEditing:NO animated:YES];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"Delete fail."];
+            }
+        }];
     }
 }
 
@@ -760,7 +756,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - Notification switch
 - (void)switchChanged:(UIControl *)sender {
     NSUInteger notificationTypes;
-    if ([self respondsToSelector:@selector(currentUserNotificationSettings)]) {
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]) {
         notificationTypes = [[[UIApplication sharedApplication] currentUserNotificationSettings] types];
     } else {
         notificationTypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
@@ -781,7 +777,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             
             [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             
-            [[APIManager sharedInstance] subscribeActiveTrackingNotifications:trackingNumbers completed:^(NSError *error) {
+            [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:trackingNumbers onCompletion:^(BOOL success, NSError *error) {
                 [SVProgressHUD dismiss];
             }];
         }
@@ -803,7 +799,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         
-        [[APIManager sharedInstance]unsubscribeActiveTrackingNotifications:trackingNumbers completed:^(NSError *error) {
+        [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:trackingNumbers onCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];
         }];
     }

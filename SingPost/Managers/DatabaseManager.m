@@ -9,6 +9,8 @@
 #import "DatabaseManager.h"
 #import "ParcelStatus.h"
 #import <Realm/Realm.h>
+#import "TrackedItem.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 #define APP_GROUP_ID @"group.sg.codigo.singpost"
 
@@ -17,12 +19,8 @@
 #pragma mark - Public methods
 + (void)setupRealm {
     NSURL *realmURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
-    NSString *realmPath = [realmURL.path stringByAppendingString:@"SingPost.realm"];
+    NSString *realmPath = [realmURL.path stringByAppendingString:@"/SingPost.realm"];
     [RLMRealm setDefaultRealmPath:realmPath];
-}
-
-+ (void)migrateDatabase {
-    
 }
 
 + (Parcel *)createOrUpdateParcel:(RXMLElement *)element {

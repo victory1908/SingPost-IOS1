@@ -13,7 +13,6 @@
 @interface DatabaseManager : NSObject
 
 + (void)setupRealm;
-+ (void)migrateDatabase;
 
 + (Parcel *)createOrUpdateParcel:(RXMLElement *)element;
 + (void)removeParcel:(Parcel *)parcel;
