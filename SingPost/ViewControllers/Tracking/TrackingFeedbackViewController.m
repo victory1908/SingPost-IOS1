@@ -10,30 +10,19 @@
 #import <TPKeyboardAvoidingScrollView.h>
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
-#import "TrackedItem.h"
 #import "CTextView.h"
 #import "FlatBlueButton.h"
 #import "SVProgressHUD.h"
 #import "ApiClient.h"
 #import "UIAlertView+Blocks.h"
-#import "DeliveryStatus.h"
 
 @interface TrackingFeedbackViewController ()
 
 @end
 
 @implementation TrackingFeedbackViewController {
-    TrackedItem *_trackedItem;
     UILabel *trackingNumberLabel, *originLabel, *destinationLabel;
     CTextView *commentsTextView;
-}
-
-- (id)initWithTrackedItem:(TrackedItem *)inTrackedItem
-{
-    NSParameterAssert(inTrackedItem);
-    if ((self = [super initWithNibName:nil bundle:nil]))
-        _trackedItem = inTrackedItem;
-    return self;
 }
 
 - (void)loadView {
@@ -81,7 +70,7 @@
     trackingNumberLabel.right = contentView.width - 15;
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
-    [trackingNumberLabel setText:_trackedItem.trackingNumber];
+    [trackingNumberLabel setText:self.parcel.trackingNumber];
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:trackingNumberLabel];
     
@@ -89,7 +78,7 @@
     originLabel.right = contentView.width - 15;
     [originLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [originLabel setTextColor:RGB(51, 51, 51)];
-    [originLabel setText:_trackedItem.originalCountry];
+    [originLabel setText:self.parcel.originalCountry];
     [originLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:originLabel];
     
@@ -97,7 +86,7 @@
     destinationLabel.right = contentView.width - 15;
     [destinationLabel setFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [destinationLabel setTextColor:RGB(51, 51, 51)];
-    [destinationLabel setText:_trackedItem.destinationCountry];
+    [destinationLabel setText:self.parcel.destinationCountry];
     [destinationLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:destinationLabel];
     
@@ -142,18 +131,18 @@
     
     NSMutableString *deliveryStatusString = [NSMutableString string];
     
-    for (DeliveryStatus *deliveryStatus in self.deliveryStatusArray) {
+    for (ParcelStatus *status in self.deliveryStatusArray) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"dd-MM-yy"];
         
-        NSString *date = [dateFormatter stringFromDate:deliveryStatus.date];
-        NSString *statusDescription = deliveryStatus.statusDescription;
-        NSString *location = deliveryStatus.location;
+        NSString *date = [dateFormatter stringFromDate:status.date];
+        NSString *statusDescription = status.statusDescription;
+        NSString *location = status.location;
         
         [deliveryStatusString appendFormat:@"%@      %@      %@\n",date,statusDescription,location];
     }
     
-    NSString *postMessage = [NSString stringWithFormat:@"TrackingNo.: %@\n%@Message: %@",_trackedItem.trackingNumber,deliveryStatusString,commentsTextView.text];
+    NSString *postMessage = [NSString stringWithFormat:@"TrackingNo.: %@\n%@Message: %@",self.parcel.trackingNumber,deliveryStatusString,commentsTextView.text];
     
     [UIAlertView showWithTitle:nil
                        message:@"Submit alert?"

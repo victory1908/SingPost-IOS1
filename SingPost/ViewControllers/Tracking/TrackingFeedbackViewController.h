@@ -8,14 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Realm.h"
+#import "Parcel.h"
 #import "SwipeViewController.h"
-
-@class TrackedItem;
 
 @interface TrackingFeedbackViewController : SwipeViewController
 
-- (id)initWithTrackedItem:(TrackedItem *)trackedItem;
-
+@property (strong, nonatomic) Parcel *parcel;
 @property (strong, nonatomic) RLMArray *deliveryStatusArray;
 
 @end

@@ -15,7 +15,6 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate> {
     ProceedViewController *proceedVC;
-    //NSString * trackingNumberTappedBeforeSignin;
 }
 
 @property (nonatomic, strong) UIWindow *window;
@@ -49,5 +48,7 @@
 
 - (void)GotoTrackingDetail;
 - (void)GotoTrackingMain;
+
+- (void)updateTrackItemInfo:(NSString *)num Info:(NSDictionary *)dic Date:(NSDate *)lastModifiedDate;
 
 @end

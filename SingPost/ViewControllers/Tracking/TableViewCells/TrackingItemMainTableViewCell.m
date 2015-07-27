@@ -194,7 +194,7 @@
 - (void)setParcel:(Parcel *)parcel
 {
     _parcel = parcel;
-    [trackingNumberLabel setText:_parcel.trackingNumber];
+    [trackingNumberLabel setText:[_parcel getLabelText]];
     [trackingNumberLabel alignTop];
     [trackingNumberLabel setNumberOfLines:0];
     [trackingNumberLabel sizeToFit];

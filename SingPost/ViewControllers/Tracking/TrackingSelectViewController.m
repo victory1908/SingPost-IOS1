@@ -25,16 +25,6 @@
 @synthesize trackItems2Delete;
 @synthesize delegate;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -45,20 +35,8 @@
     [self captureBlur];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    
-}
-
 - (void)addAll2Delete {
-    for(TrackedItem * item in trackItems) {
+    for(Parcel * item in trackItems) {
         if(![trackItems2Delete containsObject:item])
             [trackItems2Delete addObject:item];
     }

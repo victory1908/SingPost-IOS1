@@ -488,52 +488,50 @@ UITextFieldDelegate
 
 
 - (void) submitAllTrackingItemWithLabel:(NSString *)editedLabel {
-    /*
-     if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
-     
-     NSMutableDictionary * labelDic = [NSMutableDictionary dictionaryWithDictionary:self.delegate.labelDic];
-     [labelDic setObject:editedLabel forKey:_trackedItem.trackingNumber];
-     
-     
-     NSMutableArray * numbers = [NSMutableArray array];
-     NSMutableArray * labels = [NSMutableArray array];
-     
-     NSDictionary * locaLabelDic = labelDic;
-     
-     
-     NSArray * trackItemArray = [self.delegate.allItemsFetchedResultsController fetchedObjects];
-     for(TrackedItem * item in trackItemArray) {
-     [numbers addObject:item.trackingNumber];
-     
-     NSString * label = [locaLabelDic objectForKey:item.trackingNumber];
-     if(label != nil)
-     [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
-     else
-     [labels addObject:@""];
-     
-     }
-     
-     [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
-     {
-     NSLog(@"registerTrackingNunmbers success");
-     [self.delegate setItem:_trackedItem.trackingNumber WithLabel:editedLabel];
-     } onFailure:^(NSError *error)
-     {
-     //NSLog([error localizedDescription]);
-     }];
-     
-     } else {
-     
-     [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
-     {
-     NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
-     } onFailure:^(NSError *error)
-     {
-     //NSLog([error localizedDescription]);
-     }];
-     
-     }
-     */
+    if([ApiClient sharedInstance].allTrackingItem && [[ApiClient sharedInstance].allTrackingItem count] != 0) {
+        
+        NSMutableDictionary * labelDic = [NSMutableDictionary dictionaryWithDictionary:self.delegate.labelDic];
+        [labelDic setObject:editedLabel forKey:self.selectedParcel.trackingNumber];
+        
+        
+        NSMutableArray * numbers = [NSMutableArray array];
+        NSMutableArray * labels = [NSMutableArray array];
+        
+        NSDictionary * locaLabelDic = labelDic;
+        
+        
+        RLMResults *trackItemArray = [Parcel allObjects];
+        for(Parcel * item in trackItemArray) {
+            [numbers addObject:item.trackingNumber];
+            
+            NSString * label = [locaLabelDic objectForKey:item.trackingNumber];
+            if(label != nil)
+                [labels addObject:[locaLabelDic objectForKey:item.trackingNumber]];
+            else
+                [labels addObject:@""];
+            
+        }
+        
+        [[ApiClient sharedInstance] registerTrackingNunmbersNew:numbers WithLabels:labels TrackDetails:[ApiClient sharedInstance].allTrackingItem onSuccess:^(id responseObject)
+         {
+             NSLog(@"registerTrackingNunmbers success");
+             [self.delegate setItem:self.selectedParcel.trackingNumber WithLabel:editedLabel];
+         } onFailure:^(NSError *error)
+         {
+             //NSLog([error localizedDescription]);
+         }];
+        
+    } else {
+        
+        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
+         {
+             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
+         } onFailure:^(NSError *error)
+         {
+             //NSLog([error localizedDescription]);
+         }];
+        
+    }
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -629,13 +627,12 @@ UITextFieldDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < [self.selectedParcel.deliveryStatus count])
         return;
-#warning TO-DO!
-    /*
-     TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] initWithTrackedItem:_trackedItem];
-     vc.deliveryStatusArray = self.deliveryStatus;
-     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-     */
+    
+    TrackingFeedbackViewController *vc = [[TrackingFeedbackViewController alloc] init];
+    vc.parcel = self.selectedParcel;
+    vc.deliveryStatusArray = self.selectedParcel.deliveryStatus;
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - Ad Banner

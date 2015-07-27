@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TrackedItem.h"
+#import "Parcel.h"
 #import "TrackingMainViewController.h"
 #import "SwipeViewController.h"
 
@@ -17,7 +17,7 @@
 @property (nonatomic,retain)TrackingMainViewController * delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
--(void) add2DeleteItem : (TrackedItem *)item;
--(void) removeFromDeleteItem : (TrackedItem *)item;
+-(void) add2DeleteItem : (Parcel *)item;
+-(void) removeFromDeleteItem : (Parcel *)item;
 
 @end

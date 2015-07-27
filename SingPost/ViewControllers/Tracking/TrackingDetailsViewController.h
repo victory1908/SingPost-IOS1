@@ -11,11 +11,7 @@
 #import "CustomIOS7AlertView.h"
 #import "Parcel.h"
 
-@class TrackedItem;
-
 @interface TrackingDetailsViewController : SwipeViewController <CustomIOS7AlertViewDelegate>
-
-//- (id)initWithTrackedItem:(TrackedItem *)trackedItem;
 
 @property (nonatomic,retain) NSString * title;
 @property (nonatomic,assign) BOOL isActiveItem;

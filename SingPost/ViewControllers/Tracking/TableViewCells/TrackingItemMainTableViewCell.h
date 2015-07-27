@@ -16,7 +16,6 @@
 
 @interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate,CustomIOS7AlertViewDelegate>
 
-//@property (nonatomic,retain) TrackedItem *item;
 @property (strong, nonatomic) Parcel *parcel;
 @property (nonatomic, assign) BOOL hideSeparatorView;
 

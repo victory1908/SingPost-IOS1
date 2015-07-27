@@ -8,13 +8,13 @@
 
 #import "ApiClient.h"
 #import "EntityLocation.h"
-#import "TrackedItem.h"
 #import "Stamp.h"
 #import <SSKeychain.h>
 #import "UIAlertView+Blocks.h"
 #import "NSDictionary+Additions.h"
 #import <sys/sysctl.h>
 #import "DeliveryStatus.h"
+#import "Parcel.h"
 
 #import <AFNetworking/AFNetworking.h>
 
@@ -241,7 +241,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/FilterSingaporePostalInfo" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -276,7 +276,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/FilterOverseasPostalInfo" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -303,7 +303,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/PostalCodebyStreet" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -324,7 +324,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/PostalAddressbyLandMark" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -345,7 +345,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/PostalCodebyPOBox" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -496,16 +496,10 @@ static NSString *const OS = @"ios";
                      "</ItemTrackingNumbers>"
                      "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
     
-#warning TESTING URL
-    
-    /*NSMutableURLRequest *request = [self requestWithMethod:@"POST"
-     path:TRACKING_TEST_URL
-     parameters:nil];*/
-    
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
     
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -519,57 +513,57 @@ static NSString *const OS = @"ios";
     
     [self enqueueHTTPRequestOperation:operation];
 }
-
-- (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion
-{
-    NSMutableArray *updateOperations = [NSMutableArray array];
-    
-#define NUM_ITEMS_PER_API 10
-    NSUInteger chunk = 0;
-    NSArray *chunkedTrackedItems;
-    do {
-        chunkedTrackedItems = [trackedItems subarrayWithRange:NSMakeRange(chunk * NUM_ITEMS_PER_API, MIN(trackedItems.count - (chunk * NUM_ITEMS_PER_API), NUM_ITEMS_PER_API))];
-        
-        if (chunkedTrackedItems.count > 0) {
-            NSMutableString *trackingNumbersXml = [NSMutableString string];
-            for (TrackedItem *trackedItem in chunkedTrackedItems) {
-                [trackingNumbersXml appendFormat:@"<TrackingNumber>%@</TrackingNumber>", [trackedItem.trackingNumber uppercaseString]];
-            }
-            
-            NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-                             "<ItemTrackingNumbers>"
-                             "%@"
-                             "</ItemTrackingNumbers>"
-                             "</ItemTrackingDetailsRequest>", trackingNumbersXml];
-            
-            NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
-            [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-            [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
-            [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-            
-            AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
-                if (success)
-                    success(XMLElement);
-            } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-                if (failure)
-                    failure(error);
-            }];
-            
-            [updateOperations addObject:operation];
-        }
-        
-        chunk++;
-    } while((chunk * NUM_ITEMS_PER_API) < trackedItems.count);
-    
-    [self enqueueBatchOfHTTPRequestOperations:updateOperations
-                                progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
-                                    if (progressCompletion)
-                                        progressCompletion(numberOfFinishedOperations, totalNumberOfOperations);
-                                } completionBlock:^(NSArray *operations) {
-                                    //do nothing
-                                }];
-}
-
+/*
+ - (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion
+ {
+ NSMutableArray *updateOperations = [NSMutableArray array];
+ 
+ #define NUM_ITEMS_PER_API 10
+ NSUInteger chunk = 0;
+ NSArray *chunkedTrackedItems;
+ do {
+ chunkedTrackedItems = [trackedItems subarrayWithRange:NSMakeRange(chunk * NUM_ITEMS_PER_API, MIN(trackedItems.count - (chunk * NUM_ITEMS_PER_API), NUM_ITEMS_PER_API))];
+ 
+ if (chunkedTrackedItems.count > 0) {
+ NSMutableString *trackingNumbersXml = [NSMutableString string];
+ for (TrackedItem *trackedItem in chunkedTrackedItems) {
+ [trackingNumbersXml appendFormat:@"<TrackingNumber>%@</TrackingNumber>", [trackedItem.trackingNumber uppercaseString]];
+ }
+ 
+ NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+ "<ItemTrackingNumbers>"
+ "%@"
+ "</ItemTrackingNumbers>"
+ "</ItemTrackingDetailsRequest>", trackingNumbersXml];
+ 
+ NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/GetItemTrackingDetails" parameters:nil];
+ [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+ [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
+ [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+ 
+ AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
+ if (success)
+ success(XMLElement);
+ } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+ if (failure)
+ failure(error);
+ }];
+ 
+ [updateOperations addObject:operation];
+ }
+ 
+ chunk++;
+ } while((chunk * NUM_ITEMS_PER_API) < trackedItems.count);
+ 
+ [self enqueueBatchOfHTTPRequestOperations:updateOperations
+ progressBlock:^(NSUInteger numberOfFinishedOperations, NSUInteger totalNumberOfOperations) {
+ if (progressCompletion)
+ progressCompletion(numberOfFinishedOperations, totalNumberOfOperations);
+ } completionBlock:^(NSArray *operations) {
+ //do nothing
+ }];
+ }
+ */
 #pragma mark - Notifications
 
 - (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
@@ -582,7 +576,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/registration/add" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -615,7 +609,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/add" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     
     NSData * data = [xml dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
@@ -649,7 +643,7 @@ static NSString *const OS = @"ios";
     //[alert show];
     
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -675,7 +669,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/remove" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -704,7 +698,7 @@ static NSString *const OS = @"ios";
     
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:@"ma/notify/subscription/remove" parameters:nil];
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%d", [xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", [xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     
     AFRaptureXMLRequestOperation *operation = [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement) {
@@ -1052,7 +1046,7 @@ static NSString *const OS = @"ios";
     
 }
 
-- (void) registerTrackingNunmbersNew: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
+- (void) registerTrackingNunmbersNew: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (RLMResults *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     
     NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
     
@@ -1145,20 +1139,18 @@ static NSString *const OS = @"ios";
     return results;
 }
 
-- (NSString *) getTrackingDetailString : (NSArray *)itemArr {
+- (NSString *) getTrackingDetailString:(NSArray *)itemArr {
     NSMutableString * finalStr = [[NSMutableString alloc] init];
     
-    // NSMutableArray * arr = [[NSMutableArray alloc] init];
-    
     int i = 0;
-    for(TrackedItem * item in itemArr) {
+    for(Parcel *item in itemArr) {
         
         NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
         NSMutableDictionary * dicX = [[NSMutableDictionary alloc] init];
         
         [dic2 setValue:item.originalCountry forKey:@"OriginalCountry"];
         [dic2 setValue:item.trackingNumber forKey:@"TrackingNumber"];
-        [dic2 setValue:(item.isFoundValue?@"true":@"false") forKey:@"TrackingNumberFound"];
+        [dic2 setValue:(item.isFound?@"true":@"false") forKey:@"TrackingNumberFound"];
         [dic2 setValue:item.destinationCountry forKey:@"DestinationCountry"];
         [dic2 setValue:item.isActive forKey:@"TrackingNumberActive"];
         
@@ -1183,7 +1175,7 @@ static NSString *const OS = @"ios";
         NSMutableArray * statusArray = [NSMutableArray array];
         
         NSMutableDictionary * dicY = [[NSMutableDictionary alloc] init];
-        for(DeliveryStatus * deliveryStatus in item.deliveryStatuses.array) {
+        for(ParcelStatus * deliveryStatus in item.deliveryStatus) {
             
             NSMutableDictionary * dic3 = [[NSMutableDictionary alloc] init];
             
@@ -1221,28 +1213,21 @@ static NSString *const OS = @"ios";
         
         i++;
     }
-    
-    //[dic1 setValue:arr forKey:@"ItemsTrackingDetailList"];
-    
-    
-    
     return finalStr;
 }
 
-- (NSDictionary *) getTrackingDetailStringNew : (NSArray *)itemArr {
+- (NSDictionary *) getTrackingDetailStringNew : (RLMResults *)itemArr {
     NSMutableDictionary * finalDic = [[NSMutableDictionary alloc] init];
     
-    // NSMutableArray * arr = [[NSMutableArray alloc] init];
-    
     int i = 0;
-    for(TrackedItem * item in itemArr) {
+    for(Parcel * item in itemArr) {
         
         NSMutableDictionary * dic2 = [[NSMutableDictionary alloc] init];
         NSMutableDictionary * dicX = [[NSMutableDictionary alloc] init];
         
         [dic2 setValue:item.originalCountry forKey:@"OriginalCountry"];
         [dic2 setValue:item.trackingNumber forKey:@"TrackingNumber"];
-        [dic2 setValue:(item.isFoundValue?@"true":@"false") forKey:@"TrackingNumberFound"];
+        [dic2 setValue:(item.isFound?@"true":@"false") forKey:@"TrackingNumberFound"];
         [dic2 setValue:item.destinationCountry forKey:@"DestinationCountry"];
         [dic2 setValue:item.isActive forKey:@"TrackingNumberActive"];
         
@@ -1267,17 +1252,17 @@ static NSString *const OS = @"ios";
         NSMutableArray * statusArray = [NSMutableArray array];
         
         NSMutableDictionary * dicY = [[NSMutableDictionary alloc] init];
-        for(DeliveryStatus * deliveryStatus in item.deliveryStatuses.array) {
+        for(ParcelStatus *status in item.deliveryStatus) {
             
             NSMutableDictionary * dic3 = [[NSMutableDictionary alloc] init];
             
-            [dic3 setValue:deliveryStatus.location forKey:@"Location"];
+            [dic3 setValue:status.location forKey:@"Location"];
             
-            [dic3 setValue:deliveryStatus.statusDescription forKey:@"StatusDescription"];
+            [dic3 setValue:status.statusDescription forKey:@"StatusDescription"];
             
-            [dic3 setValue:[dateFormatter stringFromDate:deliveryStatus.date] forKey:@"Date"];
+            [dic3 setValue:[dateFormatter stringFromDate:status.date] forKey:@"Date"];
             
-            [dic3 setValue:[dateFormatter2 stringFromDate:deliveryStatus.date] forKey:@"AceDate"];
+            [dic3 setValue:[dateFormatter2 stringFromDate:status.date] forKey:@"AceDate"];
             
             [dic3 setValue:@"" forKey:@"BeatNo"];
             

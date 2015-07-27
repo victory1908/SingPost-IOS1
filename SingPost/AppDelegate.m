@@ -13,7 +13,6 @@
 #import <SVProgressHUD.h>
 #import "DatabaseSeeder.h"
 #import "PushNotification.h"
-#import "TrackedItem.h"
 #import "ApiClient.h"
 #import "TrackingMainViewController.h"
 #import "TrackingDetailsViewController.h"
@@ -27,13 +26,13 @@
 #import "DatabaseManager.h"
 #import "APIManager.h"
 #import "Parcel.h"
+#import "TrackedItem.h"
 
 @implementation AppDelegate
 @synthesize isLoginFromSideBar;
 @synthesize isLoginFromDetailPage;
 @synthesize detailPageTrackNum;
 @synthesize trackingNumberTappedBeforeSignin;
-
 
 + (AppDelegate *)sharedAppDelegate {
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -42,7 +41,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     application.applicationIconBadgeNumber = 0;
     
-#warning To-do
     if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         // use registerUserNotificationSettings
         [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
@@ -396,7 +394,7 @@
 }
 
 
-- (void) getAllLabel {
+- (void)getAllLabel {
     [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
     [[ApiClient sharedInstance] getAllTrackingNunmbersOnSuccess:^(id responseObject)
@@ -414,6 +412,9 @@
          [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
          
          NSMutableDictionary * tempDic2 = [NSMutableDictionary dictionary];
+         
+         RLMRealm *realm = [RLMRealm defaultRealm];
+         [realm beginWriteTransaction];
          
          for(NSDictionary * dic in dataArray) {
              NSString * trackingDetailsStr = [dic objectForKey:@"tracking_details"];
@@ -439,8 +440,13 @@
              
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
              
-             
+             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",trackingNum];
+             Parcel *parcel = [[Parcel objectsWithPredicate:predicate]firstObject];
+             if (parcel != nil && [dic objectForKey:@"label"] != nil) {
+                 parcel.labelAlias = [dic objectForKey:@"label"];
+             }
          }
+         [realm commitWriteTransaction];
          //Go to tracking list page.
          
          if(isLoginFromDetailPage) {
@@ -485,97 +491,85 @@
     
 }
 
-- (void)updateTrackItemInfo: (NSString *)num Info : (NSDictionary *)dic Date : (NSDate *)lastModifiedDate{
-    TrackedItem * item = [[TrackedItem MR_findByAttribute:@"trackingNumber" withValue:num] firstObject];
-    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-    if(item && ![item isKindOfClass:[NSNull class]]) {
-        if ([item.lastUpdatedOn compare:lastModifiedDate] == NSOrderedDescending) {
+- (void)updateTrackItemInfo:(NSString *)num Info:(NSDictionary *)dic Date:(NSDate *)lastModifiedDate {
+    RLMRealm *realm = [RLMRealm defaultRealm];
+    [realm beginWriteTransaction];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",num];
+    Parcel *parcel = [[Parcel objectsWithPredicate:predicate] firstObject];
+    
+    if(parcel != nil && ![parcel isKindOfClass:[NSNull class]]) {
+        if ([parcel.lastUpdatedOn compare:lastModifiedDate] == NSOrderedDescending) {
             return;
         }
         
-        item.originalCountry = [dic objectForKey:@"OriginalCountry"];
+        parcel.originalCountry = [dic objectForKey:@"OriginalCountry"];
         
-        NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
-        if(![isFound isKindOfClass:[NSString class]]) {
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
-        }
-        
+        NSString *isFound = [dic objectForKey:@"TrackingNumberFound"];
+        if(![isFound isKindOfClass:[NSString class]])
+            parcel.isFound = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
         else
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
+            parcel.isFound = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"] ? YES:NO;
         
-        item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
+        parcel.destinationCountry = [dic objectForKey:@"DestinationCountry"];
         
         
-        item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
+        parcel.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
         
-        item.addedOn = [NSDate date];
-        item.isRead = false;
-        item.lastUpdatedOn = [NSDate date];
+        parcel.addedOn = [NSDate date];
+        parcel.isRead = NO;
+        parcel.lastUpdatedOn = [NSDate date];
         
+        //Remove old records
+        [parcel.deliveryStatus removeAllObjects];
+        
+        RLMArray *newStatus = [[RLMArray alloc]initWithObjectClassName:@"ParcelStatus"];
         NSDictionary * tempDic = [dic objectForKey:@"DeliveryStatusDetails"];
-        if(tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
-            
+        if (tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
             NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
-            NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
             if([statusArray isKindOfClass:[NSDictionary class]]) {
-                NSDictionary * dic = (NSDictionary *)statusArray;
-                [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+                NSDictionary *dic = (NSDictionary *)statusArray;
+                [newStatus addObject:[self createParcelStatus:dic]];
             } else {
-                
                 for(NSDictionary * dic in statusArray) {
-                    [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+                    [newStatus addObject:[self createParcelStatus:dic]];
                 }
             }
-            
-            
-            for(DeliveryStatus * oldStatus in item.deliveryStatuses) {
-                [oldStatus MR_deleteEntity];
-            }
-            
-            item.deliveryStatuses = newStatus;
-            
+            [parcel.deliveryStatus addObjects:newStatus];
         }
-        
     } else {
-        item = [TrackedItem MR_createEntity];
-        item.trackingNumber = num;
-        item.originalCountry = [dic objectForKey:@"OriginalCountry"];
+        parcel = [[Parcel alloc] init];
+        parcel.trackingNumber = num;
+        parcel.originalCountry = [dic objectForKey:@"OriginalCountry"];
         NSString * isFound = [dic objectForKey:@"TrackingNumberFound"];
-        if(![isFound isKindOfClass:[NSString class]]) {
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"]boolValue]?true:false;
-        }
-        
+        if(![isFound isKindOfClass:[NSString class]])
+            parcel.isFound = [[dic objectForKey:@"TrackingNumberFound"]boolValue] ? YES:NO;
         else
-            item.isFoundValue = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"]?true:false;
-        item.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-        item.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
+            parcel.isFound = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"] ? YES:NO;
         
-        item.addedOn = [NSDate date];
-        item.isRead = false;
-        item.lastUpdatedOn = [NSDate date];
+        parcel.destinationCountry = [dic objectForKey:@"DestinationCountry"];
+        parcel.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
+        parcel.addedOn = [NSDate date];
+        parcel.isRead = false;
+        parcel.lastUpdatedOn = [NSDate date];
         
+        RLMArray *newStatus = [[RLMArray alloc]initWithObjectClassName:@"ParcelStatus"];
         NSDictionary * tempDic = [dic objectForKey:@"DeliveryStatusDetails"];
-        if(tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
-            
+        if (tempDic!= nil && ![tempDic isKindOfClass:[NSString class]]) {
             NSArray * statusArray = [[dic objectForKey:@"DeliveryStatusDetails"] objectForKey:@"DeliveryStatusDetail"];
-            
-            
-            NSMutableOrderedSet *newStatus = [NSMutableOrderedSet orderedSet];
             if([statusArray isKindOfClass:[NSDictionary class]]) {
-                NSDictionary * dic = (NSDictionary *)statusArray;
-                [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+                NSDictionary *dic = (NSDictionary *)statusArray;
+                [newStatus addObject:[self createParcelStatus:dic]];
             } else {
-                
                 for(NSDictionary * dic in statusArray) {
-                    [newStatus addObject:[DeliveryStatus createFromDicElement:dic inContext:localContext]];
+                    [newStatus addObject:[self createParcelStatus:dic]];
                 }
             }
-            item.deliveryStatuses = newStatus;
+            [parcel.deliveryStatus addObjects:newStatus];
         }
     }
-    [localContext MR_saveToPersistentStoreAndWait];
+    [realm commitWriteTransaction];
 }
-
 
 #pragma mark - APNS
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt {
@@ -672,6 +666,35 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
              reply(nil);
          }];
     }
+}
+
+#pragma mark - Helper
+- (ParcelStatus *)createParcelStatus:(NSDictionary *)dictionary {
+    ParcelStatus *status = [[ParcelStatus alloc] init];
+    status.statusDescription = [dictionary objectForKey:@"StatusDescription"];
+    status.location = [dictionary objectForKey:@"Location"];
+    
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssz"];
+    NSDate *date = [dateFormatter dateFromString:[dictionary objectForKey:@"Date"]];
+    
+    if (!date) {
+        //date formatting failed, try again formatting with milliseconds
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSz"];
+        date = [dateFormatter dateFromString:[dictionary objectForKey:@"Date"]];
+    }
+    
+    if (!date) {
+        //date formatting failed again, try again formatting with just HH:mm:ss
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        date = [dateFormatter dateFromString:[dictionary objectForKey:@"Date"]];
+    }
+    status.date = date;
+    return status;
+}
+
+- (void)migrateData {
+    NSArray *array = [TrackedItem MR_findAll];
 }
 
 @end
