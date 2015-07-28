@@ -68,7 +68,6 @@ UITableViewDataSource,
 UITableViewDelegate,
 CustomIOS7AlertViewDelegate
 >
-@property (strong, nonatomic) RLMNotificationToken *notificationToken;
 @property (strong, nonatomic) RLMResults *activeResults;
 @property (strong, nonatomic) RLMResults *unsortedResults;
 @property (strong, nonatomic) RLMResults *completedResults;
@@ -76,17 +75,15 @@ CustomIOS7AlertViewDelegate
 
 @implementation TrackingMainViewController {
     CTextField *trackingNumberTextField;
-    
     SevenSwitch *receiveUpdateSwitch;
     
     BOOL isViewDidAppear;
-    TrackingSelectViewController * vc;
+    TrackingSelectViewController *vc;
     
     NavigationBarView *navigationBarView;
     UIButton *infoButton;
-    UIButton * btnMain2;
+    UIButton *btnMain2;
 }
-
 @synthesize labelDic;
 @synthesize trackingItemsTableView;
 
@@ -152,15 +149,11 @@ CustomIOS7AlertViewDelegate
         }
     }
     [self loadTrackingItems];
-    
-    self.notificationToken = [[RLMRealm defaultRealm] addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
-        [self loadTrackingItems];
-    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
+    //[[RLMRealm defaultRealm] removeNotification:self.notificationToken];
     [SVProgressHUD dismiss];
 }
 
