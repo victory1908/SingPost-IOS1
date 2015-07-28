@@ -492,7 +492,6 @@
 
 - (void)updateTrackItemInfo:(NSString *)num Info:(NSDictionary *)dic Date:(NSDate *)lastModifiedDate {
     RLMRealm *realm = [RLMRealm defaultRealm];
-    [realm beginWriteTransaction];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",num];
     Parcel *parcel = [[Parcel objectsWithPredicate:predicate] firstObject];
@@ -502,7 +501,7 @@
             return;
         }
         
-        parcel.originalCountry = [dic objectForKey:@"OriginalCountry"];
+        [realm beginWriteTransaction];
         
         NSString *isFound = [dic objectForKey:@"TrackingNumberFound"];
         if(![isFound isKindOfClass:[NSString class]])
@@ -510,8 +509,8 @@
         else
             parcel.isFound = [[dic objectForKey:@"TrackingNumberFound"] isEqualToString:@"true"] ? YES:NO;
         
+        parcel.originalCountry = [dic objectForKey:@"OriginalCountry"];
         parcel.destinationCountry = [dic objectForKey:@"DestinationCountry"];
-        
         
         parcel.isActive = ([[dic objectForKey:@"TrackingNumberActive"] boolValue] == 1 ? @"true" : @"false");
         
@@ -537,6 +536,8 @@
             [parcel.deliveryStatus addObjects:newStatus];
         }
     } else {
+        [realm beginWriteTransaction];
+        
         parcel = [[Parcel alloc] init];
         parcel.trackingNumber = num;
         parcel.originalCountry = [dic objectForKey:@"OriginalCountry"];
