@@ -16,7 +16,7 @@
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="Uyd-fa-tnq">
                                         <items>
                                             <imageView width="3" height="30" alignment="left" verticalAlignment="center" id="LFx-px-I4T"/>
-                                            <label alignment="left" verticalAlignment="center" text="123456789012345678901234567" numberOfLines="0" id="IuK-BY-CW1"/>
+                                            <label width="1" alignment="left" verticalAlignment="center" text="iPhone" numberOfLines="0" id="IuK-BY-CW1"/>
                                         </items>
                                         <connections>
                                             <segue destination="bWo-13-WvY" kind="push" id="Vwx-FZ-ENP"/>
@@ -30,7 +30,7 @@
                             </items>
                         </table>
                         <switch width="1" alignment="left" value="YES" title="Notify on parcel arrival" id="ebD-eN-bb1">
-                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                            <fontDescription key="font" style="UICTFontTextStyleBody"/>
                             <connections>
                                 <action selector="toggleNotificationSwitch:" destination="AgC-eL-Hgc" id="wKT-kY-IdK"/>
                             </connections>
@@ -49,8 +49,8 @@
             <objects>
                 <controller title="My Parcel" id="bWo-13-WvY" customClass="ParcelDetailController">
                     <items>
-                        <label width="1" alignment="left" text="12345678901234567890123456789012345678" numberOfLines="2" id="3w1-2V-MKD" userLabel="Tip">
-                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        <label width="1" alignment="left" text="Force touch to see more options" numberOfLines="2" id="3w1-2V-MKD" userLabel="Tip">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                         </label>
                         <separator alignment="left" id="1Mt-mM-Mq9">
                             <color key="color" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,13 +63,13 @@
                                             <group alignment="left" id="tLU-Ab-suo">
                                                 <items>
                                                     <imageView width="10" height="10" alignment="left" verticalAlignment="center" id="grm-Th-Xqv"/>
-                                                    <group width="1" alignment="left" layout="vertical" id="wbx-iH-UiO">
+                                                    <group alignment="left" layout="vertical" id="wbx-iH-UiO">
                                                         <items>
                                                             <label width="1" alignment="left" text="Date" id="0dW-VO-ag1">
                                                                 <color key="textColor" red="0.69803921568627447" green="0.69803921568627447" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
                                                             </label>
-                                                            <label width="1" alignment="left" text="Status" numberOfLines="3" id="IhU-IC-s7k"/>
+                                                            <label width="1" alignment="left" text="Status description" numberOfLines="0" id="IhU-IC-s7k"/>
                                                         </items>
                                                     </group>
                                                 </items>
