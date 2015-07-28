@@ -51,6 +51,7 @@
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [DatabaseManager setupRealm];
+    [self migrateData];
     
     [self setupGoogleAnalytics];
     [DatabaseSeeder seedLocationsDataIfRequired];
@@ -434,7 +435,6 @@
              
              [self updateTrackItemInfo:trackingNum Info:tempDic Date:lastModifiedDate];
              
-             
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
              
              NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",trackingNum];
@@ -656,15 +656,10 @@
 - (void)application:(UIApplication *)application
 handleWatchKitExtensionRequest:(NSDictionary *)userInfo
               reply:(void (^)(NSDictionary *response))reply {
-#warning need to update parcel item
-#warning unsubscribe parcel
-    if ([userInfo objectForKey:@"update"] != nil) {
-        NSString *trackingNumber = [userInfo objectForKey:@"update"];
-        [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumber
-                                                   completed:^(Parcel *parcel, NSError *error)
-         {
-             reply(nil);
-         }];
+    if ([userInfo objectForKey:@"delete"] != nil) {
+        NSString *trackingNumber = [userInfo objectForKey:@"delete"];
+        [PushNotificationManager API_unsubscribeNotificationForTrackingNumber:trackingNumber
+                                                                 onCompletion:^(BOOL success, NSError *error){}];
     }
 }
 
@@ -694,7 +689,34 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
 }
 
 - (void)migrateData {
-    NSArray *array = [TrackedItem MR_findAll];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"MigrateData"] == nil) {
+        NSArray *array = [TrackedItem MR_findAll];
+        
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        [realm beginWriteTransaction];
+        for (TrackedItem *item in array) {
+            Parcel *parcel = [[Parcel alloc] init];
+            parcel.addedOn = item.addedOn;
+            parcel.destinationCountry = item.destinationCountry;
+            parcel.isActive = item.isActive;
+            parcel.isFound = item.isFoundValue;
+            parcel.isRead = item.isReadValue;
+            parcel.showInGlance = NO;
+            parcel.lastUpdatedOn = item.lastUpdatedOn;
+            parcel.originalCountry = item.originalCountry;
+            parcel.trackingNumber = item.trackingNumber;
+            
+            for (DeliveryStatus *status in item.deliveryStatuses.array) {
+                ParcelStatus *parcelStatus = [[ParcelStatus alloc] init];
+                parcelStatus.date = status.date;
+                parcelStatus.location = status.location;
+                parcelStatus.statusDescription = status.statusDescription;
+                [parcel.deliveryStatus addObject:parcelStatus];
+            }
+        }
+        [realm commitWriteTransaction];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"MigrateData"];
+    }
 }
 
 @end

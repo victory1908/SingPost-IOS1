@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceSwitch *notificationSwitch;
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *tableView;
 @property (strong, nonatomic) NSMutableArray *trackedItems;
-//@property (strong, nonatomic) RLMNotificationToken *notificationToken;
+@property (strong, nonatomic) RLMNotificationToken *notificationToken;
 @end
 
 @implementation ParcelController
@@ -26,16 +26,15 @@
     [DatabaseManager setupRealm];
     [self loadTrackingItems];
     [self.notificationSwitch setOn:[[UserDefaultsManager sharedInstance] getNotificationStatus]];
-    /*
+    
     self.notificationToken = [[RLMRealm defaultRealm] addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
         [self loadTrackingItems];
     }];
-     */
 }
 
 - (void)didDeactivate {
     [super didDeactivate];
-    //[[RLMRealm defaultRealm] removeNotification:self.notificationToken];
+    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
 }
 
 - (void)loadTrackingItems {

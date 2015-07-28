@@ -68,6 +68,7 @@ UITableViewDataSource,
 UITableViewDelegate,
 CustomIOS7AlertViewDelegate
 >
+@property (strong, nonatomic) RLMNotificationToken *notificationToken;
 @property (strong, nonatomic) RLMResults *activeResults;
 @property (strong, nonatomic) RLMResults *unsortedResults;
 @property (strong, nonatomic) RLMResults *completedResults;
@@ -149,11 +150,15 @@ CustomIOS7AlertViewDelegate
         }
     }
     [self loadTrackingItems];
+    
+    self.notificationToken = [[RLMRealm defaultRealm] addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
+        [self loadTrackingItems];
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    //[[RLMRealm defaultRealm] removeNotification:self.notificationToken];
+    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
     [SVProgressHUD dismiss];
 }
 

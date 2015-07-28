@@ -21,22 +21,7 @@
     [super awakeWithContext:context];
     
     self.parcel = context;
-    
     [self loadParcel];
-    
-    if (self.parcel.trackingNumber != nil) {
-        [WKInterfaceController openParentApplication:@{@"update":self.parcel.trackingNumber}
-                                               reply:^(NSDictionary *replyInfo, NSError *error)
-         {
-             if (error == nil) {
-                 Parcel *updatedParcel = [[Parcel objectsWhere:@"trackingNumber == %@",self.parcel.trackingNumber]firstObject];
-                 if (updatedParcel != nil) {
-                     self.parcel = updatedParcel;
-                     [self loadParcel];
-                 }
-             }
-         }];
-    }
 }
 
 - (void)loadParcel {
@@ -60,6 +45,8 @@
 }
 
 - (IBAction)deleteParcel {
+    [WKInterfaceController openParentApplication:@{@"delete":self.parcel.trackingNumber}
+                                           reply:^(NSDictionary *replyInfo, NSError *error){}];
     [DatabaseManager removeParcel:self.parcel];
     [self popToRootController];
 }
