@@ -33,8 +33,8 @@
         ParcelStatus *status = [results firstObject];
         self.statusLabel.text = status.statusDescription;
     } else {
-        self.trackingLabel.text = @"No parcel found.";
-        self.statusLabel.text = @"";
+        self.statusLabel.text = @"No parcel found";
+        self.trackingLabel.text = @"";
     }
 }
 
