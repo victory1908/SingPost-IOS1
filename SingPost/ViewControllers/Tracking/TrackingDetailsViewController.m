@@ -163,7 +163,7 @@ UITextFieldDelegate
     trackingNumberLabel.right = contentView.right - 15;
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
-    [trackingNumberLabel setText:self.selectedParcel.trackingNumber];
+    [trackingNumberLabel setText:[self.selectedParcel getLabelText]];
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:trackingNumberLabel];
     
