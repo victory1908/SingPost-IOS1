@@ -437,7 +437,7 @@
              
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
              
-             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",trackingNum];
+             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber == %@",trackingNum];
              Parcel *parcel = [[Parcel objectsWithPredicate:predicate]firstObject];
              if (parcel != nil && [dic objectForKey:@"label"] != nil) {
                  RLMRealm *realm = [RLMRealm defaultRealm];
@@ -493,7 +493,7 @@
 - (void)updateTrackItemInfo:(NSString *)num Info:(NSDictionary *)dic Date:(NSDate *)lastModifiedDate {
     RLMRealm *realm = [RLMRealm defaultRealm];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",num];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber == %@",num];
     Parcel *parcel = [[Parcel objectsWithPredicate:predicate] firstObject];
     
     if(parcel != nil && ![parcel isKindOfClass:[NSNull class]]) {

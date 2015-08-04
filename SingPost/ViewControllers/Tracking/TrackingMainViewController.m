@@ -960,7 +960,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
              
              [tempDic2 setValue:[dic objectForKey:@"label"] forKey:trackingNum];
              
-             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",trackingNum];
+             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber == %@",trackingNum];
              Parcel *parcel = [[Parcel objectsWithPredicate:predicate]firstObject];
              if (parcel != nil && [dic objectForKey:@"label"] != nil) {
                  RLMRealm *realm = [RLMRealm defaultRealm];
@@ -1003,7 +1003,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
          if(appDelegate.isLoginFromDetailPage) {
              appDelegate.isLoginFromDetailPage = false;
              
-             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber = %@",appDelegate.detailPageTrackNum];
+             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber == %@",appDelegate.detailPageTrackNum];
              Parcel *parcel = [[Parcel objectsWithPredicate:predicate]firstObject];;
              
              if (parcel != nil)
