@@ -26,11 +26,16 @@
     [super willActivate];
     
     Parcel *parcel = [Parcel getGlanceParcel];
-    self.trackingLabel.text = parcel.trackingNumber;
-    
-    RLMResults *results = [parcel.deliveryStatus sortedResultsUsingProperty:@"date" ascending:NO];
-    ParcelStatus *status = [results firstObject];
-    self.statusLabel.text = status.statusDescription;
+    if (parcel != nil) {
+        self.trackingLabel.text = parcel.trackingNumber;
+        
+        RLMResults *results = [parcel.deliveryStatus sortedResultsUsingProperty:@"date" ascending:NO];
+        ParcelStatus *status = [results firstObject];
+        self.statusLabel.text = status.statusDescription;
+    } else {
+        self.trackingLabel.text = @"No parcel found.";
+        self.statusLabel.text = @"";
+    }
 }
 
 @end
