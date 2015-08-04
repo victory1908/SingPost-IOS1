@@ -27,7 +27,7 @@
     
     Parcel *parcel = [Parcel getGlanceParcel];
     if (parcel != nil) {
-        self.trackingLabel.text = parcel.trackingNumber;
+        self.trackingLabel.text = [parcel getLabelText];
         
         RLMResults *results = [parcel.deliveryStatus sortedResultsUsingProperty:@"date" ascending:NO];
         ParcelStatus *status = [results firstObject];

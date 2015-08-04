@@ -117,10 +117,10 @@
                         <group alignment="left" backgroundImage="Logo" id="C2J-Au-xgo"/>
                         <group alignment="left" contentMode="scaleAspectFit" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
-                                <label width="1" alignment="center" text="Parcel in transit" numberOfLines="2" id="QiV-bk-dJF">
+                                <label width="1" alignment="center" text="Parcel in transit" numberOfLines="3" id="QiV-bk-dJF">
                                     <fontDescription key="font" type="system" pointSize="25"/>
                                 </label>
-                                <label width="1" alignment="center" verticalAlignment="bottom" numberOfLines="2" id="Kvy-be-O3v">
+                                <label width="1" alignment="center" verticalAlignment="bottom" id="Kvy-be-O3v">
                                     <string key="text">XC00006314929
 XC00006314929</string>
                                 </label>

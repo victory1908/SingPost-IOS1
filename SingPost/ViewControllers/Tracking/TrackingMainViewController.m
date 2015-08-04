@@ -229,6 +229,7 @@ CustomIOS7AlertViewDelegate
                           cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
              }
          }
+         [self loadTrackingItems];
          [SVProgressHUD dismiss];
      }];
 }
