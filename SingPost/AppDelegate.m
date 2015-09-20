@@ -17,7 +17,6 @@
 #import "TrackingMainViewController.h"
 #import "TrackingDetailsViewController.h"
 #import "AnnouncementViewController.h"
-#import <Crashlytics/Crashlytics.h>
 #import "ProceedViewController.h"
 #import "DeliveryStatus.h"
 #import "CustomIOS7AlertView.h"
@@ -56,7 +55,7 @@
     [self setupGoogleAnalytics];
     [DatabaseSeeder seedLocationsDataIfRequired];
     
-    [Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
+    //[Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

@@ -138,7 +138,6 @@
 		24AD39271A399D180088F6A6 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B62FEF19AC62F900040E0A /* ImageIO.framework */; };
 		24AD39281A399D180088F6A6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		24AD39291A399D180088F6A6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C26A1619AF1457008F4F01 /* FacebookSDK.framework */; };
-		24AD392A1A399D180088F6A6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BAA22618ED0082000C1034 /* Crashlytics.framework */; };
 		24AD392C1A399D180088F6A6 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F8D3319F8FA4300EF4114 /* libzbar.a */; };
 		24AD392F1A399D180088F6A6 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
 		24AD39301A399D180088F6A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 521B172917F1633000FEB6FD /* InfoPlist.strings */; };
@@ -612,7 +611,6 @@
 				24AD39271A399D180088F6A6 /* ImageIO.framework in Frameworks */,
 				24AD39281A399D180088F6A6 /* MapKit.framework in Frameworks */,
 				24AD39291A399D180088F6A6 /* FacebookSDK.framework in Frameworks */,
-				24AD392A1A399D180088F6A6 /* Crashlytics.framework in Frameworks */,
 				24AD392C1A399D180088F6A6 /* libzbar.a in Frameworks */,
 				3E9CB91D41EE44D93831B604 /* libPods-SingPost.a in Frameworks */,
 			);
@@ -1518,7 +1516,6 @@
 				24AD38A41A399D180088F6A6 /* Sources */,
 				24AD391D1A399D180088F6A6 /* Frameworks */,
 				24AD392E1A399D180088F6A6 /* Resources */,
-				24AD394E1A399D180088F6A6 /* ShellScript */,
 				87BDF6A91B13032400EFADDD /* Embed App Extensions */,
 				C3A94072E1B0950FE45D2515 /* Copy Pods Resources */,
 			);
@@ -1698,19 +1695,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SingPost WatchKit Extension/Pods-SingPost WatchKit Extension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		24AD394E1A399D180088F6A6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run fb5017e08feeb7069b1c5d7b664775e80e3e30da 9c61f15d3ecb033696af53ecb38698e9aa9860c2fa52db54c297e2cba3eed16d";
 		};
 		34DFEA5011F38213DB161E3B /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
