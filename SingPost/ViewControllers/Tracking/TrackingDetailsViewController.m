@@ -105,11 +105,11 @@ UITextFieldDelegate
     if(self.isActiveItem && ![ApiClient isWithoutFacebook]) {
         labelLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 15, 280, 20)];
         [labelLabel setFont:[UIFont SingPostSemiboldFontOfSize:15.0f fontKey:kSingPostFontOpenSans]];
-        if(title) {
-            [labelLabel setText:title];
+        
+        if (![self.selectedParcel.labelAlias isEqualToString:@""]) {
+            [labelLabel setText:self.selectedParcel.labelAlias];
             [labelLabel setTextColor:RGB(36, 84, 157)];
-        }
-        else{
+        } else {
             [labelLabel setText:@"Add a label"];
             [labelLabel setTextColor:[UIColor orangeColor]];
             btnDetail2 = [[UIButton alloc] initWithFrame:labelLabel.frame];
@@ -163,7 +163,7 @@ UITextFieldDelegate
     trackingNumberLabel.right = contentView.right - 15;
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
-    [trackingNumberLabel setText:[self.selectedParcel getLabelText]];
+    [trackingNumberLabel setText:self.selectedParcel.trackingNumber];
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:trackingNumberLabel];
     
