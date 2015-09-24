@@ -13,10 +13,8 @@
 
 @interface TrackingDetailsViewController : SwipeViewController <CustomIOS7AlertViewDelegate>
 
-@property (nonatomic,retain) NSString * title;
 @property (nonatomic,assign) BOOL isActiveItem;
 @property (nonatomic,retain) TrackingMainViewController * delegate;
-
 @property (strong, nonatomic) Parcel *selectedParcel;
 
 @end

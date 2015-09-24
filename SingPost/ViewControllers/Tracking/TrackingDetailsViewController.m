@@ -377,12 +377,15 @@ UITextFieldDelegate
             [labelLabel setTextColor:RGB(36, 84, 157)];
             title = textField.text;
             
+            [[RLMRealm defaultRealm] beginWriteTransaction];
+            self.selectedParcel.labelAlias = textField.text;
+            [[RLMRealm defaultRealm] commitWriteTransaction];
+            
             if([textField.text isEqualToString:@""]) {
                 labelLabel.text = @"Add a label";
                 [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon3.png"] forState:UIControlStateHighlighted];
                 [labelLabel setTextColor:[UIColor orangeColor]];
                 [btnDetail2 setEnabled:YES];
-                title = @"";
                 icon.selected = YES;
             } else {
                 [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon2.png"] forState:UIControlStateHighlighted];

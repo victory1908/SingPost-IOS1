@@ -12,8 +12,6 @@
 
 #define STATUS_LABEL_SIZE CGSizeMake(120, 500)
 
-//@class TrackedItem;
-
 @interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate,CustomIOS7AlertViewDelegate>
 
 @property (strong, nonatomic) Parcel *parcel;
