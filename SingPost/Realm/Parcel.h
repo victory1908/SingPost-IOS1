@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Codigo. All rights reserved.
 //
 
-#import "RLMObject.h"
 #import "ParcelStatus.h"
 #import <Realm/Realm.h>
 

@@ -9,7 +9,7 @@
 #import <AFNetworking.h>
 #import <AFRaptureXMLRequestOperation.h>
 #import <RXMLElement.h>
-#import "Realm.h"
+#import <Realm/Realm.h>
 
 @class Stamp;
 

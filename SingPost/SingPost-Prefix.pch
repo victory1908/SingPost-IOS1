@@ -21,7 +21,7 @@
 #endif
 
 #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
-#import "MagicalRecord.h"
+#import <MagicalRecord/MagicalRecord.h>
 #import <UALogger.h>
 #import "GAI.h"
 #import "GAIFields.h"

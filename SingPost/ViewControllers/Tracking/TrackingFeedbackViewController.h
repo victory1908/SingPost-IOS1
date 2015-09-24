@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Realm.h"
+#import <Realm/Realm.h>
 #import "Parcel.h"
 #import "SwipeViewController.h"
 
