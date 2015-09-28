@@ -144,7 +144,9 @@
     
     NSDictionary *result = _searchResults[indexPath.row - 1];
     
-    CGSize labelSize = [[NSString stringWithFormat:@"%@ %@", result[@"buildingno"], result[@"streetname"]] sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
+    //CGSize labelSize = [[NSString stringWithFormat:@"%@ %@", result[@"buildingno"], result[@"streetname"]] sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
+    
+    CGSize labelSize = [[NSString stringWithFormat:@"%@ %@", result[@"buildingno"], result[@"streetname"]] sizeWithAttributes:@{NSFontAttributeName:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]}];
     
     return MAX(36.0f, labelSize.height + 21.0f);
 }

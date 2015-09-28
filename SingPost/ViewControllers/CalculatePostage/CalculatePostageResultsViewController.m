@@ -119,12 +119,15 @@
 {
     if (indexPath.row == HEADER_ROW)
         return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 100.0f;
-
+    
     if (indexPath.row == TITLE_ROW)
         return 40.0f;
-
+    
     CalculatePostageResultItem *item = _resultItems[indexPath.row - 2];
-    CGSize variableTextSize = [item.deliveryServiceName sizeWithFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans] constrainedToSize:CGSizeMake(190, LONG_MAX)];
+    //CGSize variableTextSize = [item.deliveryServiceName sizeWithFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans] constrainedToSize:CGSizeMake(190, LONG_MAX)];
+    
+    CGSize variableTextSize = [item.deliveryServiceName sizeWithAttributes:@{NSFontAttributeName:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]}];
+    
     return variableTextSize.height + 55.0f;
 }
 
@@ -160,7 +163,7 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:headerCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+            
             UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, tableView.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 100.0f)];
             [cellContentView setBackgroundColor:RGB(240, 240, 240)];
             [cell.contentView addSubview:cellContentView];

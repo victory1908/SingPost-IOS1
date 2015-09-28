@@ -127,7 +127,9 @@
     
     NSDictionary *result = _searchResults[indexPath.row - 1];
     
-    CGSize labelSize = [result[@"landmark"] sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
+    //CGSize labelSize = [result[@"landmark"] sizeWithFont:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans] constrainedToSize:LOCATION_LABEL_SIZE];
+    
+        CGSize labelSize = [result[@"landmark"] sizeWithAttributes:@{NSFontAttributeName:[UIFont SingPostRegularFontOfSize:12.0f fontKey:kSingPostFontOpenSans]}];
     
     return MAX(36.0f, labelSize.height + 21.0f);
 }

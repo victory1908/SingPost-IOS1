@@ -71,7 +71,9 @@
 
 - (void)drawPlaceholderInRect:(CGRect)rect {
     [RGB(163, 163, 163) setFill];
-    [[self placeholder] drawInRect:CGRectInset(rect, 0, 2)  withFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    //[[self placeholder] drawInRect:CGRectInset(rect, 0, 2)  withFont:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]];
+    
+    [self.placeholder drawInRect:CGRectInset(rect, 0, 2) withAttributes:@{NSFontAttributeName:[UIFont SingPostLightItalicFontOfSize:12.0f fontKey:kSingPostFontOpenSans]}];
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {

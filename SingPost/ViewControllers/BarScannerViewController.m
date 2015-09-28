@@ -70,10 +70,8 @@
 
 
 - (IBAction)onCloseClicked:(id)sender {
-    [reader dismissModalViewControllerAnimated: YES];
-    
+    [reader dismissViewControllerAnimated:YES completion:nil];
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:self.landingVC];
-    
 }
 
 - (void) animateScanner {
