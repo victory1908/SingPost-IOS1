@@ -23,6 +23,7 @@
 #import "UIView+Position.h"
 #import "PersistentBackgroundView.h"
 #import "UIImage+animatedGIF.h"
+#import "UILabel+VerticalAlign.h"
 
 #define NEW_LAYOUT_OFFSET_Y 45
 
@@ -542,13 +543,17 @@ UITextFieldDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < [self.selectedParcel.deliveryStatus count]) {
         ParcelStatus *parcelStatus = [self.selectedParcel.deliveryStatus objectAtIndex:indexPath.row];
-        CGSize statusLabelSize = [parcelStatus.statusDescription boundingRectWithSize:STATUS_LABEL_SIZE
-                                                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                                                           attributes:nil context:nil].size;
         
-        CGSize locationLabelSize = [parcelStatus.location boundingRectWithSize:STATUS_LABEL_SIZE
-                                                                       options:NSStringDrawingUsesLineFragmentOrigin
-                                                                    attributes:nil context:nil].size;
+        UILabel *tempLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 130, 500)];
+        tempLabel.numberOfLines = 0;
+        tempLabel.text = parcelStatus.statusDescription;
+        [tempLabel sizeToFitKeepWidth];
+        
+        CGSize statusLabelSize = tempLabel.size;
+        
+        tempLabel.text = parcelStatus.location;
+        [tempLabel sizeToFitKeepWidth];
+        CGSize locationLabelSize = tempLabel.size;
         return MAX(61.0f, MAX(statusLabelSize.height + 12.0f, locationLabelSize.height + 12.0f));
     }
     return 60;
