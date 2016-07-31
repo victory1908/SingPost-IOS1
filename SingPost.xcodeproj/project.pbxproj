@@ -2011,7 +2011,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/GoogleAnalytics-iOS-SDK",
+					"$(PROJECT_DIR)/Pods/GoogleAnalytics",
 					"$(PROJECT_DIR)/ZBarSDK",
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
@@ -2046,7 +2046,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/GoogleAnalytics-iOS-SDK",
+					"$(PROJECT_DIR)/Pods/GoogleAnalytics",
 					"$(PROJECT_DIR)/ZBarSDK",
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
