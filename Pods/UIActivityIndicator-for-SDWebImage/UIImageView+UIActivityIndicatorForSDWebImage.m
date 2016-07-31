@@ -29,17 +29,14 @@ static char TAG_ACTIVITY_INDICATOR;
     objc_setAssociatedObject(self, &TAG_ACTIVITY_INDICATOR, activityIndicator, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (void)addActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle) activityStyle {
+- (void)addActivityIndicatorWithStyle:(UIActivityIndicatorViewStyle)activityStyle {
     
     if (!self.activityIndicator) {
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:activityStyle];
         
         self.activityIndicator.autoresizingMask = UIViewAutoresizingNone;
         
-        CGRect activityIndicatorBounds = self.activityIndicator.bounds;
-        float x = (self.frame.size.width - activityIndicatorBounds.size.width) / 2.0;
-        float y = (self.frame.size.height - activityIndicatorBounds.size.height) / 2.0;
-        self.activityIndicator.frame = CGRectMake(x, y, activityIndicatorBounds.size.width, activityIndicatorBounds.size.height);
+        [self updateActivityIndicatorFrame];
         
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             [self addSubview:self.activityIndicator];
@@ -52,11 +49,26 @@ static char TAG_ACTIVITY_INDICATOR;
     
 }
 
+-(void)updateActivityIndicatorFrame {
+    if (self.activityIndicator) {
+        CGRect activityIndicatorBounds = self.activityIndicator.bounds;
+        float x = (self.frame.size.width - activityIndicatorBounds.size.width) / 2.0;
+        float y = (self.frame.size.height - activityIndicatorBounds.size.height) / 2.0;
+        self.activityIndicator.frame = CGRectMake(x, y, activityIndicatorBounds.size.width, activityIndicatorBounds.size.height);
+    }
+}
+
 - (void)removeActivityIndicator {
     if (self.activityIndicator) {
         [self.activityIndicator removeFromSuperview];
         self.activityIndicator = nil;
     }
+}
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+
+    [self updateActivityIndicatorFrame];
 }
 
 #pragma mark - Methods
@@ -73,30 +85,30 @@ static char TAG_ACTIVITY_INDICATOR;
     [self setImageWithURL:url placeholderImage:placeholder options:options progress:nil completed:nil usingActivityIndicatorStyle:activityStyle];
 }
 
-- (void)setImageWithURL:(NSURL *)url completed:(SDWebImageCompletedBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
+- (void)setImageWithURL:(NSURL *)url completed:(SDWebImageCompletionBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
     [self setImageWithURL:url placeholderImage:nil options:0 progress:nil completed:completedBlock usingActivityIndicatorStyle:activityStyle];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(SDWebImageCompletedBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder completed:(SDWebImageCompletionBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
     [self setImageWithURL:url placeholderImage:placeholder options:0 progress:nil completed:completedBlock usingActivityIndicatorStyle:activityStyle];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options completed:(SDWebImageCompletedBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options completed:(SDWebImageCompletionBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
     [self setImageWithURL:url placeholderImage:placeholder options:options progress:nil completed:completedBlock usingActivityIndicatorStyle:activityStyle];
 }
 
-- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDWebImageCompletedBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
+- (void)setImageWithURL:(NSURL *)url placeholderImage:(UIImage *)placeholder options:(SDWebImageOptions)options progress:(SDWebImageDownloaderProgressBlock)progressBlock completed:(SDWebImageCompletionBlock)completedBlock usingActivityIndicatorStyle:(UIActivityIndicatorViewStyle)activityStyle {
     
     [self addActivityIndicatorWithStyle:activityStyle];
     
     __weak typeof(self) weakSelf = self;
-    [self setImageWithURL:url
+    [self sd_setImageWithURL:url
          placeholderImage:placeholder
                   options:options
                  progress:progressBlock
-                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
                     if (completedBlock) {
-                        completedBlock(image, error, cacheType);
+                        completedBlock(image, error, cacheType, imageUrl);
                     }
                     [weakSelf removeActivityIndicator];
                 }

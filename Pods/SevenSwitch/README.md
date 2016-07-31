@@ -28,6 +28,14 @@ You can set images for the on/off states
 ```objective-c
 mySwitch.offImage = [UIImage imageNamed:@"cross.png"];
 mySwitch.onImage = [UIImage imageNamed:@"check.png"];
+mySwitch.thumbImage = [UIImage imageNamed:@"thumb.png"];
+```
+
+You can set text for the on/off states
+
+```objective-c
+mySwitch.offLabel.text = @"on";
+mySwitch.onLabel.text = @"off";
 ```
 
 You can also customize the switches colors

@@ -60,6 +60,7 @@
  *	Sets the knob color. Defaults to white.
  */
 @property (nonatomic, strong) UIColor *thumbTintColor;
+@property (nonatomic, strong) UIColor *onThumbTintColor;
 @property (nonatomic, strong) UIColor *knobColor __deprecated;
 
 /*
@@ -77,6 +78,12 @@
 
 
 /*
+ *  Sets the image that shows on the switch thumb.
+ */
+@property (nonatomic, strong) UIImage *thumbImage;
+
+
+/*
  *	Sets the image that shows when the switch is on.
  *  The image is centered in the area not covered by the knob.
  *  Make sure to size your images appropriately.
@@ -90,6 +97,17 @@
  */
 @property (nonatomic, strong) UIImage *offImage;
 
+/*
+ *	Sets the text that shows when the switch is off.
+ *  The text is centered in the area not covered by the knob.
+ */
+@property (nonatomic, strong) UILabel *offLabel;
+
+/*
+ *	Sets the text that shows when the switch is on.
+ *  The text is centered in the area not covered by the knob.
+ */
+@property (nonatomic, strong) UILabel *onLabel;
 
 /*
  * Set whether the switch is on or off. Optionally animate the change
