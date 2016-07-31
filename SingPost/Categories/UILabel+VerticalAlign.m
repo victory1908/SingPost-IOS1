@@ -12,9 +12,21 @@
 
 - (void)alignTop
 {
-    CGSize textSize = [self.text sizeWithFont:self.font
-                            constrainedToSize:self.frame.size
-                                lineBreakMode:self.lineBreakMode];
+    NSStringDrawingOptions options = (NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin);
+    
+    NSMutableParagraphStyle * style =  [[NSMutableParagraphStyle alloc] init];
+    [style setLineBreakMode:NSLineBreakByWordWrapping];
+    [style setAlignment:NSTextAlignmentRight];
+    
+    NSDictionary *textAttibutes = @{NSFontAttributeName : self.font,
+                                    NSParagraphStyleAttributeName : style};
+    
+    CGSize textSize = [self.text boundingRectWithSize:self.size options:options attributes:textAttibutes context:nil].size;
+    
+    
+//    CGSize textSize = [self.text sizeWithFont:self.font
+//                            constrainedToSize:self.frame.size
+//                                lineBreakMode:self.lineBreakMode];
     
     CGRect textRect = CGRectMake(self.frame.origin.x,
                                  self.frame.origin.y,
@@ -39,5 +51,24 @@
     frame.size.width = initialWidth;
     self.frame = frame;
 }
+
+
+//addforTextsize
+- (CGSize)neededSizeForText:(NSString*)text withFont:(UIFont*)font andMaxWidth:(float)maxWidth
+{
+    NSStringDrawingOptions options = (NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin);
+    
+    NSMutableParagraphStyle * style =  [[NSMutableParagraphStyle alloc] init];
+    [style setLineBreakMode:NSLineBreakByWordWrapping];
+    [style setAlignment:NSTextAlignmentRight];
+    
+    NSDictionary *textAttibutes = @{NSFontAttributeName : font,
+                                    NSParagraphStyleAttributeName : style};
+
+    CGSize neededTextSize = [text boundingRectWithSize:CGSizeMake(maxWidth, 500) options:options attributes:textAttibutes context:nil].size;
+    
+    return neededTextSize;
+}
+
 
 @end

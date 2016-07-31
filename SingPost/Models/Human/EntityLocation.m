@@ -78,7 +78,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
             isOpenPM = YES;
         }
         
-        NSString * openTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
+        NSString * openTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",(long)openHour,(long)openMin, (isOpenPM?@"pm":@"am")];
         
         return openTimeStr;
     }
@@ -101,8 +101,8 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
         isClosePM = YES;
     }
     
-    NSString * openTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",openHour,openMin, (isOpenPM?@"pm":@"am")];
-    NSString * closeTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",closeHour,closeMin, (isClosePM?@"pm":@"am")];
+    NSString * openTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",(long)openHour,(long)openMin, (isOpenPM?@"pm":@"am")];
+    NSString * closeTimeStr = [NSString stringWithFormat:@"%02ld:%02ld %@",(long)closeHour,(long)closeMin, (isClosePM?@"pm":@"am")];
     
     return [openTime isEqualToString:@"Closed"] ? @"Closed" : [NSString stringWithFormat:@"%@ - %@", openTimeStr, closeTimeStr];
 }
@@ -246,12 +246,13 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 {
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @synchronized(LOCATIONS_LOCK) {
-            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+            
+            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
             [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", locationType] inContext:localContext];
             
             if ([json[@"root"] isKindOfClass:[NSArray class]]) {
                 [json[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    EntityLocation *location = [EntityLocation MR_createInContext:localContext];
+                    EntityLocation *location = [EntityLocation MR_createEntityInContext:localContext];
                     [location updateWithApiRepresentation:attributes];
                 }];
             }
@@ -263,6 +264,24 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
                     });
                 }
             }];
+            
+//            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+//            [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", locationType] inContext:localContext];
+//            
+//            if ([json[@"root"] isKindOfClass:[NSArray class]]) {
+//                [json[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                    EntityLocation *location = [EntityLocation MR_createInContext:localContext];
+//                    [location updateWithApiRepresentation:attributes];
+//                }];
+//            }
+//            
+//            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+//                if (completionBlock) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        completionBlock(!error, error);
+//                    });
+//                }
+//            }];
         }
     });
 }
@@ -398,7 +417,8 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     NSMutableArray *itemsToUpdate = [NSMutableArray array];
     [[ApiClient sharedInstance]getLocationsUpdatesOnSuccess:^(id responseObject) {
         NSArray *root = [responseObject objectForKeyOrNil:@"root"];
-        
+        NSLog(@"response object %@",[responseObject objectForKey:@"root"]);
+//        NSArray *root = [responseObject objectForKey:@"root"];
         [self removeExpiredLocations:root];
         
         for (NSDictionary *dic in root) {
@@ -427,13 +447,14 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)updateLocationDatabase:(NSArray *)array
                      completed:(void (^)(BOOL success, NSError *error))completed {
     [[ApiClient sharedInstance]getLocationsUpdatesDetails:array success:^(id responseObject) {
-        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
         if ([responseObject[@"root"] isKindOfClass:[NSArray class]]) {
             [responseObject[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                EntityLocation *location = [EntityLocation MR_createInContext:localContext];
+                EntityLocation *location = [EntityLocation MR_createEntityInContext:localContext];
                 [location updateWithApiRepresentation:attributes];
             }];
         }
+        
         [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
             if (completed) {
                 completed(!error, error);

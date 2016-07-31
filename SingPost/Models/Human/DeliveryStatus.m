@@ -12,7 +12,8 @@
 
 + (DeliveryStatus *)createFromXMLElement:(RXMLElement *)el inContext:(NSManagedObjectContext *)context
 {
-    DeliveryStatus *deliveryStatus = [DeliveryStatus MR_createInContext:context];
+    DeliveryStatus *deliveryStatus = [DeliveryStatus MR_createEntityInContext:context];
+//    DeliveryStatus *deliveryStatus = [DeliveryStatus MR_createInContext:context];
     [deliveryStatus setStatusDescription:[el child:@"StatusDescription"].text];
     [deliveryStatus setLocation:[el child:@"Location"].text];
     
@@ -39,7 +40,8 @@
 
 + (DeliveryStatus *)createFromDicElement:(NSDictionary *)el inContext:(NSManagedObjectContext *)context
 {
-    DeliveryStatus *deliveryStatus = [DeliveryStatus MR_createInContext:context];
+    DeliveryStatus *deliveryStatus = [DeliveryStatus MR_createEntityInContext:context];
+//    DeliveryStatus *deliveryStatus = [DeliveryStatus MR_createInContext:context];
     [deliveryStatus setStatusDescription:[el objectForKey:@"StatusDescription"]];
     [deliveryStatus setLocation:[el objectForKey:@"Location"]];
     

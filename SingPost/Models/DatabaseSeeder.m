@@ -17,7 +17,9 @@
 + (void)seedLocationsDataIfRequired
 {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_LOCATIONS_IS_SEEDED]) {
-        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD show];
+//        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [EntityLocation seedLocationsOfType:LOCATION_TYPE_POST_OFFICE onCompletion:^(BOOL success, NSError *error) {
                 [EntityLocation seedLocationsOfType:LOCATION_TYPE_SAM onCompletion:^(BOOL success, NSError *error) {

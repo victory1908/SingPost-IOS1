@@ -103,8 +103,8 @@
     }
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
-        
-        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Please wait"];
         [PostalCode API_findPostalCodeForBuildingNo:buildingBlockHouseNumberTextField.text andStreetName:streetNameTextField.text onCompletion:^(NSArray *results, NSError *error) {
             if (error) {
                 [SVProgressHUD showErrorWithStatus:@"An error has occurred"];

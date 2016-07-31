@@ -24,7 +24,7 @@ static NSString * const CMS_BASE_URL = @"http://mobile.singpost.com/singpost3/ap
 static NSString * const GetItemTrackingDetails = @"ma/GetItemTrackingDetails";
 
 @interface APIManager()
-@property (strong, nonatomic) AFHTTPClient *httpManager;
+@property (strong, nonatomic) AFHTTPSessionManager *manager;
 @end
 
 @implementation APIManager
@@ -34,44 +34,87 @@ SINGLETON_MACRO
 #pragma mark - Private methods
 - (instancetype)init {
     self = [super init];
-    
     if (self) {
-        self.httpManager = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL]];
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
     }
     return self;
 }
 
 - (void)sendXMLRequest:(NSURLRequest *)request
-               success:(void (^)(NSHTTPURLResponse *response, RXMLElement *responseObject))success
+               success:(void (^)(NSURLResponse *response, RXMLElement *responseObject))success
                failure:(void (^)(NSError *error))failure {
-    AFRaptureXMLRequestOperation *operation =
-    [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
-                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement)
-     {
-         success(response, XMLElement);
-     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
-         DLog(@"%@", [response allHeaderFields]);
-         DLog(@"%@",[error description]);
-         failure(error);
-     }];
-    [self.httpManager.operationQueue addOperation:operation];
+    
+    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
+    
+    NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Api Manager Error URL: %@",request.URL.absoluteString);
+            NSLog(@"API Manager Error: %@", error);
+            failure(error);
+        } else {
+            RXMLElement *rootXml = [RXMLElement elementFromXMLData:responseObject];
+            success(response, rootXml);
+            NSLog(@"Api Manager Success URL: %@",request.URL.absoluteString);
+            NSLog(@"Api Manager Success %@",rootXml);
+            
+        }
+    }];
+    [dataTask resume];
 }
 
+
+//- (void)sendXMLRequest:(NSURLRequest *)request
+//               success:(void (^)(NSHTTPURLResponse *response, RXMLElement *responseObject))success
+//               failure:(void (^)(NSError *error))failure {
+//    AFRaptureXMLRequestOperation *operation =
+//    [AFRaptureXMLRequestOperation XMLParserRequestOperationWithRequest:request
+//                                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, RXMLElement *XMLElement)
+//     {
+//         success(response, XMLElement);
+//     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, RXMLElement *XMLElement) {
+//         DLog(@"%@", [response allHeaderFields]);
+//         DLog(@"%@",[error description]);
+//         failure(error);
+//     }];
+//    [self.httpManager.operationQueue addOperation:operation];
+//}
+
 - (void)sendJSONRequest:(NSURLRequest *)request
-                success:(void (^)(NSHTTPURLResponse *response, id responseObject))success
+                success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
-    AFHTTPRequestOperation *operation =
-    [self.httpManager HTTPRequestOperationWithRequest:request
-                                              success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         success(operation.response, responseObject);
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         DLog(@"%@", [operation.response allHeaderFields]);
-         DLog(@"%@", [error description]);
-         failure(error);
-     }];
-    [self.httpManager.operationQueue addOperation:operation];
+    
+    self.manager.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
+    NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            failure(error);
+        } else {
+            NSDictionary *jsonDict  = (NSDictionary *) responseObject;
+            success(response,jsonDict);
+            NSLog(@"%@",jsonDict);
+        }
+    }];
+    [dataTask resume];
+
 }
+
+//- (void)sendJSONRequest:(NSURLRequest *)request
+//                success:(void (^)(NSHTTPURLResponse *response, id responseObject))success
+//                failure:(void (^)(NSError *error))failure {
+//    AFHTTPRequestOperation *operation =
+//    [self.httpManager HTTPRequestOperationWithRequest:request
+//                                              success:^(AFHTTPRequestOperation *operation, id responseObject)
+//     {
+//         success(operation.response, responseObject);
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         DLog(@"%@", [operation.response allHeaderFields]);
+//         DLog(@"%@", [error description]);
+//         failure(error);
+//     }];
+//    [self.httpManager.operationQueue addOperation:operation];
+//}
 
 #pragma mark - Tracking number
 - (void)getTrackingNumberDetails:(NSString *)trackingNumber
@@ -82,14 +125,15 @@ SINGLETON_MACRO
                      "</ItemTrackingNumbers>"
                      "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:GetItemTrackingDetails
-                                                                              relativeToURL:[NSURL URLWithString:SINGPOST_BASE_URL]]];
+    NSString *urlString = [NSString stringWithFormat:@"%@/ma/GetItemTrackingDetails",SINGPOST_BASE_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    
     [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request addValue:[NSString stringWithFormat:@"%ld", (  long)[xml length]] forHTTPHeaderField:@"Content-Length"];
     request.HTTPBody = [xml dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPMethod = POST_METHOD;
     
-    [self sendXMLRequest:request success:^(NSHTTPURLResponse *response, RXMLElement *responseObject) {
+    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
         //Subscribe to notification if enabled
         if ([[UserDefaultsManager sharedInstance] getNotificationStatus]) {
             [PushNotificationManager API_subscribeNotificationForTrackingNumber:trackingNumber

@@ -24,8 +24,25 @@
 {
     NSMutableArray *items = [NSMutableArray array];
     NSArray *sortedCategories = jsonItems[@"keys"];
-    
-    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+//    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+//        for (NSString *category in sortedCategories) {
+//            ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//            articleCategory.module = moduleName;
+//            articleCategory.category = category;
+//            
+//            NSMutableArray *articles = [NSMutableArray array];
+//            [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+//                Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//                [article updateWithApiRepresentation:articleJSON];
+//                [articles addObject:article];
+//            }];
+//            [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
+//            
+//            [items addObject:articleCategory];
+//        }
+//
+//    }];
+    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
     
     for (NSString *category in sortedCategories) {
         ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
@@ -123,7 +140,18 @@
         if (completionBlock) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSMutableArray *items = [NSMutableArray array];
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+//                [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext){
+//                    [[responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+//                        Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//                        [article updateWithApiRepresentation:articleJSON];
+//                        [items addObject:article];
+//                    }];
+//                    
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        completionBlock(items);
+//                    });
+//                }];
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
 
                 [[responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
                     Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];

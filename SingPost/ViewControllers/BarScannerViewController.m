@@ -18,6 +18,7 @@
     ScanTutorialViewController * vc;
 }
 
+
 @end
 
 @implementation BarScannerViewController
@@ -99,14 +100,16 @@
     
     // EXAMPLE: do something useful with the barcode data
     //resultText.text = symbol.data;
-    NSLog([NSString stringWithFormat:@"%@",symbol.data]);
+//    NSLog([NSString stringWithFormat:@"%@",symbol.data]);
     
     // EXAMPLE: do something useful with the barcode image
    // resultImage.image =
     //[info objectForKey: UIImagePickerControllerOriginalImage];
     
     // ADD: dismiss the controller (NB dismiss from the *reader*!)
-    [reader dismissModalViewControllerAnimated: YES];
+//    [reader dismissViewControllerAnimated:YES completion:nil];
+//    [reader dismissModalViewControllerAnimated: YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = NO;

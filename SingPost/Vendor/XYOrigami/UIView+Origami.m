@@ -312,7 +312,7 @@ static char const *const ObjectTagKey = "XY_Origami_Current_State";
             }
             imageFrame = CGRectMake(0, b*foldWidth, frameWidth, foldWidth);
         }
-        else if(direction == XYOrigamiDirectionFromBottom){
+        else {
             if(b == 0)
                 startAngle = M_PI_2;
             else {
@@ -436,7 +436,7 @@ static char const *const ObjectTagKey = "XY_Origami_Current_State";
             }
             imageFrame = CGRectMake(0, b*foldWidth, frameWidth, foldWidth);
         }
-        else if(direction == XYOrigamiDirectionFromBottom){
+        else {
             if(b == 0)
                 endAngle = M_PI_2;
             else {

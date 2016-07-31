@@ -54,6 +54,7 @@
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Locations - %@ - Direction", _entityLocation.type]];
     
     //[self drawRouting];
+    
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
@@ -173,17 +174,57 @@
     return annotationView;
 }
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay {
-    MKPolylineView *plv = [[MKPolylineView alloc] initWithOverlay:overlay];
-    plv.strokeColor = RGB(36, 84, 157);
-    plv.lineWidth = 3.0;
-    return plv;
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
+    if ([overlay isKindOfClass:[MKPolygon class]])
+    {
+        MKPolygonRenderer *renderer = [[MKPolygonRenderer alloc] initWithPolygon:overlay];
+        
+        renderer.fillColor   = [[UIColor cyanColor] colorWithAlphaComponent:0.2];
+        renderer.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.7];
+        renderer.lineWidth   = 3;
+        
+        return renderer;
+    }
+    
+    if ([overlay isKindOfClass:[MKCircle class]])
+    {
+        MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
+        
+        renderer.fillColor   = [[UIColor cyanColor] colorWithAlphaComponent:0.2];
+        renderer.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.7];
+        renderer.lineWidth   = 3;
+        
+        return renderer;
+    }
+    
+    if ([overlay isKindOfClass:[MKPolyline class]])
+    {
+        MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+        
+        renderer.strokeColor = [[UIColor blueColor] colorWithAlphaComponent:0.7];
+        renderer.lineWidth   = 3;
+        
+        return renderer;
+    }
+    
+    return nil;
 }
+
+
+//- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay {
+//    MKPolylineView *plv = [[MKPolylineView alloc] initWithOverlay:overlay];
+//    plv.strokeColor = RGB(36, 84, 157);
+//    plv.lineWidth = 3.0;
+//    return plv;
+//}
 
 #pragma mark - Actions
 
 - (IBAction)closeMap:(id)sender {
     [[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
 }
+
 
 @end

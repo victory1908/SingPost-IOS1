@@ -34,7 +34,8 @@
 
 - (void)didDeactivate {
     [super didDeactivate];
-    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
+    [self.notificationToken stop];
+//    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
 }
 
 - (void)loadTrackingItems {

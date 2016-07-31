@@ -35,6 +35,7 @@
         [self setHeight:floorf(_label.bounds.size.height)];
         
         _collapsedHeight = floorf(_label.bounds.size.height);
+        
         _expandedHeight = floorf([text sizeWithFont:_label.font constrainedToSize:CGSizeMake(_label.bounds.size.width, LONG_MAX)].height);
     }
     

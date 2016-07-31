@@ -108,7 +108,9 @@
         [alertView show];
     }
     else if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
-        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Please wait"];
+//        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         
         NSString *weightInGrams = [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? [NSNumber numberWithFloat:[weightTextField.text floatValue] * 1000].stringValue : [NSNumber numberWithFloat:[weightTextField.text floatValue]].stringValue;
         

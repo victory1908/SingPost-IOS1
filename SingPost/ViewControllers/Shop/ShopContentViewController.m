@@ -108,7 +108,9 @@ UIWebViewDelegate
     if ([[self.item objectForKeyOrNil:@"Description"]length] > 0) {
         NSString *htmlContentWithThumbnail = [NSString stringWithFormat:@"<div align=\"center\" ><img style=\"width:%.0fpx;\" src=\"%@\"></img></div>%@", 300.0f, [self.item objectForKeyOrNil:@"Thumbnail"], [self.item objectForKeyOrNil:@"Description"]];
         [contentWebView loadHTMLString:htmlContentWithThumbnail baseURL:nil];
-        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Please wait..."];
+//        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }
 }
 

@@ -415,15 +415,22 @@ UITextFieldDelegate
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
             [FBSession setActiveSession:session];
             
-            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                 AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 appDelegate.isLoginFromDetailPage = YES;
                 appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
-                [appDelegate sessionStateChanged:session state:state error:error];
-                
-                
+                [appDelegate sessionStateChanged:session state:status error:error];
             }];
+            
+//            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//                
+//                AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//                appDelegate.isLoginFromDetailPage = YES;
+//                appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
+//                [appDelegate sessionStateChanged:session state:state error:error];
+//                
+//                
+//            }];
         }
         
         
@@ -474,15 +481,22 @@ UITextFieldDelegate
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
                 
-                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                    
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     appDelegate.isLoginFromDetailPage = YES;
                     appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
-                    [appDelegate sessionStateChanged:session state:state error:error];
-                    
-                    
+                    [appDelegate sessionStateChanged:session state:status error:error];
                 }];
+                
+//                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//                    
+//                    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//                    appDelegate.isLoginFromDetailPage = YES;
+//                    appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
+//                    [appDelegate sessionStateChanged:session state:state error:error];
+//                    
+//                    
+//                }];
             }
         }
     }
@@ -659,9 +673,9 @@ UITextFieldDelegate
          UIImage * gifImage = [UIImage animatedImageWithAnimatedGIFURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
          if(gifImage != nil)
              [adBanner setImage:gifImage];
-         else
-             [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
-         
+         else {
+//             [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
+         }
          
          UIButton * btn = [[UIButton alloc] initWithFrame:adBanner.frame];
          [btn addTarget:self action:@selector(onClickAd:) forControlEvents:UIControlEventTouchUpInside];

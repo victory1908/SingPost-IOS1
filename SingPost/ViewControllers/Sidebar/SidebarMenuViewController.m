@@ -219,7 +219,7 @@
         return;
     }
     
-    if (!trackingNumberTextField.text.length > 0) {
+    if (!(trackingNumberTextField.text.length > 0)) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
         return;
@@ -749,16 +749,25 @@
             NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
             [FBSession setActiveSession:session];
-            
-            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                
+
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                 // Retrieve the app delegate
                 AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 
                 appDelegate.isLoginFromSideBar = YES;
                 // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
-                [appDelegate sessionStateChanged:session state:state error:error];
+                [appDelegate sessionStateChanged:session state:status error:error];
             }];
+
+//            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//                
+//                // Retrieve the app delegate
+//                AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//                
+//                appDelegate.isLoginFromSideBar = YES;
+//                // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+//                [appDelegate sessionStateChanged:session state:state error:error];
+//            }];
             
         }
         

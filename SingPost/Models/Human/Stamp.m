@@ -35,11 +35,31 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(STAMPS_LOCK) {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                
+//                [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+//                    [Stamp MR_truncateAllInContext:localContext];
+//                    [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                        Stamp *stamp = [Stamp MR_createEntityInContext:localContext];
+////                        Stamp *stamp = [Stamp MR_createInContext:localContext];
+//                        [stamp setOrderingValue:idx];
+//                        [stamp updateWithApiRepresentation:attributes];
+//                        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+//                            if (completionBlock) {
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    completionBlock(!error, error);
+//                                });
+//                            }
+//                        }];
+//
+//                    }];
+//                }];
+//                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
+  
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
                 [Stamp MR_truncateAllInContext:localContext];
                 
                 [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    Stamp *stamp = [Stamp MR_createInContext:localContext];
+                    Stamp *stamp = [Stamp MR_createEntityInContext:localContext];
                     [stamp setOrderingValue:idx];
                     [stamp updateWithApiRepresentation:attributes];
                 }];
@@ -73,7 +93,8 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
             
             NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
             [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                StampImage *stampImage = [StampImage MR_createInContext:localContext];
+                StampImage *stampImage = [StampImage MR_createEntityInContext:localContext];
+//                StampImage *stampImage = [StampImage MR_createInContext:localContext];
                 [stampImage updateWithApiRepresentation:attributes];
                 [stampImages addObject:stampImage];
             }];
@@ -89,6 +110,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             completionBlock(NO, error);
+            
         }
     }];
 }

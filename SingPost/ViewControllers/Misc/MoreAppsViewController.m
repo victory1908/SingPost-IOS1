@@ -132,7 +132,9 @@
     
     NSString *urlSchemeString = appsItems[indexPath.row][@"IOSSCHEME"];
     
-    if (![urlSchemeString length] < 0 || urlSchemeString == nil)
+//    if (![urlSchemeString length] < 0 || urlSchemeString == nil)
+//        return;
+    if (urlSchemeString == nil)
         return;
     
     if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:urlSchemeString]])
@@ -142,14 +144,18 @@
         NSURL *urlToOpen = nil;
         if (INTERFACE_IS_IPAD) {
             NSString *appStoreURL = appsItems[indexPath.row][@"IPADURL"];
-            if (![appStoreURL length] < 0 || appStoreURL == nil)
+//            if (![appStoreURL length] < 0 || appStoreURL == nil)
+//                return;
+            if (appStoreURL == nil)
                 return;
             
             urlToOpen = [NSURL URLWithString:appStoreURL];
         }
         else {
             NSString *appStoreURL = appsItems[indexPath.row][@"IOSURL"];
-            if (![appStoreURL length] < 0 || appStoreURL == nil)
+//            if (![appStoreURL length] < 0 || appStoreURL == nil)
+//                return;
+            if (appStoreURL == nil)
                 return;
             
             urlToOpen = [NSURL URLWithString:appStoreURL];

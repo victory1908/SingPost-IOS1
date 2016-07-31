@@ -124,7 +124,9 @@ typedef enum {
     NSString *selectedType = [self selectedType];
     
     [locateUsMapViewController removeMapAnnotations];
-    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+    //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
         [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];

@@ -7,13 +7,15 @@
 //
 
 #import <AFNetworking.h>
-#import <AFRaptureXMLRequestOperation.h>
+//#import <AFRaptureXMLRequestOperation.h>
 #import <RXMLElement.h>
 #import <Realm/Realm.h>
 
 @class Stamp;
 
-@interface ApiClient : AFHTTPClient
+//@interface ApiClient : AFHTTPClient
+@interface ApiClient : AFHTTPSessionManager
+
 
 +(BOOL)isScanner;
 +(BOOL)isWithoutFacebook;

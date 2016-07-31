@@ -4,10 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Glance - SingPost WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Mogernrator.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>SingPost WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>SingPost_Prod.xcscheme</key>
 		<dict>
@@ -48,6 +58,11 @@
 			<true/>
 		</dict>
 		<key>521B171C17F1633000FEB6FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>87BDF6931B13032400EFADDD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

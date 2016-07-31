@@ -102,7 +102,9 @@
     [contentScrollView addSubview:instructionsLabel];
     
     CGSize maximumLabelSize = CGSizeMake(contentView.width - 30, FLT_MAX);
+    
     CGSize expectedLabelSize = [instructionsLabel.text sizeWithFont:instructionsLabel.font constrainedToSize:maximumLabelSize lineBreakMode:instructionsLabel.lineBreakMode];
+  
     CGRect newFrame = instructionsLabel.frame;
     newFrame.size.height = expectedLabelSize.height;
     instructionsLabel.frame = newFrame;
@@ -152,7 +154,10 @@
      {
          if (buttonIndex != [alertView cancelButtonIndex]) {
              [self.view endEditing:YES];
-             [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
+             
+             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+             [SVProgressHUD showWithStatus:@"Please wait..."];
+              //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
              [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {
                  [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
              } onFailure:^(NSError *error) {

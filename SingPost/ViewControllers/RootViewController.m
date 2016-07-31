@@ -95,14 +95,14 @@
             if (sideBarMenuViewController.view.frame.origin.x > 0.0f) {
                 sideBarMenuViewController.isVisible = !sideBarMenuViewController.isVisible;
                 [sideBarMenuViewController.view endEditing:YES];
-                [self showSideBar:sideBarMenuViewController.isVisible step:(1.0f - fabsf(percentageOfWidth)) animate:YES preserveTransform:YES];
+                [self showSideBar:sideBarMenuViewController.isVisible step:(1.0f - fabs(percentageOfWidth)) animate:YES preserveTransform:YES];
             }
         }
         else {
             [appContentView setX:(percentageOfWidth * SIDEBAR_WIDTH)];
             
             CATransform3D transform = originalTransformation;
-            transform = CATransform3DRotate(originalTransformation, fabsf(percentageOfWidth) * -M_PI_2, 0, 1, 0);
+            transform = CATransform3DRotate(originalTransformation, fabs(percentageOfWidth) * -M_PI_2, 0, 1, 0);
             sideBarMenuViewController.view.layer.anchorPoint = CGPointMake(1.0f, 0.5f);
             sideBarMenuViewController.view.layer.transform = transform;
         }

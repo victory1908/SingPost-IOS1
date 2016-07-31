@@ -834,7 +834,7 @@ OffersMenuDelegate
         return;
     }
     
-    if (!trackingNumberTextField.text.length > 0) {
+    if (!(trackingNumberTextField.text.length > 0)) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alertView show];
         return;
@@ -858,14 +858,19 @@ OffersMenuDelegate
 }
 
 - (void)onAnnouncementBtn:(id)sender {
-    AnnouncementViewController *vc = [[AnnouncementViewController alloc]init];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+//    AnnouncementViewController *vc = [[AnnouncementViewController alloc]init];
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
+    AnnouncementViewController *annoucementvc = [[AnnouncementViewController alloc] init];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:annoucementvc];
 }
 
 - (void)OnGoToScan {
-    BarScannerViewController * vc = [[BarScannerViewController alloc] init];
-    vc.landingVC = self;
+    BarScannerViewController * barScannervc = [[BarScannerViewController alloc] init];
+    barScannervc.landingVC = self;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
+//    BarScannerViewController * vc = [[BarScannerViewController alloc] init];
+//    vc.landingVC = self;
+//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
 }
 
 @end

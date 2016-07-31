@@ -71,8 +71,9 @@
     //Facebook
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         // If there's one, just open the session silently, without showing the user the login UI
+        
         [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"]
-                                           allowLoginUI:NO
+                                           allowLoginUI:NO fromViewController: nil
                                       completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                           // Handler for session state changes
                                           // This method will be called EACH time the session state changes,
@@ -194,7 +195,9 @@
 }
 
 - (void)LoginFacebook {
-    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+//    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
     [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
      {
@@ -240,7 +243,9 @@
 }
 
 - (void)firstTimeLoginFacebook {
-    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+//    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
     [[ApiClient sharedInstance] facebookLoginOnSuccess:^(id responseObject)
      {
@@ -297,7 +302,10 @@
                 [ApiClient sharedInstance].fbToken = [FBSession.activeSession.accessTokenData accessToken];
                 [ApiClient sharedInstance].fbID = user.objectID;
                 
-                [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD showWithStatus:@"Please wait..."];
+//                [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+                
                 [[ApiClient sharedInstance] isFirstTime:^(id responseObject){
                     int i = [[[responseObject objectForKey:@"data"] objectForKey:@"first_timer"] intValue];
                     
@@ -382,7 +390,9 @@
     if ([parcelArray count] == 0)
         return;
     
-    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+//    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
     NSMutableArray * numberArray = [NSMutableArray array];
     for (Parcel *parcel in parcelArray) {
@@ -395,7 +405,9 @@
 
 
 - (void)getAllLabel {
-    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+//    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
     [[ApiClient sharedInstance] getAllTrackingNunmbersOnSuccess:^(id responseObject)
      {
@@ -635,20 +647,32 @@
 #pragma mark - Google Analytics
 - (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName {
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] set:kGAIScreenName value:screenName];
-    [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createAppView] build]];
+    [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createScreenView] build]];
+//    [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createAppView] build]];
     
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] set:kGAIScreenName value:screenName];
-    [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createAppView] build]];
+    [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createScreenView] build]];
+//    [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Core data
 - (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion {
-    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
-        if(!success)
-            DLog(@"%@", error);
-        if (completion)
-            completion(success, error);
+    
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError * _Nullable error) {
+                if(!success)
+                                DLog(@"%@", error);
+                            if (completion)
+                                completion(success, error);
+            }];
     }];
+    
+//    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+//        if(!success)
+//            DLog(@"%@", error);
+//        if (completion)
+//            completion(success, error);
+//    }];
 }
 
 #pragma mark - Apple watch request

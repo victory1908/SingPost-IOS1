@@ -158,7 +158,8 @@ CustomIOS7AlertViewDelegate
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
+    [self.notificationToken stop];
+//    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
     [SVProgressHUD dismiss];
 }
 
@@ -205,7 +206,9 @@ CustomIOS7AlertViewDelegate
     
     [self.view endEditing:YES];
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
-        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Please wait..."];
+        //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }
     
     [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
@@ -442,7 +445,8 @@ CustomIOS7AlertViewDelegate
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
             [FBSession setActiveSession:session];
             
-            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                 
                 AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 
@@ -482,15 +486,23 @@ CustomIOS7AlertViewDelegate
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
                 
-                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                    
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     
                     appDelegate.isLoginFromSideBar = YES;
                     
-                    [appDelegate sessionStateChanged:session state:state error:error];
-                    
+                    [appDelegate sessionStateChanged:session state:status error:error];
                 }];
+                
+//                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+//                    
+//                    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//                    
+//                    appDelegate.isLoginFromSideBar = YES;
+//                    
+//                    [appDelegate sessionStateChanged:session state:state error:error];
+//                    
+//                }];
             }
             
             
@@ -501,6 +513,7 @@ CustomIOS7AlertViewDelegate
 - (void)OnGoToScan {
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
     barCodeVC.landingVC = self;
+//    barCodeVC.landingVC = [[LandingPageViewController alloc]init];
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
 }
 
@@ -621,8 +634,9 @@ CustomIOS7AlertViewDelegate
             
             selectedParcel = [self.activeResults objectAtIndex:indexPath.row - 1];
             
-            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-            
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+            [SVProgressHUD showWithStatus:@"Please wait..."];
+            //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
                                                        completed:^(Parcel *parcel, NSError *error)
              {
@@ -655,8 +669,9 @@ CustomIOS7AlertViewDelegate
             
             selectedParcel = [self.unsortedResults objectAtIndex:indexPath.row - 1];
             
-            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-            
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+            [SVProgressHUD showWithStatus:@"Please wait..."];
+            //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
                                                        completed:^(Parcel *parcel, NSError *error)
              {
@@ -711,7 +726,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
             parcelToDelete = [self.unsortedResults objectAtIndex:indexPath.row - 1];
         
-        [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Please wait.."];
+//        [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         
         [PushNotificationManager API_unsubscribeNotificationForTrackingNumber:parcelToDelete.trackingNumber onCompletion:^(BOOL success, NSError *error) {
             if (success) {
@@ -765,8 +782,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             if ([self.activeResults count] == 0)
                 return;
             
-            [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-            
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+            [SVProgressHUD showWithStatus:@"Please wait..."];
+            //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:trackingNumbers onCompletion:^(BOOL success, NSError *error) {
                 [SVProgressHUD dismiss];
             }];
@@ -787,7 +805,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         if ([self.activeResults count] == 0)
             return;
         
-        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Please wait..."];
+        //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         
         [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:trackingNumbers onCompletion:^(BOOL success, NSError *error) {
             [SVProgressHUD dismiss];

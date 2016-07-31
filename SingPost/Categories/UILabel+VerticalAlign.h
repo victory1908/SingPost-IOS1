@@ -14,5 +14,6 @@
 
 - (void)sizeToFitKeepHeight;
 - (void)sizeToFitKeepWidth;
+- (CGSize)neededSizeForText:(NSString*)text withFont:(UIFont*)font andMaxWidth:(float)maxWidth;
 
 @end

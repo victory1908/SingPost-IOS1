@@ -66,9 +66,11 @@
     
     FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, btnWidth, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
-    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
+//    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+
     [contentView addSubview:locateUsButton];
+//    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     FlatBlueButton *calculateAgainButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(locateUsButton.right + 10, locateUsButton.top, btnWidth, 48)];
     [calculateAgainButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
@@ -101,6 +103,7 @@
     else {
         LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
         viewController.showNavBarBackButton = YES;
+        [self presentViewController:viewController animated:YES completion:nil];
         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     }
 }
@@ -117,18 +120,25 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == HEADER_ROW)
+    if (indexPath.row == HEADER_ROW) {
         return _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 100.0f;
+    }
     
     if (indexPath.row == TITLE_ROW)
         return 40.0f;
     
     CalculatePostageResultItem *item = _resultItems[indexPath.row - 2];
-    //CGSize variableTextSize = [item.deliveryServiceName sizeWithFont:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans] constrainedToSize:CGSizeMake(190, LONG_MAX)];
     
-    CGSize variableTextSize = [item.deliveryServiceName sizeWithAttributes:@{NSFontAttributeName:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]}];
     
-    return variableTextSize.height + 55.0f;
+    CGRect labelRect = [item.deliveryServiceName boundingRectWithSize:CGSizeMake(190, 0)
+                                                              options:NSStringDrawingUsesLineFragmentOrigin
+                                                           attributes:@{NSFontAttributeName:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]}
+                                                              context:nil];
+    
+    CGFloat labelHeight = labelRect.size.height;
+    
+    
+    return labelHeight + 55.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

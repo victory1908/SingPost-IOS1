@@ -99,6 +99,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    NSArray *stamps = [[NSArray alloc] init];
+//    stamps = [Stamp MR_findAll];
+//    
+//    Stamp *stamp = [stamps objectAtIndex:0];
+//    NSLog(@"test stamp %@",stamp.details);
+//    self.fetchedResultsController = stamps;
+    
     
     __weak StampCollectiblesMainViewController *weakSelf = self;
     
@@ -132,6 +139,7 @@
 - (void)configureCell:(StampCollectiblesTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.stamp = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSLog(@"test stamp %@",cell.stamp.details);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -372,8 +372,10 @@
                 NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
-                
-                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:nil completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                    
+//                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                     
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     
@@ -417,7 +419,7 @@
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
                 
-                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:nil completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                     
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     

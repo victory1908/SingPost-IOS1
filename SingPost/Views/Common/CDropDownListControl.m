@@ -67,9 +67,12 @@
             UIImage *toolbarBackgroundImage = [[UIImage imageWithColor:RGB(200, 200, 200)] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
             [toolbar setBackgroundImage:toolbarBackgroundImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
             [doneButton setTitleTextAttributes:@{
-                                                   UITextAttributeFont: [UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans],
-                                                   UITextAttributeTextColor: [UIColor blackColor]
-                                                   } forState:UIControlStateNormal];
+                                                 NSFontAttributeName: [UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans],
+                                                 NSForegroundColorAttributeName: [UIColor blackColor]
+                                                 } forState:UIControlStateNormal];
+//                                                   UITextAttributeFont: [UIFont SingPostRegularFontOfSize:15.0f fontKey:kSingPostFontOpenSans],
+//                                                   UITextAttributeTextColor: [UIColor blackColor]
+//                                                   } forState:UIControlStateNormal];
         }
         else {
             [toolbar setBarStyle:UIBarStyleBlackOpaque];
@@ -103,7 +106,8 @@
         popoverView.frame = CGRectMake(0, 0, 320, 344);
         headerView.frame = CGRectMake(0, 0, 320, 45);
         [done_btn setFrame:CGRectMake(260, 8, 50,30)];
-        popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 244);
+        popoverContent.preferredContentSize = CGSizeMake(320, 244);
+//        popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 244);
         pickerPopover = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
         [pickerPopover presentPopoverFromRect:self.bounds inView:self
                      permittedArrowDirections:UIPopoverArrowDirectionUp

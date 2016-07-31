@@ -17,10 +17,20 @@
 
 #pragma mark - Public methods
 + (void)setupRealm {
-    NSURL *realmURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
-    NSString *realmPath = [realmURL.path stringByAppendingPathComponent:@"SingPost.realm"];
-    [RLMRealm setDefaultRealmPath:realmPath];
-    NSLog(@"Default Realm Path : %@",[RLMRealm defaultRealmPath]);
+    NSURL *containerURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
+    NSURL *realmURL = [containerURL URLByAppendingPathComponent:@"SingPost.realm"];
+    
+    RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
+    configuration.fileURL = realmURL;
+    [RLMRealmConfiguration setDefaultConfiguration:configuration];
+    
+    NSLog(@"Default Realm location: %@", realmURL);
+    
+    
+//    NSURL *realmURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
+//    NSString *realmPath = [realmURL.path stringByAppendingPathComponent:@"SingPost.realm"];
+//    [RLMRealm setDefaultRealmPath:realmPath];
+//    NSLog(@"Default Realm Path : %@",[RLMRealm defaultRealmPath]);
 }
 
 + (Parcel *)createOrUpdateParcel:(RXMLElement *)element {
