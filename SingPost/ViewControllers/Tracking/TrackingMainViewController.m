@@ -511,10 +511,17 @@ CustomIOS7AlertViewDelegate
 }
 
 - (void)OnGoToScan {
+    
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
-    barCodeVC.landingVC = self;
-//    barCodeVC.landingVC = [[LandingPageViewController alloc]init];
+    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+    barCodeVC.landingVC = landingPageViewController;
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
+    
+//    BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
+//    barCodeVC.landingVC = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+//    barCodeVC.landingVC = self;s
+//    barCodeVC.landingVC = [[LandingPageViewController alloc]init];
+//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
 }
 
 

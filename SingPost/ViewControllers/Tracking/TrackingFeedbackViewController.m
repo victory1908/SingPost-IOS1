@@ -15,6 +15,7 @@
 #import "SVProgressHUD.h"
 #import "ApiClient.h"
 #import "UIAlertView+Blocks.h"
+# import "UILabel+VerticalAlign.h"
 
 @interface TrackingFeedbackViewController ()
 
@@ -102,8 +103,9 @@
     [contentScrollView addSubview:instructionsLabel];
     
     CGSize maximumLabelSize = CGSizeMake(contentView.width - 30, FLT_MAX);
+    CGSize expectedLabelSize = [instructionsLabel neededSizeForText:instructionsLabel.text withFont:instructionsLabel.font andMaxWidth:maximumLabelSize.width];
     
-    CGSize expectedLabelSize = [instructionsLabel.text sizeWithFont:instructionsLabel.font constrainedToSize:maximumLabelSize lineBreakMode:instructionsLabel.lineBreakMode];
+//    CGSize expectedLabelSize = [instructionsLabel.text sizeWithFont:instructionsLabel.font constrainedToSize:maximumLabelSize lineBreakMode:instructionsLabel.lineBreakMode];
   
     CGRect newFrame = instructionsLabel.frame;
     newFrame.size.height = expectedLabelSize.height;

@@ -23,7 +23,7 @@
 - (void)cPopViewControllerOrSwitch :(UIViewController *)viewController;
 - (BOOL)isSideBarVisible;
 
-- (void)cInteractivePopViewController : (double)offsetX;
+//- (void)cInteractivePopViewController : (double)offsetX;
 
 - (void) checkSignStatus;
 

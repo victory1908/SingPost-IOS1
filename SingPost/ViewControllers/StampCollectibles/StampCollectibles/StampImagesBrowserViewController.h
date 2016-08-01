@@ -18,7 +18,9 @@
 @property (nonatomic, readonly) NSArray *stampImages;
 @property (nonatomic, assign) NSUInteger currentIndex;
 @property (nonatomic, weak) id<StampImageBrowserDelegate> delegate;
-@property (nonatomic,retain) NSString * title;
+//@property (nonatomic,retain) NSString * title;
+@property (nonatomic, copy) NSString * title;
+
 
 @end
 

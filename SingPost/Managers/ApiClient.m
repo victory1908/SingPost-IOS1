@@ -82,7 +82,7 @@ static NSString * const GET_METHOD = @"GET";
 - (id)initWithBaseURL:(NSURL *)url
 {
     if ((self = [super initWithBaseURL:url])) {
-        AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+        self.requestSerializer = [AFHTTPRequestSerializer serializer];
 //        AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
 //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];

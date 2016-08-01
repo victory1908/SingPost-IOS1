@@ -36,7 +36,10 @@
         
         _collapsedHeight = floorf(_label.bounds.size.height);
         
-        _expandedHeight = floorf([text sizeWithFont:_label.font constrainedToSize:CGSizeMake(_label.bounds.size.width, LONG_MAX)].height);
+        
+//        [_label neededSizeForText:_label.text withFont:_label.font andMaxWidth:_label.frame.size.width];
+        _expandedHeight = [_label neededSizeForText:_label.text withFont:_label.font andMaxWidth:_label.frame.size.width].height;
+//        _expandedHeight = floorf([text sizeWithFont:_label.font constrainedToSize:CGSizeMake(_label.bounds.size.width, LONG_MAX)].height);
     }
     
     return self;

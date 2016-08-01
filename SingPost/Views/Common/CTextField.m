@@ -51,9 +51,20 @@
 
 - (void)drawPlaceholderInRect:(CGRect)rect {
     [RGB(36, 84, 157) setFill];
-    [[self placeholder] drawInRect:CGRectInset(rect, 0, _insetBoundsSize.height + (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 0.0f : -5.0f))
-                          withFont:[UIFont SingPostLightItalicFontOfSize:_placeholderFontSize fontKey:kSingPostFontOpenSans]
-                     lineBreakMode:NSLineBreakByWordWrapping];
+    
+//    CGRect textRect = CGRectMake(x, y, length-x, maxFontSize);
+    UIFont *font = [UIFont SingPostLightItalicFontOfSize:_placeholderFontSize fontKey:kSingPostFontOpenSans];
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.alignment = NSTextAlignmentRight;
+    NSDictionary *attributes = @{ NSFontAttributeName: font,
+                                  NSParagraphStyleAttributeName: paragraphStyle,
+                                  NSForegroundColorAttributeName: [UIColor whiteColor]};
+    [[self placeholder] drawInRect:rect withAttributes:attributes];
+    
+//    [[self placeholder] drawInRect:CGRectInset(rect, 0, _insetBoundsSize.height + (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 0.0f : -5.0f))
+//                          withFont:[UIFont SingPostLightItalicFontOfSize:_placeholderFontSize fontKey:kSingPostFontOpenSans]
+//                     lineBreakMode:NSLineBreakByWordWrapping];
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {

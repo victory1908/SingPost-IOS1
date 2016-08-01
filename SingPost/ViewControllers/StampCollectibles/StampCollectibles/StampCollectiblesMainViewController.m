@@ -211,8 +211,11 @@
         case NSFetchedResultsChangeDelete:
             [stampsTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
+        case NSFetchedResultsChangeMove: break;
+        case NSFetchedResultsChangeUpdate: break;
     }
 }
+
 
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject

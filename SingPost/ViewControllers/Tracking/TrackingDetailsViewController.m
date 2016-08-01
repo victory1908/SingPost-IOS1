@@ -31,13 +31,13 @@
 - (CGRect)clearButtonRectForBounds:(CGRect)bounds;
 @end
 
-@implementation UITextField (LiLeAwesome)
-
-- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
-    return CGRectMake(self.frame.size.width-30, 0, 35, 35);
-    
-}
-@end
+//@implementation UITextField (LiLeAwesome)
+//
+//- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
+//    return CGRectMake(self.frame.size.width-30, 0, 35, 35);
+// 
+//}
+//@end
 
 @interface TrackingDetailsViewController()
 <

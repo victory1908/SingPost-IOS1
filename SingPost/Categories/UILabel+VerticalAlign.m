@@ -12,17 +12,17 @@
 
 - (void)alignTop
 {
-    NSStringDrawingOptions options = (NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin);
-    
-    NSMutableParagraphStyle * style =  [[NSMutableParagraphStyle alloc] init];
-    [style setLineBreakMode:NSLineBreakByWordWrapping];
-    [style setAlignment:NSTextAlignmentRight];
-    
-    NSDictionary *textAttibutes = @{NSFontAttributeName : self.font,
-                                    NSParagraphStyleAttributeName : style};
-    
-    CGSize textSize = [self.text boundingRectWithSize:self.size options:options attributes:textAttibutes context:nil].size;
-    
+//    NSStringDrawingOptions options = (NSStringDrawingUsesFontLeading|NSStringDrawingUsesLineFragmentOrigin);
+//    
+//    NSMutableParagraphStyle * style =  [[NSMutableParagraphStyle alloc] init];
+//    [style setLineBreakMode:NSLineBreakByWordWrapping];
+//    [style setAlignment:NSTextAlignmentRight];
+//    
+//    NSDictionary *textAttibutes = @{NSFontAttributeName : self.font,
+//                                    NSParagraphStyleAttributeName : style};
+//    
+//    CGSize textSize = [self.text boundingRectWithSize:self.size options:options attributes:textAttibutes context:nil].size;
+    CGSize textSize = [self neededSizeForText:self.text withFont:self.font andMaxWidth:self.frame.size.width];
     
 //    CGSize textSize = [self.text sizeWithFont:self.font
 //                            constrainedToSize:self.frame.size
