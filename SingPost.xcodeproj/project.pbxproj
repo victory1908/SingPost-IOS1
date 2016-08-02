@@ -192,6 +192,7 @@
 		87BDF6A21B13032400EFADDD /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		87E45FA11B4C104E0063BC5A /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
 		A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */; };
+		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
 		D0538A81B963A39B5FC40EB3 /* libPods-SingPost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A83A57E0522D74E0263C8997 /* libPods-SingPost.a */; };
 		D4E36DDB0EE212C0EF3EE786 /* libPods-SingPost WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED85AAEF673B11F4CB79C89 /* libPods-SingPost WatchKit Extension.a */; };
 		EC3817B929C17E2A89086D1E /* libPods-SingPost WatchKit App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604E082E2CB6E086A6BF93A8 /* libPods-SingPost WatchKit App.a */; };
@@ -579,6 +580,8 @@
 		91FD0023187BEDBE00DE1765 /* OffersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersTableViewCell.h; sourceTree = "<group>"; };
 		91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersTableViewCell.m; sourceTree = "<group>"; };
 		A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		A0E0952D1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MagicalRecord+serialSaveWithBlock.h"; sourceTree = "<group>"; };
+		A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MagicalRecord+serialSaveWithBlock.m"; sourceTree = "<group>"; };
 		A712246785FFB00D21AA4353 /* Pods-SingPost WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit Extension/Pods-SingPost WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		A83A57E0522D74E0263C8997 /* libPods-SingPost.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SingPost.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7C8C6E29CDFDA866A4117B /* Pods-SingPost WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit App.release.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit App/Pods-SingPost WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
@@ -1029,6 +1032,8 @@
 				9192B4FD18B45126004EB15A /* UIScrollView+Additions.m */,
 				244B801E1A01DCE000E66C33 /* UIView+Screenshot.h */,
 				244B801F1A01DCE000E66C33 /* UIView+Screenshot.m */,
+				A0E0952D1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.h */,
+				A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1916,6 +1921,7 @@
 				24AD39071A399D180088F6A6 /* _StampImage.m in Sources */,
 				24AD39081A399D180088F6A6 /* AnnouncementTableViewCell.m in Sources */,
 				24AD39091A399D180088F6A6 /* TermsOfUseViewController.m in Sources */,
+				A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */,
 				24AD390A1A399D180088F6A6 /* ArticleCategory.m in Sources */,
 				24AD390B1A399D180088F6A6 /* SendReceiveMainViewController.m in Sources */,
 				24AD390C1A399D180088F6A6 /* Offer.m in Sources */,

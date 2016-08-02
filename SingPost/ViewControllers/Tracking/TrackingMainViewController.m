@@ -206,7 +206,7 @@ CustomIOS7AlertViewDelegate
     
     [self.view endEditing:YES];
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait..."];
         //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }
@@ -641,7 +641,7 @@ CustomIOS7AlertViewDelegate
             
             selectedParcel = [self.activeResults objectAtIndex:indexPath.row - 1];
             
-            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
             //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
@@ -676,7 +676,7 @@ CustomIOS7AlertViewDelegate
             
             selectedParcel = [self.unsortedResults objectAtIndex:indexPath.row - 1];
             
-            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
             //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
@@ -733,7 +733,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         else if (indexPath.section == TRACKINGITEMS_SECTION_UNSORTED)
             parcelToDelete = [self.unsortedResults objectAtIndex:indexPath.row - 1];
         
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait.."];
 //        [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         
@@ -789,7 +789,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             if ([self.activeResults count] == 0)
                 return;
             
-            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
             //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
             [PushNotificationManager API_subscribeNotificationForTrackingNumberArray:trackingNumbers onCompletion:^(BOOL success, NSError *error) {
@@ -812,7 +812,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         if ([self.activeResults count] == 0)
             return;
         
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait..."];
         //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
         

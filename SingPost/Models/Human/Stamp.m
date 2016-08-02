@@ -1,6 +1,7 @@
 #import "Stamp.h"
 #import "StampImage.h"
 #import "ApiClient.h"
+#import "MagicalRecord+serialSaveWithBlock.h"
 
 @interface Stamp ()
 
@@ -29,6 +30,53 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     NSDate *date = [formatter dateFromString:[NSString stringWithFormat:@"%@/%@/%@",self.day,self.month,self.year]];
     self.issueDate = date;
 }
+
+
+//+ (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+//{
+//    [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
+//        
+//        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+//        NSMutableArray *stamps = [[NSMutableArray alloc]init];
+//        [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//            Stamp *stamp = [[Stamp alloc]init];
+//            [stamp setOrderingValue:idx];
+//            [stamp updateWithApiRepresentation:attributes];
+//            [stamps addObject:stamp];
+//        }];
+//        
+//        [Stamp MR_importFromArray:stamps inContext:localContext];
+//        
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            completionBlock(NO, error);
+//        }
+//    }];
+//}
+
+//+ (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+//{
+//    [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
+//
+//        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+//        
+//        [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//            Stamp *stamp = [[Stamp alloc]init];
+//            [stamp setOrderingValue:idx];
+//            [stamp updateWithApiRepresentation:attributes];
+//            [Stamp MR_importFromObject:stamp inContext:localContext];
+//        }];
+//
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            completionBlock(NO, error);
+//    }
+//        
+//    }];
+//}
+
+
+
 
 + (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
@@ -60,9 +108,11 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
                 
                 [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
                     Stamp *stamp = [Stamp MR_createEntityInContext:localContext];
-                    [stamp setOrderingValue:idx];
+                    [stamp setOrderingValue:(int)idx];
                     [stamp updateWithApiRepresentation:attributes];
+                    
                 }];
+                
                 
                 [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                     if (completionBlock) {
@@ -80,16 +130,75 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     }];
 }
 
+
+//+ (void)API_getImagesOfStamps:(Stamp *)stamp onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+//{
+//    [[ApiClient sharedInstance] getImagesOfStamp:stamp onSuccess:^(id responseJSON) {
+//        @synchronized(STAMPS_LOCK) {
+//            NSManagedObjectContext *localContext = stamp.managedObjectContext;
+//            
+//            NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
+//            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                StampImage *stampImage = [StampImage new];
+//                [stampImage updateWithApiRepresentation:attributes];
+//                [stampImages addObject:stampImage];
+//            }];
+//            
+//            [StampImage MR_importFromArray:(NSArray*)stampImages inContext:localContext];
+//            
+//            [stamp setImages:stampImages];
+//        }
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            completionBlock(NO, error);
+//            
+//        }
+//    }];
+//}
+
+
+
+
+//+ (void)API_getImagesOfStamps:(Stamp *)stamp onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+//{
+//    [[ApiClient sharedInstance] getImagesOfStamp:stamp onSuccess:^(id responseJSON) {
+//        @synchronized(STAMPS_LOCK) {
+//            NSManagedObjectContext *localContext = stamp.managedObjectContext;
+//
+//            NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
+//            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                StampImage *stampImage = [StampImage MR_createEntityInContext:localContext];
+//                //                StampImage *stampImage = [StampImage MR_createInContext:localContext];
+//                [stampImage updateWithApiRepresentation:attributes];
+//                [stampImages addObject:stampImage];
+//            }];
+//
+//            [stamp setImages:stampImages];
+//        }
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            completionBlock(NO, error);
+//
+//        }
+//    }];
+//}
+//
+//
+
+
+
+
+
 + (void)API_getImagesOfStamps:(Stamp *)stamp onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getImagesOfStamp:stamp onSuccess:^(id responseJSON) {
         @synchronized(STAMPS_LOCK) {
             NSManagedObjectContext *localContext = stamp.managedObjectContext;
             
-            //truncate all existing images
-            for (StampImage *stampImage in stamp.images) {
-                [localContext deleteObject:stampImage];
-            }
+//            //truncate all existing images
+//            for (StampImage *stampImage in stamp.images) {
+//                [localContext deleteObject:stampImage];
+//            }
             
             NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
             [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
@@ -99,7 +208,10 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
                 [stampImages addObject:stampImage];
             }];
             
-            [stamp setImages:stampImages];
+            [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+                [stamp setImages:stampImages];
+            }];
+//            [stamp setImages:stampImages];
             
             [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 if (completionBlock) {
@@ -117,7 +229,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
 
 + (NSArray *)yearsDropDownValues
 {
-    NSManagedObjectContext *moc = [NSManagedObjectContext MR_defaultContext];
+    NSManagedObjectContext *moc = [NSManagedObjectContext MR_context];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [Stamp entityInManagedObjectContext:moc];

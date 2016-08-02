@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'ED3F238E0DB77398F637BA180C2B6577'
+               BlueprintIdentifier = '5EF3BD8189A1F21E405DC032087594AD'
                BlueprintName = 'RaptureXML'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libRaptureXML.a'>

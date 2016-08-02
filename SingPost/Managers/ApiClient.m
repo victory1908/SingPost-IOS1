@@ -117,12 +117,13 @@ static NSString * const GET_METHOD = @"GET";
 
 #pragma mark - API calls
 
-- (void)sendXMLRequest:(NSURLRequest *)request
+- (void)sendXMLRequest:(NSMutableURLRequest *)request
                success:(void (^)(NSURLResponse *response, RXMLElement *responseObject))success
                failure:(void (^)(NSError *error))failure {
     
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
     [self.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
+    [request setTimeoutInterval:5];
     
     NSURLSessionDataTask *dataTask = [[ApiClient sharedInstance] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
@@ -140,11 +141,21 @@ static NSString * const GET_METHOD = @"GET";
     [dataTask resume];
 }
 
-- (void)sendJSONRequest:(NSURLRequest *)request
+- (void)sendJSONRequest:(NSMutableURLRequest *)request
                 success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
     
     self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
+    self.requestSerializer.timeoutInterval = 5;
+    self.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    
+//    [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
+//        return [[NSCachedURLResponse alloc] initWithResponse:proposedResponse.response
+//                                                        data:proposedResponse.data
+//                                                    userInfo:proposedResponse.userInfo
+//                                               storagePolicy:NSURLCacheStorageAllowed];
+//    }];
+   
     NSURLSessionDataTask *dataTask = [ApiClient.sharedInstance dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error URL: %@",request.URL.absoluteString);
@@ -556,7 +567,7 @@ static NSString * const GET_METHOD = @"GET";
 }
 
 /*
- - (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion
+ - (void)›UpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion
  {
  NSMutableArray *updateOperations = [NSMutableArray array];
  

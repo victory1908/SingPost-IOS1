@@ -25,6 +25,7 @@ typedef enum {
 } tLocateUsViewModes;
 
 @interface LocateUsMainViewController ()
+@property (nonatomic,weak)SVProgressHUD *sVProgressHUD;
 
 @end
 
@@ -124,7 +125,8 @@ typedef enum {
     NSString *selectedType = [self selectedType];
     
     [locateUsMapViewController removeMapAnnotations];
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [_sVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD show];
     [SVProgressHUD showWithStatus:@"Please wait..."];
     //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {

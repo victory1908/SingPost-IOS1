@@ -17,7 +17,7 @@
 + (void)seedLocationsDataIfRequired
 {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_LOCATIONS_IS_SEEDED]) {
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD show];
 //        [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

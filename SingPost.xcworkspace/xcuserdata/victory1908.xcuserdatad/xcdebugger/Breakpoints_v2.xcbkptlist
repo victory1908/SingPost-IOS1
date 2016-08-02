@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SingPost/Managers/APIManager.m"
-            timestampString = "491507118.664389"
+            timestampString = "491824228.050918"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "@implementation APIManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -128,6 +128,38 @@
             startingLineNumber = "41"
             endingLineNumber = "41"
             landmarkName = "-initWithFrame:andText:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SingPost/ViewControllers/StampCollectibles/StampCollectibles/StampCollectiblesMainViewController.m"
+            timestampString = "491834198.604862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-viewWillLayoutSubviews"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SingPost/ViewControllers/StampCollectibles/StampCollectibles/StampCollectiblesDetailsViewController.m"
+            timestampString = "491819332.915751"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "-moreButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -113,7 +113,7 @@
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         _searchResults = nil;
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait"];
 //        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [PostalCode API_findPostalCodeForWindowsDeliveryNo:windowDeliveryNoTextField.text andType:typeDropDownList.selectedValue andPostOffice:postOfficeTextField.text onCompletion:^(NSArray *results, NSError *error) {

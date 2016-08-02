@@ -41,13 +41,14 @@ SINGLETON_MACRO
     return self;
 }
 
-- (void)sendXMLRequest:(NSURLRequest *)request
+- (void)sendXMLRequest:(NSMutableURLRequest *)request
                success:(void (^)(NSURLResponse *response, RXMLElement *responseObject))success
                failure:(void (^)(NSError *error))failure {
     
     self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
     
+    [request setTimeoutInterval:5];
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Api Manager Error URL: %@",request.URL.absoluteString);
@@ -81,11 +82,14 @@ SINGLETON_MACRO
 //    [self.httpManager.operationQueue addOperation:operation];
 //}
 
-- (void)sendJSONRequest:(NSURLRequest *)request
+- (void)sendJSONRequest:(NSMutableURLRequest *)request
                 success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
     
     self.manager.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
+    
+    request.timeoutInterval=5;
+    
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);

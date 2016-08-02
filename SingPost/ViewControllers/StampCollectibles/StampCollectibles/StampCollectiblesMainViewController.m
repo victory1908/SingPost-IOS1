@@ -19,12 +19,20 @@
 #import "AppDelegate.h"
 #import <SVProgressHUD.h>
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "LandingPageViewController.h"
+#import "MBProgressHUD.h"
 
 @interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CDropDownListControlDelegate,UIScrollViewDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) UIAlertController *alertController;
+
+@property (nonatomic,weak) MBProgressHUD *hud;
+
 
 @end
+
+
 
 @implementation StampCollectiblesMainViewController
 {
@@ -34,7 +42,9 @@
     UITableView *stampsTableView;
     UIImageView *featuredImageView;
     UIView * searchTermsView, * searchResultsContainerView;
-    
+    UIActivityIndicatorView *activityIndicator;
+    SVProgressHUD *svProgressHUD;
+//    MBProgressHUD *hud;
     
 }
 
@@ -50,6 +60,7 @@
     [navigationBarView setTitle:@"Stamp Collectibles"];
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentScrollView addSubview:navigationBarView];
+    
     
     featuredImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, contentScrollView.bounds.size.width, 186)];
     [featuredImageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -91,37 +102,55 @@
     [stampsTableView setBackgroundColor:[UIColor whiteColor]];
     [searchResultsContainerView addSubview:stampsTableView];
     
-    self.view = contentScrollView;
+    
     
     contentScrollView.delegate = self;
+    
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    // If you need custom color, use color property
+    activityIndicator.color = [UIColor blueColor];
+    [stampsTableView addSubview:activityIndicator];
+    
+    self.view = contentScrollView;
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    NSArray *stamps = [[NSArray alloc] init];
-//    stamps = [Stamp MR_findAll];
+    
+    [self applicationDocumentsDirectory];
+//    _hud.mode = MBProgressHUDModeAnnularDeterminate;
 //    
-//    Stamp *stamp = [stamps objectAtIndex:0];
-//    NSLog(@"test stamp %@",stamp.details);
-//    self.fetchedResultsController = stamps;
+//    _hud.backgroundColor = [UIColor redColor];
+//    _hud.contentColor = [UIColor blueColor];
+//    _hud.tintColor = [UIColor yellowColor];
+//    _hud.contentColor = [UIColor greenColor];
+//    _hud.label.text = @"Loading";
+//    _hud.detailsLabel.text = @"syncing with server";
+//    _hud.userInteractionEnabled = YES;
+//    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     
-    __weak StampCollectiblesMainViewController *weakSelf = self;
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
-        [SVProgressHUD showWithStatus:@"Please wait.."];
+        [activityIndicator startAnimating];
+        [svProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+//        [SVProgressHUD showWithStatus:@"synchronizing with server"];
+
         [Stamp API_getStampsOnCompletion:^(BOOL success, NSError *error) {
+            [activityIndicator stopAnimating];
             if (error) {
-                [SVProgressHUD showErrorWithStatus:@"An error has occurred"];
+                [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
             }
-            else {
-                [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-                [yearDropDownList setValues:[Stamp yearsDropDownValues]];
-                [yearDropDownList selectRow:0 animated:NO];
-                [weakSelf yearDropDownListSelected];
-                [SVProgressHUD dismiss];
-            }
+//            else {
+//                [_activityIndicator stopAnimating];
+//                [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//                [yearDropDownList setValues:[Stamp yearsDropDownValues]];
+//                [yearDropDownList selectRow:0 animated:NO];
+//                [weakSelf yearDropDownListSelected];
+////                [SVProgressHUD dismiss];
+//            }
         }];
     }
     
@@ -132,6 +161,35 @@
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Stamp Collectibles"];
+    
+//    __weak StampCollectiblesMainViewController *weakSelf = self;
+    
+//    if ([Stamp MR_findFirst] == nil) {
+//        //        if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+//        //            [self noDataToShow];
+//        //        }else return;
+//        
+//    }else{
+    
+        [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        
+        [yearDropDownList setValues:[Stamp yearsDropDownValues]];
+        [yearDropDownList selectRow:0 animated:NO];
+        [self yearDropDownListSelected];
+        //        [SVProgressHUD dismiss];
+//    }
+
+    
+}
+
+
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+//    CGSize *viewBounds = self.view.bounds;
+    activityIndicator.center = CGPointMake(CGRectGetMidX(stampsTableView.bounds), CGRectGetMidY(stampsTableView.bounds));
+    
+//    CGSize viewBounds = self.view.bounds;
+//    self.activityIndicator.center = CGPointMake(CGRectGetMidX(viewBounds), CGRectGetMidY(viewBounds));
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -139,7 +197,6 @@
 - (void)configureCell:(StampCollectiblesTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     cell.stamp = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSLog(@"test stamp %@",cell.stamp.details);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -322,5 +379,40 @@
     }
 }
 
+-(void)noDataToShow {
+    
+    _alertController = [UIAlertController alertControllerWithTitle:@"Error display content" message:@"Error connecting to server, no local database" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        LandingPageViewController *viewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+        //            viewController.showNavBarBackButton = YES;
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
+        [_alertController dismissViewControllerAnimated:YES completion:nil];
+    
+//        id rootViewController=[UIApplication sharedApplication].delegate.window.rootViewController;
+//        if([rootViewController isKindOfClass:[UINavigationController class]])
+//        {
+//            rootViewController=[((UINavigationController *)rootViewController).viewControllers objectAtIndex:0];
+//        }
+//        [rootViewController presentViewController:_alertController animated:YES completion:nil];
+        
+//        
+    }];
+    [_alertController addAction:ok];
+
+    [self presentViewController:_alertController animated:YES completion:nil];
+    NSLog(@"alert.....");
+}
+
+
+- (NSURL *)applicationDocumentsDirectory
+{
+    NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+    
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
 
 @end
+
+

@@ -26,6 +26,7 @@ def ios_pods
     pod 'SevenSwitch'
     pod 'ZXingObjC'
     pod 'DeviceUtil'
+    pod 'MBProgressHUD'
 end
 
 def watch_pods

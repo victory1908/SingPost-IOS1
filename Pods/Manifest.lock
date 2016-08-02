@@ -36,6 +36,7 @@ PODS:
   - MagicalRecord (2.3.2):
     - MagicalRecord/Core (= 2.3.2)
   - MagicalRecord/Core (2.3.2)
+  - MBProgressHUD (1.0.0)
   - MHNatGeoViewControllerTransition (1.0)
   - RaptureXML (1.0.1)
   - Reachability (3.2)
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - Google/Analytics
   - KGModal
   - MagicalRecord
+  - MBProgressHUD
   - MHNatGeoViewControllerTransition
   - RaptureXML
   - Reachability
@@ -92,6 +94,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   KGModal: f408e450d4fc683d5cb06b6bb566b04ac34b7ce7
   MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MHNatGeoViewControllerTransition: 8bbfd6abd30056a82168754d356ad049cdf17aa2
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
@@ -108,6 +111,6 @@ SPEC CHECKSUMS:
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
   ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
 
-PODFILE CHECKSUM: 419d926756d8daca701776b9c58d7dec40a99209
+PODFILE CHECKSUM: 36c8decebc3d0dbf78007fd7dada7d0832a929f1
 
 COCOAPODS: 1.0.1

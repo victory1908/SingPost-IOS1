@@ -157,7 +157,7 @@
          if (buttonIndex != [alertView cancelButtonIndex]) {
              [self.view endEditing:YES];
              
-             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
              [SVProgressHUD showWithStatus:@"Please wait..."];
               //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
              [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {

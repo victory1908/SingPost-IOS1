@@ -106,7 +106,7 @@
         NSString *htmlContentWithThumbnail = [NSString stringWithFormat:@"<div align=\"center\" ><img style=\"width:%.0fpx;\" src=\"%@\"></img></div>%@", 300.0f, _article.thumbnail, _article.htmlContent];
         [contentWebView loadHTMLString:htmlContentWithThumbnail baseURL:nil];
         
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait..."];
 //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }

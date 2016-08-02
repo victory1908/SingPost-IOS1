@@ -89,7 +89,7 @@
     }
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         _searchResults = nil;
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait"];
 //        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [PostalCode API_findPostalCodeForLandmark:majorBuildingEstateTextField.text onCompletion:^(NSArray *results, NSError *error) {

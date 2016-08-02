@@ -24,11 +24,13 @@
 #import "StampCollectibleDetailExpandableView.h"
 #import "UIAlertView+Blocks.h"
 #import "MaintanancePageViewController.h"
+#import "MBProgressHUD.h"
 
 @interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate ,UIWebViewDelegate>
 
 @property CGFloat pageHeight;
 @property BOOL isExpanded;
+@property (nonatomic,weak) MBProgressHUD *hud;
 
 @end
 
@@ -41,6 +43,7 @@
     UIButton *moreButton;
     UIWebView *contentWebView,*pricingWebView;
     FlatBlueButton *locateUsButton;
+    UIActivityIndicatorView *activityIndicator;
     
     BOOL isAnimating;
 }
@@ -168,6 +171,13 @@
         locateUsButton.alpha = 0.5;
     
     [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
+    
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    // If you need custom color, use color property
+    activityIndicator.color = [UIColor blueColor];
+    activityIndicator.center = CGPointMake(CGRectGetMidX(contentView.bounds), CGRectGetMidY(contentView.bounds));
+    [contentView addSubview:activityIndicator];
+    
     self.view = contentView;
 }
 
@@ -175,17 +185,15 @@
 {
     [super viewDidLoad];
     
-    [SVProgressHUD showWithStatus:@"Please wait..."];
+    [activityIndicator startAnimating];
     [Stamp API_getImagesOfStamps:_stamp onCompletion:^(BOOL success, NSError *error) {
-        [SVProgressHUD dismiss];
-        [pageControl setNumberOfPages:_stamp.images.count];
-        [imagesScrollView setContentSize:CGSizeMake(imagesScrollView.bounds.size.width * _stamp.images.count, imagesScrollView.bounds.size.height)];
-        [_stamp.images enumerateObjectsUsingBlock:^(StampImage *stampImage, NSUInteger idx, BOOL *stop) {
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
-            [imageView setImageWithURL:[NSURL URLWithString:stampImage.image] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [imageView setContentMode:UIViewContentModeScaleAspectFit];
-            [imagesScrollView addSubview:imageView];
-        }];
+        [activityIndicator stopAnimating];
+        
+        if (error) {
+            [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+            [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
+        }
+        
     }];
 }
 
@@ -193,12 +201,28 @@
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Stamp Collectibles - %@", self.stamp.title]];
+    
+    [pageControl setNumberOfPages:_stamp.images.count];
+    [imagesScrollView setContentSize:CGSizeMake(imagesScrollView.bounds.size.width * _stamp.images.count, imagesScrollView.bounds.size.height)];
+    [_stamp.images enumerateObjectsUsingBlock:^(StampImage *stampImage, NSUInteger idx, BOOL *stop) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
+        [imageView setImageWithURL:[NSURL URLWithString:stampImage.image] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        
+        [imageView setContentMode:UIViewContentModeScaleAspectFit];
+        [imagesScrollView addSubview:imageView];
+    }];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     [SVProgressHUD dismiss];
+}
+
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+//    activityIndicator.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
 }
 
 #pragma mark - UIScrollView Delegates

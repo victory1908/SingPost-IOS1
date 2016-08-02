@@ -137,6 +137,7 @@
     if (urlSchemeString == nil)
         return;
     
+    NSLog(@"urlSchemeString %@",urlSchemeString);
     if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:urlSchemeString]])
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlSchemeString]];
     

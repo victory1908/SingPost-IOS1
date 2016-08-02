@@ -243,7 +243,7 @@
 }
 
 - (void)firstTimeLoginFacebook {
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     [SVProgressHUD showWithStatus:@"Please wait..."];
 //    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
@@ -302,7 +302,7 @@
                 [ApiClient sharedInstance].fbToken = [FBSession.activeSession.accessTokenData accessToken];
                 [ApiClient sharedInstance].fbID = user.objectID;
                 
-                [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+                [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
                 [SVProgressHUD showWithStatus:@"Please wait..."];
 //                [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
                 

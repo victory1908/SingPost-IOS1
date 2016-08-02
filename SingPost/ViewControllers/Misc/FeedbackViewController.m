@@ -173,7 +173,7 @@
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [self.view endEditing:YES];
         NSString *feedbackMessage = [NSString stringWithFormat:@"Name: %@\nContact: %@\nEmail: %@\nMessage: %@", nameTextField.text, contactNumberTextField.text, emailAddressTextField.text, commentsTextView.text];
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait"];
 //        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"SingPost Mobile App | Customer Feedback" onSuccess:^(id responseObject) {
