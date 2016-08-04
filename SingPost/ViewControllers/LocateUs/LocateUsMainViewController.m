@@ -38,6 +38,7 @@ typedef enum {
     CubeTransitionViewController *cubeContainerViewController;
     LocateUsListViewController *locateUsListViewController;
     LocateUsMapViewController *locateUsMapViewController;
+    UIActivityIndicatorView *activityIndicator;
 }
 
 - (void)loadView
@@ -52,6 +53,13 @@ typedef enum {
     else
         [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
+    
+//    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//    activityIndicator.center = CGPointMake(CGRectGetMidX(contentView.bounds), CGRectGetMidY(contentView.bounds));
+//    // If you need custom color, use color property
+//    activityIndicator.color = [UIColor blueColor];
+//    [contentView addSubview:activityIndicator];
+//    [activityIndicator startAnimating];
     
     toggleModesButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [toggleModesButton setImage:[UIImage imageNamed:@"list_toggle_button"] forState:UIControlStateNormal];
@@ -76,7 +84,20 @@ typedef enum {
     [contentView addSubview:cubeContainerViewController.view];
     [cubeContainerViewController didMoveToParentViewController:self];
     
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    activityIndicator.center = CGPointMake(CGRectGetMidX(contentView.bounds), CGRectGetMidY(contentView.bounds));
+    // If you need custom color, use color property
+    activityIndicator.color = [UIColor blueColor];
+    [contentView addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    
     self.view = contentView;
+    [self updateViewData];
+}
+
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+//    activityIndicator.center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
 }
 
 #pragma mark - IBActions
@@ -125,44 +146,62 @@ typedef enum {
     NSString *selectedType = [self selectedType];
     
     [locateUsMapViewController removeMapAnnotations];
-    [_sVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-    [SVProgressHUD show];
-    [SVProgressHUD showWithStatus:@"Please wait..."];
+//    [_sVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+//    [SVProgressHUD show];
+//    [SVProgressHUD showWithStatus:@"Please wait..."];
     //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
+        [self updateViewData];
+        [activityIndicator startAnimating];
         [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
+            [activityIndicator stopAnimating];
             [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
+        [self updateViewData];
+        [activityIndicator startAnimating];
         [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
+            [activityIndicator stopAnimating];
             [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
+        [self updateViewData];
+        [activityIndicator startAnimating];
         [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
+            [activityIndicator stopAnimating];
             [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTAL_AGENT]) {
+        [self updateViewData];
+        [activityIndicator startAnimating];
         [EntityLocation API_updatePostalAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
+            [activityIndicator stopAnimating];
             [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT]) {
+        [self updateViewData];
+        [activityIndicator startAnimating];
         [EntityLocation API_updateSingPostAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
+            [activityIndicator stopAnimating];
             [self updateViewData];
         }];
     }
     
     else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
+        [self updateViewData];
+        [activityIndicator startAnimating];
         [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
+            [activityIndicator stopAnimating];
             [self updateViewData];
         }];
     }

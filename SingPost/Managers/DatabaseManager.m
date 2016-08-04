@@ -17,14 +17,25 @@
 
 #pragma mark - Public methods
 + (void)setupRealm {
-    NSURL *containerURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
-    NSURL *realmURL = [containerURL URLByAppendingPathComponent:@"SingPost.realm"];
+//    NSURL *containerURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
+//    NSURL *realmURL = [containerURL URLByAppendingPathComponent:@"SingPost.realm"];
+//    
+//    RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
+//    configuration.fileURL = realmURL;
+//    [RLMRealmConfiguration setDefaultConfiguration:configuration];
+//    
+//    NSLog(@"Default Realm location: %@", realmURL);
+    
+    
+    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *customRealmPath = [documentsDirectory stringByAppendingPathComponent:@"SingPost.realm"];
     
     RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-    configuration.fileURL = realmURL;
+    configuration.fileURL = [NSURL URLWithString:customRealmPath];
     [RLMRealmConfiguration setDefaultConfiguration:configuration];
     
-    NSLog(@"Default Realm location: %@", realmURL);
+//    RLMRealm *realm = [RLMRealm realmWithPath:customRealmPath];
+    NSLog(@"Default Realm location: %@", customRealmPath);
     
     
 //    NSURL *realmURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];

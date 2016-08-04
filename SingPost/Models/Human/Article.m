@@ -24,44 +24,183 @@
 {
     NSMutableArray *items = [NSMutableArray array];
     NSArray *sortedCategories = jsonItems[@"keys"];
-//    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-//        for (NSString *category in sortedCategories) {
-//            ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
-//            articleCategory.module = moduleName;
-//            articleCategory.category = category;
-//            
-//            NSMutableArray *articles = [NSMutableArray array];
-//            [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
-//                Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
-//                [article updateWithApiRepresentation:articleJSON];
-//                [articles addObject:article];
-//            }];
-//            [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
-//            
-//            [items addObject:articleCategory];
-//        }
-//
-//    }];
+    
     NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
     
     for (NSString *category in sortedCategories) {
+        
         ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+        
         articleCategory.module = moduleName;
         articleCategory.category = category;
         
         NSMutableArray *articles = [NSMutableArray array];
         [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
             Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+            
             [article updateWithApiRepresentation:articleJSON];
             [articles addObject:article];
+            
         }];
-        [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
         
+//        [localContext MR_saveToPersistentStoreAndWait];
+        
+        [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
         [items addObject:articleCategory];
-    }
-    
+        
+    };
     return items;
 }
+
+
+
+
+//+ (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
+//{
+//    [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
+//        
+//        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+//        
+//        [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//            Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
+//            if (stamp.serverId ==nil) {
+//                [stamp setOrderingValue:(int)idx];
+//                [stamp updateWithApiRepresentation:attributes];
+//            }
+//        }];
+//        
+//        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+//            if (completionBlock) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    completionBlock(!error, error);
+//                });
+//            }
+//        }];
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            completionBlock(NO, error);
+//        }
+//    }];
+//}
+
+
+//+ (NSArray *)articleItemsForJSON:(NSDictionary *)jsonItems module:(NSString *)moduleName
+//{
+//    NSMutableArray *items = [NSMutableArray array];
+//    NSArray *sortedCategories = jsonItems[@"keys"];
+//    
+//    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+//    
+//    for (NSString *category in sortedCategories) {
+//
+////        ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//        
+//        ArticleCategory *articleCategory = [ArticleCategory MR_findFirstOrCreateByAttribute:@"module" withValue:moduleName inContext:localContext];
+//        
+//        if (articleCategory.category ==nil) {
+//            //            articleCategory.module = moduleName;
+//            articleCategory.category = category;
+//        }
+////        articleCategory.category = category;
+//        
+//        NSMutableArray *articles = [NSMutableArray array];
+//        [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+////            Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//            Article *article = [Article MR_findFirstOrCreateByAttribute:@"name" withValue:articleJSON[@"Name"] inContext:articleCategory.managedObjectContext];
+//            
+//            if (article.buttonType==nil){
+//                                [article setOrderingValue:idx];
+//                [article updateWithApiRepresentation:articleJSON];
+//            }
+////            [article updateWithApiRepresentation:articleJSON];
+//            [articles addObject:article];
+//            
+//        }];
+//        
+//        [localContext MR_saveToPersistentStoreAndWait];
+//        
+//        [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
+//        [items addObject:articleCategory];
+//        
+//    };
+//    return items;
+//}
+
+
+
+
+//+ (NSArray *)articleItemsForJSON:(NSDictionary *)jsonItems module:(NSString *)moduleName
+//{
+//    NSMutableArray *items = [NSMutableArray array];
+//    NSArray *sortedCategories = jsonItems[@"keys"];
+////    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+////        for (NSString *category in sortedCategories) {
+////            ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+////            articleCategory.module = moduleName;
+////            articleCategory.category = category;
+////            
+////            NSMutableArray *articles = [NSMutableArray array];
+////            [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+////                Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+////                [article updateWithApiRepresentation:articleJSON];
+////                [articles addObject:article];
+////            }];
+////            [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
+////            
+////            [items addObject:articleCategory];
+////        }
+////
+////    }];
+//    NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+//    
+//    for (NSString *category in sortedCategories) {
+//        ArticleCategory *articleCategory = [[ArticleCategory alloc] initWithEntity:[ArticleCategory entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//        articleCategory.module = moduleName;
+//        articleCategory.category = category;
+//        
+//        NSMutableArray *articles = [NSMutableArray array];
+//        [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+//            Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//            [article updateWithApiRepresentation:articleJSON];
+//            [articles addObject:article];
+//        }];
+//        [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
+//        
+//        [items addObject:articleCategory];
+//    }
+//    
+////    for (NSString *category in sortedCategories) {
+////        ArticleCategory *articleCategory = [ArticleCategory MR_findFirstOrCreateByAttribute:@"module" withValue:moduleName inContext:localContext];
+////        if (articleCategory.category ==nil) {
+//////            articleCategory.module = moduleName;
+////            articleCategory.category = category;
+////        }
+////        NSMutableArray *articles = [NSMutableArray array];
+////        [jsonItems[category] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+////            Article *article = [Article MR_findFirstOrCreateByAttribute:@"name" withValue:articleJSON[@"Name"] inContext:localContext];
+//////            Article *article = [Article MR_createEntityInContext:localContext];
+////            if (article.buttonType==nil){
+////                [article setOrderingValue:idx];
+////                [article updateWithApiRepresentation:articleJSON];
+////                [articles addObject:article];
+////            }
+////        }];
+////        
+////    }
+////    
+////    [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+////        if (error) NSLog(@"error save article to persistentStore");
+////        else {
+////            NSLog(@"success save article to persistentStore");
+////            NSLog(@"count article %@",@([Article MR_countOfEntitiesWithContext:localContext]));
+////        }
+////    }];
+////    
+////    NSLog(@"count item %@",@(items.count));
+//    
+//    return items;
+//
+//}
 
 #pragma mark - APIs
 

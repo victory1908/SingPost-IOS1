@@ -49,6 +49,7 @@
     }
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
+    
     [DatabaseManager setupRealm];
     [self migrateData];
     
@@ -254,8 +255,14 @@
          int status = [[responseObject objectForKey:@"status"] intValue];
          
          if (status != 200) {
-             [UIAlertView showWithTitle:@"Alert" message:@"Log in failed"
-                      cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//             [UIAlertView showWithTitle:@"Alert" message:@"Log in failed"
+//                      cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+             
+             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:@"Log in failed" preferredStyle:UIAlertControllerStyleAlert];
+             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+             [alert addAction:ok];
+             [self.rootViewController presentViewController:alert animated:YES completion:nil];
+             
              return;
          }
          

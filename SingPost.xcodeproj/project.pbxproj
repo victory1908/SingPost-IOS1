@@ -189,10 +189,10 @@
 		87BDF6951B13032400EFADDD /* SingPost WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF6941B13032400EFADDD /* SingPost WatchKit App.app */; };
 		87BDF69D1B13032400EFADDD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69B1B13032400EFADDD /* Interface.storyboard */; };
 		87BDF69F1B13032400EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69E1B13032400EFADDD /* Images.xcassets */; };
-		87BDF6A21B13032400EFADDD /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		87E45FA11B4C104E0063BC5A /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
 		A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */; };
 		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
+		A0F957F51D51D179002D67EB /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D0538A81B963A39B5FC40EB3 /* libPods-SingPost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A83A57E0522D74E0263C8997 /* libPods-SingPost.a */; };
 		D4E36DDB0EE212C0EF3EE786 /* libPods-SingPost WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED85AAEF673B11F4CB79C89 /* libPods-SingPost WatchKit Extension.a */; };
 		EC3817B929C17E2A89086D1E /* libPods-SingPost WatchKit App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604E082E2CB6E086A6BF93A8 /* libPods-SingPost WatchKit App.a */; };
@@ -206,7 +206,7 @@
 			remoteGlobalIDString = 87BDF6931B13032400EFADDD;
 			remoteInfo = "SingPost WatchKit App";
 		};
-		87BDF6A01B13032400EFADDD /* PBXContainerItemProxy */ = {
+		A0F957F31D51D163002D67EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 521B171517F1633000FEB6FD /* Project object */;
 			proxyType = 1;
@@ -222,7 +222,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				87BDF6A21B13032400EFADDD /* SingPost WatchKit Extension.appex in Embed App Extensions */,
+				A0F957F51D51D179002D67EB /* SingPost WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1526,7 +1526,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				87BDF6A11B13032400EFADDD /* PBXTargetDependency */,
+				A0F957F41D51D163002D67EB /* PBXTargetDependency */,
 			);
 			name = SingPost;
 			productName = SingPost;
@@ -1582,7 +1582,6 @@
 				ORGANIZATIONNAME = Codigo;
 				TargetAttributes = {
 					24AD38A21A399D180088F6A6 = {
-						DevelopmentTeam = PDYS8RZ74Y;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1594,7 +1593,6 @@
 					};
 					87BDF6811B13032400EFADDD = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = PDYS8RZ74Y;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1603,7 +1601,6 @@
 					};
 					87BDF6931B13032400EFADDD = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = PDYS8RZ74Y;
 					};
 				};
 			};
@@ -1969,10 +1966,10 @@
 			target = 87BDF6931B13032400EFADDD /* SingPost WatchKit App */;
 			targetProxy = 87BDF6961B13032400EFADDD /* PBXContainerItemProxy */;
 		};
-		87BDF6A11B13032400EFADDD /* PBXTargetDependency */ = {
+		A0F957F41D51D163002D67EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 87BDF6811B13032400EFADDD /* SingPost WatchKit Extension */;
-			targetProxy = 87BDF6A01B13032400EFADDD /* PBXContainerItemProxy */;
+			targetProxy = A0F957F31D51D163002D67EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2003,8 +2000,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SingPost/SingPost.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2038,8 +2035,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SingPost/SingPost.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Codigo Private Limited";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Codigo Private Limited";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2151,8 +2148,8 @@
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = "SingPost WatchKit Extension/SingPost WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2179,8 +2176,8 @@
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = "SingPost WatchKit Extension/SingPost WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Codigo Private Limited";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Codigo Private Limited";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -2204,8 +2201,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Ng (UVL858SGZ3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2234,8 +2231,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Codigo Private Limited";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Codigo Private Limited";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;

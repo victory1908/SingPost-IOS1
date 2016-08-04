@@ -11,6 +11,7 @@
 #import <SVProgressHUD.h>
 #import "Article.h"
 
+
 @implementation PaymentMainViewController
 
 - (void)viewDidLoad
@@ -19,6 +20,7 @@
     [self setPageTitle:@"Pay"];
     
     __weak PaymentMainViewController *weakSelf = self;
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getPayItemsOnCompletion:^(NSArray *items) {

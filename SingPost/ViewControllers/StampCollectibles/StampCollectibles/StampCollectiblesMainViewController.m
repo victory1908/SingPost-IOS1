@@ -164,12 +164,12 @@
     
 //    __weak StampCollectiblesMainViewController *weakSelf = self;
     
-//    if ([Stamp MR_findFirst] == nil) {
-//        //        if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
-//        //            [self noDataToShow];
-//        //        }else return;
-//        
-//    }else{
+    if ([Stamp MR_findFirst] == nil) {
+        //        if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+        //            [self noDataToShow];
+        //        }else return;
+        
+    }else{
     
         [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
@@ -177,7 +177,7 @@
         [yearDropDownList selectRow:0 animated:NO];
         [self yearDropDownListSelected];
         //        [SVProgressHUD dismiss];
-//    }
+    }
 
     
 }

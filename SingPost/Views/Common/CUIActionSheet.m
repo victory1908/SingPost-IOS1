@@ -12,7 +12,8 @@
 #define APP_FRAME                                   [[UIScreen mainScreen] applicationFrame].size
 #define STATUSBAR_FRAME                             [UIApplication sharedApplication].statusBarFrame
 #define STATUSBAR_HEIGHT                            MIN(STATUSBAR_FRAME.size.height, STATUSBAR_FRAME.size.width)
-#define APPFRAME_HEIGHT_PORTRAIT                    ([[UIScreen mainScreen] applicationFrame].size.height) + STATUSBAR_HEIGHT
+//#define APPFRAME_HEIGHT_PORTRAIT                    ([[UIScreen mainScreen] applicationFrame].size.height) + STATUSBAR_HEIGHT
+#define APPFRAME_HEIGHT_PORTRAIT                    ([[UIScreen mainScreen] bounds].size.height) + STATUSBAR_HEIGHT
 
 @implementation CUIActionSheet
 

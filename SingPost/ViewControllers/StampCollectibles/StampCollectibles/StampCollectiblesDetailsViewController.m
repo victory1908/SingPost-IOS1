@@ -186,6 +186,7 @@
     [super viewDidLoad];
     
     [activityIndicator startAnimating];
+    
     [Stamp API_getImagesOfStamps:_stamp onCompletion:^(BOOL success, NSError *error) {
         [activityIndicator stopAnimating];
         
