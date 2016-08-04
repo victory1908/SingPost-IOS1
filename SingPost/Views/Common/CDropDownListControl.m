@@ -12,14 +12,17 @@
 #import "UIImage+Extensions.h"
 #import "CUIActionSheet.h"
 
-@interface CDropDownListControl () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIPopoverControllerDelegate>
+//@interface CDropDownListControl () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UIPopoverControllerDelegate>
+
+@interface CDropDownListControl () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 
 @end
 
 @implementation CDropDownListControl
 {
     UIPickerView *pickerView;
-    UIPopoverController *pickerPopover;
+//    UIPopoverController *pickerPopover;
+    UIViewController *pickerPopover;
 //    UIActionSheet *pickerViewActionSheet;
     CUIActionSheet *pickerViewActionSheet;
     UILabel *selectedValueLabel;
@@ -61,7 +64,8 @@
 
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
         UIBarButtonItem *fixed1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissActionSheet)];
+//        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(dismissActionSheet)];
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismissActionSheet)];
         
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
             UIImage *toolbarBackgroundImage = [[UIImage imageWithColor:RGB(200, 200, 200)] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
@@ -88,7 +92,8 @@
     else
     {
         if (pickerPopover) {
-            [pickerPopover dismissPopoverAnimated:YES];
+//            [pickerPopover dismissPopoverAnimated:YES];
+            [pickerPopover dismissViewControllerAnimated:YES completion:NO];
         }
         UIColor *navbarColor = [UIColor colorWithRed:(235.0/255.0) green:(235.0/255.0) blue:(235.0/255.0) alpha:1.0];
         UIViewController * popoverContent = [[UIViewController alloc] init];
@@ -108,11 +113,21 @@
         [done_btn setFrame:CGRectMake(260, 8, 50,30)];
         popoverContent.preferredContentSize = CGSizeMake(320, 244);
 //        popoverContent.contentSizeForViewInPopover = CGSizeMake(320, 244);
-        pickerPopover = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
-        [pickerPopover presentPopoverFromRect:self.bounds inView:self
-                     permittedArrowDirections:UIPopoverArrowDirectionUp
-                                     animated:YES];
-        pickerPopover.delegate = self;
+//        pickerPopover = [[UIPopoverController alloc] initWithContentViewController:popoverContent];
+        pickerPopover.modalPresentationStyle = UIModalPresentationPopover;
+        [pickerPopover presentViewController:pickerPopover animated:YES completion:nil];
+        
+        // Popover presentation controller was created when presenting; now  configure it.
+        UIPopoverPresentationController *presentationController = [pickerPopover popoverPresentationController];
+        presentationController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+        presentationController.sourceView = self;
+        // arrow points out of the rect specified here
+        presentationController.sourceRect = self.bounds;
+        
+//        [pickerPopover presentPopoverFromRect:self.bounds inView:self
+//                     permittedArrowDirections:UIPopoverArrowDirectionUp
+//                                     animated:YES];
+//        pickerPopover.delegate = self;
 
     }
 }
@@ -125,7 +140,8 @@
     }
 //    if(!INTERFACE_IS_IPAD)[pickerViewActionSheet dismissWithClickedButtonIndex:0 animated:YES];
     if(!INTERFACE_IS_IPAD)[pickerViewActionSheet dismissView];
-    else [pickerPopover dismissPopoverAnimated:YES];
+//    else [pickerPopover dismissPopoverAnimated:YES];
+    else [pickerPopover dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)selectRow:(NSInteger)row animated:(BOOL)shouldAnimate

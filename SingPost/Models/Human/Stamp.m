@@ -80,44 +80,32 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
 + (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            @synchronized(STAMPS_LOCK) {
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+                
+                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                    Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
+                    if (stamp.serverId ==nil) {
+                        [stamp setOrderingValue:idx];
+                        [stamp updateWithApiRepresentation:attributes];
+                    }
+                }];
+                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+                    if (completionBlock) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completionBlock(!error, error);
+                        });
+                    }
+                }];
+            }});
         
-        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
-        
-//        [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-//            Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
-//            if (stamp.serverId ==nil) {
-//                [stamp setOrderingValue:(int)idx];
-//                [stamp updateWithApiRepresentation:attributes];
-//            }
-//        }];
-        
-        [localContext MR_saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
-                if (stamp.serverId ==nil) {
-                    [stamp setOrderingValue:(int)idx];
-                    [stamp updateWithApiRepresentation:attributes];
-                }
-            }];
-        } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(!error, error);
-            });
-        }];
-
-        
-//        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-//            if (completionBlock) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    completionBlock(!error, error);
-//                });
-//            }
-//        }];
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             completionBlock(NO, error);
         }
     }];
+    
 }
 
 
@@ -271,27 +259,13 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
                 [stampImages addObject:stampImage];
             }];
             
-            [localContext MR_saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-                [stamp setImages:stampImages];
-            } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+            [stamp setImages:stampImages];
+            
+            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 if (completionBlock) {
-                                        completionBlock(!error, error);
-                                    }
+                    completionBlock(!error, error);
+                }
             }];
-            
-//            [localContext MR_saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-//                [stamp setImages:stampImages];
-//            }];
-//            [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-//                [stamp setImages:stampImages];
-//            }];
-//            [stamp setImages:stampImages];
-            
-//            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-//                if (completionBlock) {
-//                    completionBlock(!error, error);
-//                }
-//            }];
         }
     } onFailure:^(NSError *error) {
         if (completionBlock) {

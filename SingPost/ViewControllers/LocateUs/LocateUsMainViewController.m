@@ -156,7 +156,8 @@ typedef enum {
         [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
             [activityIndicator stopAnimating];
-            [self updateViewData];
+            if (error) [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            else [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTING_BOX]) {
@@ -165,7 +166,8 @@ typedef enum {
         [EntityLocation API_updatePostingBoxLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
             [activityIndicator stopAnimating];
-            [self updateViewData];
+            if (error) [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            else [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
@@ -174,7 +176,8 @@ typedef enum {
         [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
             [activityIndicator stopAnimating];
-            [self updateViewData];
+            if (error) [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            else [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTAL_AGENT]) {
@@ -183,7 +186,8 @@ typedef enum {
         [EntityLocation API_updatePostalAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
             [activityIndicator stopAnimating];
-            [self updateViewData];
+            if (error) [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            else [self updateViewData];
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT]) {
@@ -192,7 +196,8 @@ typedef enum {
         [EntityLocation API_updateSingPostAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
             [activityIndicator stopAnimating];
-            [self updateViewData];
+            if (error) [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            else [self updateViewData];
         }];
     }
     
@@ -202,7 +207,8 @@ typedef enum {
         [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
             [activityIndicator stopAnimating];
-            [self updateViewData];
+            if (error) [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            else [self updateViewData];
         }];
     }
     else {

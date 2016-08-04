@@ -148,28 +148,48 @@
     
     NSString *postMessage = [NSString stringWithFormat:@"TrackingNo.: %@\n%@Message: %@",self.parcel.trackingNumber,deliveryStatusString,commentsTextView.text];
     
-    [UIAlertView showWithTitle:nil
-                       message:@"Submit alert?"
-             cancelButtonTitle:@"No"
-             otherButtonTitles:@[@"Yes"]
-                      tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
-     {
-         if (buttonIndex != [alertView cancelButtonIndex]) {
-             [self.view endEditing:YES];
-             
-             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-             [SVProgressHUD showWithStatus:@"Please wait..."];
-              //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-             [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {
-                 [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
-             } onFailure:^(NSError *error) {
-                 [SVProgressHUD showErrorWithStatus:@"An error has occured"];
-             }];
-         }
-         else
-             return;
-         
-     }];
+//    [UIAlertView showWithTitle:nil
+//                       message:@"Submit alert?"
+//             cancelButtonTitle:@"No"
+//             otherButtonTitles:@[@"Yes"]
+//                      tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex)
+//     {
+//         if (buttonIndex != [alertView cancelButtonIndex]) {
+//             [self.view endEditing:YES];
+//             
+//             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+//             [SVProgressHUD showWithStatus:@"Please wait..."];
+//              //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+//             [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {
+//                 [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
+//             } onFailure:^(NSError *error) {
+//                 [SVProgressHUD showErrorWithStatus:@"An error has occured"];
+//             }];
+//         }
+//         else
+//             return;
+//         
+//     }];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Submit alert?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.view endEditing:YES];
+        
+        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+        [SVProgressHUD showWithStatus:@"Please wait..."];
+        //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+        [[ApiClient sharedInstance] postFeedbackMessage:postMessage subject:@"SingPost Mobile App | Customer T&T Issue" onSuccess:^(id responseObject) {
+            [SVProgressHUD showSuccessWithStatus:@"Feedback sent."];
+        } onFailure:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:@"An error has occured"];
+        }];
+
+    }];
+    [alert addAction:cancel];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 @end

@@ -41,8 +41,9 @@
 - (void)loadView
 {
     [super loadView];
-    
+//    CGRect appFrame = [[UIScreen mainScreen] nativeBounds];
     CGRect appFrame = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? [UIScreen mainScreen].applicationFrame : [[UIScreen mainScreen] bounds];
+    
     appContentView = [[UIView alloc] initWithFrame:CGRectMake(0, appFrame.origin.y, appFrame.size.width + SIDEBAR_WIDTH, appFrame.size.height)];
     [self.view addSubview:appContentView];
     

@@ -291,12 +291,30 @@
 //                    });
 //                }];
                 NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
-
+//                [localContext MR_saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+//                    
+//                    [[responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
+//                        Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+////                        Article *article = [Article MR_findFirstOrCreateByAttribute:@"name" withValue:articleJSON[@"Name"] inContext:localContext];
+//                        [article setOrderingValue:idx];
+//                        [article updateWithApiRepresentation:articleJSON];
+//                        [items addObject:article];
+//                    
+//                }];
+                
                 [[responseJSON[@"root"] sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"Order" ascending:YES]]] enumerateObjectsUsingBlock:^(id articleJSON, NSUInteger idx, BOOL *stop) {
                     Article *article = [[Article alloc] initWithEntity:[Article entityInManagedObjectContext:localContext] insertIntoManagedObjectContext:nil];
+//                    Article *article = [Article MR_findFirstOrCreateByAttribute:@"name" withValue:articleJSON[@"Name"] inContext:localContext];
+//                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name==[c]%@",articleJSON[@"Name"]];
+//                    Article *article = [Article MR_findFirstWithPredicate:predicate inContext:localContext];
+//                    Article *article = [Article MR_createEntityInContext:localContext];
+                    [article setOrderingValue:idx];
                     [article updateWithApiRepresentation:articleJSON];
                     [items addObject:article];
                 }];
+//                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+//                    if(contextDidSave) completionBlock(items);
+//                }];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(items);

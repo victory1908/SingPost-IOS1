@@ -104,8 +104,12 @@
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
     if (!toWhichCountryDropDownList.selectedValue || [weightTextField.text length] == 0) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alertView show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INCOMPLETE_FIELDS_ERROR preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
@@ -121,8 +125,12 @@
             else {
                 [SVProgressHUD dismiss];
                 if (items.count == 0) {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_RESULTS_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-                    [alertView show];
+//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_RESULTS_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+//                    [alertView show];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_RESULTS_ERROR preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                    [alert addAction:ok];
+                    [self presentViewController:alert animated:YES completion:nil];
                 }
                 else {
                     CalculatePostageResultsViewController *viewController = [[CalculatePostageResultsViewController alloc] initWithResultItems:items andResultType:CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS];

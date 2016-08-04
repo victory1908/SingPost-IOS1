@@ -190,16 +190,24 @@ CustomIOS7AlertViewDelegate
     
     if (!self.isPushNotification) {
         if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
-            [UIAlertView showWithTitle:nil
-                               message:INVALID_TRACKING_NUMBER_ERROR
-                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//            [UIAlertView showWithTitle:nil
+//                               message:INVALID_TRACKING_NUMBER_ERROR
+//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
             return;
         }
         
         if (trackingNumberTextField.text.length == 0) {
-            [UIAlertView showWithTitle:nil
-                               message:NO_TRACKING_NUMBER_ERROR
-                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//            [UIAlertView showWithTitle:nil
+//                               message:NO_TRACKING_NUMBER_ERROR
+//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
             return;
         }
     }
@@ -222,14 +230,23 @@ CustomIOS7AlertViewDelegate
              }
          } else {
              if (error.code == 1001) {
-                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                    message:ERRORCODE1001_MESSAGE
-                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+//                                    message:ERRORCODE1001_MESSAGE
+//                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
+
              }
              else {
-                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                    message:NO_INTERNET_ERROR
-                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+//                                    message:NO_INTERNET_ERROR
+//                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
              }
          }
          [self loadTrackingItems];
@@ -651,13 +668,21 @@ CustomIOS7AlertViewDelegate
                      [self goToDetailPageWithParcel:parcel];
                  } else {
                      if (error.code == 1001) {
-                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                            message:ERRORCODE1001_MESSAGE
-                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+//                                            message:ERRORCODE1001_MESSAGE
+//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                         [alert addAction:ok];
+                         [self presentViewController:alert animated:YES completion:nil];
                      } else {
-                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                            message:NO_INTERNET_ERROR
-                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+//                                            message:NO_INTERNET_ERROR
+//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                         [alert addAction:ok];
+                         [self presentViewController:alert animated:YES completion:nil];
                      }
                  }
                  [SVProgressHUD dismiss];
@@ -687,19 +712,34 @@ CustomIOS7AlertViewDelegate
                          [self goToDetailPageWithParcel:selectedParcel];
                      }
                      else {
-                         [UIAlertView showWithTitle:nil
-                                            message:TRACKED_ITEM_NOT_FOUND_ERROR
-                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//                         [UIAlertView showWithTitle:nil
+//                                            message:TRACKED_ITEM_NOT_FOUND_ERROR
+//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                         
+                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
+                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+                         [alert addAction:ok];
+                         [self presentViewController:alert animated:YES completion:nil];
+
+                         
                      }
                  } else {
                      if (error.code == 1001) {
-                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                            message:ERRORCODE1001_MESSAGE
-                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+//                                            message:ERRORCODE1001_MESSAGE
+//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                         [alert addAction:ok];
+                         [self presentViewController:alert animated:YES completion:nil];
                      } else {
-                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-                                            message:NO_INTERNET_ERROR
-                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+//                                            message:NO_INTERNET_ERROR
+//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                         [alert addAction:ok];
+                         [self presentViewController:alert animated:YES completion:nil];
                      }
                  }
                  [SVProgressHUD dismiss];
@@ -799,9 +839,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         else {
             [[UserDefaultsManager sharedInstance] setNotificationStatus:NO];
             
-            [UIAlertView showWithTitle:nil
-                               message:@"Please enable notifications in general settings to auto receive updates"
-                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+//            [UIAlertView showWithTitle:nil
+//                               message:@"Please enable notifications in general settings to auto receive updates"
+//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
             receiveUpdateSwitch.on = NO;
         }
     }

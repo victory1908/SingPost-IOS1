@@ -296,8 +296,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     if ([filteredSearchResults count] <= 0 && textField.text.length > 0) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"No results found" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"No results found" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+//        [alert show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"No results found" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     return NO;
 }

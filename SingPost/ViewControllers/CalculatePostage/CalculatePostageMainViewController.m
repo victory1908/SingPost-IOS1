@@ -130,13 +130,23 @@ typedef enum  {
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     if ([[url scheme]hasPrefix:@"action"]) {
         if ([[url host]hasPrefix:@"SingPost"]) {
-            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
-                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
-                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
-                                  if (buttonIndex == 1) {
-                                      [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.singpost.com/download/AboutSingPost/NewReleases/pr20140902.pdf"]];
-                                  }
-                              }];
+//            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
+//                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
+//                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
+//                                  if (buttonIndex == 1) {
+//                                      [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.singpost.com/download/AboutSingPost/NewReleases/pr20140902.pdf"]];
+//                                  }
+//                              }];
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Open link in Safari?" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.singpost.com/download/AboutSingPost/NewReleases/pr20140902.pdf"]];
+            }];
+            [alert addAction:cancel];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
+            
         }
     }
 }

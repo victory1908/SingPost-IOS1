@@ -157,7 +157,8 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 
 - (BOOL)isOpenedAtCurrentTimeDigits:(NSInteger)timeDigits
 {
-    NSInteger weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
+//    NSInteger weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:[NSDate date]] weekday];
+    NSInteger weekDay = [[[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:[NSDate date]]weekday];
     
     if ([self.sunOpeningHours isEqualToString:@"24 hours"])
         return YES;

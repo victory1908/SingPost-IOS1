@@ -78,13 +78,24 @@ UIWebViewDelegate
     NSString *urlScheme = request.URL.scheme;
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         if ([urlScheme hasPrefix:@"http"]) {
-            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
-                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
-                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
-                                  if (buttonIndex == 1) {
-                                      [[UIApplication sharedApplication]openURL:request.URL];
-                                  }
-                              }];
+//            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
+//                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
+//                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
+//                                  if (buttonIndex == 1) {
+//                                      [[UIApplication sharedApplication]openURL:request.URL];
+//                                  }
+//                              }];
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Open link in Safari?" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [[UIApplication sharedApplication]openURL:request.URL];
+                }];
+            [alert addAction:cancel];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
+
+            
         }
         return NO;
     }

@@ -120,6 +120,7 @@
     [super viewDidLoad];
     
     [self applicationDocumentsDirectory];
+//    __weak StampCollectiblesMainViewController *weakSelf = self;
 //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
 //    
 //    _hud.backgroundColor = [UIColor redColor];
@@ -143,14 +144,14 @@
             if (error) {
                 [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
             }
-//            else {
-//                [_activityIndicator stopAnimating];
-//                [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//                [yearDropDownList setValues:[Stamp yearsDropDownValues]];
-//                [yearDropDownList selectRow:0 animated:NO];
-//                [weakSelf yearDropDownListSelected];
-////                [SVProgressHUD dismiss];
-//            }
+            else {
+                [activityIndicator stopAnimating];
+                [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                [yearDropDownList setValues:[Stamp yearsDropDownValues]];
+                [yearDropDownList selectRow:0 animated:NO];
+                [self yearDropDownListSelected];
+//                [SVProgressHUD dismiss];
+            }
         }];
     }
     

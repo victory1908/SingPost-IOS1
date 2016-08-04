@@ -67,11 +67,17 @@
         agreeButton.enabled = YES;
     }
     else {
-        [UIAlertView showWithTitle:nil
-                           message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access."
-                 cancelButtonTitle:@"OK"
-                 otherButtonTitles:nil
-                          tapBlock:nil];
+//        [UIAlertView showWithTitle:nil
+//                           message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access."
+//                 cancelButtonTitle:@"OK"
+//                 otherButtonTitles:nil
+//                          tapBlock:nil];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
+        
         agreeButton.enabled = NO;
     }
 }

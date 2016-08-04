@@ -40,13 +40,30 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     application.applicationIconBadgeNumber = 0;
     
-    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        // use registerUserNotificationSettings
-        [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
-    } else {
-        // use registerForRemoteNotifications
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+//        // use registerUserNotificationSettings
+//        [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+//    } else {
+//        //use registerForRemoteNotifications
+//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//        
+//    }
+    
+    //-- Set Notification
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
+        // iOS 8 Notifications
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        
+        [application registerForRemoteNotifications];
     }
+    else
+    {
+        // iOS < 8 Notifications
+        [application registerForRemoteNotificationTypes:
+         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+    }
+    
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
     
@@ -134,8 +151,14 @@
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection {
     BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
     if (!hasInternetConnection && warnIfNoConnection) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alertView show];
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+//        [alertView show];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:ok];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        
     }
     return hasInternetConnection;
 }
@@ -207,10 +230,18 @@
          int status = [[responseObject objectForKey:@"status"] intValue];
          
          if(status != 200) {
-             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Log in failed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Log in failed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//             
+//             [alert show];
+//             [SVProgressHUD dismiss];
              
-             [alert show];
-             [SVProgressHUD dismiss];
+             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:@"Log in failed" preferredStyle:UIAlertControllerStyleAlert];
+             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+             [alert addAction:cancel];
+             [alert addAction:ok];
+             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+             
              return;
          }
          
@@ -261,7 +292,7 @@
              UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:@"Log in failed" preferredStyle:UIAlertControllerStyleAlert];
              UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
              [alert addAction:ok];
-             [self.rootViewController presentViewController:alert animated:YES completion:nil];
+             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
              
              return;
          }
@@ -600,15 +631,25 @@
         //it's a tracking item apns
         [self getAllLabel];
         if (shouldPrompt) {
-            [UIAlertView showWithTitle:@"SingPost"
-                               message:aps[@"alert"]
-                     cancelButtonTitle:@"Cancel"
-                     otherButtonTitles:@[@"View"]
-                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                  if (buttonIndex != [alertView cancelButtonIndex]) {
-                                      [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
-                                  }
-                              }];
+//            [UIAlertView showWithTitle:@"SingPost"
+//                               message:aps[@"alert"]
+//                     cancelButtonTitle:@"Cancel"
+//                     otherButtonTitles:@[@"View"]
+//                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//                                  if (buttonIndex != [alertView cancelButtonIndex]) {
+//                                      [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
+//                                  }
+//                              }];
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"SingPost" message:aps[@"alert"] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *view = [UIAlertAction actionWithTitle:@"View" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
+            }];
+            [alert addAction:cancel];
+            [alert addAction:view];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+            
         }
         else {
             [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
@@ -620,15 +661,25 @@
     NSString *alert = aps[@"alert"];
     if (alert.length > 0) {
         if (shouldPrompt) {
-            [UIAlertView showWithTitle:@"SingPost"
-                               message:aps[@"alert"]
-                     cancelButtonTitle:@"Cancel"
-                     otherButtonTitles:@[@"View"]
-                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                  if (buttonIndex != [alertView cancelButtonIndex]) {
-                                      [self goToAnnouncementView];
-                                  }
-                              }];
+//            [UIAlertView showWithTitle:@"SingPost"
+//                               message:aps[@"alert"]
+//                     cancelButtonTitle:@"Cancel"
+//                     otherButtonTitles:@[@"View"]
+//                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//                                  if (buttonIndex != [alertView cancelButtonIndex]) {
+//                                      [self goToAnnouncementView];
+//                                  }
+//                              }];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"SingPost" message:aps[@"alert"] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *view = [UIAlertAction actionWithTitle:@"View" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self goToAnnouncementView];
+            }];
+            [alert addAction:cancel];
+            [alert addAction:view];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+
+            
         } else {
             [self goToAnnouncementView];
         }
