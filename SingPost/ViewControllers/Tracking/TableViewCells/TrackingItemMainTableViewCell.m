@@ -13,7 +13,9 @@
 #import "UILabel+VerticalAlign.h"
 #import "UIView+Position.h"
 #import "ApiClient.h"
-#import "CustomIOS7AlertView.h"
+//#import "CustomIOS7AlertView.h"
+#import "CustomIOSAlertView.h"
+//#import "RMUniversalAlert.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -269,7 +271,7 @@
                 [delegate.labelDic setValue:@"" forKey:num];
             }
         } else {
-            CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+            CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
             UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 150)];
             
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 240, 60)];
@@ -292,7 +294,7 @@
             textfield.clearButtonMode = UITextFieldViewModeAlways;
             [contentView addSubview:textfield];
             
-            alertView.delegate = self;
+//            alertView.delegate = self;
             alertView.tag = 111;
             
             [alertView setContainerView:contentView];
@@ -310,7 +312,7 @@
 }
 
 - (void)signIn {
-    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
     
     UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 240, 30)];
@@ -332,14 +334,14 @@
     [separator setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separator];
     
-    alertView.delegate = self;
+//    alertView.delegate = self;
     
     [alertView setContainerView:contentView];
     [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Sign Up/Login", nil]];
     [alertView show];
 }
 
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+- (void)customIOSdialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
     if(alertView.tag == 111) {
         if (buttonIndex == 0) {
@@ -392,7 +394,9 @@
     [alertView close];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+- (void)alertView: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView.tag == 101) {
         if (buttonIndex == 0) {
             

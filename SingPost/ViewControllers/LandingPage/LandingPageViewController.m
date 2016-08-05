@@ -640,7 +640,7 @@ OffersMenuDelegate
 - (IBAction)menuButtonClicked:(UIButton *)sender
 {
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
-    tLandingPageButtons landingPageButton = ((UIButton *)sender).tag;
+    tLandingPageButtons landingPageButton = (tLandingPageButtons)((UIButton *)sender).tag;
     
     switch (landingPageButton) {
         case LANDINGPAGEBUTTON_CALCULATEPOSTAGE:
@@ -879,7 +879,10 @@ OffersMenuDelegate
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
     LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
     barCodeVC.landingVC = landingPageViewController;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
+//    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:barCodeVC animated:YES completion:nil];
+    [self.view.window.rootViewController.navigationController pushViewController:barCodeVC animated:YES];
+//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
+
     
 //    BarScannerViewController * barScannervc = [[BarScannerViewController alloc] init];
 //    barScannervc.landingVC = self;

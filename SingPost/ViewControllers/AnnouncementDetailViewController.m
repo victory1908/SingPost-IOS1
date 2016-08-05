@@ -94,7 +94,6 @@ UIWebViewDelegate
             [alert addAction:cancel];
             [alert addAction:ok];
             [self presentViewController:alert animated:YES completion:nil];
-
             
         }
         return NO;

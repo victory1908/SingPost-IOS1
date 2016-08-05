@@ -73,7 +73,7 @@ static NSString * const GET_METHOD = @"GET";
     dispatch_once(&oncePredicate, ^{
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
         sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL] sessionConfiguration:sessionConfiguration];
-//        sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL]];
+        //        sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL]];
     });
     
     return sharedInstance;
@@ -83,10 +83,10 @@ static NSString * const GET_METHOD = @"GET";
 {
     if ((self = [super initWithBaseURL:url])) {
         self.requestSerializer = [AFHTTPRequestSerializer serializer];
-//        AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-//        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//        [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//        [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
+        //        AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+        //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        //        [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
     }
     
     return self;
@@ -135,7 +135,7 @@ static NSString * const GET_METHOD = @"GET";
             success(response, rootXml);
             NSLog(@"Success URL: %@",request.URL.absoluteString);
             NSLog(@"Success %@",rootXml);
-
+            
         }
     }];
     [dataTask resume];
@@ -149,13 +149,13 @@ static NSString * const GET_METHOD = @"GET";
     self.requestSerializer.timeoutInterval = 5;
     self.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     
-//    [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
-//        return [[NSCachedURLResponse alloc] initWithResponse:proposedResponse.response
-//                                                        data:proposedResponse.data
-//                                                    userInfo:proposedResponse.userInfo
-//                                               storagePolicy:NSURLCacheStorageAllowed];
-//    }];
-   
+    //    [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
+    //        return [[NSCachedURLResponse alloc] initWithResponse:proposedResponse.response
+    //                                                        data:proposedResponse.data
+    //                                                    userInfo:proposedResponse.userInfo
+    //                                               storagePolicy:NSURLCacheStorageAllowed];
+    //    }];
+    
     NSURLSessionDataTask *dataTask = [ApiClient.sharedInstance dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error URL: %@",request.URL.absoluteString);
@@ -187,15 +187,15 @@ static NSString * const GET_METHOD = @"GET";
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
     
-//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//        if (success)
-//            success(JSON);
-//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//        if (failure)
-//            failure(error);
-//        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
-//    }];
-//    [self enqueueHTTPRequestOperation:operation];
+    //    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    //        if (success)
+    //            success(JSON);
+    //    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    //        if (failure)
+    //            failure(error);
+    //        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    //    }];
+    //    [self enqueueHTTPRequestOperation:operation];
 }
 
 - (void)getSendReceiveItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
@@ -209,17 +209,17 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
     
-//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//        if (success)
-//            success(JSON);
-//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//        if (failure)
-//            failure(error);
-//        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
-//    }];
-//    [self enqueueHTTPRequestOperation:operation];
+    
+    //    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    //        if (success)
+    //            success(JSON);
+    //    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    //        if (failure)
+    //            failure(error);
+    //        [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+    //    }];
+    //    [self enqueueHTTPRequestOperation:operation];
 }
 
 - (void)getPayItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
@@ -233,7 +233,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
+    
 }
 
 - (void)getShopItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
@@ -261,7 +261,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
+    
 }
 
 - (void)getOffersItemsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
@@ -290,7 +290,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
+    
 }
 
 - (void)getSingpostAnnouncementSuccess:(ApiClientSuccess)success failure:(ApiClientFailure)failure {
@@ -445,7 +445,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
+    
 }
 
 - (void)getPostOfficeLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
@@ -470,7 +470,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
+    
 }
 
 - (void)getPostalAgentLocationsOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
@@ -520,7 +520,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
+    
 }
 
 - (void)getLocationsUpdatesDetails:(NSArray *)array
@@ -647,7 +647,7 @@ static NSString * const GET_METHOD = @"GET";
         });
         [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
-
+    
     
 }
 
@@ -672,7 +672,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
-
+    
 }
 
 - (void)subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray
@@ -753,7 +753,7 @@ static NSString * const GET_METHOD = @"GET";
         failure(error);
         [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
-
+    
 }
 
 
@@ -826,7 +826,7 @@ static NSString * const GET_METHOD = @"GET";
                 failure([NSError errorWithDomain:ERROR_DOMAIN code:1 userInfo:@{NSLocalizedDescriptionKey: responseString}]);
             }
         }
-
+        
     } failure:^(NSError *error) {
         if (failure) {
             failure(error);
@@ -848,24 +848,24 @@ static NSString * const GET_METHOD = @"GET";
     [params setValidObject:payload forKey:@"Payload"];
     [params setValidObject:message forKey:@"ErrorMessage"];
     
-//    [params setValue:@"iOS" forKey:@"OS"];
-//    [params setValue:[[UIDevice currentDevice] systemVersion] forKey:@"OSVersion"];
-//    [params setValue:@"M00002" forKey:@"ApplicationId"];
-//    [params setValue:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"ApplicationVersion"];
-//    [params setValue:url forKey:@"APILink"];
-//    [params setValue:payload forKey:@"Payload"];
-//    [params setValue:message forKey:@"ErrorMessage"];
+    //    [params setValue:@"iOS" forKey:@"OS"];
+    //    [params setValue:[[UIDevice currentDevice] systemVersion] forKey:@"OSVersion"];
+    //    [params setValue:@"M00002" forKey:@"ApplicationId"];
+    //    [params setValue:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] forKey:@"ApplicationVersion"];
+    //    [params setValue:url forKey:@"APILink"];
+    //    [params setValue:payload forKey:@"Payload"];
+    //    [params setValue:message forKey:@"ErrorMessage"];
     
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
     NSString *date = [formatter stringFromDate:[NSDate date]];
     [params setValidObject:date forKey:@"Timestamp"];
-
     
-//    NSDateFormatter *formatter = [NSDateFormatter new];
-//    formatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
-//    NSString *date = [formatter stringFromDate:[NSDate date]];
-//    [params setValue:date forKey:@"Timestamp"];
+    
+    //    NSDateFormatter *formatter = [NSDateFormatter new];
+    //    formatter.dateFormat = @"dd-MM-yyyy HH:mm:ss";
+    //    NSString *date = [formatter stringFromDate:[NSDate date]];
+    //    [params setValue:date forKey:@"Timestamp"];
     
     NSString *urlString = [NSString stringWithFormat:@"%@apisavelogs.php",CMS_BASE_URL_V4];
     
@@ -877,13 +877,13 @@ static NSString * const GET_METHOD = @"GET";
         
     }];
     
-//    AFJSONRequestOperation *operation =
-//    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-//                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-//                                                    }
-//                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-//                                                    }];
-//    [self enqueueHTTPRequestOperation:operation];
+    //    AFJSONRequestOperation *operation =
+    //    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+    //                                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    //                                                    }
+    //                                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    //                                                    }];
+    //    [self enqueueHTTPRequestOperation:operation];
     
 }
 
@@ -899,7 +899,7 @@ static NSString * const GET_METHOD = @"GET";
     } failure:^(NSError *error) {
         [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
     }];
-
+    
 }
 
 - (void)handleAppUpdateResponse:(NSDictionary *)responseJSON {
@@ -908,17 +908,28 @@ static NSString * const GET_METHOD = @"GET";
         case 1:
         {
             //Must update
-            [UIAlertView showWithTitle:nil
-                               message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]
-                     cancelButtonTitle:@"Update Now"
-                     otherButtonTitles:nil
-                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                  if (buttonIndex == [alertView cancelButtonIndex]) {
-                                      NSString *linkToAppStore = responseJSON[@"link"];
-                                      if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
-                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
-                                  }
-                              }];
+            //            [UIAlertView showWithTitle:nil
+            //                               message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]
+            //                     cancelButtonTitle:@"Update Now"
+            //                     otherButtonTitles:nil
+            //                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            //                                  if (buttonIndex == [alertView cancelButtonIndex]) {
+            //                                      NSString *linkToAppStore = responseJSON[@"link"];
+            //                                      if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
+            //                                          [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+            //                                  }
+            //                              }];
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *update = [UIAlertAction actionWithTitle:@"Update Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSString *linkToAppStore = responseJSON[@"link"];
+                if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+            }];
+            [alert addAction:cancel];
+            [alert addAction:update];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
             
             break;
         }
@@ -935,17 +946,29 @@ static NSString * const GET_METHOD = @"GET";
             if (checkUpdateDate == nil || timeFromLastCheck < -86400) //86400 seconds in 24hours
             {
                 //Update available
-                [UIAlertView showWithTitle:nil
-                                   message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]
-                         cancelButtonTitle:@"Maybe Later"
-                         otherButtonTitles:@[@"Update Now"]
-                                  tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                                      if (buttonIndex != [alertView cancelButtonIndex]) {
-                                          NSString *linkToAppStore = responseJSON[@"link"];
-                                          if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
-                                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
-                                      }
-                                  }];
+                //                [UIAlertView showWithTitle:nil
+                //                                   message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"]
+                //                         cancelButtonTitle:@"Maybe Later"
+                //                         otherButtonTitles:@[@"Update Now"]
+                //                                  tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                //                                      if (buttonIndex != [alertView cancelButtonIndex]) {
+                //                                          NSString *linkToAppStore = responseJSON[@"link"];
+                //                                          if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
+                //                                              [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+                //                                      }
+                //                                  }];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:[responseJSON[@"message"]stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Maybe Later" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *update = [UIAlertAction actionWithTitle:@"Update Now" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSString *linkToAppStore = responseJSON[@"link"];
+                    if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:linkToAppStore]])
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkToAppStore]];
+                }];
+                [alert addAction:cancel];
+                [alert addAction:update];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                
                 //Reset check update date
                 [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"checkUpdateDate"];
                 [[NSUserDefaults standardUserDefaults] synchronize];

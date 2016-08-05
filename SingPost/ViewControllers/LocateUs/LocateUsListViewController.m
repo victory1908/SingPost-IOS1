@@ -149,7 +149,7 @@
 
 - (void)updateNumLocations
 {
-    [searchLocationsCountLabel setText:[NSString stringWithFormat:@"     %d locations found", [self isSearching] ? filteredSearchResults.count : self.fetchedResultsController.fetchedObjects.count]];
+    [searchLocationsCountLabel setText:[NSString stringWithFormat:@"     %lu locations found", (unsigned long)([self isSearching] ? filteredSearchResults.count : self.fetchedResultsController.fetchedObjects.count)]];
 }
 
 #define ANIMATION_DURATION 0.5f

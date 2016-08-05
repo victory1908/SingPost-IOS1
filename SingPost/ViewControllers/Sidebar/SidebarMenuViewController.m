@@ -107,9 +107,12 @@
 
 - (void)loadView
 {
+//    CGRect frame_screen = [[UIScreen mainScreen] bounds];
+//    CGRect appFrame = CGRectMake(0,[[UIApplication sharedApplication] statusBarFrame].size.height,frame_screen.size.width,frame_screen.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height);
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    [contentView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
     CGFloat offsetY = 10.0f;
@@ -149,10 +152,11 @@
     [separatorView2 setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separatorView2];
     
-    offsetY += 55.0f;
+    offsetY += 40.0f;
     
-    menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStylePlain];
+    menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStyleGrouped];
     [menuTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    
     [menuTableView setDelegate:self];
     [menuTableView setDataSource:self];
     [menuTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -285,7 +289,7 @@
 #pragma mark - UITableView DataSource & Delegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,40)];
     [headerView setBackgroundColor:RGB(238, 238, 238)];
     
     UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerView.bounds.size.width, 1)];

@@ -15,7 +15,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
 - (void)updateWithApiRepresentation:(NSDictionary *)json
 {
     self.title = json[@"Name"];
-    self.serverIdValue = [json[@"Id"] integerValue];
+    self.serverIdValue = [json[@"Id"] intValue];
     self.year = json[@"Year of Release"];
     self.month = json[@"Month of Release"];
     self.day = json[@"Day of Release"];
@@ -87,7 +87,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
                 [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
                     Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
                     if (stamp.serverId ==nil) {
-                        [stamp setOrderingValue:idx];
+                        [stamp setOrderingValue:(u_int)idx];
                         [stamp updateWithApiRepresentation:attributes];
                     }
                 }];

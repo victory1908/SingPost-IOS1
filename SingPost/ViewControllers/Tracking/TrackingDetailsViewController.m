@@ -294,7 +294,7 @@ UITextFieldDelegate
              textField.clearButtonMode = UITextFieldViewModeAlways;
              [labelEnterview show];*/
             
-            CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+            CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
             UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 150)];
             
             UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 15, 240, 60)];
@@ -317,7 +317,7 @@ UITextFieldDelegate
             customTextfield.clearButtonMode = UITextFieldViewModeAlways;
             [contentView addSubview:customTextfield];
             
-            alertView.delegate = self;
+//            alertView.delegate = self;
             alertView.tag = 111;
             
             [alertView setContainerView:contentView];
@@ -337,7 +337,7 @@ UITextFieldDelegate
      
      [alert show];*/
     
-    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
     
     UILabel *signInTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 240, 30)];
@@ -359,14 +359,14 @@ UITextFieldDelegate
     [separator setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separator];
     
-    alertView.delegate = self;
+//    alertView.delegate = self;
     
     [alertView setContainerView:contentView];
     [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Sign Up/Login", nil]];
     [alertView show];
 }
 
-- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+- (void)customIOSdialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
     if(alertView.tag == 111) {
         if (buttonIndex == 0) {
             
@@ -422,15 +422,6 @@ UITextFieldDelegate
                 [appDelegate sessionStateChanged:session state:status error:error];
             }];
             
-//            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//                
-//                AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//                appDelegate.isLoginFromDetailPage = YES;
-//                appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
-//                [appDelegate sessionStateChanged:session state:state error:error];
-//                
-//                
-//            }];
         }
         
         
@@ -488,15 +479,6 @@ UITextFieldDelegate
                     [appDelegate sessionStateChanged:session state:status error:error];
                 }];
                 
-//                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//                    
-//                    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//                    appDelegate.isLoginFromDetailPage = YES;
-//                    appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
-//                    [appDelegate sessionStateChanged:session state:state error:error];
-//                    
-//                    
-//                }];
             }
         }
     }

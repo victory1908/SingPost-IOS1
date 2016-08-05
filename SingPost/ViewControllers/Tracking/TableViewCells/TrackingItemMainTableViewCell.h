@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Parcel.h"
-#import "CustomIOS7AlertView.h"
+#import "CustomIOSAlertView.h"
 
 #define STATUS_LABEL_SIZE CGSizeMake(120, 500)
 
-@interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate,CustomIOS7AlertViewDelegate>
+@interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate>
 
 @property (strong, nonatomic) Parcel *parcel;
 @property (nonatomic, assign) BOOL hideSeparatorView;

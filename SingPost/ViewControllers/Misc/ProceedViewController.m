@@ -16,7 +16,7 @@
 #import "UIView+Position.h"
 #import "UIAlertView+Blocks.h"
 #import "ApiClient.h"
-#import "CustomIOS7AlertView.h"
+#import "CustomIOSAlertView.h"
 
 @interface ProceedViewController () {
     UIButton * btn1;

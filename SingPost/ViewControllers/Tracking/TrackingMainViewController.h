@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
-#import "CustomIOS7AlertView.h"
+#import "CustomIOSAlertView.h"
 
-@interface TrackingMainViewController : SwipeViewController <CustomIOS7AlertViewDelegate>{
+@interface TrackingMainViewController : SwipeViewController {
     UITableView *trackingItemsTableView;
 }
 

@@ -27,6 +27,8 @@ def ios_pods
     pod 'ZXingObjC'
     pod 'DeviceUtil'
     pod 'MBProgressHUD'
+    pod 'RMUniversalAlert'
+    pod 'CustomIOSAlertView'
 end
 
 def watch_pods

@@ -27,7 +27,7 @@
 #import "ApiClient.h"
 
 #import "TrackingSelectViewController.h"
-#import "CustomIOS7AlertView.h"
+#import "CustomIOSAlertView.h"
 #import "PersistentBackgroundView.h"
 #import "BarScannerViewController.h"
 
@@ -36,6 +36,8 @@
 #import "UserDefaultsManager.h"
 
 #import "Parcel.h"
+
+#import "RMUniversalAlert.h"
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,
@@ -65,8 +67,7 @@ typedef enum {
 <
 UITextFieldDelegate,
 UITableViewDataSource,
-UITableViewDelegate,
-CustomIOS7AlertViewDelegate
+UITableViewDelegate
 >
 @property (strong, nonatomic) RLMNotificationToken *notificationToken;
 @property (strong, nonatomic) RLMResults *activeResults;
@@ -422,7 +423,7 @@ CustomIOS7AlertViewDelegate
 }
 
 - (void)signIn {
-    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
+    CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
     
     UILabel * title = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 240, 30)];
@@ -444,14 +445,14 @@ CustomIOS7AlertViewDelegate
     [separator setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separator];
     
-    alertView.delegate = self;
+//    alertView.delegate = self;
     
     [alertView setContainerView:contentView];
     [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Sign Up/Login", nil]];
     [alertView show];
 }
 
-- (void)customIOS7dialogButtonTouchUpInside:(CustomIOS7AlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)customIOSdialogButtonTouchUpInside:(CustomIOSAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != 0) {
         if (FBSession.activeSession.state == FBSessionStateOpen
             || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -476,7 +477,9 @@ CustomIOS7AlertViewDelegate
     [alertView close];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+
+- (void)alertView:(CustomIOSAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView.tag == 101) {
         if (buttonIndex == 0) {
             

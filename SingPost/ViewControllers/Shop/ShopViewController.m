@@ -18,7 +18,7 @@
 #import "UIFont+SingPost.h"
 #import "NSObject+Addtions.h"
 #import "ShopContentViewController.h"
-#import "UIColor+Expanded.h"
+#import "UIColor-Expanded.h"
 
 @interface ShopViewController ()
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -169,5 +169,6 @@
     [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Shop - %@", [[sender associatedObject]objectForKeyOrNil:@"Category"]]];
 }
+
 
 @end

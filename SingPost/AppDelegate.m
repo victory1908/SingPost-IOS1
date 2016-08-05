@@ -19,7 +19,7 @@
 #import "AnnouncementViewController.h"
 #import "ProceedViewController.h"
 #import "DeliveryStatus.h"
-#import "CustomIOS7AlertView.h"
+#import "CustomIOSAlertView.h"
 #import "UIFont+SingPost.h"
 #import "EntityLocation.h"
 #import "DatabaseManager.h"

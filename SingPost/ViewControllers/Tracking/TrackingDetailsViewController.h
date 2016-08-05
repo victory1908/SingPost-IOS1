@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
-#import "CustomIOS7AlertView.h"
+#import "CustomIOSAlertView.h"
 #import "Parcel.h"
 
-@interface TrackingDetailsViewController : SwipeViewController <CustomIOS7AlertViewDelegate>
+@interface TrackingDetailsViewController : SwipeViewController
 
 @property (nonatomic,assign) BOOL isActiveItem;
 @property (nonatomic,retain) TrackingMainViewController * delegate;

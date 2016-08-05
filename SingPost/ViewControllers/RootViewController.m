@@ -41,9 +41,19 @@
 - (void)loadView
 {
     [super loadView];
-//    CGRect appFrame = [[UIScreen mainScreen] nativeBounds];
-    CGRect appFrame = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? [UIScreen mainScreen].applicationFrame : [[UIScreen mainScreen] bounds];
     
+    CGRect frame_screen = [[UIScreen mainScreen] bounds];
+//    NSLog(@"x: %f, y: %f, width: %f, height: %f",frame_screen.origin.x,frame_screen.origin.y,frame_screen.size.width,frame_screen.size.height);
+    
+    CGRect appFrame = CGRectMake(0,[[UIApplication sharedApplication] statusBarFrame].size.height,frame_screen.size.width,frame_screen.size.height);
+    
+//    CGRect appFrame = [[UIScreen mainScreen] bounds]; // portrait bounds
+//    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+//        appFrame.size = CGSizeMake(appFrame.size.height, appFrame.size.width);
+//    }
+//    CGRect appFrame = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? [UIScreen mainScreen].applicationFrame : [[UIScreen mainScreen] bounds];
+//    NSLog(@"x: %f, y: %f, width: %f, height: %f",frame_screen.origin.x,frame_screen.origin.y,frame_screen.size.width,frame_screen.size.height);
+//    CGRect appFrame = [[UIScreen mainScreen] bounds];
     appContentView = [[UIView alloc] initWithFrame:CGRectMake(0, appFrame.origin.y, appFrame.size.width + SIDEBAR_WIDTH, appFrame.size.height)];
     [self.view addSubview:appContentView];
     

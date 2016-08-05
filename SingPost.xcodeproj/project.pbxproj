@@ -75,7 +75,6 @@
 		24AD38E81A399D180088F6A6 /* FlatBlueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26C417F936F0006F7027 /* FlatBlueButton.m */; };
 		24AD38E91A399D180088F6A6 /* TrackingItemDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52024F3317F7301B00AFD239 /* TrackingItemDetailTableViewCell.m */; };
 		24AD38EA1A399D180088F6A6 /* DatabaseSeeder.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F26E717F97F3F006F7027 /* DatabaseSeeder.m */; };
-		24AD38EB1A399D180088F6A6 /* UIColor+Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B6A749199099B600BC93B7 /* UIColor+Expanded.m */; };
 		24AD38EC1A399D180088F6A6 /* UIView+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 524CEA3D17F2830400E0EAC3 /* UIView+Position.m */; };
 		24AD38ED1A399D180088F6A6 /* OffersMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E752F51870A24D00D853B3 /* OffersMainViewController.m */; };
 		24AD38EE1A399D180088F6A6 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */; };
@@ -123,7 +122,6 @@
 		24AD39181A399D180088F6A6 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */; };
 		24AD39191A399D180088F6A6 /* StampCollectibleDetailExpandableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5249518718574D3E00055555 /* StampCollectibleDetailExpandableView.m */; };
 		24AD391A1A399D180088F6A6 /* TrackingFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */; };
-		24AD391B1A399D180088F6A6 /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */; };
 		24AD391C1A399D180088F6A6 /* ApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C908E918045F3F0063A026 /* ApiClient.m */; };
 		24AD391E1A399D180088F6A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172017F1633000FEB6FD /* Foundation.framework */; };
 		24AD391F1A399D180088F6A6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
@@ -185,12 +183,14 @@
 		87BDF69F1B13032400EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69E1B13032400EFADDD /* Images.xcassets */; };
 		87E45FA11B4C104E0063BC5A /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
 		A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */; };
+		A0DE40151D544D83002D5A49 /* test1.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DE40141D544D83002D5A49 /* test1.m */; };
 		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
 		A0EC1BEF1D53A43500AE7CE7 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EC1BE91D53A43500AE7CE7 /* libzbar.a */; };
 		A0EC1BF01D53A43500AE7CE7 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEB1D53A43500AE7CE7 /* zbar-back.png */; };
 		A0EC1BF11D53A43500AE7CE7 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEC1D53A43500AE7CE7 /* zbar-help.html */; };
 		A0EC1BF21D53A43500AE7CE7 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BED1D53A43500AE7CE7 /* zbar-helpicons.png */; };
 		A0EC1BF31D53A43500AE7CE7 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEE1D53A43500AE7CE7 /* zbar-samples.png */; };
+		A0EC1BF61D53BFEE00AE7CE7 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EC1BF51D53BFEE00AE7CE7 /* UIColor-Expanded.m */; };
 		A0F957F51D51D179002D67EB /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D0538A81B963A39B5FC40EB3 /* libPods-SingPost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A83A57E0522D74E0263C8997 /* libPods-SingPost.a */; };
 		D4E36DDB0EE212C0EF3EE786 /* libPods-SingPost WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED85AAEF673B11F4CB79C89 /* libPods-SingPost WatchKit Extension.a */; };
@@ -256,8 +256,6 @@
 		24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		24B62FEF19AC62F900040E0A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		24BAEB6519D4FC62001D74F3 /* TrackingID */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrackingID; sourceTree = "<group>"; };
-		24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
-		24BDC0A91A0B5AEB0023C0AC /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
 		24D88CD21A258170007265F7 /* ScanTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanTutorialViewController.h; sourceTree = "<group>"; };
 		24D88CD31A258170007265F7 /* ScanTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanTutorialViewController.m; sourceTree = "<group>"; };
 		24D88CD41A258170007265F7 /* ScanTutorialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanTutorialViewController.xib; sourceTree = "<group>"; };
@@ -518,8 +516,6 @@
 		87ACEA131977C4070081A412 /* ShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopViewController.m; sourceTree = "<group>"; };
 		87B414B31B4E5758007BA9CA /* UserDefaultsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultsManager.h; sourceTree = "<group>"; };
 		87B414B41B4E5758007BA9CA /* UserDefaultsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultsManager.m; sourceTree = "<group>"; };
-		87B6A748199099B600BC93B7 /* UIColor+Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Expanded.h"; sourceTree = "<group>"; };
-		87B6A749199099B600BC93B7 /* UIColor+Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Expanded.m"; sourceTree = "<group>"; };
 		87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SingPost WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87BDF6851B13032400EFADDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87BDF6861B13032400EFADDD /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -552,6 +548,8 @@
 		91FD0023187BEDBE00DE1765 /* OffersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersTableViewCell.h; sourceTree = "<group>"; };
 		91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersTableViewCell.m; sourceTree = "<group>"; };
 		A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		A0DE40131D544D83002D5A49 /* test1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test1.h; sourceTree = "<group>"; };
+		A0DE40141D544D83002D5A49 /* test1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test1.m; sourceTree = "<group>"; };
 		A0E0952D1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MagicalRecord+serialSaveWithBlock.h"; sourceTree = "<group>"; };
 		A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MagicalRecord+serialSaveWithBlock.m"; sourceTree = "<group>"; };
 		A0EC1BD51D53A43500AE7CE7 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
@@ -579,6 +577,8 @@
 		A0EC1BEC1D53A43500AE7CE7 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
 		A0EC1BED1D53A43500AE7CE7 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
 		A0EC1BEE1D53A43500AE7CE7 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		A0EC1BF41D53BFEE00AE7CE7 /* UIColor-Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-Expanded.h"; sourceTree = "<group>"; };
+		A0EC1BF51D53BFEE00AE7CE7 /* UIColor-Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor-Expanded.m"; sourceTree = "<group>"; };
 		A712246785FFB00D21AA4353 /* Pods-SingPost WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit Extension/Pods-SingPost WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		A83A57E0522D74E0263C8997 /* libPods-SingPost.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SingPost.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7C8C6E29CDFDA866A4117B /* Pods-SingPost WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit App.release.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit App/Pods-SingPost WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
@@ -938,6 +938,8 @@
 		524CEA3B17F282B800E0EAC3 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				A0EC1BF41D53BFEE00AE7CE7 /* UIColor-Expanded.h */,
+				A0EC1BF51D53BFEE00AE7CE7 /* UIColor-Expanded.m */,
 				8728B00F198014A30007853A /* NSObject+Addtions.h */,
 				8728B010198014A30007853A /* NSObject+Addtions.m */,
 				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
@@ -954,8 +956,6 @@
 				52DDA48317FEB2BA00C8BF1C /* UIView+Shadow.m */,
 				52731F6E185A72FB007D6001 /* NSString+Extensions.h */,
 				52731F6F185A72FB007D6001 /* NSString+Extensions.m */,
-				87B6A748199099B600BC93B7 /* UIColor+Expanded.h */,
-				87B6A749199099B600BC93B7 /* UIColor+Expanded.m */,
 				9192B4F918B450EF004EB15A /* UIView+Additions.h */,
 				9192B4FA18B450EF004EB15A /* UIView+Additions.m */,
 				9192B4FC18B45126004EB15A /* UIScrollView+Additions.h */,
@@ -1185,8 +1185,6 @@
 		52936490180B209F00B83F6B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				24BDC0A81A0B5AEB0023C0AC /* CustomIOS7AlertView.m */,
-				24BDC0A91A0B5AEB0023C0AC /* CustomIOS7AlertView.h */,
 				24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */,
 				24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */,
 				52936491180B20B700B83F6B /* PersistentBackgroundLabel.h */,
@@ -1350,6 +1348,8 @@
 				875CE2BC1B4BC09B00C09BB3 /* Parcel.m */,
 				875CE2C01B4BC62B00C09BB3 /* ParcelStatus.h */,
 				875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */,
+				A0DE40131D544D83002D5A49 /* test1.h */,
+				A0DE40141D544D83002D5A49 /* test1.m */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -1872,12 +1872,12 @@
 				24AD38E41A399D180088F6A6 /* ArticleViewController.m in Sources */,
 				24AD38E51A399D180088F6A6 /* ProceedViewController.m in Sources */,
 				24AD38E61A399D180088F6A6 /* FAQViewController.m in Sources */,
+				A0DE40151D544D83002D5A49 /* test1.m in Sources */,
 				24AD38E71A399D180088F6A6 /* ArticleTableViewCell.m in Sources */,
 				24AD38E81A399D180088F6A6 /* FlatBlueButton.m in Sources */,
 				24AD38E91A399D180088F6A6 /* TrackingItemDetailTableViewCell.m in Sources */,
 				87809EFB1B6633FD00BBF7B9 /* TrackedItem.m in Sources */,
 				24AD38EA1A399D180088F6A6 /* DatabaseSeeder.m in Sources */,
-				24AD38EB1A399D180088F6A6 /* UIColor+Expanded.m in Sources */,
 				24AD38EC1A399D180088F6A6 /* UIView+Position.m in Sources */,
 				24AD38ED1A399D180088F6A6 /* OffersMainViewController.m in Sources */,
 				24AD38EE1A399D180088F6A6 /* UIImage+animatedGIF.m in Sources */,
@@ -1897,6 +1897,7 @@
 				24AD38F91A399D180088F6A6 /* LocateUsFSMapViewController.m in Sources */,
 				24AD38FA1A399D180088F6A6 /* TrackingSelectTableViewCell.m in Sources */,
 				24AD38FB1A399D180088F6A6 /* CalculatePostageOverseasViewController.m in Sources */,
+				A0EC1BF61D53BFEE00AE7CE7 /* UIColor-Expanded.m in Sources */,
 				24AD38FC1A399D180088F6A6 /* ScanTutorialViewController.m in Sources */,
 				24AD38FD1A399D180088F6A6 /* BarScannerViewController.m in Sources */,
 				24AD38FE1A399D180088F6A6 /* TrackingHeaderMainTableViewCell.m in Sources */,
@@ -1929,7 +1930,6 @@
 				24AD39181A399D180088F6A6 /* OffersTableViewCell.m in Sources */,
 				24AD39191A399D180088F6A6 /* StampCollectibleDetailExpandableView.m in Sources */,
 				24AD391A1A399D180088F6A6 /* TrackingFeedbackViewController.m in Sources */,
-				24AD391B1A399D180088F6A6 /* CustomIOS7AlertView.m in Sources */,
 				24AD391C1A399D180088F6A6 /* ApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2008,7 +2008,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/GoogleAnalytics",
-					"$(PROJECT_DIR)/ZBarSDK",
 					"$(PROJECT_DIR)/SingPost/Vendor/ZBarSDK",
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
@@ -2044,7 +2043,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/GoogleAnalytics",
-					"$(PROJECT_DIR)/ZBarSDK",
 					"$(PROJECT_DIR)/SingPost/Vendor/ZBarSDK",
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;

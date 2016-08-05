@@ -40,6 +40,12 @@
         if(![trackItems2Delete containsObject:item])
             [trackItems2Delete addObject:item];
     }
+    
+    for(Parcel * item in trackItems) {
+        if(![trackItems2Delete containsObject:item])
+            [trackItems2Delete addObject:item];
+    }
+    
 }
 
 - (void)removeAll2Delete {

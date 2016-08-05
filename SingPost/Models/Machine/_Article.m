@@ -94,9 +94,15 @@ const struct ArticleFetchedProperties ArticleFetchedProperties = {
 	return [result intValue];
 }
 
+//- (void)setOrderingValue:(int32_t)value_ {
+//	[self setOrdering:[NSNumber numberWithInt:value_]];
+//}
+
 - (void)setOrderingValue:(int32_t)value_ {
-	[self setOrdering:[NSNumber numberWithInt:value_]];
+    [self setOrdering:[NSNumber numberWithInt:value_]];
 }
+
+
 
 - (int32_t)primitiveOrderingValue {
 	NSNumber *result = [self primitiveOrdering];

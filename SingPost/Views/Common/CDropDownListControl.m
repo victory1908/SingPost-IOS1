@@ -93,7 +93,7 @@
     {
         if (pickerPopover) {
 //            [pickerPopover dismissPopoverAnimated:YES];
-            [pickerPopover dismissViewControllerAnimated:YES completion:NO];
+            [pickerPopover dismissViewControllerAnimated:YES completion:nil];
         }
         UIColor *navbarColor = [UIColor colorWithRed:(235.0/255.0) green:(235.0/255.0) blue:(235.0/255.0) alpha:1.0];
         UIViewController * popoverContent = [[UIViewController alloc] init];

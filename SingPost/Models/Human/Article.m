@@ -308,7 +308,7 @@
 //                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name==[c]%@",articleJSON[@"Name"]];
 //                    Article *article = [Article MR_findFirstWithPredicate:predicate inContext:localContext];
 //                    Article *article = [Article MR_createEntityInContext:localContext];
-                    [article setOrderingValue:idx];
+                    [article setOrderingValue:(int)idx];
                     [article updateWithApiRepresentation:articleJSON];
                     [items addObject:article];
                 }];

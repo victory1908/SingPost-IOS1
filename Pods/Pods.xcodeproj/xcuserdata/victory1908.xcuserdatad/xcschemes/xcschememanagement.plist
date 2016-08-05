@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CustomIOSAlertView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DeviceUtil-DeviceUtil.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -50,6 +55,11 @@
 			<false/>
 		</dict>
 		<key>Pods-SingPost.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RMUniversalAlert.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -109,7 +119,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>UIActionSheet+Blocks.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>UIActivityIndicator-for-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>UIAlertController+Blocks.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -132,7 +152,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>320CD1005F2C57B819EE4B82349131EF</key>
+		<key>21675BCAB993B4146216E3A352980F39</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>240B6EC9FDB10E351BCC61CD55072FC4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>27BD65EEAE0A82F51322DEAAA1DA6183</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>30900B0F7CF0C1C2262ED3CE2D82A879</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3135697DB8E2CC867CFCEE27EA6DAB2E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,17 +182,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4763D9E61806FD0D734CCFE9383C16EC</key>
+		<key>440441636485FD84EEED581467646C8D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5EF3BD8189A1F21E405DC032087594AD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>654F5DF5123D4F1A7154778899144C59</key>
+		<key>579F6B50107FF2335C7D670F5A714499</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,7 +197,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7B1DA1CB9FD19A09FA789E3173B4E6BC</key>
+		<key>6A3E7C3A4E39D33477AFD6798025CE5C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6E20C1FBA763DE288065DB86FF307035</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6E9820F924EA3009327879A2018C0F11</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,17 +217,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>881062E0C9E56990A4EEC949F681BEAE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8BD14106053D952D8C6C120F3776251E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8E5BBECBE65F3F1A6B0BA724D3510A50</key>
+		<key>898F2F03A7F6CEADFF62C326862832F0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,12 +227,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B2FF0AEED847FFAC6921F8A362D130C4</key>
+		<key>A9A0115652D3408C12345104A501F8E5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8CADB517797672F7B9E4F3E43037B18</key>
+		<key>AD8230D70B554265D965C89C48020B14</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B0534685A930E55F9F3BA3C0D62A8205</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -212,22 +252,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DD0FAF54553F3234F286D53E5419E02F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>DED5D4CF526E09EDB3EA04B756948E6E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E35548C0470A5D8790AE79729D16CE3B</key>
+		<key>DEEBCBDE3076B52C8A82C30D714B3FFF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E4FB6281D39568E89E41DEDD6CAF77C1</key>
+		<key>E059257974F8575EC02C9F45B925790D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E8B4CED3D9E7453A4F64D52B018F4E82</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -237,12 +277,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F3F70DF29139FC7537ADFBF48B120DD2</key>
+		<key>F5FD1E0F73BB1459370195E72F8691D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F90BB48345BAE82F851D050D8FCB2DF4</key>
+		<key>FCB11E6713842F4886641C12771641DE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

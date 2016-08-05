@@ -65,7 +65,8 @@
 {
     _item = inItem;
     
-    [serviceTitleLabel setWidth:190 andHeight:LONG_MAX];
+//    [serviceTitleLabel setWidth:190 andHeight:LONG_MAX];
+    [serviceTitleLabel setWidth:190 andHeight:INT_MAX];
     NSString * text = [_item.deliveryServiceName stringByReplacingOccurrencesOfString:@"</br>" withString:@"\n"];
     [serviceTitleLabel setText:text];
     [serviceTitleLabel sizeToFit];

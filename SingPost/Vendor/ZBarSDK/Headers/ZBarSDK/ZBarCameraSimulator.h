@@ -34,7 +34,9 @@
     UIViewController *viewController;
     ZBarReaderView *readerView;
     UIImagePickerController *picker;
-    UIPopoverController *pickerPopover;
+//    UIPopoverController *pickerPopover;
+    UIViewController *pickerPopover;
+    
 }
 
 - (id) initWithViewController: (UIViewController*) viewController;
