@@ -816,9 +816,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]) {
         notificationTypes = [[[UIApplication sharedApplication] currentUserNotificationSettings] types];
     } else {
-        notificationTypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+//        notificationTypes = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        notificationTypes = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
     }
-    BOOL notificationStatus = notificationTypes != UIRemoteNotificationTypeNone;
+//    BOOL notificationStatus = notificationTypes != UIRemoteNotificationTypeNone;
+
+    BOOL notificationStatus = notificationTypes != UIUserNotificationTypeNone;
     
     NSMutableArray *trackingNumbers = [NSMutableArray array];
     for(Parcel *parcel in self.activeResults)

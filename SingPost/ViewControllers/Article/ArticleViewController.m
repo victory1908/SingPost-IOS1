@@ -82,6 +82,7 @@
     
     NSString *shortDescription = @"";
     
+        
     if ([_pageTitle isEqualToString:@"Send & Receive"]) {
         shortDescription = @"Use SingPost postal and courier services to send letters/parcels within Singapore or to 220 countries worldwide. We also offer a variety of services for receiving letters/parcels within Singapore. Check them out below.";
     }

@@ -18,6 +18,7 @@
 #import <SVProgressHUD.h>
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "ArticleContentViewController.h"
+#import "ArticleCategory.h"
 
 @interface OffersMainViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -32,6 +33,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    ArticleCategory *articleCategory = [ArticleCategory MR_findFirstOrCreateByAttribute:@"module" withValue:@"Order"];
+    
+    itemsArray = [Article MR_findByAttribute:@"articlecategory" withValue:articleCategory andOrderBy:@"expireDate" ascending:NO];
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];

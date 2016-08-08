@@ -132,6 +132,13 @@
 //    _hud.userInteractionEnabled = YES;
 //    _hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
+    if ([Stamp featuredStamp].coverImage != nil) {
+        [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [yearDropDownList setValues:[Stamp yearsDropDownValues]];
+        [yearDropDownList selectRow:0 animated:NO];
+        [self yearDropDownListSelected];
+    }
+    
     
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
@@ -162,24 +169,6 @@
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Stamp Collectibles"];
-    
-//    __weak StampCollectiblesMainViewController *weakSelf = self;
-    
-    if ([Stamp MR_findFirst] == nil) {
-        //        if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
-        //            [self noDataToShow];
-        //        }else return;
-        
-    }else{
-    
-        [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        
-        [yearDropDownList setValues:[Stamp yearsDropDownValues]];
-        [yearDropDownList selectRow:0 animated:NO];
-        [self yearDropDownListSelected];
-        //        [SVProgressHUD dismiss];
-    }
-
     
 }
 

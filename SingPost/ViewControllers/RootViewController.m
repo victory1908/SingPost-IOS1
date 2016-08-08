@@ -45,7 +45,7 @@
     CGRect frame_screen = [[UIScreen mainScreen] bounds];
 //    NSLog(@"x: %f, y: %f, width: %f, height: %f",frame_screen.origin.x,frame_screen.origin.y,frame_screen.size.width,frame_screen.size.height);
     
-    CGRect appFrame = CGRectMake(0,[[UIApplication sharedApplication] statusBarFrame].size.height,frame_screen.size.width,frame_screen.size.height);
+    CGRect appFrame = CGRectMake(0,[[UIApplication sharedApplication] statusBarFrame].size.height,frame_screen.size.width,frame_screen.size.height- [[UIApplication sharedApplication] statusBarFrame].size.height);
     
 //    CGRect appFrame = [[UIScreen mainScreen] bounds]; // portrait bounds
 //    if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {

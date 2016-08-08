@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <SVProgressHUD.h>
 #import "Article.h"
+#import "ArticleCategory.h"
 
 @implementation MoreServicesMainViewController
 
@@ -19,6 +20,7 @@
     [self setPageTitle:@"More Services"];
     
     __weak MoreServicesMainViewController *weakSelf = self;
+    [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"More Services"]];
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];

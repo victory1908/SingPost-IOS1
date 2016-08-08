@@ -9,6 +9,7 @@
 #import "SendReceiveMainViewController.h"
 #import "AppDelegate.h"
 #import "Article.h"
+#import "ArticleCategory.h"
 #import <SVProgressHUD.h>
 
 @implementation SendReceiveMainViewController
@@ -19,11 +20,26 @@
     [self setPageTitle:@"Send & Receive"];
     
     __weak SendReceiveMainViewController *weakSelf = self;
+
+
+    [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"Send and Receive" andOrderBy:@"category" ascending:NO]];
+
+    
+//    if ([ArticleCategory MR_findAll] !=nil) {
+//        [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"Send and Receive" andOrderBy:@"category" ascending:NO]];
+//    }
+    
+
+    
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getSendReceiveItemsOnCompletion:^(NSArray *items) {
+            
             [weakSelf setItems:items];
+            
+            
+            
             [SVProgressHUD dismiss];
         }];
     }

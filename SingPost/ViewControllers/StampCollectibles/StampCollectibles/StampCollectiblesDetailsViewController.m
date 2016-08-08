@@ -184,6 +184,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Stamp Collectibles - %@", self.stamp.title]];
     
     [activityIndicator startAnimating];
     
@@ -193,6 +194,17 @@
         if (error) {
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
+        }else {
+            [pageControl setNumberOfPages:_stamp.images.count];
+            [imagesScrollView setContentSize:CGSizeMake(imagesScrollView.bounds.size.width * _stamp.images.count, imagesScrollView.bounds.size.height)];
+            [_stamp.images enumerateObjectsUsingBlock:^(StampImage *stampImage, NSUInteger idx, BOOL *stop) {
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(idx * imagesScrollView.bounds.size.width, 0, imagesScrollView.bounds.size.width, imagesScrollView.bounds.size.height)];
+                [imageView setImageWithURL:[NSURL URLWithString:stampImage.image] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                
+                [imageView setContentMode:UIViewContentModeScaleAspectFit];
+                [imagesScrollView addSubview:imageView];
+            }];
+
         }
         
     }];
@@ -201,7 +213,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Stamp Collectibles - %@", self.stamp.title]];
+    
     
     [pageControl setNumberOfPages:_stamp.images.count];
     [imagesScrollView setContentSize:CGSizeMake(imagesScrollView.bounds.size.width * _stamp.images.count, imagesScrollView.bounds.size.height)];

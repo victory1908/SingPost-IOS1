@@ -59,13 +59,21 @@
     }
     else
     {
-        // iOS < 8 Notifications
-        [application registerForRemoteNotificationTypes:
-         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
+//        // iOS < 8 Notifications
+//        [application registerForRemoteNotificationTypes:
+//         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
     }
     
     
-    [MagicalRecord setupAutoMigratingCoreDataStack];
+    // RESET THE BADGE COUNT
+    application.applicationIconBadgeNumber = 0;
+    
+//    [MagicalRecord setupAutoMigratingCoreDataStack];
+    
+    [MagicalRecord setDefaultModelNamed:@"SingPost.momd"];
+    NSURL *dbpath = [NSPersistentStore MR_defaultLocalStoreUrl];
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:dbpath];
     
     [DatabaseManager setupRealm];
     [self migrateData];
@@ -443,7 +451,7 @@
 
 
 - (void)getAllLabel {
-    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     [SVProgressHUD showWithStatus:@"Please wait..."];
 //    [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     
@@ -702,6 +710,13 @@
                                       onCompletion:^(BOOL success, NSError *error){}];
 }
 
+//log if error
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+
+    NSLog(@"Failed to get token; error: %@",error);
+}
+
+
 #pragma mark - Google Analytics
 - (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName {
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] set:kGAIScreenName value:screenName];
@@ -716,14 +731,14 @@
 #pragma mark - Core data
 - (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion {
     
-    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError * _Nullable error) {
-                if(!success)
-                                DLog(@"%@", error);
-                            if (completion)
-                                completion(success, error);
-            }];
+    
+    [[NSManagedObjectContext MR_context] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+        if(!success)
+            DLog(@"%@", error);
+        if (completion)
+            completion(success, error);
     }];
+
     
 //    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
 //        if(!success)

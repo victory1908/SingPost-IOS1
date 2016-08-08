@@ -82,7 +82,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(STAMPS_LOCK) {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_rootSavingContext];
                 
                 [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
                     Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];

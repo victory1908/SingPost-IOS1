@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G31" minimumToolsVersion="Xcode 4.3">
+    <entity name="Article" representedClassName="Article" syncable="YES">
+        <attribute name="buttonType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expireDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="htmlContent" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ordering" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="websiteURL" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="articlecategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ArticleCategory" inverseName="articles" inverseEntity="ArticleCategory" syncable="YES"/>
+    </entity>
+    <entity name="ArticleCategory" representedClassName="ArticleCategory" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="module" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="articles" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Article" inverseName="articlecategory" inverseEntity="Article" syncable="YES"/>
+    </entity>
+    <entity name="DeliveryStatus" representedClassName="DeliveryStatus" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="statusDescription" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="EntityLocation" representedClassName="EntityLocation" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fri_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_modified" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="mon_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notification" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ph_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postal_code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postingbox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sat_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="services" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sun_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thu_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="town" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tue_opening" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_closing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wed_opening" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Offer" representedClassName="Offer" syncable="YES">
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="offerDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="ordering" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="OfferImage" inverseName="offer" inverseEntity="OfferImage" syncable="YES"/>
+    </entity>
+    <entity name="OfferImage" representedClassName="OfferImage" syncable="YES">
+        <attribute name="image" attributeType="String" syncable="YES"/>
+        <relationship name="offer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Offer" inverseName="images" inverseEntity="Offer" syncable="YES"/>
+    </entity>
+    <entity name="Stamp" representedClassName="Stamp" syncable="YES">
+        <attribute name="coverImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="day" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="issueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="month" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ordering" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverId" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" attributeType="String" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="StampImage" inverseName="stamp" inverseEntity="StampImage" syncable="YES"/>
+    </entity>
+    <entity name="StampImage" representedClassName="StampImage" syncable="YES">
+        <attribute name="image" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stamp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stamp" inverseName="images" inverseEntity="Stamp" syncable="YES"/>
+    </entity>
+    <entity name="TrackedItem" representedClassName="TrackedItem" syncable="YES">
+        <attribute name="addedOn" attributeType="Date" syncable="YES"/>
+        <attribute name="destinationCountry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isActive" attributeType="String" syncable="YES"/>
+        <attribute name="isFound" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isRead" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastUpdatedOn" attributeType="Date" syncable="YES"/>
+        <attribute name="originalCountry" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackingNumber" attributeType="String" syncable="YES"/>
+        <relationship name="deliveryStatuses" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="DeliveryStatus" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Article" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="ArticleCategory" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="DeliveryStatus" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="EntityLocation" positionX="0" positionY="0" width="128" height="480"/>
+        <element name="Offer" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="OfferImage" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Stamp" positionX="0" positionY="0" width="128" height="225"/>
+        <element name="StampImage" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="TrackedItem" positionX="0" positionY="0" width="128" height="180"/>
+    </elements>
+</model>

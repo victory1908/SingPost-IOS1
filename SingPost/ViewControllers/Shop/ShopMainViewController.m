@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <SVProgressHUD.h>
 #import "Article.h"
+#import "ArticleCategory.h"
 
 @interface ShopMainViewController ()
 
@@ -23,6 +24,7 @@
     [self setPageTitle:@"Shop"];
     
     __weak ShopMainViewController *weakSelf = self;
+    [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"Shop"]];
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];

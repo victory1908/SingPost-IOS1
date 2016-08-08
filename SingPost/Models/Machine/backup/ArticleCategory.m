@@ -2,7 +2,7 @@
 //  ArticleCategory.m
 //  
 //
-//  Created by Le Khanh Vinh on 6/8/16.
+//  Created by Le Khanh Vinh on 8/8/16.
 //
 //
 

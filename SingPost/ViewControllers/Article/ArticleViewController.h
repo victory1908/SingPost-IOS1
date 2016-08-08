@@ -19,4 +19,5 @@
 @property (nonatomic) NSArray *items;
 @property (nonatomic) NSString *pageTitle;
 
+
 @end

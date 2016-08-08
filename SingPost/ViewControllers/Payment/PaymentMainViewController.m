@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <SVProgressHUD.h>
 #import "Article.h"
+#import "ArticleCategory.h"
 
 
 @implementation PaymentMainViewController
@@ -20,6 +21,7 @@
     [self setPageTitle:@"Pay"];
     
     __weak PaymentMainViewController *weakSelf = self;
+    [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"Pay" andOrderBy:@"category" ascending:NO]];
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
