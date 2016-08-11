@@ -15,6 +15,14 @@
         <attribute name="module" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="articles" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Article" inverseName="articlecategory" inverseEntity="Article" syncable="YES"/>
     </entity>
+    <entity name="Content" representedClassName="Content" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="mappedKeyName" value="Name"/>
+            </userInfo>
+        </attribute>
+    </entity>
     <entity name="DeliveryStatus" representedClassName="DeliveryStatus" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
@@ -103,5 +111,6 @@
         <element name="Stamp" positionX="0" positionY="0" width="128" height="225"/>
         <element name="StampImage" positionX="0" positionY="0" width="128" height="90"/>
         <element name="TrackedItem" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="Content" positionX="9" positionY="153" width="128" height="75"/>
     </elements>
 </model>

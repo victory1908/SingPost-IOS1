@@ -39,6 +39,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     application.applicationIconBadgeNumber = 0;
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+    [SVProgressHUD setForegroundColor:[UIColor blueColor]];
     
 //    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
 //        // use registerUserNotificationSettings

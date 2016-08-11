@@ -49,6 +49,9 @@ UITableViewDataSource
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"announcements"];
+    _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
     [SVProgressHUD showWithStatus:@"Please wait..."];
     [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
      {
@@ -67,6 +70,10 @@ UITableViewDataSource
          
          if(rand!= nil) {
              [defaults setObject:rand forKey:@"LAST_RAND"];
+             
+             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+             [defaults setObject:data forKey:@"announcements"];
+             
              [defaults synchronize];
          }
          [SVProgressHUD dismiss];

@@ -183,6 +183,8 @@
 		A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */; };
 		A0DE40151D544D83002D5A49 /* test1.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DE40141D544D83002D5A49 /* test1.m */; };
 		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
+		A0E9B1171D58CF96006BF620 /* Content+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9B1161D58CF96006BF620 /* Content+CoreDataProperties.m */; };
+		A0E9B11A1D58CFA7006BF620 /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9B1191D58CFA7006BF620 /* Content.m */; };
 		A0EC1BEF1D53A43500AE7CE7 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EC1BE91D53A43500AE7CE7 /* libzbar.a */; };
 		A0EC1BF01D53A43500AE7CE7 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEB1D53A43500AE7CE7 /* zbar-back.png */; };
 		A0EC1BF11D53A43500AE7CE7 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEC1D53A43500AE7CE7 /* zbar-help.html */; };
@@ -190,7 +192,6 @@
 		A0EC1BF31D53A43500AE7CE7 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEE1D53A43500AE7CE7 /* zbar-samples.png */; };
 		A0EC1BF61D53BFEE00AE7CE7 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EC1BF51D53BFEE00AE7CE7 /* UIColor-Expanded.m */; };
 		A0F957F51D51D179002D67EB /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A0FA34C51D55A79A00CDD558 /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = A0FA34C41D55A79A00CDD558 /* Model.xcmappingmodel */; };
 		A0FA34D01D56F28600CDD558 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FA34CD1D56F28600CDD558 /* Article.m */; };
 		A0FA34D71D5774ED00CDD558 /* Article+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FA34D61D5774ED00CDD558 /* Article+CoreDataProperties.m */; };
 		D0538A81B963A39B5FC40EB3 /* libPods-SingPost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A83A57E0522D74E0263C8997 /* libPods-SingPost.a */; };
@@ -550,6 +551,10 @@
 		A0DE40161D54858B002D5A49 /* SingPost 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 4.xcdatamodel"; sourceTree = "<group>"; };
 		A0E0952D1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MagicalRecord+serialSaveWithBlock.h"; sourceTree = "<group>"; };
 		A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MagicalRecord+serialSaveWithBlock.m"; sourceTree = "<group>"; };
+		A0E9B1151D58CF96006BF620 /* Content+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Content+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A0E9B1161D58CF96006BF620 /* Content+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Content+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A0E9B1181D58CFA7006BF620 /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
+		A0E9B1191D58CFA7006BF620 /* Content.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Content.m; sourceTree = "<group>"; };
 		A0EC1BD51D53A43500AE7CE7 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
 		A0EC1BD61D53A43500AE7CE7 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		A0EC1BD71D53A43500AE7CE7 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -577,7 +582,6 @@
 		A0EC1BEE1D53A43500AE7CE7 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
 		A0EC1BF41D53BFEE00AE7CE7 /* UIColor-Expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor-Expanded.h"; sourceTree = "<group>"; };
 		A0EC1BF51D53BFEE00AE7CE7 /* UIColor-Expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor-Expanded.m"; sourceTree = "<group>"; };
-		A0FA34C41D55A79A00CDD558 /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		A0FA34CC1D56F28600CDD558 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		A0FA34CD1D56F28600CDD558 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
 		A0FA34D51D5774ED00CDD558 /* Article+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Article+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -1089,7 +1093,6 @@
 				528F26DB17F97BA6006F7027 /* Machine */,
 				528F26DA17F97B98006F7027 /* Human */,
 				528F26D717F97A35006F7027 /* SingPost.xcdatamodeld */,
-				A0FA34C41D55A79A00CDD558 /* Model.xcmappingmodel */,
 				528F26E617F97F3F006F7027 /* DatabaseSeeder.h */,
 				528F26E717F97F3F006F7027 /* DatabaseSeeder.m */,
 				52518A18184B060000F4F104 /* PushNotification.h */,
@@ -1101,6 +1104,8 @@
 		528F26DA17F97B98006F7027 /* Human */ = {
 			isa = PBXGroup;
 			children = (
+				A0E9B1181D58CFA7006BF620 /* Content.h */,
+				A0E9B1191D58CFA7006BF620 /* Content.m */,
 				A06DEBCE1D58457700FA0506 /* ArticleCategory.h */,
 				A06DEBCF1D58457700FA0506 /* ArticleCategory.m */,
 				A0FA34CC1D56F28600CDD558 /* Article.h */,
@@ -1130,6 +1135,8 @@
 		528F26DB17F97BA6006F7027 /* Machine */ = {
 			isa = PBXGroup;
 			children = (
+				A0E9B1151D58CF96006BF620 /* Content+CoreDataProperties.h */,
+				A0E9B1161D58CF96006BF620 /* Content+CoreDataProperties.m */,
 				A06DEBCB1D5844CF00FA0506 /* ArticleCategory+CoreDataProperties.h */,
 				A06DEBCC1D5844CF00FA0506 /* ArticleCategory+CoreDataProperties.m */,
 				A0FA34D51D5774ED00CDD558 /* Article+CoreDataProperties.h */,
@@ -1819,7 +1826,6 @@
 				A0FA34D01D56F28600CDD558 /* Article.m in Sources */,
 				875CE2C41B4BC62B00C09BB3 /* ParcelStatus.m in Sources */,
 				24AD38AE1A399D180088F6A6 /* ShopContentViewController.m in Sources */,
-				A0FA34C51D55A79A00CDD558 /* Model.xcmappingmodel in Sources */,
 				24AD38AF1A399D180088F6A6 /* LocateUsListViewController.m in Sources */,
 				24AD38B01A399D180088F6A6 /* CMIndexBar.m in Sources */,
 				24AD38B11A399D180088F6A6 /* MoreServicesMainViewController.m in Sources */,
@@ -1869,7 +1875,9 @@
 				24AD38DA1A399D180088F6A6 /* EntityLocationMapAnnotation.m in Sources */,
 				24AD38DB1A399D180088F6A6 /* StampImage.m in Sources */,
 				24AD38DC1A399D180088F6A6 /* StampImagesBrowserViewController.m in Sources */,
+				A0E9B1171D58CF96006BF620 /* Content+CoreDataProperties.m in Sources */,
 				24AD38DE1A399D180088F6A6 /* PaymentMainViewController.m in Sources */,
+				A0E9B11A1D58CFA7006BF620 /* Content.m in Sources */,
 				24AD38DF1A399D180088F6A6 /* CTextView.m in Sources */,
 				24AD38E01A399D180088F6A6 /* _EntityLocation.m in Sources */,
 				24AD38E11A399D180088F6A6 /* FeedbackViewController.m in Sources */,

@@ -48,11 +48,11 @@
         
         [articleCategory setArticles:[NSOrderedSet orderedSetWithArray:articles]];
         
-        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-            if (error) NSLog(@"Fail to save to persistentStore");
-        }];
-        
     };
+    
+    [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+        if (error) NSLog(@"Fail to save to persistentStore");
+    }];
     return [ArticleCategory MR_findByAttribute:@"module" withValue:moduleName andOrderBy:@"category" ascending:NO inContext:localContext];
 }
 
@@ -108,6 +108,10 @@
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSDictionary *root = responseJSON[@"root"];
+                
+                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:root];
+                [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"Offer"];
+                
                 completionBlock([[self class] articleItemsForJSON:responseJSON[@"root"] module:@"Shop"],root);
             });
         }
@@ -161,7 +165,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 //                    completionBlock(items);
-                completionBlock([[self class] articleForJSON:responseJSON module:@"Order"]);;
+                completionBlock([[self class] articleForJSON:responseJSON module:@"Offer"]);;
             });
         }
     } onFailure:^(NSError *error) {
@@ -213,32 +217,35 @@
 //    }];
 //}
 
-+ (void)API_getAboutThisAppOnCompletion:(void(^)(NSString *aboutThisApp))completionBlock
-{
-    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            __block NSString *aboutThisApp = nil;
-            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                if ([attributes[@"Name"] isEqualToString:@"About This App"]) {
-                    aboutThisApp = attributes[@"content"];
-                    *stop = YES;
-                }
-            }];
-            
-            if (completionBlock) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(aboutThisApp);
-                });
-            }
-        });
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil);
-            });
-        }
-    }];
-}
+//+ (void)API_getAboutThisAppOnCompletion:(void(^)(NSString *aboutThisApp))completionBlock
+//{
+//    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            __block NSString *aboutThisApp = nil;
+//            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                if ([attributes[@"Name"] isEqualToString:@"About This App"]) {
+//                    aboutThisApp = attributes[@"content"];
+//                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//                    [userDefaults setObject:aboutThisApp forKey:@"About This App"];
+//                    [userDefaults synchronize];
+//                    *stop = YES;
+//                }
+//            }];
+//            
+//            if (completionBlock) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    completionBlock(aboutThisApp);
+//                });
+//            }
+//        });
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                completionBlock(nil);
+//            });
+//        }
+//    }];
+//}
 
 //+ (void)API_getAboutThisAppOnCompletion:(void(^)(NSArray *aboutThisApp))completionBlock
 //{
@@ -263,59 +270,68 @@
 
 
 
-+ (void)API_getTermsOfUseOnCompletion:(void(^)(NSString *termsOfUse))completionBlock
-{
-    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            __block NSString *termsOfUse = nil;
-            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                if ([attributes[@"Name"] isEqualToString:@"Terms of Use"]) {
-                    termsOfUse = attributes[@"content"];
-                    *stop = YES;
-                }
-            }];
-            
-            if (completionBlock) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(termsOfUse);
-                });
-            }
-        });
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil);
-            });
-        }
-    }];
-}
-
-+ (void)API_getFaqOnCompletion:(void(^)(NSString *termsOfUse))completionBlock
-{
-    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            __block NSString *faq = nil;
-            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                if ([attributes[@"Name"] isEqualToString:@"FAQ"]) {
-                    faq = attributes[@"content"];
-                    *stop = YES;
-                }
-            }];
-            
-            if (completionBlock) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completionBlock(faq);
-                });
-            }
-        });
-    } onFailure:^(NSError *error) {
-        if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock(nil);
-            });
-        }
-    }];
-}
+//+ (void)API_getTermsOfUseOnCompletion:(void(^)(NSString *termsOfUse))completionBlock
+//{
+//    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            __block NSString *termsOfUse = nil;
+//            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                if ([attributes[@"Name"] isEqualToString:@"Terms of Use"]) {
+//                    termsOfUse = attributes[@"content"];
+//                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//                    [userDefaults setObject:termsOfUse forKey:@"Term Of Use"];
+//                    [userDefaults synchronize];
+//                    *stop = YES;
+//                }
+//            }];
+//            
+//            if (completionBlock) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    completionBlock(termsOfUse);
+//                });
+//            }
+//        });
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                completionBlock(nil);
+//            });
+//        }
+//    }];
+//}
+//
+//+ (void)API_getFaqOnCompletion:(void(^)(NSString *termsOfUse))completionBlock
+//{
+//    [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            __block NSString *faq = nil;
+//            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                if ([attributes[@"Name"] isEqualToString:@"FAQ"]) {
+//                    faq = attributes[@"content"];
+//                    
+//                    faq = attributes[@"content"];
+//                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//                    [userDefaults setObject:faq forKey:@"FAQ"];
+//                    [userDefaults synchronize];
+//
+//                    *stop = YES;
+//                }
+//            }];
+//            
+//            if (completionBlock) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    completionBlock(faq);
+//                });
+//            }
+//        });
+//    } onFailure:^(NSError *error) {
+//        if (completionBlock) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                completionBlock(nil);
+//            });
+//        }
+//    }];
+//}
 
 + (void)API_getTrackIOnCompletion:(void(^)(NSString *trackI))completionBlock
 {

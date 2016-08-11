@@ -10,6 +10,7 @@
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
 #import "Article.h"
+#import "Content.h"
 #import <SVProgressHUD.h>
 
 @interface AboutThisAppViewController ()
@@ -48,13 +49,36 @@
 {
     [super viewDidLoad];
     
+    Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"About This App"];
+    [aboutThisAppWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];
-        [Article API_getAboutThisAppOnCompletion:^(NSString *aboutThisApp) {
-            [SVProgressHUD dismiss];
-            [aboutThisAppWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", aboutThisApp] baseURL:nil];
+        [Content API_SingPostContentOnCompletion:^(BOOL success) {
+            if (success){
+                [SVProgressHUD dismiss];
+                Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"About This App"];
+                [aboutThisAppWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            }
         }];
+        
     }
+
+    
+//    NSString *aboutThisApp = [NSString new];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    aboutThisApp = [userDefaults stringForKey:@"About This App"];
+//    if (aboutThisApp != nil)[aboutThisAppWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", aboutThisApp] baseURL:nil];
+//    
+//    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+//        [SVProgressHUD showWithStatus:@"Please wait..."];
+//        [Article API_getAboutThisAppOnCompletion:^(NSString *aboutThisApp) {
+//            [SVProgressHUD dismiss];
+//            [aboutThisAppWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", aboutThisApp] baseURL:nil];
+//        }];
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

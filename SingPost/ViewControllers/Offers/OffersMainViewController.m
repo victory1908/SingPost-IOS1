@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
     
-    ArticleCategory *articleCategory = [ArticleCategory MR_findFirstOrCreateByAttribute:@"module" withValue:@"Order"];
+    ArticleCategory *articleCategory = [ArticleCategory MR_findFirstOrCreateByAttribute:@"module" withValue:@"Offer"];
     
     itemsArray = [Article MR_findByAttribute:@"articlecategory" withValue:articleCategory andOrderBy:@"expireDate" ascending:NO];
     

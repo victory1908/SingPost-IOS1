@@ -15,6 +15,7 @@
 #import "LandingPageViewController.h"
 #import "UIView+Position.h"
 #import "UIAlertView+Blocks.h"
+#import "Content.h"
 
 @interface TermsOfUseViewController ()
 
@@ -58,13 +59,24 @@
 {
     [super viewDidLoad];
     
+    
+    Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"Terms of Use"];
+    [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+//        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+//        [SVProgressHUD setForegroundColor:[UIColor blueColor]];
+        
         [SVProgressHUD showWithStatus:@"Please wait..."];
-        [Article API_getTermsOfUseOnCompletion:^(NSString *termsOfUse) {
-            [SVProgressHUD dismiss];
-            [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", termsOfUse] baseURL:nil];
-        }];
-        agreeButton.enabled = YES;
+        [Content API_SingPostContentOnCompletion:^(BOOL success) {
+            if (success){
+                [SVProgressHUD dismiss];
+                Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"Terms of Use"];
+                [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+            }
+        }];        agreeButton.enabled = YES;
     }
     else {
 //        [UIAlertView showWithTitle:nil

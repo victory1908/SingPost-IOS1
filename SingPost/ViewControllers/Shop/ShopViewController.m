@@ -62,6 +62,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // load data from userdefault
+    NSData *data = [[NSUserDefaults standardUserDefaults]objectForKey:@"Offer"];
+    NSDictionary *root = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    self.titleLabel.text = [root objectForKeyOrNil:@"BackgroundText"];
+    self.subTitleLabel.text = [root objectForKeyOrNil:@"BackgroundSubText"];
+    
+    if ([UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundTextColor"]] != nil) {
+        self.titleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundTextColor"]];
+    }
+    else {
+        self.titleLabel.textColor = [UIColor whiteColor];
+    }
+    
+    if ([UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundSubTextColor"]] != nil) {
+        self.subTitleLabel.textColor = [UIColor colorWithHexString:[root objectForKeyOrNil:@"BackgroundSubTextColor"]];
+    }
+    else {
+        self.subTitleLabel.textColor = [UIColor whiteColor];
+    }
+    
+    [self relayoutSubviews:root];
+    
+    NSString *backgroundImage = [root objectForKeyOrNil:@"BackgroundImage"];
+    [self.background setImageWithURL:[NSURL URLWithString:backgroundImage]
+         usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];

@@ -74,6 +74,27 @@ static NSString * const GET_METHOD = @"GET";
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
         sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL] sessionConfiguration:sessionConfiguration];
         //        sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL]];
+        
+        
+        [sharedInstance setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
+         {
+             NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
+             NSMutableDictionary *newHeaders = [[resp allHeaderFields] mutableCopy];
+             if (newHeaders[@"Cache-Control"] == nil) {
+                 newHeaders[@"Cache-Control"] = @"max-age=120, public";
+             }
+             
+//             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
+             
+             NSURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:nil headerFields:newHeaders];
+             NSCachedURLResponse *cachedResponse2 = [[NSCachedURLResponse alloc] initWithResponse:response2
+                                                                                             data:[proposedResponse data]
+                                                                                         userInfo:[proposedResponse userInfo]
+                                                                                    storagePolicy:NSURLCacheStorageAllowed];
+             return cachedResponse2;
+         }];
+        
+        
     });
     
     return sharedInstance;
@@ -147,14 +168,19 @@ static NSString * const GET_METHOD = @"GET";
     
     self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
     self.requestSerializer.timeoutInterval = 5;
-    self.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     
-    //    [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
-    //        return [[NSCachedURLResponse alloc] initWithResponse:proposedResponse.response
-    //                                                        data:proposedResponse.data
-    //                                                    userInfo:proposedResponse.userInfo
-    //                                               storagePolicy:NSURLCacheStorageAllowed];
-    //    }];
+//    self.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
+    
+    
+//    [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
+//        return [[NSCachedURLResponse alloc] initWithResponse:proposedResponse.response
+//                                                        data:proposedResponse.data
+//                                                    userInfo:proposedResponse.userInfo
+//                                               storagePolicy:NSURLCacheStorageAllowed];
+//    }];
+    
+    
+
     
     NSURLSessionDataTask *dataTask = [ApiClient.sharedInstance dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {

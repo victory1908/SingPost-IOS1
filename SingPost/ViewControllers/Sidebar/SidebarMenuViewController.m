@@ -109,15 +109,16 @@
 {
 //    CGRect frame_screen = [[UIScreen mainScreen] bounds];
 //    CGRect appFrame = CGRectMake(0,[[UIApplication sharedApplication] statusBarFrame].size.height,frame_screen.size.width,frame_screen.size.height - [[UIApplication sharedApplication] statusBarFrame].size.height);
+//    UIView *contentView = [[UIView alloc] initWithFrame:appFrame];
     UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //    UIView *contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
     [contentView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
     [contentView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     [contentView setBackgroundColor:[UIColor whiteColor]];
     
-    CGFloat offsetY = 10.0f;
+    CGFloat offsetY = 0.0f;
     UIImageView *singPostLogoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_singaporepost_colored"]];
-    [singPostLogoImageView setFrame:CGRectMake(10, offsetY, 120, 44)];
+    [singPostLogoImageView setFrame:CGRectMake(10, offsetY, 120, 40)];
     [contentView addSubview:singPostLogoImageView];
     
     landingPageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -148,11 +149,12 @@
         
     }
     
-    PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 10, 1, 25)];
+//    PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 10, 1, 25)];
+    PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 0, 1, 25)];
     [separatorView2 setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separatorView2];
     
-    offsetY += 40.0f;
+    offsetY += 35.0f;
     
     menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStyleGrouped];
     [menuTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];

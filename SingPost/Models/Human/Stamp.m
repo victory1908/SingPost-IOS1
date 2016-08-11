@@ -32,50 +32,6 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
 }
 
 
-//+ (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
-//{
-//    [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
-//        
-//        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
-//        NSMutableArray *stamps = [[NSMutableArray alloc]init];
-//        [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-//            Stamp *stamp = [[Stamp alloc]init];
-//            [stamp setOrderingValue:idx];
-//            [stamp updateWithApiRepresentation:attributes];
-//            [stamps addObject:stamp];
-//        }];
-//        
-//        [Stamp MR_importFromArray:stamps inContext:localContext];
-//        
-//    } onFailure:^(NSError *error) {
-//        if (completionBlock) {
-//            completionBlock(NO, error);
-//        }
-//    }];
-//}
-
-//+ (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
-//{
-//    [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
-//
-//        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
-//        
-//        [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-//            Stamp *stamp = [[Stamp alloc]init];
-//            [stamp setOrderingValue:idx];
-//            [stamp updateWithApiRepresentation:attributes];
-//            [Stamp MR_importFromObject:stamp inContext:localContext];
-//        }];
-//
-//    } onFailure:^(NSError *error) {
-//        if (completionBlock) {
-//            completionBlock(NO, error);
-//    }
-//        
-//    }];
-//}
-
-
 
 + (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
@@ -109,157 +65,23 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
 }
 
 
-
-
-
-//+ (void)API_getStampsOnCompletion:(void(^)(BOOL success, NSError *error))completionBlock
-//{
-//    [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            @synchronized(STAMPS_LOCK) {
-//                
-////                [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-////                    [Stamp MR_truncateAllInContext:localContext];
-////                    [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-////                        Stamp *stamp = [Stamp MR_createEntityInContext:localContext];
-//////                        Stamp *stamp = [Stamp MR_createInContext:localContext];
-////                        [stamp setOrderingValue:idx];
-////                        [stamp updateWithApiRepresentation:attributes];
-////                        [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-////                            if (completionBlock) {
-////                                dispatch_async(dispatch_get_main_queue(), ^{
-////                                    completionBlock(!error, error);
-////                                });
-////                            }
-////                        }];
-////
-////                    }];
-////                }];
-////                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-//  
-//                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
-////                [Stamp MR_truncateAllInContext:localContext];
-//                
-//                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-//                    
-////                    Stamp *stamp = [Stamp MR_createEntityInContext:localContext];
-////                    [stamp setOrderingValue:(int)idx];
-////                    [stamp updateWithApiRepresentation:attributes];
-//                    
-////                    NSPredicate *duplicateStamp = [NSPredicate predicateWithFormat:@"serverId = %@", attributes[@"Id"]];
-////                    Stamp *stamp = [Stamp MR_findFirstWithPredicate:duplicateStamp];
-////                    if (stamp ==nil) {
-////                        stamp = [Stamp MR_createEntityInContext:localContext];
-////                        [stamp setOrderingValue:(int)idx];
-////                        [stamp updateWithApiRepresentation:attributes];
-////                    }
-//                    
-//                    Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
-//                    
-//                    if (stamp.serverId ==nil) {
-//                        [stamp setOrderingValue:(int)idx];
-//                        [stamp updateWithApiRepresentation:attributes];
-//                    }
-//
-//                    
-//                }];
-//                
-//                
-//                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-//                    if (completionBlock) {
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//                            completionBlock(!error, error);
-//                        });
-//                    }
-//                }];
-//            }
-//        });
-//    } onFailure:^(NSError *error) {
-//        if (completionBlock) {
-//            completionBlock(NO, error);
-//        }
-//    }];
-//}
-
-
-//+ (void)API_getImagesOfStamps:(Stamp *)stamp onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
-//{
-//    [[ApiClient sharedInstance] getImagesOfStamp:stamp onSuccess:^(id responseJSON) {
-//        @synchronized(STAMPS_LOCK) {
-//            NSManagedObjectContext *localContext = stamp.managedObjectContext;
-//            
-//            NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
-//            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-//                StampImage *stampImage = [StampImage new];
-//                [stampImage updateWithApiRepresentation:attributes];
-//                [stampImages addObject:stampImage];
-//            }];
-//            
-//            [StampImage MR_importFromArray:(NSArray*)stampImages inContext:localContext];
-//            
-//            [stamp setImages:stampImages];
-//        }
-//    } onFailure:^(NSError *error) {
-//        if (completionBlock) {
-//            completionBlock(NO, error);
-//            
-//        }
-//    }];
-//}
-
-
-
-
-//+ (void)API_getImagesOfStamps:(Stamp *)stamp onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
-//{
-//    [[ApiClient sharedInstance] getImagesOfStamp:stamp onSuccess:^(id responseJSON) {
-//        @synchronized(STAMPS_LOCK) {
-//            NSManagedObjectContext *localContext = stamp.managedObjectContext;
-//
-//            NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
-//            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-//                StampImage *stampImage = [StampImage MR_createEntityInContext:localContext];
-//                //                StampImage *stampImage = [StampImage MR_createInContext:localContext];
-//                [stampImage updateWithApiRepresentation:attributes];
-//                [stampImages addObject:stampImage];
-//            }];
-//
-//            [stamp setImages:stampImages];
-//        }
-//    } onFailure:^(NSError *error) {
-//        if (completionBlock) {
-//            completionBlock(NO, error);
-//
-//        }
-//    }];
-//}
-//
-//
-
-
-
-
-
 + (void)API_getImagesOfStamps:(Stamp *)stamp onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
     [[ApiClient sharedInstance] getImagesOfStamp:stamp onSuccess:^(id responseJSON) {
         @synchronized(STAMPS_LOCK) {
             NSManagedObjectContext *localContext = stamp.managedObjectContext;
             
-//            //truncate all existing images
-//            for (StampImage *stampImage in stamp.images) {
-//                [localContext deleteObject:stampImage];
-//            }
             
-            NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
+//            NSMutableOrderedSet *stampImages = [NSMutableOrderedSet orderedSet];
             [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                StampImage *stampImage = [StampImage MR_createEntityInContext:localContext];
-//                StampImage *stampImage = [StampImage MR_createInContext:localContext];
+//                StampImage *stampImage = [StampImage MR_createEntityInContext:localContext];
+                StampImage *stampImage = [StampImage MR_findFirstOrCreateByAttribute:@"image" withValue:attributes[@"Views"] inContext:localContext];
                 [stampImage updateWithApiRepresentation:attributes];
-                [stampImages addObject:stampImage];
+//                [stampImages addObject:stampImage];
+                [stampImage setStamp:stamp];
             }];
-            
-            [stamp setImages:stampImages];
+//            
+//            [stamp setImages:stampImages];
             
             [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 if (completionBlock) {

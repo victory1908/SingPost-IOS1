@@ -37,6 +37,7 @@ SINGLETON_MACRO
     if (self) {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
+        
     }
     return self;
 }
@@ -49,6 +50,8 @@ SINGLETON_MACRO
     [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
     
     [request setTimeoutInterval:5];
+
+    
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Api Manager Error URL: %@",request.URL.absoluteString);
