@@ -119,6 +119,7 @@
 {
     [super viewDidLoad];
     
+    
     [self applicationDocumentsDirectory];
 //    __weak StampCollectiblesMainViewController *weakSelf = self;
 //    _hud.mode = MBProgressHUDModeAnnularDeterminate;
@@ -134,6 +135,7 @@
     
     if ([Stamp featuredStamp].coverImage != nil) {
         [featuredImageView setImageWithURL:[NSURL URLWithString:[Stamp featuredStamp].coverImage] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        
         [yearDropDownList setValues:[Stamp yearsDropDownValues]];
         [yearDropDownList selectRow:0 animated:NO];
         [self yearDropDownListSelected];

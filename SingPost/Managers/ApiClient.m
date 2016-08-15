@@ -146,6 +146,7 @@ static NSString * const GET_METHOD = @"GET";
     [self.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
     [request setTimeoutInterval:5];
     
+    
     NSURLSessionDataTask *dataTask = [[ApiClient sharedInstance] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error URL: %@",request.URL.absoluteString);

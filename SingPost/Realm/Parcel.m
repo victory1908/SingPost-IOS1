@@ -44,23 +44,22 @@
 }
 
 + (RLMResults *)getActiveParcels {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isActive == 'true'"];
-    RLMResults *activeResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber"
-                                                                                          ascending:YES];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isActive == 'true'"];
+//    RLMResults *activeResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber" ascending:YES];
+    RLMResults *activeResults = [[Parcel objectsWhere:@"isActive = 'true'"] sortedResultsUsingProperty:@"trackingNumber" ascending:YES];
+
     return activeResults;
 }
 
 + (RLMResults *)getUnsortedParcels {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isFound == 0"];
-    RLMResults *unsortedResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber"
-                                                                                            ascending:YES];
+    RLMResults *unsortedResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber" ascending:YES];
     return unsortedResults;
 }
 
 + (RLMResults *)getCompletedParcels {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"isActive == 'false'"];
-    RLMResults *completedResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber"
-                                                                                             ascending:YES];
+    RLMResults *completedResults = [[Parcel objectsWithPredicate:predicate] sortedResultsUsingProperty:@"trackingNumber" ascending:YES];
     return completedResults;
 }
 
