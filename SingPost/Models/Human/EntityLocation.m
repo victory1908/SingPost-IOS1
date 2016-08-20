@@ -248,7 +248,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @synchronized(LOCATIONS_LOCK) {
             
-            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_rootSavingContext];
             [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", locationType] inContext:localContext];
             
             if ([json[@"root"] isKindOfClass:[NSArray class]]) {
@@ -265,24 +265,6 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
                     });
                 }
             }];
-            
-//            NSManagedObjectContext *localContext = [NSManagedObjectContext MR_contextForCurrentThread];
-//            [EntityLocation MR_deleteAllMatchingPredicate:[NSPredicate predicateWithFormat:@"type == %@", locationType] inContext:localContext];
-//            
-//            if ([json[@"root"] isKindOfClass:[NSArray class]]) {
-//                [json[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-//                    EntityLocation *location = [EntityLocation MR_createInContext:localContext];
-//                    [location updateWithApiRepresentation:attributes];
-//                }];
-//            }
-//            
-//            [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-//                if (completionBlock) {
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        completionBlock(!error, error);
-//                    });
-//                }
-//            }];
         }
     });
 }
@@ -448,7 +430,7 @@ static NSString *LOCATIONS_LOCK = @"LOCATIONS_LOCK";
 + (void)updateLocationDatabase:(NSArray *)array
                      completed:(void (^)(BOOL success, NSError *error))completed {
     [[ApiClient sharedInstance]getLocationsUpdatesDetails:array success:^(id responseObject) {
-        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+        NSManagedObjectContext *localContext = [NSManagedObjectContext MR_rootSavingContext];
         if ([responseObject[@"root"] isKindOfClass:[NSArray class]]) {
             [responseObject[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
                 EntityLocation *location = [EntityLocation MR_createEntityInContext:localContext];

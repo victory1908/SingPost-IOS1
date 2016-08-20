@@ -28,7 +28,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>sg.codigo.singpost</string>
+	<string>com.SingPost.SingPostMobile</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

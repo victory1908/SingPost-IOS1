@@ -15,6 +15,7 @@
 #import "LocateUsMainViewController.h"
 #import "CalculatePostageResultItem.h"
 #import "MaintanancePageViewController.h"
+#import "TermsOfUseViewController.h"
 
 @interface CalculatePostageResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -67,7 +68,7 @@
     FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, btnWidth, 48)];
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
-//    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     [contentView addSubview:locateUsButton];
 //    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -103,7 +104,6 @@
     else {
         LocateUsMainViewController *viewController = [[LocateUsMainViewController alloc] initWithNibName:nil bundle:nil];
         viewController.showNavBarBackButton = YES;
-        [self presentViewController:viewController animated:YES completion:nil];
         [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:viewController];
     }
 }
@@ -138,7 +138,7 @@
     CGFloat labelHeight = labelRect.size.height;
     
     
-    return labelHeight + 55.0f;
+    return labelHeight + 65.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -174,7 +174,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:headerCellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, -1, tableView.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 76.0f : 100.0f)];
+            UIView *cellContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.width, _resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? 78.0f : 100.0f)];
             [cellContentView setBackgroundColor:RGB(240, 240, 240)];
             [cell.contentView addSubview:cellContentView];
             

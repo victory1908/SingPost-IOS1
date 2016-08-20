@@ -27,7 +27,7 @@
         else
             width = 320;
         
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 70)];
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 80)];
         [contentView setBackgroundColor:[UIColor whiteColor]];
         
         serviceTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 200, LONG_MAX)];
@@ -51,8 +51,11 @@
         [costLabel setBackgroundColor:[UIColor clearColor]];
         [contentView addSubview:costLabel];
         
-        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 69, contentView.bounds.size.width - 30, 1)];
-        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+//        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 69, contentView.bounds.size.width - 30, 1)];
+        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, contentView.bounds.size.width - 30, 1)];
+
+//        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
         [separatorView setBackgroundColor:RGB(196, 197, 200)];
         [contentView addSubview:separatorView];
         

@@ -88,7 +88,8 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:ok];
-        [self presentViewController:alert animated:YES completion:nil];
+//        [self presentViewController:alert animated:YES completion:nil];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         
         agreeButton.enabled = NO;
     }

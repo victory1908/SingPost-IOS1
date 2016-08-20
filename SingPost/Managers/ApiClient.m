@@ -69,12 +69,11 @@ static NSString * const GET_METHOD = @"GET";
 
 + (ApiClient *)sharedInstance {
     static ApiClient *sharedInstance = nil;
+    
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
         sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL] sessionConfiguration:sessionConfiguration];
-        //        sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL]];
-        
         
         [sharedInstance setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
          {
@@ -84,7 +83,7 @@ static NSString * const GET_METHOD = @"GET";
                  newHeaders[@"Cache-Control"] = @"max-age=120, public";
              }
              
-//             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
+             //             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
              
              NSURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:nil headerFields:newHeaders];
              NSCachedURLResponse *cachedResponse2 = [[NSCachedURLResponse alloc] initWithResponse:response2
@@ -93,25 +92,36 @@ static NSString * const GET_METHOD = @"GET";
                                                                                     storagePolicy:NSURLCacheStorageAllowed];
              return cachedResponse2;
          }];
-        
+
         
     });
     
+    
     return sharedInstance;
 }
-
-- (id)initWithBaseURL:(NSURL *)url
-{
-    if ((self = [super initWithBaseURL:url])) {
-        self.requestSerializer = [AFHTTPRequestSerializer serializer];
-        //        AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-        //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        //        [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
-    }
+-(instancetype)initWithBaseURL:(NSURL *)url sessionConfiguration:(NSURLSessionConfiguration *)configuration {
+    self = [super initWithBaseURL:url sessionConfiguration:configuration];
+    
+        if (self) {
+            
+        }
     
     return self;
 }
+
+
+//- (id)initWithBaseURL:(NSURL *)url
+//{
+//    if ((self = [super initWithBaseURL:url])) {
+//        self.requestSerializer = [AFHTTPRequestSerializer serializer];
+//        //        AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
+//        //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//        //        [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//        //        [AFJSONRequestOperation addAcceptableContentTypes:[NSSet setWithObject:@"text/html"]];
+//    }
+//    
+//    return self;
+//}
 
 #pragma mark - Properties
 
@@ -142,12 +152,12 @@ static NSString * const GET_METHOD = @"GET";
                success:(void (^)(NSURLResponse *response, RXMLElement *responseObject))success
                failure:(void (^)(NSError *error))failure {
     
+    self.requestSerializer = [AFHTTPRequestSerializer serializer];
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [self.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
+    self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
     [request setTimeoutInterval:5];
     
-    
-    NSURLSessionDataTask *dataTask = [[ApiClient sharedInstance] dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error URL: %@",request.URL.absoluteString);
             NSLog(@"Error: %@", error);
@@ -166,24 +176,11 @@ static NSString * const GET_METHOD = @"GET";
 - (void)sendJSONRequest:(NSMutableURLRequest *)request
                 success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
-    
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
-    self.requestSerializer.timeoutInterval = 5;
     
-//    self.requestSerializer.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
-    
-    
-//    [self setDataTaskWillCacheResponseBlock:^NSCachedURLResponse * _Nonnull(NSURLSession * _Nonnull session, NSURLSessionDataTask * _Nonnull dataTask, NSCachedURLResponse * _Nonnull proposedResponse) {
-//        return [[NSCachedURLResponse alloc] initWithResponse:proposedResponse.response
-//                                                        data:proposedResponse.data
-//                                                    userInfo:proposedResponse.userInfo
-//                                               storagePolicy:NSURLCacheStorageAllowed];
-//    }];
-    
-    
-
-    
-    NSURLSessionDataTask *dataTask = [ApiClient.sharedInstance dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+    NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error URL: %@",request.URL.absoluteString);
             NSLog(@"Error: %@", error);

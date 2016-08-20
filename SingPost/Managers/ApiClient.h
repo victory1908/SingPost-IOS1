@@ -26,6 +26,10 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 
 + (ApiClient *)sharedInstance;
 
+-(instancetype)initWithBaseURL:(NSURL *)url sessionConfiguration:(NSURLSessionConfiguration *)configuration;
+
+//- (instancetype)initWithBaseURL:(NSURL *)url;
+
 - (void)reportAPIIssueURL:(NSString *)url payload:(NSString *)payload message:(NSString *)message;
 
 //informations

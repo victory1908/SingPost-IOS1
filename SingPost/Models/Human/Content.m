@@ -21,6 +21,7 @@ typedef void (^ FailureBlock)(NSError *error, NSInteger statusCode);
     [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //            __block NSString *termsOfUse = nil;
+            NSLog(@"%@",responseJSON);
             NSManagedObjectContext *localContext = [NSManagedObjectContext MR_rootSavingContext];
             [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
                 Content *content = [Content MR_findFirstOrCreateByAttribute:@"name" withValue:attributes[@"Name"] inContext:localContext];

@@ -732,24 +732,24 @@
 }
 
 #pragma mark - Core data
-- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion {
-    
-    
-    [[NSManagedObjectContext MR_context] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
-        if(!success)
-            DLog(@"%@", error);
-        if (completion)
-            completion(success, error);
-    }];
-
-    
-//    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+//- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion {
+//    
+//    
+//    [[NSManagedObjectContext MR_rootSavingContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
 //        if(!success)
 //            DLog(@"%@", error);
 //        if (completion)
 //            completion(success, error);
 //    }];
-}
+//
+//    
+////    [[NSManagedObjectContext MR_contextForCurrentThread] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+////        if(!success)
+////            DLog(@"%@", error);
+////        if (completion)
+////            completion(success, error);
+////    }];
+//}
 
 #pragma mark - Apple watch request
 - (void)application:(UIApplication *)application

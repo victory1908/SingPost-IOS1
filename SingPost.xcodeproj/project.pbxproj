@@ -1587,6 +1587,7 @@
 				ORGANIZATIONNAME = Codigo;
 				TargetAttributes = {
 					24AD38A21A399D180088F6A6 = {
+						DevelopmentTeam = KCJFL9TSEY;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1598,6 +1599,7 @@
 					};
 					87BDF6811B13032400EFADDD = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = KCJFL9TSEY;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1606,6 +1608,7 @@
 					};
 					87BDF6931B13032400EFADDD = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = KCJFL9TSEY;
 					};
 				};
 			};
@@ -2025,7 +2028,7 @@
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = sg.codigo.singpost;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile;
 				PRODUCT_NAME = SingPost;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2060,7 +2063,7 @@
 				);
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = sg.codigo.singpost;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile;
 				PRODUCT_NAME = SingPost;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2173,7 +2176,7 @@
 					"$(PROJECT_DIR)/SingPost/Vendor/ZBarSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = sg.codigo.singpost.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2202,7 +2205,7 @@
 					"$(PROJECT_DIR)/SingPost/Vendor/ZBarSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = sg.codigo.singpost.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2234,7 +2237,7 @@
 					"$(PROJECT_DIR)/SingPost/Vendor/ZBarSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = sg.codigo.singpost.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -2265,7 +2268,7 @@
 					"$(PROJECT_DIR)/SingPost/Vendor/ZBarSDK",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = sg.codigo.singpost.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;

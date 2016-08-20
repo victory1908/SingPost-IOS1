@@ -38,22 +38,34 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
     [[ApiClient sharedInstance] getStampsOnSuccess:^(id responseJSON) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @synchronized(STAMPS_LOCK) {
-                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_rootSavingContext];
-                
-                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
-                    if (stamp.serverId ==nil) {
-                        [stamp setOrderingValue:(u_int)idx];
-                        [stamp updateWithApiRepresentation:attributes];
-                    }
+                [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+                    [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                        Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
+                        if (stamp.serverId ==nil) {
+                            [stamp setOrderingValue:(u_int)idx];
+                            [stamp updateWithApiRepresentation:attributes];
+                        }
+                    }];
+
+                } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+                    completionBlock(!error, error);
                 }];
-                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
-                    if (completionBlock) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completionBlock(!error, error);
-                        });
-                    }
-                }];
+//                NSManagedObjectContext *localContext = [NSManagedObjectContext MR_context];
+//                
+//                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                    Stamp *stamp = [Stamp MR_findFirstOrCreateByAttribute:@"title" withValue:attributes[@"Name"] inContext:localContext];
+//                    if (stamp.serverId ==nil) {
+//                        [stamp setOrderingValue:(u_int)idx];
+//                        [stamp updateWithApiRepresentation:attributes];
+//                    }
+//                }];
+//                [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+//                    if (completionBlock) {
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            completionBlock(!error, error);
+//                        });
+//                    }
+//                }];
             }});
         
     } onFailure:^(NSError *error) {
@@ -76,12 +88,11 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
             [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
 //                StampImage *stampImage = [StampImage MR_createEntityInContext:localContext];
                 StampImage *stampImage = [StampImage MR_findFirstOrCreateByAttribute:@"image" withValue:attributes[@"Views"] inContext:localContext];
-                [stampImage updateWithApiRepresentation:attributes];
-//                [stampImages addObject:stampImage];
-                [stampImage setStamp:stamp];
+                if (stampImage.name == nil) {
+                    [stampImage setStamp:stamp];
+                    [stampImage updateWithApiRepresentation:attributes];
+                }
             }];
-//            
-//            [stamp setImages:stampImages];
             
             [localContext MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
                 if (completionBlock) {
@@ -99,7 +110,7 @@ static NSString *STAMPS_LOCK = @"STAMPS_LOCK";
 
 + (NSArray *)yearsDropDownValues
 {
-    NSManagedObjectContext *moc = [NSManagedObjectContext MR_context];
+    NSManagedObjectContext *moc = [NSManagedObjectContext MR_rootSavingContext];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [Stamp entityInManagedObjectContext:moc];

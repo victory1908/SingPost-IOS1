@@ -44,11 +44,12 @@ UITableViewDataSource
     [contentView addSubview:self.tableView];
     
     self.view = contentView;
+    [[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"announcements"];
     _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     

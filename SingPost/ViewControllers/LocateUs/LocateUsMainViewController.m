@@ -89,10 +89,18 @@ typedef enum {
     // If you need custom color, use color property
     activityIndicator.color = [UIColor blueColor];
     [contentView addSubview:activityIndicator];
-    [activityIndicator startAnimating];
+//    [activityIndicator startAnimating];
     
     self.view = contentView;
+    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    }
+//    [self updateViewData];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
     [self updateViewData];
+
 }
 
 -(void)viewWillLayoutSubviews {
@@ -151,7 +159,7 @@ typedef enum {
 //    [SVProgressHUD showWithStatus:@"Please wait..."];
     //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     if ([selectedType isEqualToString:LOCATION_TYPE_POST_OFFICE]) {
-        [self updateViewData];
+        
         [activityIndicator startAnimating];
         [EntityLocation API_updatePostOfficeLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
@@ -171,7 +179,7 @@ typedef enum {
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
-        [self updateViewData];
+        
         [activityIndicator startAnimating];
         [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
@@ -181,7 +189,7 @@ typedef enum {
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTAL_AGENT]) {
-        [self updateViewData];
+        
         [activityIndicator startAnimating];
         [EntityLocation API_updatePostalAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
@@ -191,7 +199,7 @@ typedef enum {
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT]) {
-        [self updateViewData];
+        
         [activityIndicator startAnimating];
         [EntityLocation API_updateSingPostAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
@@ -202,7 +210,7 @@ typedef enum {
     }
     
     else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
-        [self updateViewData];
+        
         [activityIndicator startAnimating];
         [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
