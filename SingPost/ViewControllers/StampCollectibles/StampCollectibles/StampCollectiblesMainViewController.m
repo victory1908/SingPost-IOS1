@@ -151,7 +151,7 @@
         [Stamp API_getStampsOnCompletion:^(BOOL success, NSError *error) {
             [activityIndicator stopAnimating];
             if (error) {
-                [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
+//                [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
             }
             else {
                 [activityIndicator stopAnimating];

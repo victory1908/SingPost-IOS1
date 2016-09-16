@@ -168,6 +168,9 @@
                 annotationView.image = [UIImage imageNamed:@"agent_map_overlay"];
             else if ([locationType isEqualToString:LOCATION_TYPE_POPSTATION])
                 annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];
+            
+            //add map direction
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         }
     }
     
@@ -219,6 +222,18 @@
 //    plv.lineWidth = 3.0;
 //    return plv;
 //}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    if (control == view.rightCalloutAccessoryView) {
+        MKPlacemark *placemark = [[MKPlacemark alloc]initWithCoordinate:view.annotation.coordinate addressDictionary:NULL];
+        MKMapItem *mapitem = [[MKMapItem alloc]initWithPlacemark:placemark];
+        
+        NSMutableDictionary *launchOption = [NSMutableDictionary new];
+        [launchOption setObject:MKLaunchOptionsDirectionsModeWalking forKey:MKLaunchOptionsDirectionsModeKey];
+        
+        [mapitem openInMapsWithLaunchOptions:launchOption];
+    }
+}
 
 #pragma mark - Actions
 

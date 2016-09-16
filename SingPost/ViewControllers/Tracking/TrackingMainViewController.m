@@ -220,8 +220,11 @@ UITableViewDelegate
         //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }
     
-    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
+//    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
+//                                               completed:^(Parcel *parcel, NSError *error)
+    [[ApiClient sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
                                                completed:^(Parcel *parcel, NSError *error)
+
      {
          if (error == nil) {
              if (parcel.isFound) {
@@ -664,8 +667,11 @@ UITableViewDelegate
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
             //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
+//            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
+//                                                       completed:^(Parcel *parcel, NSError *error)
+            [[ApiClient sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
                                                        completed:^(Parcel *parcel, NSError *error)
+
              {
                  if (error == nil) {
                      [self goToDetailPageWithParcel:parcel];
@@ -707,7 +713,9 @@ UITableViewDelegate
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
             //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
+//            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
+//                                                       completed:^(Parcel *parcel, NSError *error)
+            [[ApiClient sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
                                                        completed:^(Parcel *parcel, NSError *error)
              {
                  if (error == nil) {

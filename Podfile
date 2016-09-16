@@ -8,9 +8,10 @@ end
 def ios_pods
 #    pod 'AFNetworking', '1.2.1'
 #    pod 'AFRaptureXMLRequestOperation'
-    pod 'AFNetworking', '3.1'
+    pod 'AFNetworking'
 #    pod 'GoogleAnalytics-iOS-SDK'
     pod 'Google/Analytics'
+#    pod 'GoogleAnalytics'
     pod 'KGModal'
     pod 'MagicalRecord'
     pod 'MHNatGeoViewControllerTransition'
@@ -29,6 +30,7 @@ def ios_pods
     pod 'MBProgressHUD'
     pod 'RMUniversalAlert'
     pod 'CustomIOSAlertView'
+    pod 'Toast'
 end
 
 def watch_pods

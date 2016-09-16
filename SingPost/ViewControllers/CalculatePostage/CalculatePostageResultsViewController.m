@@ -56,11 +56,19 @@
     
     resultsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, contentView.bounds.size.width, contentView.bounds.size.height - 135) style:UITableViewStylePlain];
     [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [resultsTableView setSeparatorColor:[UIColor clearColor]];
+//    [resultsTableView setSeparatorColor:[UIColor clearColor]];
+    
+    [resultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [resultsTableView setDelegate:self];
     [resultsTableView setDataSource:self];
     [resultsTableView setBackgroundColor:[UIColor whiteColor]];
     [resultsTableView setBackgroundView:nil];
+
+//
+    [resultsTableView setEstimatedRowHeight:150];
+    [resultsTableView setRowHeight:UITableViewAutomaticDimension];
+//    [resultsTableView setRowHeight:200];
+    
     [contentView addSubview:resultsTableView];
     
     CGFloat btnWidth = (contentView.width - 40)/2;
@@ -90,6 +98,7 @@
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:_resultType == CALCULATEPOSTAGE_RESULT_TYPE_OVERSEAS ? @"Postage Result - Overseas" : @"Postage Result - Singapore"];
+    
 }
 
 #pragma mark - IBActions
@@ -127,18 +136,19 @@
     if (indexPath.row == TITLE_ROW)
         return 40.0f;
     
-    CalculatePostageResultItem *item = _resultItems[indexPath.row - 2];
-    
-    
-    CGRect labelRect = [item.deliveryServiceName boundingRectWithSize:CGSizeMake(190, 0)
-                                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                                           attributes:@{NSFontAttributeName:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]}
-                                                              context:nil];
-    
-    CGFloat labelHeight = labelRect.size.height;
-    
-    
-    return labelHeight + 65.0f;
+//    CalculatePostageResultItem *item = _resultItems[indexPath.row - 2];
+//    
+//    
+//    CGRect labelRect = [item.deliveryServiceName boundingRectWithSize:CGSizeMake(190, 0)
+//                                                              options:NSStringDrawingUsesLineFragmentOrigin
+//                                                           attributes:@{NSFontAttributeName:[UIFont SingPostRegularFontOfSize:16.0f fontKey:kSingPostFontOpenSans]}
+//                                                              context:nil];
+//    
+//    CGFloat labelHeight = labelRect.size.height;
+//    
+//    
+//    return labelHeight + 65.0f;
+    return UITableViewAutomaticDimension;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -272,6 +282,7 @@
             [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
             [cellContentView addSubview:bottomSeparatorView];
         }
+        
         
         return cell;
     }

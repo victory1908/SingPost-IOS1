@@ -26,6 +26,7 @@
 #import "APIManager.h"
 #import "Parcel.h"
 #import "TrackedItem.h"
+#import "UIView+Toast.h"
 
 @implementation AppDelegate
 @synthesize isLoginFromSideBar;
@@ -41,7 +42,9 @@
     application.applicationIconBadgeNumber = 0;
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
-    [SVProgressHUD setForegroundColor:[UIColor blueColor]];
+//    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:139 green:149 blue:160 alpha:1]];
+    [SVProgressHUD setForegroundColor: [UIColor grayColor]];
+    [SVProgressHUD setRingNoTextRadius:2];
     
 //    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
 //        // use registerUserNotificationSettings
@@ -165,11 +168,20 @@
 //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
 //        [alertView show];
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alert addAction:ok];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        [alert addAction:ok];
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         
+//        [[UIApplication sharedApplication].keyWindow makeToast:NO_INTERNET_ERROR duration:2 position:CSToastPositionBottom];
+//        [[UIApplication sharedApplication].keyWindow makeToast:NO_INTERNET_ERROR duration:2 position:CSToastPositionBottom];
+        
+        CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
+        style.backgroundColor = [UIColor clearColor];
+        style.messageColor = [UIColor redColor];
+        [CSToastManager setSharedStyle:style];
+        [[UIApplication sharedApplication].keyWindow makeToast:[NSString stringWithFormat:@"%@%@",NO_INTERNET_ERROR_TITLE,NO_INTERNET_ERROR] duration:2 position:CSToastPositionBottom style:style];
+
     }
     return hasInternetConnection;
 }

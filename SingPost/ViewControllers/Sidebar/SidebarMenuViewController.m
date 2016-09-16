@@ -150,11 +150,11 @@
     }
     
 //    PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 10, 1, 25)];
-    PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 0, 1, 25)];
+    PersistentBackgroundView * separatorView2 = [[PersistentBackgroundView alloc] initWithFrame:CGRectMake(SIDEBAR_WIDTH - 49, offsetY + 5, 1, 25)];
     [separatorView2 setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separatorView2];
     
-    offsetY += 35.0f;
+    offsetY += 40.0f;
     
     menuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY, contentView.bounds.size.width, contentView.bounds.size.height - offsetY) style:UITableViewStyleGrouped];
     [menuTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];

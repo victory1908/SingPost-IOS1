@@ -10,6 +10,7 @@
 //#import <AFRaptureXMLRequestOperation.h>
 #import <RXMLElement.h>
 #import <Realm/Realm.h>
+#import "Parcel.h"
 
 @class Stamp;
 
@@ -67,6 +68,8 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 //tracking
 - (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 //- (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion;
+- (void)getTrackingNumberDetails:(NSString *)trackingNumber
+                       completed:(void (^)(Parcel *parcel, NSError *error))completed;
 
 //notifications
 - (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;

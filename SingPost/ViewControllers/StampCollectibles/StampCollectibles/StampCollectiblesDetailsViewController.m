@@ -193,7 +193,7 @@
         
         if (error) {
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-            [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
+//            [SVProgressHUD showErrorWithStatus:@"error synchronize with server"];
         }else {
             [pageControl setNumberOfPages:_stamp.images.count];
             [imagesScrollView setContentSize:CGSizeMake(imagesScrollView.bounds.size.width * _stamp.images.count, imagesScrollView.bounds.size.height)];

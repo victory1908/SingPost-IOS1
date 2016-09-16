@@ -179,7 +179,7 @@ typedef enum {
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SAM]) {
-        
+        [self updateViewData];
         [activityIndicator startAnimating];
         [EntityLocation API_updateSamLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
@@ -189,7 +189,7 @@ typedef enum {
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_POSTAL_AGENT]) {
-        
+        [self updateViewData];
         [activityIndicator startAnimating];
         [EntityLocation API_updatePostalAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
@@ -199,7 +199,7 @@ typedef enum {
         }];
     }
     else if ([selectedType isEqualToString:LOCATION_TYPE_SINGPOST_AGENT]) {
-        
+        [self updateViewData];
         [activityIndicator startAnimating];
         [EntityLocation API_updateSingPostAgentLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];
@@ -210,7 +210,7 @@ typedef enum {
     }
     
     else if ([selectedType isEqualToString:LOCATION_TYPE_POPSTATION]) {
-        
+        [self updateViewData];
         [activityIndicator startAnimating];
         [EntityLocation API_updatePopStationLocationsOnCompletion:^(BOOL success, NSError *error) {
 //            [SVProgressHUD dismiss];

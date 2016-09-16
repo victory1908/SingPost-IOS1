@@ -26,9 +26,11 @@
 
 //Error messages
 #define INCOMPLETE_FIELDS_ERROR             @"Please ensure that all fields are entered correctly."
-#define NO_INTERNET_ERROR_TITLE             @"Something has gone wrong!"
+//#define NO_INTERNET_ERROR_TITLE             @"Something has gone wrong!"
+//#define NO_INTERNET_ERROR_TITLE             @"Something has gone wrong!"
+#define NO_INTERNET_ERROR_TITLE             @"No internet connection detected "
 //#define NO_INTERNET_ERROR                   @"Connection to the server failed. Please try again later."
-#define NO_INTERNET_ERROR                   @"Connection to the server failed. Application in Offline Mode"
+#define NO_INTERNET_ERROR                   @"Application in Offline Mode"
 #define NO_RESULTS_ERROR                    @"Sorry, there are no results found. Please try again."
 #define NO_TRACKING_NUMBER_ERROR            @"Please enter tracking number."
 #define INVALID_TRACKING_NUMBER_ERROR       @"Please enter a valid tracking number."

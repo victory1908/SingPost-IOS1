@@ -14,9 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - CustomIOSAlertView (0.9.4)
-  - DeviceUtil (1.3.7)
-  - FirebaseAnalytics (3.3.0):
+  - CustomIOSAlertView (0.9.5)
+  - DeviceUtil (1.3.8)
+  - FirebaseAnalytics (3.4.2):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
@@ -27,7 +27,7 @@ PODS:
     - GoogleAnalytics (~> 3.12)
   - Google/Core (3.0.3):
     - FirebaseAnalytics (~> 3.2)
-  - GoogleAnalytics (3.14.0)
+  - GoogleAnalytics (3.17.0)
   - GoogleInterchangeUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleSymbolUtilities (1.1.1)
@@ -51,12 +51,13 @@ PODS:
     - UIActionSheet+Blocks (>= 0.9)
     - UIAlertController+Blocks (>= 0.9)
     - UIAlertView+Blocks (>= 0.9)
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SevenSwitch (1.4.0)
   - SSKeychain (1.4.1)
   - SVProgressHUD (2.0.3)
+  - Toast (3.0)
   - TPKeyboardAvoiding (1.3)
   - TTTAttributedLabel (1.13.4)
   - UALogger (0.3)
@@ -70,7 +71,7 @@ PODS:
   - ZXingObjC/All (3.1.0)
 
 DEPENDENCIES:
-  - AFNetworking (= 3.1)
+  - AFNetworking
   - CustomIOSAlertView
   - DeviceUtil
   - Google/Analytics
@@ -86,6 +87,7 @@ DEPENDENCIES:
   - SevenSwitch
   - SSKeychain
   - SVProgressHUD
+  - Toast
   - TPKeyboardAvoiding
   - TTTAttributedLabel
   - UALogger
@@ -95,12 +97,12 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  CustomIOSAlertView: 92ff1ec171c37e89c4b36027734133e54534916b
-  DeviceUtil: faefd40ac954b37c68686c088c1d2f7dc103a3fc
-  FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
+  CustomIOSAlertView: cc4fa8e36219be3fd5ebcd40789f5b4aaae0f38e
+  DeviceUtil: 9e91dd78b14cd51715d6fada8871c71b00283023
+  FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
-  GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
@@ -113,10 +115,11 @@ SPEC CHECKSUMS:
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   RMUniversalAlert: bce2ca406c24065b76665725c83e48006e8f65f8
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SevenSwitch: e992e56e2e7f401eb00538b9fa92bf848bacbe27
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  Toast: 32c59229abfcf41850162b83bb9259dc84372473
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   UALogger: ccc041e5982dbd274ab5805f914076fef9bf29cf
@@ -126,6 +129,6 @@ SPEC CHECKSUMS:
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
   ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
 
-PODFILE CHECKSUM: b7eff4920d4b42a5411b64863eaa7e60e575d0cc
+PODFILE CHECKSUM: 5188f00474691d9eb45559fb78f15bdb9ef50aaf
 
 COCOAPODS: 1.0.1

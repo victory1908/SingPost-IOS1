@@ -356,10 +356,26 @@ typedef enum  {
                 annotationView.image = [UIImage imageNamed:@"popstation_map_overlay"];
         }
         annotationView.centerOffset = CGPointMake(annotationView.image.size.width/2, -(annotationView.image.size.height/2));
+        
+        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeInfoLight];
+        
     }
     
     return annotationView;
 }
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    if (control == view.rightCalloutAccessoryView) {
+        MKPlacemark *placemark = [[MKPlacemark alloc]initWithCoordinate:view.annotation.coordinate addressDictionary:NULL];
+        MKMapItem *mapitem = [[MKMapItem alloc]initWithPlacemark:placemark];
+        
+        NSMutableDictionary *launchOption = [NSMutableDictionary new];
+        [launchOption setObject:MKLaunchOptionsDirectionsModeWalking forKey:MKLaunchOptionsDirectionsModeKey];
+        
+        [mapitem openInMapsWithLaunchOptions:launchOption];
+    }
+}
+
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {

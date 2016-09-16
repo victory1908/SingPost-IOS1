@@ -15,6 +15,6 @@
 + (instancetype)sharedInstance;
 
 //Tracking numbers
-- (void)getTrackingNumberDetails:(NSString *)trackingNumber
-                       completed:(void (^)(Parcel *parcel, NSError *error))completed;
+//- (void)getTrackingNumberDetails:(NSString *)trackingNumber
+//                       completed:(void (^)(Parcel *parcel, NSError *error))completed;
 @end

@@ -39,7 +39,7 @@
 //Google analytics
 - (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName;
 
-- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
+//- (void)saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
 
 - (void)sessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error;
 

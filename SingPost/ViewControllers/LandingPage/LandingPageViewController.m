@@ -880,8 +880,8 @@ OffersMenuDelegate
     LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
     barCodeVC.landingVC = landingPageViewController;
 //    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:barCodeVC animated:YES completion:nil];
-    [self.view.window.rootViewController.navigationController pushViewController:barCodeVC animated:YES];
-//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
+//    [self.view.window.rootViewController.navigationController pushViewController:barCodeVC animated:YES];
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
 
     
 //    BarScannerViewController * barScannervc = [[BarScannerViewController alloc] init];
