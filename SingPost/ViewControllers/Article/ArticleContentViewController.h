@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
+#import <WebKit/WebKit.h>
+#import <SafariServices/SafariServices.h>
 
 @class Article;
 

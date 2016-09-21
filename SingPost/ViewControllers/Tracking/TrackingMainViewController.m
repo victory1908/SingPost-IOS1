@@ -214,6 +214,7 @@ UITableViewDelegate
     }
     
     [self.view endEditing:YES];
+    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait..."];

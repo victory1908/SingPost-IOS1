@@ -193,7 +193,7 @@
             UIView *topSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, cellContentView.bounds.size.width, 1)];
             [topSeparatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
             [topSeparatorView setBackgroundColor:RGB(196, 197, 200)];
-            [cellContentView addSubview:topSeparatorView];
+//            [cellContentView addSubview:topSeparatorView];
             
             offsetY += 14.0f;
             
@@ -280,7 +280,7 @@
             
             UIView *bottomSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY, cellContentView.bounds.size.width, 1)];
             [bottomSeparatorView setBackgroundColor:RGB(196, 197, 200)];
-            [cellContentView addSubview:bottomSeparatorView];
+//            [cellContentView addSubview:bottomSeparatorView];
         }
         
         
@@ -315,7 +315,7 @@
             UIView *headerViewSeparator = [[UIView alloc] initWithFrame:CGRectMake(15, titleContentView.bounds.size.height - 1, titleContentView.bounds.size.width - 30, 1)];
             [headerViewSeparator setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
             [headerViewSeparator setBackgroundColor:RGB(196, 197, 200)];
-            [titleContentView addSubview:headerViewSeparator];
+//            [titleContentView addSubview:headerViewSeparator];
         }
         
         return cell;

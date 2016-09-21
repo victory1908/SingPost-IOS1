@@ -345,7 +345,8 @@
 #pragma mark - UIWebView Delegates
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (webView == contentWebView) {
-        self.pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+//        self.pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+        self.pageHeight = webView.scrollView.contentSize.height;
         if (self.pageHeight <= 90 || INTERFACE_IS_IPAD) {
             moreButton.hidden = YES;
             contentWebView.height = self.pageHeight + 15;
@@ -355,7 +356,8 @@
     }
     
     else if (webView == pricingWebView) {
-        pricingWebView.height = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+//        pricingWebView.height = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+        pricingWebView.height = webView.scrollView.contentSize.height;
         locateUsButton.top = pricingWebView.bottom + 15;
         [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
     }

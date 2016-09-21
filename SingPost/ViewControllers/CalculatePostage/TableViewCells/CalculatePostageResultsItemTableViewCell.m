@@ -57,7 +57,7 @@
 //        [contentView addSubview:costLabel];
         
 //        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 69, self.contentView.bounds.size.width - 30, 2)];
-        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, self.contentView.bounds.size.width - 30, 10)];
+//        separatorView = [[UIView alloc] initWithFrame:CGRectMake(15, 0, self.contentView.bounds.size.width - 30, 10)];
 
 //        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 //        [separatorView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];

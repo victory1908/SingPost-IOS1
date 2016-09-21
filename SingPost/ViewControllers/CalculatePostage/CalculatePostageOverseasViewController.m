@@ -103,6 +103,7 @@
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
+    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
     if (!toWhichCountryDropDownList.selectedValue || [weightTextField.text length] == 0) {
 //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //        [alertView show];

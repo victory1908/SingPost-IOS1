@@ -115,6 +115,8 @@
         return;
     }
     
+    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
+    
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         _searchResults = nil;
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];

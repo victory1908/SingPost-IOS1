@@ -17,6 +17,7 @@
 #import "UIAlertView+Blocks.h"
 #import "MaintanancePageViewController.h"
 
+
 @interface ArticleContentViewController () <UIWebViewDelegate>
 
 @end
@@ -25,6 +26,7 @@
 {
     UIScrollView *contentScrollView;
     UIWebView *contentWebView;
+    
     FlatBlueButton *locateUsButton;
     FlatBlueButton *calculateButton;
 }
@@ -144,9 +146,32 @@
 
 #pragma mark - UIWebView Delegates
 
+
+//- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+////    int pageHeight = webView.scrollView.contentSize.height;
+//    int pageHeight = webView.height;
+//    [webView setHeight:pageHeight+300];
+//    
+//    if (locateUsButton != nil)
+//        [locateUsButton setY:pageHeight];
+//    
+//    if (calculateButton != nil)
+//        [calculateButton setY:pageHeight];
+//    
+//    [contentScrollView setContentSize:CGSizeMake(contentScrollView.bounds.size.width, pageHeight + 65.0f)];
+//    
+//    [SVProgressHUD dismiss];
+//}
+
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    CGFloat pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+//    CGFloat pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+    
+    CGFloat pageHeight = webView.scrollView.contentSize.height;
+    
+    NSLog(@"page height %f",pageHeight) ;
+    
     [webView setHeight:pageHeight];
     
     if (locateUsButton != nil)
@@ -159,6 +184,8 @@
     
     [SVProgressHUD dismiss];
 }
+
+
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *urlScheme = request.URL.scheme;
