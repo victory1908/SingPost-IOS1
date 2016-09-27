@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - CustomIOSAlertView (0.9.5)
-  - DeviceUtil (1.3.8)
+  - DeviceUtil (2.0.1)
   - FirebaseAnalytics (3.4.2):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
@@ -41,9 +41,9 @@ PODS:
   - MHNatGeoViewControllerTransition (1.0)
   - RaptureXML (1.0.1)
   - Reachability (3.2)
-  - Realm (1.0.2):
-    - Realm/Headers (= 1.0.2)
-  - Realm/Headers (1.0.2)
+  - Realm (1.1.0):
+    - Realm/Headers (= 1.1.0)
+  - Realm/Headers (1.1.0)
   - RegexKitLite (4.0)
   - RMUniversalAlert (0.7):
     - RMUniversalAlert/Core (= 0.7)
@@ -98,7 +98,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CustomIOSAlertView: cc4fa8e36219be3fd5ebcd40789f5b4aaae0f38e
-  DeviceUtil: 9e91dd78b14cd51715d6fada8871c71b00283023
+  DeviceUtil: ef09c9ae52239a35a24067c459f66c8c3c9478b9
   FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
@@ -112,7 +112,7 @@ SPEC CHECKSUMS:
   MHNatGeoViewControllerTransition: 8bbfd6abd30056a82168754d356ad049cdf17aa2
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
+  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   RMUniversalAlert: bce2ca406c24065b76665725c83e48006e8f65f8
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c

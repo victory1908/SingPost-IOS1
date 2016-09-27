@@ -10,10 +10,11 @@
 #import "RootViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "ProceedViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 #import "TrackingMainViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate, UNUserNotificationCenterDelegate> {
     ProceedViewController *proceedVC;
 }
 
