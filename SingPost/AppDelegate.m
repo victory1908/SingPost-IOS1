@@ -767,6 +767,8 @@
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     NSLog(@"Userinfo %@",response.notification.request.content.userInfo);
+    NSDictionary *userInfo = response.notification.request.content.userInfo;
+    [self handleRemoteNotification:userInfo shouldPrompt:([UIApplication sharedApplication].applicationState == UIApplicationStateActive)];
 }
 
 #pragma mark - Google Analytics
