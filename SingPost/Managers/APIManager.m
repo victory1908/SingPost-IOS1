@@ -38,6 +38,24 @@ SINGLETON_MACRO
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
         
+        [self.manager setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
+         {
+             NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
+             NSMutableDictionary *newHeaders = [[resp allHeaderFields] mutableCopy];
+             if (newHeaders[@"Cache-Control"] == nil) {
+                 newHeaders[@"Cache-Control"] = @"max-age=120, public";
+             }
+             
+             //             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
+             
+             NSURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:nil headerFields:newHeaders];
+             NSCachedURLResponse *cachedResponse2 = [[NSCachedURLResponse alloc] initWithResponse:response2
+                                                                                             data:[proposedResponse data]
+                                                                                         userInfo:[proposedResponse userInfo]
+                                                                                    storagePolicy:NSURLCacheStorageAllowed];
+             return cachedResponse2;
+         }];
+        
     }
     return self;
 }
@@ -49,19 +67,19 @@ SINGLETON_MACRO
     self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
     
-    [request setTimeoutInterval:5];
+//    [request setTimeoutInterval:5];
 
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-            NSLog(@"Api Manager Error URL: %@",request.URL.absoluteString);
-            NSLog(@"API Manager Error: %@", error);
+//            NSLog(@"Api Manager Error URL: %@",request.URL.absoluteString);
+//            NSLog(@"API Manager Error: %@", error);
             failure(error);
         } else {
             RXMLElement *rootXml = [RXMLElement elementFromXMLData:responseObject];
             success(response, rootXml);
-            NSLog(@"Api Manager Success URL: %@",request.URL.absoluteString);
-            NSLog(@"Api Manager Success %@",rootXml);
+//            NSLog(@"Api Manager Success URL: %@",request.URL.absoluteString);
+//            NSLog(@"Api Manager Success %@",rootXml);
             
         }
     }];
@@ -124,50 +142,50 @@ SINGLETON_MACRO
 //}
 
 #pragma mark - Tracking number
-//- (void)getTrackingNumberDetails:(NSString *)trackingNumber
-//                       completed:(void (^)(Parcel *parcel, NSError *error))completed {
-//    NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-//                     "<ItemTrackingNumbers>"
-//                     "<TrackingNumber>%@</TrackingNumber>"
-//                     "</ItemTrackingNumbers>"
-//                     "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
-//    
-//    NSString *urlString = [NSString stringWithFormat:@"%@/ma/GetItemTrackingDetails",SINGPOST_BASE_URL];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-//    
-//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [request addValue:[NSString stringWithFormat:@"%ld", (  long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-//    request.HTTPBody = [xml dataUsingEncoding:NSUTF8StringEncoding];
-//    request.HTTPMethod = POST_METHOD;
-//    
-//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-//        //Subscribe to notification if enabled
-//        if ([[UserDefaultsManager sharedInstance] getNotificationStatus]) {
-//            [PushNotificationManager API_subscribeNotificationForTrackingNumber:trackingNumber
-//                                                                   onCompletion:^(BOOL success, NSError *error){}];
-//        }
-//        //Save XML to database
-//        RXMLElement *itemsTrackingDetailList = [responseObject child:@"ItemsTrackingDetailList"];
-//        RXMLElement *itemTrackingDetail = [[itemsTrackingDetailList children:@"ItemTrackingDetail"] firstObject];
-//        
-//        if (itemTrackingDetail != nil)
-//            completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
-//        else {
-////            [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-////                               message:TRACKED_ITEM_NOT_FOUND_ERROR
-////                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-//            
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-//            [alert addAction:ok];
-//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-//            
-//            completed(nil,nil);
-//        }
-//    } failure:^(NSError *error) {
-//        [[ApiClient sharedInstance]reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-//        completed(nil,error);
-//    }];
-//}
+- (void)getTrackingNumberDetails:(NSString *)trackingNumber
+                       completed:(void (^)(Parcel *parcel, NSError *error))completed {
+    NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+                     "<ItemTrackingNumbers>"
+                     "<TrackingNumber>%@</TrackingNumber>"
+                     "</ItemTrackingNumbers>"
+                     "</ItemTrackingDetailsRequest>", [trackingNumber uppercaseString]];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/ma/GetItemTrackingDetails",SINGPOST_BASE_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%ld", (  long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+    request.HTTPBody = [xml dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPMethod = POST_METHOD;
+    
+    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+        //Subscribe to notification if enabled
+        if ([[UserDefaultsManager sharedInstance] getNotificationStatus]) {
+            [PushNotificationManager API_subscribeNotificationForTrackingNumber:trackingNumber
+                                                                   onCompletion:^(BOOL success, NSError *error){}];
+        }
+        //Save XML to database
+        RXMLElement *itemsTrackingDetailList = [responseObject child:@"ItemsTrackingDetailList"];
+        RXMLElement *itemTrackingDetail = [[itemsTrackingDetailList children:@"ItemTrackingDetail"] firstObject];
+        
+        if (itemTrackingDetail != nil)
+            completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
+        else {
+//            [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
+//                               message:TRACKED_ITEM_NOT_FOUND_ERROR
+//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:ok];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+            
+            completed(nil,nil);
+        }
+    } failure:^(NSError *error) {
+        [[ApiClient sharedInstance]reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        completed(nil,error);
+    }];
+}
 
 @end

@@ -164,6 +164,12 @@ UITableViewDelegate
     [SVProgressHUD dismiss];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.notificationToken stop];
+    [SVProgressHUD dismiss];
+}
+
 #pragma mark - Setters
 - (void)setTrackingNumber:(NSString *)inTrackingNumber {
     _trackingNumber = inTrackingNumber;
@@ -221,10 +227,10 @@ UITableViewDelegate
         //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }
     
-//    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
-//                                               completed:^(Parcel *parcel, NSError *error)
-    [[ApiClient sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
+    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
                                                completed:^(Parcel *parcel, NSError *error)
+//    [[ApiClient sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
+//                                               completed:^(Parcel *parcel, NSError *error)
 
      {
          if (error == nil) {
@@ -241,17 +247,19 @@ UITableViewDelegate
                  UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
                  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                  [alert addAction:ok];
-                 [self presentViewController:alert animated:YES completion:nil];
+//                 [self presentViewController:alert animated:YES completion:nil];
+                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 
              }
              else {
 //                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
 //                                    message:NO_INTERNET_ERROR
 //                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                 [alert addAction:ok];
-                 [self presentViewController:alert animated:YES completion:nil];
+//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                 [alert addAction:ok];
+////                 [self presentViewController:alert animated:YES completion:nil];
+//                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
              }
          }
          [self loadTrackingItems];

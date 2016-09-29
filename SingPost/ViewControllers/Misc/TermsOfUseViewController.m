@@ -61,7 +61,9 @@
     
     
     Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"Terms of Use"];
-    [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+    if (content != nil) {
+        [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+    }
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
 //        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];

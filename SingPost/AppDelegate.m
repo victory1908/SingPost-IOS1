@@ -769,6 +769,7 @@
     NSLog(@"Userinfo %@",response.notification.request.content.userInfo);
     NSDictionary *userInfo = response.notification.request.content.userInfo;
     [self handleRemoteNotification:userInfo shouldPrompt:([UIApplication sharedApplication].applicationState == UIApplicationStateActive)];
+    completionHandler();
 }
 
 #pragma mark - Google Analytics
