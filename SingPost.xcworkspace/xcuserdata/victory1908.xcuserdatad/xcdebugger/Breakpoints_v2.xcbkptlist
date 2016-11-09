@@ -32,7 +32,7 @@
             startingLineNumber = "105"
             endingLineNumber = "105"
             landmarkName = "-openingHoursForOpenTime:andCloseTime:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,7 +48,7 @@
             startingLineNumber = "81"
             endingLineNumber = "81"
             landmarkName = "-openingHoursForOpenTime:andCloseTime:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -64,7 +64,7 @@
             startingLineNumber = "25"
             endingLineNumber = "25"
             landmarkName = "-initWithNibName:bundle:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -80,7 +80,7 @@
             startingLineNumber = "391"
             endingLineNumber = "391"
             landmarkName = "+API_updatePopStationLocationsOnCompletion:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

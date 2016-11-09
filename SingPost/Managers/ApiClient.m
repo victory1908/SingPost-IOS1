@@ -173,8 +173,8 @@ static NSString * const GET_METHOD = @"GET";
         } else {
             RXMLElement *rootXml = [RXMLElement elementFromXMLData:responseObject];
             success(response, rootXml);
-//            NSLog(@"Success URL: %@",request.URL.absoluteString);
-//            NSLog(@"Success %@",rootXml);
+            NSLog(@"Success URL: %@",request.URL.absoluteString);
+            NSLog(@"Success %@",rootXml);
             
         }
     }];
@@ -196,8 +196,8 @@ static NSString * const GET_METHOD = @"GET";
         } else {
             NSDictionary *jsonDict  = (NSDictionary *) responseObject;
             success(response,jsonDict);
-//            NSLog(@"Success URL: %@",request.URL.absoluteString);
-//            NSLog(@"Success %@",jsonDict);
+            NSLog(@"Success URL: %@",request.URL.absoluteString);
+            NSLog(@"Success %@",jsonDict);
         }
     }];
     [dataTask resume];

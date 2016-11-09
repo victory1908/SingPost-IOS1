@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '79EE5429CD28C435D92AE611733B297E'
+               BlueprintIdentifier = '2D6CE2D3E3B5EF1A9EDB774BCFF7312D'
                BlueprintName = 'UALogger'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libUALogger.a'>
