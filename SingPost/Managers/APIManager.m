@@ -216,7 +216,7 @@ SINGLETON_MACRO
 //                               message:TRACKED_ITEM_NOT_FOUND_ERROR
 //                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:INVALID_TRACKING_NUMBER_ERROR message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:ok];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];

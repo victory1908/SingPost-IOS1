@@ -92,7 +92,7 @@
     
     [MagicalRecord setDefaultModelNamed:@"SingPost.momd"];
     NSURL *dbpath = [NSPersistentStore MR_defaultLocalStoreUrl];
-    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
+//    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:dbpath];
     
     [DatabaseManager setupRealm];
@@ -741,6 +741,11 @@
     [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateActive)];
 }
 
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateBackground)];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
     NSString *sanitizedDeviceToken = [[[[deviceToken description]
                                         stringByReplacingOccurrencesOfString:@"<" withString:@""]
@@ -762,13 +767,17 @@
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     NSLog(@"Userinfo %@",notification.request.content.userInfo);
     
+    NSDictionary *userInfo = notification.request.content.userInfo;
+    
+    [self handleRemoteNotification:userInfo shouldPrompt:([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)];
+    
     completionHandler(UNNotificationPresentationOptionAlert);
 }
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     NSLog(@"Userinfo %@",response.notification.request.content.userInfo);
     NSDictionary *userInfo = response.notification.request.content.userInfo;
-    [self handleRemoteNotification:userInfo shouldPrompt:([UIApplication sharedApplication].applicationState == UIApplicationStateActive)];
+    [self handleRemoteNotification:userInfo shouldPrompt:([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)];
     completionHandler();
 }
 
