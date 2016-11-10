@@ -56,10 +56,10 @@
     UIFont *font = [UIFont SingPostLightItalicFontOfSize:_placeholderFontSize fontKey:kSingPostFontOpenSans];
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraphStyle.alignment = NSTextAlignmentRight;
+    paragraphStyle.alignment = NSTextAlignmentLeft;
     NSDictionary *attributes = @{ NSFontAttributeName: font,
                                   NSParagraphStyleAttributeName: paragraphStyle,
-                                  NSForegroundColorAttributeName: [UIColor whiteColor]};
+                                  NSForegroundColorAttributeName: [UIColor blackColor]};
     [[self placeholder] drawInRect:rect withAttributes:attributes];
     
 //    [[self placeholder] drawInRect:CGRectInset(rect, 0, _insetBoundsSize.height + (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? 0.0f : -5.0f))

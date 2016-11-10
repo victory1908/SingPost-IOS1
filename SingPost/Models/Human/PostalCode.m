@@ -7,13 +7,13 @@
 //
 
 #import "PostalCode.h"
-#import "ApiClient.h"
-
+//#import "ApiClient.h"
+#import "APIManager.h"
 @implementation PostalCode
 
 + (void)API_findPostalCodeForBuildingNo:(NSString *)buildingNo andStreetName:(NSString *)streetName onCompletion:(void(^)(NSArray *results, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] findPostalCodeForBuildingNo:buildingNo andStreetName:streetName onSuccess:^(RXMLElement *rootXML) {
+    [[APIManager sharedInstance] findPostalCodeForBuildingNo:buildingNo andStreetName:streetName onSuccess:^(RXMLElement *rootXML) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSMutableArray *items = [NSMutableArray array];
             [rootXML iterate:@"PostalCodeByStreetDetailList.PostalCodeByStreetDetail" usingBlock:^(RXMLElement *e) {
@@ -37,7 +37,7 @@
 
 + (void)API_findPostalCodeForLandmark:(NSString *)landmark onCompletion:(void(^)(NSArray *results, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] findPostalCodeForLandmark:landmark onSuccess:^(RXMLElement *rootXML) {
+    [[APIManager sharedInstance] findPostalCodeForLandmark:landmark onSuccess:^(RXMLElement *rootXML) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             __block NSMutableArray *items = [NSMutableArray array];
             [rootXML iterate:@"PostalAddressByLandMarkDetailList.PostalAddressByLandMarkDetail" usingBlock:^(RXMLElement *e) {
@@ -62,7 +62,7 @@
 
 + (void)API_findPostalCodeForWindowsDeliveryNo:(NSString *)windowsDeliveryNo andType:(NSString *)type andPostOffice:(NSString *)postOffice onCompletion:(void(^)(NSArray *results, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] findPostalCodeForWindowsDeliveryNo:windowsDeliveryNo andType:type andPostOffice:postOffice onSuccess:^(RXMLElement *rootXML) {
+    [[APIManager sharedInstance] findPostalCodeForWindowsDeliveryNo:windowsDeliveryNo andType:type andPostOffice:postOffice onSuccess:^(RXMLElement *rootXML) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSMutableArray *items = [NSMutableArray array];
             [rootXML iterate:@"PostalCodeByPOBoxDetailList.PostalCodeByPOBoxDetail" usingBlock:^(RXMLElement *e) {

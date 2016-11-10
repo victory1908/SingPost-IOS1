@@ -75,12 +75,12 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "$PODS_CONFIGURATION_BUILD_DIR/DeviceUtil/DeviceUtil.bundle"
-  install_resource "SSKeychain/Support/SSKeychain.bundle"
+  install_resource "SAMKeychain/Support/SAMKeychain.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "$PODS_CONFIGURATION_BUILD_DIR/DeviceUtil/DeviceUtil.bundle"
-  install_resource "SSKeychain/Support/SSKeychain.bundle"
+  install_resource "SAMKeychain/Support/SAMKeychain.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 

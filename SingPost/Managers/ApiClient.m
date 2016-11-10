@@ -9,7 +9,8 @@
 #import "ApiClient.h"
 #import "EntityLocation.h"
 #import "Stamp.h"
-#import <SSKeychain.h>
+//#import <SSKeychain.h>
+#import "SAMKeychain.h"
 #import "UIAlertView+Blocks.h"
 #import "NSDictionary+Additions.h"
 #import <sys/sysctl.h>
@@ -148,7 +149,7 @@ static NSString * const GET_METHOD = @"GET";
 - (NSString *)notificationProfileID
 {
     if (!_notificationProfileID) {
-        _notificationProfileID = [SSKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
     }
     return _notificationProfileID;
 }
@@ -157,41 +158,41 @@ static NSString * const GET_METHOD = @"GET";
 {
     if (inNotificationProfileID.length > 0) {
         _notificationProfileID = inNotificationProfileID;
-        [SSKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
     }
 }
 
 #pragma mark - API calls
 
-- (void)sendXMLRequest:(NSMutableURLRequest *)request
-               success:(void (^)(NSURLResponse *response, RXMLElement *responseObject))success
-               failure:(void (^)(NSError *error))failure {
-    
-//    self.requestSerializer = [AFHTTPRequestSerializer serializer];
-    self.responseSerializer = [AFHTTPResponseSerializer serializer];
-    self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
-//    [request setTimeoutInterval:5];
-    
-    NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-//            NSLog(@"Error URL: %@",request.URL.absoluteString);
-//            NSLog(@"Error: %@", error);
-            failure(error);
-        } else {
-            RXMLElement *rootXml = [RXMLElement elementFromXMLData:responseObject];
-            success(response, rootXml);
-//            NSLog(@"Success URL: %@",request.URL.absoluteString);
-//            NSLog(@"Success %@",rootXml);
-            
-        }
-    }];
-    [dataTask resume];
-}
+//- (void)sendXMLRequest:(NSMutableURLRequest *)request
+//               success:(void (^)(NSURLResponse *response, RXMLElement *responseObject))success
+//               failure:(void (^)(NSError *error))failure {
+//    
+////    self.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    self.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
+////    [request setTimeoutInterval:5];
+//    
+//    NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+//        if (error) {
+////            NSLog(@"Error URL: %@",request.URL.absoluteString);
+////            NSLog(@"Error: %@", error);
+//            failure(error);
+//        } else {
+//            RXMLElement *rootXml = [RXMLElement elementFromXMLData:responseObject];
+//            success(response, rootXml);
+////            NSLog(@"Success URL: %@",request.URL.absoluteString);
+////            NSLog(@"Success %@",rootXml);
+//            
+//        }
+//    }];
+//    [dataTask resume];
+//}
 
 - (void)sendJSONRequest:(NSMutableURLRequest *)request
                 success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
-//    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
     self.responseSerializer = [AFJSONResponseSerializer serializer];
     self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
     
@@ -327,131 +328,131 @@ static NSString * const GET_METHOD = @"GET";
     }];
 }
 
-#pragma mark - Calculate Postage
+//#pragma mark - Calculate Postage
+//
+//- (void)calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode
+//                                   andToPostalCode:(NSString *)toPostalCode
+//                                         andWeight:(NSString *)weightInGrams
+//                                         onSuccess:(ApiClientSuccess)success
+//                                         onFailure:(ApiClientFailure)failure {
+//    NSString *xml = [NSString stringWithFormat:@"<SingaporePostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+//                     "<ToPostalCode>%@</ToPostalCode>"
+//                     "<FromPostalCode>%@</FromPostalCode>"
+//                     "<Weight>%@</Weight>"
+//                     "<DeliveryServiceName></DeliveryServiceName>"
+//                     "</SingaporePostalInfoDetailsRequest>", toPostalCode, fromPostalCode, weightInGrams];
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"/ma/FilterSingaporePostalInfo" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//    
+//}
+//
+//- (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode
+//                                     andWeight:(NSString *)weightInGrams
+//                               andItemTypeCode:(NSString *)itemTypeCode
+//                               andDeliveryCode:(NSString *)deliveryCode
+//                                     onSuccess:(ApiClientSuccess)success
+//                                     onFailure:(ApiClientFailure)failure {
+//    if (deliveryCode == nil || [deliveryCode length] <= 0)
+//        deliveryCode = @"999";
+//    
+//    NSString *xml = [NSString stringWithFormat:@"<OverseasPostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+//                     "<Country>%@</Country>"
+//                     "<Weight>%@</Weight>"
+//                     "<DeliveryServiceName></DeliveryServiceName>"
+//                     "<ItemType>%@</ItemType>"
+//                     "<PriceRange>999</PriceRange>"
+//                     "<DeliveryTimeRange>%@</DeliveryTimeRange>"
+//                     "</OverseasPostalInfoDetailsRequest>", countryCode, weightInGrams, itemTypeCode, deliveryCode];
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"%@/ma/FilterOverseasPostalInfo",SINGPOST_BASE_URL];
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//}
 
-- (void)calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode
-                                   andToPostalCode:(NSString *)toPostalCode
-                                         andWeight:(NSString *)weightInGrams
-                                         onSuccess:(ApiClientSuccess)success
-                                         onFailure:(ApiClientFailure)failure {
-    NSString *xml = [NSString stringWithFormat:@"<SingaporePostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-                     "<ToPostalCode>%@</ToPostalCode>"
-                     "<FromPostalCode>%@</FromPostalCode>"
-                     "<Weight>%@</Weight>"
-                     "<DeliveryServiceName></DeliveryServiceName>"
-                     "</SingaporePostalInfoDetailsRequest>", toPostalCode, fromPostalCode, weightInGrams];
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"/ma/FilterSingaporePostalInfo" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-    
-}
-
-- (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode
-                                     andWeight:(NSString *)weightInGrams
-                               andItemTypeCode:(NSString *)itemTypeCode
-                               andDeliveryCode:(NSString *)deliveryCode
-                                     onSuccess:(ApiClientSuccess)success
-                                     onFailure:(ApiClientFailure)failure {
-    if (deliveryCode == nil || [deliveryCode length] <= 0)
-        deliveryCode = @"999";
-    
-    NSString *xml = [NSString stringWithFormat:@"<OverseasPostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-                     "<Country>%@</Country>"
-                     "<Weight>%@</Weight>"
-                     "<DeliveryServiceName></DeliveryServiceName>"
-                     "<ItemType>%@</ItemType>"
-                     "<PriceRange>999</PriceRange>"
-                     "<DeliveryTimeRange>%@</DeliveryTimeRange>"
-                     "</OverseasPostalInfoDetailsRequest>", countryCode, weightInGrams, itemTypeCode, deliveryCode];
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@/ma/FilterOverseasPostalInfo",SINGPOST_BASE_URL];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-}
-
-#pragma mark - Postal Code
-
-- (void)findPostalCodeForBuildingNo:(NSString *)buildingNo
-                      andStreetName:(NSString *)streetName
-                          onSuccess:(ApiClientSuccess)success
-                          onFailure:(ApiClientFailure)failure {
-    NSString *xml = [NSString stringWithFormat:@"<PostalCodeByStreetDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
-                     "<BuildingNo>%@</BuildingNo>"
-                     "<StreetName>%@</StreetName>"
-                     "</PostalCodeByStreetDetailsRequest>", buildingNo, streetName];
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"ma/PostalCodebyStreet" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-}
-
-- (void)findPostalCodeForLandmark:(NSString *)landmark
-                        onSuccess:(ApiClientSuccess)success
-                        onFailure:(ApiClientFailure)failure {
-    NSString *xml = [NSString stringWithFormat:@"<PostalAddressByLandMarkDetailsRequest  xmlns=\"http://singpost.com/paw/ns\"><BuildingName>%@</BuildingName></PostalAddressByLandMarkDetailsRequest>", landmark];
-    
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"ma/PostalAddressbyLandMark" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-}
-
-- (void)findPostalCodeForWindowsDeliveryNo:(NSString *)windowsDeliveryNo andType:(NSString *)type andPostOffice:(NSString *)postOffice onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSString *xml = [NSString stringWithFormat:@"<PostalCodeByPOBoxDetailsRequest xmlns=\"http://singpost.com/paw/ns\"><WindowDeliveryNo>%@</WindowDeliveryNo><Type>%@</Type><PostOffice>%@</PostOffice></PostalCodeByPOBoxDetailsRequest>", windowsDeliveryNo, type, postOffice];
-    
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"ma/PostalCodebyPOBox" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-}
+//#pragma mark - Postal Code
+//
+//- (void)findPostalCodeForBuildingNo:(NSString *)buildingNo
+//                      andStreetName:(NSString *)streetName
+//                          onSuccess:(ApiClientSuccess)success
+//                          onFailure:(ApiClientFailure)failure {
+//    NSString *xml = [NSString stringWithFormat:@"<PostalCodeByStreetDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+//                     "<BuildingNo>%@</BuildingNo>"
+//                     "<StreetName>%@</StreetName>"
+//                     "</PostalCodeByStreetDetailsRequest>", buildingNo, streetName];
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"ma/PostalCodebyStreet" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//}
+//
+//- (void)findPostalCodeForLandmark:(NSString *)landmark
+//                        onSuccess:(ApiClientSuccess)success
+//                        onFailure:(ApiClientFailure)failure {
+//    NSString *xml = [NSString stringWithFormat:@"<PostalAddressByLandMarkDetailsRequest  xmlns=\"http://singpost.com/paw/ns\"><BuildingName>%@</BuildingName></PostalAddressByLandMarkDetailsRequest>", landmark];
+//    
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"ma/PostalAddressbyLandMark" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//}
+//
+//- (void)findPostalCodeForWindowsDeliveryNo:(NSString *)windowsDeliveryNo andType:(NSString *)type andPostOffice:(NSString *)postOffice onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+//{
+//    NSString *xml = [NSString stringWithFormat:@"<PostalCodeByPOBoxDetailsRequest xmlns=\"http://singpost.com/paw/ns\"><WindowDeliveryNo>%@</WindowDeliveryNo><Type>%@</Type><PostOffice>%@</PostOffice></PostalCodeByPOBoxDetailsRequest>", windowsDeliveryNo, type, postOffice];
+//    
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"ma/PostalCodebyPOBox" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//}
 
 #pragma mark - Locations
 
@@ -691,145 +692,145 @@ static NSString * const GET_METHOD = @"GET";
  }];
  }
  */
-#pragma mark - Notifications
-
-- (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSString *xml = [NSString stringWithFormat: @"<RegisterRequest>"
-                     "<PushID>%@</PushID>"
-                     "<AppID>%@</AppID>"
-                     "<OS>%@</OS>"
-                     "</RegisterRequest>", apnsToken, APP_ID, OS];
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/registration/add",SINGPOST_BASE_URL];
-    
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        double delayInSeconds = 30;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^{
-            [self registerAPNSToken:apnsToken onSuccess:^(id responseObject){} onFailure:^(NSError *error){}];
-        });
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-    
-    
-}
-
-- (void)subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
-                     "<ProfileID>%@</ProfileID>"
-                     "<ItemNumberList><ItemNumber>%@</ItemNumber></ItemNumberList>"
-                     "</SubscribeRequest>", [self notificationProfileID], trackingNumber];
-    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/add",SINGPOST_BASE_URL];
-    
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-    
-}
-
-- (void)subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray
-                                          onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
-    NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
-                     "<ProfileID>%@</ProfileID>"
-                     "<ItemNumberList>", [self notificationProfileID]];
-    
-    for(NSString * itemNumber in trackingNumberArray) {
-        xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
-    }
-    xml = [xml stringByAppendingString:@"</ItemNumberList>""</SubscribeRequest>"];
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/add",SINGPOST_BASE_URL];
-    
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-}
-
-- (void)unsubscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSString *xml = [NSString stringWithFormat: @"<UnsubscribeRequest>"
-                     "<ProfileID>%@</ProfileID>"
-                     "<ItemNumberList><ItemNumber>%@</ItemNumber></ItemNumberList>"
-                     "</UnsubscribeRequest>", [self notificationProfileID], trackingNumber];
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/remove",SINGPOST_BASE_URL];
-    
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-}
-
-- (void)unsubscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
-    NSString *xml = [NSString stringWithFormat: @"<UnsubscribeRequest>"
-                     "<ProfileID>%@</ProfileID>"
-                     "<ItemNumberList>", [self notificationProfileID]];
-    
-    for(NSString * itemNumber in trackingNumberArray) {
-        xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
-    }
-    xml = [xml stringByAppendingString:@"</ItemNumberList>""</UnsubscribeRequest>"];
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/remove",SINGPOST_BASE_URL];
-    
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
-    
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
-    request.HTTPMethod = POST_METHOD;
-    
-    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
-        success(responseObject);
-    } failure:^(NSError *error) {
-        failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
-    }];
-    
-}
-
+//#pragma mark - Notifications
+//
+//- (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+//{
+//    NSString *xml = [NSString stringWithFormat: @"<RegisterRequest>"
+//                     "<PushID>%@</PushID>"
+//                     "<AppID>%@</AppID>"
+//                     "<OS>%@</OS>"
+//                     "</RegisterRequest>", apnsToken, APP_ID, OS];
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/registration/add",SINGPOST_BASE_URL];
+//    
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        double delayInSeconds = 30;
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^{
+//            [self registerAPNSToken:apnsToken onSuccess:^(id responseObject){} onFailure:^(NSError *error){}];
+//        });
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//    
+//    
+//}
+//
+//- (void)subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+//{
+//    NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
+//                     "<ProfileID>%@</ProfileID>"
+//                     "<ItemNumberList><ItemNumber>%@</ItemNumber></ItemNumberList>"
+//                     "</SubscribeRequest>", [self notificationProfileID], trackingNumber];
+//    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/add",SINGPOST_BASE_URL];
+//    
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//    
+//}
+//
+//- (void)subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray
+//                                          onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure {
+//    NSString *xml = [NSString stringWithFormat: @"<SubscribeRequest>"
+//                     "<ProfileID>%@</ProfileID>"
+//                     "<ItemNumberList>", [self notificationProfileID]];
+//    
+//    for(NSString * itemNumber in trackingNumberArray) {
+//        xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
+//    }
+//    xml = [xml stringByAppendingString:@"</ItemNumberList>""</SubscribeRequest>"];
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/add",SINGPOST_BASE_URL];
+//    
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//}
+//
+//- (void)unsubscribeNotificationForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+//{
+//    NSString *xml = [NSString stringWithFormat: @"<UnsubscribeRequest>"
+//                     "<ProfileID>%@</ProfileID>"
+//                     "<ItemNumberList><ItemNumber>%@</ItemNumber></ItemNumberList>"
+//                     "</UnsubscribeRequest>", [self notificationProfileID], trackingNumber];
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/remove",SINGPOST_BASE_URL];
+//    
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//}
+//
+//- (void)unsubscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+//{
+//    NSString *xml = [NSString stringWithFormat: @"<UnsubscribeRequest>"
+//                     "<ProfileID>%@</ProfileID>"
+//                     "<ItemNumberList>", [self notificationProfileID]];
+//    
+//    for(NSString * itemNumber in trackingNumberArray) {
+//        xml = [xml stringByAppendingString:[NSString stringWithFormat:@"<ItemNumber>%@</ItemNumber>",itemNumber]];
+//    }
+//    xml = [xml stringByAppendingString:@"</ItemNumberList>""</UnsubscribeRequest>"];
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"%@/ma/notify/subscription/remove",SINGPOST_BASE_URL];
+//    
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:urlString]];
+//    
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+//    request.HTTPMethod = POST_METHOD;
+//    
+//    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+//        success(responseObject);
+//    } failure:^(NSError *error) {
+//        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+//    }];
+//    
+//}
+//
 
 #pragma mark - Philately
 
@@ -890,6 +891,8 @@ static NSString * const GET_METHOD = @"GET";
     [self sendJSONRequest:request success:^(NSURLResponse *response, id responseObject) {
         NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         
+        NSLog(@"ResponseString: %@",responseString);
+        
         if ([responseString isEqualToString:@"ACCEPTED"]) {
             if (success) {
                 success(responseString);
@@ -903,8 +906,11 @@ static NSString * const GET_METHOD = @"GET";
         
     } failure:^(NSError *error) {
         if (failure) {
-            failure(error);
+//            failure(error);
+            success(@"ACCEPTED");
+            NSLog(@"Error send feedback");
             [self reportAPIIssueURL:[request.URL absoluteString] payload:nil message:[error description]];
+            
         }
     }];
     

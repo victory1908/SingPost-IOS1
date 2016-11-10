@@ -19,7 +19,10 @@ def ios_pods
     pod 'UALogger'
     pod 'Reachability'
     pod 'RegexKitLite'
-    pod 'SSKeychain'
+#    pod 'SSKeychain'
+    
+    pod 'SAMKeychain'
+    
     pod 'TTTAttributedLabel'
     pod 'TPKeyboardAvoiding'
     pod 'UIAlertView+Blocks'

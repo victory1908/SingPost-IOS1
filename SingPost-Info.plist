@@ -47,7 +47,7 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>prdesb1.singpost.com123</key>
+			<key>prdesb1.singpost.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
@@ -58,7 +58,7 @@
 				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
-			<key>mobile.singpost.com123</key>
+			<key>mobile.singpost.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>

@@ -7,15 +7,16 @@
 //
 
 #import "PushNotification.h"
-#import "ApiClient.h"
+//#import "ApiClient.h"
+#import "APIManager.h"
 
 @implementation PushNotificationManager
 
 + (void)API_registerAPNSToken:(NSString *)apnsToken onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] registerAPNSToken:apnsToken onSuccess:^(RXMLElement *rootXML) {
+    [[APIManager sharedInstance] registerAPNSToken:apnsToken onSuccess:^(RXMLElement *rootXML) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [[ApiClient sharedInstance] setNotificationProfileID:[rootXML child:@"ProfileID"].text];
+            [[APIManager sharedInstance] setNotificationProfileID:[rootXML child:@"ProfileID"].text];
             if (completionBlock) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(YES, nil);
@@ -33,8 +34,8 @@
 
 + (void)API_subscribeNotificationForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
-        [[ApiClient sharedInstance] subscribeNotificationForTrackingNumber:trackingNumber onSuccess:^(RXMLElement *rootXML) {
+    if ([[APIManager sharedInstance] hasRegisteredProfileId]) {
+        [[APIManager sharedInstance] subscribeNotificationForTrackingNumber:trackingNumber onSuccess:^(RXMLElement *rootXML) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (completionBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -59,8 +60,8 @@
 
 + (void)API_subscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
-        [[ApiClient sharedInstance] subscribeNotificationForTrackingNumberArray:trackingNumberArray onSuccess:^(RXMLElement *rootXML) {
+    if ([[APIManager sharedInstance] hasRegisteredProfileId]) {
+        [[APIManager sharedInstance] subscribeNotificationForTrackingNumberArray:trackingNumberArray onSuccess:^(RXMLElement *rootXML) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (completionBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -85,8 +86,8 @@
 
 + (void)API_unsubscribeNotificationForTrackingNumber:(NSString *)trackingNumber onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
-        [[ApiClient sharedInstance] unsubscribeNotificationForTrackingNumber:trackingNumber onSuccess:^(RXMLElement *rootXML) {
+    if ([[APIManager sharedInstance] hasRegisteredProfileId]) {
+        [[APIManager sharedInstance] unsubscribeNotificationForTrackingNumber:trackingNumber onSuccess:^(RXMLElement *rootXML) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (completionBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -111,8 +112,8 @@
 
 + (void)API_unsubscribeNotificationForTrackingNumberArray:(NSArray *)trackingNumberArray onCompletion:(void(^)(BOOL success, NSError *error))completionBlock
 {
-    if ([[ApiClient sharedInstance] hasRegisteredProfileId]) {
-        [[ApiClient sharedInstance] unsubscribeNotificationForTrackingNumberArray:trackingNumberArray onSuccess:^(RXMLElement *rootXML) {
+    if ([[APIManager sharedInstance] hasRegisteredProfileId]) {
+        [[APIManager sharedInstance] unsubscribeNotificationForTrackingNumberArray:trackingNumberArray onSuccess:^(RXMLElement *rootXML) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (completionBlock) {
                     dispatch_async(dispatch_get_main_queue(), ^{
