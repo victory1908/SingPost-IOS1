@@ -37,7 +37,7 @@
 
 #import "Parcel.h"
 
-#import "RMUniversalAlert.h"
+//#import "RMUniversalAlert.h"
 
 typedef enum {
     TRACKINGITEMS_SECTION_HEADER,

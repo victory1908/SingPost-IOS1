@@ -38,6 +38,12 @@ SINGLETON_MACRO
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
         
+        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+        policy.allowInvalidCertificates = YES;
+        policy.validatesDomainName = NO;
+        
+        self.manager.securityPolicy = policy;
+        
         [self.manager setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
          {
              NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
@@ -72,14 +78,14 @@ SINGLETON_MACRO
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-//            NSLog(@"Api Manager Error URL: %@",request.URL.absoluteString);
-//            NSLog(@"API Manager Error: %@", error);
+            NSLog(@"Api Manager Error URL: %@",request.URL.absoluteString);
+            NSLog(@"API Manager Error: %@", error);
             failure(error);
         } else {
             RXMLElement *rootXml = [RXMLElement elementFromXMLData:responseObject];
             success(response, rootXml);
-//            NSLog(@"Api Manager Success URL: %@",request.URL.absoluteString);
-//            NSLog(@"Api Manager Success %@",rootXml);
+            NSLog(@"Api Manager Success URL: %@",request.URL.absoluteString);
+            NSLog(@"Api Manager Success %@",rootXml);
             
         }
     }];
@@ -103,27 +109,27 @@ SINGLETON_MACRO
 //    [self.httpManager.operationQueue addOperation:operation];
 //}
 
-- (void)sendJSONRequest:(NSMutableURLRequest *)request
-                success:(void (^)(NSURLResponse *response, id responseObject))success
-                failure:(void (^)(NSError *error))failure {
-    
-    self.manager.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
-    
-    request.timeoutInterval=5;
-    
-    NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-            failure(error);
-        } else {
-            NSDictionary *jsonDict  = (NSDictionary *) responseObject;
-            success(response,jsonDict);
-            NSLog(@"%@",jsonDict);
-        }
-    }];
-    [dataTask resume];
-
-}
+//- (void)sendJSONRequest:(NSMutableURLRequest *)request
+//                success:(void (^)(NSURLResponse *response, id responseObject))success
+//                failure:(void (^)(NSError *error))failure {
+//    
+//    self.manager.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
+//    
+//    request.timeoutInterval=5;
+//    
+//    NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+//        if (error) {
+//            NSLog(@"Error: %@", error);
+//            failure(error);
+//        } else {
+//            NSDictionary *jsonDict  = (NSDictionary *) responseObject;
+//            success(response,jsonDict);
+//            NSLog(@"%@",jsonDict);
+//        }
+//    }];
+//    [dataTask resume];
+//
+//}
 
 //- (void)sendJSONRequest:(NSURLRequest *)request
 //                success:(void (^)(NSHTTPURLResponse *response, id responseObject))success
@@ -187,5 +193,71 @@ SINGLETON_MACRO
         completed(nil,error);
     }];
 }
+
+#pragma mark - Calculate Postage
+
+- (void)calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode
+                                   andToPostalCode:(NSString *)toPostalCode
+                                         andWeight:(NSString *)weightInGrams
+                                         onSuccess:(ApiClientSuccess)success
+                                         onFailure:(ApiClientFailure)failure {
+    NSString *xml = [NSString stringWithFormat:@"<SingaporePostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+                     "<ToPostalCode>%@</ToPostalCode>"
+                     "<FromPostalCode>%@</FromPostalCode>"
+                     "<Weight>%@</Weight>"
+                     "<DeliveryServiceName></DeliveryServiceName>"
+                     "</SingaporePostalInfoDetailsRequest>", toPostalCode, fromPostalCode, weightInGrams];
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: [NSURL URLWithString:@"/ma/FilterSingaporePostalInfo" relativeToURL:[NSURL URLWithString: SINGPOST_BASE_URL]]];
+    
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    request.HTTPMethod = POST_METHOD;
+    
+    
+    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+        success(responseObject);
+    } failure:^(NSError *error) {
+        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+    }];
+    
+}
+
+- (void)calculateOverseasPostageForCountryCode:(NSString *)countryCode
+                                     andWeight:(NSString *)weightInGrams
+                               andItemTypeCode:(NSString *)itemTypeCode
+                               andDeliveryCode:(NSString *)deliveryCode
+                                     onSuccess:(ApiClientSuccess)success
+                                     onFailure:(ApiClientFailure)failure {
+    if (deliveryCode == nil || [deliveryCode length] <= 0)
+        deliveryCode = @"999";
+    
+    NSString *xml = [NSString stringWithFormat:@"<OverseasPostalInfoDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
+                     "<Country>%@</Country>"
+                     "<Weight>%@</Weight>"
+                     "<DeliveryServiceName></DeliveryServiceName>"
+                     "<ItemType>%@</ItemType>"
+                     "<PriceRange>999</PriceRange>"
+                     "<DeliveryTimeRange>%@</DeliveryTimeRange>"
+                     "</OverseasPostalInfoDetailsRequest>", countryCode, weightInGrams, itemTypeCode, deliveryCode];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/ma/FilterOverseasPostalInfo",SINGPOST_BASE_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    
+    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
+    request.HTTPMethod = POST_METHOD;
+    
+    [self sendXMLRequest:request success:^(NSURLResponse *response, RXMLElement *responseObject) {
+        success(responseObject);
+    } failure:^(NSError *error) {
+        failure(error);
+//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+    }];
+}
+
+
 
 @end

@@ -8,6 +8,7 @@
 
 #import "CalculatePostageResultItem.h"
 #import "ApiClient.h"
+#import "APIManager.h"
 
 @implementation CalculatePostageResultItem
 
@@ -25,7 +26,7 @@
 
 + (void)API_calculateSingaporePostageForFromPostalCode:(NSString *)fromPostalCode andToPostalCode:(NSString *)toPostalCode andWeight:(NSString *)weightInGrams onCompletion:(void(^)(NSArray *items, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] calculateSingaporePostageForFromPostalCode:fromPostalCode andToPostalCode:toPostalCode andWeight:weightInGrams onSuccess:^(RXMLElement *rootXML) {
+    [[APIManager sharedInstance] calculateSingaporePostageForFromPostalCode:fromPostalCode andToPostalCode:toPostalCode andWeight:weightInGrams onSuccess:^(RXMLElement *rootXML) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSMutableArray *items = [NSMutableArray array];
             [rootXML iterate:@"SingaporePostalInfoDetailList.SingaporePostalInfoDetail" usingBlock:^(RXMLElement *e) {
@@ -48,7 +49,7 @@
 
 + (void)API_calculateOverseasPostageForCountryCode:(NSString *)countryCode andWeight:(NSString *)weightInGrams andItemTypeCode:(NSString *)itemTypeCode andDeliveryCode:(NSString *)deliveryCode onCompletion:(void(^)(NSArray *items, NSError *error))completionBlock
 {
-    [[ApiClient sharedInstance] calculateOverseasPostageForCountryCode:countryCode andWeight:weightInGrams andItemTypeCode:itemTypeCode andDeliveryCode:deliveryCode onSuccess:^(RXMLElement *rootXML) {
+    [[APIManager sharedInstance] calculateOverseasPostageForCountryCode:countryCode andWeight:weightInGrams andItemTypeCode:itemTypeCode andDeliveryCode:deliveryCode onSuccess:^(RXMLElement *rootXML) {
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSMutableArray *items = [NSMutableArray array];
             [rootXML iterate:@"OverseasPostalInfoDetailList.OverseasPostalInfoDetail" usingBlock:^(RXMLElement *e) {

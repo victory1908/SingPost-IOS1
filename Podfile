@@ -27,10 +27,10 @@ def ios_pods
     pod 'SevenSwitch'
     pod 'ZXingObjC'
     pod 'DeviceUtil'
-    pod 'MBProgressHUD'
-    pod 'RMUniversalAlert'
+#    pod 'MBProgressHUD'
+#    pod 'RMUniversalAlert'
     pod 'CustomIOSAlertView'
-    pod 'Toast'
+#    pod 'Toast'
 end
 
 def watch_pods

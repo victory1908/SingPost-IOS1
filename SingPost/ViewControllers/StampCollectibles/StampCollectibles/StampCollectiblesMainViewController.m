@@ -20,14 +20,14 @@
 #import <SVProgressHUD.h>
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "LandingPageViewController.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 
 @interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CDropDownListControlDelegate,UIScrollViewDelegate>
 
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UIAlertController *alertController;
 
-@property (nonatomic,weak) MBProgressHUD *hud;
+//@property (nonatomic,weak) MBProgressHUD *hud;
 
 
 @end

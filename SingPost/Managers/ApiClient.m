@@ -100,6 +100,13 @@ static NSString * const GET_METHOD = @"GET";
                                                                                     storagePolicy:NSURLCacheStorageAllowed];
              return cachedResponse2;
          }];
+        
+        
+        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+        policy.allowInvalidCertificates = YES;
+        policy.validatesDomainName = NO;
+        
+        sharedInstance.securityPolicy = policy;
 
         
     });
@@ -173,8 +180,8 @@ static NSString * const GET_METHOD = @"GET";
         } else {
             RXMLElement *rootXml = [RXMLElement elementFromXMLData:responseObject];
             success(response, rootXml);
-            NSLog(@"Success URL: %@",request.URL.absoluteString);
-            NSLog(@"Success %@",rootXml);
+//            NSLog(@"Success URL: %@",request.URL.absoluteString);
+//            NSLog(@"Success %@",rootXml);
             
         }
     }];
@@ -190,8 +197,8 @@ static NSString * const GET_METHOD = @"GET";
     
     NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
-//            NSLog(@"Error URL: %@",request.URL.absoluteString);
-//            NSLog(@"Error: %@", error);
+            NSLog(@"Error URL: %@",request.URL.absoluteString);
+            NSLog(@"Error: %@", error);
             failure(error);
         } else {
             NSDictionary *jsonDict  = (NSDictionary *) responseObject;

@@ -26,7 +26,7 @@
 #import "APIManager.h"
 #import "Parcel.h"
 #import "TrackedItem.h"
-#import "UIView+Toast.h"
+//#import "UIView+Toast.h"
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 

@@ -24,13 +24,13 @@
 #import "StampCollectibleDetailExpandableView.h"
 #import "UIAlertView+Blocks.h"
 #import "MaintanancePageViewController.h"
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 
 @interface StampCollectiblesDetailsViewController () <UIScrollViewDelegate, StampImageBrowserDelegate ,UIWebViewDelegate>
 
 @property CGFloat pageHeight;
 @property BOOL isExpanded;
-@property (nonatomic,weak) MBProgressHUD *hud;
+//@property (nonatomic,weak) MBProgressHUD *hud;
 
 @end
 
