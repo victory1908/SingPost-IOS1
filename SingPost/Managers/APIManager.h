@@ -25,7 +25,7 @@ typedef void (^APIManagerFailure)(NSError *error);
 
 + (instancetype)sharedInstance;
 
-- (void)reportAPIIssueURL:(NSString *)url payload:(NSString *)payload message:(NSString *)message;
+//- (void)reportAPIIssueURL:(NSString *)url payload:(NSString *)payload message:(NSString *)message;
 
 //Tracking numbers
 - (void)getTrackingNumberDetails:(NSString *)trackingNumber

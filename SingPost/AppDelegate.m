@@ -62,7 +62,8 @@
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
             if( !error ){
-                [[UIApplication sharedApplication] registerForRemoteNotifications];
+//                [[UIApplication sharedApplication] registerForRemoteNotifications];
+                [application registerForRemoteNotifications];
             }
         }];  
     }

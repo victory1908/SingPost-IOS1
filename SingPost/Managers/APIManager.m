@@ -15,6 +15,7 @@
 #import "UIAlertView+Blocks.h"
 #import "DeviceUtil.h"
 #import "SAMKeychain.h"
+#import "ApiClient.h"
 
 static NSString * const POST_METHOD = @"POST";
 
@@ -254,7 +255,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
 }
@@ -289,7 +290,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-//        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
 }
 
@@ -315,7 +316,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
 }
 
@@ -334,7 +335,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
 }
 
@@ -352,13 +353,13 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
 }
 
 #pragma mark - Notifications
 
-- (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+- (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(APIManagerSuccess)success onFailure:(APIManagerFailure)failure
 {
     NSString *xml = [NSString stringWithFormat: @"<RegisterRequest>"
                      "<PushID>%@</PushID>"
@@ -384,7 +385,7 @@ SINGLETON_MACRO
         dispatch_after(popTime, dispatch_get_main_queue(), ^{
             [self registerAPNSToken:apnsToken onSuccess:^(id responseObject){} onFailure:^(NSError *error){}];
         });
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
     
@@ -409,7 +410,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
 }
@@ -438,7 +439,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
 }
 
@@ -462,7 +463,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
 }
 
@@ -490,7 +491,7 @@ SINGLETON_MACRO
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
-        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
+        [[ApiClient sharedInstance] reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
     }];
     
 }

@@ -187,7 +187,6 @@
 		A0968AD81D9A72390055932D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0968AD71D9A72390055932D /* StoreKit.framework */; };
 		A0968AE01D9A75FD0055932D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		A0968AE11D9A763A0055932D /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A09E97151DD3690F0006A02E /* SingPost-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 87688A111B12FA520006FD56 /* SingPost-Info.plist */; };
 		A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */; };
 		A0DE40151D544D83002D5A49 /* test1.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DE40141D544D83002D5A49 /* test1.m */; };
 		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
@@ -1618,6 +1617,9 @@
 							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1710,7 +1712,6 @@
 				24AD39481A399D180088F6A6 /* FindPostalCodes_Types.plist in Resources */,
 				24AD39491A399D180088F6A6 /* Speedpost Agent.json in Resources */,
 				A0EC1BF31D53A43500AE7CE7 /* zbar-samples.png in Resources */,
-				A09E97151DD3690F0006A02E /* SingPost-Info.plist in Resources */,
 				24AD394B1A399D180088F6A6 /* SAM.json in Resources */,
 				A0EC1BF11D53A43500AE7CE7 /* zbar-help.html in Resources */,
 				24AD394C1A399D180088F6A6 /* ScanTutorialViewController.xib in Resources */,
