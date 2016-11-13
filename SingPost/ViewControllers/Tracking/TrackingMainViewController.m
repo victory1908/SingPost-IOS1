@@ -170,6 +170,11 @@ UITableViewDelegate
     [SVProgressHUD dismiss];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getAllLabel];
+}
+
 #pragma mark - Setters
 - (void)setTrackingNumber:(NSString *)inTrackingNumber {
     _trackingNumber = inTrackingNumber;
@@ -227,11 +232,7 @@ UITableViewDelegate
         //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
     }
     
-    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
-                                               completed:^(Parcel *parcel, NSError *error)
-//    [[ApiClient sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text
-//                                               completed:^(Parcel *parcel, NSError *error)
-
+    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
      {
          if (error == nil) {
              if (parcel.isFound) {
@@ -457,14 +458,14 @@ UITableViewDelegate
     [separator setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separator];
     
-//    alertView.delegate = self;
+    alertView.delegate = self;
     
     [alertView setContainerView:contentView];
     [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Sign Up/Login", nil]];
     [alertView show];
 }
 
-- (void)customIOSdialogButtonTouchUpInside:(CustomIOSAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)customIOS7dialogButtonTouchUpInside:(CustomIOSAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != 0) {
         if (FBSession.activeSession.state == FBSessionStateOpen
             || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -475,23 +476,19 @@ UITableViewDelegate
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
             [FBSession setActiveSession:session];
             
-            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingSafari fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                 AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 
                 appDelegate.isLoginFromSideBar = YES;
                 
-                [appDelegate sessionStateChanged:session state:state error:error];
+                [appDelegate sessionStateChanged:session state:status error:error];
             }];
         }
     }
     [alertView close];
 }
 
-
-
-- (void)alertView:(CustomIOSAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView.tag == 101) {
         if (buttonIndex == 0) {
             
@@ -518,23 +515,16 @@ UITableViewDelegate
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
                 
-                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingSafari fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                    
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     
                     appDelegate.isLoginFromSideBar = YES;
                     
                     [appDelegate sessionStateChanged:session state:status error:error];
+                    
                 }];
                 
-//                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//                    
-//                    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//                    
-//                    appDelegate.isLoginFromSideBar = YES;
-//                    
-//                    [appDelegate sessionStateChanged:session state:state error:error];
-//                    
-//                }];
             }
             
             
@@ -678,7 +668,7 @@ UITableViewDelegate
             //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
 //            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
 //                                                       completed:^(Parcel *parcel, NSError *error)
-            [[ApiClient sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
+            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
                                                        completed:^(Parcel *parcel, NSError *error)
 
              {
@@ -721,20 +711,14 @@ UITableViewDelegate
             
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
-            //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
-//            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
-//                                                       completed:^(Parcel *parcel, NSError *error)
-            [[ApiClient sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
-                                                       completed:^(Parcel *parcel, NSError *error)
+            
+            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber completed:^(Parcel *parcel, NSError *error)
              {
                  if (error == nil) {
                      if (selectedParcel.isFound) {
                          [self goToDetailPageWithParcel:selectedParcel];
                      }
                      else {
-//                         [UIAlertView showWithTitle:nil
-//                                            message:TRACKED_ITEM_NOT_FOUND_ERROR
-//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                          
                          UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
                          UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
@@ -866,7 +850,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 //                               message:@"Please enable notifications in general settings to auto receive updates"
 //                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+                }
+            }];
+            [alert addAction:cancel];
             [alert addAction:ok];
             [self presentViewController:alert animated:YES completion:nil];
             receiveUpdateSwitch.on = NO;
@@ -957,32 +949,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
              NSLog(@"registerTrackingNunmbers success");
              [self refreshTableView];
              
-             if([AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin != nil) {
-                 NSLog(@"Pre tap detected!");
-                 [self move2TheCellAndEdit:[AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin];
-                 [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
-                 
-             }
+//             if([AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin != nil) {
+//                 NSLog(@"Pre tap detected!");
+//                 [self move2TheCellAndEdit:[AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin];
+//                 [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+//                 
+//             }
          } onFailure:^(NSError *error)
          {
              //NSLog([error localizedDescription]);
          }];
         
     } else {
-        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
-         {
-             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
-             [btnMain2 setHidden:YES];
-             if([AppDelegate sharedAppDelegate].isJustForRefresh == 1) {
-                 return ;
-             }
-             
-             [AppDelegate sharedAppDelegate].isJustForRefresh = 2;
-             [self justDoItDontCare];
-         } onFailure:^(NSError *error)
-         {
-             //NSLog([error localizedDescription]);
-         }];
+//        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
+//         {
+//             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
+//             [btnMain2 setHidden:YES];
+//             if([AppDelegate sharedAppDelegate].isJustForRefresh == 1) {
+//                 return ;
+//             }
+//             
+//             [AppDelegate sharedAppDelegate].isJustForRefresh = 2;
+//             [self justDoItDontCare];
+//         } onFailure:^(NSError *error)
+//         {
+//             //NSLog([error localizedDescription]);
+//         }];
         
     }
 }

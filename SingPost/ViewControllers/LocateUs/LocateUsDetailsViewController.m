@@ -372,7 +372,15 @@ typedef enum  {
         NSMutableDictionary *launchOption = [NSMutableDictionary new];
         [launchOption setObject:MKLaunchOptionsDirectionsModeWalking forKey:MKLaunchOptionsDirectionsModeKey];
         
-        [mapitem openInMapsWithLaunchOptions:launchOption];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Open in map?" message:@"Get direction to this location?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [mapitem openInMapsWithLaunchOptions:launchOption];
+        }];
+        [alert addAction:cancel];
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
+        
     }
 }
 

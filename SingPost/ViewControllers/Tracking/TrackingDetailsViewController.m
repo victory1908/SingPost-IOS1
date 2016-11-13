@@ -24,6 +24,8 @@
 #import "PersistentBackgroundView.h"
 #import "UIImage+animatedGIF.h"
 #import "UILabel+VerticalAlign.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+
 
 #define NEW_LAYOUT_OFFSET_Y 45
 
@@ -31,13 +33,13 @@
 - (CGRect)clearButtonRectForBounds:(CGRect)bounds;
 @end
 
-//@implementation UITextField (LiLeAwesome)
-//
-//- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
-//    return CGRectMake(self.frame.size.width-30, 0, 35, 35);
-// 
-//}
-//@end
+@implementation UITextField (LiLeAwesome)
+
+- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
+    return CGRectMake(self.frame.size.width-30, 0, 35, 35);
+    
+}
+@end
 
 @interface TrackingDetailsViewController()
 <
@@ -256,10 +258,10 @@ UITextFieldDelegate
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Track Item Details"];
     
-    if([AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin != nil) {
-        [self onEditClicked];
-        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
-    }
+//    if([AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin != nil) {
+//        [self onEditClicked];
+//        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+//    }
 }
 
 #pragma mark - IBActions
@@ -284,16 +286,6 @@ UITextFieldDelegate
     } else {
         if(self.selectedParcel != nil && self.selectedParcel.trackingNumber != nil) {
             
-            /*UIAlertView * labelEnterview = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Enter a label for your item %@",_trackedItem.trackingNumber] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
-             labelEnterview.alertViewStyle = UIAlertViewStylePlainTextInput;
-             labelEnterview.tag = 101;
-             UITextField *textField = [labelEnterview textFieldAtIndex:0];
-             textField.placeholder = @"Not more than 30 characters";
-             textField.text = title;
-             textField.delegate = self;
-             textField.clearButtonMode = UITextFieldViewModeAlways;
-             [labelEnterview show];*/
-            
             CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
             UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 150)];
             
@@ -317,7 +309,7 @@ UITextFieldDelegate
             customTextfield.clearButtonMode = UITextFieldViewModeAlways;
             [contentView addSubview:customTextfield];
             
-//            alertView.delegate = self;
+            alertView.delegate = self;
             alertView.tag = 111;
             
             [alertView setContainerView:contentView];
@@ -333,9 +325,6 @@ UITextFieldDelegate
 }
 
 - (void)signIn {
-    /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Label Your Items" message:@"Don’t know which tracking number belongs to which package?\nNow you can label tracking numbers to easily identify your items.\nCreate an account with us to enjoy this feature. Sign Up with Facebook to get started!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Sign Up/Login", nil];
-     
-     [alert show];*/
     
     CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, 280, 250)];
@@ -359,14 +348,14 @@ UITextFieldDelegate
     [separator setPersistentBackgroundColor:RGB(196, 197, 200)];
     [contentView addSubview:separator];
     
-//    alertView.delegate = self;
+    alertView.delegate = self;
     
     [alertView setContainerView:contentView];
     [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel",@"Sign Up/Login", nil]];
     [alertView show];
 }
 
-- (void)customIOSdialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
     if(alertView.tag == 111) {
         if (buttonIndex == 0) {
             
@@ -415,7 +404,7 @@ UITextFieldDelegate
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
             [FBSession setActiveSession:session];
             
-            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingSafari fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                 AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 appDelegate.isLoginFromDetailPage = YES;
                 appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
@@ -423,7 +412,6 @@ UITextFieldDelegate
             }];
             
         }
-        
         
     }
     [alertView close];
@@ -472,7 +460,7 @@ UITextFieldDelegate
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
                 [FBSession setActiveSession:session];
                 
-                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingSafari fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                     AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                     appDelegate.isLoginFromDetailPage = YES;
                     appDelegate.detailPageTrackNum = self.selectedParcel.trackingNumber;
@@ -656,8 +644,11 @@ UITextFieldDelegate
          if(gifImage != nil)
              [adBanner setImage:gifImage];
          else {
+             [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 //             [adBanner setImageWithURL:[NSURL URLWithString:[dic objectForKey:@"assetUrl"]]];
+             
          }
+         
          
          UIButton * btn = [[UIButton alloc] initWithFrame:adBanner.frame];
          [btn addTarget:self action:@selector(onClickAd:) forControlEvents:UIControlEventTouchUpInside];

@@ -296,8 +296,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     if ([filteredSearchResults count] <= 0 && textField.text.length > 0) {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"No results found" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//        [alert show];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"No results found" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:ok];
@@ -339,6 +337,45 @@
     //[self discardLocationManager];
     _cachedUserLocation = newLocation;
     [locationsTableView reloadData];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined: {
+            NSLog(@"User still thinking granting location access!");
+            [locationManager startUpdatingLocation]; // this will access location automatically if user granted access manually. and will not show apple's request alert twice. (Tested)
+        } break;
+        case kCLAuthorizationStatusDenied: {
+            NSLog(@"User denied location access request!!");
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Please enable location in settings to locate nearby office" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+                }
+            }];
+            [alert addAction:cancel];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            // show text on label
+//            label.text = @"To re-enable, please go to Settings and turn on Location Service for this app.";
+            
+            [locationManager stopUpdatingLocation];
+//            [loadingView stopLoading];
+        } break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+        case kCLAuthorizationStatusAuthorizedAlways: {
+            // clear text
+//            label.text = @"";
+            [locationManager startUpdatingLocation]; //Will update location immediately
+        } break;
+        default:
+            break;
+    }
 }
 
 - (void)discardLocationManager

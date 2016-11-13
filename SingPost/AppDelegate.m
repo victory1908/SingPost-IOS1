@@ -521,6 +521,9 @@
                                                                            options: NSJSONReadingMutableContainers
                                                                              error: &e];
              NSDictionary * tempDic = [[trackingJson objectForKey:@"ItemsTrackingDetailList"] objectForKey:@"ItemTrackingDetail"];
+             
+             NSLog(@"%@", tempDic.description);
+             
              if(tempDic == nil)
                  
                  tempDic = [trackingJson objectForKey:@"ItemTrackingDetail"];

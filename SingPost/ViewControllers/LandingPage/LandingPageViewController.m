@@ -242,8 +242,8 @@ OffersMenuDelegate
     if (INTERFACE_IS_IPAD) {
         trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(50, 240, 668 - 57 + whySoManyDifferentBuilds, 50)];
         trackingNumberTextField.fontSize = 15.0f;
-        trackingNumberTextField.placeholderFontSize = 16.0f;
-        trackingNumberTextField.insetBoundsSize = CGSizeMake(50, 7);
+        trackingNumberTextField.placeholderFontSize = 13.0f;
+        trackingNumberTextField.insetBoundsSize = CGSizeMake(50, 5);
     }
     else {
         trackingNumberTextField = [[CTextField alloc] initWithFrame:INTERFACE_IS_4INCHSCREEN ? CGRectMake(20, 80, contentView.width - 40 - 53 +whySoManyDifferentBuilds , 47) : CGRectMake(20, 70, contentView.width - 40 - 53 + whySoManyDifferentBuilds, 30)];

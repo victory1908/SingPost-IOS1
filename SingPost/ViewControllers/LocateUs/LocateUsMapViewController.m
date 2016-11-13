@@ -175,15 +175,10 @@
         [self centerMapToFitAllLocations];
     }
     else {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"No results found" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//        [alert show];
-        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No results found" message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:ok];
         [self presentViewController:alert animated:YES completion:nil];
-
-        
     }
     
     if ([locationType isEqualToString:LOCATION_TYPE_POST_OFFICE])
@@ -234,6 +229,8 @@
     mapRegion.span = MKCoordinateSpanMake(zoomLevel, zoomLevel);
     [locateUsMapView setRegion:mapRegion animated:YES];
 }
+
+
 
 - (void)centerMapToFitAllLocations
 {

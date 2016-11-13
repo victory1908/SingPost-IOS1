@@ -85,7 +85,7 @@ SINGLETON_MACRO
              NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
              NSMutableDictionary *newHeaders = [[resp allHeaderFields] mutableCopy];
              if (newHeaders[@"Cache-Control"] == nil) {
-                 newHeaders[@"Cache-Control"] = @"max-age=120, public";
+                 newHeaders[@"Cache-Control"] = @"max-age=180, public";
              }
              
              //             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];

@@ -12,7 +12,7 @@
 
 #define STATUS_LABEL_SIZE CGSizeMake(120, 500)
 
-@interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate>
+@interface TrackingItemMainTableViewCell : UITableViewCell <UITextFieldDelegate, CustomIOSAlertViewDelegate>
 
 @property (strong, nonatomic) Parcel *parcel;
 @property (nonatomic, assign) BOOL hideSeparatorView;

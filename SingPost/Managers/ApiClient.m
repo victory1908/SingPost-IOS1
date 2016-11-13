@@ -89,7 +89,7 @@ static NSString * const GET_METHOD = @"GET";
              NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
              NSMutableDictionary *newHeaders = [[resp allHeaderFields] mutableCopy];
              if (newHeaders[@"Cache-Control"] == nil) {
-                 newHeaders[@"Cache-Control"] = @"max-age=120, public";
+                 newHeaders[@"Cache-Control"] = @"max-age=180, public";
              }
              
              //             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
@@ -561,9 +561,9 @@ static NSString * const GET_METHOD = @"GET";
 }
 
 
-#pragma mark - Tracking number
-- (void)getTrackingNumberDetails:(NSString *)trackingNumber
-                       completed:(void (^)(Parcel *parcel, NSError *error))completed {
+//#pragma mark - Tracking number
+//- (void)getTrackingNumberDetails:(NSString *)trackingNumber
+//                       completed:(void (^)(Parcel *parcel, NSError *error))completed {
 //    NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
 //                     "<ItemTrackingNumbers>"
 //                     "<TrackingNumber>%@</TrackingNumber>"
@@ -606,15 +606,15 @@ static NSString * const GET_METHOD = @"GET";
 //        [[ApiClient sharedInstance]reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
 //        completed(nil,error);
 //    }];
-}
+//}
 
 
 
 
 #pragma mark - Tracking
 
-- (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
-{
+//- (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure
+//{
 //    NSString *xml = [NSString stringWithFormat: @"<ItemTrackingDetailsRequest xmlns=\"http://singpost.com/paw/ns\">"
 //                     "<ItemTrackingNumbers>"
 //                     "<TrackingNumber>%@</TrackingNumber>"
@@ -637,7 +637,7 @@ static NSString * const GET_METHOD = @"GET";
 //        [self reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];
 //    }];
     
-}
+//}
 
 
 

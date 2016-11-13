@@ -66,10 +66,10 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
                            failure:(ApiClientFailure)failure;
 
 //tracking
-- (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
+//- (void)getItemTrackingDetailsForTrackingNumber:(NSString *)trackingNumber onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;
 //- (void)batchUpdateTrackedItems:(NSArray *)trackedItems onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure withProgressCompletion:(ApiClientProgressCompletion)progressCompletion;
-- (void)getTrackingNumberDetails:(NSString *)trackingNumber
-                       completed:(void (^)(Parcel *parcel, NSError *error))completed;
+//- (void)getTrackingNumberDetails:(NSString *)trackingNumber
+//                       completed:(void (^)(Parcel *parcel, NSError *error))completed;
 
 ////notifications
 //- (void)registerAPNSToken:(NSString *)apnsToken onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure;

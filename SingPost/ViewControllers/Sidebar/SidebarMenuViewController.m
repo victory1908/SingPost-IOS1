@@ -770,7 +770,7 @@
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
             [FBSession setActiveSession:session];
 
-            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingSafari fromViewController:self completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
                 // Retrieve the app delegate
                 AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 
@@ -778,16 +778,6 @@
                 // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
                 [appDelegate sessionStateChanged:session state:status error:error];
             }];
-
-//            [[FBSession activeSession] openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-//                
-//                // Retrieve the app delegate
-//                AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-//                
-//                appDelegate.isLoginFromSideBar = YES;
-//                // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
-//                [appDelegate sessionStateChanged:session state:state error:error];
-//            }];
             
         }
         
