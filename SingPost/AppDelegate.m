@@ -27,6 +27,9 @@
 #import "Parcel.h"
 #import "TrackedItem.h"
 //#import "UIView+Toast.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
@@ -41,6 +44,10 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [Fabric with:@[[Crashlytics class]]];
+
+    
     application.applicationIconBadgeNumber = 0;
 //    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
 //    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];

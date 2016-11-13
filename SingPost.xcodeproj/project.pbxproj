@@ -1547,6 +1547,7 @@
 				87BDF6A91B13032400EFADDD /* Embed App Extensions */,
 				EF461E6BFE9B39338CB3E4CF /* [CP] Embed Pods Frameworks */,
 				0EA051D68EE73023A488AF54 /* [CP] Copy Pods Resources */,
+				A0DF05021DD85EE300BD3FFD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1768,6 +1769,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SingPost/Pods-SingPost-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A0DF05021DD85EE300BD3FFD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 3208dc242f01e150e8ca060fbee0e5a8696532e7 831ca6967ba606bde3155a077c38f77a9dbeabcf59456ae3351355cdbedaf56b";
 		};
 		A85EE58FE6ABE1483AC0E519 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

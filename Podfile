@@ -34,6 +34,9 @@ def ios_pods
 #    pod 'RMUniversalAlert'
     pod 'CustomIOSAlertView'
 #    pod 'Toast'
+    pod 'Fabric'
+    pod 'Crashlytics'
+
 end
 
 def watch_pods

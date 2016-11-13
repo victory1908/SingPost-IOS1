@@ -33,6 +33,20 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.8.7</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>3208dc242f01e150e8ca060fbee0e5a8696532e7</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>1540614276180366</string>
 	<key>FacebookDisplayName</key>
@@ -47,17 +61,6 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>prdesb1.singpost.com</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSTemporaryExceptionMinimumTLSVersion</key>
-				<string>TLSv1.1</string>
-				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
-				<false/>
-			</dict>
 			<key>mobile.singpost.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -69,17 +72,28 @@
 				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
-            <key>mysam.sg</key>
-            <dict>
-                <key>NSIncludesSubdomains</key>
-                <true/>
-                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-                <key>NSTemporaryExceptionMinimumTLSVersion</key>
-                <string>TLSv1.1</string>
-                <key>NSTemporaryExceptionRequiresForwardSecrecy</key>
-                <false/>
-            </dict>
+			<key>mysam.sg</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
+			<key>prdesb1.singpost.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSTemporaryExceptionMinimumTLSVersion</key>
+				<string>TLSv1.1</string>
+				<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
