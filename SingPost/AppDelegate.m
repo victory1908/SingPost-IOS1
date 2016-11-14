@@ -27,8 +27,9 @@
 #import "Parcel.h"
 #import "TrackedItem.h"
 //#import "UIView+Toast.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
+//#import <Fabric/Fabric.h>
+//#import <Crashlytics/Crashlytics.h>
+@import Firebase;
 
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -45,7 +46,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [Fabric with:@[[Crashlytics class]]];
+    [FIRApp configure];
+    
+//    [Fabric with:@[[Crashlytics class]]];
+    
 
     
     application.applicationIconBadgeNumber = 0;

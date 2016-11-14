@@ -189,6 +189,9 @@
 		A0968AE11D9A763A0055932D /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */; };
 		A0DE40151D544D83002D5A49 /* test1.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DE40141D544D83002D5A49 /* test1.m */; };
+		A0DF05091DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
+		A0DF050A1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
+		A0DF050B1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
 		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
 		A0E9B1171D58CF96006BF620 /* Content+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9B1161D58CF96006BF620 /* Content+CoreDataProperties.m */; };
 		A0E9B11A1D58CFA7006BF620 /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9B1191D58CFA7006BF620 /* Content.m */; };
@@ -559,6 +562,7 @@
 		A0DE40131D544D83002D5A49 /* test1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test1.h; sourceTree = "<group>"; };
 		A0DE40141D544D83002D5A49 /* test1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test1.m; sourceTree = "<group>"; };
 		A0DE40161D54858B002D5A49 /* SingPost 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 4.xcdatamodel"; sourceTree = "<group>"; };
+		A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../Resources/Fonts/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A0E0952D1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MagicalRecord+serialSaveWithBlock.h"; sourceTree = "<group>"; };
 		A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MagicalRecord+serialSaveWithBlock.m"; sourceTree = "<group>"; };
 		A0E9B1151D58CF96006BF620 /* Content+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Content+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -818,6 +822,7 @@
 				521B173217F1633000FEB6FD /* Images.xcassets */,
 				52024F1517F67B7800AFD239 /* Constants.h */,
 				87688A111B12FA520006FD56 /* SingPost-Info.plist */,
+				A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */,
 				521B172917F1633000FEB6FD /* InfoPlist.strings */,
 				521B172C17F1633000FEB6FD /* main.m */,
 				521B172E17F1633000FEB6FD /* SingPost-Prefix.pch */,
@@ -1701,6 +1706,7 @@
 				24AD393D1A399D180088F6A6 /* SidebarMenus.plist in Resources */,
 				24AD393E1A399D180088F6A6 /* Posting Box.json in Resources */,
 				A0EC1BF21D53A43500AE7CE7 /* zbar-helpicons.png in Resources */,
+				A0DF05091DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */,
 				24AD393F1A399D180088F6A6 /* OpenSans-Semibold.ttf in Resources */,
 				24AD39411A399D180088F6A6 /* Post Office.json in Resources */,
 				24AD39421A399D180088F6A6 /* OpenSans-Regular.ttf in Resources */,
@@ -1725,6 +1731,7 @@
 			files = (
 				87BDF6911B13032400EFADDD /* Images.xcassets in Resources */,
 				87BDF6951B13032400EFADDD /* SingPost WatchKit App.app in Resources */,
+				A0DF050A1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1734,6 +1741,7 @@
 			files = (
 				87BDF69D1B13032400EFADDD /* Interface.storyboard in Resources */,
 				87BDF69F1B13032400EFADDD /* Images.xcassets in Resources */,
+				A0DF050B1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1781,7 +1789,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 3208dc242f01e150e8ca060fbee0e5a8696532e7 831ca6967ba606bde3155a077c38f77a9dbeabcf59456ae3351355cdbedaf56b";
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:404772559896:ios:fec0acba02a3b6bc\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"/Volumes/Data/OneDrive/Singpost/App/Version8c/GooglePlist/FireBaseCrashReport/singpostmobile-24f20-firebase-crashreporting-lhtup-a889a7d359.json\"";
 		};
 		A85EE58FE6ABE1483AC0E519 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2058,7 +2066,7 @@
 				CODE_SIGN_ENTITLEMENTS = SingPost/SingPost.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2094,7 +2102,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2220,7 +2228,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2250,7 +2258,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -2276,8 +2284,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2309,8 +2318,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBSC_MODULE = SingPost_WatchKit_Extension;

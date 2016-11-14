@@ -34,8 +34,11 @@ def ios_pods
 #    pod 'RMUniversalAlert'
     pod 'CustomIOSAlertView'
 #    pod 'Toast'
-    pod 'Fabric'
-    pod 'Crashlytics'
+#    pod 'Fabric'
+#    pod 'Crashlytics'
+    pod 'Firebase/Core'
+    pod 'Firebase/Crash'
+    pod 'Firebase/AdMob'
 
 end
 
