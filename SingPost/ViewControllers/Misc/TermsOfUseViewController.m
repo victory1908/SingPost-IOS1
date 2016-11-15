@@ -58,12 +58,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    
-//    Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"Terms of Use"];
-//    if (content != nil) {
-//        [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
-//    }
+        
+    Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"Terms of Use"];
+    if (content != nil) {
+        [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+    }
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
 //        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
@@ -78,14 +77,11 @@
             }else{
                 [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
             }
-        }];        agreeButton.enabled = YES;
+        }];
+        agreeButton.enabled = YES;
     }
     else {
-//        [UIAlertView showWithTitle:nil
-//                           message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access."
-//                 cancelButtonTitle:@"OK"
-//                 otherButtonTitles:nil
-//                          tapBlock:nil];
+
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -101,6 +97,42 @@
 {
     [super viewDidAppear:animated];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Terms"];
+    
+//    Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"Terms of Use"];
+//    if (content != nil) {
+//        [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+//    }
+//    
+//    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+//        //        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+//        //        [SVProgressHUD setForegroundColor:[UIColor blueColor]];
+//        
+//        [SVProgressHUD showWithStatus:@"Please wait..."];
+//        [Content API_SingPostContentOnCompletion:^(BOOL success) {
+//            if (success){
+//                [SVProgressHUD dismiss];
+//                Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"Terms of Use"];
+//                [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+//            }else{
+//                [SVProgressHUD showErrorWithStatus:@"Error Synchronise with server"];
+//            }
+//        }];
+//        agreeButton.enabled = YES;
+//    }
+//    else {
+//        
+//        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access." preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        [alert addAction:ok];
+//        //        [self presentViewController:alert animated:YES completion:nil];
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+//        
+//        agreeButton.enabled = NO;
+//    }
+
+
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated

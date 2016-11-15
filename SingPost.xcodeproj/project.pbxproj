@@ -182,8 +182,6 @@
 		926FD62D242E77873BE205FD /* libPods-SingPost WatchKit App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604E082E2CB6E086A6BF93A8 /* libPods-SingPost WatchKit App.a */; };
 		A06DEBCD1D5844CF00FA0506 /* ArticleCategory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A06DEBCC1D5844CF00FA0506 /* ArticleCategory+CoreDataProperties.m */; };
 		A06DEBD01D58457700FA0506 /* ArticleCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A06DEBCF1D58457700FA0506 /* ArticleCategory.m */; };
-		A0968ACE1D9A5E850055932D /* libPods-SingPost WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0968ACD1D9A5E850055932D /* libPods-SingPost WatchKit Extension.a */; };
-		A0968AD21D9A5F2C0055932D /* libPods-SingPost WatchKit App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0968AD11D9A5F2C0055932D /* libPods-SingPost WatchKit App.a */; };
 		A0968AD81D9A72390055932D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0968AD71D9A72390055932D /* StoreKit.framework */; };
 		A0968AE01D9A75FD0055932D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		A0968AE11D9A763A0055932D /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -192,10 +190,12 @@
 		A0DF05091DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
 		A0DF050A1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
 		A0DF050B1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
+		A0DF052E1DD9A32000BD3FFD /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EC1BE91D53A43500AE7CE7 /* libzbar.a */; };
+		A0DF05341DDA2BE200BD3FFD /* UIAlertController+Showable.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF05331DDA2BE200BD3FFD /* UIAlertController+Showable.m */; };
+		A0DF05371DDA3BA200BD3FFD /* WPSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF05361DDA3BA200BD3FFD /* WPSAlertController.m */; };
 		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
 		A0E9B1171D58CF96006BF620 /* Content+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9B1161D58CF96006BF620 /* Content+CoreDataProperties.m */; };
 		A0E9B11A1D58CFA7006BF620 /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E9B1191D58CFA7006BF620 /* Content.m */; };
-		A0EC1BEF1D53A43500AE7CE7 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EC1BE91D53A43500AE7CE7 /* libzbar.a */; };
 		A0EC1BF01D53A43500AE7CE7 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEB1D53A43500AE7CE7 /* zbar-back.png */; };
 		A0EC1BF11D53A43500AE7CE7 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BEC1D53A43500AE7CE7 /* zbar-help.html */; };
 		A0EC1BF21D53A43500AE7CE7 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = A0EC1BED1D53A43500AE7CE7 /* zbar-helpicons.png */; };
@@ -563,6 +563,10 @@
 		A0DE40141D544D83002D5A49 /* test1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test1.m; sourceTree = "<group>"; };
 		A0DE40161D54858B002D5A49 /* SingPost 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 4.xcdatamodel"; sourceTree = "<group>"; };
 		A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../Resources/Fonts/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A0DF05321DDA2BE200BD3FFD /* UIAlertController+Showable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Showable.h"; sourceTree = "<group>"; };
+		A0DF05331DDA2BE200BD3FFD /* UIAlertController+Showable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Showable.m"; sourceTree = "<group>"; };
+		A0DF05351DDA3BA200BD3FFD /* WPSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPSAlertController.h; sourceTree = "<group>"; };
+		A0DF05361DDA3BA200BD3FFD /* WPSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WPSAlertController.m; sourceTree = "<group>"; };
 		A0E0952D1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MagicalRecord+serialSaveWithBlock.h"; sourceTree = "<group>"; };
 		A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MagicalRecord+serialSaveWithBlock.m"; sourceTree = "<group>"; };
 		A0E9B1151D58CF96006BF620 /* Content+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Content+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -611,7 +615,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0968AD21D9A5F2C0055932D /* libPods-SingPost WatchKit App.a in Frameworks */,
 				926FD62D242E77873BE205FD /* libPods-SingPost WatchKit App.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,9 +623,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DF052E1DD9A32000BD3FFD /* libzbar.a in Frameworks */,
 				A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */,
 				24AD391E1A399D180088F6A6 /* Foundation.framework in Frameworks */,
-				A0EC1BEF1D53A43500AE7CE7 /* libzbar.a in Frameworks */,
 				24AD391F1A399D180088F6A6 /* CoreGraphics.framework in Frameworks */,
 				24AD39201A399D180088F6A6 /* UIKit.framework in Frameworks */,
 				24AD39211A399D180088F6A6 /* AVFoundation.framework in Frameworks */,
@@ -642,7 +645,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0968ACE1D9A5E850055932D /* libPods-SingPost WatchKit Extension.a in Frameworks */,
 				A0968AE01D9A75FD0055932D /* MapKit.framework in Frameworks */,
 				1119E9CA2D1EE7F4A3072CB8 /* libPods-SingPost WatchKit Extension.a in Frameworks */,
 			);
@@ -995,6 +997,8 @@
 				244B801F1A01DCE000E66C33 /* UIView+Screenshot.m */,
 				A0E0952D1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.h */,
 				A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */,
+				A0DF05321DDA2BE200BD3FFD /* UIAlertController+Showable.h */,
+				A0DF05331DDA2BE200BD3FFD /* UIAlertController+Showable.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1220,6 +1224,8 @@
 		52936490180B209F00B83F6B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A0DF05351DDA3BA200BD3FFD /* WPSAlertController.h */,
+				A0DF05361DDA3BA200BD3FFD /* WPSAlertController.m */,
 				24B62FEC19AC62D700040E0A /* UIImage+animatedGIF.h */,
 				24B62FED19AC62D700040E0A /* UIImage+animatedGIF.m */,
 				52936491180B20B700B83F6B /* PersistentBackgroundLabel.h */,
@@ -1780,7 +1786,7 @@
 		};
 		A0DF05021DD85EE300BD3FFD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1789,7 +1795,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:404772559896:ios:fec0acba02a3b6bc\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"/Volumes/Data/OneDrive/Singpost/App/Version8c/GooglePlist/FireBaseCrashReport/singpostmobile-24f20-firebase-crashreporting-lhtup-a889a7d359.json\"";
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:404772559896:ios:fec0acba02a3b6bc\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"/Volumes/Data/OneDrive/Singpost/App/Version8c/GooglePlist/FireBaseCrashReport/ServiceAccount.json\"";
 		};
 		A85EE58FE6ABE1483AC0E519 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1878,6 +1884,7 @@
 				24AD38A71A399D180088F6A6 /* CalculatePostageResultsViewController.m in Sources */,
 				24AD38A81A399D180088F6A6 /* _DeliveryStatus.m in Sources */,
 				24AD38A91A399D180088F6A6 /* CalculatePostageResultsItemTableViewCell.m in Sources */,
+				A0DF05341DDA2BE200BD3FFD /* UIAlertController+Showable.m in Sources */,
 				24AD38AA1A399D180088F6A6 /* _TrackedItem.m in Sources */,
 				24AD38AB1A399D180088F6A6 /* EntityLocation.m in Sources */,
 				24AD38AC1A399D180088F6A6 /* CUIActionSheet.m in Sources */,
@@ -1943,6 +1950,7 @@
 				24AD38E21A399D180088F6A6 /* UIFont+SingPost.m in Sources */,
 				24AD38E31A399D180088F6A6 /* FindPostalCodeLandmarkViewController.m in Sources */,
 				24AD38E41A399D180088F6A6 /* ArticleViewController.m in Sources */,
+				A0DF05371DDA3BA200BD3FFD /* WPSAlertController.m in Sources */,
 				24AD38E51A399D180088F6A6 /* ProceedViewController.m in Sources */,
 				24AD38E61A399D180088F6A6 /* FAQViewController.m in Sources */,
 				A0DE40151D544D83002D5A49 /* test1.m in Sources */,

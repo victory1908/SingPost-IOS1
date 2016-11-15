@@ -241,5 +241,16 @@
     [[AppDelegate sharedAppDelegate].rootViewController cPopViewController];
 }
 
+- (void)dealloc
+{
+//#if DEBUG
+    // Xcode8/iOS10 MKMapView bug workaround
+    static NSMutableArray* unusedObjects;
+    if (!unusedObjects)
+        unusedObjects = [NSMutableArray new];
+    [unusedObjects addObject:mapView];
+//#endif
+}
+
 
 @end

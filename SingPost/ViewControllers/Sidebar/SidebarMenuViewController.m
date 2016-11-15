@@ -360,9 +360,10 @@
 
 - (void)OnGoToScan {
     BarScannerViewController * vc = [[BarScannerViewController alloc] init];
-    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-    vc.landingVC = landingPageViewController;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
+    [self presentViewController:vc animated:YES completion:nil];
+//    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
+//    vc.landingVC = landingPageViewController;
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

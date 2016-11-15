@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ZBarSDK.h"
 #import "LandingPageViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface BarScannerViewController : UIViewController < ZBarReaderDelegate >
+@interface BarScannerViewController : UIViewController
+//@interface BarScannerViewController : UIViewController < ZBarReaderDelegate >
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (retain,nonatomic) LandingPageViewController * landingVC;
+
 
 @end

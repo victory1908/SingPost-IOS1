@@ -45,7 +45,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    trackingNumberTappedBeforeSignin = nil;
     [FIRApp configure];
     
 //    [Fabric with:@[[Crashlytics class]]];
@@ -105,6 +105,7 @@
     [MagicalRecord setDefaultModelNamed:@"SingPost.momd"];
     NSURL *dbpath = [NSPersistentStore MR_defaultLocalStoreUrl];
 //    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:dbpath];
     
     [DatabaseManager setupRealm];

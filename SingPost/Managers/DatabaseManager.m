@@ -11,31 +11,32 @@
 #import <Realm/Realm.h>
 #import "PushNotification.h"
 
-#define APP_GROUP_ID @"group.sg.codigo.singpost"
+//#define APP_GROUP_ID @"group.sg.codigo.singpost"
+#define APP_GROUP_ID @"group.com.SingPost.SingPostMobile"
 
 @implementation DatabaseManager
 
 #pragma mark - Public methods
 + (void)setupRealm {
-//    NSURL *containerURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
-//    NSURL *realmURL = [containerURL URLByAppendingPathComponent:@"SingPost.realm"];
-//    
-//    RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-//    configuration.fileURL = realmURL;
-//    [RLMRealmConfiguration setDefaultConfiguration:configuration];
-//    
-//    NSLog(@"Default Realm location: %@", realmURL);
-    
-    
-    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *customRealmPath = [documentsDirectory stringByAppendingPathComponent:@"SingPost.realm"];
+    NSURL *containerURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
+    NSURL *realmURL = [containerURL URLByAppendingPathComponent:@"SingPost.realm"];
     
     RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-    configuration.fileURL = [NSURL URLWithString:customRealmPath];
+    configuration.fileURL = realmURL;
     [RLMRealmConfiguration setDefaultConfiguration:configuration];
     
+    NSLog(@"Default Realm location: %@", realmURL);
+    
+    
+//    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+//    NSString *customRealmPath = [documentsDirectory stringByAppendingPathComponent:@"SingPost.realm"];
+//    
+//    RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
+//    configuration.fileURL = [NSURL URLWithString:customRealmPath];
+//    [RLMRealmConfiguration setDefaultConfiguration:configuration];
+//    
 //    RLMRealm *realm = [RLMRealm realmWithPath:customRealmPath];
-    NSLog(@"Default Realm location: %@", customRealmPath);
+//    NSLog(@"Default Realm location: %@", customRealmPath);
     
     
 //    NSURL *realmURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];

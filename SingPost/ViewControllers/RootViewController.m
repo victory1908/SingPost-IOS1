@@ -378,9 +378,9 @@ void sourceFirstTransform2(CALayer *layer) {
     if (date != nil)
         return;
     
-    TermsOfUseViewController *vc = [[TermsOfUseViewController alloc]init];
-    vc.isFirstLaunch = YES;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
+//    TermsOfUseViewController *vc = [[TermsOfUseViewController alloc]init];
+//    vc.isFirstLaunch = YES;
+//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
 }
 
 #pragma mark - Sign in 

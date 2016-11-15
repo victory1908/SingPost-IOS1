@@ -877,20 +877,11 @@ OffersMenuDelegate
 
 - (void)OnGoToScan {
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
-    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-    barCodeVC.landingVC = landingPageViewController;
-//    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:barCodeVC animated:YES completion:nil];
-//    [self.view.window.rootViewController.navigationController pushViewController:barCodeVC animated:YES];
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
-
+//    barCodeVC.landingVC = self;
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:barCodeVC];
+//    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:barCodeVC];
+    [self presentViewController:barCodeVC animated:YES completion:nil];
     
-//    BarScannerViewController * barScannervc = [[BarScannerViewController alloc] init];
-//    barScannervc.landingVC = self;
-//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
-    
-//    BarScannerViewController * vc = [[BarScannerViewController alloc] init];
-//    vc.landingVC = self;
-//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:vc];
 }
 
 @end

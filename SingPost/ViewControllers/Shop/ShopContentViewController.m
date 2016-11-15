@@ -148,7 +148,10 @@ UIWebViewDelegate
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    CGFloat pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+//    CGFloat pageHeight = [[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue];
+    
+    CGFloat pageHeight = webView.scrollView.contentSize.height;
+    
     [webView setHeight:pageHeight];
     
     if (locateUsButton != nil)

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BarScannerViewController">
+            <connections>
+                <outlet property="contentView" destination="YGH-74-phX" id="58j-XP-6Lw"/>
+                <outlet property="redLine" destination="hy1-aZ-5UY" id="r7W-jl-dpO"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YGH-74-phX">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oql-0O-f75">
+                            <rect key="frame" x="0.0" y="586" width="414" height="100"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position red line across barcode." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hys-Q4-Rkg">
+                                    <rect key="frame" x="0.0" y="10" width="414" height="31.666666666666629"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Barcode must be upright." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MV-B1-fk2">
+                                    <rect key="frame" x="0.0" y="44.666666666666629" width="414" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="751" text="Hold still, avoid glares and shadows." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJl-c5-XIh">
+                                    <rect key="frame" x="0.0" y="69" width="414" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.12549019607843137" green="0.27843137254901962" blue="0.58431372549019611" alpha="0.70000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="hys-Q4-Rkg" firstAttribute="top" secondItem="Oql-0O-f75" secondAttribute="top" constant="10" id="77D-Qf-GWJ"/>
+                                <constraint firstItem="CJl-c5-XIh" firstAttribute="trailing" secondItem="4MV-B1-fk2" secondAttribute="trailing" id="FHN-Mk-j6V"/>
+                                <constraint firstAttribute="height" constant="100" id="Lsn-ee-h7F"/>
+                                <constraint firstItem="CJl-c5-XIh" firstAttribute="top" secondItem="4MV-B1-fk2" secondAttribute="bottom" constant="3.5" id="ScB-Ve-hPs"/>
+                                <constraint firstItem="CJl-c5-XIh" firstAttribute="leading" secondItem="hys-Q4-Rkg" secondAttribute="leading" id="VBu-bE-hqQ"/>
+                                <constraint firstItem="CJl-c5-XIh" firstAttribute="top" secondItem="4MV-B1-fk2" secondAttribute="bottom" constant="3.5" id="VKu-fr-hmr"/>
+                                <constraint firstItem="CJl-c5-XIh" firstAttribute="trailing" secondItem="hys-Q4-Rkg" secondAttribute="trailing" id="Yg0-8n-5Rf"/>
+                                <constraint firstItem="4MV-B1-fk2" firstAttribute="top" secondItem="hys-Q4-Rkg" secondAttribute="bottom" constant="3.5" id="ZoL-dN-4Hx"/>
+                                <constraint firstAttribute="trailing" secondItem="CJl-c5-XIh" secondAttribute="trailing" id="aw4-va-1Md"/>
+                                <constraint firstItem="CJl-c5-XIh" firstAttribute="leading" secondItem="4MV-B1-fk2" secondAttribute="leading" id="eKx-iA-w7T"/>
+                                <constraint firstItem="4MV-B1-fk2" firstAttribute="top" secondItem="hys-Q4-Rkg" secondAttribute="bottom" constant="3.5" id="i0h-7I-045"/>
+                                <constraint firstItem="CJl-c5-XIh" firstAttribute="leading" secondItem="Oql-0O-f75" secondAttribute="leading" id="mn7-4c-4GN"/>
+                                <constraint firstAttribute="bottom" secondItem="CJl-c5-XIh" secondAttribute="bottom" constant="10" id="oVf-jF-Ag7"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbF-Tw-FIu">
+                            <rect key="frame" x="63" y="-60" width="13" height="40"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scan Barcode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6q-5G-zJi">
+                                    <rect key="frame" x="0.0" y="0.0" width="106.5" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKh-ew-Urs">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" backgroundImage="closeBtn">
+                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onCloseClicked:" destination="-1" eventType="touchUpInside" id="TAb-Kv-aSJ"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKm-Se-V9x">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" backgroundImage="helpBtn">
+                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onHelpClicked:" destination="-1" eventType="touchUpInside" id="4gX-6b-K8D"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.12549019610000001" green="0.2784313725" blue="0.58431372550000005" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hy1-aZ-5UY">
+                            <rect key="frame" x="-29" y="100" width="77" height="86"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.90196078431372551" green="0.12549019607843137" blue="0.054901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Oql-0O-f75" secondAttribute="trailing" id="1gL-Mh-AZa"/>
+                        <constraint firstItem="Oql-0O-f75" firstAttribute="leading" secondItem="YGH-74-phX" secondAttribute="leading" id="3LH-5s-0T7"/>
+                        <constraint firstAttribute="bottom" secondItem="Oql-0O-f75" secondAttribute="bottom" constant="50" id="eqw-xS-tRj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="YGH-74-phX" secondAttribute="trailing" id="1lY-bb-OVi"/>
+                <constraint firstItem="YGH-74-phX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5Ou-cf-0K3"/>
+                <constraint firstAttribute="bottom" secondItem="YGH-74-phX" secondAttribute="bottom" id="IpY-w0-2xj"/>
+                <constraint firstItem="YGH-74-phX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rDP-OU-jf0"/>
+            </constraints>
+            <point key="canvasLocation" x="177" y="292"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="closeBtn" width="60" height="60"/>
+        <image name="helpBtn" width="60" height="60"/>
+    </resources>
+</document>
