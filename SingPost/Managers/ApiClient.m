@@ -103,11 +103,11 @@ static NSString * const GET_METHOD = @"GET";
          }];
         
         
-        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-        policy.allowInvalidCertificates = YES;
-        policy.validatesDomainName = NO;
-        
-        sharedInstance.securityPolicy = policy;
+//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//        policy.allowInvalidCertificates = YES;
+//        policy.validatesDomainName = NO;
+//        
+//        sharedInstance.securityPolicy = policy;
 
         
     });

@@ -281,6 +281,26 @@
     return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
 }
 
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    NSString *sourceApplication = options[UIApplicationOpenURLOptionsSourceApplicationKey];
+    
+    [FBSession.activeSession setStateChangeHandler:
+     ^(FBSession *session, FBSessionState state, NSError *error) {
+         
+         // Retrieve the app delegate
+         AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+         
+         appDelegate.isLoginFromSideBar = YES;
+         // Call the app delegate's sessionStateChanged:state:error method to handle session state changes
+         [appDelegate sessionStateChanged:session state:state error:error];
+     }];
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+
+
+
 - (void)LoginFacebook {
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     [SVProgressHUD showWithStatus:@"Please wait..."];
@@ -293,10 +313,6 @@
          int status = [[responseObject objectForKey:@"status"] intValue];
          
          if(status != 200) {
-//             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Log in failed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//             
-//             [alert show];
-//             [SVProgressHUD dismiss];
              
              UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:@"Log in failed" preferredStyle:UIAlertControllerStyleAlert];
              UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
@@ -349,15 +365,11 @@
          int status = [[responseObject objectForKey:@"status"] intValue];
          
          if (status != 200) {
-//             [UIAlertView showWithTitle:@"Alert" message:@"Log in failed"
-//                      cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-             
              UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Alert" message:@"Log in failed" preferredStyle:UIAlertControllerStyleAlert];
              UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
              [alert addAction:ok];
              [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-             
-             return;
+            return;
          }
          
          NSString * temp = [[responseObject objectForKey:@"data"] objectForKey:@"server_token"];
@@ -405,7 +417,6 @@
                 
                 [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
                 [SVProgressHUD showWithStatus:@"Please wait..."];
-//                [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
                 
                 [[ApiClient sharedInstance] isFirstTime:^(id responseObject){
                     int i = [[[responseObject objectForKey:@"data"] objectForKey:@"first_timer"] intValue];

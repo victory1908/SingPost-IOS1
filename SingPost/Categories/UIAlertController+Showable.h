@@ -19,4 +19,9 @@
                      animated:(BOOL)animated
                    completion:(void (^)(void))completion;
 
++ (void)openSettingsFromController:(UIViewController *)viewController
+                             title:(NSString *) titleString
+                           message:(NSString *) messageString;
+
+
 @end

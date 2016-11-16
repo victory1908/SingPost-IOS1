@@ -2,6 +2,7 @@
 #import "BarScannerViewController.h"
 #import "TrackingMainViewController.h"
 #import "ScanTutorialViewController.h"
+#import "UIAlertController+Showable.h"
 
 @interface BarScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
 {
@@ -275,21 +276,23 @@
                     [self startStopReading:nil];
                 } else { // Access denied ..do something
 
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }];
-//                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-                    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-
-                        if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-                        }
-                    }];
-                    [alert addAction:cancel];
-                    [alert addAction:ok];
-                    [self presentViewController:alert animated:YES completion:nil];
+                    [UIAlertController openSettingsFromController:self title:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature."];
+                    
+//                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
+//                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//                        [self dismissViewControllerAnimated:YES completion:nil];
+//                    }];
+//                    
+//                    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//
+//                        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+//                            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+//                        }
+//                    }];
+//                    [alert addAction:cancel];
+//                    [alert addAction:ok];
+//                    [self presentViewController:alert animated:YES completion:nil];
                 }
             }];
         }
@@ -297,23 +300,26 @@
 
         case AVAuthorizationStatusRestricted:
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }];
-
-//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-
-                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-                }
-            }];
-            [alert addAction:cancel];
-            [alert addAction:ok];
-            [self presentViewController:alert animated:YES completion:nil];
+            
+            [UIAlertController openSettingsFromController:self title:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature."];
+        
+            
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                [self dismissViewControllerAnimated:YES completion:nil];
+//            }];
+//
+//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//
+//                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+//                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+//                }
+//            }];
+//            [alert addAction:cancel];
+//            [alert addAction:ok];
+//            [self presentViewController:alert animated:YES completion:nil];
         }
             break;
 
@@ -323,24 +329,44 @@
 
         case AVAuthorizationStatusDenied:
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-
-                [self dismissViewControllerAnimated:YES completion:nil];
-
-            }];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-
-                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-                }
-            }];
-            [alert addAction:cancel];
-            [alert addAction:ok];
             
-            [self presentViewController:alert animated:YES completion:nil];
-    
+            [UIAlertController openSettingsFromController:self title:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature."];
+            
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                [self dismissViewControllerAnimated:YES completion:nil];
+//
+//            }];
+//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                
+//                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                
+//                if([[UIDevice currentDevice].systemVersion floatValue] >= 10.0){
+//                    
+//                    if ([UIApplication respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+//                        [[UIApplication sharedApplication] openURL:url options:@{}
+//                           completionHandler:^(BOOL success) {
+//                               NSLog(@"Open %@: %d",scheme,success);
+//                           }];
+//                    } else {
+////                        BOOL success = [[UIApplication sharedApplication] openURL:url];
+////                        NSLog(@"Open %@:",success);
+//                    }
+//                }
+//                else{
+//                    bool can = [[UIApplication sharedApplication] canOpenURL:url];
+//                    if(can){
+//                        [[UIApplication sharedApplication] openURL:url];
+//                    }
+//                }
+//                
+//            }];
+//            [alert addAction:cancel];
+//            [alert addAction:ok];
+//            
+//            [self presentViewController:alert animated:YES completion:nil];
+//    
         }
             break;
         default:

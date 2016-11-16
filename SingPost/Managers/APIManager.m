@@ -74,11 +74,11 @@ SINGLETON_MACRO
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
         
-        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-        policy.allowInvalidCertificates = YES;
-        policy.validatesDomainName = NO;
+//        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+//        policy.allowInvalidCertificates = YES;
+//        policy.validatesDomainName = NO;
         
-        self.manager.securityPolicy = policy;
+//        self.manager.securityPolicy = policy;
         
         [self.manager setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
          {

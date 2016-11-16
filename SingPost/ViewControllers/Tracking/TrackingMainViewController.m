@@ -37,6 +37,8 @@
 
 #import "Parcel.h"
 
+#import "UIAlertController+Showable.h"
+
 //#import "RMUniversalAlert.h"
 
 typedef enum {
@@ -850,18 +852,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 //            [UIAlertView showWithTitle:nil
 //                               message:@"Please enable notifications in general settings to auto receive updates"
 //                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-                
-                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-                }
-            }];
-            [alert addAction:cancel];
-            [alert addAction:ok];
-            [self presentViewController:alert animated:YES completion:nil];
+            
+            [UIAlertController openSettingsFromController:self title:@"Notification permission denied" message:@"Please enable notifications in general settings to auto receive updates"];
+            
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+//                
+//                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+//                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+//                }
+//            }];
+//            [alert addAction:cancel];
+//            [alert addAction:ok];
+//            [self presentViewController:alert animated:YES completion:nil];
+            
             receiveUpdateSwitch.on = NO;
         }
     }
