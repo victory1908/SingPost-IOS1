@@ -14,17 +14,17 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - Crashlytics (3.8.3):
+    - Fabric (~> 1.6.3)
   - CustomIOSAlertView (0.9.5)
   - DeviceUtil (2.0.1)
+  - Fabric (1.6.11)
   - Firebase/AdMob (3.9.0):
     - Firebase/Core
     - Google-Mobile-Ads-SDK (= 7.14.0)
   - Firebase/Core (3.9.0):
     - FirebaseAnalytics (= 3.5.1)
     - FirebaseCore (= 3.4.4)
-  - Firebase/Crash (3.9.0):
-    - Firebase/Core
-    - FirebaseCrash (= 1.1.3)
   - FirebaseAnalytics (3.5.1):
     - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
@@ -33,13 +33,6 @@ PODS:
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseCore (3.4.4):
     - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCrash (1.1.3):
-    - FirebaseAnalytics (~> 3.4)
-    - FirebaseInstanceID (~> 1.0)
-    - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleSymbolUtilities (~> 1.1)
-    - GoogleToolboxForMac/Logger (~> 2.1)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseInstanceID (1.0.8)
   - Google-Mobile-Ads-SDK (7.14.0)
@@ -53,8 +46,6 @@ PODS:
     - GoogleSymbolUtilities (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
   - GoogleToolboxForMac/Defines (2.1.0)
-  - GoogleToolboxForMac/Logger (2.1.0):
-    - GoogleToolboxForMac/Defines (= 2.1.0)
   - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - KGModal (1.2.0)
@@ -86,11 +77,12 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - Crashlytics
   - CustomIOSAlertView
   - DeviceUtil
+  - Fabric
   - Firebase/AdMob
   - Firebase/Core
-  - Firebase/Crash
   - Google/Analytics
   - KGModal
   - MagicalRecord
@@ -111,12 +103,13 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   CustomIOSAlertView: cc4fa8e36219be3fd5ebcd40789f5b4aaae0f38e
   DeviceUtil: ef09c9ae52239a35a24067c459f66c8c3c9478b9
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   Firebase: ff77ffb77b317c3720fef57a60e9335cebf962e6
   FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
   FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
-  FirebaseCrash: bafd94cd9c9373b6eb8c631705680e891f54bdb3
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
   Google-Mobile-Ads-SDK: dbb0211c52ca02f72331b831ce4ccd218cf08748
@@ -142,6 +135,6 @@ SPEC CHECKSUMS:
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
   ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
 
-PODFILE CHECKSUM: 8f5bbc7d56470bacc1988e1e8628c27e156e9e82
+PODFILE CHECKSUM: d79878a13da7539361ee33c7e9163e6dbdf1e480
 
 COCOAPODS: 1.1.1

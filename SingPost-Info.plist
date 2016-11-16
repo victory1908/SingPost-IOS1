@@ -155,5 +155,21 @@
         <string>fbauth2</string>
         <string>fb-messenger-api20140430</string>
 	</array>
+    
+    <key>Fabric</key>
+    <dict>
+        <key>APIKey</key>
+        <string>3208dc242f01e150e8ca060fbee0e5a8696532e7</string>
+        <key>Kits</key>
+        <array>
+            <dict>
+                <key>KitInfo</key>
+                <dict/>
+                <key>KitName</key>
+                <string>Crashlytics</string>
+            </dict>
+        </array>
+    </dict>
+    
 </dict>
 </plist>

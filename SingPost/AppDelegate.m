@@ -27,8 +27,8 @@
 #import "Parcel.h"
 #import "TrackedItem.h"
 //#import "UIView+Toast.h"
-//#import <Fabric/Fabric.h>
-//#import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 @import Firebase;
 
 
@@ -48,7 +48,7 @@
     trackingNumberTappedBeforeSignin = nil;
     [FIRApp configure];
     
-//    [Fabric with:@[[Crashlytics class]]];
+    [Fabric with:@[[Crashlytics class]]];
     
 
     
