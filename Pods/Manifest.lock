@@ -71,9 +71,6 @@ PODS:
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
   - UIAlertView+Blocks (0.9)
-  - ZXingObjC (3.1.0):
-    - ZXingObjC/All (= 3.1.0)
-  - ZXingObjC/All (3.1.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -99,7 +96,6 @@ DEPENDENCIES:
   - UALogger
   - UIActivityIndicator-for-SDWebImage
   - UIAlertView+Blocks
-  - ZXingObjC
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -133,8 +129,7 @@ SPEC CHECKSUMS:
   UALogger: ccc041e5982dbd274ab5805f914076fef9bf29cf
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
-  ZXingObjC: bf15b3814f7a105b6d99f47da2333c93a063650a
 
-PODFILE CHECKSUM: d79878a13da7539361ee33c7e9163e6dbdf1e480
+PODFILE CHECKSUM: a3624e6db0c512766aeed97c752ced4828453a08
 
 COCOAPODS: 1.1.1

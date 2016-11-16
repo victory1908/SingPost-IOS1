@@ -190,7 +190,6 @@
 		A0DF05091DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
 		A0DF050A1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
 		A0DF050B1DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
-		A0DF052E1DD9A32000BD3FFD /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EC1BE91D53A43500AE7CE7 /* libzbar.a */; };
 		A0DF05341DDA2BE200BD3FFD /* UIAlertController+Showable.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF05331DDA2BE200BD3FFD /* UIAlertController+Showable.m */; };
 		A0DF05371DDA3BA200BD3FFD /* WPSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DF05361DDA3BA200BD3FFD /* WPSAlertController.m */; };
 		A0E0952F1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E0952E1D5104FA00273C9A /* MagicalRecord+serialSaveWithBlock.m */; };
@@ -623,7 +622,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0DF052E1DD9A32000BD3FFD /* libzbar.a in Frameworks */,
 				A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */,
 				24AD391E1A399D180088F6A6 /* Foundation.framework in Frameworks */,
 				24AD391F1A399D180088F6A6 /* CoreGraphics.framework in Frameworks */,

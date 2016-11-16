@@ -16,8 +16,8 @@
 #import "ApiClient.h"
 #import "TTTAttributedLabel.h"
 #import "UIAlertView+Blocks.h"
-//#import <Fabric/Fabric.h>
-//#import <Crashlytics/Crashlytics.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface CalculatePostageMainViewController ()
 <
@@ -131,19 +131,21 @@ typedef enum  {
     
 //    assert(false);
     
-//    UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    button.frame = CGRectMake(20, 50, 100, 30);
-//    [button setTitle:@"Crash" forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(crashButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:button];
+    
+    
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(20, 50, 100, 30);
+    [button setTitle:@"Crash" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(crashButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
 //
 //
 //    [self goToSection:CALCULATEPOSTAGE_SECTION_OVERSEAS];
 }
 
-//- (IBAction)crashButtonTapped:(id)sender {
-////    [[Crashlytics sharedInstance] crash];
-//}
+- (IBAction)crashButtonTapped:(id)sender {
+    [[Crashlytics sharedInstance] crash];
+}
 
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {

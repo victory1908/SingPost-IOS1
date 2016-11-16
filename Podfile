@@ -28,7 +28,7 @@ def ios_pods
     pod 'UIAlertView+Blocks'
     pod 'UIActivityIndicator-for-SDWebImage'
     pod 'SevenSwitch'
-    pod 'ZXingObjC'
+#    pod 'ZXingObjC'
     pod 'DeviceUtil'
 #    pod 'MBProgressHUD'
 #    pod 'RMUniversalAlert'
