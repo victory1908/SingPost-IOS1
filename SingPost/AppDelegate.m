@@ -26,7 +26,6 @@
 #import "APIManager.h"
 #import "Parcel.h"
 #import "TrackedItem.h"
-//#import "UIView+Toast.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 @import Firebase;
@@ -53,6 +52,36 @@
 
     
     application.applicationIconBadgeNumber = 0;
+    
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_9_x_Max) {
+        UIUserNotificationType allNotificationTypes =
+        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        // iOS 10 or later
+#if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+        UNAuthorizationOptions authOptions =
+        UNAuthorizationOptionAlert
+        | UNAuthorizationOptionSound
+        | UNAuthorizationOptionBadge;
+        [[UNUserNotificationCenter currentNotificationCenter]
+         requestAuthorizationWithOptions:authOptions
+         completionHandler:^(BOOL granted, NSError * _Nullable error) {
+         }
+         ];
+        
+        // For iOS 10 display notification (sent via APNS)
+        [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
+        // For iOS 10 data message (sent via FCM)
+        
+        [[FIRMessaging messaging] setRemoteMessageDelegate:self];
+#endif
+    }
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
 //    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
 //    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
 //    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:139 green:149 blue:160 alpha:1]];
@@ -68,33 +97,33 @@
 //        
 //    }
     
-    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")){
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        center.delegate = self;
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
-            if( !error ){
-//                [[UIApplication sharedApplication] registerForRemoteNotifications];
-                [application registerForRemoteNotifications];
-            }
-        }];  
-    }
-    
-    
-    
-    //-- Set Notification
-    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
-    {
-        // iOS 8 Notifications
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        
-        [application registerForRemoteNotifications];
-    }
-    else
-    {
+//    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")){
+//        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+//        center.delegate = self;
+//        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
+//            if( !error ){
+////                [[UIApplication sharedApplication] registerForRemoteNotifications];
+//                [application registerForRemoteNotifications];
+//            }
+//        }];  
+//    }
+//    
+//    
+//    
+//    //-- Set Notification
+//    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+//    {
+//        // iOS 8 Notifications
+//        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+//        
+//        [application registerForRemoteNotifications];
+//    }
+//    else
+//    {
 //        // iOS < 8 Notifications
 //        [application registerForRemoteNotificationTypes:
 //         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
-    }
+//    }
     
     
     // RESET THE BADGE COUNT
@@ -708,16 +737,6 @@
         //it's a tracking item apns
         [self getAllLabel];
         if (shouldPrompt) {
-//            [UIAlertView showWithTitle:@"SingPost"
-//                               message:aps[@"alert"]
-//                     cancelButtonTitle:@"Cancel"
-//                     otherButtonTitles:@[@"View"]
-//                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-//                                  if (buttonIndex != [alertView cancelButtonIndex]) {
-//                                      [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
-//                                  }
-//                              }];
-            
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"SingPost" message:aps[@"alert"] preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
             UIAlertAction *view = [UIAlertAction actionWithTitle:@"View" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -726,7 +745,6 @@
             [alert addAction:cancel];
             [alert addAction:view];
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-            
         }
         else {
             [self goToTrackingDetailsPageForTrackingNumber:trackingNumber];
@@ -738,15 +756,7 @@
     NSString *alert = aps[@"alert"];
     if (alert.length > 0) {
         if (shouldPrompt) {
-//            [UIAlertView showWithTitle:@"SingPost"
-//                               message:aps[@"alert"]
-//                     cancelButtonTitle:@"Cancel"
-//                     otherButtonTitles:@[@"View"]
-//                              tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
-//                                  if (buttonIndex != [alertView cancelButtonIndex]) {
-//                                      [self goToAnnouncementView];
-//                                  }
-//                              }];
+            
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"SingPost" message:aps[@"alert"] preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
             UIAlertAction *view = [UIAlertAction actionWithTitle:@"View" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -812,11 +822,9 @@
 - (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName {
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] set:kGAIScreenName value:screenName];
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createScreenView] build]];
-//    [[[GAI sharedInstance] trackerWithTrackingId:GAI_ID] send:[[GAIDictionaryBuilder createAppView] build]];
     
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] set:kGAIScreenName value:screenName];
     [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createScreenView] build]];
-//    [[[GAI sharedInstance] trackerWithTrackingId:GAI_SINGPOST_ID] send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Core data

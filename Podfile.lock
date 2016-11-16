@@ -25,6 +25,9 @@ PODS:
   - Firebase/Core (3.9.0):
     - FirebaseAnalytics (= 3.5.1)
     - FirebaseCore (= 3.4.4)
+  - Firebase/Messaging (3.9.0):
+    - Firebase/Core
+    - FirebaseMessaging (= 1.2.1)
   - FirebaseAnalytics (3.5.1):
     - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
@@ -35,6 +38,12 @@ PODS:
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseInstanceID (1.0.8)
+  - FirebaseMessaging (1.2.1):
+    - FirebaseAnalytics (~> 3.4)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
+    - GoogleToolboxForMac/Logger (~> 2.1)
   - Google-Mobile-Ads-SDK (7.14.0)
   - Google/Analytics (3.0.3):
     - Google/Core
@@ -46,6 +55,8 @@ PODS:
     - GoogleSymbolUtilities (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
   - GoogleToolboxForMac/Defines (2.1.0)
+  - GoogleToolboxForMac/Logger (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
   - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - KGModal (1.2.0)
@@ -80,6 +91,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/AdMob
   - Firebase/Core
+  - Firebase/Messaging
   - Google/Analytics
   - KGModal
   - MagicalRecord
@@ -107,6 +119,7 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
   FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  FirebaseMessaging: acf66347e43c5637c697060c3001d25c809a4131
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
   Google-Mobile-Ads-SDK: dbb0211c52ca02f72331b831ce4ccd218cf08748
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
@@ -130,6 +143,6 @@ SPEC CHECKSUMS:
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-PODFILE CHECKSUM: a3624e6db0c512766aeed97c752ced4828453a08
+PODFILE CHECKSUM: 4798b24366c7ce05563002b66617ad93e616eff6
 
 COCOAPODS: 1.1.1

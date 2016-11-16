@@ -39,6 +39,7 @@ def ios_pods
     pod 'Firebase/Core'
 #    pod 'Firebase/Crash'
     pod 'Firebase/AdMob'
+    pod 'Firebase/Messaging'
 
 end
 
