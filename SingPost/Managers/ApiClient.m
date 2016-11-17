@@ -14,7 +14,7 @@
 #import "UIAlertView+Blocks.h"
 #import "NSDictionary+Additions.h"
 #import <sys/sysctl.h>
-#import "DeliveryStatus.h"
+#import "DeliveryStatus+CoreDataClass.h"
 #import "Parcel.h"
 #import "PushNotification.h"
 #import "UserDefaultsManager.h"

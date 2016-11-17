@@ -18,14 +18,16 @@
 #import "TrackingDetailsViewController.h"
 #import "AnnouncementViewController.h"
 #import "ProceedViewController.h"
-#import "DeliveryStatus.h"
+//#import "DeliveryStatus.h"
+#import "DeliveryStatus+CoreDataClass.h"
 #import "CustomIOSAlertView.h"
 #import "UIFont+SingPost.h"
 #import "EntityLocation.h"
 #import "DatabaseManager.h"
 #import "APIManager.h"
 #import "Parcel.h"
-#import "TrackedItem.h"
+//#import "TrackedItem.h
+#import "TrackedItem+CoreDataClass.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 @import Firebase;
@@ -892,27 +894,75 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
         [realm beginWriteTransaction];
         for (TrackedItem *item in array) {
             Parcel *parcel = [[Parcel alloc] init];
-            parcel.addedOn = item.addedOn;
-            parcel.destinationCountry = item.destinationCountry;
-            parcel.isActive = item.isActive;
-            parcel.isFound = item.isFoundValue;
-            parcel.isRead = item.isReadValue;
-            parcel.showInGlance = NO;
-            parcel.lastUpdatedOn = item.lastUpdatedOn;
-            parcel.originalCountry = item.originalCountry;
-            parcel.trackingNumber = item.trackingNumber;
-            
-            for (DeliveryStatus *status in item.deliveryStatuses.array) {
-                ParcelStatus *parcelStatus = [[ParcelStatus alloc] init];
-                parcelStatus.date = status.date;
-                parcelStatus.location = status.location;
-                parcelStatus.statusDescription = status.statusDescription;
-                [parcel.deliveryStatus addObject:parcelStatus];
-            }
+            parcel = [AppDelegate convertTrackItemtoParcel:item];
+//            parcel.addedOn = item.addedOn;
+//            parcel.destinationCountry = item.destinationCountry;
+//            parcel.isActive = item.isActive;
+////            parcel.isFound = item.isFoundValue;
+////            parcel.isRead = item.isReadValue;
+//            parcel.isFound = item.isFound.boolValue;
+//            parcel.isRead = item.isRead.boolValue;
+//            parcel.showInGlance = NO;
+//            parcel.lastUpdatedOn = item.lastUpdatedOn;
+//            parcel.originalCountry = item.originalCountry;
+//            parcel.trackingNumber = item.trackingNumber;
+//            
+//            for (DeliveryStatus *status in item.deliveryStatuses.array) {
+//                ParcelStatus *parcelStatus = [[ParcelStatus alloc] init];
+//                parcelStatus.date = status.date;
+//                parcelStatus.location = status.location;
+//                parcelStatus.statusDescription = status.statusDescription;
+//                [parcel.deliveryStatus addObject:parcelStatus];
+//            }
         }
         [realm commitWriteTransaction];
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"MigrateData"];
     }
 }
+
++(Parcel *)convertTrackItemtoParcel: (TrackedItem *) item {
+    Parcel *parcel = [[Parcel alloc] init];
+    parcel.addedOn = item.addedOn;
+    parcel.destinationCountry = item.destinationCountry;
+    parcel.isActive = item.isActive;
+    //            parcel.isFound = item.isFoundValue;
+    //            parcel.isRead = item.isReadValue;
+    parcel.isFound = item.isFound.boolValue;
+    parcel.isRead = item.isRead.boolValue;
+    parcel.showInGlance = NO;
+    parcel.lastUpdatedOn = item.lastUpdatedOn;
+    parcel.originalCountry = item.originalCountry;
+    parcel.trackingNumber = item.trackingNumber;
+    
+    for (DeliveryStatus *status in item.deliveryStatuses) {
+        ParcelStatus *parcelStatus = [[ParcelStatus alloc] init];
+        parcelStatus.date = status.date;
+        parcelStatus.location = status.location;
+        parcelStatus.statusDescription = status.statusDescription;
+        [parcel.deliveryStatus addObject:parcelStatus];
+    }
+    return parcel;
+}
+
++(TrackedItem *)convertParceltoTrackItem: (Parcel *) parcel {
+    TrackedItem *trackItem = [TrackedItem MR_createEntity];
+    trackItem.addedOn = parcel.addedOn;
+    trackItem.destinationCountry = parcel.destinationCountry;
+    trackItem.isActive = parcel.isActive;
+    trackItem.isFound = [NSNumber numberWithBool:parcel.isFound];
+    trackItem.isRead = [NSNumber numberWithBool:parcel.isRead];
+    trackItem.originalCountry = parcel.originalCountry;
+    trackItem.trackingNumber = parcel.trackingNumber;
+    
+    for (ParcelStatus *status in parcel.deliveryStatus){
+        DeliveryStatus *itemDeliveryStatus = [DeliveryStatus MR_createEntity];
+        itemDeliveryStatus.date = status.date;
+        itemDeliveryStatus.location = status.location;
+        itemDeliveryStatus.statusDescription = status.statusDescription;
+        [trackItem addDeliveryStatusesObject:itemDeliveryStatus];
+    }
+    return trackItem;
+}
+
 
 @end

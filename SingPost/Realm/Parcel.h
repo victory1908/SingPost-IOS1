@@ -8,6 +8,7 @@
 
 #import "ParcelStatus.h"
 #import <Realm/Realm.h>
+#import "TrackedItem+CoreDataClass.h"
 
 @interface Parcel : RLMObject
 @property NSDate *addedOn;

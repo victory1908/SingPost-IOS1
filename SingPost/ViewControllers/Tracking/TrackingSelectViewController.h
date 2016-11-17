@@ -17,7 +17,11 @@
 @property (nonatomic,retain)TrackingMainViewController * delegate;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
--(void) add2DeleteItem : (Parcel *)item;
--(void) removeFromDeleteItem : (Parcel *)item;
+//-(void) add2DeleteItem : (Parcel *)item;
+//-(void) removeFromDeleteItem : (Parcel *)item;
+
+-(void) add2DeleteItem : (TrackedItem *)item;
+-(void) removeFromDeleteItem : (TrackedItem *)item;
+
 
 @end

@@ -12,8 +12,10 @@
 #import "UIFont+SingPost.h"
 #import "UIImage+Extensions.h"
 #import "TrackingItemDetailTableViewCell.h"
-#import "TrackedItem.h"
-#import "DeliveryStatus.h"
+//#import "TrackedItem.h"
+#import "TrackedItem+CoreDataClass.h"
+//#import "DeliveryStatus.h"
+#import "DeliveryStatus+CoreDataClass.h"
 #import <KGModal.h>
 #import <QuartzCore/QuartzCore.h>
 #import <SVProgressHUD.h>

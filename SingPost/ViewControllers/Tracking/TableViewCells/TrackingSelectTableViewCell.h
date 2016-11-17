@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TrackedItem.h"
+//#import "TrackedItem.h"
+#import "TrackedItem+CoreDataClass.h"
 #import "TrackingSelectViewController.h"
 
 @interface TrackingSelectTableViewCell : UITableViewCell

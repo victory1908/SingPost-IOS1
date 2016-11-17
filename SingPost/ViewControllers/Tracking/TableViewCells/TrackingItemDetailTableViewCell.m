@@ -9,7 +9,8 @@
 
 #import "TrackingItemDetailTableViewCell.h"
 #import "UIFont+SingPost.h"
-#import "DeliveryStatus.h"
+//#import "DeliveryStatus.h"
+#import "DeliveryStatus+CoreDataClass.h"
 #import "UILabel+VerticalAlign.h"
 #import "UIView+Position.h"
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZBarSDK.h"
+//#import "ZBarSDK.h"
 #import "LandingPageViewController.h"
 #import <AVFoundation/AVFoundation.h>
 

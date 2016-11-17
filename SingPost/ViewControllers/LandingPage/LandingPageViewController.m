@@ -38,7 +38,8 @@
 #import "ScanTutorialViewController.h"
 #import "UserDefaultsManager.h"
 
-#import "TrackedItem.h"
+//#import "TrackedItem.h"
+#import "TrackedItem+CoreDataClass.h"
 #import <SVProgressHUD.h>
 
 typedef enum {
@@ -828,9 +829,6 @@ OffersMenuDelegate
     }
     
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
-//                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alert show];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:ok];
@@ -840,8 +838,6 @@ OffersMenuDelegate
     }
     
     if (!(trackingNumberTextField.text.length > 0)) {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//        [alertView show];
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];

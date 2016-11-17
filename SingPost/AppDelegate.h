@@ -11,6 +11,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "ProceedViewController.h"
 #import <UserNotifications/UserNotifications.h>
+#import "TrackedItem+CoreDataClass.h"
+#import "Parcel.h"
 
 #import "TrackingMainViewController.h"
 
@@ -53,5 +55,7 @@
 - (void)GotoTrackingMain;
 
 - (void)updateTrackItemInfo:(NSString *)num Info:(NSDictionary *)dic Date:(NSDate *)lastModifiedDate;
++(Parcel *)convertTrackItemtoParcel: (TrackedItem *) item;
++(TrackedItem *)convertParceltoTrackItem: (Parcel *) parcel;
 
 @end
