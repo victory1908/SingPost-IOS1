@@ -201,32 +201,6 @@ OffersMenuDelegate
                  [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = YES;
              }
              
-             /*arr = [[responseObject objectForKeyOrNil:@"root"] objectForKey:@"announcements"];
-              
-              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-              NSString * dateStr = [defaults stringForKey:@"ANNOUNCEMENT_LAST_DATE"];
-              if(dateStr == nil) {
-              [self setBadgeView:NO];
-              [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
-              NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-              [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
-              [defaults synchronize];
-              }
-              else {
-              NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-              [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-              
-              NSDate * localDate = [formatter dateFromString:dateStr];
-              NSDate * remoteDate = [formatter dateFromString:[[responseObject objectForKeyOrNil:@"root"] objectForKey:@"last_modified"]];
-              
-              if ([localDate compare:remoteDate] == NSOrderedDescending) {
-              [self setBadgeView:NO];
-              [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
-              } else {
-              [self setBadgeView:YES];
-              [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = YES;
-              }
-              }*/
          }
          
          

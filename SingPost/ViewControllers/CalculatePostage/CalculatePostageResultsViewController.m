@@ -69,17 +69,30 @@
     [resultsTableView setRowHeight:UITableViewAutomaticDimension];
 //    [resultsTableView setRowHeight:200];
     
+    
     [contentView addSubview:resultsTableView];
     
     CGFloat btnWidth = (contentView.width - 40)/2;
     
-    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame) + 10, btnWidth, 48)];
+    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc]init];
+    
+//    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame), btnWidth, 48)];
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        [locateUsButton setFrame:CGRectMake(15, contentView.bounds.size.height-50-48, btnWidth, 48)];
+        
+    }else {
+        [locateUsButton setFrame:CGRectMake(15, contentView.bounds.size.height-90-48, btnWidth, 48)];
+    }
+
+    [resultsTableView setContentInset:UIEdgeInsetsMake(0, 0, 48, 0)];
+
+    
     [locateUsButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [locateUsButton setTitle:@"LOCATE US" forState:UIControlStateNormal];
     [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     [contentView addSubview:locateUsButton];
-//    [locateUsButton addTarget:self action:@selector(locateUsButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     FlatBlueButton *calculateAgainButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(locateUsButton.right + 10, locateUsButton.top, btnWidth, 48)];
     [calculateAgainButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];

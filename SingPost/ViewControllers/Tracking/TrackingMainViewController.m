@@ -120,6 +120,9 @@ UITableViewDelegate
     [trackingItemsTableView setDataSource:self];
     [trackingItemsTableView setBackgroundColor:[UIColor whiteColor]];
     [trackingItemsTableView setBackgroundView:nil];
+    
+    [trackingItemsTableView setContentInset:UIEdgeInsetsMake(0, 0, adMobUnitHeight, 0)];
+    
     [contentView addSubview:trackingItemsTableView];
     
     self.view = contentView;

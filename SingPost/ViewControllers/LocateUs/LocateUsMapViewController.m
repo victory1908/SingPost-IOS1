@@ -62,11 +62,15 @@
     [contentScrollView addSubview:typesDropDownList];
     
     initialShouldCenterUserLocation = YES;
-    locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 180)];
+//    locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - 180)];
+    
+    locateUsMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 120, contentScrollView.bounds.size.width, contentScrollView.bounds.size.height - typesDropDownList.size.height-findByTextField.size.height-[UIApplication sharedApplication].statusBarFrame.size.height - 50 - adMobUnitHeight)];
+    
     [locateUsMapView setDelegate:self];
+    
     [locateUsMapView setShowsUserLocation:YES];
     [contentScrollView addSubview:locateUsMapView];
-
+    
     self.view = contentScrollView;
 }
 
@@ -74,6 +78,11 @@
 {
     [super viewDidLayoutSubviews];
     [contentScrollView setContentSize:contentScrollView.bounds.size];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
 }
 
 - (void)viewDidLoad

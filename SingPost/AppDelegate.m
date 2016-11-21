@@ -35,18 +35,18 @@
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-@implementation AppDelegate
+@implementation AppDelegate 
 @synthesize isLoginFromSideBar;
 @synthesize isLoginFromDetailPage;
 @synthesize detailPageTrackNum;
-@synthesize trackingNumberTappedBeforeSignin;
+//@synthesize trackingNumberTappedBeforeSignin;
 
 + (AppDelegate *)sharedAppDelegate {
     return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    trackingNumberTappedBeforeSignin = nil;
+//    trackingNumberTappedBeforeSignin = nil;
     [FIRApp configure];
     
     [Fabric with:@[[Crashlytics class]]];
@@ -133,11 +133,23 @@
     
 //    [MagicalRecord setupAutoMigratingCoreDataStack];
     
-    [MagicalRecord setDefaultModelNamed:@"SingPost.momd"];
-    NSURL *dbpath = [NSPersistentStore MR_defaultLocalStoreUrl];
-//    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
-    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:dbpath];
+//    [MagicalRecord setDefaultModelNamed:@"SingPost.momd"];
+//    NSURL *dbpath = [NSPersistentStore MR_defaultLocalStoreUrl];
+////    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelInfo];
+//    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
+//    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreAtURL:dbpath];
+    
+    NSString *shouldResetData = [[NSUserDefaults standardUserDefaults]stringForKey:@"shouldResetData"];
+    if (shouldResetData == nil) {
+        [self cleanAndResetupDB];
+        NSLog(@"Magical clean");
+        [[NSUserDefaults standardUserDefaults] setObject:@"shouldResetData" forKey:@"shouldResetData"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else {
+        NSLog(@"Magical setup");
+        [self setupDB];
+    }
+    
     
     [DatabaseManager setupRealm];
     [self migrateData];
@@ -179,7 +191,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
-    [self checkAppAndOSVersion];
+//    [self checkAppAndOSVersion];
     
     // Handle the user leaving the app while the Facebook login dialog is being shown
     // For example: when the user presses the iOS "home" button while the login dialog is active
@@ -729,6 +741,12 @@
 }
 
 #pragma mark - APNS
+
+/// The callback to handle data message received via FCM for devices running iOS 10 or above.
+//- (void)applicationReceivedRemoteMessage:(nonnull FIRMessagingRemoteMessage *)remoteMessage {
+//
+//}
+
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt {
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
     NSDictionary *data = [payloadInfo objectForKey:@"data"];
@@ -962,6 +980,38 @@ handleWatchKitExtensionRequest:(NSDictionary *)userInfo
         [trackItem addDeliveryStatusesObject:itemDeliveryStatus];
     }
     return trackItem;
+}
+
+- (void)setupDB
+{
+    [MagicalRecord setDefaultModelNamed:@"SingPost.momd"];
+    [MagicalRecord setupCoreDataStack];
+}
+
+- (void)cleanAndResetupDB
+{
+    [MagicalRecord cleanUp];
+    
+    NSString *dbStore = [MagicalRecord defaultStoreName];
+    
+    NSURL *storeURL = [NSPersistentStore MR_urlForStoreName:dbStore];
+    NSURL *walURL = [[storeURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"sqlite-wal"];
+    NSURL *shmURL = [[storeURL URLByDeletingPathExtension] URLByAppendingPathExtension:@"sqlite-shm"];
+    
+    NSError *error = nil;
+    BOOL result = YES;
+    
+    for (NSURL *url in @[storeURL, walURL, shmURL]) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
+            result = [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+        }
+    }
+    
+    if (result) {
+        [self setupDB];
+    } else {
+        NSLog(@"An error has occurred while deleting %@ error %@", dbStore, error);
+    }
 }
 
 

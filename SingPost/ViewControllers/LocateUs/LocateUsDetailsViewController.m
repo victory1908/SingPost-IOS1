@@ -194,6 +194,12 @@ typedef enum  {
     self.view = contentView;
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [UIView createBanner:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

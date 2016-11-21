@@ -47,13 +47,16 @@
     [navigationBarView setTitle:_pageTitle];
     [contentView addSubview:navigationBarView];
     
-    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarView.bottom, contentView.bounds.size.width, contentView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - 44)style:UITableViewStylePlain];
+    contentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, navigationBarView.bottom, contentView.bounds.size.width, contentView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height - adMobUnitHeight)style:UITableViewStylePlain];
     [contentsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [contentsTableView setSeparatorColor:[UIColor clearColor]];
     [contentsTableView setBackgroundView:nil];
     [contentsTableView setDelegate:self];
     [contentsTableView setDataSource:self];
     [contentsTableView setBackgroundColor:[UIColor whiteColor]];
+    
+    [contentsTableView setContentInset:UIEdgeInsetsMake(0, 0, adMobUnitHeight, 0)];
+    
     [contentView addSubview:contentsTableView];
     
     self.view = contentView;

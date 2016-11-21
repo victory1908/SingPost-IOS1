@@ -248,7 +248,7 @@
     if (FBSession.activeSession.state != FBSessionStateOpen
         && FBSession.activeSession.state != FBSessionStateOpenTokenExtended) {
         [self signIn];
-        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _parcel.trackingNumber;
+//        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = _parcel.trackingNumber;
     } else {
         if(icon.isSelected) {
             
@@ -362,7 +362,7 @@
         if (buttonIndex == 0) {
             
 //            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
-            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+//            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -405,7 +405,7 @@
         
         if (buttonIndex == 0) {
 //            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
-            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+//            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {

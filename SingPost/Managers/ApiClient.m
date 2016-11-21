@@ -84,13 +84,19 @@ static NSString * const GET_METHOD = @"GET";
         
         sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL] sessionConfiguration:sessionConfiguration];
         
+        sharedInstance.responseSerializer = [AFJSONResponseSerializer serializer];
+        sharedInstance.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"application/json",@"text/html", nil];
+
+        
         [sharedInstance setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
          {
              NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
              NSMutableDictionary *newHeaders = [[resp allHeaderFields] mutableCopy];
-             if (newHeaders[@"Cache-Control"] == nil) {
-                 newHeaders[@"Cache-Control"] = @"max-age=180, public";
-             }
+             
+             newHeaders[@"Cache-Control"] = @"max-age=180, public";
+//             if (newHeaders[@"Cache-Control"] == nil) {
+//                 newHeaders[@"Cache-Control"] = @"max-age=180, public";
+//             }
              
              //             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
              
@@ -192,9 +198,9 @@ static NSString * const GET_METHOD = @"GET";
 - (void)sendJSONRequest:(NSMutableURLRequest *)request
                 success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
-    self.requestSerializer = [AFJSONRequestSerializer serializer];
-    self.responseSerializer = [AFJSONResponseSerializer serializer];
-    self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
+//    self.requestSerializer = [AFJSONRequestSerializer serializer];
+//    self.responseSerializer = [AFJSONResponseSerializer serializer];
+//    self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
     
     NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {

@@ -73,6 +73,10 @@ SINGLETON_MACRO
     if (self) {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+        self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"application/json",@"text/html", nil];
+        
         
 //        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
 //        policy.allowInvalidCertificates = YES;
@@ -82,20 +86,35 @@ SINGLETON_MACRO
         
         [self.manager setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
          {
+             
              NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
              NSMutableDictionary *newHeaders = [[resp allHeaderFields] mutableCopy];
-             if (newHeaders[@"Cache-Control"] == nil) {
-                 newHeaders[@"Cache-Control"] = @"max-age=180, public";
-             }
              
-             //             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
+             newHeaders[@"Cache-Control"] = @"max-age=180, public";
+//             if (newHeaders[@"Cache-Control"] == nil) {
+//                 newHeaders[@"Cache-Control"] = @"max-age=180, public";
+//             }
              
-             NSURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:nil headerFields:newHeaders];
+             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
              NSCachedURLResponse *cachedResponse2 = [[NSCachedURLResponse alloc] initWithResponse:response2
                                                                                              data:[proposedResponse data]
                                                                                          userInfo:[proposedResponse userInfo]
                                                                                     storagePolicy:NSURLCacheStorageAllowed];
              return cachedResponse2;
+//             NSHTTPURLResponse *resp = (NSHTTPURLResponse*)proposedResponse.response;
+//             NSMutableDictionary *newHeaders = [[resp allHeaderFields] mutableCopy];
+//             if (newHeaders[@"Cache-Control"] == nil) {
+//                 newHeaders[@"Cache-Control"] = @"max-age=180, public";
+//             }
+//             
+//             //             NSHTTPURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:@"1.1" headerFields:newHeaders];
+//             
+//             NSURLResponse *response2 = [[NSHTTPURLResponse alloc] initWithURL:resp.URL statusCode:resp.statusCode HTTPVersion:nil headerFields:newHeaders];
+//             NSCachedURLResponse *cachedResponse2 = [[NSCachedURLResponse alloc] initWithResponse:response2
+//                                                                                             data:[proposedResponse data]
+//                                                                                         userInfo:[proposedResponse userInfo]
+//                                                                                    storagePolicy:NSURLCacheStorageAllowed];
+//             return cachedResponse2;
          }];
         
     }
@@ -106,11 +125,12 @@ SINGLETON_MACRO
                success:(void (^)(NSURLResponse *response, RXMLElement *responseObject))success
                failure:(void (^)(NSError *error))failure {
     
-    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
+//    self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
     
 //    [request setTimeoutInterval:5];
-
+    
+    [request setValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
@@ -281,8 +301,8 @@ SINGLETON_MACRO
     NSString *urlString = [NSString stringWithFormat:@"%@/ma/FilterOverseasPostalInfo",SINGPOST_BASE_URL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
+//    [request addValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request addValue:[NSString stringWithFormat:@"%ld", (unsigned long)[xml length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:[xml dataUsingEncoding:NSUTF8StringEncoding]];
     request.HTTPMethod = POST_METHOD;
     

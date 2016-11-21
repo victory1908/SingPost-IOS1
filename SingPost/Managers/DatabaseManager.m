@@ -22,27 +22,14 @@
     NSURL *realmURL = [containerURL URLByAppendingPathComponent:@"SingPost.realm"];
     
     RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
+    
+    [configuration setDeleteRealmIfMigrationNeeded:YES];
+    
     configuration.fileURL = realmURL;
     [RLMRealmConfiguration setDefaultConfiguration:configuration];
     
     NSLog(@"Default Realm location: %@", realmURL);
     
-    
-//    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-//    NSString *customRealmPath = [documentsDirectory stringByAppendingPathComponent:@"SingPost.realm"];
-//    
-//    RLMRealmConfiguration *configuration = [RLMRealmConfiguration defaultConfiguration];
-//    configuration.fileURL = [NSURL URLWithString:customRealmPath];
-//    [RLMRealmConfiguration setDefaultConfiguration:configuration];
-//    
-//    RLMRealm *realm = [RLMRealm realmWithPath:customRealmPath];
-//    NSLog(@"Default Realm location: %@", customRealmPath);
-    
-    
-//    NSURL *realmURL = [[NSFileManager defaultManager]containerURLForSecurityApplicationGroupIdentifier:APP_GROUP_ID];
-//    NSString *realmPath = [realmURL.path stringByAppendingPathComponent:@"SingPost.realm"];
-//    [RLMRealm setDefaultRealmPath:realmPath];
-//    NSLog(@"Default Realm Path : %@",[RLMRealm defaultRealmPath]);
 }
 
 + (Parcel *)createOrUpdateParcel:(RXMLElement *)element {
@@ -136,5 +123,6 @@
     parcelStatus.date = date;
     return parcelStatus;
 }
+
 
 @end

@@ -42,6 +42,9 @@
     
     termsOfUseWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, navigationBarView.bounds.size.height, contentView.bounds.size.width, contentView.bounds.size.height - navigationBarView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height)];
     [termsOfUseWebView setBackgroundColor:[UIColor clearColor]];
+    
+    [termsOfUseWebView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, adMobUnitHeight, 0)];
+    
     [contentView addSubview:termsOfUseWebView];
     
     if (self.isFirstLaunch) {
@@ -65,9 +68,6 @@
     }
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
-//        [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
-//        [SVProgressHUD setForegroundColor:[UIColor blueColor]];
-        
         [SVProgressHUD showWithStatus:@"Please wait..."];
         [Content API_SingPostContentOnCompletion:^(BOOL success) {
             if (success){
@@ -81,7 +81,6 @@
         agreeButton.enabled = YES;
     }
     else {
-
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access." preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -130,7 +129,6 @@
 //        
 //        agreeButton.enabled = NO;
 //    }
-
 
     
 }

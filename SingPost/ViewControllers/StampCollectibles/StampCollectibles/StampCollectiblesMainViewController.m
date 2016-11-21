@@ -21,6 +21,7 @@
 #import <UIImageView+UIActivityIndicatorForSDWebImage.h>
 #import "LandingPageViewController.h"
 //#import "MBProgressHUD.h"
+@import GoogleMobileAds;
 
 @interface StampCollectiblesMainViewController () <UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, CDropDownListControlDelegate,UIScrollViewDelegate>
 
@@ -100,6 +101,19 @@
     [stampsTableView setDelegate:self];
     [stampsTableView setDataSource:self];
     [stampsTableView setBackgroundColor:[UIColor whiteColor]];
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        [stampsTableView setContentInset:UIEdgeInsetsMake(0, 0, 50, 0)];
+
+    }
+    else
+    {
+        [stampsTableView setContentInset:UIEdgeInsetsMake(0, 0, 90, 0)];
+
+    }
+    
+//    [stampsTableView setContentInset:UIEdgeInsetsMake(0, 0, kGADAdSizeBanner.size.height, 0)];
     [searchResultsContainerView addSubview:stampsTableView];
     
     
@@ -110,6 +124,7 @@
     // If you need custom color, use color property
     activityIndicator.color = [UIColor blueColor];
     [stampsTableView addSubview:activityIndicator];
+    
     
     self.view = contentScrollView;
     

@@ -26,6 +26,12 @@
     }
     return self;
 }
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [UIView createBanner:self];
+    
+}
 
 - (void)viewDidLoad
 {

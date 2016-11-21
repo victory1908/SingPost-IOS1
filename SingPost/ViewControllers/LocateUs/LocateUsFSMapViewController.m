@@ -27,6 +27,7 @@
     mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0,0, contentView.bounds.size.width, contentView.bounds.size.height - 20)];
     mapView.showsUserLocation = YES;
     mapView.delegate = self;
+    
     [contentView addSubview:mapView];
     
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -36,6 +37,12 @@
     [contentView addSubview:closeButton];
     
     self.view = contentView;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    [UIView createBanner:self];
 }
 
 - (void)viewDidLoad

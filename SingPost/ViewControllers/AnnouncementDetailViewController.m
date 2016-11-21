@@ -70,7 +70,14 @@ UIWebViewDelegate
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [webView setHeight:[[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue]];
+//    [webView setHeight:[[webView stringByEvaluatingJavaScriptFromString: @"document.height"] floatValue]];
+    
+    CGFloat pageHeight = webView.scrollView.contentSize.height;
+    
+    NSLog(@"page height %f",pageHeight) ;
+    
+    [webView setHeight:pageHeight];
+    
     [self.scrollView autoAdjustScrollViewContentSize];
 }
 
@@ -78,13 +85,7 @@ UIWebViewDelegate
     NSString *urlScheme = request.URL.scheme;
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         if ([urlScheme hasPrefix:@"http"]) {
-//            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
-//                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
-//                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
-//                                  if (buttonIndex == 1) {
-//                                      [[UIApplication sharedApplication]openURL:request.URL];
-//                                  }
-//                              }];
+
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Open link in Safari?" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];

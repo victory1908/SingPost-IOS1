@@ -106,6 +106,9 @@
     [locationsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [locationsTableView setSeparatorColor:[UIColor clearColor]];
     [locationsTableView setBackgroundView:nil];
+    
+    [locationsTableView setContentInset:UIEdgeInsetsMake(0, 0, adMobUnitHeight, 0)];
+    
     [searchResultsContainerView addSubview:locationsTableView];
     
     indexBar = [[CMIndexBar alloc] initWithFrame:CGRectMake(searchResultsContainerView.bounds.size.width - 30, 30, 28.0, searchResultsContainerView.bounds.size.height - searchLocationsCountLabel.bounds.size.height)];
@@ -351,38 +354,17 @@
             
                 [locationManager startUpdatingLocation];
 
-//            [locationManager startUpdatingLocation]; // this will access location automatically if user granted access manually. and will not show apple's request alert twice. (Tested)
         } break;
         case kCLAuthorizationStatusDenied: {
             NSLog(@"User denied location access request!!");
             
             [UIAlertController openSettingsFromController:self title:@"Location permission denied" message:@"Please enable location in settings to locate nearby office"];
-            
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Please enable location in settings to locate nearby office" preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//                
-//                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-//                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-//                }
-//            }];
-//            [alert addAction:cancel];
-//            [alert addAction:ok];
-//            [self presentViewController:alert animated:YES completion:nil];
-            
-            // show text on label
-//            label.text = @"To re-enable, please go to Settings and turn on Location Service for this app.";
-            
             [locationManager stopUpdatingLocation];
-//            [loadingView stopLoading];
         } break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:{
             [locationManager startUpdatingLocation]; //Will update location immediately
         }
         case kCLAuthorizationStatusAuthorizedAlways: {
-            // clear text
-//            label.text = @"";
             [locationManager startUpdatingLocation]; //Will update location immediately
         } break;
         default:

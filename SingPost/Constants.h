@@ -12,7 +12,10 @@
 
 #define SIDEBAR_WIDTH 275.0f
 
+//#define ERROR_DOMAIN @"com.codigo.singpost.errordomain"
+
 #define ERROR_DOMAIN @"com.codigo.singpost.errordomain"
+
 #define KEYCHAIN_SERVICENAME @"KEYCHAIN_SINGPOST"
 
 //SingPost Production
@@ -38,3 +41,8 @@
 #define NEW_TRACKED_ITEM_NOT_FOUND_ERROR    @"Item number incorrect or tracking status for this item is not yet updated. Please try again later. This number will be stored for your easy reference later."
 #define ERRORCODE1001_MESSAGE               @"We are now encountering very high traffic in our system, please try again later."
 #define ITEM_NUMBER_NOT_FOUND               @"Item number not found. Please check the number."
+#define AdMobUnitId                         @"ca-app-pub-6540469093687715/9212584780"
+
+//#define AdBannerHeight = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? 50 : 90
+
+#define adMobUnitHeight ( (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 90 : 50 )

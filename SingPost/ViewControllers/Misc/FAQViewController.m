@@ -31,8 +31,12 @@
     [navigationBarView setShowSidebarToggleButton:YES];
     [contentView addSubview:navigationBarView];
     
+
     faqWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, navigationBarView.bounds.size.height, contentView.bounds.size.width, contentView.bounds.size.height - navigationBarView.bounds.size.height - [UIApplication sharedApplication].statusBarFrame.size.height)];
     [faqWebView setBackgroundColor:[UIColor clearColor]];
+
+    [faqWebView.scrollView setContentInset:UIEdgeInsetsMake(0, 0, adMobUnitHeight, 0)];
+    
     [contentView addSubview:faqWebView];
     
     self.view = contentView;
@@ -49,7 +53,10 @@
     [super viewDidLoad];
     
     Content *content = [Content MR_findFirstByAttribute:@"name" withValue:@"FAQ"];
-    [faqWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+    
+    if (content!=nil) {
+        [faqWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
+    }
     
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];

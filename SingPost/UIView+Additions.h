@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@import GoogleMobileAds;
 
 @interface UIView (Additions)
 
@@ -27,6 +28,7 @@
 //View center point
 @property (nonatomic, readonly) CGPoint contentCenter;
 
+
 //Taking screenshot of the screen
 - (UIImage *)capture;
 
@@ -38,5 +40,11 @@
 - (void)fadeToAlpha:(CGFloat)alpha withDuration:(CGFloat)duration;
 
 - (UIView *)findAndResignFirstResponder;
+
+//Create Ad
++ (void)createBanner:(UIViewController *)sender;
++ (void)adViewDidReceiveAd:(GADBannerView *)view;
+
+
 
 @end

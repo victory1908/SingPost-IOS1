@@ -8,6 +8,12 @@
 
 #import "UIView+Additions.h"
 
+static GADBannerView *bannerView;
+static UIView *senderView;
+static UIView *containerView;
+static UIView *bannerContainerView;
+static float bannerHeight;
+
 @implementation UIView (Additions)
 
 - (CGFloat)left {
@@ -144,6 +150,61 @@
             return self;
     }
     return nil;
+}
+
++ (void)createBanner:(UIViewController *)sender
+{
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+    {
+        bannerHeight = 50;
+    }
+    else
+    {
+        bannerHeight = 90;
+    }
+    
+    GADRequest *request = [GADRequest request];
+//    request.testDevices = [NSArray arrayWithObjects:GAD_SIMULATOR_ID, nil];
+    
+    bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
+    bannerView.adUnitID = AdMobUnitId;
+    bannerView.rootViewController = (id)self;
+    bannerView.delegate = (id<GADBannerViewDelegate>)self;
+    
+    senderView = sender.view;
+    
+    bannerView.frame = CGRectMake(0, 0, senderView.frame.size.width, bannerHeight);
+    
+    [bannerView loadRequest:request];
+    
+    containerView = [[UIView alloc] initWithFrame:senderView.frame];
+    
+    bannerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, senderView.frame.size.height, senderView.frame.size.width, bannerHeight)];
+    
+    for (id object in sender.view.subviews) {
+        
+        [object removeFromSuperview];
+        [containerView addSubview:object];
+        
+    }
+    
+    [senderView addSubview:containerView];
+    [senderView addSubview:bannerContainerView];
+    
+    [self adViewDidReceiveAd:bannerView];
+    
+}
+
++ (void)adViewDidReceiveAd:(GADBannerView *)view
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        containerView.frame = CGRectMake(0, 0, senderView.frame.size.width, senderView.frame.size.height - bannerHeight);
+        bannerContainerView.frame = CGRectMake(0, senderView.frame.size.height - bannerHeight, senderView.frame.size.width, bannerHeight);
+        [bannerContainerView addSubview:bannerView];
+        
+    }];
+    
 }
 
 @end

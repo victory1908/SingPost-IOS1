@@ -43,7 +43,7 @@
     UIButton *moreButton;
     UIWebView *contentWebView,*pricingWebView;
     FlatBlueButton *locateUsButton;
-    UIActivityIndicatorView *activityIndicator;
+//    UIActivityIndicatorView *activityIndicator;
     
     BOOL isAnimating;
 }
@@ -170,13 +170,21 @@
     if ([maintananceStatuses[@"LocateUs"] isEqualToString:@"on"] && locateUsButton != nil)
         locateUsButton.alpha = 0.5;
     
-    [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
+//    [contentScrollView autoAdjustScrollViewContentSizeBottomInset:15];
     
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    // If you need custom color, use color property
-    activityIndicator.color = [UIColor blueColor];
-    activityIndicator.center = CGPointMake(CGRectGetMidX(contentView.bounds), CGRectGetMidY(contentView.bounds));
-    [contentView addSubview:activityIndicator];
+//    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//    // If you need custom color, use color property
+//    activityIndicator.color = [UIColor blueColor];
+//    activityIndicator.center = CGPointMake(CGRectGetMidX(contentView.bounds), CGRectGetMidY(contentView.bounds));
+//    [contentView addSubview:activityIndicator];
+    
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+       [contentScrollView setContentInset:UIEdgeInsetsMake(0, 0, 50, 0)];
+    }else {
+        [contentScrollView setContentInset:UIEdgeInsetsMake(0, 0, 90, 0)];
+
+    }
+    
     
     self.view = contentView;
 }
@@ -186,10 +194,10 @@
     [super viewDidLoad];
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:[NSString stringWithFormat:@"Stamp Collectibles - %@", self.stamp.title]];
     
-    [activityIndicator startAnimating];
+//    [activityIndicator startAnimating];
     
     [Stamp API_getImagesOfStamps:_stamp onCompletion:^(BOOL success, NSError *error) {
-        [activityIndicator stopAnimating];
+//        [activityIndicator stopAnimating];
         
         if (error) {
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
@@ -367,13 +375,6 @@
     NSString *urlScheme = request.URL.scheme;
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         if ([urlScheme hasPrefix:@"http"]) {
-//            [UIAlertView showWithTitle:nil message:@"Open link in Safari?"
-//                     cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"]
-//                              tapBlock:^(UIAlertView *alert, NSInteger buttonIndex) {
-//                                  if (buttonIndex == 1) {
-//                                      [[UIApplication sharedApplication]openURL:request.URL];
-//                                  }
-//                              }];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Open link in Safari?" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

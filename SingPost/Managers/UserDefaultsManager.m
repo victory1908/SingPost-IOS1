@@ -8,7 +8,8 @@
 
 #import "UserDefaultsManager.h"
 
-#define APP_GROUP_ID @"group.sg.codigo.singpost"
+//#define APP_GROUP_ID @"group.sg.codigo.singpost"
+#define APP_GROUP_ID @"group.com.SingPost.SingPostMobile"
 
 #define LAST_TRACKING_NUMBER_KEY @"LAST_TRACKING_NUMBER"
 #define NOTIFICATION_STATUS_KEY @"NOTIFICATION_STATUS"

@@ -32,15 +32,14 @@
 #define NEW_LAYOUT_OFFSET_Y 45
 
 @interface UITextField (LiLeAwesome)
-- (CGRect)clearButtonRectForBounds:(CGRect)bounds;
+//- (CGRect)clearButtonRectForBounds:(CGRect)bounds;
 @end
 
 @implementation UITextField (LiLeAwesome)
 
-- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
-    return CGRectMake(self.frame.size.width-30, 0, 35, 35);
-    
-}
+//- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
+//    return CGRectMake(self.frame.size.width-30, 0, 35, 35);
+//}
 @end
 
 @interface TrackingDetailsViewController()
@@ -240,6 +239,9 @@ UITextFieldDelegate
     [trackingDetailTableView setBackgroundView:nil];
     [trackingDetailTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [trackingDetailTableView setSeparatorColor:[UIColor clearColor]];
+    
+    [trackingDetailTableView setContentInset:UIEdgeInsetsMake(0, 0, adMobUnitHeight, 0)];
+    
     [contentView addSubview:trackingDetailTableView];
     
     //Ad banner
@@ -393,7 +395,7 @@ UITextFieldDelegate
     
     if (buttonIndex == 0) {
 //        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
-        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+//        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
 
     } else {
         if (FBSession.activeSession.state == FBSessionStateOpen
@@ -402,7 +404,7 @@ UITextFieldDelegate
             [FBSession.activeSession closeAndClearTokenInformation];
             
         } else {
-            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = self.selectedParcel.trackingNumber;
+//            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = self.selectedParcel.trackingNumber;
             
             NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
             FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
@@ -451,7 +453,7 @@ UITextFieldDelegate
         
         if (buttonIndex == 0) {
 //            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
-            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+//            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
@@ -459,7 +461,7 @@ UITextFieldDelegate
                 [FBSession.activeSession closeAndClearTokenInformation];
                 
             } else {
-                [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = self.selectedParcel.trackingNumber;
+//                [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = self.selectedParcel.trackingNumber;
                 
                 NSArray *permissions = @[@"public_profile",@"email",@"user_about_me",@"user_birthday",@"user_location"];
                 FBSession *session = [[FBSession alloc] initWithPermissions:permissions];
