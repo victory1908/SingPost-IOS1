@@ -22,6 +22,9 @@
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, readonly) RootViewController *rootViewController;
+
+@property (nonatomic, readonly) UINavigationController *navigationController;
+
 @property (nonatomic, readonly) NSDictionary *maintenanceStatuses;
 @property (nonatomic, retain) TrackingMainViewController * trackingMainViewController;
 

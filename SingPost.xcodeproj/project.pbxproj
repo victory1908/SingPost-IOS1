@@ -185,6 +185,7 @@
 		A0968AD81D9A72390055932D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0968AD71D9A72390055932D /* StoreKit.framework */; };
 		A0968AE01D9A75FD0055932D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		A0968AE11D9A763A0055932D /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A09D38081DE4C32B00EC9728 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D38071DE4C32B00EC9728 /* UIViewController+Navigation.m */; };
 		A0C9E1411D4790F3007D9523 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */; };
 		A0DE40151D544D83002D5A49 /* test1.m in Sources */ = {isa = PBXBuildFile; fileRef = A0DE40141D544D83002D5A49 /* test1.m */; };
 		A0DF05091DD97C0800BD3FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0DF05081DD97C0800BD3FFD /* GoogleService-Info.plist */; };
@@ -554,6 +555,8 @@
 		A0968ACF1D9A5EFC0055932D /* libPods-SingPost WatchKit Extension.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SingPost WatchKit Extension.a"; path = "Pods/../build/Release-iphoneos/libPods-SingPost WatchKit Extension.a"; sourceTree = "<group>"; };
 		A0968AD11D9A5F2C0055932D /* libPods-SingPost WatchKit App.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SingPost WatchKit App.a"; path = "Pods/../build/Release-iphoneos/libPods-SingPost WatchKit App.a"; sourceTree = "<group>"; };
 		A0968AD71D9A72390055932D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		A09D38061DE4C32B00EC9728 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Navigation.h"; sourceTree = "<group>"; };
+		A09D38071DE4C32B00EC9728 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Navigation.m"; sourceTree = "<group>"; };
 		A0C9E1401D4790F3007D9523 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		A0DE40131D544D83002D5A49 /* test1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test1.h; sourceTree = "<group>"; };
 		A0DE40141D544D83002D5A49 /* test1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test1.m; sourceTree = "<group>"; };
@@ -942,6 +945,8 @@
 			children = (
 				A0EC1BF41D53BFEE00AE7CE7 /* UIColor-Expanded.h */,
 				A0EC1BF51D53BFEE00AE7CE7 /* UIColor-Expanded.m */,
+				A09D38061DE4C32B00EC9728 /* UIViewController+Navigation.h */,
+				A09D38071DE4C32B00EC9728 /* UIViewController+Navigation.m */,
 				8728B00F198014A30007853A /* NSObject+Addtions.h */,
 				8728B010198014A30007853A /* NSObject+Addtions.m */,
 				52305F8717F5B20600610A86 /* UIFont+SingPost.h */,
@@ -1804,6 +1809,7 @@
 				24AD38B81A399D180088F6A6 /* PostalCodePoBoxTableViewCell.m in Sources */,
 				24AD38B91A399D180088F6A6 /* NSString+Extensions.m in Sources */,
 				24AD38BA1A399D180088F6A6 /* AboutThisAppViewController.m in Sources */,
+				A09D38081DE4C32B00EC9728 /* UIViewController+Navigation.m in Sources */,
 				24AD38BB1A399D180088F6A6 /* LocateUsLocationTableViewCell.m in Sources */,
 				24AD38BC1A399D180088F6A6 /* UIView+Additions.m in Sources */,
 				24AD38BD1A399D180088F6A6 /* SwipeViewController.m in Sources */,

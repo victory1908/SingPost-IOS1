@@ -14,7 +14,7 @@
 @interface BarScannerViewController : UIViewController
 //@interface BarScannerViewController : UIViewController < ZBarReaderDelegate >
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (retain,nonatomic) LandingPageViewController * landingVC;
+//@property (retain,nonatomic) LandingPageViewController * landingVC;
 
 
 @end

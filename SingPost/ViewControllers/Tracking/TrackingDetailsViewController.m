@@ -70,6 +70,9 @@ UITextFieldDelegate
 @synthesize title;
 
 - (void)loadView {
+    
+    NSLog(@"label %@", _selectedParcel.getLabelText);
+    
     int offsetY = 0;
     if(self.isActiveItem && ![ApiClient isWithoutFacebook])
         offsetY = NEW_LAYOUT_OFFSET_Y;
@@ -168,6 +171,7 @@ UITextFieldDelegate
     [trackingNumberLabel setFont:[UIFont SingPostSemiboldFontOfSize:16.0f fontKey:kSingPostFontOpenSans]];
     [trackingNumberLabel setTextColor:RGB(36, 84, 157)];
     [trackingNumberLabel setText:self.selectedParcel.trackingNumber];
+        
     [trackingNumberLabel setBackgroundColor:[UIColor clearColor]];
     [trackingInfoView addSubview:trackingNumberLabel];
     
@@ -308,7 +312,10 @@ UITextFieldDelegate
             customTextfield = [[UITextField alloc] initWithFrame:CGRectMake(0, 75, 240, 40)];
             [customTextfield setBorderStyle:UITextBorderStyleRoundedRect];
             customTextfield.placeholder = @"Not more than 30 characters";
-            customTextfield.text = title;
+//            customTextfield.text = title;
+            
+            customTextfield.text = [_selectedParcel getLabelText];
+            
             customTextfield.delegate = self;
             customTextfield.clearButtonMode = UITextFieldViewModeAlways;
             [contentView addSubview:customTextfield];
@@ -360,6 +367,7 @@ UITextFieldDelegate
 }
 
 - (void)customIOS7dialogButtonTouchUpInside: (CustomIOSAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex {
+    
     if(alertView.tag == 111) {
         if (buttonIndex == 0) {
             

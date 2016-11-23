@@ -349,10 +349,14 @@
             
             if(itemLabel == nil)
                 [icon setBackgroundImage:[UIImage imageNamed:@"labelIcon2.png"] forState:UIControlStateNormal];
-            else
+            else{
                 [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
+                
+            }
             flag2 = true;
         } else {
+            
+            NSLog(@" new label %@", itemLabel.text);
             
         }
         

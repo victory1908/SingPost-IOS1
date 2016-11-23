@@ -789,7 +789,12 @@ OffersMenuDelegate
     }
     
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+    
+    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+    
+    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
+    
+        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
 }
 
 - (void)findTrackingNumberButtonClicked
@@ -847,10 +852,12 @@ OffersMenuDelegate
 
 - (void)OnGoToScan {
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
-//    barCodeVC.landingVC = self;
-//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:barCodeVC];
-//    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:barCodeVC];
-    [self presentViewController:barCodeVC animated:YES completion:nil];
+
+    
+    UINavigationController *barCodeNavigationController = [[UINavigationController alloc] initWithRootViewController:barCodeVC];
+    [barCodeNavigationController setNavigationBarHidden:YES];
+    
+    [[AppDelegate sharedAppDelegate].rootViewController presentViewController:barCodeNavigationController animated:YES completion:nil];
     
 }
 

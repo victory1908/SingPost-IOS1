@@ -83,10 +83,9 @@ static NSString * const GET_METHOD = @"GET";
         sessionConfiguration.HTTPCookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
         
         sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString:SINGPOST_BASE_URL] sessionConfiguration:sessionConfiguration];
-        
-        sharedInstance.responseSerializer = [AFJSONResponseSerializer serializer];
-        sharedInstance.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"application/json",@"text/html", nil];
 
+        sharedInstance.responseSerializer = [AFJSONResponseSerializer serializer];
+         sharedInstance.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
         
         [sharedInstance setDataTaskWillCacheResponseBlock:^NSCachedURLResponse *(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse)
          {
@@ -199,8 +198,6 @@ static NSString * const GET_METHOD = @"GET";
                 success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
 //    self.requestSerializer = [AFJSONRequestSerializer serializer];
-//    self.responseSerializer = [AFJSONResponseSerializer serializer];
-//    self.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
     
     NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {

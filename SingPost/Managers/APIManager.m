@@ -75,8 +75,8 @@ SINGLETON_MACRO
         self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
     
         self.manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/xml",@"application/json",@"text/html", nil];
-        
+
+         self.manager.responseSerializer.acceptableContentTypes = [AFHTTPResponseSerializer serializer].acceptableContentTypes;
         
 //        AFSecurityPolicy *policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
 //        policy.allowInvalidCertificates = YES;

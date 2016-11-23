@@ -128,17 +128,25 @@ UITableViewDelegate
     self.view = contentView;
     
     labelDic = [NSMutableDictionary dictionary];
+    
+    
 }
 
 - (void)loadTrackingItems {
     self.activeResults = [Parcel getActiveParcels];
     self.unsortedResults = [Parcel getUnsortedParcels];
     self.completedResults = [Parcel getCompletedParcels];
-    [trackingItemsTableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [trackingItemsTableView reloadData];
+    });
+//    [trackingItemsTableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    
+    
     [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Tracking Numbers"];
     
     AppDelegate* appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -155,11 +163,17 @@ UITableViewDelegate
             isViewDidAppear = true;
         }
     }
-    [self loadTrackingItems];
     
+    
+    
+    
+    [self loadTrackingItems];
+
     self.notificationToken = [[RLMRealm defaultRealm] addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
         [self loadTrackingItems];
     }];
+    
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -207,9 +221,6 @@ UITableViewDelegate
     
     if (!self.isPushNotification) {
         if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
-//            [UIAlertView showWithTitle:nil
-//                               message:INVALID_TRACKING_NUMBER_ERROR
-//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:ok];
@@ -218,9 +229,6 @@ UITableViewDelegate
         }
         
         if (trackingNumberTextField.text.length == 0) {
-//            [UIAlertView showWithTitle:nil
-//                               message:NO_TRACKING_NUMBER_ERROR
-//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:ok];
@@ -234,9 +242,40 @@ UITableViewDelegate
     if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait..."];
-        //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+
     }
     
+    [self getTrackingDetail];
+//    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
+//     {
+//         if (error == nil) {
+//             if (parcel.isFound) {
+//                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
+//                 [self goToDetailPageWithParcel:parcel];
+//                 [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
+//             }
+//         } else {
+//             if (error.code == 1001) {
+//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                 [alert addAction:ok];
+//                 [self presentViewController:alert animated:YES completion:nil];
+//
+//             }
+//             else {
+//
+//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                 [alert addAction:ok];
+//                 [self presentViewController:alert animated:YES completion:nil];
+//             }
+//         }
+//         [self loadTrackingItems];
+//         [SVProgressHUD dismiss];
+//     }];
+}
+
+-(void) getTrackingDetail {
     [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
      {
          if (error == nil) {
@@ -247,25 +286,18 @@ UITableViewDelegate
              }
          } else {
              if (error.code == 1001) {
-//                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-//                                    message:ERRORCODE1001_MESSAGE
-//                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                  UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
                  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                  [alert addAction:ok];
-//                 [self presentViewController:alert animated:YES completion:nil];
-                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-
+                 [self presentViewController:alert animated:YES completion:nil];
+                 
              }
              else {
-//                 [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-//                                    message:NO_INTERNET_ERROR
-//                          cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-//                 [alert addAction:ok];
-////                 [self presentViewController:alert animated:YES completion:nil];
-//                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                 
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
              }
          }
          [self loadTrackingItems];
@@ -306,6 +338,8 @@ UITableViewDelegate
 - (void)onTrackingNumberBtn:(id)sender {
     [self addTrackingNumber:trackingNumberTextField.text];
     self.isPushNotification = NO;
+    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
+    
 }
 
 #pragma mark - UITableView DataSource & Delegate
@@ -541,15 +575,7 @@ UITableViewDelegate
     
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
     [self presentViewController:barCodeVC animated:YES completion:nil];
-//    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-//    barCodeVC.landingVC = landingPageViewController;
-//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:barCodeVC];
-    
-//    BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
-//    barCodeVC.landingVC = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-//    barCodeVC.landingVC = self;s
-//    barCodeVC.landingVC = [[LandingPageViewController alloc]init];
-//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:barCodeVC];
+
 }
 
 
@@ -671,7 +697,7 @@ UITableViewDelegate
             
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
-            //        [SVProgressHUD showWithStatus:@"Please wait..." maskType:SVProgressHUDMaskTypeClear];
+            
 //            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
 //                                                       completed:^(Parcel *parcel, NSError *error)
             [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
@@ -682,17 +708,12 @@ UITableViewDelegate
                      [self goToDetailPageWithParcel:parcel];
                  } else {
                      if (error.code == 1001) {
-//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-//                                            message:ERRORCODE1001_MESSAGE
-//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
                          UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
                          UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                          [alert addAction:ok];
                          [self presentViewController:alert animated:YES completion:nil];
                      } else {
-//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-//                                            message:NO_INTERNET_ERROR
-//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+
                          UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
                          UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                          [alert addAction:ok];
@@ -731,21 +752,16 @@ UITableViewDelegate
                          [alert addAction:ok];
                          [self presentViewController:alert animated:YES completion:nil];
 
-                         
                      }
                  } else {
                      if (error.code == 1001) {
-//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-//                                            message:ERRORCODE1001_MESSAGE
-//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+
                          UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
                          UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                          [alert addAction:ok];
                          [self presentViewController:alert animated:YES completion:nil];
                      } else {
-//                         [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-//                                            message:NO_INTERNET_ERROR
-//                                  cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+
                          UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
                          UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                          [alert addAction:ok];
@@ -852,24 +868,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         else {
             [[UserDefaultsManager sharedInstance] setNotificationStatus:NO];
             
-//            [UIAlertView showWithTitle:nil
-//                               message:@"Please enable notifications in general settings to auto receive updates"
-//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-            
             [UIAlertController openSettingsFromController:self title:@"Notification permission denied" message:@"Please enable notifications in general settings to auto receive updates"];
-            
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Please enable notifications in general settings to auto receive updates" preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//                
-//                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-//                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-//                }
-//            }];
-//            [alert addAction:cancel];
-//            [alert addAction:ok];
-//            [self presentViewController:alert animated:YES completion:nil];
             
             receiveUpdateSwitch.on = NO;
         }
@@ -892,7 +891,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void) refreshTableView {
-    [self.trackingItemsTableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.trackingItemsTableView reloadData];
+    });
+//    [self.trackingItemsTableView reloadData];
 }
 
 - (NSDictionary *) getLocalLabels {
@@ -971,20 +973,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
          }];
         
     } else {
-//        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
-//         {
-//             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
-//             [btnMain2 setHidden:YES];
-//             if([AppDelegate sharedAppDelegate].isJustForRefresh == 1) {
-//                 return ;
-//             }
-//             
-//             [AppDelegate sharedAppDelegate].isJustForRefresh = 2;
-//             [self justDoItDontCare];
-//         } onFailure:^(NSError *error)
-//         {
-//             //NSLog([error localizedDescription]);
-//         }];
+        [[ApiClient sharedInstance] deleteAllTrackingNunmbersOnSuccess:^(id responseObject)
+         {
+             NSLog(@"deleteAllTrackingNunmbersOnSuccess success");
+             [btnMain2 setHidden:YES];
+             if([AppDelegate sharedAppDelegate].isJustForRefresh == 1) {
+                 return ;
+             }
+             
+             [AppDelegate sharedAppDelegate].isJustForRefresh = 2;
+             [self justDoItDontCare];
+         } onFailure:^(NSError *error)
+         {
+             //NSLog([error localizedDescription]);
+         }];
         
     }
 }
@@ -1246,6 +1248,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)setItem:(NSString *)number WithLabel:(NSString *)label {
     [labelDic setObject:label forKey:number];
     [self refreshTableView];
+    
 }
 
 

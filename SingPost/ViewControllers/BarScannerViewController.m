@@ -8,6 +8,9 @@
 {
     __weak IBOutlet UIView *redLine;
     ScanTutorialViewController * vc;
+    
+    NSMutableDictionary *scanTrackingNumbers;
+    
 }
 //UI
 @property (weak, nonatomic) IBOutlet UIView *viewPreview; // Connect it to the view you created in the storyboard, for the scanner preview
@@ -34,6 +37,7 @@
     // Set the initial value of the flag to NO.
     _isReading = NO;
 
+//    [self checkCameraAuthorization];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,23 +48,89 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     [self checkCameraAuthorization];
-//    [self startStopReading:nil];
+    
+    
+//    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//    trackingMainViewController.isPushNotification = NO;
+//    
+//    trackingMainViewController.scanTrackingNumber = @"SMT000000062";
+
+//
+//    [self presentViewController:trackingMainViewController animated:YES completion:nil];
+//    
+    
+//    [scanTrackingNumbers setValue:nil forKey:@"scanTrackingNumber"];
+    
+    scanTrackingNumbers = [NSMutableDictionary new];
+    
+//    [scanTrackingNumbers addObserver:self forKeyPath:@"scanTrackingNumber" options:NSKeyValueObservingOptionNew context:nil];
+    
+//    [scanTrackingNumbers setValue:@"test123455" forKey:@"scanTrackingNumber"];
+    
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+    
 }
 
-- (IBAction)startStopReading:(id)sender
-{
-    if (!_isReading) {
-        [self startReading];
-    }
-    else {
-        // In this case the app is currently reading a QR code and it should stop doing so.
-        [self stopReading];
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    
+    if ([keyPath isEqualToString:@"scanTrackingNumber"]){
+        NSLog(@"scanTrackingNumber Changed %@",change);
+        
+        NSLog(@"scan12335 %@",scanTrackingNumbers);
+        
+//        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//        trackingMainViewController.isPushNotification = NO;
+//        
+//        trackingMainViewController.scanTrackingNumber = scanTrackingNumbers[@"scanTrackingNumber"];
+//
+//        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+        
+//        [self.navigationController pushViewController:trackingMainViewController animated:YES];
+//        
+//        self.navigationController.viewControllers = @[trackingMainViewController];
         
     }
     
-    // Set to the flag the exact opposite value of the one that currently has.
-    _isReading = !_isReading;
+//        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//        trackingMainViewController.isPushNotification = NO;
+//    
+//        trackingMainViewController.scanTrackingNumber = @"SMT000000062";
+//    
+//    
+//            [self.navigationController pushViewController:trackingMainViewController animated:YES];
+////            [self.navigationController popViewControllerAnimated:self];
+//    ////        [self.navigationController dismissViewControllerAnimated:self completion:nil];
+//            self.navigationController.viewControllers = @[trackingMainViewController];
+    
+    
+    
+
+    
+}
+
+
+//- (void)dealloc {
+//    [scanTrackingNumbers removeObserver:self forKeyPath:@"scanTrackingNumber"];
+//}
+
+- (IBAction)startStopReading:(id)sender
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!_isReading) {
+            [self startReading];
+            
+        }
+        else {
+            // In this case the app is currently reading a QR code and it should stop doing so.
+            [self stopReading];
+        }
+        
+        // Set to the flag the exact opposite value of the one that currently has.
+        _isReading = !_isReading;
+    });
+    
 }
 
 #pragma mark - Private
@@ -126,6 +196,7 @@
         // Start video capture.
     [_captureSession startRunning];
     
+    
     return YES;
 }
 
@@ -150,6 +221,8 @@
         
         _isReading = NO;
         
+        
+        
         // If the audio player is not nil, then play the sound effect.
         if (_audioPlayer) {
             [_audioPlayer play];
@@ -160,19 +233,21 @@
         
         NSString *code = [(AVMetadataMachineReadableCodeObject *)[metadataObjects objectAtIndex:0] stringValue];
         
-        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-        trackingMainViewController.isPushNotification = NO;
-        [self dismissViewControllerAnimated:YES completion:nil];
-//        [self presentViewController:trackingMainViewController animated:YES completion:nil];
-        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
-        
-        
-        double delayInSeconds = 0.5;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [trackingMainViewController addTrackingNumber:code];
-        });
+//        [scanTrackingNumbers setValue:code forKey:@"scanTrackingNumber"];
 
+        
+        if (scanTrackingNumbers[@"scanTrackingNumber"] != code) {
+            [scanTrackingNumbers setValue:code forKey:@"scanTrackingNumber"];
+            
+            TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+            trackingMainViewController.isPushNotification = NO;
+            
+            trackingMainViewController.trackingNumber = code;
+            
+//            [self.navigationController pushViewController:trackingMainViewController animated:YES];
+            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
         
     }
 }
@@ -262,9 +337,10 @@
 
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
 
-    if(status == AVAuthorizationStatusAuthorized) { // authorized
-        NSLog(@"camera authorized");
-    }
+//    if(status == AVAuthorizationStatusAuthorized) { // authorized
+//        NSLog(@"camera authorized");
+//        [self startStopReading:nil];
+//    }
 
     switch (status) {
         case AVAuthorizationStatusNotDetermined:
@@ -278,21 +354,6 @@
 
                     [UIAlertController openSettingsFromController:self title:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature."];
                     
-//                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
-//                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//                        [self dismissViewControllerAnimated:YES completion:nil];
-//                    }];
-//                    
-//                    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//
-//                        if ([[UIApplication sharedApplication] canOpenURL:url]) {
-//                            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-//                        }
-//                    }];
-//                    [alert addAction:cancel];
-//                    [alert addAction:ok];
-//                    [self presentViewController:alert animated:YES completion:nil];
                 }
             }];
         }
@@ -303,23 +364,6 @@
             
             [UIAlertController openSettingsFromController:self title:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature."];
         
-            
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//                [self dismissViewControllerAnimated:YES completion:nil];
-//            }];
-//
-//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//
-//                if ([[UIApplication sharedApplication] canOpenURL:url]) {
-//                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-//                }
-//            }];
-//            [alert addAction:cancel];
-//            [alert addAction:ok];
-//            [self presentViewController:alert animated:YES completion:nil];
         }
             break;
 
@@ -331,42 +375,6 @@
         {
             
             [UIAlertController openSettingsFromController:self title:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature."];
-            
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Not Authorized" message:@"Please go to Settings and enable the camera for this app to use this feature." preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//                [self dismissViewControllerAnimated:YES completion:nil];
-//
-//            }];
-//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                
-//                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-//                
-//                if([[UIDevice currentDevice].systemVersion floatValue] >= 10.0){
-//                    
-//                    if ([UIApplication respondsToSelector:@selector(openURL:options:completionHandler:)]) {
-//                        [[UIApplication sharedApplication] openURL:url options:@{}
-//                           completionHandler:^(BOOL success) {
-//                               NSLog(@"Open %@: %d",scheme,success);
-//                           }];
-//                    } else {
-////                        BOOL success = [[UIApplication sharedApplication] openURL:url];
-////                        NSLog(@"Open %@:",success);
-//                    }
-//                }
-//                else{
-//                    bool can = [[UIApplication sharedApplication] canOpenURL:url];
-//                    if(can){
-//                        [[UIApplication sharedApplication] openURL:url];
-//                    }
-//                }
-//                
-//            }];
-//            [alert addAction:cancel];
-//            [alert addAction:ok];
-//            
-//            [self presentViewController:alert animated:YES completion:nil];
-//    
         }
             break;
         default:

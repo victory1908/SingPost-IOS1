@@ -211,6 +211,8 @@
 
 - (void)findTrackingNumberButtonClicked
 {
+    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
+    
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
         MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
@@ -220,9 +222,6 @@
     }
     
     if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
-//        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR delegate:nil
-//                                             cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alert show];
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -234,8 +233,6 @@
     }
     
     if (!(trackingNumberTextField.text.length > 0)) {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_TRACKING_NUMBER_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//        [alertView show];
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];

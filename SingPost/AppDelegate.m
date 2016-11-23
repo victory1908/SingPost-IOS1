@@ -161,8 +161,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    
+
     _rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+
+    
+//    _navigationController = [[UINavigationController alloc]initWithRootViewController:_rootViewController];
+//    [_navigationController setNavigationBarHidden:YES];
+    
     [self.window setRootViewController:_rootViewController];
     [self.window makeKeyAndVisible];
     
