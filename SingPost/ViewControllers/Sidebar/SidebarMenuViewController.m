@@ -38,7 +38,7 @@
 #import "TrackingDetailsViewController.h"
 
 #import "TrackedItem+CoreDataClass.h"
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 #import "ProceedViewController.h"

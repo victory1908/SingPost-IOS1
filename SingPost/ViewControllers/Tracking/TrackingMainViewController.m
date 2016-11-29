@@ -15,11 +15,13 @@
 #import "TrackingHeaderMainTableViewCell.h"
 #import "TrackingDetailsViewController.h"
 #import "AppDelegate.h"
-#import <KGModal.h>
-#import <SVProgressHUD.h>
+#import "KGModal.h"
+#import "SVProgressHUD.h"
 #import "UIImage+Extensions.h"
 #import "UIAlertView+Blocks.h"
-#import <SevenSwitch.h>
+//#import "SevenSwitch.h"
+#import "SevenSwitch-Swift.h"
+
 #import "RegexKitLite.h"
 
 #import "Article.h"
@@ -192,10 +194,10 @@ UITableViewDelegate
     [SVProgressHUD dismiss];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self getAllLabel];
-}
+//-(void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    [self getAllLabel];
+//}
 
 #pragma mark - Setters
 - (void)setTrackingNumber:(NSString *)inTrackingNumber {

@@ -12,7 +12,7 @@
 #import "UIFont+SingPost.h"
 #import "FlatBlueButton.h"
 #import <QuartzCore/QuartzCore.h>
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 #import "PostalCode.h"
 #import "PostalCodeStreetTableViewCell.h"
 #import "NSString+Extensions.h"

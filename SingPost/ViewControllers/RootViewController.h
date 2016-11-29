@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BarScannerViewController.h"
 
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController <BarScannerViewControllerDelegate>{
     UIViewController *activeViewController;
 }
 

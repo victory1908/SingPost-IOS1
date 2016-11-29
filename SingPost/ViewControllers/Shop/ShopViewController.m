@@ -11,7 +11,7 @@
 #import "ApiClient.h"
 #import "SVProgressHUD.h"
 #import "UIAlertView+Blocks.h"
-#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "NSDictionary+Additions.h"
 #import "Article.h"
 #import "UILabel+VerticalAlign.h"

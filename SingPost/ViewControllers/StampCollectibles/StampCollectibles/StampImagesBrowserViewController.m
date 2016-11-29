@@ -9,7 +9,7 @@
 #import "StampImagesBrowserViewController.h"
 #import "ColoredPageControl.h"
 #import "StampImage.h"
-#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 
 @interface StampImagesBrowserViewController () <UIScrollViewDelegate>
 

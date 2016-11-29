@@ -17,7 +17,6 @@ PODS:
   - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
   - CustomIOSAlertView (0.9.5)
-  - DeviceUtil (2.0.1)
   - Fabric (1.6.11)
   - Firebase/AdMob (3.10.0):
     - Firebase/Core
@@ -74,10 +73,10 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SevenSwitch (1.4.0)
+  - SevenSwitch (2.0.0)
   - SVProgressHUD (2.0.4)
   - TPKeyboardAvoiding (1.3)
-  - TTTAttributedLabel (1.13.4)
+  - TTTAttributedLabel (2.0.0)
   - UALogger (0.3)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
@@ -87,7 +86,6 @@ DEPENDENCIES:
   - AFNetworking
   - Crashlytics
   - CustomIOSAlertView
-  - DeviceUtil
   - Fabric
   - Firebase/AdMob
   - Firebase/Core
@@ -113,7 +111,6 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   CustomIOSAlertView: cc4fa8e36219be3fd5ebcd40789f5b4aaae0f38e
-  DeviceUtil: ef09c9ae52239a35a24067c459f66c8c3c9478b9
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   Firebase: 387f37c7dca894a02708da9ff35ba147040eae9e
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
@@ -135,14 +132,14 @@ SPEC CHECKSUMS:
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SAMKeychain: 1865333198217411f35327e8da61b43de79b635b
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SevenSwitch: e992e56e2e7f401eb00538b9fa92bf848bacbe27
+  SevenSwitch: 4ae92ffcad0ef93b38553b39a25e753c94eb7847
   SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
-  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UALogger: ccc041e5982dbd274ab5805f914076fef9bf29cf
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-PODFILE CHECKSUM: 4798b24366c7ce05563002b66617ad93e616eff6
+PODFILE CHECKSUM: d2e46f9643a966a4ebeac513d238937d6e234018
 
 COCOAPODS: 1.1.1

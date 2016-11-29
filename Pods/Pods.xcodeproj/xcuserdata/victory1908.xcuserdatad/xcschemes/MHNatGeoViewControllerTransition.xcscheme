@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7EA8C5E3408537AE7173C2E037BF3E38'
+               BlueprintIdentifier = '3F64569F1F5429057859DD9E882E8073'
                BlueprintName = 'MHNatGeoViewControllerTransition'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libMHNatGeoViewControllerTransition.a'>
+               BuildableName = 'MHNatGeoViewControllerTransition.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

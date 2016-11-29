@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1119E9CA2D1EE7F4A3072CB8 /* libPods-SingPost WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ED85AAEF673B11F4CB79C89 /* libPods-SingPost WatchKit Extension.a */; };
+		04D7FCAE44F98AE42764A047 /* Pods_SingPost_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E28012AF1E3F225277C8D77 /* Pods_SingPost_WatchKit_Extension.framework */; };
+		05CE643DC62EB67A54BCC074 /* Pods_SingPost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7B64D968D09B23E73C6834 /* Pods_SingPost.framework */; };
 		24AD38A51A399D180088F6A6 /* StampCollectiblesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52936484180B124300B83F6B /* StampCollectiblesTableViewCell.m */; };
 		24AD38A61A399D180088F6A6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521B173017F1633000FEB6FD /* AppDelegate.m */; };
 		24AD38A71A399D180088F6A6 /* CalculatePostageResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528F269117F8B725006F7027 /* CalculatePostageResultsViewController.m */; };
@@ -175,7 +176,6 @@
 		87BDF69D1B13032400EFADDD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69B1B13032400EFADDD /* Interface.storyboard */; };
 		87BDF69F1B13032400EFADDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87BDF69E1B13032400EFADDD /* Images.xcassets */; };
 		87E45FA11B4C104E0063BC5A /* ParcelStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 875CE2C11B4BC62B00C09BB3 /* ParcelStatus.m */; };
-		926FD62D242E77873BE205FD /* libPods-SingPost WatchKit App.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604E082E2CB6E086A6BF93A8 /* libPods-SingPost WatchKit App.a */; };
 		A04F2DB11DDCA534000A6EF8 /* DeliveryStatus+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A04F2DAE1DDCA534000A6EF8 /* DeliveryStatus+CoreDataProperties.m */; };
 		A04F2DB21DDCA534000A6EF8 /* TrackedItem+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A04F2DB01DDCA534000A6EF8 /* TrackedItem+CoreDataProperties.m */; };
 		A04F2DB81DDCA807000A6EF8 /* DeliveryStatus+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A04F2DB51DDCA807000A6EF8 /* DeliveryStatus+CoreDataClass.m */; };
@@ -199,7 +199,7 @@
 		A0EC1BF61D53BFEE00AE7CE7 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EC1BF51D53BFEE00AE7CE7 /* UIColor-Expanded.m */; };
 		A0FA34D01D56F28600CDD558 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FA34CD1D56F28600CDD558 /* Article.m */; };
 		A0FA34D71D5774ED00CDD558 /* Article+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FA34D61D5774ED00CDD558 /* Article+CoreDataProperties.m */; };
-		D0538A81B963A39B5FC40EB3 /* libPods-SingPost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A83A57E0522D74E0263C8997 /* libPods-SingPost.a */; };
+		E391DA8BD372EF51491504CE /* Pods_SingPost_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD72772DE7DCAE2770E6DEE /* Pods_SingPost_WatchKit_App.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +234,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0FD72772DE7DCAE2770E6DEE /* Pods_SingPost_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SingPost_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		240A231B19D2772300EEAB7D /* TrackingSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingSelectViewController.h; sourceTree = "<group>"; };
 		240A231C19D2772300EEAB7D /* TrackingSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingSelectViewController.m; sourceTree = "<group>"; };
 		240A231D19D2772300EEAB7D /* TrackingSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackingSelectViewController.xib; sourceTree = "<group>"; };
@@ -268,7 +269,7 @@
 		24F43BBA19EB81B800F28F21 /* CUIActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CUIActionSheet.m; sourceTree = "<group>"; };
 		24F43CFF19ECC7A900F28F21 /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeViewController.h; sourceTree = "<group>"; };
 		24F43D0019ECC7A900F28F21 /* SwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeViewController.m; sourceTree = "<group>"; };
-		2ED85AAEF673B11F4CB79C89 /* libPods-SingPost WatchKit Extension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SingPost WatchKit Extension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E28012AF1E3F225277C8D77 /* Pods_SingPost_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SingPost_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FCF25E6CF4441A028F7AD82 /* Pods-SingPost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost/Pods-SingPost.debug.xcconfig"; sourceTree = "<group>"; };
 		52024F0D17F5EEC800AFD239 /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
 		52024F0E17F5EEC800AFD239 /* LandingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingPageViewController.m; sourceTree = "<group>"; };
@@ -471,7 +472,6 @@
 		52F8134217FBE69F00516210 /* SidebarMenuSubRowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarMenuSubRowTableViewCell.m; sourceTree = "<group>"; };
 		52F8134517FBFE5400516210 /* LocateUsDetailsOpeningHoursView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateUsDetailsOpeningHoursView.h; sourceTree = "<group>"; };
 		52F8134617FBFE5400516210 /* LocateUsDetailsOpeningHoursView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateUsDetailsOpeningHoursView.m; sourceTree = "<group>"; };
-		604E082E2CB6E086A6BF93A8 /* libPods-SingPost WatchKit App.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SingPost WatchKit App.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EEC0D361BF1F69FB166A3F5 /* Pods-SingPost WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit App/Pods-SingPost WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
 		8706E7C2196BA9130070DD03 /* AnnouncementDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnouncementDetailViewController.h; sourceTree = "<group>"; };
 		8706E7C3196BA9130070DD03 /* AnnouncementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnouncementDetailViewController.m; sourceTree = "<group>"; };
@@ -536,6 +536,7 @@
 		91B58F9518753A40005469DA /* TrackingFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackingFeedbackViewController.m; sourceTree = "<group>"; };
 		91FD0023187BEDBE00DE1765 /* OffersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersTableViewCell.h; sourceTree = "<group>"; };
 		91FD0024187BEDBE00DE1765 /* OffersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersTableViewCell.m; sourceTree = "<group>"; };
+		9D7B64D968D09B23E73C6834 /* Pods_SingPost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SingPost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A04F2DA71DDCA1BA000A6EF8 /* SingPost 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SingPost 5.xcdatamodel"; sourceTree = "<group>"; };
 		A04F2DAD1DDCA534000A6EF8 /* DeliveryStatus+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeliveryStatus+CoreDataProperties.h"; sourceTree = "<group>"; };
 		A04F2DAE1DDCA534000A6EF8 /* DeliveryStatus+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DeliveryStatus+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -579,7 +580,6 @@
 		A0FA34D51D5774ED00CDD558 /* Article+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Article+CoreDataProperties.h"; sourceTree = "<group>"; };
 		A0FA34D61D5774ED00CDD558 /* Article+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Article+CoreDataProperties.m"; sourceTree = "<group>"; };
 		A712246785FFB00D21AA4353 /* Pods-SingPost WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit Extension/Pods-SingPost WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
-		A83A57E0522D74E0263C8997 /* libPods-SingPost.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SingPost.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7C8C6E29CDFDA866A4117B /* Pods-SingPost WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit App.release.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit App/Pods-SingPost WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		D0980081FB0F886EB4B84EFF /* Pods-SingPost WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SingPost WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SingPost WatchKit Extension/Pods-SingPost WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -589,7 +589,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				926FD62D242E77873BE205FD /* libPods-SingPost WatchKit App.a in Frameworks */,
+				E391DA8BD372EF51491504CE /* Pods_SingPost_WatchKit_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,7 +610,7 @@
 				24AD39271A399D180088F6A6 /* ImageIO.framework in Frameworks */,
 				A0968AD81D9A72390055932D /* StoreKit.framework in Frameworks */,
 				24AD39281A399D180088F6A6 /* MapKit.framework in Frameworks */,
-				D0538A81B963A39B5FC40EB3 /* libPods-SingPost.a in Frameworks */,
+				05CE643DC62EB67A54BCC074 /* Pods_SingPost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,7 +619,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0968AE01D9A75FD0055932D /* MapKit.framework in Frameworks */,
-				1119E9CA2D1EE7F4A3072CB8 /* libPods-SingPost WatchKit Extension.a in Frameworks */,
+				04D7FCAE44F98AE42764A047 /* Pods_SingPost_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,9 +765,9 @@
 				521B172217F1633000FEB6FD /* CoreGraphics.framework */,
 				521B172417F1633000FEB6FD /* UIKit.framework */,
 				521B173917F1633000FEB6FD /* XCTest.framework */,
-				A83A57E0522D74E0263C8997 /* libPods-SingPost.a */,
-				604E082E2CB6E086A6BF93A8 /* libPods-SingPost WatchKit App.a */,
-				2ED85AAEF673B11F4CB79C89 /* libPods-SingPost WatchKit Extension.a */,
+				9D7B64D968D09B23E73C6834 /* Pods_SingPost.framework */,
+				0FD72772DE7DCAE2770E6DEE /* Pods_SingPost_WatchKit_App.framework */,
+				4E28012AF1E3F225277C8D77 /* Pods_SingPost_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1529,6 +1529,7 @@
 				TargetAttributes = {
 					24AD38A21A399D180088F6A6 = {
 						DevelopmentTeam = KCJFL9TSEY;
+						LastSwiftMigration = 0810;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -2001,6 +2002,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile;
 				PRODUCT_NAME = SingPost;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2037,6 +2039,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SingPost.SingPostMobile;
 				PRODUCT_NAME = SingPost;
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = app;

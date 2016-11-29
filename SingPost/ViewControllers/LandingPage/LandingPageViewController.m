@@ -40,7 +40,7 @@
 
 //#import "TrackedItem.h"
 #import "TrackedItem+CoreDataClass.h"
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 
 typedef enum {
     LANDINGPAGEBUTTON_START = 100,

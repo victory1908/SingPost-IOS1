@@ -11,7 +11,7 @@
 #import "EntityLocation.h"
 
 #import <MapKit/MapKit.h>
-#import <RegexKitLite.h>
+#import "RegexKitLite.h"
 
 #import "EntityLocationMapAnnotation.h"
 #import "UIFont+SingPost.h"

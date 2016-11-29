@@ -9,7 +9,7 @@
 #import "FAQViewController.h"
 #import "NavigationBarView.h"
 #import "Article.h"
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 #import "Content.h"
 
 @interface FAQViewController ()

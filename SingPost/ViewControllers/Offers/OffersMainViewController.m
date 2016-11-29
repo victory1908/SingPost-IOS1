@@ -7,7 +7,7 @@
 //
 
 #import "OffersMainViewController.h"
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 #import "Article.h"
 #import "NavigationBarView.h"
 #import "UIFont+SingPost.h"
@@ -15,8 +15,8 @@
 #import "DatabaseSeeder.h"
 #import "OffersTableViewCell.h"
 #import "AppDelegate.h"
-#import <SVProgressHUD.h>
-#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "SVProgressHUD.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "ArticleContentViewController.h"
 #import "ArticleCategory.h"
 

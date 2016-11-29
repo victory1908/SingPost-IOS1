@@ -13,8 +13,9 @@
 #import "PushNotification.h"
 #import "UserDefaultsManager.h"
 #import "UIAlertView+Blocks.h"
-#import "DeviceUtil.h"
+//#import "DeviceUtil.h"
 #import "SAMKeychain.h"
+
 #import "ApiClient.h"
 
 static NSString * const POST_METHOD = @"POST";
@@ -54,7 +55,11 @@ SINGLETON_MACRO
 - (NSString *)notificationProfileID
 {
     if (!_notificationProfileID) {
-        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+//        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+        
+        
+        
+//        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
     }
     return _notificationProfileID;
 }
@@ -63,7 +68,7 @@ SINGLETON_MACRO
 {
     if (inNotificationProfileID.length > 0) {
         _notificationProfileID = inNotificationProfileID;
-        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+//        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
     }
 }
 

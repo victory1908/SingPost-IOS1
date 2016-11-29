@@ -17,7 +17,7 @@
 #import "AppDelegate.h"
 
 #import <QuartzCore/QuartzCore.h>
-#import <MHNatGeoViewControllerTransition.h>
+#import "MHNatGeoViewControllerTransition.h"
 
 @interface RootViewController ()
 
@@ -388,5 +388,18 @@ void sourceFirstTransform2(CALayer *layer) {
 - (void) checkSignStatus {
     [sideBarMenuViewController checkLoginStatus];
 }
+
+-(void)barScannerViewController:(BarScannerViewController *)barScannerViewController didScanCode:(NSString *)code ofType:(NSString *)type {
+    
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = NO;
+    
+    trackingMainViewController.trackingNumber = code;
+    
+    [self cPushViewController:trackingMainViewController];
+
+}
+
+
 
 @end

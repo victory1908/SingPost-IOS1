@@ -55,35 +55,10 @@
         
         NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
         
-//        bool can = [[UIApplication sharedApplication] canOpenURL:url];
-//        
-//        if (NSFoundationVersionNumber >= NSFoundationVersionNumber10_0) {
-//            // do stuff for iOS 9 and newer
-//            if (can) {
-//                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-//            }
-//            
-//        }
-//        else {
-//            // do stuff for older versions than iOS 9
-//            if(can){
-//                [[UIApplication sharedApplication] openURL:url];
-//            }
-//        }
-        
         if([[UIDevice currentDevice].systemVersion floatValue] >= 10.0){
             
             [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
         
-//            if ([UIApplication respondsToSelector:@selector(openURL:options:completionHandler:)]) {
-//                [[UIApplication sharedApplication] openURL:url options:@{}
-//                                         completionHandler:^(BOOL success) {
-//                                             NSLog(@"Open %@: %d",scheme,success);
-//                                         }];
-//            } else {
-//                //                        BOOL success = [[UIApplication sharedApplication] openURL:url];
-//                //                        NSLog(@"Open %@:",success);
-//            }
         }
         else{
             bool can = [[UIApplication sharedApplication] canOpenURL:url];

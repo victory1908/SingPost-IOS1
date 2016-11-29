@@ -1,4 +1,5 @@
-platform :ios, '7.0'
+platform :ios, '8.0'
+use_frameworks!
 
 def shared_pods
     pod 'RaptureXML'
@@ -29,7 +30,7 @@ def ios_pods
     pod 'UIActivityIndicator-for-SDWebImage'
     pod 'SevenSwitch'
 #    pod 'ZXingObjC'
-    pod 'DeviceUtil'
+#    pod 'DeviceUtil'
 #    pod 'MBProgressHUD'
 #    pod 'RMUniversalAlert'
     pod 'CustomIOSAlertView'

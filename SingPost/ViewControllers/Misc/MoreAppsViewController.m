@@ -12,7 +12,7 @@
 #import "UIFont+SingPost.h"
 #import "ArticleTableViewCell.h"
 #import "Article.h"
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 
 @interface MoreAppsViewController () <UITableViewDataSource, UITableViewDelegate>
 

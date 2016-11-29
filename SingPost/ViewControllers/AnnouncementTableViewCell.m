@@ -11,7 +11,7 @@
 #import "UILabel+VerticalAlign.h"
 #import "UIView+Position.h"
 #import "PersistentBackgroundView.h"
-#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "NSDictionary+Additions.h"
 
 @implementation AnnouncementTableViewCell {

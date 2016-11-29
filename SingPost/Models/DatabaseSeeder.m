@@ -8,7 +8,7 @@
 
 #import "DatabaseSeeder.h"
 #import "EntityLocation.h"
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 
 @implementation DatabaseSeeder
 

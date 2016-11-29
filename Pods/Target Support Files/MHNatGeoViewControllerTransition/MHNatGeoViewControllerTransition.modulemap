@@ -1,0 +1,6 @@
+framework module MHNatGeoViewControllerTransition {
+  umbrella header "MHNatGeoViewControllerTransition-umbrella.h"
+
+  export *
+  module * { export * }
+}

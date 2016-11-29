@@ -154,7 +154,7 @@ static NSString * const GET_METHOD = @"GET";
 - (NSString *)notificationProfileID
 {
     if (!_notificationProfileID) {
-        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+//        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
     }
     return _notificationProfileID;
 }
@@ -163,7 +163,7 @@ static NSString * const GET_METHOD = @"GET";
 {
     if (inNotificationProfileID.length > 0) {
         _notificationProfileID = inNotificationProfileID;
-        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+//        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
     }
 }
 

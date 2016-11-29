@@ -23,6 +23,7 @@
 @property (nonatomic, strong) AVCaptureSession *flashLightSession;
 @property (nonatomic) BOOL isReading;
 
+
 @end
 
 @implementation BarScannerViewController
@@ -246,21 +247,37 @@
                       barcode.type,
                       barcode.stringValue);
                 
-                if (scanTrackingNumbers[@"scanTrackingNumber"] != barcode.stringValue) {
+                if ((barcode.stringValue!=nil) && (scanTrackingNumbers[@"scanTrackingNumber"] != barcode.stringValue)) {
                     [scanTrackingNumbers setValue:barcode forKey:@"scanTrackingNumber"];
                     
-                    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-                    trackingMainViewController.isPushNotification = NO;
                     
-                    trackingMainViewController.trackingNumber = barcode.stringValue;
                     
-                    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+                    if ([_barScannerDelegate respondsToSelector:
+                         @selector(barScannerViewController:didScanCode:ofType:)])
+                    {
+                        [_barScannerDelegate barScannerViewController:self didScanCode:barcode.stringValue ofType:barcode.type];
+                    }
+
                     [self dismissViewControllerAnimated:YES completion:nil];
+                    
+                    
+                    
+                    
+//                    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//                    trackingMainViewController.isPushNotification = NO;
+//                    
+//                    trackingMainViewController.trackingNumber = barcode.stringValue;
+//                    
+//                    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+//                    [self dismissViewControllerAnimated:YES completion:nil];
                 }
 
             } else if ([obj isKindOfClass:
                         [AVMetadataFaceObject class]]) {
                 NSLog(@"Face detection marking not implemented");
+                return;
+            } else{
+                return;
             }
         }
         

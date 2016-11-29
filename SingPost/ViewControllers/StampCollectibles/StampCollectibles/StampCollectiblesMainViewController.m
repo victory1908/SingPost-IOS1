@@ -17,8 +17,8 @@
 #import "StampCollectiblesTableViewCell.h"
 #import "StampCollectiblesDetailsViewController.h"
 #import "AppDelegate.h"
-#import <SVProgressHUD.h>
-#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "SVProgressHUD.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "LandingPageViewController.h"
 //#import "MBProgressHUD.h"
 @import GoogleMobileAds;

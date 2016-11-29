@@ -14,13 +14,13 @@
 #import "UIView+Position.h"
 #import "UIImage+Extensions.h"
 #import <QuartzCore/QuartzCore.h>
-#import <SVProgressHUD.h>
+#import "SVProgressHUD.h"
 #import "ColoredPageControl.h"
 #import "FlatBlueButton.h"
 #import "AppDelegate.h"
 #import "LocateUsMainViewController.h"
 #import "StampImagesBrowserViewController.h"
-#import <UIImageView+UIActivityIndicatorForSDWebImage.h>
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "StampCollectibleDetailExpandableView.h"
 #import "UIAlertView+Blocks.h"
 #import "MaintanancePageViewController.h"

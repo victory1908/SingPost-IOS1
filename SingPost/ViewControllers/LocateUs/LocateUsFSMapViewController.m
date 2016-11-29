@@ -9,7 +9,7 @@
 #import "LocateUsFSMapViewController.h"
 #import "NavigationBarView.h"
 #import <MapKit/MapKit.h>
-#import <RegexKitLite.h>
+#import "RegexKitLite.h"
 #import "EntityLocationMapAnnotation.h"
 
 @interface LocateUsFSMapViewController () <MKMapViewDelegate>

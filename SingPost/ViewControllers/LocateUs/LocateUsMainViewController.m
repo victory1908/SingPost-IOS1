@@ -15,8 +15,8 @@
 #import "LocateUsListViewController.h"
 #import "LocateUsDetailsViewController.h"
 #import "UIView+Position.h"
-#import <UIAlertView+Blocks.h>
-#import <SVProgressHUD.h>
+#import "UIAlertView+Blocks.h"
+#import "SVProgressHUD.h"
 #import "EntityLocation.h"
 
 typedef enum {

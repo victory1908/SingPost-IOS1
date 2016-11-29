@@ -1,1 +1,0 @@
-../../../MHNatGeoViewControllerTransition/MHNatGeoViewControllerTransition/MHNatGeoViewControllerTransition.h
