@@ -170,7 +170,9 @@ UITableViewDelegate
     [self loadTrackingItems];
 
     self.notificationToken = [[RLMRealm defaultRealm] addNotificationBlock:^(NSString *notification, RLMRealm *realm) {
-        [self loadTrackingItems];
+        if (![RLMRealm defaultRealm].isEmpty) {
+            [self loadTrackingItems];
+        }
     }];
     
 
@@ -180,6 +182,7 @@ UITableViewDelegate
     [super viewDidDisappear:animated];
     [self.notificationToken stop];
 //    [[RLMRealm defaultRealm] removeNotification:self.notificationToken];
+    
     [SVProgressHUD dismiss];
 }
 
@@ -246,33 +249,6 @@ UITableViewDelegate
     }
     
     [self getTrackingDetail];
-//    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
-//     {
-//         if (error == nil) {
-//             if (parcel.isFound) {
-//                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
-//                 [self goToDetailPageWithParcel:parcel];
-//                 [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
-//             }
-//         } else {
-//             if (error.code == 1001) {
-//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
-//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-//                 [alert addAction:ok];
-//                 [self presentViewController:alert animated:YES completion:nil];
-//
-//             }
-//             else {
-//
-//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-//                 [alert addAction:ok];
-//                 [self presentViewController:alert animated:YES completion:nil];
-//             }
-//         }
-//         [self loadTrackingItems];
-//         [SVProgressHUD dismiss];
-//     }];
 }
 
 -(void) getTrackingDetail {

@@ -154,6 +154,9 @@
     
     // Initialize the captureSession object.
     _captureSession = [[AVCaptureSession alloc] init];
+    _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    
+    
     // Set the input device on the capture session.
     [_captureSession addInput:input];
     
@@ -162,9 +165,11 @@
     [_captureSession addOutput:captureMetadataOutput];
     
     // Create a new serial dispatch queue.
-    dispatch_queue_t dispatchQueue;
-    dispatchQueue = dispatch_queue_create("myQueue", NULL);
-    [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
+//    dispatch_queue_t dispatchQueue;
+//    dispatchQueue = dispatch_queue_create("myQueue", NULL);
+//    [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatchQueue];
+    [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    
 //    [captureMetadataOutput setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]]; // Add all the types you need, currently it is just QR code
     
 //    captureMetadataOutput.metadataObjectTypes = [captureMetadataOutput availableMetadataObjectTypes];
@@ -231,23 +236,50 @@
         // This was my result, but you can search the metadataObjects array for what you need exactly
 
         
-        NSString *code = [(AVMetadataMachineReadableCodeObject *)[metadataObjects objectAtIndex:0] stringValue];
-        
-//        [scanTrackingNumbers setValue:code forKey:@"scanTrackingNumber"];
+        for (AVMetadataObject *obj in metadataObjects) {
+            
+            if ([obj isKindOfClass:
+                 [AVMetadataMachineReadableCodeObject class]]) {
+                AVMetadataMachineReadableCodeObject *barcode =
+                (AVMetadataMachineReadableCodeObject *)obj;
+                NSLog(@"Seeing type '%@' with contents '%@'",
+                      barcode.type,
+                      barcode.stringValue);
+                
+                if (scanTrackingNumbers[@"scanTrackingNumber"] != barcode.stringValue) {
+                    [scanTrackingNumbers setValue:barcode forKey:@"scanTrackingNumber"];
+                    
+                    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+                    trackingMainViewController.isPushNotification = NO;
+                    
+                    trackingMainViewController.trackingNumber = barcode.stringValue;
+                    
+                    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
 
-        
-        if (scanTrackingNumbers[@"scanTrackingNumber"] != code) {
-            [scanTrackingNumbers setValue:code forKey:@"scanTrackingNumber"];
-            
-            TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-            trackingMainViewController.isPushNotification = NO;
-            
-            trackingMainViewController.trackingNumber = code;
-            
-//            [self.navigationController pushViewController:trackingMainViewController animated:YES];
-            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            } else if ([obj isKindOfClass:
+                        [AVMetadataFaceObject class]]) {
+                NSLog(@"Face detection marking not implemented");
+            }
         }
+        
+//        NSString *code = [(AVMetadataMachineReadableCodeObject *)[metadataObjects objectAtIndex:0] stringValue];
+//        
+////        [scanTrackingNumbers setValue:code forKey:@"scanTrackingNumber"];
+//
+//        
+//        if (scanTrackingNumbers[@"scanTrackingNumber"] != code) {
+//            [scanTrackingNumbers setValue:code forKey:@"scanTrackingNumber"];
+//            
+//            TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//            trackingMainViewController.isPushNotification = NO;
+//            
+//            trackingMainViewController.trackingNumber = code;
+//            
+//            [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        }
         
     }
 }
