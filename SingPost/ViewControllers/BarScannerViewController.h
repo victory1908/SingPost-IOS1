@@ -15,21 +15,21 @@
 /**
  protocol for receiving updates on newly visible barcodes
  */
-@protocol BarScannerViewControllerDelegate <NSObject>
+@protocol BarScannerViewControllerDelegate;
 
-@optional
-- (void)barScannerViewController:(BarScannerViewController *)barScannerViewController
-              didScanCode:(NSString *)code
-                   ofType:(NSString *)type;
+@interface BarScannerViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+
+@property (nonatomic, weak) id<BarScannerViewControllerDelegate> barScannerDelegate;
 
 @end
 
+@protocol BarScannerViewControllerDelegate <NSObject>
 
-@interface BarScannerViewController : UIViewController
-//@interface BarScannerViewController : UIViewController < ZBarReaderDelegate >
-@property (weak, nonatomic) IBOutlet UIView *contentView;
-//@property (retain,nonatomic) LandingPageViewController * landingVC;
+- (void)barScannerViewController:(BarScannerViewController *)barScannerViewController
+                     didScanCode:(NSString *)code
+                          ofType:(NSString *)type;
 
-@property (nonatomic, weak) id<BarScannerViewControllerDelegate> barScannerDelegate;
 
 @end

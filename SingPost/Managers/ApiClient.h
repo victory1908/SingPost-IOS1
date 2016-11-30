@@ -7,7 +7,6 @@
 //
 
 #import "AFNetworking.h"
-//#import <AFRaptureXMLRequestOperation.h>
 #import "RXMLElement.h"
 #import <Realm/Realm.h>
 #import "Parcel.h"
@@ -112,6 +111,6 @@ typedef void (^ApiClientProgressCompletion)(NSUInteger numberOfFinishedOperation
 @property (nonatomic,retain) NSString * fbID;
 
 @property (nonatomic, readonly) BOOL hasRegisteredProfileId;
-@property (nonatomic) NSString *notificationProfileID;
+//@property (nonatomic) NSString *notificationProfileID;
 
 @end

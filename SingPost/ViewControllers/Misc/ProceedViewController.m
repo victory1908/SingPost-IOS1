@@ -14,7 +14,7 @@
 #import "FlatBlueButton.h"
 #import "LandingPageViewController.h"
 #import "UIView+Position.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 #import "ApiClient.h"
 #import "CustomIOSAlertView.h"
 

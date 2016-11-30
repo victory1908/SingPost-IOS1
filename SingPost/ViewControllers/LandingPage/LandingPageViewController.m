@@ -34,7 +34,7 @@
 #import "NSDictionary+Additions.h"
 #import "AnnouncementViewController.h"
 #import "ShopViewController.h"
-#import "BarScannerViewController.h"
+//#import "BarScannerViewController.h"
 #import "ScanTutorialViewController.h"
 #import "UserDefaultsManager.h"
 
@@ -73,16 +73,13 @@ typedef enum {
 }
 @end
 
-@interface LandingPageViewController ()
-<
-UITextFieldDelegate,
-OffersMenuDelegate
->
+@interface LandingPageViewController () <UITextFieldDelegate, OffersMenuDelegate, BarScannerViewControllerDelegate>
 @end
 
 @implementation LandingPageViewController {
     CTextField *trackingNumberTextField;
     OffersMoreMenuView *offersMoreMenuView;
+    ScanTutorialViewController * vc;
     
     UILabel * newLabel;
     UIImageView * badge;
@@ -484,6 +481,7 @@ OffersMenuDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [trackingNumberTextField setText:[[UserDefaultsManager sharedInstance] getLastTrackingNumber]];
 }
 
@@ -854,11 +852,30 @@ OffersMenuDelegate
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
 
     
-    UINavigationController *barCodeNavigationController = [[UINavigationController alloc] initWithRootViewController:barCodeVC];
-    [barCodeNavigationController setNavigationBarHidden:YES];
+    barCodeVC.barScannerDelegate = self;
     
-    [[AppDelegate sharedAppDelegate].rootViewController presentViewController:barCodeNavigationController animated:YES completion:nil];
+    [self presentViewController:barCodeVC animated:YES completion:nil];
     
 }
+
+
+
+-(void)barScannerViewController:(BarScannerViewController *)barScannerViewController didScanCode:(NSString *)code ofType:(NSString *)type {
+    
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = NO;
+    
+    trackingMainViewController.trackingNumber = code;
+    trackingMainViewController.trackingNumberTextField.text = code;
+    
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
+    });
+    
+}
+
 
 @end

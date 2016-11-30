@@ -15,7 +15,7 @@
 #import "LocateUsListViewController.h"
 #import "LocateUsDetailsViewController.h"
 #import "UIView+Position.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 #import "SVProgressHUD.h"
 #import "EntityLocation.h"
 

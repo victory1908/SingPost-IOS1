@@ -16,7 +16,7 @@
 #import "FlatBlueButton.h"
 #import "ApiClient.h"
 #import "SVProgressHUD.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 
 #define DEFAULT_TEXTFIELD_BACKGROUND      [[UIImage imageNamed:@"trackingTextBox_grayBg"]resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,15,15)]
 

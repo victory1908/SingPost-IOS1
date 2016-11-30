@@ -18,6 +18,7 @@ PODS:
     - Fabric (~> 1.6.3)
   - CustomIOSAlertView (0.9.5)
   - Fabric (1.6.11)
+  - FDKeychain (1.3.0)
   - Firebase/AdMob (3.10.0):
     - Firebase/Core
     - Google-Mobile-Ads-SDK (= 7.15.0)
@@ -69,24 +70,24 @@ PODS:
     - Realm/Headers (= 2.1.0)
   - Realm/Headers (2.1.0)
   - RegexKitLite (4.0)
-  - SAMKeychain (1.5.2)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SevenSwitch (2.0.0)
   - SVProgressHUD (2.0.4)
-  - TPKeyboardAvoiding (1.3)
+  - TPKeyboardAvoiding (1.3.1)
   - TTTAttributedLabel (2.0.0)
   - UALogger (0.3)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
-  - UIAlertView+Blocks (0.9)
+  - UIAlertController+Blocks (0.9.2)
 
 DEPENDENCIES:
   - AFNetworking
   - Crashlytics
   - CustomIOSAlertView
   - Fabric
+  - FDKeychain
   - Firebase/AdMob
   - Firebase/Core
   - Firebase/Messaging
@@ -98,20 +99,20 @@ DEPENDENCIES:
   - Reachability
   - Realm
   - RegexKitLite
-  - SAMKeychain
   - SevenSwitch
   - SVProgressHUD
   - TPKeyboardAvoiding
   - TTTAttributedLabel
   - UALogger
   - UIActivityIndicator-for-SDWebImage
-  - UIAlertView+Blocks
+  - UIAlertController+Blocks
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   CustomIOSAlertView: cc4fa8e36219be3fd5ebcd40789f5b4aaae0f38e
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  FDKeychain: bd010f28f97ffe7068b3421b77d162b5c2531d61
   Firebase: 387f37c7dca894a02708da9ff35ba147040eae9e
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseCore: 1e383fdfe37b6b5d6ff88e84204bdee30276af0f
@@ -130,16 +131,15 @@ SPEC CHECKSUMS:
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Realm: bc829ad0ef3d4eea70c34cfcc3b1704d18d50df1
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
-  SAMKeychain: 1865333198217411f35327e8da61b43de79b635b
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SevenSwitch: 4ae92ffcad0ef93b38553b39a25e753c94eb7847
   SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
-  TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
+  TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UALogger: ccc041e5982dbd274ab5805f914076fef9bf29cf
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
-  UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
+  UIAlertController+Blocks: 80e28b92523fb58aba4d1bccec013d5a0b0bddb2
 
-PODFILE CHECKSUM: d2e46f9643a966a4ebeac513d238937d6e234018
+PODFILE CHECKSUM: e1a88128a8f3cb1bda2b2b0ce7116c2aa0d5699e
 
 COCOAPODS: 1.1.1

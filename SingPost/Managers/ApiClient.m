@@ -9,9 +9,8 @@
 #import "ApiClient.h"
 #import "EntityLocation.h"
 #import "Stamp.h"
-//#import <SSKeychain.h>
-#import "SAMKeychain.h"
-#import "UIAlertView+Blocks.h"
+
+//#import "UIAlertView+Blocks.h"
 #import "NSDictionary+Additions.h"
 #import <sys/sysctl.h>
 #import "DeliveryStatus+CoreDataClass.h"
@@ -30,7 +29,7 @@
 @synthesize allTrackingItem;
 @synthesize fbID;
 
-@synthesize notificationProfileID = _notificationProfileID;
+//@synthesize notificationProfileID = _notificationProfileID;
 
 static BOOL isProduction = YES;
 static BOOL isScanner = YES;
@@ -146,26 +145,29 @@ static NSString * const GET_METHOD = @"GET";
 
 #pragma mark - Properties
 
-- (BOOL)hasRegisteredProfileId
-{
-    return [[self notificationProfileID] length] > 0;
-}
+//- (BOOL)hasRegisteredProfileId
+//{
+//    return [[self notificationProfileID] length] > 0;
+//}
 
-- (NSString *)notificationProfileID
-{
-    if (!_notificationProfileID) {
-//        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
-    }
-    return _notificationProfileID;
-}
+//- (NSString *)notificationProfileID
+//{
+//    if (!_notificationProfileID) {
+////        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+//        
+//        
+//    }
+//    return _notificationProfileID;
+//}
 
-- (void)setNotificationProfileID:(NSString *)inNotificationProfileID
-{
-    if (inNotificationProfileID.length > 0) {
-        _notificationProfileID = inNotificationProfileID;
-//        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
-    }
-}
+//- (void)setNotificationProfileID:(NSString *)inNotificationProfileID
+//{
+//    if (inNotificationProfileID.length > 0) {
+//        _notificationProfileID = inNotificationProfileID;
+//        
+////        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+//    }
+//}
 
 #pragma mark - API calls
 

@@ -22,7 +22,7 @@
 #import "StampImagesBrowserViewController.h"
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "StampCollectibleDetailExpandableView.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 #import "MaintanancePageViewController.h"
 //#import "MBProgressHUD.h"
 

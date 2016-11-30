@@ -10,7 +10,7 @@
 #import "NavigationBarView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIFont+SingPost.h"
-#import "CTextField.h"
+//#import "CTextField.h"
 #import "TrackingItemMainTableViewCell.h"
 #import "TrackingHeaderMainTableViewCell.h"
 #import "TrackingDetailsViewController.h"
@@ -18,7 +18,7 @@
 #import "KGModal.h"
 #import "SVProgressHUD.h"
 #import "UIImage+Extensions.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 //#import "SevenSwitch.h"
 #import "SevenSwitch-Swift.h"
 
@@ -80,7 +80,7 @@ UITableViewDelegate
 @end
 
 @implementation TrackingMainViewController {
-    CTextField *trackingNumberTextField;
+//    CTextField *trackingNumberTextField;
     SevenSwitch *receiveUpdateSwitch;
     
     BOOL isViewDidAppear;
@@ -194,30 +194,36 @@ UITableViewDelegate
     [SVProgressHUD dismiss];
 }
 
-//-(void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 //    [self getAllLabel];
-//}
+
+    
+}
+
+- (void)handleScanResult: (NSNotification *) notification {
+    NSLog(@"%@", notification.userInfo);
+}
 
 #pragma mark - Setters
 - (void)setTrackingNumber:(NSString *)inTrackingNumber {
     _trackingNumber = inTrackingNumber;
-    [trackingNumberTextField setText:_trackingNumber];
+    [_trackingNumberTextField setText:_trackingNumber];
     [[UserDefaultsManager sharedInstance] setLastTrackingNumber:inTrackingNumber];
 }
 
 #pragma mark - UITextField events
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == trackingNumberTextField) {
+    if (textField == _trackingNumberTextField) {
         self.isPushNotification = NO;
-        [self addTrackingNumber:trackingNumberTextField.text];
+        [self addTrackingNumber:_trackingNumberTextField.text];
     }
     return YES;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    [trackingNumberTextField resignFirstResponder];
+    [_trackingNumberTextField resignFirstResponder];
 }
 
 #pragma mark - Tracking Numbers
@@ -225,7 +231,7 @@ UITableViewDelegate
     [self setTrackingNumber:trackingNumber];
     
     if (!self.isPushNotification) {
-        if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
+        if ([_trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:ok];
@@ -233,7 +239,7 @@ UITableViewDelegate
             return;
         }
         
-        if (trackingNumberTextField.text.length == 0) {
+        if (_trackingNumberTextField.text.length == 0) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:ok];
@@ -254,7 +260,7 @@ UITableViewDelegate
 }
 
 -(void) getTrackingDetail {
-    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
+    [[APIManager sharedInstance]getTrackingNumberDetails:_trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
      {
          if (error == nil) {
              if (parcel.isFound) {
@@ -314,9 +320,9 @@ UITableViewDelegate
 }
 
 - (void)onTrackingNumberBtn:(id)sender {
-    [self addTrackingNumber:trackingNumberTextField.text];
+    [self addTrackingNumber:_trackingNumberTextField.text];
     self.isPushNotification = NO;
-    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
+    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:_trackingNumberTextField.text];
     
 }
 
@@ -552,6 +558,7 @@ UITableViewDelegate
 - (void)OnGoToScan {
     
     BarScannerViewController * barCodeVC = [[BarScannerViewController alloc] init];
+    barCodeVC.barScannerDelegate = self;
     [self presentViewController:barCodeVC animated:YES completion:nil];
 
 }
@@ -573,14 +580,14 @@ UITableViewDelegate
                 whySoManyDifferentBuilds = 50;
             }
             
-            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30 - 50 + whySoManyDifferentBuilds, 44)];
-            [trackingNumberTextField setPlaceholder:@"Enter tracking number"];
-            [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
-            [trackingNumberTextField setFontSize:16.0f];
-            [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
-            [trackingNumberTextField setText:_trackingNumber];
-            [trackingNumberTextField setDelegate:self];
-            [cell.contentView addSubview:trackingNumberTextField];
+            _trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30 - 50 + whySoManyDifferentBuilds, 44)];
+            [_trackingNumberTextField setPlaceholder:@"Enter tracking number"];
+            [_trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
+            [_trackingNumberTextField setFontSize:16.0f];
+            [_trackingNumberTextField setReturnKeyType:UIReturnKeySend];
+            [_trackingNumberTextField setText:_trackingNumber];
+            [_trackingNumberTextField setDelegate:self];
+            [cell.contentView addSubview:_trackingNumberTextField];
             
             CGFloat findTrackingBtnX;
             
@@ -1241,6 +1248,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [UIView setAnimationDuration: movementDuration];
     self.view.frame = CGRectOffset(self.view.frame, 0, movement);
     [UIView commitAnimations];
+}
+
+-(void)barScannerViewController:(BarScannerViewController *)barScannerViewController didScanCode:(NSString *)code ofType:(NSString *)type {
+    NSLog(@"get here tracking %@",code);
+    _trackingNumberTextField.text = code;
+    [self addTrackingNumber:_trackingNumberTextField.text];
 }
 
 @end

@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
 #import "CustomIOSAlertView.h"
+#import "CTextField.h"
 
-@interface TrackingMainViewController : SwipeViewController <CustomIOSAlertViewDelegate>{
+@interface TrackingMainViewController : SwipeViewController <CustomIOSAlertViewDelegate, BarScannerViewControllerDelegate>{
     UITableView *trackingItemsTableView;
 }
 
 @property (nonatomic) NSString *trackingNumber;
+@property (nonatomic) CTextField *trackingNumberTextField;
 
 @property (nonatomic,assign) BOOL isOn;
 @property (nonatomic,assign) BOOL isDeleteAll;

@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ScanTutorialViewController.h"
+#import "BarScannerViewController.h"
 
-@interface LandingPageViewController : UIViewController {
-    ScanTutorialViewController * vc;
-}
+
+@interface LandingPageViewController : UIViewController
+
 
 - (void)updateMaintananceStatusUIs;
+
 
 @end

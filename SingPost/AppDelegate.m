@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "Reachability.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 #import "SVProgressHUD.h"
 #import "DatabaseSeeder.h"
 #import "PushNotification.h"
@@ -46,7 +46,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    trackingNumberTappedBeforeSignin = nil;
+
     [FIRApp configure];
     
     [Fabric with:@[[Crashlytics class]]];

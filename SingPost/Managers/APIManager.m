@@ -12,9 +12,7 @@
 #import "DatabaseManager.h"
 #import "PushNotification.h"
 #import "UserDefaultsManager.h"
-#import "UIAlertView+Blocks.h"
-//#import "DeviceUtil.h"
-#import "SAMKeychain.h"
+#import "FDKeychain.h"
 
 #import "ApiClient.h"
 
@@ -56,10 +54,8 @@ SINGLETON_MACRO
 {
     if (!_notificationProfileID) {
 //        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
-        
-        
-        
-//        _notificationProfileID = [SAMKeychain passwordForService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+
+        [FDKeychain itemForKey:@"SETTINGS_PROFILEID" forService:KEYCHAIN_SERVICENAME inAccessGroup:@"com.SingPost.SingPostMobile" error:nil];
     }
     return _notificationProfileID;
 }
@@ -68,7 +64,10 @@ SINGLETON_MACRO
 {
     if (inNotificationProfileID.length > 0) {
         _notificationProfileID = inNotificationProfileID;
+        
+        [FDKeychain saveItem:_notificationProfileID forKey:@"SETTINGS_PROFILEID" forService:KEYCHAIN_SERVICENAME inAccessGroup:@"com.SingPost.SingPostMobile" withAccessibility:FDKeychainAccessibleAfterFirstUnlock error:nil];
 //        [SAMKeychain setPassword:_notificationProfileID forService:KEYCHAIN_SERVICENAME account:@"SETTINGS_PROFILEID"];
+                
     }
 }
 
@@ -76,6 +75,7 @@ SINGLETON_MACRO
 - (instancetype)init {
     self = [super init];
     if (self) {
+        
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         self.manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:configuration];
     

@@ -11,7 +11,7 @@
 #import "NSDictionary+Additions.h"
 #import "UIView+Position.h"
 #import "UIFont+SingPost.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 
 @interface AnnouncementDetailViewController ()

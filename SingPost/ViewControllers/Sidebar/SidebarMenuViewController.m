@@ -357,10 +357,8 @@
 
 - (void)OnGoToScan {
     BarScannerViewController * vc = [[BarScannerViewController alloc] init];
+    vc.barScannerDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
-//    LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-//    vc.landingVC = landingPageViewController;
-//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:vc];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -795,5 +793,25 @@
         }
     }
 }
+
+-(void)barScannerViewController:(BarScannerViewController *)barScannerViewController didScanCode:(NSString *)code ofType:(NSString *)type {
+    
+    NSLog(@"sidebar code? %@",code);
+    
+    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    trackingMainViewController.isPushNotification = NO;
+    
+    trackingMainViewController.trackingNumber = code;
+    trackingMainViewController.trackingNumberTextField.text = code;
+    
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
+    });
+}
+
 
 @end

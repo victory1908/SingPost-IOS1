@@ -7,10 +7,8 @@ def shared_pods
 end
 
 def ios_pods
-#    pod 'AFNetworking', '1.2.1'
-#    pod 'AFRaptureXMLRequestOperation'
+
     pod 'AFNetworking'
-#    pod 'GoogleAnalytics-iOS-SDK'
     pod 'Google/Analytics'
 #    pod 'GoogleAnalytics'
     pod 'KGModal'
@@ -20,21 +18,17 @@ def ios_pods
     pod 'UALogger'
     pod 'Reachability'
     pod 'RegexKitLite'
-#    pod 'SSKeychain'
-    
-    pod 'SAMKeychain'
-    
+    pod 'FDKeychain'
+
     pod 'TTTAttributedLabel'
     pod 'TPKeyboardAvoiding'
-    pod 'UIAlertView+Blocks'
+#    pod 'UIAlertView+Blocks'
+    pod 'UIAlertController+Blocks'
     pod 'UIActivityIndicator-for-SDWebImage'
     pod 'SevenSwitch'
-#    pod 'ZXingObjC'
-#    pod 'DeviceUtil'
 #    pod 'MBProgressHUD'
 #    pod 'RMUniversalAlert'
     pod 'CustomIOSAlertView'
-#    pod 'Toast'
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'Firebase/Core'

@@ -15,7 +15,7 @@
 #import "UIView+Position.h"
 #import "ApiClient.h"
 #import "TTTAttributedLabel.h"
-#import "UIAlertView+Blocks.h"
+//#import "UIAlertView+Blocks.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 

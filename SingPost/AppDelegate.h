@@ -37,7 +37,7 @@
 @property (nonatomic, assign) NSString * detailPageTrackNum;
 
 //@property (nonatomic, assign) NSString * trackingNumberTappedBeforeSignin;
-//@property (nonatomic, assign) NSString * trackingNumberTappedBeforeSignin;
+
 
 
 + (AppDelegate *)sharedAppDelegate;

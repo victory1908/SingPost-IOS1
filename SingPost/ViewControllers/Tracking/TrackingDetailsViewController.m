@@ -403,7 +403,6 @@ UITextFieldDelegate
     
     if (buttonIndex == 0) {
 //        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
-//        [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
 
     } else {
         if (FBSession.activeSession.state == FBSessionStateOpen
@@ -461,7 +460,7 @@ UITextFieldDelegate
         
         if (buttonIndex == 0) {
 //            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = false;
-//            [AppDelegate sharedAppDelegate].trackingNumberTappedBeforeSignin = nil;
+
         } else {
             if (FBSession.activeSession.state == FBSessionStateOpen
                 || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {

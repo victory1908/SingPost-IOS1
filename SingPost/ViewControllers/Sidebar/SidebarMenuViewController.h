@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SidebarMenuViewController : UIViewController
+@interface SidebarMenuViewController : UIViewController <BarScannerViewControllerDelegate>
 
 - (void)updateMaintananceStatusUIs;
 
