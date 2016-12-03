@@ -17,6 +17,7 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "CalculatePostageResultItem.h"
+#import "UIAlertController+Showable.h"
 
 #define NUM_DIGITS_SINGAPORE_POSTAL_CODES 6
 
@@ -118,19 +119,15 @@
 
 - (IBAction)calculatePostageButtonClicked:(id)sender
 {
-    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
     if ([weightTextField.text length] == 0 || [fromPostalCodeTextField.text length] != NUM_DIGITS_SINGAPORE_POSTAL_CODES || [toPostalCodeTextField.text length] != NUM_DIGITS_SINGAPORE_POSTAL_CODES) {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alertView show];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INCOMPLETE_FIELDS_ERROR preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:ok];
         [self presentViewController:alert animated:YES completion:nil];
     }
-    else if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    else if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:YES]) {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
         [SVProgressHUD showWithStatus:@"please wait"];
-//        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         
         NSString *weightInGrams = [weightUnitsDropDownList.selectedValue isEqualToString:WEIGHT_KG_CODE] ? [NSNumber numberWithFloat:[weightTextField.text floatValue] * 1000].stringValue : [NSNumber numberWithFloat:[weightTextField.text floatValue]].stringValue;
         
@@ -142,8 +139,6 @@
                 [SVProgressHUD dismiss];
                 
                 if (items.count == 0) {
-//                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NO_RESULTS_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//                    [alertView show];
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_RESULTS_ERROR preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                     [alert addAction:ok];

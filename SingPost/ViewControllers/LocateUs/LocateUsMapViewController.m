@@ -18,6 +18,7 @@
 #import "EntityLocationMapAnnotation.h"
 #import "AppDelegate.h"
 #import "LocateUsDetailsViewController.h"
+#import "UIAlertController+Showable.h"
 
 @interface LocateUsMapViewController () <MKMapViewDelegate, CDropDownListControlDelegate, UITextFieldDelegate>
 @end
@@ -100,7 +101,7 @@
 
 - (void)loadLocations
 {
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:NO]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         [_delegate performSelector:@selector(fetchAndReloadLocationsData)];

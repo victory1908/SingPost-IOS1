@@ -17,6 +17,7 @@
 #import "ApiClient.h"
 #import "SVProgressHUD.h"
 //#import "UIAlertView+Blocks.h"
+#import "UIAlertController+Showable.h"
 
 #define DEFAULT_TEXTFIELD_BACKGROUND      [[UIImage imageNamed:@"trackingTextBox_grayBg"]resizableImageWithCapInsets:UIEdgeInsetsMake(15,15,15,15)]
 
@@ -187,12 +188,11 @@
     }
     
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:YES]) {
         [self.view endEditing:YES];
         NSString *feedbackMessage = [NSString stringWithFormat:@"Name: %@\nContact: %@\nEmail: %@\nMessage: %@", nameTextField.text, contactNumberTextField.text, emailAddressTextField.text, commentsTextView.text];
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait"];
-//        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [[ApiClient sharedInstance] postFeedbackMessage:feedbackMessage subject:@"SingPost Mobile App | Customer Feedback" onSuccess:^(id responseObject) {
             
             nameTextField.text = @"";

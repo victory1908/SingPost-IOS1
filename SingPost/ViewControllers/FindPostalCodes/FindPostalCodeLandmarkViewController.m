@@ -17,6 +17,7 @@
 #import "PostalCodeLandmarkResultTableViewCell.h"
 #import "NSString+Extensions.h"
 #import "UIView+Origami.h"
+#import "UIAlertController+Showable.h"
 
 @interface FindPostalCodeLandmarkViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
@@ -83,8 +84,6 @@
 {
     [self.view endEditing:YES];
     if ([[majorBuildingEstateTextField.text trimWhiteSpaces] length] < 3) {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:INCOMPLETE_FIELDS_ERROR delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alertView show];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INCOMPLETE_FIELDS_ERROR preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:ok];
@@ -92,12 +91,11 @@
         
         return;
     }
-    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:YES]) {
         _searchResults = nil;
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait"];
-//        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [PostalCode API_findPostalCodeForLandmark:majorBuildingEstateTextField.text onCompletion:^(NSArray *results, NSError *error) {
             if (error) {
                 [SVProgressHUD showErrorWithStatus:@"An error has occurred"];

@@ -45,30 +45,52 @@ typedef void (^ FailureBlock)(NSError *error, NSInteger statusCode);
     
     
     [[ApiClient sharedInstance] getSingpostContentsOnSuccess:^(id responseJSON) {
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            __block NSString *termsOfUse = nil;
-            NSLog(@"%@",responseJSON);
+        
+        NSLog(@"%@",responseJSON);
+        
+        [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
             
-            [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
-                
-                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
-                    Content *content = [Content MR_findFirstOrCreateByAttribute:@"name" withValue:attributes[@"Name"] inContext:localContext];
-                    content.content = attributes[@"content"];
-                }];
-
-            } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
-                if (error) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(NO);
-                    });
-                }else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completionBlock(YES);
-                    });
-                }
+            [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+                Content *content = [Content MR_findFirstOrCreateByAttribute:@"name" withValue:attributes[@"Name"] inContext:localContext];
+                content.content = attributes[@"content"];
             }];
             
-        });
+        } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+            if (error) {
+                //                    dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(NO);
+                //                    });
+            }else {
+                //                    dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(YES);
+                //                    });
+            }
+        }];
+
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            __block NSString *termsOfUse = nil;
+//            NSLog(@"%@",responseJSON);
+//            
+//            [MagicalRecord saveWithBlock:^(NSManagedObjectContext * _Nonnull localContext) {
+//                
+//                [responseJSON[@"root"] enumerateObjectsUsingBlock:^(id attributes, NSUInteger idx, BOOL *stop) {
+//                    Content *content = [Content MR_findFirstOrCreateByAttribute:@"name" withValue:attributes[@"Name"] inContext:localContext];
+//                    content.content = attributes[@"content"];
+//                }];
+//
+//            } completion:^(BOOL contextDidSave, NSError * _Nullable error) {
+//                if (error) {
+////                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        completionBlock(NO);
+////                    });
+//                }else {
+////                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        completionBlock(YES);
+////                    });
+//                }
+//            }];
+            
+//        });
     } onFailure:^(NSError *error) {
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{

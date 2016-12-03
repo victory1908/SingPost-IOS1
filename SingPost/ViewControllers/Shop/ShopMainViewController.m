@@ -11,6 +11,7 @@
 #import "SVProgressHUD.h"
 #import "Article.h"
 #import "ArticleCategory.h"
+#import "UIAlertController+Showable.h"
 
 @interface ShopMainViewController ()
 
@@ -26,7 +27,7 @@
     __weak ShopMainViewController *weakSelf = self;
     [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"Shop"]];
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getShopItemsOnCompletion:^(NSArray *items, NSDictionary *responseObject) {
             [weakSelf setItems:items];

@@ -11,6 +11,7 @@
 #import "SVProgressHUD.h"
 #import "Article.h"
 #import "ArticleCategory.h"
+#import "UIAlertController+Showable.h"
 
 
 @implementation PaymentMainViewController
@@ -23,7 +24,7 @@
     __weak PaymentMainViewController *weakSelf = self;
     [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"Pay" andOrderBy:@"category" ascending:NO]];
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getPayItemsOnCompletion:^(NSArray *items) {
             [weakSelf setItems:items];

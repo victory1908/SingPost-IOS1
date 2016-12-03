@@ -18,6 +18,7 @@
 #import "PostalCodePoBoxTableViewCell.h"
 #import "NSString+Extensions.h"
 #import "UIView+Origami.h"
+#import "UIAlertController+Showable.h"
 
 @interface FindPostalCodePOBoxViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
@@ -115,13 +116,10 @@
         return;
     }
     
-    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
-    
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:YES]) {
         _searchResults = nil;
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait"];
-//        [SVProgressHUD showWithStatus:@"Please wait" maskType:SVProgressHUDMaskTypeClear];
         [PostalCode API_findPostalCodeForWindowsDeliveryNo:windowDeliveryNoTextField.text andType:typeDropDownList.selectedValue andPostOffice:postOfficeTextField.text onCompletion:^(NSArray *results, NSError *error) {
             if (error) {
                 [SVProgressHUD showErrorWithStatus:@"An error has occurred"];

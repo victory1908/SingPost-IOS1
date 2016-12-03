@@ -19,6 +19,7 @@
 #import "NSObject+Addtions.h"
 #import "ShopContentViewController.h"
 #import "UIColor-Expanded.h"
+#import "UIAlertController+Showable.h"
 
 @interface ShopViewController ()
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -90,7 +91,7 @@
     
     
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getShopItemsOnCompletion:^(NSArray *items, NSDictionary *root) {
             

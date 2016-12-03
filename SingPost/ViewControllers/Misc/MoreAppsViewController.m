@@ -13,6 +13,7 @@
 #import "ArticleTableViewCell.h"
 #import "Article.h"
 #import "SVProgressHUD.h"
+#import "UIAlertController+Showable.h"
 
 @interface MoreAppsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -69,7 +70,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];
         [Article API_getSingPostAppsOnCompletion:^(NSArray *apps) {
             [SVProgressHUD dismiss];

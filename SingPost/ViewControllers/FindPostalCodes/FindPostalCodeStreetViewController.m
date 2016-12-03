@@ -17,6 +17,7 @@
 #import "PostalCodeStreetTableViewCell.h"
 #import "NSString+Extensions.h"
 #import "UIView+Origami.h"
+#import "UIAlertController+Showable.h"
 
 @interface FindPostalCodeStreetViewController () <UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
@@ -108,9 +109,8 @@
         return;
     }
     
-    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
-    
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+        
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:YES]) {
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait"];
         [PostalCode API_findPostalCodeForBuildingNo:buildingBlockHouseNumberTextField.text andStreetName:streetNameTextField.text onCompletion:^(NSArray *results, NSError *error) {

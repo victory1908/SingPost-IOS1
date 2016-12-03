@@ -11,6 +11,7 @@
 #import "Article.h"
 #import "SVProgressHUD.h"
 #import "Content.h"
+#import "UIAlertController+Showable.h"
 
 @interface FAQViewController ()
 
@@ -58,12 +59,8 @@
         [faqWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
     }
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:NO]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];
-//        [Article API_getFaqOnCompletion:^(NSString *faqs) {
-//            [SVProgressHUD dismiss];
-//            [faqWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", faqs] baseURL:nil];
-//        }];
         [Content API_SingPostContentOnCompletion:^(BOOL success) {
             if (success){
                 [SVProgressHUD dismiss];

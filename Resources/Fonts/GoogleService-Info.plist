@@ -38,7 +38,5 @@
 	<string>https://singpostmobile-24f20.firebaseio.com</string>
 	<key>TRACKING_ID</key>
 	<string>UA-37021472-1</string>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
 </dict>
 </plist>

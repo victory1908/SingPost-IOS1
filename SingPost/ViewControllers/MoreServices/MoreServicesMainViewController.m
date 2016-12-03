@@ -11,6 +11,7 @@
 #import "SVProgressHUD.h"
 #import "Article.h"
 #import "ArticleCategory.h"
+#import "UIAlertController+Showable.h"
 
 @implementation MoreServicesMainViewController
 
@@ -22,7 +23,8 @@
     __weak MoreServicesMainViewController *weakSelf = self;
     [weakSelf setItems:[ArticleCategory MR_findByAttribute:@"module" withValue:@"More Services"]];
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
+    
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getServicesOnCompletion:^(NSArray *items) {
             [weakSelf setItems:items];

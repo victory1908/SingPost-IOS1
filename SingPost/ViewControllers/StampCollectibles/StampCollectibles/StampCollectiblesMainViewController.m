@@ -20,6 +20,8 @@
 #import "SVProgressHUD.h"
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "LandingPageViewController.h"
+#import "UIAlertController+Showable.h"
+
 //#import "MBProgressHUD.h"
 @import GoogleMobileAds;
 
@@ -158,7 +160,7 @@
     
     
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
         [activityIndicator startAnimating];
         [svProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
 //        [SVProgressHUD showWithStatus:@"synchronizing with server"];

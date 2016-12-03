@@ -18,6 +18,7 @@
 //#import "UIAlertView+Blocks.h"
 #import "SVProgressHUD.h"
 #import "EntityLocation.h"
+#import "UIAlertController+Showable.h"
 
 typedef enum {
     LOCATEUS_VIEWMODE_MAP,
@@ -81,7 +82,7 @@ typedef enum {
     
 
     self.view = contentView;
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
     }
 //    [self updateViewData];
 }

@@ -30,7 +30,7 @@
 #import "TrackedItem+CoreDataClass.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-@import Firebase;
+
 
 
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -46,14 +46,9 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    [FIRApp configure];
+    
     
     [Fabric with:@[[Crashlytics class]]];
-    
-
-    
-    application.applicationIconBadgeNumber = 0;
     
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_9_x_Max) {
         UIUserNotificationType allNotificationTypes =
@@ -82,50 +77,18 @@
 #endif
     }
     
+    //Connect FCM
+    [self connectToFcm];
+    
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
-//    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-//    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
-//    [SVProgressHUD setForegroundColor:[UIColor colorWithRed:139 green:149 blue:160 alpha:1]];
-//    [SVProgressHUD setForegroundColor: [UIColor grayColor]];
-//    [SVProgressHUD setRingNoTextRadius:2];
-    
-//    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-//        // use registerUserNotificationSettings
-//        [[UIApplication sharedApplication]registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
-//    } else {
-//        //use registerForRemoteNotifications
-//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-//        
-//    }
-    
-//    if(SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(@"10.0")){
-//        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-//        center.delegate = self;
-//        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
-//            if( !error ){
-////                [[UIApplication sharedApplication] registerForRemoteNotifications];
-//                [application registerForRemoteNotifications];
-//            }
-//        }];  
-//    }
-//    
-//    
-//    
-//    //-- Set Notification
-//    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
-//    {
-//        // iOS 8 Notifications
-//        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-//        
-//        [application registerForRemoteNotifications];
-//    }
-//    else
-//    {
-//        // iOS < 8 Notifications
-//        [application registerForRemoteNotificationTypes:
-//         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound)];
-//    }
+    // [START configure_firebase]
+    [FIRApp configure];
+    // [END configure_firebase]
+    // Add observer for InstanceID token refresh callback.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshNotification:)
+                                                 name:kFIRInstanceIDTokenRefreshNotification object:nil];
+
     
     
     // RESET THE BADGE COUNT
@@ -157,16 +120,12 @@
     [self setupGoogleAnalytics];
     [DatabaseSeeder seedLocationsDataIfRequired];
     
-    //[Crashlytics startWithAPIKey:@"fb5017e08feeb7069b1c5d7b664775e80e3e30da"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
     _rootViewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
 
-    
-//    _navigationController = [[UINavigationController alloc]initWithRootViewController:_rootViewController];
-//    [_navigationController setNavigationBarHidden:YES];
     
     [self.window setRootViewController:_rootViewController];
     [self.window makeKeyAndVisible];
@@ -190,10 +149,16 @@
     }
     self.isFirstTime = true;
     self.isJustForRefresh = 0;
+    
     return YES;
+    
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    [self connectToFcm];
+    
     [self hasInternetConnectionWarnIfNoConnection:YES];
     [self updateMaintananceStatuses];
 //    [self checkAppAndOSVersion];
@@ -216,6 +181,11 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     [MagicalRecord cleanUp];
+    
+}
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+//    [[FIRMessaging messaging] disconnect];
+//    NSLog(@"Disconnected from FCM");
 }
 
 - (void)setupGoogleAnalytics {
@@ -239,40 +209,39 @@
 #pragma mark - Utilities
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection {
     BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
     if (!hasInternetConnection && warnIfNoConnection) {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//        [alertView show];
         
-        
-        if ([userDefaults boolForKey:@"warmHasInternet"]==false) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            [alert addAction:ok];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-            [userDefaults setBool:true forKey:@"warmHasInternet"];
-            [userDefaults synchronize];
-        }
-        
-        
-        
-        
-        
-//        [[UIApplication sharedApplication].keyWindow makeToast:NO_INTERNET_ERROR duration:2 position:CSToastPositionBottom];
-//        [[UIApplication sharedApplication].keyWindow makeToast:NO_INTERNET_ERROR duration:2 position:CSToastPositionBottom];
-        
-//        CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-//        style.backgroundColor = [UIColor clearColor];
-//        style.messageColor = [UIColor redColor];
-//        [CSToastManager setSharedStyle:style];
-//        [[UIApplication sharedApplication].keyWindow makeToast:[NSString stringWithFormat:@"%@%@",NO_INTERNET_ERROR_TITLE,NO_INTERNET_ERROR] duration:2 position:CSToastPositionBottom style:style];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:ok];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 
-    }else {
-        [userDefaults setBool:false forKey:@"warmHasInternet"];
-        [userDefaults synchronize];
     }
     return hasInternetConnection;
 }
+
+//+ (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection {
+//    BOOL hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    if (!hasInternetConnection && warnIfNoConnection) {
+//        
+//        if ([userDefaults boolForKey:@"warmHasInternet"]==false) {
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//            [alert addAction:ok];
+//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+//            [userDefaults setBool:true forKey:@"warmHasInternet"];
+//            [userDefaults synchronize];
+//        }
+//        
+//        
+//    }else {
+//        [userDefaults setBool:false forKey:@"warmHasInternet"];
+//        [userDefaults synchronize];
+//    }
+//    return hasInternetConnection;
+//}
 
 - (void)checkAppAndOSVersion {
     NSString *deviceOS = [[UIDevice currentDevice] systemVersion];
@@ -747,10 +716,40 @@
 
 #pragma mark - APNS
 
-/// The callback to handle data message received via FCM for devices running iOS 10 or above.
-//- (void)applicationReceivedRemoteMessage:(nonnull FIRMessagingRemoteMessage *)remoteMessage {
-//
-//}
+// The callback to handle data message received via FCM for devices running iOS 10 or above.
+- (void)applicationReceivedRemoteMessage:(nonnull FIRMessagingRemoteMessage *)remoteMessage {
+    
+    // Print full message
+    NSLog(@"Can get here firebase?%@", [remoteMessage appData]);
+}
+
+// [START refresh_token]
+- (void)tokenRefreshNotification:(NSNotification *)notification {
+    // Note that this callback will be fired everytime a new token is generated, including the first
+    // time. So if you need to retrieve the token as soon as it is available this is where that
+    // should be done.
+    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+    NSLog(@"InstanceID token: %@", refreshedToken);
+    
+    // Connect to FCM since connection may have failed when attempted before having a token.
+    [self connectToFcm];
+    
+    // TODO: If necessary send token to application server.
+}
+// [END refresh_token]
+
+// [START connect_to_fcm]
+- (void)connectToFcm {
+    [[FIRMessaging messaging] connectWithCompletion:^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Unable to connect to FCM. %@", error);
+        } else {
+            NSLog(@"Connected to FCM.");
+        }
+    }];
+}
+// [END connect_to_fcm]
+
 
 - (void)handleRemoteNotification:(NSDictionary *)payloadInfo shouldPrompt:(BOOL)shouldPrompt {
     NSDictionary *aps = [payloadInfo objectForKey:@"aps"];
@@ -804,8 +803,10 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateBackground)];
-    completionHandler(UIBackgroundFetchResultNewData);
+//    [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateBackground)];
+//    completionHandler(UIBackgroundFetchResultNewData);
+    [[FIRMessaging messaging]appDidReceiveMessage:userInfo];
+        completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
@@ -817,6 +818,9 @@
     DLog(@"sanitized device token: %@", sanitizedDeviceToken);
     [PushNotificationManager API_registerAPNSToken:sanitizedDeviceToken
                                       onCompletion:^(BOOL success, NSError *error){}];
+
+    [[FIRInstanceID instanceID]setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
+
 }
 
 //log if error
@@ -827,19 +831,37 @@
 
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    NSLog(@"Userinfo %@",notification.request.content.userInfo);
+//    NSLog(@"Userinfo %@",notification.request.content.userInfo);
     
     NSDictionary *userInfo = notification.request.content.userInfo;
+    [[FIRMessaging messaging]appDidReceiveMessage:userInfo];
+    NSLog(@"foreground recieve 10 %@",userInfo.description);
     
-    [self handleRemoteNotification:userInfo shouldPrompt:([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)];
+    if (userInfo[@"gcm.message_id"] != nil) {
+        NSLog(@"gcm.message_id %@",userInfo[@"gcm.message_id"]);
+    }else{
+        [self handleRemoteNotification:userInfo shouldPrompt:([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)];
+    }
+    
+//    [self handleRemoteNotification:userInfo shouldPrompt:([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)];
     
     completionHandler(UNNotificationPresentationOptionAlert);
 }
 
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    NSLog(@"Userinfo %@",response.notification.request.content.userInfo);
+    // NSLog(@"Userinfo %@",response.notification.request.content.userInfo);
     NSDictionary *userInfo = response.notification.request.content.userInfo;
-    [self handleRemoteNotification:userInfo shouldPrompt:([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)];
+    
+//    [self handleRemoteNotification:userInfo shouldPrompt:([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)];
+     [[FIRMessaging messaging]appDidReceiveMessage:userInfo];
+    NSLog(@"background recieve 10 %@",userInfo.description);
+    
+    if (userInfo[@"gcm.message_id"] != nil) {
+        NSLog(@"gcm.message_id %@",userInfo[@"gcm.message_id"]);
+    }else{
+        [self handleRemoteNotification:userInfo shouldPrompt:([UIApplication sharedApplication].applicationState == UIApplicationStateBackground)];
+    }
+    
     completionHandler();
 }
 

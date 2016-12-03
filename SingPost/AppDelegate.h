@@ -15,8 +15,9 @@
 #import "Parcel.h"
 
 #import "TrackingMainViewController.h"
+@import Firebase;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate, UNUserNotificationCenterDelegate> {
+@interface AppDelegate : UIResponder <UIApplicationDelegate,NSFetchedResultsControllerDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate> {
     ProceedViewController *proceedVC;
 }
 

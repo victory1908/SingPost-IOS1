@@ -284,7 +284,7 @@
 
 - (void)CDropDownListControlDismissed:(CDropDownListControl *)dropDownListControl
 {
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:NO]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
         [_delegate performSelector:@selector(fetchAndReloadLocationsData)];

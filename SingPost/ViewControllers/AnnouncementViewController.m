@@ -13,6 +13,7 @@
 #import "AnnouncementDetailViewController.h"
 #import "NSDictionary+Additions.h"
 #import "SVProgressHUD.h"
+#import "UIAlertController+Showable.h"
 
 @interface AnnouncementViewController ()
 <
@@ -44,50 +45,99 @@ UITableViewDataSource
     [contentView addSubview:self.tableView];
     
     self.view = contentView;
-    [[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES];
+    
+
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"announcements"];
+    _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    [self.tableView reloadData];
+    
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
+        
+        [SVProgressHUD showWithStatus:@"Please wait..."];
+        
+        [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
+         {
+             NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"announcements"];
+             
+             
+             if(arr == nil) {
+                 arr = [responseObject objectForKeyOrNil:@"root"];
+             }
+             self.dataArray = arr;
+             [self.tableView reloadData];
+             
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             
+             NSString * rand = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"rand"];
+             
+             if(rand!= nil) {
+                 [defaults setObject:rand forKey:@"LAST_RAND"];
+                 
+                 NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+                 [defaults setObject:data forKey:@"announcements"];
+                 
+                 [defaults synchronize];
+             }
+             [SVProgressHUD dismiss];
+             
+         } failure:^(NSError *error)
+         {[SVProgressHUD dismiss];}];
+        
+        [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Announcements List"];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
+        [defaults synchronize];
+        [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
+    }
+    
 
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"announcements"];
-    _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
-    [SVProgressHUD showWithStatus:@"Please wait..."];
-    [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
-     {
-         NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"announcements"];
-         
-         
-         if(arr == nil) {
-            arr = [responseObject objectForKeyOrNil:@"root"];
-         }
-         self.dataArray = arr;
-         [self.tableView reloadData];
-         
-         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-         
-         NSString * rand = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"rand"];
-         
-         if(rand!= nil) {
-             [defaults setObject:rand forKey:@"LAST_RAND"];
-             
-             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
-             [defaults setObject:data forKey:@"announcements"];
-             
-             [defaults synchronize];
-         }
-         [SVProgressHUD dismiss];
-         
-     } failure:^(NSError *error)
-     {[SVProgressHUD dismiss];}];
-    
-    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Announcements List"];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
-    [defaults synchronize];
-    [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
+//    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"announcements"];
+//    _dataArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//    
+//    [SVProgressHUD showWithStatus:@"Please wait..."];
+//    [[ApiClient sharedInstance]getSingpostAnnouncementSuccess:^(id responseObject)
+//     {
+//         NSArray * arr = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"announcements"];
+//         
+//         
+//         if(arr == nil) {
+//            arr = [responseObject objectForKeyOrNil:@"root"];
+//         }
+//         self.dataArray = arr;
+//         [self.tableView reloadData];
+//         
+//         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//         
+//         NSString * rand = [[responseObject objectForKeyOrNil:@"root"] objectForKeyOrNil:@"rand"];
+//         
+//         if(rand!= nil) {
+//             [defaults setObject:rand forKey:@"LAST_RAND"];
+//             
+//             NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+//             [defaults setObject:data forKey:@"announcements"];
+//             
+//             [defaults synchronize];
+//         }
+//         [SVProgressHUD dismiss];
+//         
+//     } failure:^(NSError *error)
+//     {[SVProgressHUD dismiss];}];
+//    
+//    [[AppDelegate sharedAppDelegate] trackGoogleAnalyticsWithScreenName:@"Announcements List"];
+//    
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:[self getUTCFormateDate:[NSDate date]] forKey:@"ANNOUNCEMENT_LAST_DATE"];
+//    [defaults synchronize];
+//    [AppDelegate sharedAppDelegate].isPrevAnnouncementNew = NO;
 }
 
 -(NSString *)getUTCFormateDate:(NSDate *)localDate

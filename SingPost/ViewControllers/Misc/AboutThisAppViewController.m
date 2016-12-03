@@ -12,6 +12,7 @@
 #import "Article.h"
 #import "Content.h"
 #import "SVProgressHUD.h"
+#import "UIAlertController+Showable.h"
 
 @interface AboutThisAppViewController ()
 
@@ -54,7 +55,8 @@
         [aboutThisAppWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
     }
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+//    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:NO]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];
         [Content API_SingPostContentOnCompletion:^(BOOL success) {
             if (success){

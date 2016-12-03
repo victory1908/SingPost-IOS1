@@ -16,6 +16,7 @@
 #import "UIView+Position.h"
 //#import "UIAlertView+Blocks.h"
 #import "Content.h"
+#import "UIAlertController+Showable.h"
 
 @interface TermsOfUseViewController ()
 
@@ -67,7 +68,7 @@
         [termsOfUseWebView loadHTMLString:[NSString stringWithFormat:@"<!DOCTYPE html><html><body style=\"font-family:OpenSans;\">%@</body></html>", content.content] baseURL:nil];
     }
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:NO]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:NO]) {
         [SVProgressHUD showWithStatus:@"Please wait..."];
         [Content API_SingPostContentOnCompletion:^(BOOL success) {
             if (success){
@@ -80,16 +81,16 @@
         }];
         agreeButton.enabled = YES;
     }
-    else {
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alert addAction:ok];
-//        [self presentViewController:alert animated:YES completion:nil];
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-        
-        agreeButton.enabled = NO;
-    }
+//    else {
+//        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Your device does not seem to have internet access.\nKindly restart the app when you device has internet access." preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        [alert addAction:ok];
+////        [self presentViewController:alert animated:YES completion:nil];
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+//        
+//        agreeButton.enabled = NO;
+//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

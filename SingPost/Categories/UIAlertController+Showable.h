@@ -23,5 +23,7 @@
                              title:(NSString *) titleString
                            message:(NSString *) messageString;
 
++ (BOOL)hasInternetConnectionWarnIfNoConnection:(UIViewController *)viewController shouldWarn: (BOOL)warnIfNoConnection;
+
 
 @end

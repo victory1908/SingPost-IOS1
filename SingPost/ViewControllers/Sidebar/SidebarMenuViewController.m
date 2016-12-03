@@ -45,6 +45,7 @@
 #import "PersistentBackgroundView.h"
 #import "BarScannerViewController.h"
 #import "UserDefaultsManager.h"
+#import "UIAlertController+Showable.h"
 
 @interface SidebarTrackingNumberTextField : UITextField
 
@@ -215,8 +216,7 @@
     
     NSDictionary *maintananceStatuses = [[AppDelegate sharedAppDelegate] maintenanceStatuses];
     if ([maintananceStatuses[@"TrackFeature"] isEqualToString:@"on"]) {
-        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking"
-                                                                                                       andMessage:maintananceStatuses[@"Comment"]];
+        MaintanancePageViewController *viewController = [[MaintanancePageViewController alloc] initWithModuleName:@"Tracking" andMessage:maintananceStatuses[@"Comment"]];
         [self presentViewController:viewController animated:YES completion:nil];
         return;
     }
@@ -243,17 +243,32 @@
     }
     
     [self.view endEditing:YES];
+    
+    
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = NO;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    trackingMainViewController.trackingNumberTextField.text = trackingNumberTextField.text;
     
-    [trackingMainViewController setTrackingNumber:trackingNumberTextField.text];
+//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+
+    
+    
     
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
     });
+    
+    
+//    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:NO]) {
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
+//        });
+//    }
+    
 }
 
 #pragma mark - UITextFieldDelegate
@@ -697,7 +712,14 @@
     }
     [self.view endEditing:YES];
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    NSLog(@"trackingnumber %@",trackingNumberTextField.text);
+    
+    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+    
+    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
+    
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
+//    trackingMainViewController.trackingNumberTextField.text = trackingNumberTextField.text;
 }
 
 -(void) checkLoginStatus {

@@ -19,6 +19,7 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "ArticleContentViewController.h"
 #import "ArticleCategory.h"
+#import "UIAlertController+Showable.h"
 
 @interface OffersMainViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -38,7 +39,7 @@
     
     itemsArray = [Article MR_findByAttribute:@"articlecategory" withValue:articleCategory andOrderBy:@"expireDate" ascending:NO];
     
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
+    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
         [SVProgressHUD showWithStatus:@"Please wait.."];
         [Article API_getOffersOnCompletion:^(NSArray *items) {
             itemsArray = items;

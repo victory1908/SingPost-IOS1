@@ -249,12 +249,12 @@ UITableViewDelegate
     }
     
     [self.view endEditing:YES];
-    [[NSUserDefaults standardUserDefaults]setBool:false forKey:@"warmHasInternet"];
-    if ([[AppDelegate sharedAppDelegate] hasInternetConnectionWarnIfNoConnection:YES]) {
-        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
-        [SVProgressHUD showWithStatus:@"Please wait..."];
-
-    }
+    
+//    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
+//        [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
+//        [SVProgressHUD showWithStatus:@"Please wait..."];
+//
+//    }
     
     [self getTrackingDetail];
 }

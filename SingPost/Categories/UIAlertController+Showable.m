@@ -7,6 +7,8 @@
 //
 
 #import "UIAlertController+Showable.h"
+#import "Reachability.h"
+#import "UIAlertController+Blocks.h"
 
 @implementation UIAlertController (Showable)
 
@@ -72,6 +74,22 @@
     [alert addAction:ok];
     
     [viewController presentViewController:alert animated:YES completion:nil];
+}
+
++ (BOOL)hasInternetConnectionWarnIfNoConnection:(UIViewController *)viewController shouldWarn: (BOOL)warnIfNoConnection{
+    bool hasInternetConnection = [[Reachability reachabilityForInternetConnection] currentReachabilityStatus] != NotReachable;
+    
+    if (!hasInternetConnection && warnIfNoConnection) {
+        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        [alert addAction:ok];
+//         [viewController presentViewController:alert animated:YES completion:nil];
+    
+        [UIAlertController showAlertInViewController:viewController withTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR cancelButtonTitle:nil destructiveButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
+        
+    }
+    return hasInternetConnection;
 }
 
 
