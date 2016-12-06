@@ -44,6 +44,7 @@
 + (AppDelegate *)sharedAppDelegate;
 - (void)updateMaintananceStatuses;
 - (BOOL)hasInternetConnectionWarnIfNoConnection:(BOOL)warnIfNoConnection;
+-(BOOL)reachable;
 
 //Google analytics
 - (void)trackGoogleAnalyticsWithScreenName:(NSString *)screenName;

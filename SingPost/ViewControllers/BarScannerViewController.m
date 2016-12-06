@@ -199,12 +199,12 @@
                     [scanTrackingNumbers setValue:barcode forKey:@"scanTrackingNumber"];
                     
 
-                    
+                    [self dismissViewControllerAnimated:YES completion:nil];
                     if ([_barScannerDelegate respondsToSelector:@selector(barScannerViewController:didScanCode:ofType:)]) {
                         [_barScannerDelegate barScannerViewController:self didScanCode:barcode.stringValue ofType:barcode.type];
                     }
                     
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    
 
                 }
 

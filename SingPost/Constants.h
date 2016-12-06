@@ -34,6 +34,18 @@
 #define NO_INTERNET_ERROR_TITLE             @"No internet connection detected "
 //#define NO_INTERNET_ERROR                   @"Connection to the server failed. Please try again later."
 #define NO_INTERNET_ERROR                   @"Application in Offline Mode"
+
+#define NO_INTERNET_ERRORDOMAIN_TITLE             @"Server cannot be reached"
+#define NO_INTERNET_ERRORDOMAIN_MESSAGE           @"A server with the specified hostname could not be found, check your internet connection"
+
+#define NO_INTERNET_ERROR_LOST_TITLE             @"Network Connection lost"
+#define NO_INTERNET_ERROR_LOST_MESSAGE             @"The network connection was lost"
+
+
+#define NO_INTERNET_ERROR_MESSAGE2       @"The Internet connection appears to be offline"
+
+
+
 #define NO_RESULTS_ERROR                    @"Sorry, there are no results found. Please try again."
 #define NO_TRACKING_NUMBER_ERROR            @"Please enter tracking number."
 #define INVALID_TRACKING_NUMBER_ERROR       @"Please enter a valid tracking number."
@@ -45,4 +57,5 @@
 
 //#define AdBannerHeight = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? 50 : 90
 
-#define adMobUnitHeight ( (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 90 : 50 )
+//#define adMobUnitHeight ( (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 90 : 50 )
+#define adMobUnitHeight ( (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 0 : 0 )

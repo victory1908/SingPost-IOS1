@@ -221,46 +221,60 @@
         return;
     }
     
-    if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alert addAction:ok];
-        [self presentViewController:alert animated:YES completion:nil];
-
-        
-        return;
-    }
-    
-    if (!(trackingNumberTextField.text.length > 0)) {
-        
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alert addAction:ok];
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        return;
-    }
-    
+//    if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
+//        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        [alert addAction:ok];
+//        [self presentViewController:alert animated:YES completion:nil];
+//
+//        
+//        return;
+//    }
+//    
+//    if (!(trackingNumberTextField.text.length > 0)) {
+//        
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//        [alert addAction:ok];
+//        [self presentViewController:alert animated:YES completion:nil];
+//        
+//        return;
+//    }
+//    
     [self.view endEditing:YES];
     
     
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+    
     trackingMainViewController.isPushNotification = NO;
-    trackingMainViewController.trackingNumberTextField.text = trackingNumberTextField.text;
+    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+    trackingMainViewController.isFromScan = true;
     
-//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
-    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
-
+    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
+    
+    UINavigationController *trackingMainMainNaviController = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
+    trackingMainMainNaviController.navigationBarHidden = true;
+    
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainMainNaviController];
     
     
-    
-    double delayInSeconds = 0.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
-    });
+//    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//    trackingMainViewController.isPushNotification = NO;
+//    trackingMainViewController.trackingNumberTextField.text = trackingNumberTextField.text;
+//    
+////    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+//    [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+//
+//    
+//    
+//    
+//    double delayInSeconds = 0.5;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
+//    });
     
     
 //    if ([UIAlertController hasInternetConnectionWarnIfNoConnection:self shouldWarn:NO]) {
@@ -711,15 +725,29 @@
         return;
     }
     [self.view endEditing:YES];
+    
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    NSLog(@"trackingnumber %@",trackingNumberTextField.text);
     
     trackingMainViewController.trackingNumber = trackingNumberTextField.text;
     
     [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
     
-    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
+    UINavigationController *trackingMainMainNaviController = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
+    trackingMainMainNaviController.navigationBarHidden = true;
+    
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainMainNaviController];
+    
+//    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+//    NSLog(@"trackingnumber %@",trackingNumberTextField.text);
+//    
+//    trackingMainViewController.trackingNumber = trackingNumberTextField.text;
+//    
+//    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
+//    
 //    trackingMainViewController.trackingNumberTextField.text = trackingNumberTextField.text;
+//    
+//    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+
 }
 
 -(void) checkLoginStatus {
@@ -824,15 +852,16 @@
     trackingMainViewController.isPushNotification = NO;
     
     trackingMainViewController.trackingNumber = code;
-    trackingMainViewController.trackingNumberTextField.text = code;
+    trackingMainViewController.isFromScan = true;
+//    trackingMainViewController.trackingNumberTextField.text = code;
     
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
     
-    double delayInSeconds = 0.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
-    });
+//    double delayInSeconds = 0.5;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
+//    });
 }
 
 

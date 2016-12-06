@@ -72,8 +72,10 @@
     }];
     [alert addAction:cancel];
     [alert addAction:ok];
-    
-    [viewController presentViewController:alert animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [viewController presentViewController:alert animated:YES completion:nil];
+    });
+
 }
 
 + (BOOL)hasInternetConnectionWarnIfNoConnection:(UIViewController *)viewController shouldWarn: (BOOL)warnIfNoConnection{

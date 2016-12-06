@@ -250,6 +250,16 @@
     [[ApiClient sharedInstance]checkAppUpdateWithAppVer:appVersion andOSVer:deviceOS];
 }
 
+-(BOOL)reachable {
+    Reachability *r = [Reachability reachabilityWithHostName:@"https://prdesb1.singpost.com/"];
+    NetworkStatus serverESBStatus = [r currentReachabilityStatus];
+    if(serverESBStatus == NotReachable) {
+        return NO;
+    }
+    return YES;
+}
+
+
 #pragma mark - Tracking
 - (void)goToTrackingDetailsPageForTrackingNumber:(NSString *)trackingNumber {
     if ([self.rootViewController isSideBarVisible])
@@ -728,8 +738,11 @@
     // Note that this callback will be fired everytime a new token is generated, including the first
     // time. So if you need to retrieve the token as soon as it is available this is where that
     // should be done.
-    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
-    NSLog(@"InstanceID token: %@", refreshedToken);
+    
+    // NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+    // NSLog(@"InstanceID token: %@", refreshedToken);
+    
+    //[[FIRInstanceID instanceID]setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
     
     // Connect to FCM since connection may have failed when attempted before having a token.
     [self connectToFcm];
@@ -798,14 +811,38 @@
     }
 }
 
+//log if error
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    
+    NSLog(@"Failed to get token; error: %@",error);
+}
+
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateActive)];
+//    [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateActive)];
+    if (userInfo[@"gcm.message_id"] != nil) {
+        NSLog(@"Should get here FCM didRecieveRemoteNotification?");
+        [[FIRMessaging messaging]appDidReceiveMessage:userInfo];
+    }else {
+        NSLog(@"test fetchCompletion handler: %@",userInfo.description);
+        [self handleRemoteNotification:userInfo shouldPrompt:YES];
+    }
+    
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
 //    [self handleRemoteNotification:userInfo shouldPrompt:([application applicationState] == UIApplicationStateBackground)];
 //    completionHandler(UIBackgroundFetchResultNewData);
-    [[FIRMessaging messaging]appDidReceiveMessage:userInfo];
+    
+    if (userInfo[@"gcm.message_id"] != nil) {
+        NSLog(@"Should get here FCM?");
+        [[FIRMessaging messaging]appDidReceiveMessage:userInfo];
+    }else {
+        NSLog(@"test fetchCompletion handler: %@",userInfo.description);
+        [self handleRemoteNotification:userInfo shouldPrompt:YES];
+    }
+    
+//    [[FIRMessaging messaging]appDidReceiveMessage:userInfo];
         completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -821,12 +858,6 @@
 
     [[FIRInstanceID instanceID]setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
 
-}
-
-//log if error
--(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-
-    NSLog(@"Failed to get token; error: %@",error);
 }
 
 

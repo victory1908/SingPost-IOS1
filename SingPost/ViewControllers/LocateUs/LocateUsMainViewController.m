@@ -91,7 +91,7 @@ typedef enum {
     [super viewDidAppear:YES];
     [self updateViewData];
     
-    [UIView createBanner:self];
+//    [UIView createBanner:self];
     
 }
 

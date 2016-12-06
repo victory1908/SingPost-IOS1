@@ -235,17 +235,14 @@ SINGLETON_MACRO
         RXMLElement *itemsTrackingDetailList = [responseObject child:@"ItemsTrackingDetailList"];
         RXMLElement *itemTrackingDetail = [[itemsTrackingDetailList children:@"ItemTrackingDetail"] firstObject];
         
-        if (itemTrackingDetail != nil)
+        if ((itemTrackingDetail != nil) && [[itemTrackingDetail child:@"TrackingNumberFound"].text boolValue] == true) {
             completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
+        }
         else {
-//            [UIAlertView showWithTitle:NO_INTERNET_ERROR_TITLE
-//                               message:TRACKED_ITEM_NOT_FOUND_ERROR
-//                     cancelButtonTitle:@"OK" otherButtonTitles:nil tapBlock:nil];
-            
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:INVALID_TRACKING_NUMBER_ERROR message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            [alert addAction:ok];
-            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:INVALID_TRACKING_NUMBER_ERROR message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//            [alert addAction:ok];
+//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
             
             completed(nil,nil);
         }

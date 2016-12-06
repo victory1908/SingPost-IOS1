@@ -66,15 +66,15 @@ PODS:
   - MHNatGeoViewControllerTransition (1.0)
   - RaptureXML (1.0.1)
   - Reachability (3.2)
-  - Realm (2.1.0):
-    - Realm/Headers (= 2.1.0)
-  - Realm/Headers (2.1.0)
+  - Realm (2.1.1):
+    - Realm/Headers (= 2.1.1)
+  - Realm/Headers (2.1.1)
   - RegexKitLite (4.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SevenSwitch (2.0.0)
-  - SVProgressHUD (2.0.4)
+  - SVProgressHUD (2.1.1)
   - TPKeyboardAvoiding (1.3.1)
   - TTTAttributedLabel (2.0.0)
   - UALogger (0.3)
@@ -129,11 +129,11 @@ SPEC CHECKSUMS:
   MHNatGeoViewControllerTransition: 8bbfd6abd30056a82168754d356ad049cdf17aa2
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Realm: bc829ad0ef3d4eea70c34cfcc3b1704d18d50df1
+  Realm: a55959c0b171a5fe5267406d17f314fec3cefaae
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SevenSwitch: 4ae92ffcad0ef93b38553b39a25e753c94eb7847
-  SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
+  SVProgressHUD: 1127180503b9a308ddf7006f3cc58fc05cc1092d
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UALogger: ccc041e5982dbd274ab5805f914076fef9bf29cf

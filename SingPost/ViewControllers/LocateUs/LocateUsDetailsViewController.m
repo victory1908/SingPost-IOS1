@@ -197,7 +197,7 @@ typedef enum  {
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    [UIView createBanner:self];
+//    [UIView createBanner:self];
 }
 
 - (void)viewDidLoad

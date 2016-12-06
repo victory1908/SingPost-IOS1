@@ -198,7 +198,21 @@ UITableViewDelegate
     [super viewWillAppear:animated];
 //    [self getAllLabel];
 
-    
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    if (_isFromScan == true) {
+//        [self addTrackingNumber:_trackingNumber];
+        
+            double delayInSeconds = 0.5;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self addTrackingNumber:_trackingNumber];
+            });
+
+        
+    }
 }
 
 - (void)handleScanResult: (NSNotification *) notification {
@@ -260,34 +274,74 @@ UITableViewDelegate
 }
 
 -(void) getTrackingDetail {
-    [[APIManager sharedInstance]getTrackingNumberDetails:_trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
-     {
-         if (error == nil) {
-             if (parcel.isFound) {
-                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
-                 [self goToDetailPageWithParcel:parcel];
-                 [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
-             }
-         } else {
-             if (error.code == 1001) {
-                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
-                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                 [alert addAction:ok];
-                 [self presentViewController:alert animated:YES completion:nil];
-                 
-             }
-             else {
-                 
-                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                 [alert addAction:ok];
-                 [self presentViewController:alert animated:YES completion:nil];
-             }
-         }
-         [self loadTrackingItems];
-         [SVProgressHUD dismiss];
-     }];
+    
+    [self handleTrackingNumberDetail:_trackingNumberTextField.text];
+    
+//    [[APIManager sharedInstance]getTrackingNumberDetails:_trackingNumberTextField.text completed:^(Parcel *parcel, NSError *error)
+//     {
+//         if (error == nil) {
+//             if (parcel.isFound) {
+//                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
+//                 [self goToDetailPageWithParcel:parcel];
+//                 [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
+//             }else if (parcel.isFound == false) {
+//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:INVALID_TRACKING_NUMBER_ERROR message:ITEM_NUMBER_NOT_FOUND preferredStyle:UIAlertControllerStyleAlert];
+//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                 [alert addAction:ok];
+//                 [self presentViewController:alert animated:YES completion:nil];
+//             }
+//         } else {
+//             if (error.code == -1001) {
+//                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+//                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                 [alert addAction:ok];
+//                 [self presentViewController:alert animated:YES completion:nil];
+//                 
+//             }
+//             else {
+//                 
+//                 NSLog(@"error code button %ld",(long)error.code);
+//
+//                BOOL connected = [UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES];
+//                 NSLog(@" has internet connected? %d",connected);
+//                
+//                 BOOL connected2 = [[AppDelegate sharedAppDelegate]reachable];
+//                 NSLog(@" has internet connected, reach esb? %d",connected2);
+//                 
+//                 if (error.code == -1003) {
+//                 
+//                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERRORDOMAIN_TITLE message:NO_INTERNET_ERRORDOMAIN_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+//                     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                     [alert addAction:ok];
+//                     [self presentViewController:alert animated:YES completion:nil];
+//                     
+//                 }
+////                 else if (error.code == -1009) {
+////                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERRORDOMAIN_TITLE message:NO_INTERNET_ERROR_MESSAGE2 preferredStyle:UIAlertControllerStyleAlert];
+////                     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+////                     [alert addAction:ok];
+////                     [self presentViewController:alert animated:YES completion:nil];
+////                 }
+////                 else
+////                     //Check If has internet and then check ESB is reachable
+////                 
+////                     if ([UIAlertController hasInternetConnectionWarnIfNoConnection:[AppDelegate sharedAppDelegate].rootViewController shouldWarn:YES]) {
+////                         if (![[AppDelegate sharedAppDelegate]reachable]) {
+////                             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+////                             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+////                             [alert addAction:ok];
+////                             [self presentViewController:alert animated:YES completion:nil];
+////                         }
+////                     }
+//             }
+//         }
+//         [self loadTrackingItems];
+//         [SVProgressHUD dismiss];
+//     }];
 }
+
+
+
 
 #pragma mark - Actions
 - (IBAction)infoButtonClicked:(id)sender {
@@ -321,6 +375,7 @@ UITableViewDelegate
 
 - (void)onTrackingNumberBtn:(id)sender {
     [self addTrackingNumber:_trackingNumberTextField.text];
+    
     self.isPushNotification = NO;
     [[UserDefaultsManager sharedInstance]setLastTrackingNumber:_trackingNumberTextField.text];
     
@@ -683,30 +738,29 @@ UITableViewDelegate
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
             
+            [self handleTrackingNumberDetail:selectedParcel.trackingNumber];
 //            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
 //                                                       completed:^(Parcel *parcel, NSError *error)
-            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber
-                                                       completed:^(Parcel *parcel, NSError *error)
-
-             {
-                 if (error == nil) {
-                     [self goToDetailPageWithParcel:parcel];
-                 } else {
-                     if (error.code == 1001) {
-                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
-                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                         [alert addAction:ok];
-                         [self presentViewController:alert animated:YES completion:nil];
-                     } else {
-
-                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                         [alert addAction:ok];
-                         [self presentViewController:alert animated:YES completion:nil];
-                     }
-                 }
-                 [SVProgressHUD dismiss];
-             }];
+//
+//             {
+//                 if (error == nil) {
+//                     [self goToDetailPageWithParcel:parcel];
+//                 } else {
+//                     if (error.code == 1001) {
+//                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+//                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                         [alert addAction:ok];
+//                         [self presentViewController:alert animated:YES completion:nil];
+//                     } else {
+//
+//                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                         [alert addAction:ok];
+//                         [self presentViewController:alert animated:YES completion:nil];
+//                     }
+//                 }
+//                 [SVProgressHUD dismiss];
+//             }];
         }
         else if (indexPath.section == TRACKINGITEMS_SECTION_COMPLETED) {
             if(indexPath.row - 1 < 0)
@@ -724,37 +778,40 @@ UITableViewDelegate
             [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
             [SVProgressHUD showWithStatus:@"Please wait..."];
             
-            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber completed:^(Parcel *parcel, NSError *error)
-             {
-                 if (error == nil) {
-                     if (selectedParcel.isFound) {
-                         [self goToDetailPageWithParcel:selectedParcel];
-                     }
-                     else {
-                         
-                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
-                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-                         [alert addAction:ok];
-                         [self presentViewController:alert animated:YES completion:nil];
-
-                     }
-                 } else {
-                     if (error.code == 1001) {
-
-                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
-                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                         [alert addAction:ok];
-                         [self presentViewController:alert animated:YES completion:nil];
-                     } else {
-
-                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
-                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                         [alert addAction:ok];
-                         [self presentViewController:alert animated:YES completion:nil];
-                     }
-                 }
-                 [SVProgressHUD dismiss];
-             }];
+            [self handleTrackingNumberDetail:selectedParcel.trackingNumber];
+//            [[APIManager sharedInstance]getTrackingNumberDetails:selectedParcel.trackingNumber completed:^(Parcel *parcel, NSError *error)
+//             {
+//                 if (error == nil) {
+//                     if (selectedParcel.isFound) {
+//                         [self goToDetailPageWithParcel:selectedParcel];
+//                     }
+//                     else {
+//                         
+//                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+//                         [alert addAction:ok];
+//                         [self presentViewController:alert animated:YES completion:nil];
+//
+//                     }
+//                 } else {
+//                     if (error.code == 1001) {
+//
+//                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+//                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                         [alert addAction:ok];
+//                         [self presentViewController:alert animated:YES completion:nil];
+//                     } else {
+//                         
+//                         NSLog(@"error code %ld",(long)error.code);
+//
+//                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:NO_INTERNET_ERROR preferredStyle:UIAlertControllerStyleAlert];
+//                         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+//                         [alert addAction:ok];
+//                         [self presentViewController:alert animated:YES completion:nil];
+//                     }
+//                 }
+//                 [SVProgressHUD dismiss];
+//             }];
         }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
@@ -786,31 +843,46 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeNone];
         [SVProgressHUD showWithStatus:@"Please wait.."];
-//        [SVProgressHUD showWithStatus:@"Please wait.." maskType:SVProgressHUDMaskTypeClear];
         
-        [PushNotificationManager API_unsubscribeNotificationForTrackingNumber:parcelToDelete.trackingNumber onCompletion:^(BOOL success, NSError *error) {
-            if (success) {
-                [SVProgressHUD dismiss];
-                [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
+        NSString *trackingNumberToDetlete = parcelToDelete.trackingNumber;
+        
+        [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
+        
+        [PushNotificationManager API_unsubscribeNotificationForTrackingNumber:trackingNumberToDetlete onCompletion:^(BOOL success, NSError *error) {
+            [SVProgressHUD dismiss];
+            if (error == nil) {
+//                [SVProgressHUD dismiss];
+//                [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
                 [tableView setEditing:NO animated:YES];
-            } else {
-                [SVProgressHUD showErrorWithStatus:@"Delete fail."];
+            }else {
+//                [SVProgressHUD showErrorWithStatus:@"Delete fail."];
+                NSLog(@" error delete? %@",error.description);
             }
+            
+//            if (success) {
+//                [SVProgressHUD dismiss];
+//                [self removeParcel:parcelToDelete forRowAtIndexPath:indexPath];
+//                [tableView setEditing:NO animated:YES];
+//            } else {
+//                [SVProgressHUD showErrorWithStatus:@"Delete fail."];
+//                NSLog(@" error delete? %@",error.description);
+//            }
         }];
     }
 }
 
 - (void)removeParcel:(Parcel *)parcel forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [trackingItemsTableView beginUpdates];
+//    [trackingItemsTableView beginUpdates];
     
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];
     [realm deleteObject:parcel];
     [realm commitWriteTransaction];
-    [trackingItemsTableView deleteRowsAtIndexPaths:@[indexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    [trackingItemsTableView endUpdates];
+//    [trackingItemsTableView deleteRowsAtIndexPaths:@[indexPath]
+//                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+//    
+//    [trackingItemsTableView endUpdates];
+    [trackingItemsTableView reloadData];
 }
 
 #pragma mark - UIScrollView Delegate
@@ -1252,8 +1324,61 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)barScannerViewController:(BarScannerViewController *)barScannerViewController didScanCode:(NSString *)code ofType:(NSString *)type {
     NSLog(@"get here tracking %@",code);
-    _trackingNumberTextField.text = code;
-    [self addTrackingNumber:_trackingNumberTextField.text];
+    _trackingNumber = code;
+    self.trackingNumberTextField.text = code;
+    [self addTrackingNumber:_trackingNumber];
 }
+
+//MARK: Helper
+
+- (void)handleTrackingNumberDetail: (NSString *)trackingNumber {
+    [SVProgressHUD showWithStatus:@"Please wait..."];
+    [[APIManager sharedInstance]getTrackingNumberDetails:trackingNumber completed:^(Parcel *parcel, NSError *error)
+     {
+         if (error == nil) {
+             if (parcel.isFound) {
+                 [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumber];
+                 [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
+                 [self goToDetailPageWithParcel:parcel];
+                 [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
+             }else if (parcel.isFound == false) {
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:INVALID_TRACKING_NUMBER_ERROR message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
+             }
+         } else {
+             if (error.code == -1001) {
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_TITLE message:ERRORCODE1001_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
+                 
+             }else if (error.code == -1003) {
+                 
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERRORDOMAIN_TITLE message:NO_INTERNET_ERRORDOMAIN_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
+                 
+             }
+             else if (error.code == -1009) {
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERRORDOMAIN_TITLE message:NO_INTERNET_ERROR_MESSAGE2 preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
+             } else if (error.code == -1005) {
+                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NO_INTERNET_ERROR_LOST_TITLE message:NO_INTERNET_ERROR_LOST_MESSAGE preferredStyle:UIAlertControllerStyleAlert];
+                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                 [alert addAction:ok];
+                 [self presentViewController:alert animated:YES completion:nil];
+             }
+         }
+         [self loadTrackingItems];
+         [SVProgressHUD dismiss];
+     }];
+
+}
+
 
 @end

@@ -792,7 +792,12 @@ typedef enum {
     
     [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
     
-        [[AppDelegate sharedAppDelegate].rootViewController cPushViewController:trackingMainViewController];
+    UINavigationController *trackingMainMainNaviController = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
+    trackingMainMainNaviController.navigationBarHidden = true;
+
+    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainMainNaviController];
+    
+//        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
 }
 
 - (void)findTrackingNumberButtonClicked
@@ -866,14 +871,16 @@ typedef enum {
     trackingMainViewController.isPushNotification = NO;
     
     trackingMainViewController.trackingNumber = code;
-    trackingMainViewController.trackingNumberTextField.text = code;
+    trackingMainViewController.isFromScan = true;
+//    trackingMainViewController.trackingNumberTextField.text = code;
     
     [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
-    double delayInSeconds = 0.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
-    });
+    
+//    double delayInSeconds = 0.5;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [trackingMainViewController addTrackingNumber:trackingNumberTextField.text];
+//    });
     
 }
 

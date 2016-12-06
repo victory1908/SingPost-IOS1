@@ -15,6 +15,7 @@
     UITableView *trackingItemsTableView;
 }
 
+@property (nonatomic) BOOL isFromScan;
 @property (nonatomic) NSString *trackingNumber;
 @property (nonatomic) CTextField *trackingNumberTextField;
 
