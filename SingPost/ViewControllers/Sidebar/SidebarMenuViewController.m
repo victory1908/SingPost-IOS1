@@ -207,7 +207,7 @@
 {
     [self.view endEditing:YES];
     LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:landingPageViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:landingPageViewController];
 }
 
 - (void)findTrackingNumberButtonClicked
@@ -256,7 +256,7 @@
     UINavigationController *trackingMainMainNaviController = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
     trackingMainMainNaviController.navigationBarHidden = true;
     
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainMainNaviController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainMainNaviController];
     
     
 //    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
@@ -735,7 +735,7 @@
     UINavigationController *trackingMainMainNaviController = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
     trackingMainMainNaviController.navigationBarHidden = true;
     
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainMainNaviController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainMainNaviController];
     
 //    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
 //    NSLog(@"trackingnumber %@",trackingNumberTextField.text);
@@ -777,7 +777,7 @@
         
         [ApiClient sharedInstance].serverToken = @"";
         
-        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]];
+        [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:[[LandingPageViewController alloc] initWithNibName:nil bundle:nil]];
         
         
         /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Logged Out" message:@"You have logged out from Facebook account successfully." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
@@ -855,7 +855,7 @@
     trackingMainViewController.isFromScan = true;
 //    trackingMainViewController.trackingNumberTextField.text = code;
     
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
     
 //    double delayInSeconds = 0.5;
 //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);

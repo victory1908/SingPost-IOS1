@@ -142,7 +142,7 @@
 
 - (IBAction)agreeButtonClicked:(id)sender {
     LandingPageViewController *landingPageViewController = [[LandingPageViewController alloc] initWithNibName:nil bundle:nil];
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:landingPageViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:landingPageViewController];
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TNC_SHOWN"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

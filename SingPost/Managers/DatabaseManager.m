@@ -49,6 +49,9 @@
         parcel.showInGlance = NO;
         parcel.labelAlias = @"";
     }
+    
+    NSLog(@"parcel alias %@",parcel.labelAlias);
+    
     parcel.trackingNumber = trackingNumber;
     parcel.originalCountry = [element child:@"OriginalCountry"].text;
     parcel.destinationCountry = [element child:@"DestinationCountry"].text;

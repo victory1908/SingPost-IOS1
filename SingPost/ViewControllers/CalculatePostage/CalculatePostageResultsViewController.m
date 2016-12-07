@@ -74,16 +74,16 @@
     
     CGFloat btnWidth = (contentView.width - 40)/2;
     
-    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc]init];
+//    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc]init];
     
-//    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame), btnWidth, 48)];
+    FlatBlueButton *locateUsButton = [[FlatBlueButton alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(resultsTableView.frame), btnWidth, 48)];
     
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
-        [locateUsButton setFrame:CGRectMake(15, contentView.bounds.size.height-50-48, btnWidth, 48)];
-        
-    }else {
-        [locateUsButton setFrame:CGRectMake(15, contentView.bounds.size.height-90-48, btnWidth, 48)];
-    }
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+//        [locateUsButton setFrame:CGRectMake(15, contentView.bounds.size.height-50-48, btnWidth, 48)];
+//        
+//    }else {
+//        [locateUsButton setFrame:CGRectMake(15, contentView.bounds.size.height-90-48, btnWidth, 48)];
+//    }
 
     [resultsTableView setContentInset:UIEdgeInsetsMake(0, 0, 48, 0)];
 

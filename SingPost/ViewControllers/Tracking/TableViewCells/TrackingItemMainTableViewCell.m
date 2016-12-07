@@ -352,11 +352,13 @@
             else{
                 [icon setBackgroundImage:[UIImage imageNamed:@"pencilIcon.png"] forState:UIControlStateNormal];
                 
+                NSLog(@" new label cancel %@", itemLabel.text);
+                
             }
             flag2 = true;
         } else {
-            
-            NSLog(@" new label %@", itemLabel.text);
+           
+            NSLog(@" new label done %@", itemLabel.text);
             
         }
         

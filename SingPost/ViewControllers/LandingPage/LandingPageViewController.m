@@ -795,7 +795,7 @@ typedef enum {
     UINavigationController *trackingMainMainNaviController = [[UINavigationController alloc] initWithRootViewController:trackingMainViewController];
     trackingMainMainNaviController.navigationBarHidden = true;
 
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainMainNaviController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainMainNaviController];
     
 //        [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
 }
@@ -832,7 +832,7 @@ typedef enum {
     [self.view endEditing:YES];
     TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
     trackingMainViewController.isPushNotification = NO;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
     
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -874,7 +874,7 @@ typedef enum {
     trackingMainViewController.isFromScan = true;
 //    trackingMainViewController.trackingNumberTextField.text = code;
     
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
     
 //    double delayInSeconds = 0.5;
 //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);

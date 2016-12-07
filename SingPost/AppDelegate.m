@@ -269,7 +269,7 @@
     trackingMainViewController.isPushNotification = YES;
     trackingMainViewController.isFirstTimeUser = self.isNewUser;
     self.isNewUser = false;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
     
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -626,7 +626,7 @@
     trackingMainViewController.isPushNotification = YES;
     trackingMainViewController.isFirstTimeUser = self.isNewUser;
     self.isNewUser = false;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
 }
 
 - (void)GotoTrackingDetail {
@@ -639,7 +639,7 @@
     trackingMainViewController.isPushNotification = YES;
     trackingMainViewController.isFirstTimeUser = self.isNewUser;
     self.isNewUser = false;
-    [[AppDelegate sharedAppDelegate].rootViewController switchToViewController:trackingMainViewController];
+    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
     
 }
 
