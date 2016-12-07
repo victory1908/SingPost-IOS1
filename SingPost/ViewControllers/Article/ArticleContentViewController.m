@@ -54,7 +54,8 @@
     NSInteger buttonType;
     
     if (btnTypeString == nil)
-        buttonType = 2;
+//        buttonType = 2;
+        buttonType = 1;
     else
         buttonType = [self.article.buttonType integerValue];
     

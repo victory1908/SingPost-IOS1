@@ -99,6 +99,8 @@ typedef enum  {
     [overseasSectionButton setSelected:NO];
     [contentView addSubview:overseasSectionButton];
     
+    
+    
     singaporeSectionButton = [[SectionToggleButton alloc] initWithFrame:CGRectMake(contentView.bounds.size.width / 2.0f, 139.5, contentView.bounds.size.width / 2.0f, 50)];
     [singaporeSectionButton setTag:CALCULATEPOSTAGE_SECTION_SINGAPORE];
     [singaporeSectionButton addTarget:self action:@selector(sectionButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -111,6 +113,8 @@ typedef enum  {
     [selectedSectionIndicatorButton.titleLabel setFont:[UIFont SingPostBoldFontOfSize:14.0f fontKey:kSingPostFontOpenSans]];
     [selectedSectionIndicatorButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [selectedSectionIndicatorButton setFrame:overseasSectionButton.frame];
+    [selectedSectionIndicatorButton setTitle:@"Overseas" forState:UIControlStateNormal];
+    
     [contentView addSubview:selectedSectionIndicatorButton];
     
     UIImageView *selectedIndicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"selected_indicator"]];
@@ -126,9 +130,7 @@ typedef enum  {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 
-    
 //    assert(false);
     
     
