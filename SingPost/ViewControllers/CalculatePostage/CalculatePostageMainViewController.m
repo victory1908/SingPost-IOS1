@@ -61,6 +61,9 @@ typedef enum  {
     instructionsLabel.delegate = self;
     
     [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcel.\nNew postage rates from 1st October 2014.  For more information, please tap here" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
+    
+    [instructionsLabel setText:@"Use this tool to find out charges for sending mails or parcel" afterInheritingLabelAttributesAndConfiguringWithBlock:nil];
+    
     NSRange singpost = [instructionsLabel.text rangeOfString:@"here"];
     [instructionsLabel addLinkToURL:[NSURL URLWithString:@"action://SingPost"] withRange:singpost];
     [contentView addSubview:instructionsLabel];

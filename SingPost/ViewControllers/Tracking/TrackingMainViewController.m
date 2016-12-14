@@ -83,7 +83,7 @@ UITableViewDelegate
 @end
 
 @implementation TrackingMainViewController {
-//    CTextField *trackingNumberTextField;
+    CTextField *trackingNumberTextField;
     SevenSwitch *receiveUpdateSwitch;
     
     BOOL isViewDidAppear;
@@ -229,22 +229,22 @@ UITableViewDelegate
 #pragma mark - Setters
 - (void)setTrackingNumber:(NSString *)inTrackingNumber {
     _trackingNumber = inTrackingNumber;
-    [_trackingNumberTextField setText:_trackingNumber];
+    [trackingNumberTextField setText:_trackingNumber];
     [[UserDefaultsManager sharedInstance] setLastTrackingNumber:inTrackingNumber];
 }
 
 #pragma mark - UITextField events
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField == _trackingNumberTextField) {
+    if (textField == trackingNumberTextField) {
         self.isPushNotification = NO;
-        [self addTrackingNumber:_trackingNumberTextField.text];
+        [self addTrackingNumber:trackingNumberTextField.text];
     }
     return YES;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
-    [_trackingNumberTextField resignFirstResponder];
+    [trackingNumberTextField resignFirstResponder];
 }
 
 #pragma mark - Tracking Numbers
@@ -252,7 +252,7 @@ UITableViewDelegate
     [self setTrackingNumber:trackingNumber];
     
     if (!self.isPushNotification) {
-        if ([_trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
+        if ([trackingNumberTextField.text isMatchedByRegex:@"[^a-zA-Z0-9]"]) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:INVALID_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:ok];
@@ -260,7 +260,7 @@ UITableViewDelegate
             return;
         }
         
-        if (_trackingNumberTextField.text.length == 0) {
+        if (trackingNumberTextField.text.length == 0) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:NO_TRACKING_NUMBER_ERROR preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:ok];
@@ -282,7 +282,7 @@ UITableViewDelegate
 
 -(void) getTrackingDetail {
     
-    [self handleTrackingNumberDetail:_trackingNumberTextField.text];
+    [self handleTrackingNumberDetail:trackingNumberTextField.text];
     
 }
 
@@ -320,10 +320,10 @@ UITableViewDelegate
 }
 
 - (void)onTrackingNumberBtn:(id)sender {
-    [self addTrackingNumber:_trackingNumberTextField.text];
+    [self addTrackingNumber:trackingNumberTextField.text];
     
     self.isPushNotification = NO;
-    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:_trackingNumberTextField.text];
+    [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumberTextField.text];
     
 }
 
@@ -581,14 +581,14 @@ UITableViewDelegate
                 whySoManyDifferentBuilds = 50;
             }
             
-            _trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30 - 50 + whySoManyDifferentBuilds, 44)];
-            [_trackingNumberTextField setPlaceholder:@"Enter tracking number"];
-            [_trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
-            [_trackingNumberTextField setFontSize:16.0f];
-            [_trackingNumberTextField setReturnKeyType:UIReturnKeySend];
-            [_trackingNumberTextField setText:_trackingNumber];
-            [_trackingNumberTextField setDelegate:self];
-            [cell.contentView addSubview:_trackingNumberTextField];
+            trackingNumberTextField = [[CTextField alloc] initWithFrame:CGRectMake(15, 21, tableView.width - 30 - 50 + whySoManyDifferentBuilds, 44)];
+            [trackingNumberTextField setPlaceholder:@"Enter tracking number"];
+            [trackingNumberTextField setAutocapitalizationType:UITextAutocapitalizationTypeAllCharacters];
+            [trackingNumberTextField setFontSize:16.0f];
+            [trackingNumberTextField setReturnKeyType:UIReturnKeySend];
+            [trackingNumberTextField setText:_trackingNumber];
+            [trackingNumberTextField setDelegate:self];
+            [cell.contentView addSubview:trackingNumberTextField];
             
             CGFloat findTrackingBtnX;
             
@@ -707,7 +707,7 @@ UITableViewDelegate
             [self handleTrackingNumberDetail:selectedParcel.trackingNumber];
         }
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        _trackingNumberTextField.text = selectedParcel.trackingNumber;
+        trackingNumberTextField.text = selectedParcel.trackingNumber;
 //        [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
     }
 }
@@ -1215,7 +1215,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)barScannerViewController:(BarScannerViewController *)barScannerViewController didScanCode:(NSString *)code ofType:(NSString *)type {
     NSLog(@"get here tracking %@",code);
     _trackingNumber = code;
-    self.trackingNumberTextField.text = code;
+    trackingNumberTextField.text = code;
     
     [self addTrackingNumber:_trackingNumber];
 }

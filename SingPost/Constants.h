@@ -35,8 +35,11 @@
 //#define NO_INTERNET_ERROR                   @"Connection to the server failed. Please try again later."
 #define NO_INTERNET_ERROR                   @"Application in Offline Mode"
 
-#define NO_INTERNET_ERRORDOMAIN_TITLE             @"Server cannot be reached"
-#define NO_INTERNET_ERRORDOMAIN_MESSAGE           @"A server with the specified hostname could not be found, check your internet connection"
+//#define NO_INTERNET_ERRORDOMAIN_TITLE             @"Server cannot be reached"
+//#define NO_INTERNET_ERRORDOMAIN_MESSAGE           @"A server with the specified hostname could not be found, check your internet connection"
+#define NO_INTERNET_ERRORDOMAIN_TITLE             @" Connection Error"
+#define NO_INTERNET_ERRORDOMAIN_MESSAGE           @" There seems to be a problem with your internet connection. Please check firewall settings (if any) or data limit settings (if any)"
+
 
 #define NO_INTERNET_ERROR_LOST_TITLE             @"Network Connection lost"
 #define NO_INTERNET_ERROR_LOST_MESSAGE             @"The network connection was lost"

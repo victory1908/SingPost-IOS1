@@ -17,7 +17,7 @@
 
 @property (nonatomic) BOOL isFromScan;
 @property (nonatomic) NSString *trackingNumber;
-@property (nonatomic) CTextField *trackingNumberTextField;
+//@property (nonatomic) CTextField *trackingNumberTextField;
 
 @property (nonatomic,assign) BOOL isOn;
 @property (nonatomic,assign) BOOL isDeleteAll;

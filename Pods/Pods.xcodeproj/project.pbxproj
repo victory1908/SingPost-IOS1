@@ -1041,6 +1041,7 @@
 		CB19CDA9F8DC7D90502CBF4B258AD90C /* Pods-SingPost-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SingPost-frameworks.sh"; sourceTree = "<group>"; };
 		CB726F4D56C89D072E258ACD3DA48B49 /* TPKeyboardAvoiding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TPKeyboardAvoiding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC7A0CB2909734E8E9E3147C71D9843A /* Pods-SingPost WatchKit App-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SingPost WatchKit App-resources.sh"; sourceTree = "<group>"; };
+		CC883249BF3E3CB0334062E87DF528EE /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		CE2505E9B4A1A9CB4131188A80507230 /* NSAttributeDescription+MagicalDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSAttributeDescription+MagicalDataImport.h"; path = "MagicalRecord/Categories/DataImport/NSAttributeDescription+MagicalDataImport.h"; sourceTree = "<group>"; };
 		CE94502E4DE845332748B3DD52C3259A /* RLMArrayLinkView.mm */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.objcpp; name = RLMArrayLinkView.mm; path = Realm/RLMArrayLinkView.mm; sourceTree = "<group>"; };
 		CEC0BC5035094F056F03C413047A57B9 /* MagicalRecord+Options.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MagicalRecord+Options.h"; path = "MagicalRecord/Core/MagicalRecord+Options.h"; sourceTree = "<group>"; };
@@ -1096,7 +1097,6 @@
 		EBF70B7204C7060BE1DE7CEF3E659FF3 /* results_notifier.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = results_notifier.cpp; path = Realm/ObjectStore/src/impl/results_notifier.cpp; sourceTree = "<group>"; };
 		ED3D052EA17436FC9E1B2201D7517D2B /* NSManagedObject+MagicalAggregation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+MagicalAggregation.h"; path = "MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalAggregation.h"; sourceTree = "<group>"; };
 		ED648A43DF55D5C99D973B4768A37E0B /* RLMSyncConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RLMSyncConfiguration.h; path = include/RLMSyncConfiguration.h; sourceTree = "<group>"; };
-		EE35EEBAF217AA6DC66C226341C5E634 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		EE6D197EF660A504DB7EC4085FB1D652 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		EEB8520E0B771A2C085C38BF380E792F /* TTTAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TTTAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
 		EF3D1DFDCD2202869293A235F758F479 /* GTMDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
@@ -1511,14 +1511,6 @@
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
-		318B040B9069BC167F86F09697BAD410 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EE35EEBAF217AA6DC66C226341C5E634 /* GoogleMobileAds.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		31C8FE48353F5035106D577C52B70552 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1670,7 +1662,7 @@
 		4BDE48B7B1E12872E26DE1BA91323092 /* Google-Mobile-Ads-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				318B040B9069BC167F86F09697BAD410 /* Frameworks */,
+				B3B2F6E012A9C87D2A7609EA8A082BC9 /* Frameworks */,
 			);
 			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
@@ -2185,6 +2177,14 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/FDKeychain";
+			sourceTree = "<group>";
+		};
+		B3B2F6E012A9C87D2A7609EA8A082BC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC883249BF3E3CB0334062E87DF528EE /* GoogleMobileAds.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC0E0E8A43AF31AF6AFDC8FEDC79E49E /* Support Files */ = {
