@@ -47,6 +47,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [[NSUserDefaults standardUserDefaults] registerDefaults:(@{@"UserAgent": @"IOS Mobile"})];
     
     [Fabric with:@[[Crashlytics class]]];
     

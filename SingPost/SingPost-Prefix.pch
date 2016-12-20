@@ -61,6 +61,6 @@
 #define DLog(...) do {} while (0)
 #endif
 
-//// NSLog
-//#define NSLog(...)
+// NSLog
+#define NSLog(...)
 

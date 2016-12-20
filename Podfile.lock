@@ -66,9 +66,9 @@ PODS:
   - MHNatGeoViewControllerTransition (1.0)
   - RaptureXML (1.0.1)
   - Reachability (3.2)
-  - Realm (2.1.1):
-    - Realm/Headers (= 2.1.1)
-  - Realm/Headers (2.1.1)
+  - Realm (2.1.2):
+    - Realm/Headers (= 2.1.2)
+  - Realm/Headers (2.1.2)
   - RegexKitLite (4.0)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
@@ -129,7 +129,7 @@ SPEC CHECKSUMS:
   MHNatGeoViewControllerTransition: 8bbfd6abd30056a82168754d356ad049cdf17aa2
   RaptureXML: b5c33c04c1a4adfd8ad0d5463329a31820596e82
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Realm: a55959c0b171a5fe5267406d17f314fec3cefaae
+  Realm: efe855f4d977c8ce5a82d3116d9f1ff155a6550c
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SevenSwitch: 5543327829b7bec5b29b73bad5f3cc3f92c1736d

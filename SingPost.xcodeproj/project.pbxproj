@@ -122,11 +122,8 @@
 		24AD391F1A399D180088F6A6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172217F1633000FEB6FD /* CoreGraphics.framework */; };
 		24AD39201A399D180088F6A6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521B172417F1633000FEB6FD /* UIKit.framework */; };
 		24AD39211A399D180088F6A6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F8D4B19F8FD3F00EF4114 /* AVFoundation.framework */; };
-		24AD39221A399D180088F6A6 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F8D4D19F8FD4600EF4114 /* CoreMedia.framework */; };
-		24AD39231A399D180088F6A6 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F8D4F19F8FD4E00EF4114 /* CoreVideo.framework */; };
 		24AD39241A399D180088F6A6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F8D5119F8FD5C00EF4114 /* QuartzCore.framework */; };
 		24AD39251A399D180088F6A6 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 246F8D5319F8FD6A00EF4114 /* libiconv.dylib */; };
-		24AD39261A399D180088F6A6 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 244DEA1E19ED1C2D00F07A76 /* AdSupport.framework */; };
 		24AD39271A399D180088F6A6 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B62FEF19AC62F900040E0A /* ImageIO.framework */; };
 		24AD39281A399D180088F6A6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		24AD392F1A399D180088F6A6 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91692BD718EA868E0079B62D /* AppIcon.png */; };
@@ -182,7 +179,6 @@
 		A04F2DB91DDCA807000A6EF8 /* TrackedItem+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A04F2DB71DDCA807000A6EF8 /* TrackedItem+CoreDataClass.m */; };
 		A06DEBCD1D5844CF00FA0506 /* ArticleCategory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A06DEBCC1D5844CF00FA0506 /* ArticleCategory+CoreDataProperties.m */; };
 		A06DEBD01D58457700FA0506 /* ArticleCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = A06DEBCF1D58457700FA0506 /* ArticleCategory.m */; };
-		A0968AD81D9A72390055932D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0968AD71D9A72390055932D /* StoreKit.framework */; };
 		A0968AE01D9A75FD0055932D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 528F26CE17F946B0006F7027 /* MapKit.framework */; };
 		A0968AE11D9A763A0055932D /* SingPost WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 87BDF6821B13032400EFADDD /* SingPost WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A09D38081DE4C32B00EC9728 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = A09D38071DE4C32B00EC9728 /* UIViewController+Navigation.m */; };
@@ -602,13 +598,9 @@
 				24AD391F1A399D180088F6A6 /* CoreGraphics.framework in Frameworks */,
 				24AD39201A399D180088F6A6 /* UIKit.framework in Frameworks */,
 				24AD39211A399D180088F6A6 /* AVFoundation.framework in Frameworks */,
-				24AD39221A399D180088F6A6 /* CoreMedia.framework in Frameworks */,
-				24AD39231A399D180088F6A6 /* CoreVideo.framework in Frameworks */,
 				24AD39241A399D180088F6A6 /* QuartzCore.framework in Frameworks */,
 				24AD39251A399D180088F6A6 /* libiconv.dylib in Frameworks */,
-				24AD39261A399D180088F6A6 /* AdSupport.framework in Frameworks */,
 				24AD39271A399D180088F6A6 /* ImageIO.framework in Frameworks */,
-				A0968AD81D9A72390055932D /* StoreKit.framework in Frameworks */,
 				24AD39281A399D180088F6A6 /* MapKit.framework in Frameworks */,
 				05CE643DC62EB67A54BCC074 /* Pods_SingPost.framework in Frameworks */,
 			);
@@ -1524,7 +1516,7 @@
 		521B171517F1633000FEB6FD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Codigo;
 				TargetAttributes = {
 					24AD38A21A399D180088F6A6 = {
@@ -1538,7 +1530,7 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Keychain = {
 								enabled = 1;
@@ -1982,6 +1974,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4FCF25E6CF4441A028F7AD82 /* Pods-SingPost.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SingPost/SingPost.entitlements;
@@ -2018,6 +2011,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 915C4FB6451797B036B042D6 /* Pods-SingPost.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = SingPost/SingPost.entitlements;

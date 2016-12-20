@@ -167,7 +167,7 @@ typedef enum  {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"Open link in Safari?" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
             UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://www.singpost.com/download/AboutSingPost/NewReleases/pr20140902.pdf"]];
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://www.singpost.com/download/AboutSingPost/NewReleases/pr20140902.pdf"]];
             }];
             [alert addAction:cancel];
             [alert addAction:ok];

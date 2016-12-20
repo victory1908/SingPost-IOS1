@@ -480,7 +480,7 @@ typedef enum  {
 	NSString *saddr = [NSString stringWithFormat:@"%f,%f", f.latitude, f.longitude];
 	NSString *daddr = [NSString stringWithFormat:@"%f,%f", t.latitude, t.longitude];
 	
-	NSString *apiUrlStr = [NSString stringWithFormat:@"http://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@", saddr, daddr];
+	NSString *apiUrlStr = [NSString stringWithFormat:@"https://maps.google.com/maps?output=dragdir&saddr=%@&daddr=%@", saddr, daddr];
 	NSURL *apiUrl = [NSURL URLWithString:apiUrlStr];
 	NSString *apiResponse = [NSString stringWithContentsOfURL:apiUrl encoding:NSUTF8StringEncoding error:nil];
 	NSString *encodedPoints = [apiResponse stringByMatching:@"points:\\\"([^\\\"]*)\\\"" capture:1L];

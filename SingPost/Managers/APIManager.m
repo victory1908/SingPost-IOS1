@@ -18,8 +18,11 @@
 
 static NSString * const POST_METHOD = @"POST";
 
-static NSString * const SINGPOST_BASE_URL = @"https://prdesb1.singpost.com";
-static NSString * const CMS_BASE_URL = @"http://mobile.singpost.com/singpost3/api/";
+//static NSString * const SINGPOST_BASE_URL = @"https://prdesb1.singpost.com";
+//static NSString * const SINGPOST_BASE_URL = @"https://uatmobproxyesb.singpost.com/";
+static NSString * const SINGPOST_BASE_URL = @"https://mobproxyesb.singpost.com";
+
+static NSString * const CMS_BASE_URL = @"https://mobile.singpost.com/singpost3/api/";
 
 static NSString *const APP_ID = @"M00002";
 static NSString *const OS = @"ios";
@@ -134,7 +137,7 @@ SINGLETON_MACRO
 //    [self.manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/xml"];
     
 //    [request setTimeoutInterval:5];
-    
+    [request setValue:@"IOS Mobile" forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSURLSessionDataTask *dataTask = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {

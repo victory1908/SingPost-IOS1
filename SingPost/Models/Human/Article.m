@@ -23,6 +23,7 @@
     self.name = attributes[@"Name"];
     self.htmlContent = attributes[@"Description"];
     self.thumbnail = attributes[@"Thumbnail"];
+//    self.thumbnail = [attributes[@"Thumbnail"] stringByReplacingOccurrencesOfString:@"http" withString:@"https"];
     self.buttonType = attributes[@"ButtonType"];
     self.expireDate = attributes[@"expireDate"];
 }

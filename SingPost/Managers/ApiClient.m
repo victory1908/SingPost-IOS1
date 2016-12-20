@@ -50,14 +50,16 @@ static BOOL isWithoutFacebook = NO;
 
 //Development
 static NSString *const SINGPOST_UAT_BASE_URL = @"https://uatesb1.singpost.com";
-static NSString *const CMS_UAT_BASE_URL = @"http://27.109.106.170/mobile2/";
-static NSString *const CMS_UAT_BASE_URL_V4 = @"http://27.109.106.170/mobile2/v5/";
+static NSString *const CMS_UAT_BASE_URL = @"https://27.109.106.170/mobile2/";
+static NSString *const CMS_UAT_BASE_URL_V4 = @"https://27.109.106.170/mobile2/v5/";
 static NSString *const AD_UAT_BASE_URL = @"https://uat.mysam.sg/restful-services/advertisementServices/";
 
 //Production
-static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://prdesb1.singpost.com";
-static NSString *const CMS_PRODUCTION_BASE_URL = @"http://mobile.singpost.com/mobile2/";
-static NSString *const CMS_PRODUCTION_BASE_URL_V4 = @"http://mobile.singpost.com/mobile2/v5/";
+//static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://prdesb1.singpost.com";
+static NSString *const SINGPOST_PRODUCTION_BASE_URL = @"https://mobproxyesb.singpost.com";
+
+static NSString *const CMS_PRODUCTION_BASE_URL = @"https://mobile.singpost.com/mobile2/";
+static NSString *const CMS_PRODUCTION_BASE_URL_V4 = @"https://mobile.singpost.com/mobile2/v5/";
 static NSString *const AD_PRODUCTION_BASE_URL = @"https://www.mysam.sg/restful-services/advertisementServices/";
 
 static NSString *const APP_ID = @"M00002";
@@ -200,6 +202,8 @@ static NSString * const GET_METHOD = @"GET";
                 success:(void (^)(NSURLResponse *response, id responseObject))success
                 failure:(void (^)(NSError *error))failure {
 //    self.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [[NSUserDefaults standardUserDefaults] registerDefaults:(@{@"UserAgent": @"custom value"})];
+    [request setValue:@"IOS Mobile" forHTTPHeaderField:@"User-Agent"];
     
     NSURLSessionDataTask *dataTask = [self dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
@@ -1114,10 +1118,10 @@ static NSString * const GET_METHOD = @"GET";
 
 
 - (void) facebookLoginOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
-    NSString * url = @"http://27.109.106.170/singpost3/api/login/k3y15k3y";
+    NSString * url = @"https://27.109.106.170/singpost3/api/login/k3y15k3y";
     
     if(isProduction) {
-        url = @"http://mobile.singpost.com/singpost3/api/login/k3y15k3y";
+        url = @"https://mobile.singpost.com/singpost3/api/login/k3y15k3y";
     }
     
     
@@ -1142,10 +1146,10 @@ static NSString * const GET_METHOD = @"GET";
 }
 
 - (void) isFirstTime:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
-    NSString * url = @"http://27.109.106.170/singpost3/api/isfirsttimer/k3y15k3y";
+    NSString * url = @"https://27.109.106.170/singpost3/api/isfirsttimer/k3y15k3y";
     
     if(isProduction) {
-        url = @"http://mobile.singpost.com/singpost3/api/isfirsttimer/k3y15k3y";
+        url = @"https://mobile.singpost.com/singpost3/api/isfirsttimer/k3y15k3y";
     }
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:POST_METHOD URLString:url parameters:nil error:nil];
@@ -1164,10 +1168,10 @@ static NSString * const GET_METHOD = @"GET";
 
 - (void) registerTrackingNunmbers: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (NSArray *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     
-    NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
+    NSString * url = @"https://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
     
     if(isProduction) {
-        url = @"http://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
+        url = @"https://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
     }
     
     NSString * str = [self getNumberAndLabelString:numbers WithLabels:labels];
@@ -1192,10 +1196,10 @@ static NSString * const GET_METHOD = @"GET";
 
 - (void) registerTrackingNunmbersNew: (NSArray *)numbers WithLabels : (NSArray *)labels TrackDetails : (RLMResults *) details onSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     
-    NSString * url = @"http://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
+    NSString * url = @"https://27.109.106.170/singpost3/api/registertracking/k3y15k3y";
     
     if(isProduction) {
-        url = @"http://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
+        url = @"https://mobile.singpost.com/singpost3/api/registertracking/k3y15k3y";
     }
     
     NSMutableDictionary * params = [self getNumberAndLabelStringNew:numbers WithLabels:labels];
@@ -1214,10 +1218,10 @@ static NSString * const GET_METHOD = @"GET";
 }
 - (void) deleteAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     
-    NSString * url = @"http://27.109.106.170/singpost3/api/removealltrackings/k3y15k3y";
+    NSString * url = @"https://27.109.106.170/singpost3/api/removealltrackings/k3y15k3y";
     
     if(isProduction) {
-        url = @"http://mobile.singpost.com/singpost3/api/removealltrackings/k3y15k3y";
+        url = @"https://mobile.singpost.com/singpost3/api/removealltrackings/k3y15k3y";
     }
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:POST_METHOD URLString:url parameters:nil error:nil];
@@ -1429,10 +1433,10 @@ static NSString * const GET_METHOD = @"GET";
 
 - (void) getAllTrackingNunmbersOnSuccess:(ApiClientSuccess)success onFailure:(ApiClientFailure)failure{
     
-    NSString * url = @"http://27.109.106.170/singpost3/api/gettrackings/k3y15k3y";
+    NSString * url = @"https://27.109.106.170/singpost3/api/gettrackings/k3y15k3y";
     
     if(isProduction) {
-        url = @"http://mobile.singpost.com/singpost3/api/gettrackings/k3y15k3y";
+        url = @"https://mobile.singpost.com/singpost3/api/gettrackings/k3y15k3y";
     }
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:POST_METHOD URLString:url parameters:nil error:nil];

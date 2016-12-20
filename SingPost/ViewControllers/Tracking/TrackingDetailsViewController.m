@@ -689,7 +689,7 @@ UITextFieldDelegate
      {[SVProgressHUD dismiss];}];
     
     if([redirectUrl isKindOfClass:[NSNull class]] || redirectUrl == NULL) {
-        redirectUrl = @"http://www.singpost.com";
+        redirectUrl = @"https://www.singpost.com";
     }
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:redirectUrl]];
 }
