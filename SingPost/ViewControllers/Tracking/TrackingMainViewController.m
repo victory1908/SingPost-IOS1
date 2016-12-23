@@ -1214,10 +1214,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)barScannerViewController:(BarScannerViewController *)barScannerViewController didScanCode:(NSString *)code ofType:(NSString *)type {
     NSLog(@"get here tracking %@",code);
-    _trackingNumber = code;
-    trackingNumberTextField.text = code;
     
-    [self addTrackingNumber:_trackingNumber];
+    [self dismissViewControllerAnimated:YES completion:^{
+        _trackingNumber = code;
+        trackingNumberTextField.text = code;
+        
+        [self addTrackingNumber:_trackingNumber];
+    }];
 }
 
 //MARK: Helper

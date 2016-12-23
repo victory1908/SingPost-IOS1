@@ -848,14 +848,15 @@
     
     NSLog(@"sidebar code? %@",code);
     
-    TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
-    trackingMainViewController.isPushNotification = NO;
+    [self dismissViewControllerAnimated:YES completion:^{
+        TrackingMainViewController *trackingMainViewController = [[TrackingMainViewController alloc] initWithNibName:nil bundle:nil];
+        trackingMainViewController.isPushNotification = NO;
+        trackingMainViewController.trackingNumber = code;
+        trackingMainViewController.isFromScan = true;
+        [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
+    }];
     
-    trackingMainViewController.trackingNumber = code;
-    trackingMainViewController.isFromScan = true;
-//    trackingMainViewController.trackingNumberTextField.text = code;
     
-    [[AppDelegate sharedAppDelegate].rootViewController newSwitchToViewController2:trackingMainViewController];
     
 //    double delayInSeconds = 0.5;
 //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);

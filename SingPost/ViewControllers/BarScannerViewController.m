@@ -9,7 +9,7 @@
     __weak IBOutlet UIView *redLine;
     ScanTutorialViewController * vc;
     
-    NSMutableDictionary *scanTrackingNumbers;
+//    NSMutableDictionary *scanTrackingNumbers;
     
 }
 //UI
@@ -53,7 +53,7 @@
     [self checkCameraAuthorization];
     
     
-    scanTrackingNumbers = [NSMutableDictionary new];
+//    scanTrackingNumbers = [NSMutableDictionary new];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
@@ -195,17 +195,12 @@
                       barcode.stringValue);
                 
                 
-                if ((barcode.stringValue!=nil) && (scanTrackingNumbers[@"scanTrackingNumber"] != barcode.stringValue)) {
-                    [scanTrackingNumbers setValue:barcode forKey:@"scanTrackingNumber"];
+                if (barcode.stringValue!=nil) {
                     
-
-                    [self dismissViewControllerAnimated:YES completion:nil];
+//                    [self dismissViewControllerAnimated:YES completion:nil];
                     if ([_barScannerDelegate respondsToSelector:@selector(barScannerViewController:didScanCode:ofType:)]) {
                         [_barScannerDelegate barScannerViewController:self didScanCode:barcode.stringValue ofType:barcode.type];
                     }
-                    
-                    
-
                 }
 
             } else if ([obj isKindOfClass:
