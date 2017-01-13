@@ -1234,12 +1234,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
      {
          
          if (error == nil) {
+           
              if (parcel.isFound) {
                  [[UserDefaultsManager sharedInstance]setLastTrackingNumber:trackingNumber];
                  [self performSelector:@selector(submitAllTrackingItemWithLabel) withObject:nil afterDelay:1.0f];
                  [self goToDetailPageWithParcel:parcel];
 //                 [self performSelector:@selector(newRequirementFromSingpost) withObject:nil afterDelay:1];
              }else if (parcel.isFound == false) {
+               
                  UIAlertController *alert = [UIAlertController alertControllerWithTitle:INVALID_TRACKING_NUMBER_ERROR message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
                  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                  [alert addAction:ok];

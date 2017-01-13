@@ -15,6 +15,7 @@
 + (void)setupRealm;
 
 + (Parcel *)createOrUpdateParcel:(RXMLElement *)element;
++ (Parcel *)createOrUpdateNoInfoParcel:(NSString *)trackingNumber;
 + (void)removeParcel:(Parcel *)parcel;
 + (void)setShowInGlance:(Parcel *)newParcel;
 

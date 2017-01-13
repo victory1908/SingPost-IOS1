@@ -237,17 +237,25 @@ SINGLETON_MACRO
         //Save XML to database
         RXMLElement *itemsTrackingDetailList = [responseObject child:@"ItemsTrackingDetailList"];
         RXMLElement *itemTrackingDetail = [[itemsTrackingDetailList children:@"ItemTrackingDetail"] firstObject];
-        
-        if ((itemTrackingDetail != nil) && [[itemTrackingDetail child:@"TrackingNumberFound"].text boolValue] == true) {
-            completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
-        }
+      
+      
+//      if ((itemTrackingDetail != nil) && [[itemTrackingDetail child:@"TrackingNumberFound"].text boolValue] == true) {
+//        completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
+//      }
+      
+
+      
+      if (itemTrackingDetail != nil) {
+        completed([DatabaseManager createOrUpdateParcel:itemTrackingDetail],nil);
+      }
         else {
+          completed([DatabaseManager createOrUpdateNoInfoParcel:trackingNumber],nil);
 //            UIAlertController *alert = [UIAlertController alertControllerWithTitle:INVALID_TRACKING_NUMBER_ERROR message:TRACKED_ITEM_NOT_FOUND_ERROR preferredStyle:UIAlertControllerStyleAlert];
 //            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
 //            [alert addAction:ok];
 //            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
             
-            completed(nil,nil);
+//            completed(nil,nil);
         }
     } failure:^(NSError *error) {
         [[ApiClient sharedInstance]reportAPIIssueURL:[request.URL absoluteString] payload:xml message:[error description]];

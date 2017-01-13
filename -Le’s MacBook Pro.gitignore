@@ -1,0 +1,74 @@
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-AFNetworking.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-AFRaptureXMLRequestOperation.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-GoogleAnalytics-iOS-SDK.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-KGModal.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-MHNatGeoViewControllerTransition.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-MagicalRecord.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-RaptureXML.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-Reachability.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-RegexKitLite.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-SDWebImage.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-SSKeychain.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-SVProgressHUD.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-TPKeyboardAvoiding.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-UALogger.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-UIActivityIndicator-for-SDWebImage.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods-UIAlertView+Blocks.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/Pods.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/xcschememanagement.plist
+SingPost.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/SingPost.xcscheme
+SingPost.xcodeproj/xcuserdata/newimac.xcuserdatad/xcschemes/xcschememanagement.plist
+SingPost.xcworkspace/xcuserdata/newimac.xcuserdatad/UserInterfaceState.xcuserstate
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-AFNetworking.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-AFRaptureXMLRequestOperation.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-GoogleAnalytics-iOS-SDK.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-KGModal.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-MHNatGeoViewControllerTransition.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-MagicalRecord.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-RaptureXML.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-Reachability.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-RegexKitLite.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-SDWebImage.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-SSKeychain.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-SVProgressHUD.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-TPKeyboardAvoiding.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-UALogger.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-UIActivityIndicator-for-SDWebImage.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods-UIAlertView+Blocks.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/Pods.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/xcschememanagement.plist
+SingPost.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/SingPost.xcscheme
+SingPost.xcodeproj/xcuserdata/WeiGuang.xcuserdatad/xcschemes/xcschememanagement.plist
+SingPost.xcworkspace/xcuserdata/WeiGuang.xcuserdatad/UserInterfaceState.xcuserstate
+SingPost.xcodeproj/project.xcworkspace/xcshareddata/SingPost.xccheckout
+SingPost.xcodeproj/project.xcworkspace/xcuserdata/newimac.xcuserdatad/UserInterfaceState.xcuserstate
+
+
+# Created by https://www.gitignore.io/api/xcode
+
+### Xcode ###
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+# End of https://www.gitignore.io/api/xcode

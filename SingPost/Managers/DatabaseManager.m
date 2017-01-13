@@ -83,6 +83,55 @@
     return parcel;
 }
 
++ (Parcel *)createOrUpdateNoInfoParcel:(NSString *)trackingNumber {
+  RLMRealm *realm = [RLMRealm defaultRealm];
+  [realm beginWriteTransaction];
+  
+  //Check if parcel exists
+  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"trackingNumber == %@",trackingNumber];
+  Parcel *parcel = [[Parcel objectsWithPredicate:predicate]firstObject];
+  
+  if (parcel == nil) {
+    //Create new parcel
+    parcel = [[Parcel alloc]init];
+    parcel.addedOn = [NSDate date];
+    parcel.showInGlance = NO;
+    parcel.labelAlias = @"";
+  }
+  
+  NSLog(@"parcel alias %@",parcel.labelAlias);
+  
+  parcel.trackingNumber = trackingNumber;
+//  parcel.originalCountry = [element child:@"OriginalCountry"].text;
+//  parcel.destinationCountry = [element child:@"DestinationCountry"].text;
+//  parcel.isActive = [element child:@"TrackingNumberActive"].text;
+//  parcel.isFound = [[element child:@"TrackingNumberFound"].text boolValue];
+  parcel.lastUpdatedOn = [NSDate date];
+  
+//  RLMArray *existingStatus = parcel.deliveryStatus;
+//  RLMArray *newStatus = [[RLMArray alloc]initWithObjectClassName:@"ParcelStatus"];
+//  
+//  RXMLElement *deliveryStatus = [element child:@"DeliveryStatusDetails"];
+//  for (RXMLElement *xmlStatus in [deliveryStatus children:@"DeliveryStatusDetail"]) {
+//    ParcelStatus *parcelStatus = [self createParcelStatus:xmlStatus];
+//    [newStatus addObject:parcelStatus];
+//  }
+//  //Remove old records
+//  [parcel.deliveryStatus removeAllObjects];
+//  //Replace with new records
+//  [parcel.deliveryStatus addObjects:newStatus];
+//  
+//  //Status have been changed
+//  if ([existingStatus count] != [parcel.deliveryStatus count]) {
+//    parcel.isRead = NO;
+//  } else {
+//    parcel.isRead = YES;
+//  }
+  [realm addObject:parcel];
+  [realm commitWriteTransaction];
+  return parcel;
+}
+
 + (void)removeParcel:(Parcel *)parcel {
     RLMRealm *realm = [RLMRealm defaultRealm];
     [realm beginWriteTransaction];

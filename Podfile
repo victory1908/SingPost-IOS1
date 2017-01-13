@@ -9,8 +9,8 @@ end
 def ios_pods
 
     pod 'AFNetworking'
-    pod 'Google/Analytics'
-#    pod 'GoogleAnalytics'
+#    pod 'Google/Analytics'
+    pod 'GoogleAnalytics'
     pod 'KGModal'
     pod 'MagicalRecord'
     pod 'MHNatGeoViewControllerTransition'
