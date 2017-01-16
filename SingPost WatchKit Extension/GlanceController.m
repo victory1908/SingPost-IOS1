@@ -29,7 +29,7 @@
     if (parcel != nil) {
         self.trackingLabel.text = [parcel getLabelText];
         
-        RLMResults *results = [parcel.deliveryStatus sortedResultsUsingProperty:@"date" ascending:NO];
+        RLMResults *results = [parcel.deliveryStatus sortedResultsUsingKeyPath:@"date" ascending:NO];
         ParcelStatus *status = [results firstObject];
         self.statusLabel.text = status.statusDescription;
     } else {
